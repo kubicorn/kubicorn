@@ -18,7 +18,6 @@ package commitmentplans
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -29,7 +28,7 @@ import (
 // operations for commitment associations, moving commitment associations between commitment plans, and retrieving
 // commitment plan usage history.
 type UsageHistoryClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewUsageHistoryClient creates an instance of the UsageHistoryClient client.
@@ -46,9 +45,8 @@ func NewUsageHistoryClientWithBaseURI(baseURI string, subscriptionID string) Usa
 //
 // resourceGroupName is the resource group name. commitmentPlanName is the Azure ML commitment plan name. skipToken is
 // continuation token for pagination.
-func (client UsageHistoryClient) List(ctx context.Context, resourceGroupName string, commitmentPlanName string, skipToken string) (result PlanUsageHistoryListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, commitmentPlanName, skipToken)
+func (client UsageHistoryClient) List(resourceGroupName string, commitmentPlanName string, skipToken string) (result PlanUsageHistoryListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName, commitmentPlanName, skipToken)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "List", nil, "Failure preparing request")
 		return
@@ -56,12 +54,12 @@ func (client UsageHistoryClient) List(ctx context.Context, resourceGroupName str
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.puhlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.puhlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "List", resp, "Failure responding to request")
 	}
@@ -70,7 +68,7 @@ func (client UsageHistoryClient) List(ctx context.Context, resourceGroupName str
 }
 
 // ListPreparer prepares the List request.
-func (client UsageHistoryClient) ListPreparer(ctx context.Context, resourceGroupName string, commitmentPlanName string, skipToken string) (*http.Request, error) {
+func (client UsageHistoryClient) ListPreparer(resourceGroupName string, commitmentPlanName string, skipToken string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"commitmentPlanName": autorest.Encode("path", commitmentPlanName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -90,13 +88,14 @@ func (client UsageHistoryClient) ListPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/usageHistory", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client UsageHistoryClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -113,29 +112,71 @@ func (client UsageHistoryClient) ListResponder(resp *http.Response) (result Plan
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client UsageHistoryClient) listNextResults(lastResults PlanUsageHistoryListResult) (result PlanUsageHistoryListResult, err error) {
-	req, err := lastResults.planUsageHistoryListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client UsageHistoryClient) ListNextResults(lastResults PlanUsageHistoryListResult) (result PlanUsageHistoryListResult, err error) {
+	req, err := lastResults.PlanUsageHistoryListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "commitmentplans.UsageHistoryClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client UsageHistoryClient) ListComplete(ctx context.Context, resourceGroupName string, commitmentPlanName string, skipToken string) (result PlanUsageHistoryListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, commitmentPlanName, skipToken)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client UsageHistoryClient) ListComplete(resourceGroupName string, commitmentPlanName string, skipToken string, cancel <-chan struct{}) (<-chan PlanUsageHistory, <-chan error) {
+	resultChan := make(chan PlanUsageHistory)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, commitmentPlanName, skipToken)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

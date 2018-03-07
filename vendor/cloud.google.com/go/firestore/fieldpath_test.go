@@ -15,11 +15,8 @@
 package firestore
 
 import (
-	"reflect"
 	"strings"
 	"testing"
-
-	"cloud.google.com/go/internal/testutil"
 )
 
 func TestFieldPathValidate(t *testing.T) {
@@ -75,123 +72,46 @@ func TestCheckForPrefix(t *testing.T) {
 	}
 }
 
-func TestGetAtPath(t *testing.T) {
-	type S struct {
-		X    int
-		Y    int `firestore:"y"`
-		M    map[string]interface{}
-		Next *S
-	}
+// Convenience function for creating a FieldPathUpdate.
+func fpu(val int, fields ...string) FieldPathUpdate {
+	return FieldPathUpdate{Path: fields, Value: val}
+}
 
-	const fail = "ERROR" // value for expected error
+func TestCreateMapFromFieldPathUpdates(t *testing.T) {
+	type M map[string]interface{}
 
 	for _, test := range []struct {
-		val  interface{}
-		fp   FieldPath
-		want interface{}
+		in   []FieldPathUpdate
+		want M
 	}{
 		{
-			val:  map[string]int(nil),
-			fp:   nil,
-			want: map[string]int(nil),
+			in:   nil,
+			want: M{},
 		},
 		{
-			val:  1,
-			fp:   nil,
-			want: 1,
+			in:   []FieldPathUpdate{fpu(1, "a"), fpu(2, "b")},
+			want: M{"a": 1, "b": 2},
 		},
 		{
-			val:  1,
-			fp:   []string{"a"},
-			want: fail,
+			in:   []FieldPathUpdate{fpu(1, "a", "b"), fpu(2, "c")},
+			want: M{"a": map[string]interface{}{"b": 1}, "c": 2},
 		},
 		{
-			val:  map[string]int{"a": 2},
-			fp:   []string{"a"},
-			want: 2,
-		},
-		{
-			val:  map[string]int{"a": 2},
-			fp:   []string{"b"},
-			want: fail,
-		},
-		{
-			val:  map[string]interface{}{"a": map[string]int{"b": 3}},
-			fp:   []string{"a", "b"},
-			want: 3,
-		},
-		{
-			val:  map[string]interface{}{"a": map[string]int{"b": 3}},
-			fp:   []string{"a", "b", "c"},
-			want: fail,
-		},
-		{
-			val:  S{X: 1, Y: 2},
-			fp:   nil,
-			want: S{X: 1, Y: 2},
-		},
-		{
-			val:  S{X: 1, Y: 2},
-			fp:   []string{"X"},
-			want: 1,
-		},
-		{
-			val:  S{X: 1, Y: 2},
-			fp:   []string{"Y"},
-			want: fail, // because Y is tagged with name "y"
-		},
-		{
-			val:  S{X: 1, Y: 2},
-			fp:   []string{"y"},
-			want: 2,
-		},
-		{
-			val:  &S{X: 1},
-			fp:   []string{"X"},
-			want: 1,
-		},
-		{
-			val:  &S{X: 1, Next: nil},
-			fp:   []string{"Next"},
-			want: (*S)(nil),
-		},
-		{
-			val:  &S{X: 1, Next: nil},
-			fp:   []string{"Next", "Next"},
-			want: fail,
-		},
-		{
-			val:  map[string]S{"a": S{X: 1, Y: 2}},
-			fp:   []string{"a", "y"},
-			want: 2,
-		},
-		{
-			val:  map[string]S{"a": S{X: 1, Y: 2}},
-			fp:   []string{"a", "z"},
-			want: fail,
-		},
-		{
-			val: map[string]*S{
-				"a": &S{
-					M: map[string]interface{}{
-						"b": S{
-							Next: &S{
-								X: 17,
-							},
-						},
-					},
-				},
+			in: []FieldPathUpdate{fpu(1, "a", "b"), fpu(2, "c", "d")},
+			want: M{
+				"a": map[string]interface{}{"b": 1},
+				"c": map[string]interface{}{"d": 2},
 			},
-			fp:   []string{"a", "M", "b", "Next", "X"},
-			want: 17,
+		},
+		{
+			in:   []FieldPathUpdate{fpu(1, "a", "b"), fpu(2, "a", "c")},
+			want: M{"a": map[string]interface{}{"b": 1, "c": 2}},
 		},
 	} {
-		got, err := getAtPath(reflect.ValueOf(test.val), test.fp)
-		if err != nil && test.want != fail {
-			t.Errorf("%+v: got error <%v>, want nil", test, err)
-		}
-		if err == nil && !testutil.Equal(got, test.want) {
-			t.Errorf("%+v: got %v, want %v, want nil", test, got, test.want)
+		gotm := createMapFromFieldPathUpdates(test.in)
+		got := M(gotm)
+		if !testEqual(got, test.want) {
+			t.Errorf("%v: got %#v, want %#v", test.in, got, test.want)
 		}
 	}
 }

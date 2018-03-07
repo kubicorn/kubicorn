@@ -176,8 +176,8 @@ type CreateShortDynamicLinkRequest struct {
 	// DynamicLinkInfo: Information about the Dynamic Link to be
 	// shortened.
 	// [Learn
-	// more](https://firebase.google.com/docs/reference/dynamic-links/link-sh
-	// ortener).
+	// more](https://firebase.google.com/docs/dynamic-links/android#create-a-
+	// dynamic-link-programmatically).
 	DynamicLinkInfo *DynamicLinkInfo `json:"dynamicLinkInfo,omitempty"`
 
 	// LongDynamicLink: Full long Dynamic Link URL with desired query
@@ -187,8 +187,8 @@ type CreateShortDynamicLinkRequest struct {
 	// "https://sample.app.goo.gl/?link=http://www.google.com&apn=co
 	// m.sample",
 	// [Learn
-	// more](https://firebase.google.com/docs/reference/dynamic-links/link-sh
-	// ortener).
+	// more](https://firebase.google.com/docs/dynamic-links/android#create-a-
+	// dynamic-link-programmatically).
 	LongDynamicLink string `json:"longDynamicLink,omitempty"`
 
 	// Suffix: Short Dynamic Link suffix. Optional.
@@ -294,11 +294,6 @@ type DeviceInfo struct {
 
 	// LanguageCode: Device language code setting.
 	LanguageCode string `json:"languageCode,omitempty"`
-
-	// LanguageCodeFromWebview: Device language code setting obtained by
-	// executing JavaScript code in
-	// WebView.
-	LanguageCodeFromWebview string `json:"languageCodeFromWebview,omitempty"`
 
 	// LanguageCodeRaw: Device language code raw setting.
 	// iOS does returns language code in different format than iOS

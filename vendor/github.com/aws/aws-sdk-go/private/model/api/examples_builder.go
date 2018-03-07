@@ -44,20 +44,17 @@ func (builder defaultExamplesBuilder) BuildShape(ref *ShapeRef, shapes map[strin
 		}
 
 		memName := name
-		passRef := ref.Shape.MemberRefs[name]
-
 		if isMap {
 			memName = fmt.Sprintf("%q", memName)
-			passRef = &ref.Shape.ValueRef
 		}
 
 		switch v := shape.(type) {
 		case map[string]interface{}:
-			ret += builder.BuildComplex(name, memName, passRef, v)
+			ret += builder.BuildComplex(name, memName, ref, v)
 		case []interface{}:
-			ret += builder.BuildList(name, memName, passRef, v)
+			ret += builder.BuildList(name, memName, ref, v)
 		default:
-			ret += builder.BuildScalar(name, memName, passRef, v, ref.Shape.Payload == name)
+			ret += builder.BuildScalar(name, memName, ref, v)
 		}
 	}
 	return ret
@@ -72,86 +69,105 @@ func (builder defaultExamplesBuilder) BuildList(name, memName string, ref *Shape
 		return ""
 	}
 
-	passRef := &ref.Shape.MemberRef
-	ret += fmt.Sprintf("%s: %s {\n", memName, builder.GoType(ref, false))
-	ret += builder.buildListElements(passRef, v)
-	ret += "},\n"
-	return ret
-}
-
-func (builder defaultExamplesBuilder) buildListElements(ref *ShapeRef, v []interface{}) string {
-	if len(v) == 0 || ref == nil {
-		return ""
-	}
-
-	ret := ""
+	t := ""
+	dataType := ""
 	format := ""
 	isComplex := false
-	isList := false
+	passRef := ref
+	isMap := false
 
-	// get format for atomic type. If it is not an atomic type,
-	// get the element.
+	if ref.Shape.MemberRefs[name] != nil {
+		t = builder.GoType(&ref.Shape.MemberRefs[name].Shape.MemberRef, false)
+		dataType = ref.Shape.MemberRefs[name].Shape.MemberRef.Shape.Type
+		passRef = ref.Shape.MemberRefs[name]
+		if dataType == "map" {
+			t = fmt.Sprintf("map[string]%s", builder.GoType(&ref.Shape.MemberRefs[name].Shape.MemberRef.Shape.ValueRef, false))
+			passRef = &ref.Shape.MemberRefs[name].Shape.MemberRef.Shape.ValueRef
+			isMap = true
+		}
+	} else if ref.Shape.MemberRef.Shape != nil && ref.Shape.MemberRef.Shape.MemberRefs[name] != nil {
+		t = builder.GoType(&ref.Shape.MemberRef.Shape.MemberRefs[name].Shape.MemberRef, false)
+		dataType = ref.Shape.MemberRef.Shape.MemberRefs[name].Shape.MemberRef.Shape.Type
+		passRef = &ref.Shape.MemberRef.Shape.MemberRefs[name].Shape.MemberRef
+	} else {
+		t = builder.GoType(&ref.Shape.MemberRef, false)
+		dataType = ref.Shape.MemberRef.Shape.Type
+		passRef = &ref.Shape.MemberRef
+	}
+
 	switch v[0].(type) {
 	case string:
 		format = "%s"
 	case bool:
 		format = "%t"
 	case float64:
-		switch ref.Shape.Type {
-		case "integer", "int64", "long":
+		if dataType == "integer" || dataType == "int64" {
 			format = "%d"
-		default:
+		} else {
 			format = "%f"
 		}
-	case []interface{}:
-		isList = true
-	case map[string]interface{}:
+	default:
+		if ref.Shape.MemberRefs[name] != nil {
+		} else {
+			passRef = ref.Shape.MemberRef.Shape.MemberRefs[name]
+
+			// if passRef is nil that means we are either in a map or within a nested array
+			if passRef == nil {
+				passRef = &ref.Shape.MemberRef
+			}
+		}
 		isComplex = true
 	}
-
+	ret += fmt.Sprintf("%s: []%s {\n", memName, t)
 	for _, elem := range v {
 		if isComplex {
-			ret += fmt.Sprintf("{\n%s\n},\n", builder.BuildShape(ref, elem.(map[string]interface{}), ref.Shape.Type == "map"))
-		} else if isList {
-			ret += fmt.Sprintf("{\n%s\n},\n", builder.buildListElements(&ref.Shape.MemberRef, elem.([]interface{})))
+			ret += fmt.Sprintf("{\n%s\n},\n", builder.BuildShape(passRef, elem.(map[string]interface{}), isMap))
 		} else {
-			switch ref.Shape.Type {
-			case "integer", "int64", "long":
+			if dataType == "integer" || dataType == "int64" || dataType == "long" {
 				elem = int(elem.(float64))
 			}
-			ret += fmt.Sprintf("%s,\n", getValue(ref.Shape.Type, fmt.Sprintf(format, elem)))
+			ret += fmt.Sprintf("%s,\n", getValue(t, fmt.Sprintf(format, elem)))
 		}
 	}
+	ret += "},\n"
 	return ret
 }
 
 // BuildScalar will build atomic Go types.
-func (builder defaultExamplesBuilder) BuildScalar(name, memName string, ref *ShapeRef, shape interface{}, isPayload bool) string {
+func (builder defaultExamplesBuilder) BuildScalar(name, memName string, ref *ShapeRef, shape interface{}) string {
 	if ref == nil || ref.Shape == nil {
+		return ""
+	} else if ref.Shape.MemberRefs[name] == nil {
+		if ref.Shape.MemberRef.Shape != nil && ref.Shape.MemberRef.Shape.MemberRefs[name] != nil {
+			return correctType(memName, ref.Shape.MemberRef.Shape.MemberRefs[name].Shape.Type, shape)
+		}
+		if ref.Shape.Type != "structure" && ref.Shape.Type != "map" {
+			return correctType(memName, ref.Shape.Type, shape)
+		}
 		return ""
 	}
 
 	switch v := shape.(type) {
 	case bool:
-		return convertToCorrectType(memName, ref.Shape.Type, fmt.Sprintf("%t", v))
+		return convertToCorrectType(memName, ref.Shape.MemberRefs[name].Shape.Type, fmt.Sprintf("%t", v))
 	case int:
-		if ref.Shape.Type == "timestamp" {
+		if ref.Shape.MemberRefs[name].Shape.Type == "timestamp" {
 			return parseTimeString(ref, memName, fmt.Sprintf("%d", v))
 		}
-		return convertToCorrectType(memName, ref.Shape.Type, fmt.Sprintf("%d", v))
+		return convertToCorrectType(memName, ref.Shape.MemberRefs[name].Shape.Type, fmt.Sprintf("%d", v))
 	case float64:
-		dataType := ref.Shape.Type
+		dataType := ref.Shape.MemberRefs[name].Shape.Type
 		if dataType == "integer" || dataType == "int64" || dataType == "long" {
-			return convertToCorrectType(memName, ref.Shape.Type, fmt.Sprintf("%d", int(shape.(float64))))
+			return convertToCorrectType(memName, ref.Shape.MemberRefs[name].Shape.Type, fmt.Sprintf("%d", int(shape.(float64))))
 		}
-		return convertToCorrectType(memName, ref.Shape.Type, fmt.Sprintf("%f", v))
+		return convertToCorrectType(memName, ref.Shape.MemberRefs[name].Shape.Type, fmt.Sprintf("%f", v))
 	case string:
-		t := ref.Shape.Type
+		t := ref.Shape.MemberRefs[name].Shape.Type
 		switch t {
 		case "timestamp":
 			return parseTimeString(ref, memName, fmt.Sprintf("%s", v))
 		case "blob":
-			if (ref.Streaming || ref.Shape.Streaming) && isPayload {
+			if (ref.Shape.MemberRefs[name].Streaming || ref.Shape.MemberRefs[name].Shape.Streaming) && ref.Shape.Payload == name {
 				return fmt.Sprintf("%s: aws.ReadSeekCloser(strings.NewReader(%q)),\n", memName, v)
 			}
 
@@ -166,33 +182,47 @@ func (builder defaultExamplesBuilder) BuildScalar(name, memName string, ref *Sha
 }
 
 func (builder defaultExamplesBuilder) BuildComplex(name, memName string, ref *ShapeRef, v map[string]interface{}) string {
-	switch ref.Shape.Type {
+	t := ""
+	if ref == nil {
+		return builder.BuildShape(nil, v, true)
+	}
+
+	member := ref.Shape.MemberRefs[name]
+
+	if member != nil && member.Shape != nil {
+		t = ref.Shape.MemberRefs[name].Shape.Type
+	} else {
+		t = ref.Shape.Type
+	}
+
+	switch t {
 	case "structure":
+		passRef := ref.Shape.MemberRefs[name]
+		// passRef will be nil if the entry is a map. In that case
+		// we want to pass the reference, because the previous call
+		// passed the value reference.
+		if passRef == nil {
+			passRef = ref
+		}
 		return fmt.Sprintf(`%s: &%s{
 				%s
 			},
-			`, memName, builder.GoType(ref, true), builder.BuildShape(ref, v, false))
+			`, memName, builder.GoType(passRef, true), builder.BuildShape(passRef, v, false))
 	case "map":
 		return fmt.Sprintf(`%s: %s{
 				%s
 			},
-			`, name, builder.GoType(ref, false), builder.BuildShape(ref, v, true))
-	default:
-		panic(fmt.Sprintf("Expected complex type but recieved %q", ref.Shape.Type))
+			`, name, builder.GoType(ref.Shape.MemberRefs[name], false), builder.BuildShape(&ref.Shape.MemberRefs[name].Shape.ValueRef, v, true))
 	}
 
 	return ""
 }
 
 func (builder defaultExamplesBuilder) GoType(ref *ShapeRef, elem bool) string {
-	if ref.Shape.Type != "structure" && ref.Shape.Type != "list" && ref.Shape.Type != "map" {
-		return ref.GoTypeWithPkgName()
-	}
-
 	prefix := ""
 	if ref.Shape.Type == "list" {
 		ref = &ref.Shape.MemberRef
-		prefix = "[]"
+		prefix = "[]*"
 	}
 
 	name := ref.GoTypeWithPkgName()
@@ -201,6 +231,10 @@ func (builder defaultExamplesBuilder) GoType(ref *ShapeRef, elem bool) string {
 		if !strings.Contains(name, ".") {
 			name = strings.Join([]string{ref.API.PackageName(), name}, ".")
 		}
+	}
+
+	if ref.Shape.Type != "structure" && ref.Shape.Type != "list" {
+		return name
 	}
 
 	return prefix + name

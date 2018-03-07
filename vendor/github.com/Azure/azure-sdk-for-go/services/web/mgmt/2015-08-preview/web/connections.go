@@ -18,7 +18,6 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ConnectionsClient is the webSite Management Client
 type ConnectionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewConnectionsClient creates an instance of the ConnectionsClient client.
@@ -42,8 +41,8 @@ func NewConnectionsClientWithBaseURI(baseURI string, subscriptionID string) Conn
 // ConfirmConsentCode confirms consent code of a connection.
 //
 // resourceGroupName is the resource group name. connectionName is the connection name. content is the content.
-func (client ConnectionsClient) ConfirmConsentCode(ctx context.Context, resourceGroupName string, connectionName string, content ConfirmConsentCodeInput) (result Connection, err error) {
-	req, err := client.ConfirmConsentCodePreparer(ctx, resourceGroupName, connectionName, content)
+func (client ConnectionsClient) ConfirmConsentCode(resourceGroupName string, connectionName string, content ConfirmConsentCodeInput) (result Connection, err error) {
+	req, err := client.ConfirmConsentCodePreparer(resourceGroupName, connectionName, content)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "ConfirmConsentCode", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client ConnectionsClient) ConfirmConsentCode(ctx context.Context, resource
 }
 
 // ConfirmConsentCodePreparer prepares the ConfirmConsentCode request.
-func (client ConnectionsClient) ConfirmConsentCodePreparer(ctx context.Context, resourceGroupName string, connectionName string, content ConfirmConsentCodeInput) (*http.Request, error) {
+func (client ConnectionsClient) ConfirmConsentCodePreparer(resourceGroupName string, connectionName string, content ConfirmConsentCodeInput) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"connectionName":    autorest.Encode("path", connectionName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -84,13 +83,14 @@ func (client ConnectionsClient) ConfirmConsentCodePreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{connectionName}/confirmConsentCode", pathParameters),
 		autorest.WithJSON(content),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ConfirmConsentCodeSender sends the ConfirmConsentCode request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConnectionsClient) ConfirmConsentCodeSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -110,8 +110,8 @@ func (client ConnectionsClient) ConfirmConsentCodeResponder(resp *http.Response)
 // CreateOrUpdate creates or updates a connection.
 //
 // resourceGroupName is the resource group name. connectionName is the connection name. connection is the connection.
-func (client ConnectionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, connectionName string, connection Connection) (result Connection, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, connectionName, connection)
+func (client ConnectionsClient) CreateOrUpdate(resourceGroupName string, connectionName string, connection Connection) (result Connection, err error) {
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, connectionName, connection)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -133,7 +133,7 @@ func (client ConnectionsClient) CreateOrUpdate(ctx context.Context, resourceGrou
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ConnectionsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, connectionName string, connection Connection) (*http.Request, error) {
+func (client ConnectionsClient) CreateOrUpdatePreparer(resourceGroupName string, connectionName string, connection Connection) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"connectionName":    autorest.Encode("path", connectionName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -152,13 +152,14 @@ func (client ConnectionsClient) CreateOrUpdatePreparer(ctx context.Context, reso
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{connectionName}", pathParameters),
 		autorest.WithJSON(connection),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConnectionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -178,8 +179,8 @@ func (client ConnectionsClient) CreateOrUpdateResponder(resp *http.Response) (re
 // Delete deletes a connection.
 //
 // resourceGroupName is the resource group name. connectionName is the connection name.
-func (client ConnectionsClient) Delete(ctx context.Context, resourceGroupName string, connectionName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, connectionName)
+func (client ConnectionsClient) Delete(resourceGroupName string, connectionName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, connectionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -201,7 +202,7 @@ func (client ConnectionsClient) Delete(ctx context.Context, resourceGroupName st
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ConnectionsClient) DeletePreparer(ctx context.Context, resourceGroupName string, connectionName string) (*http.Request, error) {
+func (client ConnectionsClient) DeletePreparer(resourceGroupName string, connectionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"connectionName":    autorest.Encode("path", connectionName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -218,13 +219,14 @@ func (client ConnectionsClient) DeletePreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{connectionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConnectionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -243,8 +245,8 @@ func (client ConnectionsClient) DeleteResponder(resp *http.Response) (result aut
 // Get gets a connection.
 //
 // resourceGroupName is the resource group name. connectionName is the connection name.
-func (client ConnectionsClient) Get(ctx context.Context, resourceGroupName string, connectionName string) (result Connection, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, connectionName)
+func (client ConnectionsClient) Get(resourceGroupName string, connectionName string) (result Connection, err error) {
+	req, err := client.GetPreparer(resourceGroupName, connectionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -266,7 +268,7 @@ func (client ConnectionsClient) Get(ctx context.Context, resourceGroupName strin
 }
 
 // GetPreparer prepares the Get request.
-func (client ConnectionsClient) GetPreparer(ctx context.Context, resourceGroupName string, connectionName string) (*http.Request, error) {
+func (client ConnectionsClient) GetPreparer(resourceGroupName string, connectionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"connectionName":    autorest.Encode("path", connectionName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -283,13 +285,14 @@ func (client ConnectionsClient) GetPreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{connectionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConnectionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -310,9 +313,8 @@ func (client ConnectionsClient) GetResponder(resp *http.Response) (result Connec
 //
 // resourceGroupName is resource Group Name top is the number of items to be included in the result. filter is the
 // filter to apply on the operation.
-func (client ConnectionsClient) List(ctx context.Context, resourceGroupName string, top *int32, filter string) (result ConnectionCollectionPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, top, filter)
+func (client ConnectionsClient) List(resourceGroupName string, top *int32, filter string) (result ConnectionCollection, err error) {
+	req, err := client.ListPreparer(resourceGroupName, top, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "List", nil, "Failure preparing request")
 		return
@@ -320,12 +322,12 @@ func (client ConnectionsClient) List(ctx context.Context, resourceGroupName stri
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.cc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.cc, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "List", resp, "Failure responding to request")
 	}
@@ -334,7 +336,7 @@ func (client ConnectionsClient) List(ctx context.Context, resourceGroupName stri
 }
 
 // ListPreparer prepares the List request.
-func (client ConnectionsClient) ListPreparer(ctx context.Context, resourceGroupName string, top *int32, filter string) (*http.Request, error) {
+func (client ConnectionsClient) ListPreparer(resourceGroupName string, top *int32, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -356,13 +358,14 @@ func (client ConnectionsClient) ListPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConnectionsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -379,38 +382,80 @@ func (client ConnectionsClient) ListResponder(resp *http.Response) (result Conne
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ConnectionsClient) listNextResults(lastResults ConnectionCollection) (result ConnectionCollection, err error) {
-	req, err := lastResults.connectionCollectionPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ConnectionsClient) ListNextResults(lastResults ConnectionCollection) (result ConnectionCollection, err error) {
+	req, err := lastResults.ConnectionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.ConnectionsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.ConnectionsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.ConnectionsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.ConnectionsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ConnectionsClient) ListComplete(ctx context.Context, resourceGroupName string, top *int32, filter string) (result ConnectionCollectionIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, top, filter)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ConnectionsClient) ListComplete(resourceGroupName string, top *int32, filter string, cancel <-chan struct{}) (<-chan Connection, <-chan error) {
+	resultChan := make(chan Connection)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, top, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListConnectionKeys lists connection keys.
 //
 // resourceGroupName is the resource group name. connectionName is the connection name. content is the content.
-func (client ConnectionsClient) ListConnectionKeys(ctx context.Context, resourceGroupName string, connectionName string, content ListConnectionKeysInput) (result ConnectionSecrets, err error) {
-	req, err := client.ListConnectionKeysPreparer(ctx, resourceGroupName, connectionName, content)
+func (client ConnectionsClient) ListConnectionKeys(resourceGroupName string, connectionName string, content ListConnectionKeysInput) (result ConnectionSecrets, err error) {
+	req, err := client.ListConnectionKeysPreparer(resourceGroupName, connectionName, content)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "ListConnectionKeys", nil, "Failure preparing request")
 		return
@@ -432,7 +477,7 @@ func (client ConnectionsClient) ListConnectionKeys(ctx context.Context, resource
 }
 
 // ListConnectionKeysPreparer prepares the ListConnectionKeys request.
-func (client ConnectionsClient) ListConnectionKeysPreparer(ctx context.Context, resourceGroupName string, connectionName string, content ListConnectionKeysInput) (*http.Request, error) {
+func (client ConnectionsClient) ListConnectionKeysPreparer(resourceGroupName string, connectionName string, content ListConnectionKeysInput) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"connectionName":    autorest.Encode("path", connectionName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -451,13 +496,14 @@ func (client ConnectionsClient) ListConnectionKeysPreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{connectionName}/listConnectionKeys", pathParameters),
 		autorest.WithJSON(content),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListConnectionKeysSender sends the ListConnectionKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConnectionsClient) ListConnectionKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -477,8 +523,8 @@ func (client ConnectionsClient) ListConnectionKeysResponder(resp *http.Response)
 // ListConsentLinks lists consent links of a connection.
 //
 // resourceGroupName is the resource group name. connectionName is the connection name. content is the content.
-func (client ConnectionsClient) ListConsentLinks(ctx context.Context, resourceGroupName string, connectionName string, content ConsentLinkInput) (result ConsentLinkPayload, err error) {
-	req, err := client.ListConsentLinksPreparer(ctx, resourceGroupName, connectionName, content)
+func (client ConnectionsClient) ListConsentLinks(resourceGroupName string, connectionName string, content ConsentLinkInput) (result ConsentLinkPayload, err error) {
+	req, err := client.ListConsentLinksPreparer(resourceGroupName, connectionName, content)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.ConnectionsClient", "ListConsentLinks", nil, "Failure preparing request")
 		return
@@ -500,7 +546,7 @@ func (client ConnectionsClient) ListConsentLinks(ctx context.Context, resourceGr
 }
 
 // ListConsentLinksPreparer prepares the ListConsentLinks request.
-func (client ConnectionsClient) ListConsentLinksPreparer(ctx context.Context, resourceGroupName string, connectionName string, content ConsentLinkInput) (*http.Request, error) {
+func (client ConnectionsClient) ListConsentLinksPreparer(resourceGroupName string, connectionName string, content ConsentLinkInput) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"connectionName":    autorest.Encode("path", connectionName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -519,13 +565,14 @@ func (client ConnectionsClient) ListConsentLinksPreparer(ctx context.Context, re
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{connectionName}/listConsentLinks", pathParameters),
 		autorest.WithJSON(content),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListConsentLinksSender sends the ListConsentLinks request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConnectionsClient) ListConsentLinksSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

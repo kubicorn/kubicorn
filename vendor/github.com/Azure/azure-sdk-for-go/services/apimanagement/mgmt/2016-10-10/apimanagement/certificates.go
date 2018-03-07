@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // CertificatesClient is the apiManagement Client
 type CertificatesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCertificatesClient creates an instance of the CertificatesClient client.
@@ -46,7 +45,7 @@ func NewCertificatesClientWithBaseURI(baseURI string, subscriptionID string) Cer
 // certificateID is identifier of the certificate entity. Must be unique in the current API Management service
 // instance. parameters is create parameters. ifMatch is the entity state (Etag) version of the certificate to update.
 // A value of "*" can be used for If-Match to unconditionally apply the operation..
-func (client CertificatesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, certificateID string, parameters CertificateCreateOrUpdateParameters, ifMatch string) (result autorest.Response, err error) {
+func (client CertificatesClient) CreateOrUpdate(resourceGroupName string, serviceName string, certificateID string, parameters CertificateCreateOrUpdateParameters, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -62,7 +61,7 @@ func (client CertificatesClient) CreateOrUpdate(ctx context.Context, resourceGro
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.CertificatesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serviceName, certificateID, parameters, ifMatch)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serviceName, certificateID, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -84,7 +83,7 @@ func (client CertificatesClient) CreateOrUpdate(ctx context.Context, resourceGro
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client CertificatesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, certificateID string, parameters CertificateCreateOrUpdateParameters, ifMatch string) (*http.Request, error) {
+func (client CertificatesClient) CreateOrUpdatePreparer(resourceGroupName string, serviceName string, certificateID string, parameters CertificateCreateOrUpdateParameters, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"certificateId":     autorest.Encode("path", certificateID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -108,13 +107,14 @@ func (client CertificatesClient) CreateOrUpdatePreparer(ctx context.Context, res
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("If-Match", autorest.String(ifMatch)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificatesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -136,7 +136,7 @@ func (client CertificatesClient) CreateOrUpdateResponder(resp *http.Response) (r
 // certificateID is identifier of the certificate entity. Must be unique in the current API Management service
 // instance. ifMatch is the entity state (Etag) version of the certificate to delete. A value of "*" can be used for
 // If-Match to unconditionally apply the operation.
-func (client CertificatesClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, certificateID string, ifMatch string) (result autorest.Response, err error) {
+func (client CertificatesClient) Delete(resourceGroupName string, serviceName string, certificateID string, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -149,7 +149,7 @@ func (client CertificatesClient) Delete(ctx context.Context, resourceGroupName s
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.CertificatesClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serviceName, certificateID, ifMatch)
+	req, err := client.DeletePreparer(resourceGroupName, serviceName, certificateID, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "Delete", nil, "Failure preparing request")
 		return
@@ -171,7 +171,7 @@ func (client CertificatesClient) Delete(ctx context.Context, resourceGroupName s
 }
 
 // DeletePreparer prepares the Delete request.
-func (client CertificatesClient) DeletePreparer(ctx context.Context, resourceGroupName string, serviceName string, certificateID string, ifMatch string) (*http.Request, error) {
+func (client CertificatesClient) DeletePreparer(resourceGroupName string, serviceName string, certificateID string, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"certificateId":     autorest.Encode("path", certificateID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -190,13 +190,14 @@ func (client CertificatesClient) DeletePreparer(ctx context.Context, resourceGro
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/certificates/{certificateId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificatesClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -217,7 +218,7 @@ func (client CertificatesClient) DeleteResponder(resp *http.Response) (result au
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
 // certificateID is identifier of the certificate entity. Must be unique in the current API Management service
 // instance.
-func (client CertificatesClient) Get(ctx context.Context, resourceGroupName string, serviceName string, certificateID string) (result CertificateContract, err error) {
+func (client CertificatesClient) Get(resourceGroupName string, serviceName string, certificateID string) (result CertificateContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -230,7 +231,7 @@ func (client CertificatesClient) Get(ctx context.Context, resourceGroupName stri
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.CertificatesClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName, certificateID)
+	req, err := client.GetPreparer(resourceGroupName, serviceName, certificateID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "Get", nil, "Failure preparing request")
 		return
@@ -252,7 +253,7 @@ func (client CertificatesClient) Get(ctx context.Context, resourceGroupName stri
 }
 
 // GetPreparer prepares the Get request.
-func (client CertificatesClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string, certificateID string) (*http.Request, error) {
+func (client CertificatesClient) GetPreparer(resourceGroupName string, serviceName string, certificateID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"certificateId":     autorest.Encode("path", certificateID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -270,13 +271,14 @@ func (client CertificatesClient) GetPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/certificates/{certificateId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificatesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -303,7 +305,7 @@ func (client CertificatesClient) GetResponder(resp *http.Response) (result Certi
 // | thumbprint     | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 // | expirationDate | ge, le, eq, ne, gt, lt | N/A                                         | top is number of records
 // to return. skip is number of records to skip.
-func (client CertificatesClient) ListByService(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result CertificateCollectionPage, err error) {
+func (client CertificatesClient) ListByService(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result CertificateCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -318,8 +320,7 @@ func (client CertificatesClient) ListByService(ctx context.Context, resourceGrou
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.CertificatesClient", "ListByService")
 	}
 
-	result.fn = client.listByServiceNextResults
-	req, err := client.ListByServicePreparer(ctx, resourceGroupName, serviceName, filter, top, skip)
+	req, err := client.ListByServicePreparer(resourceGroupName, serviceName, filter, top, skip)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "ListByService", nil, "Failure preparing request")
 		return
@@ -327,12 +328,12 @@ func (client CertificatesClient) ListByService(ctx context.Context, resourceGrou
 
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
-		result.cc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "ListByService", resp, "Failure sending request")
 		return
 	}
 
-	result.cc, err = client.ListByServiceResponder(resp)
+	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "ListByService", resp, "Failure responding to request")
 	}
@@ -341,7 +342,7 @@ func (client CertificatesClient) ListByService(ctx context.Context, resourceGrou
 }
 
 // ListByServicePreparer prepares the ListByService request.
-func (client CertificatesClient) ListByServicePreparer(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
+func (client CertificatesClient) ListByServicePreparer(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -367,13 +368,14 @@ func (client CertificatesClient) ListByServicePreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/certificates", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServiceSender sends the ListByService request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificatesClient) ListByServiceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -390,29 +392,71 @@ func (client CertificatesClient) ListByServiceResponder(resp *http.Response) (re
 	return
 }
 
-// listByServiceNextResults retrieves the next set of results, if any.
-func (client CertificatesClient) listByServiceNextResults(lastResults CertificateCollection) (result CertificateCollection, err error) {
-	req, err := lastResults.certificateCollectionPreparer()
+// ListByServiceNextResults retrieves the next set of results, if any.
+func (client CertificatesClient) ListByServiceNextResults(lastResults CertificateCollection) (result CertificateCollection, err error) {
+	req, err := lastResults.CertificateCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "listByServiceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "ListByService", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "listByServiceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "ListByService", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "listByServiceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "apimanagement.CertificatesClient", "ListByService", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByServiceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client CertificatesClient) ListByServiceComplete(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result CertificateCollectionIterator, err error) {
-	result.page, err = client.ListByService(ctx, resourceGroupName, serviceName, filter, top, skip)
-	return
+// ListByServiceComplete gets all elements from the list without paging.
+func (client CertificatesClient) ListByServiceComplete(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32, cancel <-chan struct{}) (<-chan CertificateContract, <-chan error) {
+	resultChan := make(chan CertificateContract)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByService(resourceGroupName, serviceName, filter, top, skip)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByServiceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

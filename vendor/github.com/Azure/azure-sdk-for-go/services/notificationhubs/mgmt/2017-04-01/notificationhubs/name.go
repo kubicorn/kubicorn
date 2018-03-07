@@ -18,7 +18,6 @@ package notificationhubs
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // NameClient is the azure NotificationHub client
 type NameClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewNameClient creates an instance of the NameClient client.
@@ -44,14 +43,14 @@ func NewNameClientWithBaseURI(baseURI string, subscriptionID string) NameClient 
 // useful because the domain name is created based on the service namespace name.
 //
 // parameters is the namespace name.
-func (client NameClient) CheckAvailability(ctx context.Context, parameters CheckNameAvailabilityRequestParameters) (result CheckNameAvailabilityResponse, err error) {
+func (client NameClient) CheckAvailability(parameters CheckNameAvailabilityRequestParameters) (result CheckNameAvailabilityResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Name", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "notificationhubs.NameClient", "CheckAvailability")
 	}
 
-	req, err := client.CheckAvailabilityPreparer(ctx, parameters)
+	req, err := client.CheckAvailabilityPreparer(parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "notificationhubs.NameClient", "CheckAvailability", nil, "Failure preparing request")
 		return
@@ -73,7 +72,7 @@ func (client NameClient) CheckAvailability(ctx context.Context, parameters Check
 }
 
 // CheckAvailabilityPreparer prepares the CheckAvailability request.
-func (client NameClient) CheckAvailabilityPreparer(ctx context.Context, parameters CheckNameAvailabilityRequestParameters) (*http.Request, error) {
+func (client NameClient) CheckAvailabilityPreparer(parameters CheckNameAvailabilityRequestParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -90,13 +89,14 @@ func (client NameClient) CheckAvailabilityPreparer(ctx context.Context, paramete
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.NotificationHubs/checkNameAvailability", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CheckAvailabilitySender sends the CheckAvailability request. The method will close the
 // http.Response Body if it receives an error.
 func (client NameClient) CheckAvailabilitySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

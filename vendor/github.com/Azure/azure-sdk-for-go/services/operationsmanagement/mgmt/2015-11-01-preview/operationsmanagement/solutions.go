@@ -18,7 +18,6 @@ package operationsmanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,24 +26,24 @@ import (
 
 // SolutionsClient is the operations Management Client
 type SolutionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewSolutionsClient creates an instance of the SolutionsClient client.
-func NewSolutionsClient(subscriptionID string, providerName string, resourceType string, resourceName string) SolutionsClient {
-	return NewSolutionsClientWithBaseURI(DefaultBaseURI, subscriptionID, providerName, resourceType, resourceName)
+func NewSolutionsClient(subscriptionID string, solutionName string) SolutionsClient {
+	return NewSolutionsClientWithBaseURI(DefaultBaseURI, subscriptionID, solutionName)
 }
 
 // NewSolutionsClientWithBaseURI creates an instance of the SolutionsClient client.
-func NewSolutionsClientWithBaseURI(baseURI string, subscriptionID string, providerName string, resourceType string, resourceName string) SolutionsClient {
-	return SolutionsClient{NewWithBaseURI(baseURI, subscriptionID, providerName, resourceType, resourceName)}
+func NewSolutionsClientWithBaseURI(baseURI string, subscriptionID string, solutionName string) SolutionsClient {
+	return SolutionsClient{NewWithBaseURI(baseURI, subscriptionID, solutionName)}
 }
 
 // CreateOrUpdate creates or updates the Solution.
 //
-// resourceGroupName is the name of the resource group to get. The name is case insensitive. solutionName is user
-// Solution Name. parameters is the parameters required to create OMS Solution.
-func (client SolutionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, solutionName string, parameters Solution) (result Solution, err error) {
+// resourceGroupName is the name of the resource group to get. The name is case insensitive. parameters is the
+// parameters required to create OMS Solution.
+func (client SolutionsClient) CreateOrUpdate(resourceGroupName string, parameters Solution) (result Solution, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -56,7 +55,7 @@ func (client SolutionsClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 		return result, validation.NewErrorWithValidationError(err, "operationsmanagement.SolutionsClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, solutionName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "operationsmanagement.SolutionsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -78,10 +77,10 @@ func (client SolutionsClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client SolutionsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, solutionName string, parameters Solution) (*http.Request, error) {
+func (client SolutionsClient) CreateOrUpdatePreparer(resourceGroupName string, parameters Solution) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"solutionName":      autorest.Encode("path", solutionName),
+		"solutionName":      autorest.Encode("path", client.SolutionName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -97,13 +96,14 @@ func (client SolutionsClient) CreateOrUpdatePreparer(ctx context.Context, resour
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationsManagement/solutions/{solutionName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client SolutionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -122,9 +122,8 @@ func (client SolutionsClient) CreateOrUpdateResponder(resp *http.Response) (resu
 
 // Delete deletes the solution in the subscription.
 //
-// resourceGroupName is the name of the resource group to get. The name is case insensitive. solutionName is user
-// Solution Name.
-func (client SolutionsClient) Delete(ctx context.Context, resourceGroupName string, solutionName string) (result autorest.Response, err error) {
+// resourceGroupName is the name of the resource group to get. The name is case insensitive.
+func (client SolutionsClient) Delete(resourceGroupName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -133,7 +132,7 @@ func (client SolutionsClient) Delete(ctx context.Context, resourceGroupName stri
 		return result, validation.NewErrorWithValidationError(err, "operationsmanagement.SolutionsClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, solutionName)
+	req, err := client.DeletePreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "operationsmanagement.SolutionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -155,10 +154,10 @@ func (client SolutionsClient) Delete(ctx context.Context, resourceGroupName stri
 }
 
 // DeletePreparer prepares the Delete request.
-func (client SolutionsClient) DeletePreparer(ctx context.Context, resourceGroupName string, solutionName string) (*http.Request, error) {
+func (client SolutionsClient) DeletePreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"solutionName":      autorest.Encode("path", solutionName),
+		"solutionName":      autorest.Encode("path", client.SolutionName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -172,13 +171,14 @@ func (client SolutionsClient) DeletePreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationsManagement/solutions/{solutionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client SolutionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -196,9 +196,8 @@ func (client SolutionsClient) DeleteResponder(resp *http.Response) (result autor
 
 // Get retrieves the user solution.
 //
-// resourceGroupName is the name of the resource group to get. The name is case insensitive. solutionName is user
-// Solution Name.
-func (client SolutionsClient) Get(ctx context.Context, resourceGroupName string, solutionName string) (result Solution, err error) {
+// resourceGroupName is the name of the resource group to get. The name is case insensitive.
+func (client SolutionsClient) Get(resourceGroupName string) (result Solution, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -207,7 +206,7 @@ func (client SolutionsClient) Get(ctx context.Context, resourceGroupName string,
 		return result, validation.NewErrorWithValidationError(err, "operationsmanagement.SolutionsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, solutionName)
+	req, err := client.GetPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "operationsmanagement.SolutionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -229,10 +228,10 @@ func (client SolutionsClient) Get(ctx context.Context, resourceGroupName string,
 }
 
 // GetPreparer prepares the Get request.
-func (client SolutionsClient) GetPreparer(ctx context.Context, resourceGroupName string, solutionName string) (*http.Request, error) {
+func (client SolutionsClient) GetPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"solutionName":      autorest.Encode("path", solutionName),
+		"solutionName":      autorest.Encode("path", client.SolutionName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -246,13 +245,14 @@ func (client SolutionsClient) GetPreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationsManagement/solutions/{solutionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client SolutionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -272,7 +272,7 @@ func (client SolutionsClient) GetResponder(resp *http.Response) (result Solution
 // ListByResourceGroup retrieves the solution list. It will retrieve both first party and third party solutions
 //
 // resourceGroupName is the name of the resource group to get. The name is case insensitive.
-func (client SolutionsClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result SolutionPropertiesList, err error) {
+func (client SolutionsClient) ListByResourceGroup(resourceGroupName string) (result SolutionPropertiesList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -281,7 +281,7 @@ func (client SolutionsClient) ListByResourceGroup(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "operationsmanagement.SolutionsClient", "ListByResourceGroup")
 	}
 
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName)
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "operationsmanagement.SolutionsClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -303,7 +303,7 @@ func (client SolutionsClient) ListByResourceGroup(ctx context.Context, resourceG
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client SolutionsClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client SolutionsClient) ListByResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -319,13 +319,14 @@ func (client SolutionsClient) ListByResourceGroupPreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationsManagement/solutions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client SolutionsClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -343,8 +344,8 @@ func (client SolutionsClient) ListByResourceGroupResponder(resp *http.Response) 
 }
 
 // ListBySubscription retrieves the solution list. It will retrieve both first party and third party solutions
-func (client SolutionsClient) ListBySubscription(ctx context.Context) (result SolutionPropertiesList, err error) {
-	req, err := client.ListBySubscriptionPreparer(ctx)
+func (client SolutionsClient) ListBySubscription() (result SolutionPropertiesList, err error) {
+	req, err := client.ListBySubscriptionPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "operationsmanagement.SolutionsClient", "ListBySubscription", nil, "Failure preparing request")
 		return
@@ -366,7 +367,7 @@ func (client SolutionsClient) ListBySubscription(ctx context.Context) (result So
 }
 
 // ListBySubscriptionPreparer prepares the ListBySubscription request.
-func (client SolutionsClient) ListBySubscriptionPreparer(ctx context.Context) (*http.Request, error) {
+func (client SolutionsClient) ListBySubscriptionPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -381,13 +382,14 @@ func (client SolutionsClient) ListBySubscriptionPreparer(ctx context.Context) (*
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.OperationsManagement/solutions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListBySubscriptionSender sends the ListBySubscription request. The method will close the
 // http.Response Body if it receives an error.
 func (client SolutionsClient) ListBySubscriptionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

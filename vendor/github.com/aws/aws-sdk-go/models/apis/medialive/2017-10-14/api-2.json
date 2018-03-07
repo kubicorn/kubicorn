@@ -227,9 +227,6 @@
           "shape": "BadGatewayException"
         },
         {
-          "shape": "NotFoundException"
-        },
-        {
           "shape": "GatewayTimeoutException"
         },
         {
@@ -524,43 +521,6 @@
         },
         {
           "shape": "TooManyRequestsException"
-        },
-        {
-          "shape": "ConflictException"
-        }
-      ]
-    },
-    "UpdateChannel": {
-      "name": "UpdateChannel",
-      "http": {
-        "method": "PUT",
-        "requestUri": "/prod/channels/{channelId}",
-        "responseCode": 200
-      },
-      "input": {
-        "shape": "UpdateChannelRequest"
-      },
-      "output": {
-        "shape": "UpdateChannelResponse"
-      },
-      "errors": [
-        {
-          "shape": "UnprocessableEntityException"
-        },
-        {
-          "shape": "BadRequestException"
-        },
-        {
-          "shape": "InternalServerErrorException"
-        },
-        {
-          "shape": "ForbiddenException"
-        },
-        {
-          "shape": "BadGatewayException"
-        },
-        {
-          "shape": "GatewayTimeoutException"
         },
         {
           "shape": "ConflictException"
@@ -1421,10 +1381,6 @@
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
         },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
         "Name": {
           "shape": "__string",
           "locationName": "name"
@@ -1502,10 +1458,6 @@
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
         },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
         "Name": {
           "shape": "__string",
           "locationName": "name"
@@ -1552,10 +1504,6 @@
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
         },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
         "Name": {
           "shape": "__string",
           "locationName": "name"
@@ -1567,8 +1515,7 @@
         },
         "Reserved": {
           "shape": "__string",
-          "locationName": "reserved",
-          "deprecated": true
+          "locationName": "reserved"
         },
         "RoleArn": {
           "shape": "__string",
@@ -1591,10 +1538,6 @@
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
         },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
         "Name": {
           "shape": "__string",
           "locationName": "name"
@@ -1606,8 +1549,7 @@
         },
         "Reserved": {
           "shape": "__string",
-          "locationName": "reserved",
-          "deprecated": true
+          "locationName": "reserved"
         },
         "RoleArn": {
           "shape": "__string",
@@ -1778,10 +1720,6 @@
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
         },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
         "Name": {
           "shape": "__string",
           "locationName": "name"
@@ -1875,10 +1813,6 @@
         "InputAttachments": {
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
-        },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
         },
         "Name": {
           "shape": "__string",
@@ -3400,14 +3334,6 @@
         }
       }
     },
-    "InputCodec": {
-      "type": "string",
-      "enum": [
-        "MPEG2",
-        "AVC",
-        "HEVC"
-      ]
-    },
     "InputDeblockFilter": {
       "type": "string",
       "enum": [
@@ -3527,22 +3453,6 @@
         "SLATE"
       ]
     },
-    "InputMaximumBitrate": {
-      "type": "string",
-      "enum": [
-        "MAX_10_MBPS",
-        "MAX_20_MBPS",
-        "MAX_50_MBPS"
-      ]
-    },
-    "InputResolution": {
-      "type": "string",
-      "enum": [
-        "SD",
-        "HD",
-        "UHD"
-      ]
-    },
     "InputSecurityGroup": {
       "type": "structure",
       "members": {
@@ -3648,23 +3558,6 @@
         "Username": {
           "shape": "__string",
           "locationName": "username"
-        }
-      }
-    },
-    "InputSpecification": {
-      "type": "structure",
-      "members": {
-        "Codec": {
-          "shape": "InputCodec",
-          "locationName": "codec"
-        },
-        "MaximumBitrate": {
-          "shape": "InputMaximumBitrate",
-          "locationName": "maximumBitrate"
-        },
-        "Resolution": {
-          "shape": "InputResolution",
-          "locationName": "resolution"
         }
       }
     },
@@ -4970,10 +4863,6 @@
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
         },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
         "Name": {
           "shape": "__string",
           "locationName": "name"
@@ -5044,10 +4933,6 @@
         "InputAttachments": {
           "shape": "ListOfInputAttachment",
           "locationName": "inputAttachments"
-        },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
         },
         "Name": {
           "shape": "__string",
@@ -5201,82 +5086,6 @@
       "exception": true,
       "error": {
         "httpStatusCode": 422
-      }
-    },
-    "UpdateChannel": {
-      "type": "structure",
-      "members": {
-        "Destinations": {
-          "shape": "ListOfOutputDestination",
-          "locationName": "destinations"
-        },
-        "EncoderSettings": {
-          "shape": "EncoderSettings",
-          "locationName": "encoderSettings"
-        },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
-        "Name": {
-          "shape": "__string",
-          "locationName": "name"
-        },
-        "RoleArn": {
-          "shape": "__string",
-          "locationName": "roleArn"
-        }
-      }
-    },
-    "UpdateChannelRequest": {
-      "type": "structure",
-      "members": {
-        "ChannelId": {
-          "shape": "__string",
-          "location": "uri",
-          "locationName": "channelId"
-        },
-        "Destinations": {
-          "shape": "ListOfOutputDestination",
-          "locationName": "destinations"
-        },
-        "EncoderSettings": {
-          "shape": "EncoderSettings",
-          "locationName": "encoderSettings"
-        },
-        "InputSpecification": {
-          "shape": "InputSpecification",
-          "locationName": "inputSpecification"
-        },
-        "Name": {
-          "shape": "__string",
-          "locationName": "name"
-        },
-        "RoleArn": {
-          "shape": "__string",
-          "locationName": "roleArn"
-        }
-      },
-      "required": [
-        "ChannelId"
-      ]
-    },
-    "UpdateChannelResponse": {
-      "type": "structure",
-      "members": {
-        "Channel": {
-          "shape": "Channel",
-          "locationName": "channel"
-        }
-      }
-    },
-    "UpdateChannelResultModel": {
-      "type": "structure",
-      "members": {
-        "Channel": {
-          "shape": "Channel",
-          "locationName": "channel"
-        }
       }
     },
     "ValidationError": {

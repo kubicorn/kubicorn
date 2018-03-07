@@ -16,6 +16,7 @@ package pubsub
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 	"time"
 
@@ -28,8 +29,6 @@ import (
 	"cloud.google.com/go/internal/testutil"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
 )
 
 var (
@@ -150,7 +149,7 @@ func TestAll(t *testing.T) {
 		md := extractMessageData(m)
 		got[md.ID] = md
 	}
-	if !testutil.Equal(got, want) {
+	if !reflect.DeepEqual(got, want) {
 		t.Errorf("messages: got: %v ; want: %v", got, want)
 	}
 
@@ -161,14 +160,14 @@ func TestAll(t *testing.T) {
 		t.Errorf("sub IAM: %s", msg)
 	}
 
-	snap, err := sub.CreateSnapshot(ctx, "")
+	snap, err := sub.createSnapshot(ctx, "")
 	if err != nil {
 		t.Fatalf("CreateSnapshot error: %v", err)
 	}
 
 	timeoutCtx, _ = context.WithTimeout(ctx, time.Minute)
 	err = internal.Retry(timeoutCtx, gax.Backoff{}, func() (bool, error) {
-		snapIt := client.Snapshots(timeoutCtx)
+		snapIt := client.snapshots(timeoutCtx)
 		for {
 			s, err := snapIt.Next()
 			if err == nil && s.name == snap.name {
@@ -187,7 +186,7 @@ func TestAll(t *testing.T) {
 	}
 
 	err = internal.Retry(timeoutCtx, gax.Backoff{}, func() (bool, error) {
-		err := sub.SeekToSnapshot(timeoutCtx, snap.Snapshot)
+		err := sub.seekToSnapshot(timeoutCtx, snap.snapshot)
 		return err == nil, err
 	})
 	if err != nil {
@@ -195,7 +194,7 @@ func TestAll(t *testing.T) {
 	}
 
 	err = internal.Retry(timeoutCtx, gax.Backoff{}, func() (bool, error) {
-		err := sub.SeekToTime(timeoutCtx, time.Now())
+		err := sub.seekToTime(timeoutCtx, time.Now())
 		return err == nil, err
 	})
 	if err != nil {
@@ -203,8 +202,8 @@ func TestAll(t *testing.T) {
 	}
 
 	err = internal.Retry(timeoutCtx, gax.Backoff{}, func() (bool, error) {
-		snapHandle := client.Snapshot(snap.ID())
-		err := snapHandle.Delete(timeoutCtx)
+		snapHandle := client.snapshot(snap.ID())
+		err := snapHandle.delete(timeoutCtx)
 		return err == nil, err
 	})
 	if err != nil {
@@ -248,7 +247,7 @@ func testIAM(ctx context.Context, h *iam.Handle, permission string) (msg string,
 	if policy, err = h.Policy(ctx); err != nil {
 		return fmt.Sprintf("Policy: %v", err), false
 	}
-	if got, want := policy.Members(iam.Viewer), []string{member}; !testutil.Equal(got, want) {
+	if got, want := policy.Members(iam.Viewer), []string{member}; !reflect.DeepEqual(got, want) {
 		return fmt.Sprintf("after Add: got %v, want %v", got, want), false
 	}
 	// Now remove that member, set the policy, and check that it's empty again.
@@ -272,7 +271,7 @@ func testIAM(ctx context.Context, h *iam.Handle, permission string) (msg string,
 	if err != nil {
 		return fmt.Sprintf("TestPermissions: %v", err), false
 	}
-	if !testutil.Equal(gotPerms, wantPerms) {
+	if !reflect.DeepEqual(gotPerms, wantPerms) {
 		return fmt.Sprintf("TestPermissions: got %v, want %v", gotPerms, wantPerms), false
 	}
 	return "", true
@@ -297,62 +296,40 @@ func TestSubscriptionUpdate(t *testing.T) {
 	}
 	defer sub.Delete(ctx)
 
-	got, err := sub.Config(ctx)
+	sc, err := sub.Config(ctx)
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := SubscriptionConfig{
-		Topic:               topic,
-		AckDeadline:         10 * time.Second,
-		RetainAckedMessages: false,
-		RetentionDuration:   defaultRetentionDuration,
+	if !reflect.DeepEqual(sc.PushConfig, PushConfig{}) {
+		t.Fatalf("got %+v, want empty PushConfig")
 	}
-	if !testutil.Equal(got, want) {
-		t.Fatalf("\ngot  %+v\nwant %+v", got, want)
-	}
-	// Add a PushConfig and change other fields.
+	// Add a PushConfig.
 	projID := testutil.ProjID()
 	pc := PushConfig{
 		Endpoint:   "https://" + projID + ".appspot.com/_ah/push-handlers/push",
 		Attributes: map[string]string{"x-goog-version": "v1"},
 	}
-	got, err = sub.Update(ctx, SubscriptionConfigToUpdate{
-		PushConfig:          &pc,
-		AckDeadline:         2 * time.Minute,
-		RetainAckedMessages: true,
-		RetentionDuration:   2 * time.Hour,
-	})
+	sc, err = sub.Update(ctx, SubscriptionConfigToUpdate{PushConfig: &pc})
 	if err != nil {
 		t.Fatal(err)
 	}
-	want = SubscriptionConfig{
-		Topic:               topic,
-		PushConfig:          pc,
-		AckDeadline:         2 * time.Minute,
-		RetainAckedMessages: true,
-		RetentionDuration:   2 * time.Hour,
-	}
-	if !testutil.Equal(got, want) {
-		t.Fatalf("\ngot  %+v\nwant %+v", got, want)
+	// Despite the docs which say that Get always returns a valid "x-goog-version"
+	// attribute, none is returned. See
+	// https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#google.pubsub.v1.PushConfig
+	pc.Attributes = nil
+	if got, want := sc.PushConfig, pc; !reflect.DeepEqual(got, want) {
+		t.Fatalf("setting push config: got\n%+v\nwant\n%+v", got, want)
 	}
 	// Remove the PushConfig, turning the subscription back into pull mode.
-	// Change AckDeadline, but nothing else.
 	pc = PushConfig{}
-	got, err = sub.Update(ctx, SubscriptionConfigToUpdate{
-		PushConfig:  &pc,
-		AckDeadline: 30 * time.Second,
-	})
+	sc, err = sub.Update(ctx, SubscriptionConfigToUpdate{PushConfig: &pc})
 	if err != nil {
 		t.Fatal(err)
 	}
-	want.PushConfig = pc
-	want.AckDeadline = 30 * time.Second
-	// service issue: PushConfig attributes are not removed.
-	// TODO(jba): remove when issue resolved.
-	want.PushConfig.Attributes = map[string]string{"x-goog-version": "v1"}
-	if !testutil.Equal(got, want) {
-		t.Fatalf("\ngot  %+v\nwant %+v", got, want)
+	if got, want := sc.PushConfig, pc; !reflect.DeepEqual(got, want) {
+		t.Fatalf("removing push config: got\n%+v\nwant %+v", got, want)
 	}
+
 	// If nothing changes, our client returns an error.
 	_, err = sub.Update(ctx, SubscriptionConfigToUpdate{})
 	if err == nil {
@@ -382,67 +359,5 @@ func TestPublicTopic(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatal(err)
-	}
-}
-
-func TestIntegration_Errors(t *testing.T) {
-	// Test various edge conditions.
-	t.Parallel()
-	ctx := context.Background()
-	client := integrationTestClient(t, ctx)
-	defer client.Close()
-
-	topic, err := client.CreateTopic(ctx, topicIDs.New())
-	if err != nil {
-		t.Fatalf("CreateTopic error: %v", err)
-	}
-	defer topic.Stop()
-	defer topic.Delete(ctx)
-
-	// Out-of-range retention duration.
-	sub, err := client.CreateSubscription(ctx, subIDs.New(), SubscriptionConfig{
-		Topic:             topic,
-		RetentionDuration: 1 * time.Second,
-	})
-	if want := codes.InvalidArgument; grpc.Code(err) != want {
-		t.Errorf("got <%v>, want %s", err, want)
-	}
-	if err == nil {
-		sub.Delete(ctx)
-	}
-
-	// Ack deadline less than minimum.
-	sub, err = client.CreateSubscription(ctx, subIDs.New(), SubscriptionConfig{
-		Topic:       topic,
-		AckDeadline: 5 * time.Second,
-	})
-	if want := codes.Unknown; grpc.Code(err) != want {
-		t.Errorf("got <%v>, want %s", err, want)
-	}
-	if err == nil {
-		sub.Delete(ctx)
-	}
-
-	// Updating a non-existent subscription.
-	sub = client.Subscription(subIDs.New())
-	_, err = sub.Update(ctx, SubscriptionConfigToUpdate{AckDeadline: 20 * time.Second})
-	if want := codes.NotFound; grpc.Code(err) != want {
-		t.Errorf("got <%v>, want %s", err, want)
-	}
-	// Deleting a non-existent subscription.
-	err = sub.Delete(ctx)
-	if want := codes.NotFound; grpc.Code(err) != want {
-		t.Errorf("got <%v>, want %s", err, want)
-	}
-
-	// Updating out-of-range retention duration.
-	sub, err = client.CreateSubscription(ctx, subIDs.New(), SubscriptionConfig{Topic: topic})
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer sub.Delete(ctx)
-	_, err = sub.Update(ctx, SubscriptionConfigToUpdate{RetentionDuration: 1000 * time.Hour})
-	if want := codes.InvalidArgument; grpc.Code(err) != want {
-		t.Errorf("got <%v>, want %s", err, want)
 	}
 }

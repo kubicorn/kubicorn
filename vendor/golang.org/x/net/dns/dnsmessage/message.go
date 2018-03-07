@@ -13,7 +13,7 @@ import (
 	"errors"
 )
 
-// Message formats
+// Packet formats
 
 // A Type is a type of DNS request and response.
 type Type uint16
@@ -273,25 +273,25 @@ type Resource struct {
 // A ResourceBody is a DNS resource record minus the header.
 type ResourceBody interface {
 	// pack packs a Resource except for its header.
-	pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error)
+	pack(msg []byte, compression map[string]int) ([]byte, error)
 
 	// realType returns the actual type of the Resource. This is used to
 	// fill in the header Type field.
 	realType() Type
 }
 
-func (r *Resource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (r *Resource) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	if r.Body == nil {
 		return msg, errNilResouceBody
 	}
 	oldMsg := msg
 	r.Header.Type = r.Body.realType()
-	msg, length, err := r.Header.pack(msg, compression, compressionOff)
+	msg, length, err := r.Header.pack(msg, compression)
 	if err != nil {
 		return msg, &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	msg, err = r.Body.pack(msg, compression, compressionOff)
+	msg, err = r.Body.pack(msg, compression)
 	if err != nil {
 		return msg, &nestedError{"content", err}
 	}
@@ -436,13 +436,7 @@ func (p *Parser) Question() (Question, error) {
 
 // AllQuestions parses all Questions.
 func (p *Parser) AllQuestions() ([]Question, error) {
-	// Multiple questions are valid according to the spec,
-	// but servers don't actually support them. There will
-	// be at most one question here.
-	//
-	// Do not pre-allocate based on info in p.header, since
-	// the data is untrusted.
-	qs := []Question{}
+	qs := make([]Question, 0, p.header.questions)
 	for {
 		q, err := p.Question()
 		if err == ErrSectionDone {
@@ -498,16 +492,7 @@ func (p *Parser) Answer() (Resource, error) {
 
 // AllAnswers parses all Answer Resources.
 func (p *Parser) AllAnswers() ([]Resource, error) {
-	// The most common query is for A/AAAA, which usually returns
-	// a handful of IPs.
-	//
-	// Pre-allocate up to a certain limit, since p.header is
-	// untrusted data.
-	n := int(p.header.answers)
-	if n > 20 {
-		n = 20
-	}
-	as := make([]Resource, 0, n)
+	as := make([]Resource, 0, p.header.answers)
 	for {
 		a, err := p.Answer()
 		if err == ErrSectionDone {
@@ -548,16 +533,7 @@ func (p *Parser) Authority() (Resource, error) {
 
 // AllAuthorities parses all Authority Resources.
 func (p *Parser) AllAuthorities() ([]Resource, error) {
-	// Authorities contains SOA in case of NXDOMAIN and friends,
-	// otherwise it is empty.
-	//
-	// Pre-allocate up to a certain limit, since p.header is
-	// untrusted data.
-	n := int(p.header.authorities)
-	if n > 10 {
-		n = 10
-	}
-	as := make([]Resource, 0, n)
+	as := make([]Resource, 0, p.header.authorities)
 	for {
 		a, err := p.Authority()
 		if err == ErrSectionDone {
@@ -598,16 +574,7 @@ func (p *Parser) Additional() (Resource, error) {
 
 // AllAdditionals parses all Additional Resources.
 func (p *Parser) AllAdditionals() ([]Resource, error) {
-	// Additionals usually contain OPT, and sometimes A/AAAA
-	// glue records.
-	//
-	// Pre-allocate up to a certain limit, since p.header is
-	// untrusted data.
-	n := int(p.header.additionals)
-	if n > 10 {
-		n = 10
-	}
-	as := make([]Resource, 0, n)
+	as := make([]Resource, 0, p.header.additionals)
 	for {
 		a, err := p.Additional()
 		if err == ErrSectionDone {
@@ -852,7 +819,6 @@ func (m *Message) AppendPack(b []byte) ([]byte, error) {
 	h.authorities = uint16(len(m.Authorities))
 	h.additionals = uint16(len(m.Additionals))
 
-	compressionOff := len(b)
 	msg := h.pack(b)
 
 	// RFC 1035 allows (but does not require) compression for packing. RFC
@@ -860,32 +826,32 @@ func (m *Message) AppendPack(b []byte) ([]byte, error) {
 	// unconditionally enabling it is fine.
 	//
 	// DNS lookups are typically done over UDP, and RFC 1035 states that UDP
-	// DNS messages can be a maximum of 512 bytes long. Without compression,
-	// many DNS response messages are over this limit, so enabling
+	// DNS packets can be a maximum of 512 bytes long. Without compression,
+	// many DNS response packets are over this limit, so enabling
 	// compression will help ensure compliance.
 	compression := map[string]int{}
 
 	for i := range m.Questions {
 		var err error
-		if msg, err = m.Questions[i].pack(msg, compression, compressionOff); err != nil {
+		if msg, err = m.Questions[i].pack(msg, compression); err != nil {
 			return nil, &nestedError{"packing Question", err}
 		}
 	}
 	for i := range m.Answers {
 		var err error
-		if msg, err = m.Answers[i].pack(msg, compression, compressionOff); err != nil {
+		if msg, err = m.Answers[i].pack(msg, compression); err != nil {
 			return nil, &nestedError{"packing Answer", err}
 		}
 	}
 	for i := range m.Authorities {
 		var err error
-		if msg, err = m.Authorities[i].pack(msg, compression, compressionOff); err != nil {
+		if msg, err = m.Authorities[i].pack(msg, compression); err != nil {
 			return nil, &nestedError{"packing Authority", err}
 		}
 	}
 	for i := range m.Additionals {
 		var err error
-		if msg, err = m.Additionals[i].pack(msg, compression, compressionOff); err != nil {
+		if msg, err = m.Additionals[i].pack(msg, compression); err != nil {
 			return nil, &nestedError{"packing Additional", err}
 		}
 	}
@@ -894,69 +860,36 @@ func (m *Message) AppendPack(b []byte) ([]byte, error) {
 }
 
 // A Builder allows incrementally packing a DNS message.
-//
-// Example usage:
-//	buf := make([]byte, 2, 514)
-//	b := NewBuilder(buf, Header{...})
-//	b.EnableCompression()
-//	// Optionally start a section and add things to that section.
-//	// Repeat adding sections as necessary.
-//	buf, err := b.Finish()
-//	// If err is nil, buf[2:] will contain the built bytes.
 type Builder struct {
-	// msg is the storage for the message being built.
-	msg []byte
-
-	// section keeps track of the current section being built.
-	section section
-
-	// header keeps track of what should go in the header when Finish is
-	// called.
-	header header
-
-	// start is the starting index of the bytes allocated in msg for header.
-	start int
-
-	// compression is a mapping from name suffixes to their starting index
-	// in msg.
+	msg         []byte
+	header      header
+	section     section
 	compression map[string]int
 }
 
-// NewBuilder creates a new builder with compression disabled.
+// Start initializes the builder.
 //
-// Note: Most users will want to immediately enable compression with the
-// EnableCompression method. See that method's comment for why you may or may
-// not want to enable compression.
-//
-// The DNS message is appended to the provided initial buffer buf (which may be
-// nil) as it is built. The final message is returned by the (*Builder).Finish
-// method, which may return the same underlying array if there was sufficient
-// capacity in the slice.
-func NewBuilder(buf []byte, h Header) Builder {
-	if buf == nil {
-		buf = make([]byte, 0, packStartingCap)
-	}
-	b := Builder{msg: buf, start: len(buf)}
-	b.header.id, b.header.bits = h.pack()
-	var hb [headerLen]byte
-	b.msg = append(b.msg, hb[:]...)
-	b.section = sectionHeader
-	return b
+// buf is optional (nil is fine), but if provided, Start takes ownership of buf.
+func (b *Builder) Start(buf []byte, h Header) {
+	b.StartWithoutCompression(buf, h)
+	b.compression = map[string]int{}
 }
 
-// EnableCompression enables compression in the Builder.
+// StartWithoutCompression initializes the builder with compression disabled.
 //
-// Leaving compression disabled avoids compression related allocations, but can
-// result in larger message sizes. Be careful with this mode as it can cause
-// messages to exceed the UDP size limit.
+// This avoids compression related allocations, but can result in larger message
+// sizes. Be careful with this mode as it can cause messages to exceed the UDP
+// size limit.
 //
-// According to RFC 1035, section 4.1.4, the use of compression is optional, but
-// all implementations must accept both compressed and uncompressed DNS
-// messages.
-//
-// Compression should be enabled before any sections are added for best results.
-func (b *Builder) EnableCompression() {
-	b.compression = map[string]int{}
+// buf is optional (nil is fine), but if provided, Start takes ownership of buf.
+func (b *Builder) StartWithoutCompression(buf []byte, h Header) {
+	*b = Builder{msg: buf}
+	b.header.id, b.header.bits = h.pack()
+	if cap(b.msg) < headerLen {
+		b.msg = make([]byte, 0, packStartingCap)
+	}
+	b.msg = b.msg[:headerLen]
+	b.section = sectionHeader
 }
 
 func (b *Builder) startCheck(s section) error {
@@ -1037,7 +970,7 @@ func (b *Builder) Question(q Question) error {
 	if b.section > sectionQuestions {
 		return ErrSectionDone
 	}
-	msg, err := q.pack(b.msg, b.compression, b.start)
+	msg, err := q.pack(b.msg, b.compression)
 	if err != nil {
 		return err
 	}
@@ -1064,12 +997,12 @@ func (b *Builder) CNAMEResource(h ResourceHeader, r CNAMEResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"CNAMEResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1088,12 +1021,12 @@ func (b *Builder) MXResource(h ResourceHeader, r MXResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"MXResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1112,12 +1045,12 @@ func (b *Builder) NSResource(h ResourceHeader, r NSResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"NSResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1136,12 +1069,12 @@ func (b *Builder) PTRResource(h ResourceHeader, r PTRResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"PTRResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1160,12 +1093,12 @@ func (b *Builder) SOAResource(h ResourceHeader, r SOAResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"SOAResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1184,12 +1117,12 @@ func (b *Builder) TXTResource(h ResourceHeader, r TXTResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"TXTResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1208,12 +1141,12 @@ func (b *Builder) SRVResource(h ResourceHeader, r SRVResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"SRVResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1232,12 +1165,12 @@ func (b *Builder) AResource(h ResourceHeader, r AResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"AResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1256,12 +1189,12 @@ func (b *Builder) AAAAResource(h ResourceHeader, r AAAAResource) error {
 		return err
 	}
 	h.Type = r.realType()
-	msg, length, err := h.pack(b.msg, b.compression, b.start)
+	msg, length, err := h.pack(b.msg, b.compression)
 	if err != nil {
 		return &nestedError{"ResourceHeader", err}
 	}
 	preLen := len(msg)
-	if msg, err = r.pack(msg, b.compression, b.start); err != nil {
+	if msg, err = r.pack(msg, b.compression); err != nil {
 		return &nestedError{"AAAAResource body", err}
 	}
 	if err := h.fixLen(msg, length, preLen); err != nil {
@@ -1274,14 +1207,13 @@ func (b *Builder) AAAAResource(h ResourceHeader, r AAAAResource) error {
 	return nil
 }
 
-// Finish ends message building and generates a binary message.
+// Finish ends message building and generates a binary packet.
 func (b *Builder) Finish() ([]byte, error) {
 	if b.section < sectionHeader {
 		return nil, ErrNotStarted
 	}
 	b.section = sectionDone
-	// Space for the header was allocated in NewBuilder.
-	b.header.pack(b.msg[b.start:b.start])
+	b.header.pack(b.msg[:0])
 	return b.msg, nil
 }
 
@@ -1314,9 +1246,9 @@ type ResourceHeader struct {
 // pack packs all of the fields in a ResourceHeader except for the length. The
 // length bytes are returned as a slice so they can be filled in after the rest
 // of the Resource has been packed.
-func (h *ResourceHeader) pack(oldMsg []byte, compression map[string]int, compressionOff int) (msg []byte, length []byte, err error) {
+func (h *ResourceHeader) pack(oldMsg []byte, compression map[string]int) (msg []byte, length []byte, err error) {
 	msg = oldMsg
-	if msg, err = h.Name.pack(msg, compression, compressionOff); err != nil {
+	if msg, err = h.Name.pack(msg, compression); err != nil {
 		return oldMsg, nil, &nestedError{"Name", err}
 	}
 	msg = packType(msg, h.Type)
@@ -1541,7 +1473,7 @@ func (n Name) String() string {
 //
 // The compression map will be updated with new domain suffixes. If compression
 // is nil, compression will not be used.
-func (n *Name) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (n *Name) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	oldMsg := msg
 
 	// Add a trailing dot to canonicalize name.
@@ -1593,7 +1525,7 @@ func (n *Name) pack(msg []byte, compression map[string]int, compressionOff int) 
 			// Miss. Add the suffix to the compression table if the
 			// offset can be stored in the available 14 bytes.
 			if len(msg) <= int(^uint16(0)>>2) {
-				compression[string(n.Data[i:])] = len(msg) - compressionOff
+				compression[string(n.Data[i:])] = len(msg)
 			}
 		}
 	}
@@ -1716,8 +1648,8 @@ type Question struct {
 	Class Class
 }
 
-func (q *Question) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
-	msg, err := q.Name.pack(msg, compression, compressionOff)
+func (q *Question) pack(msg []byte, compression map[string]int) ([]byte, error) {
+	msg, err := q.Name.pack(msg, compression)
 	if err != nil {
 		return msg, &nestedError{"Name", err}
 	}
@@ -1796,8 +1728,8 @@ func (r *CNAMEResource) realType() Type {
 	return TypeCNAME
 }
 
-func (r *CNAMEResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
-	return r.CNAME.pack(msg, compression, compressionOff)
+func (r *CNAMEResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
+	return r.CNAME.pack(msg, compression)
 }
 
 func unpackCNAMEResource(msg []byte, off int) (CNAMEResource, error) {
@@ -1818,10 +1750,10 @@ func (r *MXResource) realType() Type {
 	return TypeMX
 }
 
-func (r *MXResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (r *MXResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	oldMsg := msg
 	msg = packUint16(msg, r.Pref)
-	msg, err := r.MX.pack(msg, compression, compressionOff)
+	msg, err := r.MX.pack(msg, compression)
 	if err != nil {
 		return oldMsg, &nestedError{"MXResource.MX", err}
 	}
@@ -1849,8 +1781,8 @@ func (r *NSResource) realType() Type {
 	return TypeNS
 }
 
-func (r *NSResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
-	return r.NS.pack(msg, compression, compressionOff)
+func (r *NSResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
+	return r.NS.pack(msg, compression)
 }
 
 func unpackNSResource(msg []byte, off int) (NSResource, error) {
@@ -1870,8 +1802,8 @@ func (r *PTRResource) realType() Type {
 	return TypePTR
 }
 
-func (r *PTRResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
-	return r.PTR.pack(msg, compression, compressionOff)
+func (r *PTRResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
+	return r.PTR.pack(msg, compression)
 }
 
 func unpackPTRResource(msg []byte, off int) (PTRResource, error) {
@@ -1901,13 +1833,13 @@ func (r *SOAResource) realType() Type {
 	return TypeSOA
 }
 
-func (r *SOAResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (r *SOAResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	oldMsg := msg
-	msg, err := r.NS.pack(msg, compression, compressionOff)
+	msg, err := r.NS.pack(msg, compression)
 	if err != nil {
 		return oldMsg, &nestedError{"SOAResource.NS", err}
 	}
-	msg, err = r.MBox.pack(msg, compression, compressionOff)
+	msg, err = r.MBox.pack(msg, compression)
 	if err != nil {
 		return oldMsg, &nestedError{"SOAResource.MBox", err}
 	}
@@ -1960,7 +1892,7 @@ func (r *TXTResource) realType() Type {
 	return TypeTXT
 }
 
-func (r *TXTResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (r *TXTResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	return packText(msg, r.Txt), nil
 }
 
@@ -1994,12 +1926,12 @@ func (r *SRVResource) realType() Type {
 	return TypeSRV
 }
 
-func (r *SRVResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (r *SRVResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	oldMsg := msg
 	msg = packUint16(msg, r.Priority)
 	msg = packUint16(msg, r.Weight)
 	msg = packUint16(msg, r.Port)
-	msg, err := r.Target.pack(msg, nil, compressionOff)
+	msg, err := r.Target.pack(msg, nil)
 	if err != nil {
 		return oldMsg, &nestedError{"SRVResource.Target", err}
 	}
@@ -2035,7 +1967,7 @@ func (r *AResource) realType() Type {
 	return TypeA
 }
 
-func (r *AResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (r *AResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	return packBytes(msg, r.A[:]), nil
 }
 
@@ -2056,7 +1988,7 @@ func (r *AAAAResource) realType() Type {
 	return TypeAAAA
 }
 
-func (r *AAAAResource) pack(msg []byte, compression map[string]int, compressionOff int) ([]byte, error) {
+func (r *AAAAResource) pack(msg []byte, compression map[string]int) ([]byte, error) {
 	return packBytes(msg, r.AAAA[:]), nil
 }
 

@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ServiceDescriptionsClient is the client for the ServiceDescriptions methods of the Servicefabric service.
 type ServiceDescriptionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewServiceDescriptionsClient creates an instance of the ServiceDescriptionsClient client.
@@ -42,8 +41,8 @@ func NewServiceDescriptionsClientWithBaseURI(baseURI string, timeout *int32) Ser
 // Get get service descriptions
 //
 // serviceName is the name of the service
-func (client ServiceDescriptionsClient) Get(ctx context.Context, serviceName string) (result ServiceDescriptionModel, err error) {
-	req, err := client.GetPreparer(ctx, serviceName)
+func (client ServiceDescriptionsClient) Get(serviceName string) (result ServiceDescriptionModel, err error) {
+	req, err := client.GetPreparer(serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ServiceDescriptionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client ServiceDescriptionsClient) Get(ctx context.Context, serviceName str
 }
 
 // GetPreparer prepares the Get request.
-func (client ServiceDescriptionsClient) GetPreparer(ctx context.Context, serviceName string) (*http.Request, error) {
+func (client ServiceDescriptionsClient) GetPreparer(serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"serviceName": serviceName,
 	}
@@ -83,13 +82,14 @@ func (client ServiceDescriptionsClient) GetPreparer(ctx context.Context, service
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/Services/{serviceName}/$/GetDescription", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServiceDescriptionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

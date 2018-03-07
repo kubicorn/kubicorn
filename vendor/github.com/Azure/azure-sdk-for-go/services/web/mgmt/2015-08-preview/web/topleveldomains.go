@@ -18,7 +18,6 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // TopLevelDomainsClient is the webSite Management Client
 type TopLevelDomainsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewTopLevelDomainsClient creates an instance of the TopLevelDomainsClient client.
@@ -40,9 +39,8 @@ func NewTopLevelDomainsClientWithBaseURI(baseURI string, subscriptionID string) 
 }
 
 // GetGetTopLevelDomains sends the get get top level domains request.
-func (client TopLevelDomainsClient) GetGetTopLevelDomains(ctx context.Context) (result TopLevelDomainCollectionPage, err error) {
-	result.fn = client.getGetTopLevelDomainsNextResults
-	req, err := client.GetGetTopLevelDomainsPreparer(ctx)
+func (client TopLevelDomainsClient) GetGetTopLevelDomains() (result TopLevelDomainCollection, err error) {
+	req, err := client.GetGetTopLevelDomainsPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "GetGetTopLevelDomains", nil, "Failure preparing request")
 		return
@@ -50,12 +48,12 @@ func (client TopLevelDomainsClient) GetGetTopLevelDomains(ctx context.Context) (
 
 	resp, err := client.GetGetTopLevelDomainsSender(req)
 	if err != nil {
-		result.tldc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "GetGetTopLevelDomains", resp, "Failure sending request")
 		return
 	}
 
-	result.tldc, err = client.GetGetTopLevelDomainsResponder(resp)
+	result, err = client.GetGetTopLevelDomainsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "GetGetTopLevelDomains", resp, "Failure responding to request")
 	}
@@ -64,7 +62,7 @@ func (client TopLevelDomainsClient) GetGetTopLevelDomains(ctx context.Context) (
 }
 
 // GetGetTopLevelDomainsPreparer prepares the GetGetTopLevelDomains request.
-func (client TopLevelDomainsClient) GetGetTopLevelDomainsPreparer(ctx context.Context) (*http.Request, error) {
+func (client TopLevelDomainsClient) GetGetTopLevelDomainsPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -79,13 +77,14 @@ func (client TopLevelDomainsClient) GetGetTopLevelDomainsPreparer(ctx context.Co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetGetTopLevelDomainsSender sends the GetGetTopLevelDomains request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopLevelDomainsClient) GetGetTopLevelDomainsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -102,38 +101,80 @@ func (client TopLevelDomainsClient) GetGetTopLevelDomainsResponder(resp *http.Re
 	return
 }
 
-// getGetTopLevelDomainsNextResults retrieves the next set of results, if any.
-func (client TopLevelDomainsClient) getGetTopLevelDomainsNextResults(lastResults TopLevelDomainCollection) (result TopLevelDomainCollection, err error) {
-	req, err := lastResults.topLevelDomainCollectionPreparer()
+// GetGetTopLevelDomainsNextResults retrieves the next set of results, if any.
+func (client TopLevelDomainsClient) GetGetTopLevelDomainsNextResults(lastResults TopLevelDomainCollection) (result TopLevelDomainCollection, err error) {
+	req, err := lastResults.TopLevelDomainCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "getGetTopLevelDomainsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "GetGetTopLevelDomains", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetGetTopLevelDomainsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "getGetTopLevelDomainsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "GetGetTopLevelDomains", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetGetTopLevelDomainsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "getGetTopLevelDomainsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "GetGetTopLevelDomains", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetGetTopLevelDomainsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client TopLevelDomainsClient) GetGetTopLevelDomainsComplete(ctx context.Context) (result TopLevelDomainCollectionIterator, err error) {
-	result.page, err = client.GetGetTopLevelDomains(ctx)
-	return
+// GetGetTopLevelDomainsComplete gets all elements from the list without paging.
+func (client TopLevelDomainsClient) GetGetTopLevelDomainsComplete(cancel <-chan struct{}) (<-chan TopLevelDomain, <-chan error) {
+	resultChan := make(chan TopLevelDomain)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetGetTopLevelDomains()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetGetTopLevelDomainsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetTopLevelDomain sends the get top level domain request.
 //
 // name is name of the top level domain
-func (client TopLevelDomainsClient) GetTopLevelDomain(ctx context.Context, name string) (result TopLevelDomain, err error) {
-	req, err := client.GetTopLevelDomainPreparer(ctx, name)
+func (client TopLevelDomainsClient) GetTopLevelDomain(name string) (result TopLevelDomain, err error) {
+	req, err := client.GetTopLevelDomainPreparer(name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "GetTopLevelDomain", nil, "Failure preparing request")
 		return
@@ -155,7 +196,7 @@ func (client TopLevelDomainsClient) GetTopLevelDomain(ctx context.Context, name 
 }
 
 // GetTopLevelDomainPreparer prepares the GetTopLevelDomain request.
-func (client TopLevelDomainsClient) GetTopLevelDomainPreparer(ctx context.Context, name string) (*http.Request, error) {
+func (client TopLevelDomainsClient) GetTopLevelDomainPreparer(name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":           autorest.Encode("path", name),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -171,13 +212,14 @@ func (client TopLevelDomainsClient) GetTopLevelDomainPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetTopLevelDomainSender sends the GetTopLevelDomain request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopLevelDomainsClient) GetTopLevelDomainSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -197,9 +239,8 @@ func (client TopLevelDomainsClient) GetTopLevelDomainResponder(resp *http.Respon
 // ListTopLevelDomainAgreements sends the list top level domain agreements request.
 //
 // name is name of the top level domain agreementOption is domain agreement options
-func (client TopLevelDomainsClient) ListTopLevelDomainAgreements(ctx context.Context, name string, agreementOption TopLevelDomainAgreementOption) (result TldLegalAgreementCollectionPage, err error) {
-	result.fn = client.listTopLevelDomainAgreementsNextResults
-	req, err := client.ListTopLevelDomainAgreementsPreparer(ctx, name, agreementOption)
+func (client TopLevelDomainsClient) ListTopLevelDomainAgreements(name string, agreementOption TopLevelDomainAgreementOption) (result TldLegalAgreementCollection, err error) {
+	req, err := client.ListTopLevelDomainAgreementsPreparer(name, agreementOption)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "ListTopLevelDomainAgreements", nil, "Failure preparing request")
 		return
@@ -207,12 +248,12 @@ func (client TopLevelDomainsClient) ListTopLevelDomainAgreements(ctx context.Con
 
 	resp, err := client.ListTopLevelDomainAgreementsSender(req)
 	if err != nil {
-		result.tlac.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "ListTopLevelDomainAgreements", resp, "Failure sending request")
 		return
 	}
 
-	result.tlac, err = client.ListTopLevelDomainAgreementsResponder(resp)
+	result, err = client.ListTopLevelDomainAgreementsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "ListTopLevelDomainAgreements", resp, "Failure responding to request")
 	}
@@ -221,7 +262,7 @@ func (client TopLevelDomainsClient) ListTopLevelDomainAgreements(ctx context.Con
 }
 
 // ListTopLevelDomainAgreementsPreparer prepares the ListTopLevelDomainAgreements request.
-func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsPreparer(ctx context.Context, name string, agreementOption TopLevelDomainAgreementOption) (*http.Request, error) {
+func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsPreparer(name string, agreementOption TopLevelDomainAgreementOption) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":           autorest.Encode("path", name),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -239,13 +280,14 @@ func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsPreparer(ctx con
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains/{name}/listAgreements", pathParameters),
 		autorest.WithJSON(agreementOption),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListTopLevelDomainAgreementsSender sends the ListTopLevelDomainAgreements request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -262,29 +304,71 @@ func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsResponder(resp *
 	return
 }
 
-// listTopLevelDomainAgreementsNextResults retrieves the next set of results, if any.
-func (client TopLevelDomainsClient) listTopLevelDomainAgreementsNextResults(lastResults TldLegalAgreementCollection) (result TldLegalAgreementCollection, err error) {
-	req, err := lastResults.tldLegalAgreementCollectionPreparer()
+// ListTopLevelDomainAgreementsNextResults retrieves the next set of results, if any.
+func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsNextResults(lastResults TldLegalAgreementCollection) (result TldLegalAgreementCollection, err error) {
+	req, err := lastResults.TldLegalAgreementCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "listTopLevelDomainAgreementsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "ListTopLevelDomainAgreements", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListTopLevelDomainAgreementsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "listTopLevelDomainAgreementsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "ListTopLevelDomainAgreements", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListTopLevelDomainAgreementsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "listTopLevelDomainAgreementsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.TopLevelDomainsClient", "ListTopLevelDomainAgreements", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListTopLevelDomainAgreementsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsComplete(ctx context.Context, name string, agreementOption TopLevelDomainAgreementOption) (result TldLegalAgreementCollectionIterator, err error) {
-	result.page, err = client.ListTopLevelDomainAgreements(ctx, name, agreementOption)
-	return
+// ListTopLevelDomainAgreementsComplete gets all elements from the list without paging.
+func (client TopLevelDomainsClient) ListTopLevelDomainAgreementsComplete(name string, agreementOption TopLevelDomainAgreementOption, cancel <-chan struct{}) (<-chan TldLegalAgreement, <-chan error) {
+	resultChan := make(chan TldLegalAgreement)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListTopLevelDomainAgreements(name, agreementOption)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListTopLevelDomainAgreementsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

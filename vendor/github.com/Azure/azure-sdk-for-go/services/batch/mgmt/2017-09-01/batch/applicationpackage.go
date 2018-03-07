@@ -18,7 +18,6 @@ package batch
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // ApplicationPackageClient is the client for the ApplicationPackage methods of the Batch service.
 type ApplicationPackageClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewApplicationPackageClient creates an instance of the ApplicationPackageClient client.
@@ -45,7 +44,7 @@ func NewApplicationPackageClientWithBaseURI(baseURI string, subscriptionID strin
 // resourceGroupName is the name of the resource group that contains the Batch account. accountName is the name of the
 // Batch account. applicationID is the ID of the application. version is the version of the application to activate.
 // parameters is the parameters for the request.
-func (client ApplicationPackageClient) Activate(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string, parameters ActivateApplicationPackageParameters) (result autorest.Response, err error) {
+func (client ApplicationPackageClient) Activate(resourceGroupName string, accountName string, applicationID string, version string, parameters ActivateApplicationPackageParameters) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 24, Chain: nil},
@@ -56,7 +55,7 @@ func (client ApplicationPackageClient) Activate(ctx context.Context, resourceGro
 		return result, validation.NewErrorWithValidationError(err, "batch.ApplicationPackageClient", "Activate")
 	}
 
-	req, err := client.ActivatePreparer(ctx, resourceGroupName, accountName, applicationID, version, parameters)
+	req, err := client.ActivatePreparer(resourceGroupName, accountName, applicationID, version, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "batch.ApplicationPackageClient", "Activate", nil, "Failure preparing request")
 		return
@@ -78,7 +77,7 @@ func (client ApplicationPackageClient) Activate(ctx context.Context, resourceGro
 }
 
 // ActivatePreparer prepares the Activate request.
-func (client ApplicationPackageClient) ActivatePreparer(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string, parameters ActivateApplicationPackageParameters) (*http.Request, error) {
+func (client ApplicationPackageClient) ActivatePreparer(resourceGroupName string, accountName string, applicationID string, version string, parameters ActivateApplicationPackageParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"applicationId":     autorest.Encode("path", applicationID),
@@ -99,13 +98,14 @@ func (client ApplicationPackageClient) ActivatePreparer(ctx context.Context, res
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/applications/{applicationId}/versions/{version}/activate", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ActivateSender sends the Activate request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationPackageClient) ActivateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -125,7 +125,7 @@ func (client ApplicationPackageClient) ActivateResponder(resp *http.Response) (r
 //
 // resourceGroupName is the name of the resource group that contains the Batch account. accountName is the name of the
 // Batch account. applicationID is the ID of the application. version is the version of the application.
-func (client ApplicationPackageClient) Create(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string) (result ApplicationPackage, err error) {
+func (client ApplicationPackageClient) Create(resourceGroupName string, accountName string, applicationID string, version string) (result ApplicationPackage, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 24, Chain: nil},
@@ -134,7 +134,7 @@ func (client ApplicationPackageClient) Create(ctx context.Context, resourceGroup
 		return result, validation.NewErrorWithValidationError(err, "batch.ApplicationPackageClient", "Create")
 	}
 
-	req, err := client.CreatePreparer(ctx, resourceGroupName, accountName, applicationID, version)
+	req, err := client.CreatePreparer(resourceGroupName, accountName, applicationID, version)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "batch.ApplicationPackageClient", "Create", nil, "Failure preparing request")
 		return
@@ -156,7 +156,7 @@ func (client ApplicationPackageClient) Create(ctx context.Context, resourceGroup
 }
 
 // CreatePreparer prepares the Create request.
-func (client ApplicationPackageClient) CreatePreparer(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string) (*http.Request, error) {
+func (client ApplicationPackageClient) CreatePreparer(resourceGroupName string, accountName string, applicationID string, version string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"applicationId":     autorest.Encode("path", applicationID),
@@ -175,13 +175,14 @@ func (client ApplicationPackageClient) CreatePreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/applications/{applicationId}/versions/{version}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationPackageClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -202,7 +203,7 @@ func (client ApplicationPackageClient) CreateResponder(resp *http.Response) (res
 //
 // resourceGroupName is the name of the resource group that contains the Batch account. accountName is the name of the
 // Batch account. applicationID is the ID of the application. version is the version of the application to delete.
-func (client ApplicationPackageClient) Delete(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string) (result autorest.Response, err error) {
+func (client ApplicationPackageClient) Delete(resourceGroupName string, accountName string, applicationID string, version string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 24, Chain: nil},
@@ -211,7 +212,7 @@ func (client ApplicationPackageClient) Delete(ctx context.Context, resourceGroup
 		return result, validation.NewErrorWithValidationError(err, "batch.ApplicationPackageClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, accountName, applicationID, version)
+	req, err := client.DeletePreparer(resourceGroupName, accountName, applicationID, version)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "batch.ApplicationPackageClient", "Delete", nil, "Failure preparing request")
 		return
@@ -233,7 +234,7 @@ func (client ApplicationPackageClient) Delete(ctx context.Context, resourceGroup
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ApplicationPackageClient) DeletePreparer(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string) (*http.Request, error) {
+func (client ApplicationPackageClient) DeletePreparer(resourceGroupName string, accountName string, applicationID string, version string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"applicationId":     autorest.Encode("path", applicationID),
@@ -252,13 +253,14 @@ func (client ApplicationPackageClient) DeletePreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/applications/{applicationId}/versions/{version}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationPackageClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -278,7 +280,7 @@ func (client ApplicationPackageClient) DeleteResponder(resp *http.Response) (res
 //
 // resourceGroupName is the name of the resource group that contains the Batch account. accountName is the name of the
 // Batch account. applicationID is the ID of the application. version is the version of the application.
-func (client ApplicationPackageClient) Get(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string) (result ApplicationPackage, err error) {
+func (client ApplicationPackageClient) Get(resourceGroupName string, accountName string, applicationID string, version string) (result ApplicationPackage, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 24, Chain: nil},
@@ -287,7 +289,7 @@ func (client ApplicationPackageClient) Get(ctx context.Context, resourceGroupNam
 		return result, validation.NewErrorWithValidationError(err, "batch.ApplicationPackageClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, accountName, applicationID, version)
+	req, err := client.GetPreparer(resourceGroupName, accountName, applicationID, version)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "batch.ApplicationPackageClient", "Get", nil, "Failure preparing request")
 		return
@@ -309,7 +311,7 @@ func (client ApplicationPackageClient) Get(ctx context.Context, resourceGroupNam
 }
 
 // GetPreparer prepares the Get request.
-func (client ApplicationPackageClient) GetPreparer(ctx context.Context, resourceGroupName string, accountName string, applicationID string, version string) (*http.Request, error) {
+func (client ApplicationPackageClient) GetPreparer(resourceGroupName string, accountName string, applicationID string, version string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"applicationId":     autorest.Encode("path", applicationID),
@@ -328,13 +330,14 @@ func (client ApplicationPackageClient) GetPreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/applications/{applicationId}/versions/{version}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationPackageClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

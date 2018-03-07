@@ -312,7 +312,7 @@ func (s *AndroidRoboTest) MarshalJSON() ([]byte, error) {
 
 // AndroidTest: An Android mobile test specification.
 type AndroidTest struct {
-	// AndroidAppInfo: Information about the application under test.
+	// AndroidAppInfo: Infomation about the application under test.
 	AndroidAppInfo *AndroidAppInfo `json:"androidAppInfo,omitempty"`
 
 	// AndroidInstrumentationTest: An Android instrumentation test.
@@ -1064,7 +1064,7 @@ type History struct {
 	HistoryId string `json:"historyId,omitempty"`
 
 	// Name: A name to uniquely identify a history within a project. Maximum
-	// of 200 characters.
+	// of 100 characters.
 	//
 	// - In response always set - In create request: always set
 	Name string `json:"name,omitempty"`
@@ -1329,7 +1329,7 @@ func (s *ListPerfSamplesResponse) MarshalJSON() ([]byte, error) {
 }
 
 type ListScreenshotClustersResponse struct {
-	// Clusters: The set of clusters associated with an execution Always set
+	// Clusters: The set of clustres associated with an execution Always set
 	Clusters []*ScreenshotCluster `json:"clusters,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
@@ -2528,9 +2528,7 @@ type TestIssue struct {
 	//   "anr"
 	//   "compatibleWithOrchestrator"
 	//   "fatalException"
-	//   "launcherActivityNotFound"
 	//   "nativeCrash"
-	//   "startActivityNotFound"
 	//   "unspecifiedType"
 	//   "unusedRoboDirective"
 	Type string `json:"type,omitempty"`

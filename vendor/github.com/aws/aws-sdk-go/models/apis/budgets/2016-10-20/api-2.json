@@ -218,7 +218,9 @@
       "type":"structure",
       "required":[
         "BudgetName",
+        "BudgetLimit",
         "TimeUnit",
+        "TimePeriod",
         "BudgetType"
       ],
       "members":{
@@ -281,9 +283,7 @@
         "IncludeUpfront":{"shape":"NullableBoolean"},
         "IncludeRecurring":{"shape":"NullableBoolean"},
         "IncludeOtherSubscription":{"shape":"NullableBoolean"},
-        "IncludeSupport":{"shape":"NullableBoolean"},
-        "IncludeDiscount":{"shape":"NullableBoolean"},
-        "UseAmortized":{"shape":"NullableBoolean"}
+        "IncludeSupport":{"shape":"NullableBoolean"}
       }
     },
     "CreateBudgetRequest":{
@@ -635,6 +635,10 @@
     },
     "TimePeriod":{
       "type":"structure",
+      "required":[
+        "Start",
+        "End"
+      ],
       "members":{
         "Start":{"shape":"GenericTimestamp"},
         "End":{"shape":"GenericTimestamp"}

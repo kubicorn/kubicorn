@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // PartitionHealthsClient is the client for the PartitionHealths methods of the Servicefabric service.
 type PartitionHealthsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPartitionHealthsClient creates an instance of the PartitionHealthsClient client.
@@ -43,8 +42,8 @@ func NewPartitionHealthsClientWithBaseURI(baseURI string, timeout *int32) Partit
 //
 // partitionID is the id of the partition eventsHealthStateFilter is the filter of the events health state
 // replicasHealthStateFilter is the filter of the replicas health state
-func (client PartitionHealthsClient) Get(ctx context.Context, partitionID string, eventsHealthStateFilter string, replicasHealthStateFilter string) (result PartitionHealth, err error) {
-	req, err := client.GetPreparer(ctx, partitionID, eventsHealthStateFilter, replicasHealthStateFilter)
+func (client PartitionHealthsClient) Get(partitionID string, eventsHealthStateFilter string, replicasHealthStateFilter string) (result PartitionHealth, err error) {
+	req, err := client.GetPreparer(partitionID, eventsHealthStateFilter, replicasHealthStateFilter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.PartitionHealthsClient", "Get", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client PartitionHealthsClient) Get(ctx context.Context, partitionID string
 }
 
 // GetPreparer prepares the Get request.
-func (client PartitionHealthsClient) GetPreparer(ctx context.Context, partitionID string, eventsHealthStateFilter string, replicasHealthStateFilter string) (*http.Request, error) {
+func (client PartitionHealthsClient) GetPreparer(partitionID string, eventsHealthStateFilter string, replicasHealthStateFilter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"partitionId": autorest.Encode("path", partitionID),
 	}
@@ -90,13 +89,14 @@ func (client PartitionHealthsClient) GetPreparer(ctx context.Context, partitionI
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/Partitions/{partitionId}/$/GetHealth", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PartitionHealthsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -116,8 +116,8 @@ func (client PartitionHealthsClient) GetResponder(resp *http.Response) (result P
 // Send send partition health
 //
 // partitionID is the id of the partition partitionHealthReport is the report of the partition health
-func (client PartitionHealthsClient) Send(ctx context.Context, partitionID string, partitionHealthReport PartitionHealthReport) (result String, err error) {
-	req, err := client.SendPreparer(ctx, partitionID, partitionHealthReport)
+func (client PartitionHealthsClient) Send(partitionID string, partitionHealthReport PartitionHealthReport) (result String, err error) {
+	req, err := client.SendPreparer(partitionID, partitionHealthReport)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.PartitionHealthsClient", "Send", nil, "Failure preparing request")
 		return
@@ -139,7 +139,7 @@ func (client PartitionHealthsClient) Send(ctx context.Context, partitionID strin
 }
 
 // SendPreparer prepares the Send request.
-func (client PartitionHealthsClient) SendPreparer(ctx context.Context, partitionID string, partitionHealthReport PartitionHealthReport) (*http.Request, error) {
+func (client PartitionHealthsClient) SendPreparer(partitionID string, partitionHealthReport PartitionHealthReport) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"partitionId": autorest.Encode("path", partitionID),
 	}
@@ -159,13 +159,14 @@ func (client PartitionHealthsClient) SendPreparer(ctx context.Context, partition
 		autorest.WithPathParameters("/Partitions/{partitionId}/$/ReportHealth", pathParameters),
 		autorest.WithJSON(partitionHealthReport),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // SendSender sends the Send request. The method will close the
 // http.Response Body if it receives an error.
 func (client PartitionHealthsClient) SendSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

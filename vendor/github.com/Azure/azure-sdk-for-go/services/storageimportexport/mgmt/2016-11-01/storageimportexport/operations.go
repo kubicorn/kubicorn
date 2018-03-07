@@ -18,7 +18,6 @@ package storageimportexport
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // OperationsClient is the the Storage Import/Export Resource Provider API.
 type OperationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewOperationsClient creates an instance of the OperationsClient client.
@@ -40,8 +39,8 @@ func NewOperationsClientWithBaseURI(baseURI string, subscriptionID string, accep
 }
 
 // List returns the list of operations supported by the import/export resource provider.
-func (client OperationsClient) List(ctx context.Context) (result ListOperationsResponse, err error) {
-	req, err := client.ListPreparer(ctx)
+func (client OperationsClient) List() (result ListOperationsResponse, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storageimportexport.OperationsClient", "List", nil, "Failure preparing request")
 		return
@@ -63,7 +62,7 @@ func (client OperationsClient) List(ctx context.Context) (result ListOperationsR
 }
 
 // ListPreparer prepares the List request.
-func (client OperationsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client OperationsClient) ListPreparer() (*http.Request, error) {
 	const APIVersion = "2016-11-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -78,13 +77,14 @@ func (client OperationsClient) ListPreparer(ctx context.Context) (*http.Request,
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("Accept-Language", autorest.String(client.AcceptLanguage)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client OperationsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

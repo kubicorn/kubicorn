@@ -276,20 +276,6 @@
         {"shape":"WAFNonEmptyEntityException"}
       ]
     },
-    "DeletePermissionPolicy":{
-      "name":"DeletePermissionPolicy",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"DeletePermissionPolicyRequest"},
-      "output":{"shape":"DeletePermissionPolicyResponse"},
-      "errors":[
-        {"shape":"WAFInternalErrorException"},
-        {"shape":"WAFStaleDataException"},
-        {"shape":"WAFNonexistentItemException"}
-      ]
-    },
     "DeleteRateBasedRule":{
       "name":"DeleteRateBasedRule",
       "http":{
@@ -521,19 +507,6 @@
       "errors":[
         {"shape":"WAFInternalErrorException"},
         {"shape":"WAFInvalidAccountException"},
-        {"shape":"WAFNonexistentItemException"}
-      ]
-    },
-    "GetPermissionPolicy":{
-      "name":"GetPermissionPolicy",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"GetPermissionPolicyRequest"},
-      "output":{"shape":"GetPermissionPolicyResponse"},
-      "errors":[
-        {"shape":"WAFInternalErrorException"},
         {"shape":"WAFNonexistentItemException"}
       ]
     },
@@ -900,21 +873,6 @@
       "errors":[
         {"shape":"WAFInternalErrorException"},
         {"shape":"WAFInvalidAccountException"}
-      ]
-    },
-    "PutPermissionPolicy":{
-      "name":"PutPermissionPolicy",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"PutPermissionPolicyRequest"},
-      "output":{"shape":"PutPermissionPolicyResponse"},
-      "errors":[
-        {"shape":"WAFInternalErrorException"},
-        {"shape":"WAFStaleDataException"},
-        {"shape":"WAFNonexistentItemException"},
-        {"shape":"WAFInvalidPermissionPolicyException"}
       ]
     },
     "UpdateByteMatchSet":{
@@ -1563,18 +1521,6 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
-    "DeletePermissionPolicyRequest":{
-      "type":"structure",
-      "required":["ResourceArn"],
-      "members":{
-        "ResourceArn":{"shape":"ResourceArn"}
-      }
-    },
-    "DeletePermissionPolicyResponse":{
-      "type":"structure",
-      "members":{
-      }
-    },
     "DeleteRateBasedRuleRequest":{
       "type":"structure",
       "required":[
@@ -2127,19 +2073,6 @@
         "IPSet":{"shape":"IPSet"}
       }
     },
-    "GetPermissionPolicyRequest":{
-      "type":"structure",
-      "required":["ResourceArn"],
-      "members":{
-        "ResourceArn":{"shape":"ResourceArn"}
-      }
-    },
-    "GetPermissionPolicyResponse":{
-      "type":"structure",
-      "members":{
-        "Policy":{"shape":"PolicyString"}
-      }
-    },
     "GetRateBasedRuleManagedKeysRequest":{
       "type":"structure",
       "required":["RuleId"],
@@ -2674,10 +2607,6 @@
         "ILLEGAL_COMBINATION"
       ]
     },
-    "PolicyString":{
-      "type":"string",
-      "min":1
-    },
     "PopulationSize":{"type":"long"},
     "PositionalConstraint":{
       "type":"string",
@@ -2717,22 +2646,6 @@
     "Predicates":{
       "type":"list",
       "member":{"shape":"Predicate"}
-    },
-    "PutPermissionPolicyRequest":{
-      "type":"structure",
-      "required":[
-        "ResourceArn",
-        "Policy"
-      ],
-      "members":{
-        "ResourceArn":{"shape":"ResourceArn"},
-        "Policy":{"shape":"PolicyString"}
-      }
-    },
-    "PutPermissionPolicyResponse":{
-      "type":"structure",
-      "members":{
-      }
     },
     "RateBasedRule":{
       "type":"structure",
@@ -3422,13 +3335,6 @@
         "field":{"shape":"ParameterExceptionField"},
         "parameter":{"shape":"ParameterExceptionParameter"},
         "reason":{"shape":"ParameterExceptionReason"}
-      },
-      "exception":true
-    },
-    "WAFInvalidPermissionPolicyException":{
-      "type":"structure",
-      "members":{
-        "message":{"shape":"errorMessage"}
       },
       "exception":true
     },

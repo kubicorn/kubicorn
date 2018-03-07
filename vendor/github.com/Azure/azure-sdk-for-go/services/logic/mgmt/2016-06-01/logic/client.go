@@ -21,7 +21,6 @@ package logic
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -32,21 +31,21 @@ const (
 	DefaultBaseURI = "https://management.azure.com"
 )
 
-// BaseClient is the base client for Logic.
-type BaseClient struct {
+// ManagementClient is the base client for Logic.
+type ManagementClient struct {
 	autorest.Client
 	BaseURI        string
 	SubscriptionID string
 }
 
-// New creates an instance of the BaseClient client.
-func New(subscriptionID string) BaseClient {
+// New creates an instance of the ManagementClient client.
+func New(subscriptionID string) ManagementClient {
 	return NewWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
-// NewWithBaseURI creates an instance of the BaseClient client.
-func NewWithBaseURI(baseURI string, subscriptionID string) BaseClient {
-	return BaseClient{
+// NewWithBaseURI creates an instance of the ManagementClient client.
+func NewWithBaseURI(baseURI string, subscriptionID string) ManagementClient {
+	return ManagementClient{
 		Client:         autorest.NewClientWithUserAgent(UserAgent()),
 		BaseURI:        baseURI,
 		SubscriptionID: subscriptionID,
@@ -54,31 +53,30 @@ func NewWithBaseURI(baseURI string, subscriptionID string) BaseClient {
 }
 
 // ListOperations lists all of the available Logic REST API operations.
-func (client BaseClient) ListOperations(ctx context.Context) (result OperationListResultPage, err error) {
-	result.fn = client.listOperationsNextResults
-	req, err := client.ListOperationsPreparer(ctx)
+func (client ManagementClient) ListOperations() (result OperationListResult, err error) {
+	req, err := client.ListOperationsPreparer()
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "logic.BaseClient", "ListOperations", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "logic.ManagementClient", "ListOperations", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.ListOperationsSender(req)
 	if err != nil {
-		result.olr.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "logic.BaseClient", "ListOperations", resp, "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "logic.ManagementClient", "ListOperations", resp, "Failure sending request")
 		return
 	}
 
-	result.olr, err = client.ListOperationsResponder(resp)
+	result, err = client.ListOperationsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "logic.BaseClient", "ListOperations", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "logic.ManagementClient", "ListOperations", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ListOperationsPreparer prepares the ListOperations request.
-func (client BaseClient) ListOperationsPreparer(ctx context.Context) (*http.Request, error) {
+func (client ManagementClient) ListOperationsPreparer() (*http.Request, error) {
 	const APIVersion = "2016-06-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -89,19 +87,20 @@ func (client BaseClient) ListOperationsPreparer(ctx context.Context) (*http.Requ
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPath("/providers/Microsoft.Logic/operations"),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListOperationsSender sends the ListOperations request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) ListOperationsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) ListOperationsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
 // ListOperationsResponder handles the response to the ListOperations request. The method always
 // closes the http.Response Body.
-func (client BaseClient) ListOperationsResponder(resp *http.Response) (result OperationListResult, err error) {
+func (client ManagementClient) ListOperationsResponder(resp *http.Response) (result OperationListResult, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -112,29 +111,71 @@ func (client BaseClient) ListOperationsResponder(resp *http.Response) (result Op
 	return
 }
 
-// listOperationsNextResults retrieves the next set of results, if any.
-func (client BaseClient) listOperationsNextResults(lastResults OperationListResult) (result OperationListResult, err error) {
-	req, err := lastResults.operationListResultPreparer()
+// ListOperationsNextResults retrieves the next set of results, if any.
+func (client ManagementClient) ListOperationsNextResults(lastResults OperationListResult) (result OperationListResult, err error) {
+	req, err := lastResults.OperationListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "logic.BaseClient", "listOperationsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "logic.ManagementClient", "ListOperations", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListOperationsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "logic.BaseClient", "listOperationsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "logic.ManagementClient", "ListOperations", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListOperationsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "logic.BaseClient", "listOperationsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "logic.ManagementClient", "ListOperations", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListOperationsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client BaseClient) ListOperationsComplete(ctx context.Context) (result OperationListResultIterator, err error) {
-	result.page, err = client.ListOperations(ctx)
-	return
+// ListOperationsComplete gets all elements from the list without paging.
+func (client ManagementClient) ListOperationsComplete(cancel <-chan struct{}) (<-chan Operation, <-chan error) {
+	resultChan := make(chan Operation)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListOperations()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListOperationsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

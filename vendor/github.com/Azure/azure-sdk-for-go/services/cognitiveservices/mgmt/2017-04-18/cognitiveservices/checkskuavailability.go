@@ -18,7 +18,6 @@ package cognitiveservices
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // CheckSkuAvailabilityClient is the cognitive Services Management Client
 type CheckSkuAvailabilityClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCheckSkuAvailabilityClient creates an instance of the CheckSkuAvailabilityClient client.
@@ -43,7 +42,7 @@ func NewCheckSkuAvailabilityClientWithBaseURI(baseURI string, subscriptionID str
 // List check available SKUs.
 //
 // location is resource location. parameters is check SKU Availablity POST body.
-func (client CheckSkuAvailabilityClient) List(ctx context.Context, location string, parameters CheckSkuAvailabilityParameter) (result CheckSkuAvailabilityResultList, err error) {
+func (client CheckSkuAvailabilityClient) List(location string, parameters CheckSkuAvailabilityParameter) (result CheckSkuAvailabilityResultList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Skus", Name: validation.Null, Rule: true, Chain: nil},
@@ -51,7 +50,7 @@ func (client CheckSkuAvailabilityClient) List(ctx context.Context, location stri
 		return result, validation.NewErrorWithValidationError(err, "cognitiveservices.CheckSkuAvailabilityClient", "List")
 	}
 
-	req, err := client.ListPreparer(ctx, location, parameters)
+	req, err := client.ListPreparer(location, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "cognitiveservices.CheckSkuAvailabilityClient", "List", nil, "Failure preparing request")
 		return
@@ -73,7 +72,7 @@ func (client CheckSkuAvailabilityClient) List(ctx context.Context, location stri
 }
 
 // ListPreparer prepares the List request.
-func (client CheckSkuAvailabilityClient) ListPreparer(ctx context.Context, location string, parameters CheckSkuAvailabilityParameter) (*http.Request, error) {
+func (client CheckSkuAvailabilityClient) ListPreparer(location string, parameters CheckSkuAvailabilityParameter) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"location":       autorest.Encode("path", location),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -91,13 +90,14 @@ func (client CheckSkuAvailabilityClient) ListPreparer(ctx context.Context, locat
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/checkSkuAvailability", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client CheckSkuAvailabilityClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

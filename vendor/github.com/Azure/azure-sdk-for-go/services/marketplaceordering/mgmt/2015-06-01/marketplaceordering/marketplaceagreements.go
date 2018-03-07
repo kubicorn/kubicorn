@@ -18,7 +18,6 @@ package marketplaceordering
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // MarketplaceAgreementsClient is the REST API for MarketplaceOrdering Agreements.
 type MarketplaceAgreementsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewMarketplaceAgreementsClient creates an instance of the MarketplaceAgreementsClient client.
@@ -44,8 +43,8 @@ func NewMarketplaceAgreementsClientWithBaseURI(baseURI string, subscriptionID st
 // offerType is offer Type, currently only virtualmachine type is supported. publisherID is publisher identifier string
 // of image being deployed. offerID is offer identifier string of image being deployed. planID is plan identifier
 // string of image being deployed. parameters is parameters supplied to the Create Marketplace Terms operation.
-func (client MarketplaceAgreementsClient) Create(ctx context.Context, offerType string, publisherID string, offerID string, planID string, parameters AgreementTerms) (result AgreementTerms, err error) {
-	req, err := client.CreatePreparer(ctx, offerType, publisherID, offerID, planID, parameters)
+func (client MarketplaceAgreementsClient) Create(offerType string, publisherID string, offerID string, planID string, parameters AgreementTerms) (result AgreementTerms, err error) {
+	req, err := client.CreatePreparer(offerType, publisherID, offerID, planID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "marketplaceordering.MarketplaceAgreementsClient", "Create", nil, "Failure preparing request")
 		return
@@ -67,7 +66,7 @@ func (client MarketplaceAgreementsClient) Create(ctx context.Context, offerType 
 }
 
 // CreatePreparer prepares the Create request.
-func (client MarketplaceAgreementsClient) CreatePreparer(ctx context.Context, offerType string, publisherID string, offerID string, planID string, parameters AgreementTerms) (*http.Request, error) {
+func (client MarketplaceAgreementsClient) CreatePreparer(offerType string, publisherID string, offerID string, planID string, parameters AgreementTerms) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"offerId":        autorest.Encode("path", offerID),
 		"offerType":      autorest.Encode("path", offerType),
@@ -88,13 +87,14 @@ func (client MarketplaceAgreementsClient) CreatePreparer(ctx context.Context, of
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.MarketplaceOrdering/offerTypes/{offerType}/publishers/{publisherId}/offers/{offerId}/plans/{planId}/agreements/current", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
 func (client MarketplaceAgreementsClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -116,8 +116,8 @@ func (client MarketplaceAgreementsClient) CreateResponder(resp *http.Response) (
 // offerType is offer Type, currently only virtualmachine type is supported. publisherID is publisher identifier string
 // of image being deployed. offerID is offer identifier string of image being deployed. planID is plan identifier
 // string of image being deployed.
-func (client MarketplaceAgreementsClient) Get(ctx context.Context, offerType string, publisherID string, offerID string, planID string) (result AgreementTerms, err error) {
-	req, err := client.GetPreparer(ctx, offerType, publisherID, offerID, planID)
+func (client MarketplaceAgreementsClient) Get(offerType string, publisherID string, offerID string, planID string) (result AgreementTerms, err error) {
+	req, err := client.GetPreparer(offerType, publisherID, offerID, planID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "marketplaceordering.MarketplaceAgreementsClient", "Get", nil, "Failure preparing request")
 		return
@@ -139,7 +139,7 @@ func (client MarketplaceAgreementsClient) Get(ctx context.Context, offerType str
 }
 
 // GetPreparer prepares the Get request.
-func (client MarketplaceAgreementsClient) GetPreparer(ctx context.Context, offerType string, publisherID string, offerID string, planID string) (*http.Request, error) {
+func (client MarketplaceAgreementsClient) GetPreparer(offerType string, publisherID string, offerID string, planID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"offerId":        autorest.Encode("path", offerID),
 		"offerType":      autorest.Encode("path", offerType),
@@ -158,13 +158,14 @@ func (client MarketplaceAgreementsClient) GetPreparer(ctx context.Context, offer
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.MarketplaceOrdering/offerTypes/{offerType}/publishers/{publisherId}/offers/{offerId}/plans/{planId}/agreements/current", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client MarketplaceAgreementsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

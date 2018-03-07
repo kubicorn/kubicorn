@@ -18,9 +18,7 @@ package eventhub
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"encoding/json"
 	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/Azure/go-autorest/autorest/to"
 	"net/http"
@@ -30,11 +28,11 @@ import (
 type AccessRights string
 
 const (
-	// Listen ...
+	// Listen specifies the listen state for access rights.
 	Listen AccessRights = "Listen"
-	// Manage ...
+	// Manage specifies the manage state for access rights.
 	Manage AccessRights = "Manage"
-	// Send ...
+	// Send specifies the send state for access rights.
 	Send AccessRights = "Send"
 )
 
@@ -42,23 +40,23 @@ const (
 type EntityStatus string
 
 const (
-	// Active ...
+	// Active specifies the active state for entity status.
 	Active EntityStatus = "Active"
-	// Creating ...
+	// Creating specifies the creating state for entity status.
 	Creating EntityStatus = "Creating"
-	// Deleting ...
+	// Deleting specifies the deleting state for entity status.
 	Deleting EntityStatus = "Deleting"
-	// Disabled ...
+	// Disabled specifies the disabled state for entity status.
 	Disabled EntityStatus = "Disabled"
-	// ReceiveDisabled ...
+	// ReceiveDisabled specifies the receive disabled state for entity status.
 	ReceiveDisabled EntityStatus = "ReceiveDisabled"
-	// Renaming ...
+	// Renaming specifies the renaming state for entity status.
 	Renaming EntityStatus = "Renaming"
-	// Restoring ...
+	// Restoring specifies the restoring state for entity status.
 	Restoring EntityStatus = "Restoring"
-	// SendDisabled ...
+	// SendDisabled specifies the send disabled state for entity status.
 	SendDisabled EntityStatus = "SendDisabled"
-	// Unknown ...
+	// Unknown specifies the unknown state for entity status.
 	Unknown EntityStatus = "Unknown"
 )
 
@@ -66,31 +64,31 @@ const (
 type NamespaceState string
 
 const (
-	// NamespaceStateActivating ...
+	// NamespaceStateActivating specifies the namespace state activating state for namespace state.
 	NamespaceStateActivating NamespaceState = "Activating"
-	// NamespaceStateActive ...
+	// NamespaceStateActive specifies the namespace state active state for namespace state.
 	NamespaceStateActive NamespaceState = "Active"
-	// NamespaceStateCreated ...
+	// NamespaceStateCreated specifies the namespace state created state for namespace state.
 	NamespaceStateCreated NamespaceState = "Created"
-	// NamespaceStateCreating ...
+	// NamespaceStateCreating specifies the namespace state creating state for namespace state.
 	NamespaceStateCreating NamespaceState = "Creating"
-	// NamespaceStateDisabled ...
+	// NamespaceStateDisabled specifies the namespace state disabled state for namespace state.
 	NamespaceStateDisabled NamespaceState = "Disabled"
-	// NamespaceStateDisabling ...
+	// NamespaceStateDisabling specifies the namespace state disabling state for namespace state.
 	NamespaceStateDisabling NamespaceState = "Disabling"
-	// NamespaceStateEnabling ...
+	// NamespaceStateEnabling specifies the namespace state enabling state for namespace state.
 	NamespaceStateEnabling NamespaceState = "Enabling"
-	// NamespaceStateFailed ...
+	// NamespaceStateFailed specifies the namespace state failed state for namespace state.
 	NamespaceStateFailed NamespaceState = "Failed"
-	// NamespaceStateRemoved ...
+	// NamespaceStateRemoved specifies the namespace state removed state for namespace state.
 	NamespaceStateRemoved NamespaceState = "Removed"
-	// NamespaceStateRemoving ...
+	// NamespaceStateRemoving specifies the namespace state removing state for namespace state.
 	NamespaceStateRemoving NamespaceState = "Removing"
-	// NamespaceStateSoftDeleted ...
+	// NamespaceStateSoftDeleted specifies the namespace state soft deleted state for namespace state.
 	NamespaceStateSoftDeleted NamespaceState = "SoftDeleted"
-	// NamespaceStateSoftDeleting ...
+	// NamespaceStateSoftDeleting specifies the namespace state soft deleting state for namespace state.
 	NamespaceStateSoftDeleting NamespaceState = "SoftDeleting"
-	// NamespaceStateUnknown ...
+	// NamespaceStateUnknown specifies the namespace state unknown state for namespace state.
 	NamespaceStateUnknown NamespaceState = "Unknown"
 )
 
@@ -98,9 +96,9 @@ const (
 type Policykey string
 
 const (
-	// PrimaryKey ...
+	// PrimaryKey specifies the primary key state for policykey.
 	PrimaryKey Policykey = "PrimaryKey"
-	// SecondaryKey ...
+	// SecondaryKey specifies the secondary key state for policykey.
 	SecondaryKey Policykey = "SecondaryKey"
 )
 
@@ -108,9 +106,9 @@ const (
 type SkuName string
 
 const (
-	// Basic ...
+	// Basic specifies the basic state for sku name.
 	Basic SkuName = "Basic"
-	// Standard ...
+	// Standard specifies the standard state for sku name.
 	Standard SkuName = "Standard"
 )
 
@@ -118,11 +116,11 @@ const (
 type SkuTier string
 
 const (
-	// SkuTierBasic ...
+	// SkuTierBasic specifies the sku tier basic state for sku tier.
 	SkuTierBasic SkuTier = "Basic"
-	// SkuTierPremium ...
+	// SkuTierPremium specifies the sku tier premium state for sku tier.
 	SkuTierPremium SkuTier = "Premium"
-	// SkuTierStandard ...
+	// SkuTierStandard specifies the sku tier standard state for sku tier.
 	SkuTierStandard SkuTier = "Standard"
 )
 
@@ -130,1309 +128,292 @@ const (
 type UnavailableReason string
 
 const (
-	// InvalidName ...
+	// InvalidName specifies the invalid name state for unavailable reason.
 	InvalidName UnavailableReason = "InvalidName"
-	// NameInLockdown ...
+	// NameInLockdown specifies the name in lockdown state for unavailable reason.
 	NameInLockdown UnavailableReason = "NameInLockdown"
-	// NameInUse ...
+	// NameInUse specifies the name in use state for unavailable reason.
 	NameInUse UnavailableReason = "NameInUse"
-	// None ...
+	// None specifies the none state for unavailable reason.
 	None UnavailableReason = "None"
-	// SubscriptionIsDisabled ...
+	// SubscriptionIsDisabled specifies the subscription is disabled state for unavailable reason.
 	SubscriptionIsDisabled UnavailableReason = "SubscriptionIsDisabled"
-	// TooManyNamespaceInCurrentSubscription ...
+	// TooManyNamespaceInCurrentSubscription specifies the too many namespace in current subscription state for unavailable
+	// reason.
 	TooManyNamespaceInCurrentSubscription UnavailableReason = "TooManyNamespaceInCurrentSubscription"
 )
 
-// CheckNameAvailabilityParameter parameter supplied to check Namespace name availability operation
+// CheckNameAvailabilityParameter is parameter supplied to check Namespace name availability operation
 type CheckNameAvailabilityParameter struct {
-	// Name - Name to check the namespace name availability
 	Name *string `json:"name,omitempty"`
 }
 
-// CheckNameAvailabilityResult the Result of the CheckNameAvailability operation
+// CheckNameAvailabilityResult is the Result of the CheckNameAvailability operation
 type CheckNameAvailabilityResult struct {
 	autorest.Response `json:"-"`
-	// NameAvailable - Value indicating Namespace is availability, true if the Namespace is available; otherwise, false.
-	NameAvailable *bool `json:"nameAvailable,omitempty"`
-	// Reason - The reason for unavailability of a Namespace. Possible values include: 'None', 'InvalidName', 'SubscriptionIsDisabled', 'NameInUse', 'NameInLockdown', 'TooManyNamespaceInCurrentSubscription'
-	Reason UnavailableReason `json:"reason,omitempty"`
-	// Message - The detailed info regarding the reason associated with the Namespace.
-	Message *string `json:"message,omitempty"`
+	NameAvailable     *bool             `json:"nameAvailable,omitempty"`
+	Reason            UnavailableReason `json:"reason,omitempty"`
+	Message           *string           `json:"message,omitempty"`
 }
 
-// ConsumerGroupCreateOrUpdateParameters parameters supplied to the Create Or Update Consumer Group operation.
+// ConsumerGroupCreateOrUpdateParameters is parameters supplied to the Create Or Update Consumer Group operation.
 type ConsumerGroupCreateOrUpdateParameters struct {
-	// Location - Location of the resource.
-	Location *string `json:"location,omitempty"`
-	// Type - ARM type of the Namespace.
-	Type *string `json:"type,omitempty"`
-	// Name - Name of the consumer group.
+	Location                 *string `json:"location,omitempty"`
+	Type                     *string `json:"type,omitempty"`
 	Name                     *string `json:"name,omitempty"`
 	*ConsumerGroupProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ConsumerGroupCreateOrUpdateParameters struct.
-func (cgcoup *ConsumerGroupCreateOrUpdateParameters) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		cgcoup.Location = &location
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		cgcoup.Type = &typeVar
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		cgcoup.Name = &name
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ConsumerGroupProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		cgcoup.ConsumerGroupProperties = &properties
-	}
-
-	return nil
-}
-
-// ConsumerGroupListResult the result to the List Consumer Group operation.
+// ConsumerGroupListResult is the result to the List Consumer Group operation.
 type ConsumerGroupListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Result of the List Consumer Group operation.
-	Value *[]ConsumerGroupResource `json:"value,omitempty"`
-	// NextLink - Link to the next set of results. Not empty if Value contains incomplete list of Consumer Group
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ConsumerGroupResource `json:"value,omitempty"`
+	NextLink          *string                  `json:"nextLink,omitempty"`
 }
 
-// ConsumerGroupListResultIterator provides access to a complete listing of ConsumerGroupResource values.
-type ConsumerGroupListResultIterator struct {
-	i    int
-	page ConsumerGroupListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ConsumerGroupListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ConsumerGroupListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ConsumerGroupListResultIterator) Response() ConsumerGroupListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ConsumerGroupListResultIterator) Value() ConsumerGroupResource {
-	if !iter.page.NotDone() {
-		return ConsumerGroupResource{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (cglr ConsumerGroupListResult) IsEmpty() bool {
-	return cglr.Value == nil || len(*cglr.Value) == 0
-}
-
-// consumerGroupListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (cglr ConsumerGroupListResult) consumerGroupListResultPreparer() (*http.Request, error) {
-	if cglr.NextLink == nil || len(to.String(cglr.NextLink)) < 1 {
+// ConsumerGroupListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ConsumerGroupListResult) ConsumerGroupListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(cglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ConsumerGroupListResultPage contains a page of ConsumerGroupResource values.
-type ConsumerGroupListResultPage struct {
-	fn   func(ConsumerGroupListResult) (ConsumerGroupListResult, error)
-	cglr ConsumerGroupListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ConsumerGroupListResultPage) Next() error {
-	next, err := page.fn(page.cglr)
-	if err != nil {
-		return err
-	}
-	page.cglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ConsumerGroupListResultPage) NotDone() bool {
-	return !page.cglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ConsumerGroupListResultPage) Response() ConsumerGroupListResult {
-	return page.cglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ConsumerGroupListResultPage) Values() []ConsumerGroupResource {
-	if page.cglr.IsEmpty() {
-		return nil
-	}
-	return *page.cglr.Value
-}
-
-// ConsumerGroupProperties properties supplied to the Create Or Update Consumer Group operation.
+// ConsumerGroupProperties is properties supplied to the Create Or Update Consumer Group operation.
 type ConsumerGroupProperties struct {
-	// CreatedAt - Exact time the message was created.
-	CreatedAt *date.Time `json:"createdAt,omitempty"`
-	// EventHubPath - The path of the Event Hub.
-	EventHubPath *string `json:"eventHubPath,omitempty"`
-	// UpdatedAt - The exact time the message was updated.
-	UpdatedAt *date.Time `json:"updatedAt,omitempty"`
-	// UserMetadata - The user metadata.
-	UserMetadata *string `json:"userMetadata,omitempty"`
+	CreatedAt    *date.Time `json:"createdAt,omitempty"`
+	EventHubPath *string    `json:"eventHubPath,omitempty"`
+	UpdatedAt    *date.Time `json:"updatedAt,omitempty"`
+	UserMetadata *string    `json:"userMetadata,omitempty"`
 }
 
-// ConsumerGroupResource single item in List or Get Consumer group operation
+// ConsumerGroupResource is single item in List or Get Consumer group operation
 type ConsumerGroupResource struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Type - Resource type
+	autorest.Response        `json:"-"`
+	ID                       *string `json:"id,omitempty"`
+	Name                     *string `json:"name,omitempty"`
+	Location                 *string `json:"location,omitempty"`
 	Type                     *string `json:"type,omitempty"`
 	*ConsumerGroupProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ConsumerGroupResource struct.
-func (cgr *ConsumerGroupResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ConsumerGroupProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		cgr.ConsumerGroupProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		cgr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		cgr.Name = &name
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		cgr.Location = &location
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		cgr.Type = &typeVar
-	}
-
-	return nil
-}
-
-// CreateOrUpdateParameters parameters supplied to the Create Or Update Event Hub operation.
+// CreateOrUpdateParameters is parameters supplied to the Create Or Update Event Hub operation.
 type CreateOrUpdateParameters struct {
-	// Location - Location of the resource.
-	Location *string `json:"location,omitempty"`
-	// Type - ARM type of the Namespace.
-	Type *string `json:"type,omitempty"`
-	// Name - Name of the Event Hub.
+	Location    *string `json:"location,omitempty"`
+	Type        *string `json:"type,omitempty"`
 	Name        *string `json:"name,omitempty"`
 	*Properties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for CreateOrUpdateParameters struct.
-func (coup *CreateOrUpdateParameters) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		coup.Location = &location
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		coup.Type = &typeVar
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		coup.Name = &name
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties Properties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		coup.Properties = &properties
-	}
-
-	return nil
-}
-
-// ListResult the result of the List EventHubs operation.
+// ListResult is the result of the List EventHubs operation.
 type ListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Result of the List EventHubs operation.
-	Value *[]ResourceType `json:"value,omitempty"`
-	// NextLink - Link to the next set of results. Not empty if Value contains incomplete list of EventHubs.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ResourceType `json:"value,omitempty"`
+	NextLink          *string         `json:"nextLink,omitempty"`
 }
 
-// ListResultIterator provides access to a complete listing of ResourceType values.
-type ListResultIterator struct {
-	i    int
-	page ListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ListResultIterator) Response() ListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ListResultIterator) Value() ResourceType {
-	if !iter.page.NotDone() {
-		return ResourceType{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (lr ListResult) IsEmpty() bool {
-	return lr.Value == nil || len(*lr.Value) == 0
-}
-
-// listResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (lr ListResult) listResultPreparer() (*http.Request, error) {
-	if lr.NextLink == nil || len(to.String(lr.NextLink)) < 1 {
+// ListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ListResult) ListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(lr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ListResultPage contains a page of ResourceType values.
-type ListResultPage struct {
-	fn func(ListResult) (ListResult, error)
-	lr ListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ListResultPage) Next() error {
-	next, err := page.fn(page.lr)
-	if err != nil {
-		return err
-	}
-	page.lr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ListResultPage) NotDone() bool {
-	return !page.lr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ListResultPage) Response() ListResult {
-	return page.lr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ListResultPage) Values() []ResourceType {
-	if page.lr.IsEmpty() {
-		return nil
-	}
-	return *page.lr.Value
-}
-
-// NamespaceCreateOrUpdateParameters parameters supplied to the Create Or Update Namespace operation.
+// NamespaceCreateOrUpdateParameters is parameters supplied to the Create Or Update Namespace operation.
 type NamespaceCreateOrUpdateParameters struct {
-	// Location - Namespace location.
-	Location *string `json:"location,omitempty"`
-	Sku      *Sku    `json:"sku,omitempty"`
-	// Tags - Namespace tags.
+	Location             *string             `json:"location,omitempty"`
+	Sku                  *Sku                `json:"sku,omitempty"`
 	Tags                 *map[string]*string `json:"tags,omitempty"`
 	*NamespaceProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for NamespaceCreateOrUpdateParameters struct.
-func (ncoup *NamespaceCreateOrUpdateParameters) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		ncoup.Location = &location
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		ncoup.Sku = &sku
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		ncoup.Tags = &tags
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties NamespaceProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ncoup.NamespaceProperties = &properties
-	}
-
-	return nil
-}
-
-// NamespaceListResult the response of the List Namespace operation.
+// NamespaceListResult is the response of the List Namespace operation.
 type NamespaceListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Result of the List Namespace operation.
-	Value *[]NamespaceResource `json:"value,omitempty"`
-	// NextLink - Link to the next set of results. Not empty if Value contains incomplete list of namespaces.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]NamespaceResource `json:"value,omitempty"`
+	NextLink          *string              `json:"nextLink,omitempty"`
 }
 
-// NamespaceListResultIterator provides access to a complete listing of NamespaceResource values.
-type NamespaceListResultIterator struct {
-	i    int
-	page NamespaceListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *NamespaceListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter NamespaceListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter NamespaceListResultIterator) Response() NamespaceListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter NamespaceListResultIterator) Value() NamespaceResource {
-	if !iter.page.NotDone() {
-		return NamespaceResource{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (nlr NamespaceListResult) IsEmpty() bool {
-	return nlr.Value == nil || len(*nlr.Value) == 0
-}
-
-// namespaceListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (nlr NamespaceListResult) namespaceListResultPreparer() (*http.Request, error) {
-	if nlr.NextLink == nil || len(to.String(nlr.NextLink)) < 1 {
+// NamespaceListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client NamespaceListResult) NamespaceListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(nlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// NamespaceListResultPage contains a page of NamespaceResource values.
-type NamespaceListResultPage struct {
-	fn  func(NamespaceListResult) (NamespaceListResult, error)
-	nlr NamespaceListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *NamespaceListResultPage) Next() error {
-	next, err := page.fn(page.nlr)
-	if err != nil {
-		return err
-	}
-	page.nlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page NamespaceListResultPage) NotDone() bool {
-	return !page.nlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page NamespaceListResultPage) Response() NamespaceListResult {
-	return page.nlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page NamespaceListResultPage) Values() []NamespaceResource {
-	if page.nlr.IsEmpty() {
-		return nil
-	}
-	return *page.nlr.Value
-}
-
-// NamespaceProperties properties of the Namespace supplied for create or update Namespace operation
+// NamespaceProperties is properties of the Namespace supplied for create or update Namespace operation
 type NamespaceProperties struct {
-	// Status - State of the Namespace. Possible values include: 'NamespaceStateUnknown', 'NamespaceStateCreating', 'NamespaceStateCreated', 'NamespaceStateActivating', 'NamespaceStateEnabling', 'NamespaceStateActive', 'NamespaceStateDisabling', 'NamespaceStateDisabled', 'NamespaceStateSoftDeleting', 'NamespaceStateSoftDeleted', 'NamespaceStateRemoving', 'NamespaceStateRemoved', 'NamespaceStateFailed'
-	Status NamespaceState `json:"status,omitempty"`
-	// ProvisioningState - Provisioning state of the Namespace.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// CreatedAt - The time the Namespace was created.
-	CreatedAt *date.Time `json:"createdAt,omitempty"`
-	// UpdatedAt - The time the Namespace was updated.
-	UpdatedAt *date.Time `json:"updatedAt,omitempty"`
-	// ServiceBusEndpoint - Endpoint you can use to perform Service Bus operations.
-	ServiceBusEndpoint *string `json:"serviceBusEndpoint,omitempty"`
-	// MetricID - Identifier for Azure Insights metrics
-	MetricID *string `json:"metricId,omitempty"`
-	// Enabled - Specifies whether this instance is enabled.
-	Enabled *bool `json:"enabled,omitempty"`
+	Status             NamespaceState `json:"status,omitempty"`
+	ProvisioningState  *string        `json:"provisioningState,omitempty"`
+	CreatedAt          *date.Time     `json:"createdAt,omitempty"`
+	UpdatedAt          *date.Time     `json:"updatedAt,omitempty"`
+	ServiceBusEndpoint *string        `json:"serviceBusEndpoint,omitempty"`
+	MetricID           *string        `json:"metricId,omitempty"`
+	Enabled            *bool          `json:"enabled,omitempty"`
 }
 
-// NamespaceResource single Namespace item in List or Get Operation
+// NamespaceResource is single Namespace item in List or Get Operation
 type NamespaceResource struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags
+	autorest.Response    `json:"-"`
+	ID                   *string             `json:"id,omitempty"`
+	Name                 *string             `json:"name,omitempty"`
+	Location             *string             `json:"location,omitempty"`
+	Type                 *string             `json:"type,omitempty"`
 	Tags                 *map[string]*string `json:"tags,omitempty"`
 	Sku                  *Sku                `json:"sku,omitempty"`
 	*NamespaceProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for NamespaceResource struct.
-func (nr *NamespaceResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		nr.Sku = &sku
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties NamespaceProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		nr.NamespaceProperties = &properties
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		nr.Tags = &tags
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		nr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		nr.Name = &name
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		nr.Location = &location
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		nr.Type = &typeVar
-	}
-
-	return nil
-}
-
-// NamespacesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type NamespacesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future NamespacesCreateOrUpdateFuture) Result(client NamespacesClient) (nr NamespaceResource, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return nr, autorest.NewError("eventhub.NamespacesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		nr, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	nr, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// NamespacesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type NamespacesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future NamespacesDeleteFuture) Result(client NamespacesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("eventhub.NamespacesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// NamespaceUpdateParameter parameters supplied to the Patch/update Namespace operation.
+// NamespaceUpdateParameter is parameters supplied to the Patch/update Namespace operation.
 type NamespaceUpdateParameter struct {
-	// Tags - Resource tags
 	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created Namespace
-	Sku *Sku `json:"sku,omitempty"`
+	Sku  *Sku                `json:"sku,omitempty"`
 }
 
-// Operation a Event Hub REST API operation
+// Operation is a Event Hub REST API operation
 type Operation struct {
-	// Name - Operation name: {provider}/{resource}/{operation}
-	Name *string `json:"name,omitempty"`
-	// Display - The object that represents the operation.
+	Name    *string           `json:"name,omitempty"`
 	Display *OperationDisplay `json:"display,omitempty"`
 }
 
-// OperationDisplay the object that represents the operation.
+// OperationDisplay is the object that represents the operation.
 type OperationDisplay struct {
-	// Provider - Service provider: Microsoft.EventHub
-	Provider *string `json:"provider,omitempty"`
-	// Resource - Resource on which the operation is performed: Invoice, etc.
-	Resource *string `json:"resource,omitempty"`
-	// Operation - Operation type: Read, write, delete, etc.
+	Provider  *string `json:"provider,omitempty"`
+	Resource  *string `json:"resource,omitempty"`
 	Operation *string `json:"operation,omitempty"`
 }
 
-// OperationListResult result of the request to list Event Hub operations. It contains a list of operations and a URL
-// link to get the next set of results.
+// OperationListResult is result of the request to list Event Hub operations. It contains a list of operations and a
+// URL link to get the next set of results.
 type OperationListResult struct {
 	autorest.Response `json:"-"`
-	// Value - List of Event Hub operations supported by the Microsoft.EventHub resource provider.
-	Value *[]Operation `json:"value,omitempty"`
-	// NextLink - URL to get the next set of operation list results if there are any.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Operation `json:"value,omitempty"`
+	NextLink          *string      `json:"nextLink,omitempty"`
 }
 
-// OperationListResultIterator provides access to a complete listing of Operation values.
-type OperationListResultIterator struct {
-	i    int
-	page OperationListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *OperationListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter OperationListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter OperationListResultIterator) Response() OperationListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter OperationListResultIterator) Value() Operation {
-	if !iter.page.NotDone() {
-		return Operation{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (olr OperationListResult) IsEmpty() bool {
-	return olr.Value == nil || len(*olr.Value) == 0
-}
-
-// operationListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (olr OperationListResult) operationListResultPreparer() (*http.Request, error) {
-	if olr.NextLink == nil || len(to.String(olr.NextLink)) < 1 {
+// OperationListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client OperationListResult) OperationListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(olr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// OperationListResultPage contains a page of Operation values.
-type OperationListResultPage struct {
-	fn  func(OperationListResult) (OperationListResult, error)
-	olr OperationListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *OperationListResultPage) Next() error {
-	next, err := page.fn(page.olr)
-	if err != nil {
-		return err
-	}
-	page.olr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page OperationListResultPage) NotDone() bool {
-	return !page.olr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page OperationListResultPage) Response() OperationListResult {
-	return page.olr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page OperationListResultPage) Values() []Operation {
-	if page.olr.IsEmpty() {
-		return nil
-	}
-	return *page.olr.Value
-}
-
-// Properties properties supplied to the Create Or Update Event Hub operation.
+// Properties is properties supplied to the Create Or Update Event Hub operation.
 type Properties struct {
-	// CreatedAt - Exact time the Event Hub was created.
-	CreatedAt *date.Time `json:"createdAt,omitempty"`
-	// MessageRetentionInDays - Number of days to retain the events for this Event Hub.
-	MessageRetentionInDays *int64 `json:"messageRetentionInDays,omitempty"`
-	// PartitionCount - Number of partitions created for the Event Hub.
-	PartitionCount *int64 `json:"partitionCount,omitempty"`
-	// PartitionIds - Current number of shards on the Event Hub.
-	PartitionIds *[]string `json:"partitionIds,omitempty"`
-	// Status - Enumerates the possible values for the status of the Event Hub. Possible values include: 'Active', 'Disabled', 'Restoring', 'SendDisabled', 'ReceiveDisabled', 'Creating', 'Deleting', 'Renaming', 'Unknown'
-	Status EntityStatus `json:"status,omitempty"`
-	// UpdatedAt - The exact time the message was updated.
-	UpdatedAt *date.Time `json:"updatedAt,omitempty"`
+	CreatedAt              *date.Time   `json:"createdAt,omitempty"`
+	MessageRetentionInDays *int64       `json:"messageRetentionInDays,omitempty"`
+	PartitionCount         *int64       `json:"partitionCount,omitempty"`
+	PartitionIds           *[]string    `json:"partitionIds,omitempty"`
+	Status                 EntityStatus `json:"status,omitempty"`
+	UpdatedAt              *date.Time   `json:"updatedAt,omitempty"`
 }
 
-// RegenerateKeysParameters parameters supplied to the Regenerate Authorization Rule keys operation.
+// RegenerateKeysParameters is parameters supplied to the Regenerate Authorization Rule keys operation.
 type RegenerateKeysParameters struct {
-	// Policykey - Key that needs to be regenerated. Possible values include: 'PrimaryKey', 'SecondaryKey'
 	Policykey Policykey `json:"policykey,omitempty"`
 }
 
-// Resource the Resource definition
+// Resource is the Resource definition
 type Resource struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Location - Resource location
+	ID       *string `json:"id,omitempty"`
+	Name     *string `json:"name,omitempty"`
 	Location *string `json:"location,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
+	Type     *string `json:"type,omitempty"`
 }
 
-// ResourceListKeys namespace/EventHub Connection String
+// ResourceListKeys is namespace/EventHub Connection String
 type ResourceListKeys struct {
-	autorest.Response `json:"-"`
-	// PrimaryConnectionString - Primary connection string of the created Namespace AuthorizationRule.
-	PrimaryConnectionString *string `json:"primaryConnectionString,omitempty"`
-	// SecondaryConnectionString - Secondary connection string of the created Namespace AuthorizationRule.
+	autorest.Response         `json:"-"`
+	PrimaryConnectionString   *string `json:"primaryConnectionString,omitempty"`
 	SecondaryConnectionString *string `json:"secondaryConnectionString,omitempty"`
-	// PrimaryKey - A base64-encoded 256-bit primary key for signing and validating the SAS token.
-	PrimaryKey *string `json:"primaryKey,omitempty"`
-	// SecondaryKey - A base64-encoded 256-bit primary key for signing and validating the SAS token.
-	SecondaryKey *string `json:"secondaryKey,omitempty"`
-	// KeyName - A string that describes the AuthorizationRule.
-	KeyName *string `json:"keyName,omitempty"`
+	PrimaryKey                *string `json:"primaryKey,omitempty"`
+	SecondaryKey              *string `json:"secondaryKey,omitempty"`
+	KeyName                   *string `json:"keyName,omitempty"`
 }
 
-// ResourceType single item in List or Get Event Hub operation
+// ResourceType is single item in List or Get Event Hub operation
 type ResourceType struct {
 	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Type - Resource type
-	Type        *string `json:"type,omitempty"`
-	*Properties `json:"properties,omitempty"`
+	ID                *string `json:"id,omitempty"`
+	Name              *string `json:"name,omitempty"`
+	Location          *string `json:"location,omitempty"`
+	Type              *string `json:"type,omitempty"`
+	*Properties       `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ResourceType struct.
-func (rt *ResourceType) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties Properties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rt.Properties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rt.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rt.Name = &name
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		rt.Location = &location
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rt.Type = &typeVar
-	}
-
-	return nil
-}
-
-// SharedAccessAuthorizationRuleCreateOrUpdateParameters parameters supplied to the Create Or Update Authorization
+// SharedAccessAuthorizationRuleCreateOrUpdateParameters is parameters supplied to the Create Or Update Authorization
 // Rules operation.
 type SharedAccessAuthorizationRuleCreateOrUpdateParameters struct {
-	// Location - Data center location.
-	Location *string `json:"location,omitempty"`
-	// Name - Name of the AuthorizationRule.
+	Location                                 *string `json:"location,omitempty"`
 	Name                                     *string `json:"name,omitempty"`
 	*SharedAccessAuthorizationRuleProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SharedAccessAuthorizationRuleCreateOrUpdateParameters struct.
-func (saarcoup *SharedAccessAuthorizationRuleCreateOrUpdateParameters) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		saarcoup.Location = &location
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		saarcoup.Name = &name
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties SharedAccessAuthorizationRuleProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		saarcoup.SharedAccessAuthorizationRuleProperties = &properties
-	}
-
-	return nil
-}
-
-// SharedAccessAuthorizationRuleListResult the response from the List Namespace operation.
+// SharedAccessAuthorizationRuleListResult is the response from the List Namespace operation.
 type SharedAccessAuthorizationRuleListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Result of the List Authorization Rules operation.
-	Value *[]SharedAccessAuthorizationRuleResource `json:"value,omitempty"`
-	// NextLink - Link to the next set of results. Not empty if Value contains an incomplete list of Authorization Rules
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SharedAccessAuthorizationRuleResource `json:"value,omitempty"`
+	NextLink          *string                                  `json:"nextLink,omitempty"`
 }
 
-// SharedAccessAuthorizationRuleListResultIterator provides access to a complete listing of
-// SharedAccessAuthorizationRuleResource values.
-type SharedAccessAuthorizationRuleListResultIterator struct {
-	i    int
-	page SharedAccessAuthorizationRuleListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SharedAccessAuthorizationRuleListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SharedAccessAuthorizationRuleListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SharedAccessAuthorizationRuleListResultIterator) Response() SharedAccessAuthorizationRuleListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SharedAccessAuthorizationRuleListResultIterator) Value() SharedAccessAuthorizationRuleResource {
-	if !iter.page.NotDone() {
-		return SharedAccessAuthorizationRuleResource{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (saarlr SharedAccessAuthorizationRuleListResult) IsEmpty() bool {
-	return saarlr.Value == nil || len(*saarlr.Value) == 0
-}
-
-// sharedAccessAuthorizationRuleListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (saarlr SharedAccessAuthorizationRuleListResult) sharedAccessAuthorizationRuleListResultPreparer() (*http.Request, error) {
-	if saarlr.NextLink == nil || len(to.String(saarlr.NextLink)) < 1 {
+// SharedAccessAuthorizationRuleListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SharedAccessAuthorizationRuleListResult) SharedAccessAuthorizationRuleListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(saarlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SharedAccessAuthorizationRuleListResultPage contains a page of SharedAccessAuthorizationRuleResource values.
-type SharedAccessAuthorizationRuleListResultPage struct {
-	fn     func(SharedAccessAuthorizationRuleListResult) (SharedAccessAuthorizationRuleListResult, error)
-	saarlr SharedAccessAuthorizationRuleListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SharedAccessAuthorizationRuleListResultPage) Next() error {
-	next, err := page.fn(page.saarlr)
-	if err != nil {
-		return err
-	}
-	page.saarlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SharedAccessAuthorizationRuleListResultPage) NotDone() bool {
-	return !page.saarlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SharedAccessAuthorizationRuleListResultPage) Response() SharedAccessAuthorizationRuleListResult {
-	return page.saarlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SharedAccessAuthorizationRuleListResultPage) Values() []SharedAccessAuthorizationRuleResource {
-	if page.saarlr.IsEmpty() {
-		return nil
-	}
-	return *page.saarlr.Value
-}
-
-// SharedAccessAuthorizationRuleProperties properties supplied to create or update SharedAccessAuthorizationRule
+// SharedAccessAuthorizationRuleProperties is properties supplied to create or update SharedAccessAuthorizationRule
 type SharedAccessAuthorizationRuleProperties struct {
-	// Rights - The rights associated with the rule.
 	Rights *[]AccessRights `json:"rights,omitempty"`
 }
 
-// SharedAccessAuthorizationRuleResource single item in a List or Get AuthorizationRule operation
+// SharedAccessAuthorizationRuleResource is single item in a List or Get AuthorizationRule operation
 type SharedAccessAuthorizationRuleResource struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Type - Resource type
+	autorest.Response                        `json:"-"`
+	ID                                       *string `json:"id,omitempty"`
+	Name                                     *string `json:"name,omitempty"`
+	Location                                 *string `json:"location,omitempty"`
 	Type                                     *string `json:"type,omitempty"`
 	*SharedAccessAuthorizationRuleProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SharedAccessAuthorizationRuleResource struct.
-func (saarr *SharedAccessAuthorizationRuleResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SharedAccessAuthorizationRuleProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		saarr.SharedAccessAuthorizationRuleProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		saarr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		saarr.Name = &name
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		saarr.Location = &location
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		saarr.Type = &typeVar
-	}
-
-	return nil
-}
-
-// Sku SKU parameters supplied to the create Namespace operation
+// Sku is SKU parameters supplied to the create Namespace operation
 type Sku struct {
-	// Name - Name of this SKU. Possible values include: 'Basic', 'Standard'
-	Name SkuName `json:"name,omitempty"`
-	// Tier - The billing tier of this particular SKU. Possible values include: 'SkuTierBasic', 'SkuTierStandard', 'SkuTierPremium'
-	Tier SkuTier `json:"tier,omitempty"`
-	// Capacity - The Event Hubs throughput units.
-	Capacity *int32 `json:"capacity,omitempty"`
+	Name     SkuName `json:"name,omitempty"`
+	Tier     SkuTier `json:"tier,omitempty"`
+	Capacity *int32  `json:"capacity,omitempty"`
 }
 
-// TrackedResource definition of Resource
+// TrackedResource is definition of Resource
 type TrackedResource struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Location *string             `json:"location,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
 }

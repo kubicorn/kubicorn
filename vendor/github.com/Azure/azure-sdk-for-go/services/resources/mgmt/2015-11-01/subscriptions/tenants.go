@@ -18,7 +18,6 @@ package subscriptions
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // TenantsClient is the client for the Tenants methods of the Subscriptions service.
 type TenantsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewTenantsClient creates an instance of the TenantsClient client.
@@ -40,9 +39,8 @@ func NewTenantsClientWithBaseURI(baseURI string) TenantsClient {
 }
 
 // List gets a list of the tenantIds.
-func (client TenantsClient) List(ctx context.Context) (result TenantListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx)
+func (client TenantsClient) List() (result TenantListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "List", nil, "Failure preparing request")
 		return
@@ -50,12 +48,12 @@ func (client TenantsClient) List(ctx context.Context) (result TenantListResultPa
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.tlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.tlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "List", resp, "Failure responding to request")
 	}
@@ -64,7 +62,7 @@ func (client TenantsClient) List(ctx context.Context) (result TenantListResultPa
 }
 
 // ListPreparer prepares the List request.
-func (client TenantsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client TenantsClient) ListPreparer() (*http.Request, error) {
 	const APIVersion = "2015-11-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -75,13 +73,14 @@ func (client TenantsClient) ListPreparer(ctx context.Context) (*http.Request, er
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPath("/tenants"),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -98,29 +97,71 @@ func (client TenantsClient) ListResponder(resp *http.Response) (result TenantLis
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client TenantsClient) listNextResults(lastResults TenantListResult) (result TenantListResult, err error) {
-	req, err := lastResults.tenantListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client TenantsClient) ListNextResults(lastResults TenantListResult) (result TenantListResult, err error) {
+	req, err := lastResults.TenantListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "subscriptions.TenantsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client TenantsClient) ListComplete(ctx context.Context) (result TenantListResultIterator, err error) {
-	result.page, err = client.List(ctx)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client TenantsClient) ListComplete(cancel <-chan struct{}) (<-chan TenantIDDescription, <-chan error) {
+	resultChan := make(chan TenantIDDescription)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

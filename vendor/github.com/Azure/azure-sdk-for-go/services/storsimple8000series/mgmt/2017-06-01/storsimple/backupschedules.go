@@ -18,7 +18,6 @@ package storsimple
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // BackupSchedulesClient is the client for the BackupSchedules methods of the Storsimple service.
 type BackupSchedulesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewBackupSchedulesClient creates an instance of the BackupSchedulesClient client.
@@ -40,12 +39,16 @@ func NewBackupSchedulesClientWithBaseURI(baseURI string, subscriptionID string) 
 	return BackupSchedulesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates or updates the backup schedule.
+// CreateOrUpdate creates or updates the backup schedule. This method may poll for completion. Polling can be canceled
+// by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // deviceName is the device name backupPolicyName is the backup policy name. backupScheduleName is the backup schedule
 // name. parameters is the backup schedule. resourceGroupName is the resource group name managerName is the manager
 // name
-func (client BackupSchedulesClient) CreateOrUpdate(ctx context.Context, deviceName string, backupPolicyName string, backupScheduleName string, parameters BackupSchedule, resourceGroupName string, managerName string) (result BackupSchedulesCreateOrUpdateFuture, err error) {
+func (client BackupSchedulesClient) CreateOrUpdate(deviceName string, backupPolicyName string, backupScheduleName string, parameters BackupSchedule, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan BackupSchedule, <-chan error) {
+	resultChan := make(chan BackupSchedule, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.BackupScheduleProperties", Name: validation.Null, Rule: true,
@@ -57,26 +60,46 @@ func (client BackupSchedulesClient) CreateOrUpdate(ctx context.Context, deviceNa
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.BackupSchedulesClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.BackupSchedulesClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, deviceName, backupPolicyName, backupScheduleName, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result BackupSchedule
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(deviceName, backupPolicyName, backupScheduleName, parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client BackupSchedulesClient) CreateOrUpdatePreparer(ctx context.Context, deviceName string, backupPolicyName string, backupScheduleName string, parameters BackupSchedule, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client BackupSchedulesClient) CreateOrUpdatePreparer(deviceName string, backupPolicyName string, backupScheduleName string, parameters BackupSchedule, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backupPolicyName":   backupPolicyName,
 		"backupScheduleName": backupScheduleName,
@@ -98,22 +121,16 @@ func (client BackupSchedulesClient) CreateOrUpdatePreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/backupPolicies/{backupPolicyName}/schedules/{backupScheduleName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client BackupSchedulesClient) CreateOrUpdateSender(req *http.Request) (future BackupSchedulesCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client BackupSchedulesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -129,35 +146,58 @@ func (client BackupSchedulesClient) CreateOrUpdateResponder(resp *http.Response)
 	return
 }
 
-// Delete deletes the backup schedule.
+// Delete deletes the backup schedule. This method may poll for completion. Polling can be canceled by passing the
+// cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // deviceName is the device name backupPolicyName is the backup policy name. backupScheduleName is the name the backup
 // schedule. resourceGroupName is the resource group name managerName is the manager name
-func (client BackupSchedulesClient) Delete(ctx context.Context, deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string) (result BackupSchedulesDeleteFuture, err error) {
+func (client BackupSchedulesClient) Delete(deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.BackupSchedulesClient", "Delete")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.BackupSchedulesClient", "Delete")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.DeletePreparer(ctx, deviceName, backupPolicyName, backupScheduleName, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(deviceName, backupPolicyName, backupScheduleName, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client BackupSchedulesClient) DeletePreparer(ctx context.Context, deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client BackupSchedulesClient) DeletePreparer(deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backupPolicyName":   backupPolicyName,
 		"backupScheduleName": backupScheduleName,
@@ -177,22 +217,16 @@ func (client BackupSchedulesClient) DeletePreparer(ctx context.Context, deviceNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/backupPolicies/{backupPolicyName}/schedules/{backupScheduleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client BackupSchedulesClient) DeleteSender(req *http.Request) (future BackupSchedulesDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client BackupSchedulesClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -211,7 +245,7 @@ func (client BackupSchedulesClient) DeleteResponder(resp *http.Response) (result
 //
 // deviceName is the device name backupPolicyName is the backup policy name. backupScheduleName is the name of the
 // backup schedule to be fetched resourceGroupName is the resource group name managerName is the manager name
-func (client BackupSchedulesClient) Get(ctx context.Context, deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string) (result BackupSchedule, err error) {
+func (client BackupSchedulesClient) Get(deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string) (result BackupSchedule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -219,7 +253,7 @@ func (client BackupSchedulesClient) Get(ctx context.Context, deviceName string, 
 		return result, validation.NewErrorWithValidationError(err, "storsimple.BackupSchedulesClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, deviceName, backupPolicyName, backupScheduleName, resourceGroupName, managerName)
+	req, err := client.GetPreparer(deviceName, backupPolicyName, backupScheduleName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "Get", nil, "Failure preparing request")
 		return
@@ -241,7 +275,7 @@ func (client BackupSchedulesClient) Get(ctx context.Context, deviceName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client BackupSchedulesClient) GetPreparer(ctx context.Context, deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client BackupSchedulesClient) GetPreparer(deviceName string, backupPolicyName string, backupScheduleName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backupPolicyName":   backupPolicyName,
 		"backupScheduleName": backupScheduleName,
@@ -261,13 +295,14 @@ func (client BackupSchedulesClient) GetPreparer(ctx context.Context, deviceName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/backupPolicies/{backupPolicyName}/schedules/{backupScheduleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client BackupSchedulesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -288,7 +323,7 @@ func (client BackupSchedulesClient) GetResponder(resp *http.Response) (result Ba
 //
 // deviceName is the device name backupPolicyName is the backup policy name. resourceGroupName is the resource group
 // name managerName is the manager name
-func (client BackupSchedulesClient) ListByBackupPolicy(ctx context.Context, deviceName string, backupPolicyName string, resourceGroupName string, managerName string) (result BackupScheduleList, err error) {
+func (client BackupSchedulesClient) ListByBackupPolicy(deviceName string, backupPolicyName string, resourceGroupName string, managerName string) (result BackupScheduleList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -296,7 +331,7 @@ func (client BackupSchedulesClient) ListByBackupPolicy(ctx context.Context, devi
 		return result, validation.NewErrorWithValidationError(err, "storsimple.BackupSchedulesClient", "ListByBackupPolicy")
 	}
 
-	req, err := client.ListByBackupPolicyPreparer(ctx, deviceName, backupPolicyName, resourceGroupName, managerName)
+	req, err := client.ListByBackupPolicyPreparer(deviceName, backupPolicyName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.BackupSchedulesClient", "ListByBackupPolicy", nil, "Failure preparing request")
 		return
@@ -318,7 +353,7 @@ func (client BackupSchedulesClient) ListByBackupPolicy(ctx context.Context, devi
 }
 
 // ListByBackupPolicyPreparer prepares the ListByBackupPolicy request.
-func (client BackupSchedulesClient) ListByBackupPolicyPreparer(ctx context.Context, deviceName string, backupPolicyName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client BackupSchedulesClient) ListByBackupPolicyPreparer(deviceName string, backupPolicyName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backupPolicyName":  backupPolicyName,
 		"deviceName":        deviceName,
@@ -337,13 +372,14 @@ func (client BackupSchedulesClient) ListByBackupPolicyPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/backupPolicies/{backupPolicyName}/schedules", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByBackupPolicySender sends the ListByBackupPolicy request. The method will close the
 // http.Response Body if it receives an error.
 func (client BackupSchedulesClient) ListByBackupPolicySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

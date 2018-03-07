@@ -28,8 +28,6 @@ import (
 )
 
 func TestGRPCInterceptors(t *testing.T) {
-	t.Skip("hangs forever for go < 1.9")
-
 	tc := newTestClient(&noopTransport{})
 
 	// default sampling with global=1.

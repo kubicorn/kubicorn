@@ -18,7 +18,6 @@ package account
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // ComputePoliciesClient is the creates an Azure Data Lake Analytics account management client.
 type ComputePoliciesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewComputePoliciesClient creates an instance of the ComputePoliciesClient client.
@@ -47,7 +46,7 @@ func NewComputePoliciesClientWithBaseURI(baseURI string, subscriptionID string) 
 // is the name of the Data Lake Analytics account to add or replace the compute policy. computePolicyName is the name
 // of the compute policy to create or update. parameters is parameters supplied to create or update the compute policy.
 // The max degree of parallelism per job property, min priority per job property, or both must be present.
-func (client ComputePoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string, parameters ComputePolicyCreateOrUpdateParameters) (result ComputePolicy, err error) {
+func (client ComputePoliciesClient) CreateOrUpdate(resourceGroupName string, accountName string, computePolicyName string, parameters ComputePolicyCreateOrUpdateParameters) (result ComputePolicy, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.ComputePolicyPropertiesCreateParameters", Name: validation.Null, Rule: true,
@@ -60,7 +59,7 @@ func (client ComputePoliciesClient) CreateOrUpdate(ctx context.Context, resource
 		return result, validation.NewErrorWithValidationError(err, "account.ComputePoliciesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, accountName, computePolicyName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, accountName, computePolicyName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -82,7 +81,7 @@ func (client ComputePoliciesClient) CreateOrUpdate(ctx context.Context, resource
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ComputePoliciesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string, parameters ComputePolicyCreateOrUpdateParameters) (*http.Request, error) {
+func (client ComputePoliciesClient) CreateOrUpdatePreparer(resourceGroupName string, accountName string, computePolicyName string, parameters ComputePolicyCreateOrUpdateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"computePolicyName": autorest.Encode("path", computePolicyName),
@@ -102,13 +101,14 @@ func (client ComputePoliciesClient) CreateOrUpdatePreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}/computePolicies/{computePolicyName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client ComputePoliciesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -130,8 +130,8 @@ func (client ComputePoliciesClient) CreateOrUpdateResponder(resp *http.Response)
 // resourceGroupName is the name of the Azure resource group that contains the Data Lake Analytics account. accountName
 // is the name of the Data Lake Analytics account from which to delete the compute policy. computePolicyName is the
 // name of the compute policy to delete.
-func (client ComputePoliciesClient) Delete(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, accountName, computePolicyName)
+func (client ComputePoliciesClient) Delete(resourceGroupName string, accountName string, computePolicyName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, accountName, computePolicyName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "Delete", nil, "Failure preparing request")
 		return
@@ -153,7 +153,7 @@ func (client ComputePoliciesClient) Delete(ctx context.Context, resourceGroupNam
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ComputePoliciesClient) DeletePreparer(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string) (*http.Request, error) {
+func (client ComputePoliciesClient) DeletePreparer(resourceGroupName string, accountName string, computePolicyName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"computePolicyName": autorest.Encode("path", computePolicyName),
@@ -171,13 +171,14 @@ func (client ComputePoliciesClient) DeletePreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}/computePolicies/{computePolicyName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ComputePoliciesClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -198,8 +199,8 @@ func (client ComputePoliciesClient) DeleteResponder(resp *http.Response) (result
 // resourceGroupName is the name of the Azure resource group that contains the Data Lake Analytics account. accountName
 // is the name of the Data Lake Analytics account from which to get the compute policy. computePolicyName is the name
 // of the compute policy to retrieve.
-func (client ComputePoliciesClient) Get(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string) (result ComputePolicy, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, accountName, computePolicyName)
+func (client ComputePoliciesClient) Get(resourceGroupName string, accountName string, computePolicyName string) (result ComputePolicy, err error) {
+	req, err := client.GetPreparer(resourceGroupName, accountName, computePolicyName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "Get", nil, "Failure preparing request")
 		return
@@ -221,7 +222,7 @@ func (client ComputePoliciesClient) Get(ctx context.Context, resourceGroupName s
 }
 
 // GetPreparer prepares the Get request.
-func (client ComputePoliciesClient) GetPreparer(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string) (*http.Request, error) {
+func (client ComputePoliciesClient) GetPreparer(resourceGroupName string, accountName string, computePolicyName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"computePolicyName": autorest.Encode("path", computePolicyName),
@@ -239,13 +240,14 @@ func (client ComputePoliciesClient) GetPreparer(ctx context.Context, resourceGro
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}/computePolicies/{computePolicyName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ComputePoliciesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -267,9 +269,8 @@ func (client ComputePoliciesClient) GetResponder(resp *http.Response) (result Co
 //
 // resourceGroupName is the name of the Azure resource group that contains the Data Lake Analytics account. accountName
 // is the name of the Data Lake Analytics account from which to get the compute policies.
-func (client ComputePoliciesClient) ListByAccount(ctx context.Context, resourceGroupName string, accountName string) (result ComputePolicyListResultPage, err error) {
-	result.fn = client.listByAccountNextResults
-	req, err := client.ListByAccountPreparer(ctx, resourceGroupName, accountName)
+func (client ComputePoliciesClient) ListByAccount(resourceGroupName string, accountName string) (result ComputePolicyListResult, err error) {
+	req, err := client.ListByAccountPreparer(resourceGroupName, accountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "ListByAccount", nil, "Failure preparing request")
 		return
@@ -277,12 +278,12 @@ func (client ComputePoliciesClient) ListByAccount(ctx context.Context, resourceG
 
 	resp, err := client.ListByAccountSender(req)
 	if err != nil {
-		result.cplr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "ListByAccount", resp, "Failure sending request")
 		return
 	}
 
-	result.cplr, err = client.ListByAccountResponder(resp)
+	result, err = client.ListByAccountResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "ListByAccount", resp, "Failure responding to request")
 	}
@@ -291,7 +292,7 @@ func (client ComputePoliciesClient) ListByAccount(ctx context.Context, resourceG
 }
 
 // ListByAccountPreparer prepares the ListByAccount request.
-func (client ComputePoliciesClient) ListByAccountPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
+func (client ComputePoliciesClient) ListByAccountPreparer(resourceGroupName string, accountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -308,13 +309,14 @@ func (client ComputePoliciesClient) ListByAccountPreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}/computePolicies", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByAccountSender sends the ListByAccount request. The method will close the
 // http.Response Body if it receives an error.
 func (client ComputePoliciesClient) ListByAccountSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -331,31 +333,73 @@ func (client ComputePoliciesClient) ListByAccountResponder(resp *http.Response) 
 	return
 }
 
-// listByAccountNextResults retrieves the next set of results, if any.
-func (client ComputePoliciesClient) listByAccountNextResults(lastResults ComputePolicyListResult) (result ComputePolicyListResult, err error) {
-	req, err := lastResults.computePolicyListResultPreparer()
+// ListByAccountNextResults retrieves the next set of results, if any.
+func (client ComputePoliciesClient) ListByAccountNextResults(lastResults ComputePolicyListResult) (result ComputePolicyListResult, err error) {
+	req, err := lastResults.ComputePolicyListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "listByAccountNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "ListByAccount", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByAccountSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "listByAccountNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "ListByAccount", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByAccountResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "listByAccountNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "ListByAccount", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByAccountComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ComputePoliciesClient) ListByAccountComplete(ctx context.Context, resourceGroupName string, accountName string) (result ComputePolicyListResultIterator, err error) {
-	result.page, err = client.ListByAccount(ctx, resourceGroupName, accountName)
-	return
+// ListByAccountComplete gets all elements from the list without paging.
+func (client ComputePoliciesClient) ListByAccountComplete(resourceGroupName string, accountName string, cancel <-chan struct{}) (<-chan ComputePolicy, <-chan error) {
+	resultChan := make(chan ComputePolicy)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByAccount(resourceGroupName, accountName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByAccountNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update updates the specified compute policy.
@@ -363,8 +407,8 @@ func (client ComputePoliciesClient) ListByAccountComplete(ctx context.Context, r
 // resourceGroupName is the name of the Azure resource group that contains the Data Lake Analytics account. accountName
 // is the name of the Data Lake Analytics account to which to update the compute policy. computePolicyName is the name
 // of the compute policy to update. parameters is parameters supplied to update the compute policy.
-func (client ComputePoliciesClient) Update(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string, parameters *ComputePolicy) (result ComputePolicy, err error) {
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, accountName, computePolicyName, parameters)
+func (client ComputePoliciesClient) Update(resourceGroupName string, accountName string, computePolicyName string, parameters *ComputePolicy) (result ComputePolicy, err error) {
+	req, err := client.UpdatePreparer(resourceGroupName, accountName, computePolicyName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "account.ComputePoliciesClient", "Update", nil, "Failure preparing request")
 		return
@@ -386,7 +430,7 @@ func (client ComputePoliciesClient) Update(ctx context.Context, resourceGroupNam
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ComputePoliciesClient) UpdatePreparer(ctx context.Context, resourceGroupName string, accountName string, computePolicyName string, parameters *ComputePolicy) (*http.Request, error) {
+func (client ComputePoliciesClient) UpdatePreparer(resourceGroupName string, accountName string, computePolicyName string, parameters *ComputePolicy) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"computePolicyName": autorest.Encode("path", computePolicyName),
@@ -409,13 +453,14 @@ func (client ComputePoliciesClient) UpdatePreparer(ctx context.Context, resource
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithJSON(parameters))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client ComputePoliciesClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

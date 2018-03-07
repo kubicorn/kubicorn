@@ -18,7 +18,6 @@ package search
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // AdminKeysClient is the client that can be used to manage Azure Search services and API keys.
 type AdminKeysClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewAdminKeysClient creates an instance of the AdminKeysClient client.
@@ -43,8 +42,8 @@ func NewAdminKeysClientWithBaseURI(baseURI string, subscriptionID string) AdminK
 //
 // resourceGroupName is the name of the resource group within the current subscription. serviceName is the name of the
 // Search service for which to list admin keys.
-func (client AdminKeysClient) List(ctx context.Context, resourceGroupName string, serviceName string) (result AdminKeyResult, err error) {
-	req, err := client.ListPreparer(ctx, resourceGroupName, serviceName)
+func (client AdminKeysClient) List(resourceGroupName string, serviceName string) (result AdminKeyResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "search.AdminKeysClient", "List", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client AdminKeysClient) List(ctx context.Context, resourceGroupName string
 }
 
 // ListPreparer prepares the List request.
-func (client AdminKeysClient) ListPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client AdminKeysClient) ListPreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -83,13 +82,14 @@ func (client AdminKeysClient) ListPreparer(ctx context.Context, resourceGroupNam
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{serviceName}/listAdminKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client AdminKeysClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

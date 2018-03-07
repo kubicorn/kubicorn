@@ -1,4 +1,4 @@
-// +build linux
+// +build !gccgo,linux
 
 package sftp
 

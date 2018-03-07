@@ -18,7 +18,6 @@ package network
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // AvailableEndpointServicesClient is the network Client
 type AvailableEndpointServicesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewAvailableEndpointServicesClient creates an instance of the AvailableEndpointServicesClient client.
@@ -42,9 +41,8 @@ func NewAvailableEndpointServicesClientWithBaseURI(baseURI string, subscriptionI
 // List list what values of endpoint services are available for use.
 //
 // location is the location to check available endpoint services.
-func (client AvailableEndpointServicesClient) List(ctx context.Context, location string) (result EndpointServicesListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, location)
+func (client AvailableEndpointServicesClient) List(location string) (result EndpointServicesListResult, err error) {
+	req, err := client.ListPreparer(location)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "List", nil, "Failure preparing request")
 		return
@@ -52,12 +50,12 @@ func (client AvailableEndpointServicesClient) List(ctx context.Context, location
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.eslr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.eslr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "List", resp, "Failure responding to request")
 	}
@@ -66,7 +64,7 @@ func (client AvailableEndpointServicesClient) List(ctx context.Context, location
 }
 
 // ListPreparer prepares the List request.
-func (client AvailableEndpointServicesClient) ListPreparer(ctx context.Context, location string) (*http.Request, error) {
+func (client AvailableEndpointServicesClient) ListPreparer(location string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"location":       autorest.Encode("path", location),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -82,13 +80,14 @@ func (client AvailableEndpointServicesClient) ListPreparer(ctx context.Context, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/virtualNetworkAvailableEndpointServices", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client AvailableEndpointServicesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -105,29 +104,71 @@ func (client AvailableEndpointServicesClient) ListResponder(resp *http.Response)
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client AvailableEndpointServicesClient) listNextResults(lastResults EndpointServicesListResult) (result EndpointServicesListResult, err error) {
-	req, err := lastResults.endpointServicesListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client AvailableEndpointServicesClient) ListNextResults(lastResults EndpointServicesListResult) (result EndpointServicesListResult, err error) {
+	req, err := lastResults.EndpointServicesListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "network.AvailableEndpointServicesClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AvailableEndpointServicesClient) ListComplete(ctx context.Context, location string) (result EndpointServicesListResultIterator, err error) {
-	result.page, err = client.List(ctx, location)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client AvailableEndpointServicesClient) ListComplete(location string, cancel <-chan struct{}) (<-chan EndpointServiceResult, <-chan error) {
+	resultChan := make(chan EndpointServiceResult)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(location)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

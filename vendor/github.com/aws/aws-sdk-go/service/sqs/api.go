@@ -1978,6 +1978,7 @@ func (c *SQS) UntagQueueWithContext(ctx aws.Context, input *UntagQueueInput, opt
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/AddPermissionRequest
 type AddPermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2088,6 +2089,7 @@ func (s *AddPermissionInput) SetQueueUrl(v string) *AddPermissionInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/AddPermissionOutput
 type AddPermissionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2104,6 +2106,7 @@ func (s AddPermissionOutput) GoString() string {
 
 // This is used in the responses of batch API to give a detailed description
 // of the result of an action on each entry in the request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/BatchResultErrorEntry
 type BatchResultErrorEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -2160,6 +2163,7 @@ func (s *BatchResultErrorEntry) SetSenderFault(v bool) *BatchResultErrorEntry {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ChangeMessageVisibilityBatchRequest
 type ChangeMessageVisibilityBatchInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2228,6 +2232,7 @@ func (s *ChangeMessageVisibilityBatchInput) SetQueueUrl(v string) *ChangeMessage
 // For each message in the batch, the response contains a ChangeMessageVisibilityBatchResultEntry
 // tag if the message succeeds or a BatchResultErrorEntry tag if the message
 // fails.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ChangeMessageVisibilityBatchResult
 type ChangeMessageVisibilityBatchOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2275,6 +2280,7 @@ func (s *ChangeMessageVisibilityBatchOutput) SetSuccessful(v []*ChangeMessageVis
 // &ChangeMessageVisibilityBatchRequestEntry.1.ReceiptHandle=<replaceable>Your_Receipt_Handle</replaceable>
 //
 // &ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout=45
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ChangeMessageVisibilityBatchRequestEntry
 type ChangeMessageVisibilityBatchRequestEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -2340,6 +2346,7 @@ func (s *ChangeMessageVisibilityBatchRequestEntry) SetVisibilityTimeout(v int64)
 }
 
 // Encloses the Id of an entry in ChangeMessageVisibilityBatch.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ChangeMessageVisibilityBatchResultEntry
 type ChangeMessageVisibilityBatchResultEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -2365,6 +2372,7 @@ func (s *ChangeMessageVisibilityBatchResultEntry) SetId(v string) *ChangeMessage
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ChangeMessageVisibilityRequest
 type ChangeMessageVisibilityInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2435,6 +2443,7 @@ func (s *ChangeMessageVisibilityInput) SetVisibilityTimeout(v int64) *ChangeMess
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ChangeMessageVisibilityOutput
 type ChangeMessageVisibilityOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2449,6 +2458,7 @@ func (s ChangeMessageVisibilityOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/CreateQueueRequest
 type CreateQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2623,6 +2633,7 @@ func (s *CreateQueueInput) SetQueueName(v string) *CreateQueueInput {
 }
 
 // Returns the QueueUrl attribute of the created queue.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/CreateQueueResult
 type CreateQueueOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2646,6 +2657,7 @@ func (s *CreateQueueOutput) SetQueueUrl(v string) *CreateQueueOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteMessageBatchRequest
 type DeleteMessageBatchInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2713,6 +2725,7 @@ func (s *DeleteMessageBatchInput) SetQueueUrl(v string) *DeleteMessageBatchInput
 // For each message in the batch, the response contains a DeleteMessageBatchResultEntry
 // tag if the message is deleted or a BatchResultErrorEntry tag if the message
 // can't be deleted.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteMessageBatchResult
 type DeleteMessageBatchOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2750,6 +2763,7 @@ func (s *DeleteMessageBatchOutput) SetSuccessful(v []*DeleteMessageBatchResultEn
 }
 
 // Encloses a receipt handle and an identifier for it.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteMessageBatchRequestEntry
 type DeleteMessageBatchRequestEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -2806,6 +2820,7 @@ func (s *DeleteMessageBatchRequestEntry) SetReceiptHandle(v string) *DeleteMessa
 }
 
 // Encloses the Id of an entry in DeleteMessageBatch.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteMessageBatchResultEntry
 type DeleteMessageBatchResultEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -2831,6 +2846,7 @@ func (s *DeleteMessageBatchResultEntry) SetId(v string) *DeleteMessageBatchResul
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteMessageRequest
 type DeleteMessageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2885,6 +2901,7 @@ func (s *DeleteMessageInput) SetReceiptHandle(v string) *DeleteMessageInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteMessageOutput
 type DeleteMessageOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2899,6 +2916,7 @@ func (s DeleteMessageOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteQueueRequest
 type DeleteQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2939,6 +2957,7 @@ func (s *DeleteQueueInput) SetQueueUrl(v string) *DeleteQueueInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/DeleteQueueOutput
 type DeleteQueueOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2953,6 +2972,7 @@ func (s DeleteQueueOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/GetQueueAttributesRequest
 type GetQueueAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3090,6 +3110,7 @@ func (s *GetQueueAttributesInput) SetQueueUrl(v string) *GetQueueAttributesInput
 }
 
 // A list of returned queue attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/GetQueueAttributesResult
 type GetQueueAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3113,6 +3134,7 @@ func (s *GetQueueAttributesOutput) SetAttributes(v map[string]*string) *GetQueue
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/GetQueueUrlRequest
 type GetQueueUrlInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3165,6 +3187,7 @@ func (s *GetQueueUrlInput) SetQueueOwnerAWSAccountId(v string) *GetQueueUrlInput
 
 // For more information, see Responses (http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/UnderstandingResponses.html)
 // in the Amazon Simple Queue Service Developer Guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/GetQueueUrlResult
 type GetQueueUrlOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3188,6 +3211,7 @@ func (s *GetQueueUrlOutput) SetQueueUrl(v string) *GetQueueUrlOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListDeadLetterSourceQueuesRequest
 type ListDeadLetterSourceQueuesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3229,6 +3253,7 @@ func (s *ListDeadLetterSourceQueuesInput) SetQueueUrl(v string) *ListDeadLetterS
 }
 
 // A list of your dead letter source queues.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListDeadLetterSourceQueuesResult
 type ListDeadLetterSourceQueuesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3255,6 +3280,7 @@ func (s *ListDeadLetterSourceQueuesOutput) SetQueueUrls(v []*string) *ListDeadLe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTagsRequest
 type ListQueueTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3293,6 +3319,7 @@ func (s *ListQueueTagsInput) SetQueueUrl(v string) *ListQueueTagsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTagsResult
 type ListQueueTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3316,6 +3343,7 @@ func (s *ListQueueTagsOutput) SetTags(v map[string]*string) *ListQueueTagsOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueuesRequest
 type ListQueuesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3343,6 +3371,7 @@ func (s *ListQueuesInput) SetQueueNamePrefix(v string) *ListQueuesInput {
 }
 
 // A list of your queues.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueuesResult
 type ListQueuesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3367,6 +3396,7 @@ func (s *ListQueuesOutput) SetQueueUrls(v []*string) *ListQueuesOutput {
 }
 
 // An Amazon SQS message.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/Message
 type Message struct {
 	_ struct{} `type:"structure"`
 
@@ -3462,6 +3492,7 @@ func (s *Message) SetReceiptHandle(v string) *Message {
 // Name, type, value and the message body must not be empty or null. All parts
 // of the message attribute, including Name, Type, and Value, are part of the
 // message size restriction (256 KB or 262,144 bytes).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/MessageAttributeValue
 type MessageAttributeValue struct {
 	_ struct{} `type:"structure"`
 
@@ -3545,6 +3576,7 @@ func (s *MessageAttributeValue) SetStringValue(v string) *MessageAttributeValue 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/PurgeQueueRequest
 type PurgeQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3585,6 +3617,7 @@ func (s *PurgeQueueInput) SetQueueUrl(v string) *PurgeQueueInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/PurgeQueueOutput
 type PurgeQueueOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3599,6 +3632,7 @@ func (s PurgeQueueOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ReceiveMessageRequest
 type ReceiveMessageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3831,6 +3865,7 @@ func (s *ReceiveMessageInput) SetWaitTimeSeconds(v int64) *ReceiveMessageInput {
 }
 
 // A list of received messages.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ReceiveMessageResult
 type ReceiveMessageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3854,6 +3889,7 @@ func (s *ReceiveMessageOutput) SetMessages(v []*Message) *ReceiveMessageOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/RemovePermissionRequest
 type RemovePermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3909,6 +3945,7 @@ func (s *RemovePermissionInput) SetQueueUrl(v string) *RemovePermissionInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/RemovePermissionOutput
 type RemovePermissionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3923,6 +3960,7 @@ func (s RemovePermissionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SendMessageBatchRequest
 type SendMessageBatchInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3990,6 +4028,7 @@ func (s *SendMessageBatchInput) SetQueueUrl(v string) *SendMessageBatchInput {
 // For each message in the batch, the response contains a SendMessageBatchResultEntry
 // tag if the message succeeds or a BatchResultErrorEntry tag if the message
 // fails.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SendMessageBatchResult
 type SendMessageBatchOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4028,6 +4067,7 @@ func (s *SendMessageBatchOutput) SetSuccessful(v []*SendMessageBatchResultEntry)
 }
 
 // Contains the details of a single Amazon SQS message along with an Id.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SendMessageBatchRequestEntry
 type SendMessageBatchRequestEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -4207,6 +4247,7 @@ func (s *SendMessageBatchRequestEntry) SetMessageGroupId(v string) *SendMessageB
 }
 
 // Encloses a MessageId for a successfully-enqueued message in a SendMessageBatch.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SendMessageBatchResultEntry
 type SendMessageBatchResultEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -4283,6 +4324,7 @@ func (s *SendMessageBatchResultEntry) SetSequenceNumber(v string) *SendMessageBa
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SendMessageRequest
 type SendMessageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4470,6 +4512,7 @@ func (s *SendMessageInput) SetQueueUrl(v string) *SendMessageInput {
 }
 
 // The MD5OfMessageBody and MessageId elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SendMessageResult
 type SendMessageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4533,6 +4576,7 @@ func (s *SendMessageOutput) SetSequenceNumber(v string) *SendMessageOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SetQueueAttributesRequest
 type SetQueueAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4697,6 +4741,7 @@ func (s *SetQueueAttributesInput) SetQueueUrl(v string) *SetQueueAttributesInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SetQueueAttributesOutput
 type SetQueueAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4711,6 +4756,7 @@ func (s SetQueueAttributesOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueueRequest
 type TagQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4763,6 +4809,7 @@ func (s *TagQueueInput) SetTags(v map[string]*string) *TagQueueInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueueOutput
 type TagQueueOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4777,6 +4824,7 @@ func (s TagQueueOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueueRequest
 type UntagQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4829,6 +4877,7 @@ func (s *UntagQueueInput) SetTagKeys(v []*string) *UntagQueueInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueueOutput
 type UntagQueueOutput struct {
 	_ struct{} `type:"structure"`
 }

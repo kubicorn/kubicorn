@@ -141,7 +141,7 @@ func (c *MediaStoreData) DescribeObjectRequest(input *DescribeObjectInput) (req 
 
 // DescribeObject API operation for AWS Elemental MediaStore Data Plane.
 //
-// Gets the headers for an object at the specified path.
+// Gets the header for an object at the specified path.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -438,6 +438,7 @@ func (c *MediaStoreData) PutObjectWithContext(ctx aws.Context, input *PutObjectI
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObjectRequest
 type DeleteObjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -480,6 +481,7 @@ func (s *DeleteObjectInput) SetPath(v string) *DeleteObjectInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObjectResponse
 type DeleteObjectOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -494,6 +496,7 @@ func (s DeleteObjectOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObjectRequest
 type DescribeObjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -536,6 +539,7 @@ func (s *DescribeObjectInput) SetPath(v string) *DescribeObjectInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObjectResponse
 type DescribeObjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -599,6 +603,7 @@ func (s *DescribeObjectOutput) SetLastModified(v time.Time) *DescribeObjectOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObjectRequest
 type GetObjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -673,10 +678,19 @@ func (s *GetObjectInput) SetRange(v string) *GetObjectInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObjectResponse
 type GetObjectOutput struct {
 	_ struct{} `type:"structure" payload:"Body"`
 
-	// The bytes of the object.
+	// The path to the file outside of the container. The file name can include
+	// or omit an extension.
+	//
+	// Example 1: If the file is stored on a remote server that has been mounted
+	// to the workstation on which the REST API command is being run, the path could
+	// be the absolute path  \mount\assets\mlaw.avi or the relative path ..\..\mount\assets\movies\premium\mlaw.avi.
+	//
+	// Example 2: If the file is stored on a remote server that is not mounted,
+	// the path could be https:\\192.0.2.15\movies\premium\mlaw.avi.
 	Body io.ReadCloser `type:"blob"`
 
 	// An optional CacheControl header that allows the caller to control the object's
@@ -768,6 +782,7 @@ func (s *GetObjectOutput) SetStatusCode(v int64) *GetObjectOutput {
 }
 
 // A metadata entry for a folder or object.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/Item
 type Item struct {
 	_ struct{} `type:"structure"`
 
@@ -836,6 +851,7 @@ func (s *Item) SetType(v string) *Item {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItemsRequest
 type ListItemsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -892,6 +908,7 @@ func (s *ListItemsInput) SetPath(v string) *ListItemsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItemsResponse
 type ListItemsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -924,10 +941,19 @@ func (s *ListItemsOutput) SetNextToken(v string) *ListItemsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObjectRequest
 type PutObjectInput struct {
 	_ struct{} `type:"structure" payload:"Body"`
 
-	// The bytes to be stored.
+	// The path to the file outside of the container. The file name can include
+	// or omit an extension.
+	//
+	// Example 1: If the file is stored on a remote server that has been mounted
+	// to the workstation on which the REST API command is being run, the path could
+	// be the absolute path  \mount\assets\mlaw.avi or the relative path ..\..\mount\assets\movies\premium\mlaw.avi.
+	//
+	// Example 2: If the file is stored on a remote server that is not mounted,
+	// the path could be https:\\192.0.2.15\movies\premium\mlaw.avi.
 	//
 	// Body is a required field
 	Body io.ReadSeeker `type:"blob" required:"true"`
@@ -1037,6 +1063,7 @@ func (s *PutObjectInput) SetStorageClass(v string) *PutObjectInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObjectResponse
 type PutObjectOutput struct {
 	_ struct{} `type:"structure"`
 

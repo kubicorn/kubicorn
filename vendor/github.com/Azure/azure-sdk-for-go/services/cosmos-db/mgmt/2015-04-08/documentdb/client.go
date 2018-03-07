@@ -29,33 +29,23 @@ const (
 	DefaultBaseURI = "https://management.azure.com"
 )
 
-// BaseClient is the base client for Documentdb.
-type BaseClient struct {
+// ManagementClient is the base client for Documentdb.
+type ManagementClient struct {
 	autorest.Client
 	BaseURI        string
 	SubscriptionID string
-	Filter         string
-	Filter1        string
-	DatabaseRid    string
-	CollectionRid  string
-	Region         string
 }
 
-// New creates an instance of the BaseClient client.
-func New(subscriptionID string, filter string, filter1 string, databaseRid string, collectionRid string, region string) BaseClient {
-	return NewWithBaseURI(DefaultBaseURI, subscriptionID, filter, filter1, databaseRid, collectionRid, region)
+// New creates an instance of the ManagementClient client.
+func New(subscriptionID string) ManagementClient {
+	return NewWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
-// NewWithBaseURI creates an instance of the BaseClient client.
-func NewWithBaseURI(baseURI string, subscriptionID string, filter string, filter1 string, databaseRid string, collectionRid string, region string) BaseClient {
-	return BaseClient{
+// NewWithBaseURI creates an instance of the ManagementClient client.
+func NewWithBaseURI(baseURI string, subscriptionID string) ManagementClient {
+	return ManagementClient{
 		Client:         autorest.NewClientWithUserAgent(UserAgent()),
 		BaseURI:        baseURI,
 		SubscriptionID: subscriptionID,
-		Filter:         filter,
-		Filter1:        filter1,
-		DatabaseRid:    databaseRid,
-		CollectionRid:  collectionRid,
-		Region:         region,
 	}
 }

@@ -32,7 +32,6 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	durpb "github.com/golang/protobuf/ptypes/duration"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	"github.com/google/go-cmp/cmp/cmpopts"
 	"golang.org/x/net/context"
 	"google.golang.org/api/option"
 	mrpb "google.golang.org/genproto/googleapis/api/monitoredres"
@@ -184,7 +183,7 @@ func TestFromLogEntry(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if diff := testutil.Diff(got, want, cmpopts.IgnoreUnexported(http.Request{})); diff != "" {
+	if diff := testutil.Diff(got, want, testutil.IgnoreUnexported(http.Request{})); diff != "" {
 		t.Errorf("FullEntry:\n%s", diff)
 	}
 
@@ -233,30 +232,29 @@ func TestFromLogEntry(t *testing.T) {
 
 func TestListLogEntriesRequest(t *testing.T) {
 	for _, test := range []struct {
-		opts          []EntriesOption
-		resourceNames []string
-		filter        string
-		orderBy       string
+		opts       []EntriesOption
+		projectIDs []string
+		filter     string
+		orderBy    string
 	}{
 		// Default is client's project ID, empty filter and orderBy.
-		{nil, []string{"projects/PROJECT_ID"}, "", ""},
+		{nil,
+			[]string{"PROJECT_ID"}, "", ""},
 		{[]EntriesOption{NewestFirst(), Filter("f")},
-			[]string{"projects/PROJECT_ID"}, "f", "timestamp desc"},
+			[]string{"PROJECT_ID"}, "f", "timestamp desc"},
 		{[]EntriesOption{ProjectIDs([]string{"foo"})},
-			[]string{"projects/foo"}, "", ""},
-		{[]EntriesOption{ResourceNames([]string{"folders/F", "organizations/O"})},
-			[]string{"folders/F", "organizations/O"}, "", ""},
+			[]string{"foo"}, "", ""},
 		{[]EntriesOption{NewestFirst(), Filter("f"), ProjectIDs([]string{"foo"})},
-			[]string{"projects/foo"}, "f", "timestamp desc"},
+			[]string{"foo"}, "f", "timestamp desc"},
 		{[]EntriesOption{NewestFirst(), Filter("f"), ProjectIDs([]string{"foo"})},
-			[]string{"projects/foo"}, "f", "timestamp desc"},
+			[]string{"foo"}, "f", "timestamp desc"},
 		// If there are repeats, last one wins.
 		{[]EntriesOption{NewestFirst(), Filter("no"), ProjectIDs([]string{"foo"}), Filter("f")},
-			[]string{"projects/foo"}, "f", "timestamp desc"},
+			[]string{"foo"}, "f", "timestamp desc"},
 	} {
-		got := listLogEntriesRequest("projects/PROJECT_ID", test.opts)
+		got := listLogEntriesRequest("PROJECT_ID", test.opts)
 		want := &logpb.ListLogEntriesRequest{
-			ResourceNames: test.resourceNames,
+			ResourceNames: []string{"projects/" + test.projectIDs[0]},
 			Filter:        test.filter,
 			OrderBy:       test.orderBy,
 		}

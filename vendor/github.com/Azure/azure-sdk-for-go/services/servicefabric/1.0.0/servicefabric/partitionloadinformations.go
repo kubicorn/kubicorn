@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -27,7 +26,7 @@ import (
 // PartitionLoadInformationsClient is the client for the PartitionLoadInformations methods of the Servicefabric
 // service.
 type PartitionLoadInformationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPartitionLoadInformationsClient creates an instance of the PartitionLoadInformationsClient client.
@@ -43,8 +42,8 @@ func NewPartitionLoadInformationsClientWithBaseURI(baseURI string, timeout *int3
 // Get get partition load informations
 //
 // partitionID is the id of the partition
-func (client PartitionLoadInformationsClient) Get(ctx context.Context, partitionID string) (result PartitionLoadInformation, err error) {
-	req, err := client.GetPreparer(ctx, partitionID)
+func (client PartitionLoadInformationsClient) Get(partitionID string) (result PartitionLoadInformation, err error) {
+	req, err := client.GetPreparer(partitionID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.PartitionLoadInformationsClient", "Get", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client PartitionLoadInformationsClient) Get(ctx context.Context, partition
 }
 
 // GetPreparer prepares the Get request.
-func (client PartitionLoadInformationsClient) GetPreparer(ctx context.Context, partitionID string) (*http.Request, error) {
+func (client PartitionLoadInformationsClient) GetPreparer(partitionID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"partitionId": autorest.Encode("path", partitionID),
 	}
@@ -84,13 +83,14 @@ func (client PartitionLoadInformationsClient) GetPreparer(ctx context.Context, p
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/Partitions/{partitionId}/$/GetLoadInformation", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PartitionLoadInformationsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

@@ -6280,89 +6280,6 @@ func (c *CognitoIdentityProvider) GetIdentityProviderByIdentifierWithContext(ctx
 	return out, req.Send()
 }
 
-const opGetSigningCertificate = "GetSigningCertificate"
-
-// GetSigningCertificateRequest generates a "aws/request.Request" representing the
-// client's request for the GetSigningCertificate operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetSigningCertificate for more information on using the GetSigningCertificate
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the GetSigningCertificateRequest method.
-//    req, resp := client.GetSigningCertificateRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetSigningCertificate
-func (c *CognitoIdentityProvider) GetSigningCertificateRequest(input *GetSigningCertificateInput) (req *request.Request, output *GetSigningCertificateOutput) {
-	op := &request.Operation{
-		Name:       opGetSigningCertificate,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &GetSigningCertificateInput{}
-	}
-
-	output = &GetSigningCertificateOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// GetSigningCertificate API operation for Amazon Cognito Identity Provider.
-//
-// This method takes a user pool ID, and returns the signing certificate.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for Amazon Cognito Identity Provider's
-// API operation GetSigningCertificate for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeInternalErrorException "InternalErrorException"
-//   This exception is thrown when Amazon Cognito encounters an internal error.
-//
-//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
-//   This exception is thrown when the Amazon Cognito service cannot find the
-//   requested resource.
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetSigningCertificate
-func (c *CognitoIdentityProvider) GetSigningCertificate(input *GetSigningCertificateInput) (*GetSigningCertificateOutput, error) {
-	req, out := c.GetSigningCertificateRequest(input)
-	return out, req.Send()
-}
-
-// GetSigningCertificateWithContext is the same as GetSigningCertificate with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetSigningCertificate for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CognitoIdentityProvider) GetSigningCertificateWithContext(ctx aws.Context, input *GetSigningCertificateInput, opts ...request.Option) (*GetSigningCertificateOutput, error) {
-	req, out := c.GetSigningCertificateRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
 const opGetUICustomization = "GetUICustomization"
 
 // GetUICustomizationRequest generates a "aws/request.Request" representing the
@@ -10104,6 +10021,7 @@ func (c *CognitoIdentityProvider) VerifyUserAttributeWithContext(ctx aws.Context
 }
 
 // Account takeover action type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AccountTakeoverActionType
 type AccountTakeoverActionType struct {
 	_ struct{} `type:"structure"`
 
@@ -10167,6 +10085,7 @@ func (s *AccountTakeoverActionType) SetNotify(v bool) *AccountTakeoverActionType
 }
 
 // Account takeover actions type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AccountTakeoverActionsType
 type AccountTakeoverActionsType struct {
 	_ struct{} `type:"structure"`
 
@@ -10235,6 +10154,7 @@ func (s *AccountTakeoverActionsType) SetMediumAction(v *AccountTakeoverActionTyp
 
 // Configuration for mitigation actions and notification for different levels
 // of risk detected for a potential account takeover.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AccountTakeoverRiskConfigurationType
 type AccountTakeoverRiskConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -10293,6 +10213,7 @@ func (s *AccountTakeoverRiskConfigurationType) SetNotifyConfiguration(v *NotifyC
 }
 
 // Represents the request to add custom attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AddCustomAttributesRequest
 type AddCustomAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10362,6 +10283,7 @@ func (s *AddCustomAttributesInput) SetUserPoolId(v string) *AddCustomAttributesI
 }
 
 // Represents the response from the server for the request to add custom attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AddCustomAttributesResponse
 type AddCustomAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10376,6 +10298,7 @@ func (s AddCustomAttributesOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminAddUserToGroupRequest
 type AdminAddUserToGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10451,6 +10374,7 @@ func (s *AdminAddUserToGroupInput) SetUsername(v string) *AdminAddUserToGroupInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminAddUserToGroupOutput
 type AdminAddUserToGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10466,6 +10390,7 @@ func (s AdminAddUserToGroupOutput) GoString() string {
 }
 
 // Represents the request to confirm user registration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminConfirmSignUpRequest
 type AdminConfirmSignUpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10525,6 +10450,7 @@ func (s *AdminConfirmSignUpInput) SetUsername(v string) *AdminConfirmSignUpInput
 }
 
 // Represents the response from the server for the request to confirm registration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminConfirmSignUpResponse
 type AdminConfirmSignUpOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10540,6 +10466,7 @@ func (s AdminConfirmSignUpOutput) GoString() string {
 }
 
 // The configuration for creating a new user profile.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminCreateUserConfigType
 type AdminCreateUserConfigType struct {
 	_ struct{} `type:"structure"`
 
@@ -10603,6 +10530,7 @@ func (s *AdminCreateUserConfigType) SetUnusedAccountValidityDays(v int64) *Admin
 }
 
 // Represents the request to create a user in the specified user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminCreateUserRequest
 type AdminCreateUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10806,6 +10734,7 @@ func (s *AdminCreateUserInput) SetValidationData(v []*AttributeType) *AdminCreat
 }
 
 // Represents the response from the server to the request to create the user.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminCreateUserResponse
 type AdminCreateUserOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10830,6 +10759,7 @@ func (s *AdminCreateUserOutput) SetUser(v *UserType) *AdminCreateUserOutput {
 }
 
 // Represents the request to delete user attributes as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDeleteUserAttributesRequest
 type AdminDeleteUserAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10907,6 +10837,7 @@ func (s *AdminDeleteUserAttributesInput) SetUsername(v string) *AdminDeleteUserA
 
 // Represents the response received from the server for a request to delete
 // user attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDeleteUserAttributesResponse
 type AdminDeleteUserAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10922,6 +10853,7 @@ func (s AdminDeleteUserAttributesOutput) GoString() string {
 }
 
 // Represents the request to delete a user as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDeleteUserRequest
 type AdminDeleteUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10980,6 +10912,7 @@ func (s *AdminDeleteUserInput) SetUsername(v string) *AdminDeleteUserInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDeleteUserOutput
 type AdminDeleteUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10994,6 +10927,7 @@ func (s AdminDeleteUserOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUserRequest
 type AdminDisableProviderForUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11051,6 +10985,7 @@ func (s *AdminDisableProviderForUserInput) SetUserPoolId(v string) *AdminDisable
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUserResponse
 type AdminDisableProviderForUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11066,6 +11001,7 @@ func (s AdminDisableProviderForUserOutput) GoString() string {
 }
 
 // Represents the request to disable any user as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableUserRequest
 type AdminDisableUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11126,6 +11062,7 @@ func (s *AdminDisableUserInput) SetUsername(v string) *AdminDisableUserInput {
 
 // Represents the response received from the server to disable the user as an
 // administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableUserResponse
 type AdminDisableUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11141,6 +11078,7 @@ func (s AdminDisableUserOutput) GoString() string {
 }
 
 // Represents the request that enables the user as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminEnableUserRequest
 type AdminEnableUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11201,6 +11139,7 @@ func (s *AdminEnableUserInput) SetUsername(v string) *AdminEnableUserInput {
 
 // Represents the response from the server for the request to enable a user
 // as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminEnableUserResponse
 type AdminEnableUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11216,6 +11155,7 @@ func (s AdminEnableUserOutput) GoString() string {
 }
 
 // Sends the forgot device request, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminForgetDeviceRequest
 type AdminForgetDeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11291,6 +11231,7 @@ func (s *AdminForgetDeviceInput) SetUsername(v string) *AdminForgetDeviceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminForgetDeviceOutput
 type AdminForgetDeviceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11306,6 +11247,7 @@ func (s AdminForgetDeviceOutput) GoString() string {
 }
 
 // Represents the request to get the device, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminGetDeviceRequest
 type AdminGetDeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11382,6 +11324,7 @@ func (s *AdminGetDeviceInput) SetUsername(v string) *AdminGetDeviceInput {
 }
 
 // Gets the device response, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminGetDeviceResponse
 type AdminGetDeviceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11408,6 +11351,7 @@ func (s *AdminGetDeviceOutput) SetDevice(v *DeviceType) *AdminGetDeviceOutput {
 }
 
 // Represents the request to get the specified user as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminGetUserRequest
 type AdminGetUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11469,6 +11413,7 @@ func (s *AdminGetUserInput) SetUsername(v string) *AdminGetUserInput {
 
 // Represents the response from the server from the request to get the specified
 // user as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminGetUserResponse
 type AdminGetUserOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11478,7 +11423,6 @@ type AdminGetUserOutput struct {
 	// Specifies the options for MFA (e.g., email or phone number).
 	MFAOptions []*MFAOptionType `type:"list"`
 
-	// The user's preferred MFA setting.
 	PreferredMfaSetting *string `type:"string"`
 
 	// An array of name-value pairs representing user attributes.
@@ -11490,7 +11434,6 @@ type AdminGetUserOutput struct {
 	// The date the user was last modified.
 	UserLastModifiedDate *time.Time `type:"timestamp" timestampFormat:"unix"`
 
-	// The list of the user's MFA settings.
 	UserMFASettingList []*string `type:"list"`
 
 	// The user status. Can be one of the following:
@@ -11577,6 +11520,7 @@ func (s *AdminGetUserOutput) SetUsername(v string) *AdminGetUserOutput {
 }
 
 // Initiates the authorization request, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminInitiateAuthRequest
 type AdminInitiateAuthInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11593,9 +11537,6 @@ type AdminInitiateAuthInput struct {
 	//    * USER_SRP_AUTH will take in USERNAME and SRP_A and return the SRP variables
 	//    to be used for next challenge execution.
 	//
-	//    * USER_PASSWORD_AUTH will take in USERNAME and PASSWORD and return the
-	//    next challenge or tokens.
-	//
 	// Valid values include:
 	//
 	//    * USER_SRP_AUTH: Authentication flow for the Secure Remote Password (SRP)
@@ -11610,11 +11551,6 @@ type AdminInitiateAuthInput struct {
 	//    USERNAME and PASSWORD directly if the flow is enabled for calling the
 	//    app client.
 	//
-	//    * USER_PASSWORD_AUTH: Non-SRP authentication flow; USERNAME and PASSWORD
-	//    are passed directly. If a user migration Lambda trigger is set, this flow
-	//    will invoke the user migration Lambda if the USERNAME is not found in
-	//    the user pool.
-	//
 	// AuthFlow is a required field
 	AuthFlow *string `type:"string" required:"true" enum:"AuthFlowType"`
 
@@ -11624,8 +11560,9 @@ type AdminInitiateAuthInput struct {
 	//    * For USER_SRP_AUTH: USERNAME (required), SRP_A (required), SECRET_HASH
 	//    (required if the app client is configured with a client secret), DEVICE_KEY
 	//
-	//    * For REFRESH_TOKEN_AUTH/REFRESH_TOKEN: REFRESH_TOKEN (required), SECRET_HASH
-	//    (required if the app client is configured with a client secret), DEVICE_KEY
+	//    * For REFRESH_TOKEN_AUTH/REFRESH_TOKEN: USERNAME (required), SECRET_HASH
+	//    (required if the app client is configured with a client secret), REFRESH_TOKEN
+	//    (required), DEVICE_KEY
 	//
 	//    * For ADMIN_NO_SRP_AUTH: USERNAME (required), SECRET_HASH (if app client
 	//    is configured with client secret), PASSWORD (required), DEVICE_KEY
@@ -11738,6 +11675,7 @@ func (s *AdminInitiateAuthInput) SetUserPoolId(v string) *AdminInitiateAuthInput
 }
 
 // Initiates the authentication response, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminInitiateAuthResponse
 type AdminInitiateAuthOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11783,7 +11721,7 @@ type AdminInitiateAuthOutput struct {
 	//
 	// All challenges require USERNAME and SECRET_HASH (if applicable).
 	//
-	// The value of the USER_ID_FOR_SRP attribute will be the user's actual username,
+	// The value of the USER_IF_FOR_SRP attribute will be the user's actual username,
 	// not an alias (such as email address or phone number), even if you specified
 	// an alias in your call to AdminInitiateAuth. This is because, in the AdminRespondToAuthChallenge
 	// API ChallengeResponses, the USERNAME attribute cannot be an alias.
@@ -11831,6 +11769,7 @@ func (s *AdminInitiateAuthOutput) SetSession(v string) *AdminInitiateAuthOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUserRequest
 type AdminLinkProviderForUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11935,6 +11874,7 @@ func (s *AdminLinkProviderForUserInput) SetUserPoolId(v string) *AdminLinkProvid
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUserResponse
 type AdminLinkProviderForUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11950,6 +11890,7 @@ func (s AdminLinkProviderForUserOutput) GoString() string {
 }
 
 // Represents the request to list devices, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminListDevicesRequest
 type AdminListDevicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12030,6 +11971,7 @@ func (s *AdminListDevicesInput) SetUsername(v string) *AdminListDevicesInput {
 }
 
 // Lists the device's response, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminListDevicesResponse
 type AdminListDevicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12062,6 +12004,7 @@ func (s *AdminListDevicesOutput) SetPaginationToken(v string) *AdminListDevicesO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminListGroupsForUserRequest
 type AdminListGroupsForUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12142,6 +12085,7 @@ func (s *AdminListGroupsForUserInput) SetUsername(v string) *AdminListGroupsForU
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminListGroupsForUserResponse
 type AdminListGroupsForUserOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12175,6 +12119,7 @@ func (s *AdminListGroupsForUserOutput) SetNextToken(v string) *AdminListGroupsFo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminListUserAuthEventsRequest
 type AdminListUserAuthEventsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12189,7 +12134,7 @@ type AdminListUserAuthEventsInput struct {
 	// UserPoolId is a required field
 	UserPoolId *string `min:"1" type:"string" required:"true"`
 
-	// The user pool username or an alias.
+	// The user pool username.
 	//
 	// Username is a required field
 	Username *string `min:"1" type:"string" required:"true"`
@@ -12254,6 +12199,7 @@ func (s *AdminListUserAuthEventsInput) SetUsername(v string) *AdminListUserAuthE
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminListUserAuthEventsResponse
 type AdminListUserAuthEventsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12287,6 +12233,7 @@ func (s *AdminListUserAuthEventsOutput) SetNextToken(v string) *AdminListUserAut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminRemoveUserFromGroupRequest
 type AdminRemoveUserFromGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12362,6 +12309,7 @@ func (s *AdminRemoveUserFromGroupInput) SetUsername(v string) *AdminRemoveUserFr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminRemoveUserFromGroupOutput
 type AdminRemoveUserFromGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12377,6 +12325,7 @@ func (s AdminRemoveUserFromGroupOutput) GoString() string {
 }
 
 // Represents the request to reset a user's password as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminResetUserPasswordRequest
 type AdminResetUserPasswordInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12436,6 +12385,7 @@ func (s *AdminResetUserPasswordInput) SetUsername(v string) *AdminResetUserPassw
 }
 
 // Represents the response from the server to reset a user password as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminResetUserPasswordResponse
 type AdminResetUserPasswordOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12451,6 +12401,7 @@ func (s AdminResetUserPasswordOutput) GoString() string {
 }
 
 // The request to respond to the authentication challenge, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminRespondToAuthChallengeRequest
 type AdminRespondToAuthChallengeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12595,6 +12546,7 @@ func (s *AdminRespondToAuthChallengeInput) SetUserPoolId(v string) *AdminRespond
 }
 
 // Responds to the authentication challenge, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminRespondToAuthChallengeResponse
 type AdminRespondToAuthChallengeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12649,6 +12601,7 @@ func (s *AdminRespondToAuthChallengeOutput) SetSession(v string) *AdminRespondTo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminSetUserMFAPreferenceRequest
 type AdminSetUserMFAPreferenceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12663,7 +12616,7 @@ type AdminSetUserMFAPreferenceInput struct {
 	// UserPoolId is a required field
 	UserPoolId *string `min:"1" type:"string" required:"true"`
 
-	// The user pool username or alias.
+	// The user pool username.
 	//
 	// Username is a required field
 	Username *string `min:"1" type:"string" required:"true"`
@@ -12725,6 +12678,7 @@ func (s *AdminSetUserMFAPreferenceInput) SetUsername(v string) *AdminSetUserMFAP
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminSetUserMFAPreferenceResponse
 type AdminSetUserMFAPreferenceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12740,6 +12694,7 @@ func (s AdminSetUserMFAPreferenceOutput) GoString() string {
 }
 
 // Represents the request to set user settings as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminSetUserSettingsRequest
 type AdminSetUserSettingsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12824,6 +12779,7 @@ func (s *AdminSetUserSettingsInput) SetUsername(v string) *AdminSetUserSettingsI
 }
 
 // Represents the response from the server to set user settings as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminSetUserSettingsResponse
 type AdminSetUserSettingsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12838,6 +12794,7 @@ func (s AdminSetUserSettingsOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUpdateAuthEventFeedbackRequest
 type AdminUpdateAuthEventFeedbackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12927,6 +12884,7 @@ func (s *AdminUpdateAuthEventFeedbackInput) SetUsername(v string) *AdminUpdateAu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUpdateAuthEventFeedbackResponse
 type AdminUpdateAuthEventFeedbackOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12942,6 +12900,7 @@ func (s AdminUpdateAuthEventFeedbackOutput) GoString() string {
 }
 
 // The request to update the device status, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUpdateDeviceStatusRequest
 type AdminUpdateDeviceStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13027,6 +12986,7 @@ func (s *AdminUpdateDeviceStatusInput) SetUsername(v string) *AdminUpdateDeviceS
 }
 
 // The status response from the request to update the device, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUpdateDeviceStatusResponse
 type AdminUpdateDeviceStatusOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13042,6 +13002,7 @@ func (s AdminUpdateDeviceStatusOutput) GoString() string {
 }
 
 // Represents the request to update the user's attributes as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUpdateUserAttributesRequest
 type AdminUpdateUserAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13129,6 +13090,7 @@ func (s *AdminUpdateUserAttributesInput) SetUsername(v string) *AdminUpdateUserA
 
 // Represents the response from the server for the request to update user attributes
 // as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUpdateUserAttributesResponse
 type AdminUpdateUserAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13144,6 +13106,7 @@ func (s AdminUpdateUserAttributesOutput) GoString() string {
 }
 
 // The request to sign out of all devices, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUserGlobalSignOutRequest
 type AdminUserGlobalSignOutInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13203,6 +13166,7 @@ func (s *AdminUserGlobalSignOutInput) SetUsername(v string) *AdminUserGlobalSign
 }
 
 // The global sign-out response, as an administrator.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminUserGlobalSignOutResponse
 type AdminUserGlobalSignOutOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13219,6 +13183,7 @@ func (s AdminUserGlobalSignOutOutput) GoString() string {
 
 // The Amazon Pinpoint analytics configuration for collecting metrics for a
 // user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AnalyticsConfigurationType
 type AnalyticsConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -13303,6 +13268,7 @@ func (s *AnalyticsConfigurationType) SetUserDataShared(v bool) *AnalyticsConfigu
 //
 // An endpoint uniquely identifies a mobile device, email address, or phone
 // number that can receive messages from Amazon Pinpoint analytics.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AnalyticsMetadataType
 type AnalyticsMetadataType struct {
 	_ struct{} `type:"structure"`
 
@@ -13326,6 +13292,7 @@ func (s *AnalyticsMetadataType) SetAnalyticsEndpointId(v string) *AnalyticsMetad
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AssociateSoftwareTokenRequest
 type AssociateSoftwareTokenInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13373,6 +13340,7 @@ func (s *AssociateSoftwareTokenInput) SetSession(v string) *AssociateSoftwareTok
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AssociateSoftwareTokenResponse
 type AssociateSoftwareTokenOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13409,6 +13377,7 @@ func (s *AssociateSoftwareTokenOutput) SetSession(v string) *AssociateSoftwareTo
 }
 
 // Specifies whether the attribute is standard or custom.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AttributeType
 type AttributeType struct {
 	_ struct{} `type:"structure"`
 
@@ -13460,6 +13429,7 @@ func (s *AttributeType) SetValue(v string) *AttributeType {
 }
 
 // The authentication event type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AuthEventType
 type AuthEventType struct {
 	_ struct{} `type:"structure"`
 
@@ -13549,6 +13519,7 @@ func (s *AuthEventType) SetEventType(v string) *AuthEventType {
 }
 
 // The authentication result.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AuthenticationResultType
 type AuthenticationResultType struct {
 	_ struct{} `type:"structure"`
 
@@ -13618,6 +13589,7 @@ func (s *AuthenticationResultType) SetTokenType(v string) *AuthenticationResultT
 }
 
 // The challenge response type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ChallengeResponseType
 type ChallengeResponseType struct {
 	_ struct{} `type:"structure"`
 
@@ -13651,6 +13623,7 @@ func (s *ChallengeResponseType) SetChallengeResponse(v string) *ChallengeRespons
 }
 
 // Represents the request to change a user password.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ChangePasswordRequest
 type ChangePasswordInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13724,6 +13697,7 @@ func (s *ChangePasswordInput) SetProposedPassword(v string) *ChangePasswordInput
 }
 
 // The response from the server to the change password request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ChangePasswordResponse
 type ChangePasswordOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13739,6 +13713,7 @@ func (s ChangePasswordOutput) GoString() string {
 }
 
 // The code delivery details being returned from the server.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CodeDeliveryDetailsType
 type CodeDeliveryDetailsType struct {
 	_ struct{} `type:"structure"`
 
@@ -13781,6 +13756,7 @@ func (s *CodeDeliveryDetailsType) SetDestination(v string) *CodeDeliveryDetailsT
 }
 
 // The compromised credentials actions type
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CompromisedCredentialsActionsType
 type CompromisedCredentialsActionsType struct {
 	_ struct{} `type:"structure"`
 
@@ -13820,6 +13796,7 @@ func (s *CompromisedCredentialsActionsType) SetEventAction(v string) *Compromise
 }
 
 // The compromised credentials risk configuration type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CompromisedCredentialsRiskConfigurationType
 type CompromisedCredentialsRiskConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -13874,6 +13851,7 @@ func (s *CompromisedCredentialsRiskConfigurationType) SetEventFilter(v []*string
 }
 
 // Confirms the device request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ConfirmDeviceRequest
 type ConfirmDeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13951,6 +13929,7 @@ func (s *ConfirmDeviceInput) SetDeviceSecretVerifierConfig(v *DeviceSecretVerifi
 }
 
 // Confirms the device response.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ConfirmDeviceResponse
 type ConfirmDeviceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13976,6 +13955,7 @@ func (s *ConfirmDeviceOutput) SetUserConfirmationNecessary(v bool) *ConfirmDevic
 }
 
 // The request representing the confirmation for a password reset.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ConfirmForgotPasswordRequest
 type ConfirmForgotPasswordInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14106,6 +14086,7 @@ func (s *ConfirmForgotPasswordInput) SetUsername(v string) *ConfirmForgotPasswor
 
 // The response from the server that results from a user's request to retrieve
 // a forgotten password.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ConfirmForgotPasswordResponse
 type ConfirmForgotPasswordOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14121,6 +14102,7 @@ func (s ConfirmForgotPasswordOutput) GoString() string {
 }
 
 // Represents the request to confirm registration of a user.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ConfirmSignUpRequest
 type ConfirmSignUpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14245,6 +14227,7 @@ func (s *ConfirmSignUpInput) SetUsername(v string) *ConfirmSignUpInput {
 }
 
 // Represents the response from the server for the registration confirmation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ConfirmSignUpResponse
 type ConfirmSignUpOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14261,6 +14244,7 @@ func (s ConfirmSignUpOutput) GoString() string {
 
 // Contextual user data type used for evaluating the risk of an unexpected event
 // by Amazon Cognito advanced security.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ContextDataType
 type ContextDataType struct {
 	_ struct{} `type:"structure"`
 
@@ -14351,6 +14335,7 @@ func (s *ContextDataType) SetServerPath(v string) *ContextDataType {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateGroupRequest
 type CreateGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14453,6 +14438,7 @@ func (s *CreateGroupInput) SetUserPoolId(v string) *CreateGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateGroupResponse
 type CreateGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14476,6 +14462,7 @@ func (s *CreateGroupOutput) SetGroup(v *GroupType) *CreateGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateIdentityProviderRequest
 type CreateIdentityProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14581,6 +14568,7 @@ func (s *CreateIdentityProviderInput) SetUserPoolId(v string) *CreateIdentityPro
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateIdentityProviderResponse
 type CreateIdentityProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14606,6 +14594,7 @@ func (s *CreateIdentityProviderOutput) SetIdentityProvider(v *IdentityProviderTy
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServerRequest
 type CreateResourceServerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14701,6 +14690,7 @@ func (s *CreateResourceServerInput) SetUserPoolId(v string) *CreateResourceServe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServerResponse
 type CreateResourceServerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14727,6 +14717,7 @@ func (s *CreateResourceServerOutput) SetResourceServer(v *ResourceServerType) *C
 }
 
 // Represents the request to create the user import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserImportJobRequest
 type CreateUserImportJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14804,6 +14795,7 @@ func (s *CreateUserImportJobInput) SetUserPoolId(v string) *CreateUserImportJobI
 
 // Represents the response from the server to the request to create the user
 // import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserImportJobResponse
 type CreateUserImportJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14828,6 +14820,7 @@ func (s *CreateUserImportJobOutput) SetUserImportJob(v *UserImportJobType) *Crea
 }
 
 // Represents the request to create a user pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPoolClientRequest
 type CreateUserPoolClientInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15023,6 +15016,7 @@ func (s *CreateUserPoolClientInput) SetWriteAttributes(v []*string) *CreateUserP
 }
 
 // Represents the response from the server to create a user pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPoolClientResponse
 type CreateUserPoolClientOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15046,6 +15040,7 @@ func (s *CreateUserPoolClientOutput) SetUserPoolClient(v *UserPoolClientType) *C
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPoolDomainRequest
 type CreateUserPoolDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15104,6 +15099,7 @@ func (s *CreateUserPoolDomainInput) SetUserPoolId(v string) *CreateUserPoolDomai
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPoolDomainResponse
 type CreateUserPoolDomainOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15119,6 +15115,7 @@ func (s CreateUserPoolDomainOutput) GoString() string {
 }
 
 // Represents the request to create a user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPoolRequest
 type CreateUserPoolInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15145,15 +15142,6 @@ type CreateUserPoolInput struct {
 	EmailVerificationSubject *string `min:"1" type:"string"`
 
 	// The Lambda trigger configuration information for the new user pool.
-	//
-	// In a push model, event sources (such as Amazon S3 and custom applications)
-	// need permission to invoke a function. So you will need to make an extra call
-	// to add permission for these event sources to invoke your Lambda function.
-	//
-	// For more information on using the Lambda API to add permission, see  AddPermission
-	//  (https://docs.aws.amazon.com/lambda/latest/dg/API_AddPermission.html).
-	//
-	// For adding permission using the AWS CLI, see  add-permission  (https://docs.aws.amazon.com/cli/latest/reference/lambda/add-permission.html).
 	LambdaConfig *LambdaConfigType `type:"structure"`
 
 	// Specifies MFA configuration details.
@@ -15399,6 +15387,7 @@ func (s *CreateUserPoolInput) SetVerificationMessageTemplate(v *VerificationMess
 
 // Represents the response from the server for the request to create a user
 // pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPoolResponse
 type CreateUserPoolOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15422,6 +15411,7 @@ func (s *CreateUserPoolOutput) SetUserPool(v *UserPoolType) *CreateUserPoolOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteGroupRequest
 type DeleteGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15480,6 +15470,7 @@ func (s *DeleteGroupInput) SetUserPoolId(v string) *DeleteGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteGroupOutput
 type DeleteGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15494,6 +15485,7 @@ func (s DeleteGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteIdentityProviderRequest
 type DeleteIdentityProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15552,6 +15544,7 @@ func (s *DeleteIdentityProviderInput) SetUserPoolId(v string) *DeleteIdentityPro
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteIdentityProviderOutput
 type DeleteIdentityProviderOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15566,6 +15559,7 @@ func (s DeleteIdentityProviderOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServerRequest
 type DeleteResourceServerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15624,6 +15618,7 @@ func (s *DeleteResourceServerInput) SetUserPoolId(v string) *DeleteResourceServe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServerOutput
 type DeleteResourceServerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15639,6 +15634,7 @@ func (s DeleteResourceServerOutput) GoString() string {
 }
 
 // Represents the request to delete user attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserAttributesRequest
 type DeleteUserAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15695,6 +15691,7 @@ func (s *DeleteUserAttributesInput) SetUserAttributeNames(v []*string) *DeleteUs
 }
 
 // Represents the response from the server to delete user attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserAttributesResponse
 type DeleteUserAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15710,6 +15707,7 @@ func (s DeleteUserAttributesOutput) GoString() string {
 }
 
 // Represents the request to delete a user.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserRequest
 type DeleteUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15748,6 +15746,7 @@ func (s *DeleteUserInput) SetAccessToken(v string) *DeleteUserInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserOutput
 type DeleteUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15763,6 +15762,7 @@ func (s DeleteUserOutput) GoString() string {
 }
 
 // Represents the request to delete a user pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserPoolClientRequest
 type DeleteUserPoolClientInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15821,6 +15821,7 @@ func (s *DeleteUserPoolClientInput) SetUserPoolId(v string) *DeleteUserPoolClien
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserPoolClientOutput
 type DeleteUserPoolClientOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15835,6 +15836,7 @@ func (s DeleteUserPoolClientOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserPoolDomainRequest
 type DeleteUserPoolDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15893,6 +15895,7 @@ func (s *DeleteUserPoolDomainInput) SetUserPoolId(v string) *DeleteUserPoolDomai
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserPoolDomainResponse
 type DeleteUserPoolDomainOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15908,6 +15911,7 @@ func (s DeleteUserPoolDomainOutput) GoString() string {
 }
 
 // Represents the request to delete a user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserPoolRequest
 type DeleteUserPoolInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15949,6 +15953,7 @@ func (s *DeleteUserPoolInput) SetUserPoolId(v string) *DeleteUserPoolInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserPoolOutput
 type DeleteUserPoolOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15963,6 +15968,7 @@ func (s DeleteUserPoolOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeIdentityProviderRequest
 type DescribeIdentityProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16021,6 +16027,7 @@ func (s *DescribeIdentityProviderInput) SetUserPoolId(v string) *DescribeIdentit
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeIdentityProviderResponse
 type DescribeIdentityProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16046,6 +16053,7 @@ func (s *DescribeIdentityProviderOutput) SetIdentityProvider(v *IdentityProvider
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeResourceServerRequest
 type DescribeResourceServerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16104,6 +16112,7 @@ func (s *DescribeResourceServerInput) SetUserPoolId(v string) *DescribeResourceS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeResourceServerResponse
 type DescribeResourceServerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16129,6 +16138,7 @@ func (s *DescribeResourceServerOutput) SetResourceServer(v *ResourceServerType) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeRiskConfigurationRequest
 type DescribeRiskConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16182,6 +16192,7 @@ func (s *DescribeRiskConfigurationInput) SetUserPoolId(v string) *DescribeRiskCo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeRiskConfigurationResponse
 type DescribeRiskConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16208,6 +16219,7 @@ func (s *DescribeRiskConfigurationOutput) SetRiskConfiguration(v *RiskConfigurat
 }
 
 // Represents the request to describe the user import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserImportJobRequest
 type DescribeUserImportJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16268,6 +16280,7 @@ func (s *DescribeUserImportJobInput) SetUserPoolId(v string) *DescribeUserImport
 
 // Represents the response from the server to the request to describe the user
 // import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserImportJobResponse
 type DescribeUserImportJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16292,6 +16305,7 @@ func (s *DescribeUserImportJobOutput) SetUserImportJob(v *UserImportJobType) *De
 }
 
 // Represents the request to describe a user pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserPoolClientRequest
 type DescribeUserPoolClientInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16352,6 +16366,7 @@ func (s *DescribeUserPoolClientInput) SetUserPoolId(v string) *DescribeUserPoolC
 
 // Represents the response from the server from a request to describe the user
 // pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserPoolClientResponse
 type DescribeUserPoolClientOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16375,6 +16390,7 @@ func (s *DescribeUserPoolClientOutput) SetUserPoolClient(v *UserPoolClientType) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserPoolDomainRequest
 type DescribeUserPoolDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16416,6 +16432,7 @@ func (s *DescribeUserPoolDomainInput) SetDomain(v string) *DescribeUserPoolDomai
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserPoolDomainResponse
 type DescribeUserPoolDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16440,6 +16457,7 @@ func (s *DescribeUserPoolDomainOutput) SetDomainDescription(v *DomainDescription
 }
 
 // Represents the request to describe the user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserPoolRequest
 type DescribeUserPoolInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16482,6 +16500,7 @@ func (s *DescribeUserPoolInput) SetUserPoolId(v string) *DescribeUserPoolInput {
 }
 
 // Represents the response to describe the user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserPoolResponse
 type DescribeUserPoolOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16506,6 +16525,7 @@ func (s *DescribeUserPoolOutput) SetUserPool(v *UserPoolType) *DescribeUserPoolO
 }
 
 // The configuration for the user pool's device tracking.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeviceConfigurationType
 type DeviceConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -16540,6 +16560,7 @@ func (s *DeviceConfigurationType) SetDeviceOnlyRememberedOnUserPrompt(v bool) *D
 }
 
 // The device verifier against which it will be authenticated.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeviceSecretVerifierConfigType
 type DeviceSecretVerifierConfigType struct {
 	_ struct{} `type:"structure"`
 
@@ -16573,6 +16594,7 @@ func (s *DeviceSecretVerifierConfigType) SetSalt(v string) *DeviceSecretVerifier
 }
 
 // The device type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeviceType
 type DeviceType struct {
 	_ struct{} `type:"structure"`
 
@@ -16633,6 +16655,7 @@ func (s *DeviceType) SetDeviceLastModifiedDate(v time.Time) *DeviceType {
 }
 
 // A container for information about a domain.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DomainDescriptionType
 type DomainDescriptionType struct {
 	_ struct{} `type:"structure"`
 
@@ -16711,6 +16734,7 @@ func (s *DomainDescriptionType) SetVersion(v string) *DomainDescriptionType {
 }
 
 // The email configuration type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/EmailConfigurationType
 type EmailConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -16757,6 +16781,7 @@ func (s *EmailConfigurationType) SetSourceArn(v string) *EmailConfigurationType 
 }
 
 // Specifies the user context data captured at the time of an event request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/EventContextDataType
 type EventContextDataType struct {
 	_ struct{} `type:"structure"`
 
@@ -16817,6 +16842,7 @@ func (s *EventContextDataType) SetTimezone(v string) *EventContextDataType {
 }
 
 // Specifies the event feedback type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/EventFeedbackType
 type EventFeedbackType struct {
 	_ struct{} `type:"structure"`
 
@@ -16863,6 +16889,7 @@ func (s *EventFeedbackType) SetProvider(v string) *EventFeedbackType {
 }
 
 // The event risk type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/EventRiskType
 type EventRiskType struct {
 	_ struct{} `type:"structure"`
 
@@ -16896,6 +16923,7 @@ func (s *EventRiskType) SetRiskLevel(v string) *EventRiskType {
 }
 
 // Represents the request to forget the device.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ForgetDeviceRequest
 type ForgetDeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16946,6 +16974,7 @@ func (s *ForgetDeviceInput) SetDeviceKey(v string) *ForgetDeviceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ForgetDeviceOutput
 type ForgetDeviceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16961,6 +16990,7 @@ func (s ForgetDeviceOutput) GoString() string {
 }
 
 // Represents the request to reset a user's password.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ForgotPasswordRequest
 type ForgotPasswordInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17056,6 +17086,7 @@ func (s *ForgotPasswordInput) SetUsername(v string) *ForgotPasswordInput {
 
 // Respresents the response from the server regarding the request to reset a
 // password.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ForgotPasswordResponse
 type ForgotPasswordOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17082,6 +17113,7 @@ func (s *ForgotPasswordOutput) SetCodeDeliveryDetails(v *CodeDeliveryDetailsType
 
 // Represents the request to get the header information for the .csv file for
 // the user import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetCSVHeaderRequest
 type GetCSVHeaderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17125,6 +17157,7 @@ func (s *GetCSVHeaderInput) SetUserPoolId(v string) *GetCSVHeaderInput {
 
 // Represents the response from the server to the request to get the header
 // information for the .csv file for the user import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetCSVHeaderResponse
 type GetCSVHeaderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17158,6 +17191,7 @@ func (s *GetCSVHeaderOutput) SetUserPoolId(v string) *GetCSVHeaderOutput {
 }
 
 // Represents the request to get the device.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetDeviceRequest
 type GetDeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17209,6 +17243,7 @@ func (s *GetDeviceInput) SetDeviceKey(v string) *GetDeviceInput {
 }
 
 // Gets the device response.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetDeviceResponse
 type GetDeviceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17234,6 +17269,7 @@ func (s *GetDeviceOutput) SetDevice(v *DeviceType) *GetDeviceOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetGroupRequest
 type GetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17292,6 +17328,7 @@ func (s *GetGroupInput) SetUserPoolId(v string) *GetGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetGroupResponse
 type GetGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17315,6 +17352,7 @@ func (s *GetGroupOutput) SetGroup(v *GroupType) *GetGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetIdentityProviderByIdentifierRequest
 type GetIdentityProviderByIdentifierInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17373,6 +17411,7 @@ func (s *GetIdentityProviderByIdentifierInput) SetUserPoolId(v string) *GetIdent
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetIdentityProviderByIdentifierResponse
 type GetIdentityProviderByIdentifierOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17398,72 +17437,7 @@ func (s *GetIdentityProviderByIdentifierOutput) SetIdentityProvider(v *IdentityP
 	return s
 }
 
-// Request to get a signing certificate from Cognito.
-type GetSigningCertificateInput struct {
-	_ struct{} `type:"structure"`
-
-	// The user pool ID.
-	//
-	// UserPoolId is a required field
-	UserPoolId *string `min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetSigningCertificateInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetSigningCertificateInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetSigningCertificateInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetSigningCertificateInput"}
-	if s.UserPoolId == nil {
-		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
-	}
-	if s.UserPoolId != nil && len(*s.UserPoolId) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("UserPoolId", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetUserPoolId sets the UserPoolId field's value.
-func (s *GetSigningCertificateInput) SetUserPoolId(v string) *GetSigningCertificateInput {
-	s.UserPoolId = &v
-	return s
-}
-
-// Response from Cognito for a signing certificate request.
-type GetSigningCertificateOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The signing certificate.
-	Certificate *string `type:"string"`
-}
-
-// String returns the string representation
-func (s GetSigningCertificateOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetSigningCertificateOutput) GoString() string {
-	return s.String()
-}
-
-// SetCertificate sets the Certificate field's value.
-func (s *GetSigningCertificateOutput) SetCertificate(v string) *GetSigningCertificateOutput {
-	s.Certificate = &v
-	return s
-}
-
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUICustomizationRequest
 type GetUICustomizationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17517,6 +17491,7 @@ func (s *GetUICustomizationInput) SetUserPoolId(v string) *GetUICustomizationInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUICustomizationResponse
 type GetUICustomizationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17543,6 +17518,7 @@ func (s *GetUICustomizationOutput) SetUICustomization(v *UICustomizationType) *G
 }
 
 // Represents the request to get user attribute verification.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUserAttributeVerificationCodeRequest
 type GetUserAttributeVerificationCodeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17602,6 +17578,7 @@ func (s *GetUserAttributeVerificationCodeInput) SetAttributeName(v string) *GetU
 
 // The verification code response returned by the server response to get the
 // user attribute verification code.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUserAttributeVerificationCodeResponse
 type GetUserAttributeVerificationCodeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17627,6 +17604,7 @@ func (s *GetUserAttributeVerificationCodeOutput) SetCodeDeliveryDetails(v *CodeD
 }
 
 // Represents the request to get information about the user.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUserRequest
 type GetUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17668,13 +17646,13 @@ func (s *GetUserInput) SetAccessToken(v string) *GetUserInput {
 
 // Represents the response from the server from the request to get information
 // about the user.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUserResponse
 type GetUserOutput struct {
 	_ struct{} `type:"structure"`
 
 	// Specifies the options for MFA (e.g., email or phone number).
 	MFAOptions []*MFAOptionType `type:"list"`
 
-	// The user's preferred MFA setting.
 	PreferredMfaSetting *string `type:"string"`
 
 	// An array of name-value pairs representing user attributes.
@@ -17685,7 +17663,6 @@ type GetUserOutput struct {
 	// UserAttributes is a required field
 	UserAttributes []*AttributeType `type:"list" required:"true"`
 
-	// The list of the user's MFA settings.
 	UserMFASettingList []*string `type:"list"`
 
 	// The user name of the user you wish to retrieve from the get user request.
@@ -17734,6 +17711,7 @@ func (s *GetUserOutput) SetUsername(v string) *GetUserOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUserPoolMfaConfigRequest
 type GetUserPoolMfaConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17775,6 +17753,7 @@ func (s *GetUserPoolMfaConfigInput) SetUserPoolId(v string) *GetUserPoolMfaConfi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUserPoolMfaConfigResponse
 type GetUserPoolMfaConfigOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17817,6 +17796,7 @@ func (s *GetUserPoolMfaConfigOutput) SetSoftwareTokenMfaConfiguration(v *Softwar
 }
 
 // Represents the request to sign out all devices.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GlobalSignOutRequest
 type GlobalSignOutInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17856,6 +17836,7 @@ func (s *GlobalSignOutInput) SetAccessToken(v string) *GlobalSignOutInput {
 }
 
 // The response to the request to sign out all devices.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GlobalSignOutResponse
 type GlobalSignOutOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17871,6 +17852,7 @@ func (s GlobalSignOutOutput) GoString() string {
 }
 
 // The group type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GroupType
 type GroupType struct {
 	_ struct{} `type:"structure"`
 
@@ -17962,6 +17944,7 @@ func (s *GroupType) SetUserPoolId(v string) *GroupType {
 }
 
 // The HTTP header.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/HttpHeader
 type HttpHeader struct {
 	_ struct{} `type:"structure"`
 
@@ -17995,6 +17978,7 @@ func (s *HttpHeader) SetHeaderValue(v string) *HttpHeader {
 }
 
 // A container for information about an identity provider.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/IdentityProviderType
 type IdentityProviderType struct {
 	_ struct{} `type:"structure"`
 
@@ -18083,6 +18067,7 @@ func (s *IdentityProviderType) SetUserPoolId(v string) *IdentityProviderType {
 }
 
 // Initiates the authentication request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/InitiateAuthRequest
 type InitiateAuthInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18099,9 +18084,6 @@ type InitiateAuthInput struct {
 	//    * USER_SRP_AUTH will take in USERNAME and SRP_A and return the SRP variables
 	//    to be used for next challenge execution.
 	//
-	//    * USER_PASSWORD_AUTH will take in USERNAME and PASSWORD and return the
-	//    next challenge or tokens.
-	//
 	// Valid values include:
 	//
 	//    * USER_SRP_AUTH: Authentication flow for the Secure Remote Password (SRP)
@@ -18111,11 +18093,6 @@ type InitiateAuthInput struct {
 	//    the access token and ID token by supplying a valid refresh token.
 	//
 	//    * CUSTOM_AUTH: Custom authentication flow.
-	//
-	//    * USER_PASSWORD_AUTH: Non-SRP authentication flow; USERNAME and PASSWORD
-	//    are passed directly. If a user migration Lambda trigger is set, this flow
-	//    will invoke the user migration Lambda if the USERNAME is not found in
-	//    the user pool.
 	//
 	// ADMIN_NO_SRP_AUTH is not a valid value.
 	//
@@ -18128,8 +18105,9 @@ type InitiateAuthInput struct {
 	//    * For USER_SRP_AUTH: USERNAME (required), SRP_A (required), SECRET_HASH
 	//    (required if the app client is configured with a client secret), DEVICE_KEY
 	//
-	//    * For REFRESH_TOKEN_AUTH/REFRESH_TOKEN: REFRESH_TOKEN (required), SECRET_HASH
-	//    (required if the app client is configured with a client secret), DEVICE_KEY
+	//    * For REFRESH_TOKEN_AUTH/REFRESH_TOKEN: USERNAME (required), SECRET_HASH
+	//    (required if the app client is configured with a client secret), REFRESH_TOKEN
+	//    (required), DEVICE_KEY
 	//
 	//    * For CUSTOM_AUTH: USERNAME (required), SECRET_HASH (if app client is
 	//    configured with client secret), DEVICE_KEY
@@ -18217,6 +18195,7 @@ func (s *InitiateAuthInput) SetUserContextData(v *UserContextDataType) *Initiate
 }
 
 // Initiates the authentication response.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/InitiateAuthResponse
 type InitiateAuthOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18305,6 +18284,7 @@ func (s *InitiateAuthOutput) SetSession(v string) *InitiateAuthOutput {
 }
 
 // Specifies the configuration for AWS Lambda triggers.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/LambdaConfigType
 type LambdaConfigType struct {
 	_ struct{} `type:"structure"`
 
@@ -18331,9 +18311,6 @@ type LambdaConfigType struct {
 
 	// A Lambda trigger that is invoked before token generation.
 	PreTokenGeneration *string `min:"20" type:"string"`
-
-	// The user migration Lambda config type.
-	UserMigration *string `min:"20" type:"string"`
 
 	// Verifies the authentication challenge response.
 	VerifyAuthChallengeResponse *string `min:"20" type:"string"`
@@ -18375,9 +18352,6 @@ func (s *LambdaConfigType) Validate() error {
 	}
 	if s.PreTokenGeneration != nil && len(*s.PreTokenGeneration) < 20 {
 		invalidParams.Add(request.NewErrParamMinLen("PreTokenGeneration", 20))
-	}
-	if s.UserMigration != nil && len(*s.UserMigration) < 20 {
-		invalidParams.Add(request.NewErrParamMinLen("UserMigration", 20))
 	}
 	if s.VerifyAuthChallengeResponse != nil && len(*s.VerifyAuthChallengeResponse) < 20 {
 		invalidParams.Add(request.NewErrParamMinLen("VerifyAuthChallengeResponse", 20))
@@ -18437,12 +18411,6 @@ func (s *LambdaConfigType) SetPreTokenGeneration(v string) *LambdaConfigType {
 	return s
 }
 
-// SetUserMigration sets the UserMigration field's value.
-func (s *LambdaConfigType) SetUserMigration(v string) *LambdaConfigType {
-	s.UserMigration = &v
-	return s
-}
-
 // SetVerifyAuthChallengeResponse sets the VerifyAuthChallengeResponse field's value.
 func (s *LambdaConfigType) SetVerifyAuthChallengeResponse(v string) *LambdaConfigType {
 	s.VerifyAuthChallengeResponse = &v
@@ -18450,6 +18418,7 @@ func (s *LambdaConfigType) SetVerifyAuthChallengeResponse(v string) *LambdaConfi
 }
 
 // Represents the request to list the devices.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListDevicesRequest
 type ListDevicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18510,6 +18479,7 @@ func (s *ListDevicesInput) SetPaginationToken(v string) *ListDevicesInput {
 }
 
 // Represents the response to list devices.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListDevicesResponse
 type ListDevicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18542,6 +18512,7 @@ func (s *ListDevicesOutput) SetPaginationToken(v string) *ListDevicesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListGroupsRequest
 type ListGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18605,6 +18576,7 @@ func (s *ListGroupsInput) SetUserPoolId(v string) *ListGroupsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListGroupsResponse
 type ListGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18638,6 +18610,7 @@ func (s *ListGroupsOutput) SetNextToken(v string) *ListGroupsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListIdentityProvidersRequest
 type ListIdentityProvidersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18703,6 +18676,7 @@ func (s *ListIdentityProvidersInput) SetUserPoolId(v string) *ListIdentityProvid
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListIdentityProvidersResponse
 type ListIdentityProvidersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18737,6 +18711,7 @@ func (s *ListIdentityProvidersOutput) SetProviders(v []*ProviderDescription) *Li
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServersRequest
 type ListResourceServersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18802,6 +18777,7 @@ func (s *ListResourceServersInput) SetUserPoolId(v string) *ListResourceServersI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServersResponse
 type ListResourceServersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18837,6 +18813,7 @@ func (s *ListResourceServersOutput) SetResourceServers(v []*ResourceServerType) 
 }
 
 // Represents the request to list the user import jobs.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUserImportJobsRequest
 type ListUserImportJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18910,6 +18887,7 @@ func (s *ListUserImportJobsInput) SetUserPoolId(v string) *ListUserImportJobsInp
 
 // Represents the response from the server to the request to list the user import
 // jobs.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUserImportJobsResponse
 type ListUserImportJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18944,6 +18922,7 @@ func (s *ListUserImportJobsOutput) SetUserImportJobs(v []*UserImportJobType) *Li
 }
 
 // Represents the request to list the user pool clients.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUserPoolClientsRequest
 type ListUserPoolClientsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19012,6 +18991,7 @@ func (s *ListUserPoolClientsInput) SetUserPoolId(v string) *ListUserPoolClientsI
 }
 
 // Represents the response from the server that lists user pool clients.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUserPoolClientsResponse
 type ListUserPoolClientsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19046,6 +19026,7 @@ func (s *ListUserPoolClientsOutput) SetUserPoolClients(v []*UserPoolClientDescri
 }
 
 // Represents the request to list user pools.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUserPoolsRequest
 type ListUserPoolsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19102,6 +19083,7 @@ func (s *ListUserPoolsInput) SetNextToken(v string) *ListUserPoolsInput {
 }
 
 // Represents the response to list user pools.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUserPoolsResponse
 type ListUserPoolsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19135,6 +19117,7 @@ func (s *ListUserPoolsOutput) SetUserPools(v []*UserPoolDescriptionType) *ListUs
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUsersInGroupRequest
 type ListUsersInGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19215,6 +19198,7 @@ func (s *ListUsersInGroupInput) SetUserPoolId(v string) *ListUsersInGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUsersInGroupResponse
 type ListUsersInGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19249,6 +19233,7 @@ func (s *ListUsersInGroupOutput) SetUsers(v []*UserType) *ListUsersInGroupOutput
 }
 
 // Represents the request to list users.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUsersRequest
 type ListUsersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19374,6 +19359,7 @@ func (s *ListUsersInput) SetUserPoolId(v string) *ListUsersInput {
 }
 
 // The response from the request to list users.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUsersResponse
 type ListUsersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19408,6 +19394,7 @@ func (s *ListUsersOutput) SetUsers(v []*UserType) *ListUsersOutput {
 }
 
 // Specifies the different settings for multi-factor authentication (MFA).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/MFAOptionType
 type MFAOptionType struct {
 	_ struct{} `type:"structure"`
 
@@ -19454,6 +19441,7 @@ func (s *MFAOptionType) SetDeliveryMedium(v string) *MFAOptionType {
 }
 
 // The message template structure.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/MessageTemplateType
 type MessageTemplateType struct {
 	_ struct{} `type:"structure"`
 
@@ -19515,6 +19503,7 @@ func (s *MessageTemplateType) SetSMSMessage(v string) *MessageTemplateType {
 }
 
 // The new device metadata type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/NewDeviceMetadataType
 type NewDeviceMetadataType struct {
 	_ struct{} `type:"structure"`
 
@@ -19548,6 +19537,7 @@ func (s *NewDeviceMetadataType) SetDeviceKey(v string) *NewDeviceMetadataType {
 }
 
 // The notify configuration type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/NotifyConfigurationType
 type NotifyConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -19655,6 +19645,7 @@ func (s *NotifyConfigurationType) SetSourceArn(v string) *NotifyConfigurationTyp
 }
 
 // The notify email type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/NotifyEmailType
 type NotifyEmailType struct {
 	_ struct{} `type:"structure"`
 
@@ -19722,6 +19713,7 @@ func (s *NotifyEmailType) SetTextBody(v string) *NotifyEmailType {
 
 // The minimum and maximum value of an attribute that is of the number data
 // type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/NumberAttributeConstraintsType
 type NumberAttributeConstraintsType struct {
 	_ struct{} `type:"structure"`
 
@@ -19755,6 +19747,7 @@ func (s *NumberAttributeConstraintsType) SetMinValue(v string) *NumberAttributeC
 }
 
 // The password policy type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/PasswordPolicyType
 type PasswordPolicyType struct {
 	_ struct{} `type:"structure"`
 
@@ -19833,6 +19826,7 @@ func (s *PasswordPolicyType) SetRequireUppercase(v bool) *PasswordPolicyType {
 }
 
 // A container for identity provider details.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ProviderDescription
 type ProviderDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -19884,6 +19878,7 @@ func (s *ProviderDescription) SetProviderType(v string) *ProviderDescription {
 }
 
 // A container for information about an identity provider for a user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ProviderUserIdentifierType
 type ProviderUserIdentifierType struct {
 	_ struct{} `type:"structure"`
 
@@ -19939,6 +19934,7 @@ func (s *ProviderUserIdentifierType) SetProviderName(v string) *ProviderUserIden
 }
 
 // Represents the request to resend the confirmation code.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ResendConfirmationCodeRequest
 type ResendConfirmationCodeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20033,6 +20029,7 @@ func (s *ResendConfirmationCodeInput) SetUsername(v string) *ResendConfirmationC
 
 // The response from the server when the Amazon Cognito Your User Pools service
 // makes the request to resend a confirmation code.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ResendConfirmationCodeResponse
 type ResendConfirmationCodeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20058,6 +20055,7 @@ func (s *ResendConfirmationCodeOutput) SetCodeDeliveryDetails(v *CodeDeliveryDet
 }
 
 // A resource server scope.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ResourceServerScopeType
 type ResourceServerScopeType struct {
 	_ struct{} `type:"structure"`
 
@@ -20117,6 +20115,7 @@ func (s *ResourceServerScopeType) SetScopeName(v string) *ResourceServerScopeTyp
 }
 
 // A container for information about a resource server for a user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ResourceServerType
 type ResourceServerType struct {
 	_ struct{} `type:"structure"`
 
@@ -20168,6 +20167,7 @@ func (s *ResourceServerType) SetUserPoolId(v string) *ResourceServerType {
 }
 
 // The request to respond to an authentication challenge.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/RespondToAuthChallengeRequest
 type RespondToAuthChallengeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20283,6 +20283,7 @@ func (s *RespondToAuthChallengeInput) SetUserContextData(v *UserContextDataType)
 }
 
 // The response to respond to the authentication challenge.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/RespondToAuthChallengeResponse
 type RespondToAuthChallengeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20339,6 +20340,7 @@ func (s *RespondToAuthChallengeOutput) SetSession(v string) *RespondToAuthChalle
 }
 
 // The risk configuration type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/RiskConfigurationType
 type RiskConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -20410,6 +20412,7 @@ func (s *RiskConfigurationType) SetUserPoolId(v string) *RiskConfigurationType {
 }
 
 // The type of the configuration to override the risk decision.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/RiskExceptionConfigurationType
 type RiskExceptionConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -20446,6 +20449,7 @@ func (s *RiskExceptionConfigurationType) SetSkippedIPRangeList(v []*string) *Ris
 }
 
 // The SMS multi-factor authentication (MFA) settings type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SMSMfaSettingsType
 type SMSMfaSettingsType struct {
 	_ struct{} `type:"structure"`
 
@@ -20479,6 +20483,7 @@ func (s *SMSMfaSettingsType) SetPreferredMfa(v bool) *SMSMfaSettingsType {
 }
 
 // Contains information about the schema attribute.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SchemaAttributeType
 type SchemaAttributeType struct {
 	_ struct{} `type:"structure"`
 
@@ -20571,6 +20576,7 @@ func (s *SchemaAttributeType) SetStringAttributeConstraints(v *StringAttributeCo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetRiskConfigurationRequest
 type SetRiskConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20667,6 +20673,7 @@ func (s *SetRiskConfigurationInput) SetUserPoolId(v string) *SetRiskConfiguratio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetRiskConfigurationResponse
 type SetRiskConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20692,6 +20699,7 @@ func (s *SetRiskConfigurationOutput) SetRiskConfiguration(v *RiskConfigurationTy
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUICustomizationRequest
 type SetUICustomizationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20765,6 +20773,7 @@ func (s *SetUICustomizationInput) SetUserPoolId(v string) *SetUICustomizationInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUICustomizationResponse
 type SetUICustomizationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20790,6 +20799,7 @@ func (s *SetUICustomizationOutput) SetUICustomization(v *UICustomizationType) *S
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUserMFAPreferenceRequest
 type SetUserMFAPreferenceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20846,6 +20856,7 @@ func (s *SetUserMFAPreferenceInput) SetSoftwareTokenMfaSettings(v *SoftwareToken
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUserMFAPreferenceResponse
 type SetUserMFAPreferenceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -20860,6 +20871,7 @@ func (s SetUserMFAPreferenceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUserPoolMfaConfigRequest
 type SetUserPoolMfaConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20933,6 +20945,7 @@ func (s *SetUserPoolMfaConfigInput) SetUserPoolId(v string) *SetUserPoolMfaConfi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUserPoolMfaConfigResponse
 type SetUserPoolMfaConfigOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20975,6 +20988,7 @@ func (s *SetUserPoolMfaConfigOutput) SetSoftwareTokenMfaConfiguration(v *Softwar
 }
 
 // Represents the request to set user settings.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUserSettingsRequest
 type SetUserSettingsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21038,6 +21052,7 @@ func (s *SetUserSettingsInput) SetMFAOptions(v []*MFAOptionType) *SetUserSetting
 }
 
 // The response from the server for a set user settings request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUserSettingsResponse
 type SetUserSettingsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -21053,6 +21068,7 @@ func (s SetUserSettingsOutput) GoString() string {
 }
 
 // Represents the request to register a user.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SignUpRequest
 type SignUpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21204,6 +21220,7 @@ func (s *SignUpInput) SetValidationData(v []*AttributeType) *SignUpInput {
 }
 
 // The response from the server for a registration request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SignUpResponse
 type SignUpOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21251,6 +21268,7 @@ func (s *SignUpOutput) SetUserSub(v string) *SignUpOutput {
 }
 
 // The SMS configuration type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SmsConfigurationType
 type SmsConfigurationType struct {
 	_ struct{} `type:"structure"`
 
@@ -21303,6 +21321,7 @@ func (s *SmsConfigurationType) SetSnsCallerArn(v string) *SmsConfigurationType {
 }
 
 // The SMS text message multi-factor authentication (MFA) configuration type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SmsMfaConfigType
 type SmsMfaConfigType struct {
 	_ struct{} `type:"structure"`
 
@@ -21354,6 +21373,7 @@ func (s *SmsMfaConfigType) SetSmsConfiguration(v *SmsConfigurationType) *SmsMfaC
 }
 
 // The type used for enabling software token MFA at the user pool level.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SoftwareTokenMfaConfigType
 type SoftwareTokenMfaConfigType struct {
 	_ struct{} `type:"structure"`
 
@@ -21378,6 +21398,7 @@ func (s *SoftwareTokenMfaConfigType) SetEnabled(v bool) *SoftwareTokenMfaConfigT
 }
 
 // The type used for enabling software token MFA at the user level.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SoftwareTokenMfaSettingsType
 type SoftwareTokenMfaSettingsType struct {
 	_ struct{} `type:"structure"`
 
@@ -21411,6 +21432,7 @@ func (s *SoftwareTokenMfaSettingsType) SetPreferredMfa(v bool) *SoftwareTokenMfa
 }
 
 // Represents the request to start the user import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/StartUserImportJobRequest
 type StartUserImportJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21471,6 +21493,7 @@ func (s *StartUserImportJobInput) SetUserPoolId(v string) *StartUserImportJobInp
 
 // Represents the response from the server to the request to start the user
 // import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/StartUserImportJobResponse
 type StartUserImportJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21495,6 +21518,7 @@ func (s *StartUserImportJobOutput) SetUserImportJob(v *UserImportJobType) *Start
 }
 
 // Represents the request to stop the user import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/StopUserImportJobRequest
 type StopUserImportJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21555,6 +21579,7 @@ func (s *StopUserImportJobInput) SetUserPoolId(v string) *StopUserImportJobInput
 
 // Represents the response from the server to the request to stop the user import
 // job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/StopUserImportJobResponse
 type StopUserImportJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21579,6 +21604,7 @@ func (s *StopUserImportJobOutput) SetUserImportJob(v *UserImportJobType) *StopUs
 }
 
 // The constraints associated with a string attribute.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/StringAttributeConstraintsType
 type StringAttributeConstraintsType struct {
 	_ struct{} `type:"structure"`
 
@@ -21613,6 +21639,7 @@ func (s *StringAttributeConstraintsType) SetMinLength(v string) *StringAttribute
 
 // A container for the UI customization information for a user pool's built-in
 // app UI.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UICustomizationType
 type UICustomizationType struct {
 	_ struct{} `type:"structure"`
 
@@ -21690,6 +21717,7 @@ func (s *UICustomizationType) SetUserPoolId(v string) *UICustomizationType {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateAuthEventFeedbackRequest
 type UpdateAuthEventFeedbackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21793,6 +21821,7 @@ func (s *UpdateAuthEventFeedbackInput) SetUsername(v string) *UpdateAuthEventFee
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateAuthEventFeedbackResponse
 type UpdateAuthEventFeedbackOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -21808,6 +21837,7 @@ func (s UpdateAuthEventFeedbackOutput) GoString() string {
 }
 
 // Represents the request to update the device status.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateDeviceStatusRequest
 type UpdateDeviceStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21873,6 +21903,7 @@ func (s *UpdateDeviceStatusInput) SetDeviceRememberedStatus(v string) *UpdateDev
 }
 
 // The response to the request to update the device status.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateDeviceStatusResponse
 type UpdateDeviceStatusOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -21887,6 +21918,7 @@ func (s UpdateDeviceStatusOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateGroupRequest
 type UpdateGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21977,6 +22009,7 @@ func (s *UpdateGroupInput) SetUserPoolId(v string) *UpdateGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateGroupResponse
 type UpdateGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22000,6 +22033,7 @@ func (s *UpdateGroupOutput) SetGroup(v *GroupType) *UpdateGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateIdentityProviderRequest
 type UpdateIdentityProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22085,6 +22119,7 @@ func (s *UpdateIdentityProviderInput) SetUserPoolId(v string) *UpdateIdentityPro
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateIdentityProviderResponse
 type UpdateIdentityProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22110,6 +22145,7 @@ func (s *UpdateIdentityProviderOutput) SetIdentityProvider(v *IdentityProviderTy
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServerRequest
 type UpdateResourceServerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22204,6 +22240,7 @@ func (s *UpdateResourceServerInput) SetUserPoolId(v string) *UpdateResourceServe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServerResponse
 type UpdateResourceServerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22230,6 +22267,7 @@ func (s *UpdateResourceServerOutput) SetResourceServer(v *ResourceServerType) *U
 }
 
 // Represents the request to update user attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateUserAttributesRequest
 type UpdateUserAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22296,6 +22334,7 @@ func (s *UpdateUserAttributesInput) SetUserAttributes(v []*AttributeType) *Updat
 }
 
 // Represents the response from the server for the request to update user attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateUserAttributesResponse
 type UpdateUserAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22321,6 +22360,7 @@ func (s *UpdateUserAttributesOutput) SetCodeDeliveryDetailsList(v []*CodeDeliver
 }
 
 // Represents the request to update the user pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateUserPoolClientRequest
 type UpdateUserPoolClientInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22520,6 +22560,7 @@ func (s *UpdateUserPoolClientInput) SetWriteAttributes(v []*string) *UpdateUserP
 
 // Represents the response from the server to the request to update the user
 // pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateUserPoolClientResponse
 type UpdateUserPoolClientOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22545,6 +22586,7 @@ func (s *UpdateUserPoolClientOutput) SetUserPoolClient(v *UserPoolClientType) *U
 }
 
 // Represents the request to update the user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateUserPoolRequest
 type UpdateUserPoolInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22782,6 +22824,7 @@ func (s *UpdateUserPoolInput) SetVerificationMessageTemplate(v *VerificationMess
 
 // Represents the response from the server when you make a request to update
 // the user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateUserPoolResponse
 type UpdateUserPoolOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -22799,6 +22842,7 @@ func (s UpdateUserPoolOutput) GoString() string {
 // Contextual data such as the user's device fingerprint, IP address, or location
 // used for evaluating the risk of an unexpected event by Amazon Cognito advanced
 // security.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserContextDataType
 type UserContextDataType struct {
 	_ struct{} `type:"structure"`
 
@@ -22825,6 +22869,7 @@ func (s *UserContextDataType) SetEncodedData(v string) *UserContextDataType {
 }
 
 // The user import job type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserImportJobType
 type UserImportJobType struct {
 	_ struct{} `type:"structure"`
 
@@ -22980,6 +23025,7 @@ func (s *UserImportJobType) SetUserPoolId(v string) *UserImportJobType {
 }
 
 // The user pool add-ons type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolAddOnsType
 type UserPoolAddOnsType struct {
 	_ struct{} `type:"structure"`
 
@@ -23019,6 +23065,7 @@ func (s *UserPoolAddOnsType) SetAdvancedSecurityMode(v string) *UserPoolAddOnsTy
 }
 
 // The description of the user pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolClientDescription
 type UserPoolClientDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -23062,6 +23109,7 @@ func (s *UserPoolClientDescription) SetUserPoolId(v string) *UserPoolClientDescr
 }
 
 // Contains information about a user pool client.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolClientType
 type UserPoolClientType struct {
 	_ struct{} `type:"structure"`
 
@@ -23248,6 +23296,7 @@ func (s *UserPoolClientType) SetWriteAttributes(v []*string) *UserPoolClientType
 }
 
 // A user pool description.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolDescriptionType
 type UserPoolDescriptionType struct {
 	_ struct{} `type:"structure"`
 
@@ -23317,6 +23366,7 @@ func (s *UserPoolDescriptionType) SetStatus(v string) *UserPoolDescriptionType {
 }
 
 // The policy associated with a user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolPolicyType
 type UserPoolPolicyType struct {
 	_ struct{} `type:"structure"`
 
@@ -23356,6 +23406,7 @@ func (s *UserPoolPolicyType) SetPasswordPolicy(v *PasswordPolicyType) *UserPoolP
 }
 
 // A container for information about the user pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolType
 type UserPoolType struct {
 	_ struct{} `type:"structure"`
 
@@ -23373,9 +23424,6 @@ type UserPoolType struct {
 
 	// The device configuration.
 	DeviceConfiguration *DeviceConfigurationType `type:"structure"`
-
-	// Holds the domain prefix if the user pool has a domain associated with it.
-	Domain *string `min:"1" type:"string"`
 
 	// The email configuration.
 	EmailConfiguration *EmailConfigurationType `type:"structure"`
@@ -23488,12 +23536,6 @@ func (s *UserPoolType) SetCreationDate(v time.Time) *UserPoolType {
 // SetDeviceConfiguration sets the DeviceConfiguration field's value.
 func (s *UserPoolType) SetDeviceConfiguration(v *DeviceConfigurationType) *UserPoolType {
 	s.DeviceConfiguration = v
-	return s
-}
-
-// SetDomain sets the Domain field's value.
-func (s *UserPoolType) SetDomain(v string) *UserPoolType {
-	s.Domain = &v
 	return s
 }
 
@@ -23624,6 +23666,7 @@ func (s *UserPoolType) SetVerificationMessageTemplate(v *VerificationMessageTemp
 }
 
 // The user type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserType
 type UserType struct {
 	_ struct{} `type:"structure"`
 
@@ -23712,6 +23755,7 @@ func (s *UserType) SetUsername(v string) *UserType {
 }
 
 // The template for verification messages.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerificationMessageTemplateType
 type VerificationMessageTemplateType struct {
 	_ struct{} `type:"structure"`
 
@@ -23806,6 +23850,7 @@ func (s *VerificationMessageTemplateType) SetSmsMessage(v string) *VerificationM
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerifySoftwareTokenRequest
 type VerifySoftwareTokenInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23878,6 +23923,7 @@ func (s *VerifySoftwareTokenInput) SetUserCode(v string) *VerifySoftwareTokenInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerifySoftwareTokenResponse
 type VerifySoftwareTokenOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -23912,6 +23958,7 @@ func (s *VerifySoftwareTokenOutput) SetStatus(v string) *VerifySoftwareTokenOutp
 }
 
 // Represents the request to verify user attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerifyUserAttributeRequest
 type VerifyUserAttributeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23986,6 +24033,7 @@ func (s *VerifyUserAttributeInput) SetCode(v string) *VerifyUserAttributeInput {
 
 // A container representing the response from the server from the request to
 // verify user attributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerifyUserAttributeResponse
 type VerifyUserAttributeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -24065,9 +24113,6 @@ const (
 
 	// AuthFlowTypeAdminNoSrpAuth is a AuthFlowType enum value
 	AuthFlowTypeAdminNoSrpAuth = "ADMIN_NO_SRP_AUTH"
-
-	// AuthFlowTypeUserPasswordAuth is a AuthFlowType enum value
-	AuthFlowTypeUserPasswordAuth = "USER_PASSWORD_AUTH"
 )
 
 const (
@@ -24203,9 +24248,6 @@ const (
 
 	// ExplicitAuthFlowsTypeCustomAuthFlowOnly is a ExplicitAuthFlowsType enum value
 	ExplicitAuthFlowsTypeCustomAuthFlowOnly = "CUSTOM_AUTH_FLOW_ONLY"
-
-	// ExplicitAuthFlowsTypeUserPasswordAuth is a ExplicitAuthFlowsType enum value
-	ExplicitAuthFlowsTypeUserPasswordAuth = "USER_PASSWORD_AUTH"
 )
 
 const (

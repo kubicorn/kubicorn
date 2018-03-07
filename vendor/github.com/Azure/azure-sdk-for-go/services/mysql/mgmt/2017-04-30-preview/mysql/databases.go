@@ -18,7 +18,6 @@ package mysql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -27,7 +26,7 @@ import (
 // DatabasesClient is the the Microsoft Azure management API provides create, read, update, and delete functionality
 // for Azure MySQL resources including servers, databases, firewall rules, VNET rules, log files and configurations.
 type DatabasesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDatabasesClient creates an instance of the DatabasesClient client.
@@ -40,29 +39,50 @@ func NewDatabasesClientWithBaseURI(baseURI string, subscriptionID string) Databa
 	return DatabasesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates a new database or updates an existing database.
+// CreateOrUpdate creates a new database or updates an existing database. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. databaseName is the name of the
 // database. parameters is the required parameters for creating or updating a database.
-func (client DatabasesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters Database) (result DatabasesCreateOrUpdateFuture, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serverName, databaseName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+func (client DatabasesClient) CreateOrUpdate(resourceGroupName string, serverName string, databaseName string, parameters Database, cancel <-chan struct{}) (<-chan Database, <-chan error) {
+	resultChan := make(chan Database, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result Database
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, serverName, databaseName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client DatabasesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters Database) (*http.Request, error) {
+func (client DatabasesClient) CreateOrUpdatePreparer(resourceGroupName string, serverName string, databaseName string, parameters Database, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"databaseName":      autorest.Encode("path", databaseName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -82,22 +102,16 @@ func (client DatabasesClient) CreateOrUpdatePreparer(ctx context.Context, resour
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases/{databaseName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client DatabasesClient) CreateOrUpdateSender(req *http.Request) (future DatabasesCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated, http.StatusAccepted))
-	return
+func (client DatabasesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -113,29 +127,49 @@ func (client DatabasesClient) CreateOrUpdateResponder(resp *http.Response) (resu
 	return
 }
 
-// Delete deletes a database.
+// Delete deletes a database. This method may poll for completion. Polling can be canceled by passing the cancel
+// channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. databaseName is the name of the
 // database.
-func (client DatabasesClient) Delete(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result DatabasesDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serverName, databaseName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client DatabasesClient) Delete(resourceGroupName string, serverName string, databaseName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, serverName, databaseName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client DatabasesClient) DeletePreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (*http.Request, error) {
+func (client DatabasesClient) DeletePreparer(resourceGroupName string, serverName string, databaseName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"databaseName":      autorest.Encode("path", databaseName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -153,22 +187,16 @@ func (client DatabasesClient) DeletePreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases/{databaseName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client DatabasesClient) DeleteSender(req *http.Request) (future DatabasesDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DatabasesClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -188,8 +216,8 @@ func (client DatabasesClient) DeleteResponder(resp *http.Response) (result autor
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. databaseName is the name of the
 // database.
-func (client DatabasesClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result Database, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, serverName, databaseName)
+func (client DatabasesClient) Get(resourceGroupName string, serverName string, databaseName string) (result Database, err error) {
+	req, err := client.GetPreparer(resourceGroupName, serverName, databaseName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "Get", nil, "Failure preparing request")
 		return
@@ -211,7 +239,7 @@ func (client DatabasesClient) Get(ctx context.Context, resourceGroupName string,
 }
 
 // GetPreparer prepares the Get request.
-func (client DatabasesClient) GetPreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (*http.Request, error) {
+func (client DatabasesClient) GetPreparer(resourceGroupName string, serverName string, databaseName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"databaseName":      autorest.Encode("path", databaseName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -229,13 +257,14 @@ func (client DatabasesClient) GetPreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases/{databaseName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabasesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -256,8 +285,8 @@ func (client DatabasesClient) GetResponder(resp *http.Response) (result Database
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server.
-func (client DatabasesClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result DatabaseListResult, err error) {
-	req, err := client.ListByServerPreparer(ctx, resourceGroupName, serverName)
+func (client DatabasesClient) ListByServer(resourceGroupName string, serverName string) (result DatabaseListResult, err error) {
+	req, err := client.ListByServerPreparer(resourceGroupName, serverName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mysql.DatabasesClient", "ListByServer", nil, "Failure preparing request")
 		return
@@ -279,7 +308,7 @@ func (client DatabasesClient) ListByServer(ctx context.Context, resourceGroupNam
 }
 
 // ListByServerPreparer prepares the ListByServer request.
-func (client DatabasesClient) ListByServerPreparer(ctx context.Context, resourceGroupName string, serverName string) (*http.Request, error) {
+func (client DatabasesClient) ListByServerPreparer(resourceGroupName string, serverName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serverName":        autorest.Encode("path", serverName),
@@ -296,13 +325,14 @@ func (client DatabasesClient) ListByServerPreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServerSender sends the ListByServer request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabasesClient) ListByServerSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

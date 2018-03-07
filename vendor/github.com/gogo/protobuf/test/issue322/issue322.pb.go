@@ -131,7 +131,10 @@ func init() {
 }
 func (this *OneofTest) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*OneofTest)
@@ -144,7 +147,10 @@ func (this *OneofTest) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -164,7 +170,10 @@ func (this *OneofTest) Equal(that interface{}) bool {
 }
 func (this *OneofTest_I) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*OneofTest_I)
@@ -177,7 +186,10 @@ func (this *OneofTest_I) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}

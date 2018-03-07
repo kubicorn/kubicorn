@@ -18,7 +18,6 @@ package sql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -28,7 +27,7 @@ import (
 // with Azure SQL Database services to manage your databases. The API enables you to create, retrieve, update, and
 // delete databases.
 type CapabilitiesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCapabilitiesClient creates an instance of the CapabilitiesClient client.
@@ -44,8 +43,8 @@ func NewCapabilitiesClientWithBaseURI(baseURI string, subscriptionID string) Cap
 // ListByLocation gets the capabilities available for the specified location.
 //
 // locationID is the location id whose capabilities are retrieved.
-func (client CapabilitiesClient) ListByLocation(ctx context.Context, locationID string) (result LocationCapabilities, err error) {
-	req, err := client.ListByLocationPreparer(ctx, locationID)
+func (client CapabilitiesClient) ListByLocation(locationID string) (result LocationCapabilities, err error) {
+	req, err := client.ListByLocationPreparer(locationID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.CapabilitiesClient", "ListByLocation", nil, "Failure preparing request")
 		return
@@ -67,7 +66,7 @@ func (client CapabilitiesClient) ListByLocation(ctx context.Context, locationID 
 }
 
 // ListByLocationPreparer prepares the ListByLocation request.
-func (client CapabilitiesClient) ListByLocationPreparer(ctx context.Context, locationID string) (*http.Request, error) {
+func (client CapabilitiesClient) ListByLocationPreparer(locationID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"locationId":     autorest.Encode("path", locationID),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -83,13 +82,14 @@ func (client CapabilitiesClient) ListByLocationPreparer(ctx context.Context, loc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Sql/locations/{locationId}/capabilities", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByLocationSender sends the ListByLocation request. The method will close the
 // http.Response Body if it receives an error.
 func (client CapabilitiesClient) ListByLocationSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

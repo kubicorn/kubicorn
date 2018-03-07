@@ -18,7 +18,6 @@ package mysql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // functionality for Azure MySQL resources including servers, databases, firewall rules, VNET rules, log files and
 // configurations.
 type FirewallRulesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewFirewallRulesClient creates an instance of the FirewallRulesClient client.
@@ -42,12 +41,16 @@ func NewFirewallRulesClientWithBaseURI(baseURI string, subscriptionID string) Fi
 	return FirewallRulesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates a new firewall rule or updates an existing firewall rule.
+// CreateOrUpdate creates a new firewall rule or updates an existing firewall rule. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. firewallRuleName is the name of the
 // server firewall rule. parameters is the required parameters for creating or updating a firewall rule.
-func (client FirewallRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule) (result FirewallRulesCreateOrUpdateFuture, err error) {
+func (client FirewallRulesClient) CreateOrUpdate(resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule, cancel <-chan struct{}) (<-chan FirewallRule, <-chan error) {
+	resultChan := make(chan FirewallRule, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.FirewallRuleProperties", Name: validation.Null, Rule: true,
@@ -56,26 +59,46 @@ func (client FirewallRulesClient) CreateOrUpdate(ctx context.Context, resourceGr
 					{Target: "parameters.FirewallRuleProperties.EndIPAddress", Name: validation.Null, Rule: true,
 						Chain: []validation.Constraint{{Target: "parameters.FirewallRuleProperties.EndIPAddress", Name: validation.Pattern, Rule: `^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`, Chain: nil}}},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "mysql.FirewallRulesClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "mysql.FirewallRulesClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serverName, firewallRuleName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result FirewallRule
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, serverName, firewallRuleName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client FirewallRulesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule) (*http.Request, error) {
+func (client FirewallRulesClient) CreateOrUpdatePreparer(resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"firewallRuleName":  autorest.Encode("path", firewallRuleName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -95,22 +118,16 @@ func (client FirewallRulesClient) CreateOrUpdatePreparer(ctx context.Context, re
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/firewallRules/{firewallRuleName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client FirewallRulesClient) CreateOrUpdateSender(req *http.Request) (future FirewallRulesCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated, http.StatusAccepted))
-	return
+func (client FirewallRulesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -126,29 +143,49 @@ func (client FirewallRulesClient) CreateOrUpdateResponder(resp *http.Response) (
 	return
 }
 
-// Delete deletes a server firewall rule.
+// Delete deletes a server firewall rule. This method may poll for completion. Polling can be canceled by passing the
+// cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. firewallRuleName is the name of the
 // server firewall rule.
-func (client FirewallRulesClient) Delete(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (result FirewallRulesDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serverName, firewallRuleName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client FirewallRulesClient) Delete(resourceGroupName string, serverName string, firewallRuleName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, serverName, firewallRuleName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client FirewallRulesClient) DeletePreparer(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (*http.Request, error) {
+func (client FirewallRulesClient) DeletePreparer(resourceGroupName string, serverName string, firewallRuleName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"firewallRuleName":  autorest.Encode("path", firewallRuleName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -166,22 +203,16 @@ func (client FirewallRulesClient) DeletePreparer(ctx context.Context, resourceGr
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/firewallRules/{firewallRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client FirewallRulesClient) DeleteSender(req *http.Request) (future FirewallRulesDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client FirewallRulesClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -201,8 +232,8 @@ func (client FirewallRulesClient) DeleteResponder(resp *http.Response) (result a
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. firewallRuleName is the name of the
 // server firewall rule.
-func (client FirewallRulesClient) Get(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (result FirewallRule, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, serverName, firewallRuleName)
+func (client FirewallRulesClient) Get(resourceGroupName string, serverName string, firewallRuleName string) (result FirewallRule, err error) {
+	req, err := client.GetPreparer(resourceGroupName, serverName, firewallRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "Get", nil, "Failure preparing request")
 		return
@@ -224,7 +255,7 @@ func (client FirewallRulesClient) Get(ctx context.Context, resourceGroupName str
 }
 
 // GetPreparer prepares the Get request.
-func (client FirewallRulesClient) GetPreparer(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (*http.Request, error) {
+func (client FirewallRulesClient) GetPreparer(resourceGroupName string, serverName string, firewallRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"firewallRuleName":  autorest.Encode("path", firewallRuleName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -242,13 +273,14 @@ func (client FirewallRulesClient) GetPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/firewallRules/{firewallRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client FirewallRulesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -269,8 +301,8 @@ func (client FirewallRulesClient) GetResponder(resp *http.Response) (result Fire
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server.
-func (client FirewallRulesClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result FirewallRuleListResult, err error) {
-	req, err := client.ListByServerPreparer(ctx, resourceGroupName, serverName)
+func (client FirewallRulesClient) ListByServer(resourceGroupName string, serverName string) (result FirewallRuleListResult, err error) {
+	req, err := client.ListByServerPreparer(resourceGroupName, serverName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mysql.FirewallRulesClient", "ListByServer", nil, "Failure preparing request")
 		return
@@ -292,7 +324,7 @@ func (client FirewallRulesClient) ListByServer(ctx context.Context, resourceGrou
 }
 
 // ListByServerPreparer prepares the ListByServer request.
-func (client FirewallRulesClient) ListByServerPreparer(ctx context.Context, resourceGroupName string, serverName string) (*http.Request, error) {
+func (client FirewallRulesClient) ListByServerPreparer(resourceGroupName string, serverName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serverName":        autorest.Encode("path", serverName),
@@ -309,13 +341,14 @@ func (client FirewallRulesClient) ListByServerPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/firewallRules", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServerSender sends the ListByServer request. The method will close the
 // http.Response Body if it receives an error.
 func (client FirewallRulesClient) ListByServerSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

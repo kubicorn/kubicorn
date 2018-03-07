@@ -18,7 +18,6 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // AppServiceEnvironmentsClient is the webSite Management Client
 type AppServiceEnvironmentsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewAppServiceEnvironmentsClient creates an instance of the AppServiceEnvironmentsClient client.
@@ -40,11 +39,15 @@ func NewAppServiceEnvironmentsClientWithBaseURI(baseURI string, subscriptionID s
 	return AppServiceEnvironmentsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate create or update an App Service Environment.
+// CreateOrUpdate create or update an App Service Environment. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. hostingEnvironmentEnvelope is configuration details of the App Service Environment.
-func (client AppServiceEnvironmentsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentResource) (result AppServiceEnvironmentsCreateOrUpdateFuture, err error) {
+func (client AppServiceEnvironmentsClient) CreateOrUpdate(resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentResource, cancel <-chan struct{}) (<-chan AppServiceEnvironmentResource, <-chan error) {
+	resultChan := make(chan AppServiceEnvironmentResource, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -57,26 +60,46 @@ func (client AppServiceEnvironmentsClient) CreateOrUpdate(ctx context.Context, r
 					{Target: "hostingEnvironmentEnvelope.AppServiceEnvironment.VirtualNetwork", Name: validation.Null, Rule: true, Chain: nil},
 					{Target: "hostingEnvironmentEnvelope.AppServiceEnvironment.WorkerPools", Name: validation.Null, Rule: true, Chain: nil},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, name, hostingEnvironmentEnvelope)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result AppServiceEnvironmentResource
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, name, hostingEnvironmentEnvelope, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client AppServiceEnvironmentsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentResource) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) CreateOrUpdatePreparer(resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentResource, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -95,22 +118,16 @@ func (client AppServiceEnvironmentsClient) CreateOrUpdatePreparer(ctx context.Co
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}", pathParameters),
 		autorest.WithJSON(hostingEnvironmentEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client AppServiceEnvironmentsClient) CreateOrUpdateSender(req *http.Request) (future AppServiceEnvironmentsCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client AppServiceEnvironmentsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -126,36 +143,60 @@ func (client AppServiceEnvironmentsClient) CreateOrUpdateResponder(resp *http.Re
 	return
 }
 
-// CreateOrUpdateMultiRolePool create or update a multi-role pool.
+// CreateOrUpdateMultiRolePool create or update a multi-role pool. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. multiRolePoolEnvelope is properties of the multi-role pool.
-func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePool(ctx context.Context, resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource) (result AppServiceEnvironmentsCreateOrUpdateMultiRolePoolFuture, err error) {
+func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePool(resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource, cancel <-chan struct{}) (<-chan WorkerPoolResource, <-chan error) {
+	resultChan := make(chan WorkerPoolResource, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
 				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+[^\.]$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateMultiRolePool")
+		errChan <- validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateMultiRolePool")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdateMultiRolePoolPreparer(ctx, resourceGroupName, name, multiRolePoolEnvelope)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateMultiRolePool", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result WorkerPoolResource
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdateMultiRolePoolPreparer(resourceGroupName, name, multiRolePoolEnvelope, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateMultiRolePool", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateMultiRolePoolSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateMultiRolePool", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateMultiRolePoolSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateMultiRolePool", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateMultiRolePoolResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateMultiRolePool", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdateMultiRolePoolPreparer prepares the CreateOrUpdateMultiRolePool request.
-func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePoolPreparer(ctx context.Context, resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePoolPreparer(resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -174,22 +215,16 @@ func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePoolPreparer(c
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default", pathParameters),
 		autorest.WithJSON(multiRolePoolEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateMultiRolePoolSender sends the CreateOrUpdateMultiRolePool request. The method will close the
 // http.Response Body if it receives an error.
-func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePoolSender(req *http.Request) (future AppServiceEnvironmentsCreateOrUpdateMultiRolePoolFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePoolSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateMultiRolePoolResponder handles the response to the CreateOrUpdateMultiRolePool request. The method always
@@ -205,36 +240,60 @@ func (client AppServiceEnvironmentsClient) CreateOrUpdateMultiRolePoolResponder(
 	return
 }
 
-// CreateOrUpdateWorkerPool create or update a worker pool.
+// CreateOrUpdateWorkerPool create or update a worker pool. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. workerPoolName is name of the worker pool. workerPoolEnvelope is properties of the worker pool.
-func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPool(ctx context.Context, resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource) (result AppServiceEnvironmentsCreateOrUpdateWorkerPoolFuture, err error) {
+func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPool(resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource, cancel <-chan struct{}) (<-chan WorkerPoolResource, <-chan error) {
+	resultChan := make(chan WorkerPoolResource, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
 				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+[^\.]$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateWorkerPool")
+		errChan <- validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateWorkerPool")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdateWorkerPoolPreparer(ctx, resourceGroupName, name, workerPoolName, workerPoolEnvelope)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateWorkerPool", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result WorkerPoolResource
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdateWorkerPoolPreparer(resourceGroupName, name, workerPoolName, workerPoolEnvelope, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateWorkerPool", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateWorkerPoolSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateWorkerPool", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateWorkerPoolSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateWorkerPool", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateWorkerPoolResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "CreateOrUpdateWorkerPool", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdateWorkerPoolPreparer prepares the CreateOrUpdateWorkerPool request.
-func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPoolPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPoolPreparer(resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -254,22 +313,16 @@ func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPoolPreparer(ctx 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}", pathParameters),
 		autorest.WithJSON(workerPoolEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateWorkerPoolSender sends the CreateOrUpdateWorkerPool request. The method will close the
 // http.Response Body if it receives an error.
-func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPoolSender(req *http.Request) (future AppServiceEnvironmentsCreateOrUpdateWorkerPoolFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPoolSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateWorkerPoolResponder handles the response to the CreateOrUpdateWorkerPool request. The method always
@@ -285,37 +338,60 @@ func (client AppServiceEnvironmentsClient) CreateOrUpdateWorkerPoolResponder(res
 	return
 }
 
-// Delete delete an App Service Environment.
+// Delete delete an App Service Environment. This method may poll for completion. Polling can be canceled by passing
+// the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. forceDelete is specify <code>true</code> to force the deletion even if the App Service Environment
 // contains resources. The default is <code>false</code>.
-func (client AppServiceEnvironmentsClient) Delete(ctx context.Context, resourceGroupName string, name string, forceDelete *bool) (result AppServiceEnvironmentsDeleteFuture, err error) {
+func (client AppServiceEnvironmentsClient) Delete(resourceGroupName string, name string, forceDelete *bool, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
 				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+[^\.]$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "Delete")
+		errChan <- validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "Delete")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, name, forceDelete)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, name, forceDelete, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client AppServiceEnvironmentsClient) DeletePreparer(ctx context.Context, resourceGroupName string, name string, forceDelete *bool) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) DeletePreparer(resourceGroupName string, name string, forceDelete *bool, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -335,22 +411,16 @@ func (client AppServiceEnvironmentsClient) DeletePreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client AppServiceEnvironmentsClient) DeleteSender(req *http.Request) (future AppServiceEnvironmentsDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client AppServiceEnvironmentsClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -369,7 +439,7 @@ func (client AppServiceEnvironmentsClient) DeleteResponder(resp *http.Response) 
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) Get(ctx context.Context, resourceGroupName string, name string) (result AppServiceEnvironmentResource, err error) {
+func (client AppServiceEnvironmentsClient) Get(resourceGroupName string, name string) (result AppServiceEnvironmentResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -378,7 +448,7 @@ func (client AppServiceEnvironmentsClient) Get(ctx context.Context, resourceGrou
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, name)
+	req, err := client.GetPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Get", nil, "Failure preparing request")
 		return
@@ -400,7 +470,7 @@ func (client AppServiceEnvironmentsClient) Get(ctx context.Context, resourceGrou
 }
 
 // GetPreparer prepares the Get request.
-func (client AppServiceEnvironmentsClient) GetPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) GetPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -417,13 +487,14 @@ func (client AppServiceEnvironmentsClient) GetPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -444,7 +515,7 @@ func (client AppServiceEnvironmentsClient) GetResponder(resp *http.Response) (re
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. diagnosticsName is name of the diagnostics item.
-func (client AppServiceEnvironmentsClient) GetDiagnosticsItem(ctx context.Context, resourceGroupName string, name string, diagnosticsName string) (result HostingEnvironmentDiagnostics, err error) {
+func (client AppServiceEnvironmentsClient) GetDiagnosticsItem(resourceGroupName string, name string, diagnosticsName string) (result HostingEnvironmentDiagnostics, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -453,7 +524,7 @@ func (client AppServiceEnvironmentsClient) GetDiagnosticsItem(ctx context.Contex
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "GetDiagnosticsItem")
 	}
 
-	req, err := client.GetDiagnosticsItemPreparer(ctx, resourceGroupName, name, diagnosticsName)
+	req, err := client.GetDiagnosticsItemPreparer(resourceGroupName, name, diagnosticsName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "GetDiagnosticsItem", nil, "Failure preparing request")
 		return
@@ -475,7 +546,7 @@ func (client AppServiceEnvironmentsClient) GetDiagnosticsItem(ctx context.Contex
 }
 
 // GetDiagnosticsItemPreparer prepares the GetDiagnosticsItem request.
-func (client AppServiceEnvironmentsClient) GetDiagnosticsItemPreparer(ctx context.Context, resourceGroupName string, name string, diagnosticsName string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) GetDiagnosticsItemPreparer(resourceGroupName string, name string, diagnosticsName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"diagnosticsName":   autorest.Encode("path", diagnosticsName),
 		"name":              autorest.Encode("path", name),
@@ -493,13 +564,14 @@ func (client AppServiceEnvironmentsClient) GetDiagnosticsItemPreparer(ctx contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics/{diagnosticsName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetDiagnosticsItemSender sends the GetDiagnosticsItem request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) GetDiagnosticsItemSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -520,7 +592,7 @@ func (client AppServiceEnvironmentsClient) GetDiagnosticsItemResponder(resp *htt
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) GetMultiRolePool(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolResource, err error) {
+func (client AppServiceEnvironmentsClient) GetMultiRolePool(resourceGroupName string, name string) (result WorkerPoolResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -529,7 +601,7 @@ func (client AppServiceEnvironmentsClient) GetMultiRolePool(ctx context.Context,
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "GetMultiRolePool")
 	}
 
-	req, err := client.GetMultiRolePoolPreparer(ctx, resourceGroupName, name)
+	req, err := client.GetMultiRolePoolPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "GetMultiRolePool", nil, "Failure preparing request")
 		return
@@ -551,7 +623,7 @@ func (client AppServiceEnvironmentsClient) GetMultiRolePool(ctx context.Context,
 }
 
 // GetMultiRolePoolPreparer prepares the GetMultiRolePool request.
-func (client AppServiceEnvironmentsClient) GetMultiRolePoolPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) GetMultiRolePoolPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -568,13 +640,14 @@ func (client AppServiceEnvironmentsClient) GetMultiRolePoolPreparer(ctx context.
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMultiRolePoolSender sends the GetMultiRolePool request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) GetMultiRolePoolSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -595,7 +668,7 @@ func (client AppServiceEnvironmentsClient) GetMultiRolePoolResponder(resp *http.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. workerPoolName is name of the worker pool.
-func (client AppServiceEnvironmentsClient) GetWorkerPool(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result WorkerPoolResource, err error) {
+func (client AppServiceEnvironmentsClient) GetWorkerPool(resourceGroupName string, name string, workerPoolName string) (result WorkerPoolResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -604,7 +677,7 @@ func (client AppServiceEnvironmentsClient) GetWorkerPool(ctx context.Context, re
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "GetWorkerPool")
 	}
 
-	req, err := client.GetWorkerPoolPreparer(ctx, resourceGroupName, name, workerPoolName)
+	req, err := client.GetWorkerPoolPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "GetWorkerPool", nil, "Failure preparing request")
 		return
@@ -626,7 +699,7 @@ func (client AppServiceEnvironmentsClient) GetWorkerPool(ctx context.Context, re
 }
 
 // GetWorkerPoolPreparer prepares the GetWorkerPool request.
-func (client AppServiceEnvironmentsClient) GetWorkerPoolPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) GetWorkerPoolPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -644,13 +717,14 @@ func (client AppServiceEnvironmentsClient) GetWorkerPoolPreparer(ctx context.Con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetWorkerPoolSender sends the GetWorkerPool request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) GetWorkerPoolSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -668,9 +742,8 @@ func (client AppServiceEnvironmentsClient) GetWorkerPoolResponder(resp *http.Res
 }
 
 // List get all App Service Environments for a subscription.
-func (client AppServiceEnvironmentsClient) List(ctx context.Context) (result AppServiceEnvironmentCollectionPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx)
+func (client AppServiceEnvironmentsClient) List() (result AppServiceEnvironmentCollection, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "List", nil, "Failure preparing request")
 		return
@@ -678,12 +751,12 @@ func (client AppServiceEnvironmentsClient) List(ctx context.Context) (result App
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.asec.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.asec, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "List", resp, "Failure responding to request")
 	}
@@ -692,7 +765,7 @@ func (client AppServiceEnvironmentsClient) List(ctx context.Context) (result App
 }
 
 // ListPreparer prepares the List request.
-func (client AppServiceEnvironmentsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -707,13 +780,14 @@ func (client AppServiceEnvironmentsClient) ListPreparer(ctx context.Context) (*h
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/hostingEnvironments", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -730,38 +804,80 @@ func (client AppServiceEnvironmentsClient) ListResponder(resp *http.Response) (r
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listNextResults(lastResults AppServiceEnvironmentCollection) (result AppServiceEnvironmentCollection, err error) {
-	req, err := lastResults.appServiceEnvironmentCollectionPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListNextResults(lastResults AppServiceEnvironmentCollection) (result AppServiceEnvironmentCollection, err error) {
+	req, err := lastResults.AppServiceEnvironmentCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListComplete(ctx context.Context) (result AppServiceEnvironmentCollectionIterator, err error) {
-	result.page, err = client.List(ctx)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListComplete(cancel <-chan struct{}) (<-chan AppServiceEnvironmentResource, <-chan error) {
+	resultChan := make(chan AppServiceEnvironmentResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListAppServicePlans get all App Service plans in an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListAppServicePlans(ctx context.Context, resourceGroupName string, name string) (result AppServicePlanCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListAppServicePlans(resourceGroupName string, name string) (result AppServicePlanCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -770,8 +886,7 @@ func (client AppServiceEnvironmentsClient) ListAppServicePlans(ctx context.Conte
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListAppServicePlans")
 	}
 
-	result.fn = client.listAppServicePlansNextResults
-	req, err := client.ListAppServicePlansPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListAppServicePlansPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListAppServicePlans", nil, "Failure preparing request")
 		return
@@ -779,12 +894,12 @@ func (client AppServiceEnvironmentsClient) ListAppServicePlans(ctx context.Conte
 
 	resp, err := client.ListAppServicePlansSender(req)
 	if err != nil {
-		result.aspc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListAppServicePlans", resp, "Failure sending request")
 		return
 	}
 
-	result.aspc, err = client.ListAppServicePlansResponder(resp)
+	result, err = client.ListAppServicePlansResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListAppServicePlans", resp, "Failure responding to request")
 	}
@@ -793,7 +908,7 @@ func (client AppServiceEnvironmentsClient) ListAppServicePlans(ctx context.Conte
 }
 
 // ListAppServicePlansPreparer prepares the ListAppServicePlans request.
-func (client AppServiceEnvironmentsClient) ListAppServicePlansPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListAppServicePlansPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -810,13 +925,14 @@ func (client AppServiceEnvironmentsClient) ListAppServicePlansPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/serverfarms", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAppServicePlansSender sends the ListAppServicePlans request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListAppServicePlansSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -833,37 +949,79 @@ func (client AppServiceEnvironmentsClient) ListAppServicePlansResponder(resp *ht
 	return
 }
 
-// listAppServicePlansNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listAppServicePlansNextResults(lastResults AppServicePlanCollection) (result AppServicePlanCollection, err error) {
-	req, err := lastResults.appServicePlanCollectionPreparer()
+// ListAppServicePlansNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListAppServicePlansNextResults(lastResults AppServicePlanCollection) (result AppServicePlanCollection, err error) {
+	req, err := lastResults.AppServicePlanCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listAppServicePlansNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListAppServicePlans", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAppServicePlansSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listAppServicePlansNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListAppServicePlans", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAppServicePlansResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listAppServicePlansNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListAppServicePlans", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAppServicePlansComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListAppServicePlansComplete(ctx context.Context, resourceGroupName string, name string) (result AppServicePlanCollectionIterator, err error) {
-	result.page, err = client.ListAppServicePlans(ctx, resourceGroupName, name)
-	return
+// ListAppServicePlansComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListAppServicePlansComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan AppServicePlan, <-chan error) {
+	resultChan := make(chan AppServicePlan)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAppServicePlans(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAppServicePlansNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListByResourceGroup get all App Service Environments in a resource group.
 //
 // resourceGroupName is name of the resource group to which the resource belongs.
-func (client AppServiceEnvironmentsClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result AppServiceEnvironmentCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListByResourceGroup(resourceGroupName string) (result AppServiceEnvironmentCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -872,8 +1030,7 @@ func (client AppServiceEnvironmentsClient) ListByResourceGroup(ctx context.Conte
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListByResourceGroup")
 	}
 
-	result.fn = client.listByResourceGroupNextResults
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName)
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -881,12 +1038,12 @@ func (client AppServiceEnvironmentsClient) ListByResourceGroup(ctx context.Conte
 
 	resp, err := client.ListByResourceGroupSender(req)
 	if err != nil {
-		result.asec.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListByResourceGroup", resp, "Failure sending request")
 		return
 	}
 
-	result.asec, err = client.ListByResourceGroupResponder(resp)
+	result, err = client.ListByResourceGroupResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListByResourceGroup", resp, "Failure responding to request")
 	}
@@ -895,7 +1052,7 @@ func (client AppServiceEnvironmentsClient) ListByResourceGroup(ctx context.Conte
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client AppServiceEnvironmentsClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListByResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -911,13 +1068,14 @@ func (client AppServiceEnvironmentsClient) ListByResourceGroupPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -934,38 +1092,80 @@ func (client AppServiceEnvironmentsClient) ListByResourceGroupResponder(resp *ht
 	return
 }
 
-// listByResourceGroupNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listByResourceGroupNextResults(lastResults AppServiceEnvironmentCollection) (result AppServiceEnvironmentCollection, err error) {
-	req, err := lastResults.appServiceEnvironmentCollectionPreparer()
+// ListByResourceGroupNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListByResourceGroupNextResults(lastResults AppServiceEnvironmentCollection) (result AppServiceEnvironmentCollection, err error) {
+	req, err := lastResults.AppServiceEnvironmentCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listByResourceGroupNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListByResourceGroup", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByResourceGroupSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listByResourceGroupNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListByResourceGroup", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByResourceGroupResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listByResourceGroupNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListByResourceGroup", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByResourceGroupComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListByResourceGroupComplete(ctx context.Context, resourceGroupName string) (result AppServiceEnvironmentCollectionIterator, err error) {
-	result.page, err = client.ListByResourceGroup(ctx, resourceGroupName)
-	return
+// ListByResourceGroupComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListByResourceGroupComplete(resourceGroupName string, cancel <-chan struct{}) (<-chan AppServiceEnvironmentResource, <-chan error) {
+	resultChan := make(chan AppServiceEnvironmentResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByResourceGroup(resourceGroupName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByResourceGroupNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListCapacities get the used, available, and total worker capacity an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListCapacities(ctx context.Context, resourceGroupName string, name string) (result StampCapacityCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListCapacities(resourceGroupName string, name string) (result StampCapacityCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -974,8 +1174,7 @@ func (client AppServiceEnvironmentsClient) ListCapacities(ctx context.Context, r
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListCapacities")
 	}
 
-	result.fn = client.listCapacitiesNextResults
-	req, err := client.ListCapacitiesPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListCapacitiesPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListCapacities", nil, "Failure preparing request")
 		return
@@ -983,12 +1182,12 @@ func (client AppServiceEnvironmentsClient) ListCapacities(ctx context.Context, r
 
 	resp, err := client.ListCapacitiesSender(req)
 	if err != nil {
-		result.scc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListCapacities", resp, "Failure sending request")
 		return
 	}
 
-	result.scc, err = client.ListCapacitiesResponder(resp)
+	result, err = client.ListCapacitiesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListCapacities", resp, "Failure responding to request")
 	}
@@ -997,7 +1196,7 @@ func (client AppServiceEnvironmentsClient) ListCapacities(ctx context.Context, r
 }
 
 // ListCapacitiesPreparer prepares the ListCapacities request.
-func (client AppServiceEnvironmentsClient) ListCapacitiesPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListCapacitiesPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1014,13 +1213,14 @@ func (client AppServiceEnvironmentsClient) ListCapacitiesPreparer(ctx context.Co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/compute", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListCapacitiesSender sends the ListCapacities request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListCapacitiesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1037,38 +1237,80 @@ func (client AppServiceEnvironmentsClient) ListCapacitiesResponder(resp *http.Re
 	return
 }
 
-// listCapacitiesNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listCapacitiesNextResults(lastResults StampCapacityCollection) (result StampCapacityCollection, err error) {
-	req, err := lastResults.stampCapacityCollectionPreparer()
+// ListCapacitiesNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListCapacitiesNextResults(lastResults StampCapacityCollection) (result StampCapacityCollection, err error) {
+	req, err := lastResults.StampCapacityCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listCapacitiesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListCapacities", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListCapacitiesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listCapacitiesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListCapacities", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListCapacitiesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listCapacitiesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListCapacities", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListCapacitiesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListCapacitiesComplete(ctx context.Context, resourceGroupName string, name string) (result StampCapacityCollectionIterator, err error) {
-	result.page, err = client.ListCapacities(ctx, resourceGroupName, name)
-	return
+// ListCapacitiesComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListCapacitiesComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan StampCapacity, <-chan error) {
+	resultChan := make(chan StampCapacity)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListCapacities(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListCapacitiesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListDiagnostics get diagnostic information for an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListDiagnostics(ctx context.Context, resourceGroupName string, name string) (result ListHostingEnvironmentDiagnostics, err error) {
+func (client AppServiceEnvironmentsClient) ListDiagnostics(resourceGroupName string, name string) (result ListHostingEnvironmentDiagnostics, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1077,7 +1319,7 @@ func (client AppServiceEnvironmentsClient) ListDiagnostics(ctx context.Context, 
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListDiagnostics")
 	}
 
-	req, err := client.ListDiagnosticsPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListDiagnosticsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListDiagnostics", nil, "Failure preparing request")
 		return
@@ -1099,7 +1341,7 @@ func (client AppServiceEnvironmentsClient) ListDiagnostics(ctx context.Context, 
 }
 
 // ListDiagnosticsPreparer prepares the ListDiagnostics request.
-func (client AppServiceEnvironmentsClient) ListDiagnosticsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListDiagnosticsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1116,13 +1358,14 @@ func (client AppServiceEnvironmentsClient) ListDiagnosticsPreparer(ctx context.C
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListDiagnosticsSender sends the ListDiagnostics request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListDiagnosticsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1143,7 +1386,7 @@ func (client AppServiceEnvironmentsClient) ListDiagnosticsResponder(resp *http.R
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListMetricDefinitions(ctx context.Context, resourceGroupName string, name string) (result MetricDefinition, err error) {
+func (client AppServiceEnvironmentsClient) ListMetricDefinitions(resourceGroupName string, name string) (result MetricDefinition, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1152,7 +1395,7 @@ func (client AppServiceEnvironmentsClient) ListMetricDefinitions(ctx context.Con
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMetricDefinitions")
 	}
 
-	req, err := client.ListMetricDefinitionsPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListMetricDefinitionsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -1174,7 +1417,7 @@ func (client AppServiceEnvironmentsClient) ListMetricDefinitions(ctx context.Con
 }
 
 // ListMetricDefinitionsPreparer prepares the ListMetricDefinitions request.
-func (client AppServiceEnvironmentsClient) ListMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMetricDefinitionsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1191,13 +1434,14 @@ func (client AppServiceEnvironmentsClient) ListMetricDefinitionsPreparer(ctx con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMetricDefinitionsSender sends the ListMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1221,7 +1465,7 @@ func (client AppServiceEnvironmentsClient) ListMetricDefinitionsResponder(resp *
 // filter is return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
 // $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq '2014-01-01T00:00:00Z' and endTime eq
 // '2014-12-31T23:59:59Z' and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client AppServiceEnvironmentsClient) ListMetrics(ctx context.Context, resourceGroupName string, name string, details *bool, filter string) (result ResourceMetricCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMetrics(resourceGroupName string, name string, details *bool, filter string) (result ResourceMetricCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1230,8 +1474,7 @@ func (client AppServiceEnvironmentsClient) ListMetrics(ctx context.Context, reso
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMetrics")
 	}
 
-	result.fn = client.listMetricsNextResults
-	req, err := client.ListMetricsPreparer(ctx, resourceGroupName, name, details, filter)
+	req, err := client.ListMetricsPreparer(resourceGroupName, name, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMetrics", nil, "Failure preparing request")
 		return
@@ -1239,12 +1482,12 @@ func (client AppServiceEnvironmentsClient) ListMetrics(ctx context.Context, reso
 
 	resp, err := client.ListMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.ListMetricsResponder(resp)
+	result, err = client.ListMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMetrics", resp, "Failure responding to request")
 	}
@@ -1253,7 +1496,7 @@ func (client AppServiceEnvironmentsClient) ListMetrics(ctx context.Context, reso
 }
 
 // ListMetricsPreparer prepares the ListMetrics request.
-func (client AppServiceEnvironmentsClient) ListMetricsPreparer(ctx context.Context, resourceGroupName string, name string, details *bool, filter string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMetricsPreparer(resourceGroupName string, name string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1276,13 +1519,14 @@ func (client AppServiceEnvironmentsClient) ListMetricsPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMetricsSender sends the ListMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1299,38 +1543,80 @@ func (client AppServiceEnvironmentsClient) ListMetricsResponder(resp *http.Respo
 	return
 }
 
-// listMetricsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// ListMetricsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMetricsComplete(ctx context.Context, resourceGroupName string, name string, details *bool, filter string) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.ListMetrics(ctx, resourceGroupName, name, details, filter)
-	return
+// ListMetricsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMetricsComplete(resourceGroupName string, name string, details *bool, filter string, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMetrics(resourceGroupName, name, details, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListMultiRoleMetricDefinitions get metric definitions for a multi-role pool of an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitions(ctx context.Context, resourceGroupName string, name string) (result ResourceMetricDefinitionCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitions(resourceGroupName string, name string) (result ResourceMetricDefinitionCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1339,8 +1625,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitions(ctx co
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetricDefinitions")
 	}
 
-	result.fn = client.listMultiRoleMetricDefinitionsNextResults
-	req, err := client.ListMultiRoleMetricDefinitionsPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListMultiRoleMetricDefinitionsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -1348,12 +1633,12 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitions(ctx co
 
 	resp, err := client.ListMultiRoleMetricDefinitionsSender(req)
 	if err != nil {
-		result.rmdc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetricDefinitions", resp, "Failure sending request")
 		return
 	}
 
-	result.rmdc, err = client.ListMultiRoleMetricDefinitionsResponder(resp)
+	result, err = client.ListMultiRoleMetricDefinitionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetricDefinitions", resp, "Failure responding to request")
 	}
@@ -1362,7 +1647,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitions(ctx co
 }
 
 // ListMultiRoleMetricDefinitionsPreparer prepares the ListMultiRoleMetricDefinitions request.
-func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1379,13 +1664,14 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsPrepare
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMultiRoleMetricDefinitionsSender sends the ListMultiRoleMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1402,31 +1688,73 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsRespond
 	return
 }
 
-// listMultiRoleMetricDefinitionsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMultiRoleMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
-	req, err := lastResults.resourceMetricDefinitionCollectionPreparer()
+// ListMultiRoleMetricDefinitionsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
+	req, err := lastResults.ResourceMetricDefinitionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleMetricDefinitionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetricDefinitions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMultiRoleMetricDefinitionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleMetricDefinitionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetricDefinitions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMultiRoleMetricDefinitionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleMetricDefinitionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetricDefinitions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMultiRoleMetricDefinitionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsComplete(ctx context.Context, resourceGroupName string, name string) (result ResourceMetricDefinitionCollectionIterator, err error) {
-	result.page, err = client.ListMultiRoleMetricDefinitions(ctx, resourceGroupName, name)
-	return
+// ListMultiRoleMetricDefinitionsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan ResourceMetricDefinition, <-chan error) {
+	resultChan := make(chan ResourceMetricDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMultiRoleMetricDefinitions(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMultiRoleMetricDefinitionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListMultiRoleMetrics get metrics for a multi-role pool of an App Service Environment.
@@ -1437,7 +1765,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricDefinitionsComplet
 // default is <code>false</code>. filter is return only usages/metrics specified in the filter. Filter conforms to
 // odata syntax. Example: $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq
 // '2014-01-01T00:00:00Z' and endTime eq '2014-12-31T23:59:59Z' and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client AppServiceEnvironmentsClient) ListMultiRoleMetrics(ctx context.Context, resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (result ResourceMetricCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetrics(resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (result ResourceMetricCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1446,8 +1774,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetrics(ctx context.Cont
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetrics")
 	}
 
-	result.fn = client.listMultiRoleMetricsNextResults
-	req, err := client.ListMultiRoleMetricsPreparer(ctx, resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
+	req, err := client.ListMultiRoleMetricsPreparer(resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetrics", nil, "Failure preparing request")
 		return
@@ -1455,12 +1782,12 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetrics(ctx context.Cont
 
 	resp, err := client.ListMultiRoleMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.ListMultiRoleMetricsResponder(resp)
+	result, err = client.ListMultiRoleMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetrics", resp, "Failure responding to request")
 	}
@@ -1469,7 +1796,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetrics(ctx context.Cont
 }
 
 // ListMultiRoleMetricsPreparer prepares the ListMultiRoleMetrics request.
-func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsPreparer(ctx context.Context, resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsPreparer(resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1501,13 +1828,14 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsPreparer(ctx cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMultiRoleMetricsSender sends the ListMultiRoleMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1524,31 +1852,73 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsResponder(resp *h
 	return
 }
 
-// listMultiRoleMetricsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMultiRoleMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// ListMultiRoleMetricsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMultiRoleMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMultiRoleMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMultiRoleMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsComplete(ctx context.Context, resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.ListMultiRoleMetrics(ctx, resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
-	return
+// ListMultiRoleMetricsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsComplete(resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMultiRoleMetrics(resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMultiRoleMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListMultiRolePoolInstanceMetricDefinitions get metric definitions for a specific instance of a multi-role pool of an
@@ -1556,7 +1926,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleMetricsComplete(ctx cont
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. instance is name of the instance in the multi-role pool.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitions(ctx context.Context, resourceGroupName string, name string, instance string) (result ResourceMetricDefinitionCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitions(resourceGroupName string, name string, instance string) (result ResourceMetricDefinitionCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1565,8 +1935,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefini
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetricDefinitions")
 	}
 
-	result.fn = client.listMultiRolePoolInstanceMetricDefinitionsNextResults
-	req, err := client.ListMultiRolePoolInstanceMetricDefinitionsPreparer(ctx, resourceGroupName, name, instance)
+	req, err := client.ListMultiRolePoolInstanceMetricDefinitionsPreparer(resourceGroupName, name, instance)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -1574,12 +1943,12 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefini
 
 	resp, err := client.ListMultiRolePoolInstanceMetricDefinitionsSender(req)
 	if err != nil {
-		result.rmdc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetricDefinitions", resp, "Failure sending request")
 		return
 	}
 
-	result.rmdc, err = client.ListMultiRolePoolInstanceMetricDefinitionsResponder(resp)
+	result, err = client.ListMultiRolePoolInstanceMetricDefinitionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetricDefinitions", resp, "Failure responding to request")
 	}
@@ -1588,7 +1957,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefini
 }
 
 // ListMultiRolePoolInstanceMetricDefinitionsPreparer prepares the ListMultiRolePoolInstanceMetricDefinitions request.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string, instance string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitionsPreparer(resourceGroupName string, name string, instance string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -1606,13 +1975,14 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefini
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/instances/{instance}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMultiRolePoolInstanceMetricDefinitionsSender sends the ListMultiRolePoolInstanceMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1629,31 +1999,73 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefini
 	return
 }
 
-// listMultiRolePoolInstanceMetricDefinitionsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMultiRolePoolInstanceMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
-	req, err := lastResults.resourceMetricDefinitionCollectionPreparer()
+// ListMultiRolePoolInstanceMetricDefinitionsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
+	req, err := lastResults.ResourceMetricDefinitionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolInstanceMetricDefinitionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetricDefinitions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMultiRolePoolInstanceMetricDefinitionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolInstanceMetricDefinitionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetricDefinitions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMultiRolePoolInstanceMetricDefinitionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolInstanceMetricDefinitionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetricDefinitions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMultiRolePoolInstanceMetricDefinitionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitionsComplete(ctx context.Context, resourceGroupName string, name string, instance string) (result ResourceMetricDefinitionCollectionIterator, err error) {
-	result.page, err = client.ListMultiRolePoolInstanceMetricDefinitions(ctx, resourceGroupName, name, instance)
-	return
+// ListMultiRolePoolInstanceMetricDefinitionsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefinitionsComplete(resourceGroupName string, name string, instance string, cancel <-chan struct{}) (<-chan ResourceMetricDefinition, <-chan error) {
+	resultChan := make(chan ResourceMetricDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMultiRolePoolInstanceMetricDefinitions(resourceGroupName, name, instance)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMultiRolePoolInstanceMetricDefinitionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListMultiRolePoolInstanceMetrics get metrics for a specific instance of a multi-role pool of an App Service
@@ -1662,7 +2074,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricDefini
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. instance is name of the instance in the multi-role pool. details is specify <code>true</code> to
 // include instance details. The default is <code>false</code>.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetrics(ctx context.Context, resourceGroupName string, name string, instance string, details *bool) (result ResourceMetricCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetrics(resourceGroupName string, name string, instance string, details *bool) (result ResourceMetricCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1671,8 +2083,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetrics(ctx 
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetrics")
 	}
 
-	result.fn = client.listMultiRolePoolInstanceMetricsNextResults
-	req, err := client.ListMultiRolePoolInstanceMetricsPreparer(ctx, resourceGroupName, name, instance, details)
+	req, err := client.ListMultiRolePoolInstanceMetricsPreparer(resourceGroupName, name, instance, details)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetrics", nil, "Failure preparing request")
 		return
@@ -1680,12 +2091,12 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetrics(ctx 
 
 	resp, err := client.ListMultiRolePoolInstanceMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.ListMultiRolePoolInstanceMetricsResponder(resp)
+	result, err = client.ListMultiRolePoolInstanceMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetrics", resp, "Failure responding to request")
 	}
@@ -1694,7 +2105,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetrics(ctx 
 }
 
 // ListMultiRolePoolInstanceMetricsPreparer prepares the ListMultiRolePoolInstanceMetrics request.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsPreparer(ctx context.Context, resourceGroupName string, name string, instance string, details *bool) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsPreparer(resourceGroupName string, name string, instance string, details *bool) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -1715,13 +2126,14 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsPrepa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/instances/{instance}metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMultiRolePoolInstanceMetricsSender sends the ListMultiRolePoolInstanceMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1738,38 +2150,80 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsRespo
 	return
 }
 
-// listMultiRolePoolInstanceMetricsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMultiRolePoolInstanceMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// ListMultiRolePoolInstanceMetricsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolInstanceMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMultiRolePoolInstanceMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolInstanceMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMultiRolePoolInstanceMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolInstanceMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolInstanceMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMultiRolePoolInstanceMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsComplete(ctx context.Context, resourceGroupName string, name string, instance string, details *bool) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.ListMultiRolePoolInstanceMetrics(ctx, resourceGroupName, name, instance, details)
-	return
+// ListMultiRolePoolInstanceMetricsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolInstanceMetricsComplete(resourceGroupName string, name string, instance string, details *bool, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMultiRolePoolInstanceMetrics(resourceGroupName, name, instance, details)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMultiRolePoolInstanceMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListMultiRolePools get all multi-role pools.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListMultiRolePools(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePools(resourceGroupName string, name string) (result WorkerPoolCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1778,8 +2232,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePools(ctx context.Contex
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePools")
 	}
 
-	result.fn = client.listMultiRolePoolsNextResults
-	req, err := client.ListMultiRolePoolsPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListMultiRolePoolsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePools", nil, "Failure preparing request")
 		return
@@ -1787,12 +2240,12 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePools(ctx context.Contex
 
 	resp, err := client.ListMultiRolePoolsSender(req)
 	if err != nil {
-		result.wpc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePools", resp, "Failure sending request")
 		return
 	}
 
-	result.wpc, err = client.ListMultiRolePoolsResponder(resp)
+	result, err = client.ListMultiRolePoolsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePools", resp, "Failure responding to request")
 	}
@@ -1801,7 +2254,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePools(ctx context.Contex
 }
 
 // ListMultiRolePoolsPreparer prepares the ListMultiRolePools request.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1818,13 +2271,14 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolsPreparer(ctx contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMultiRolePoolsSender sends the ListMultiRolePools request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMultiRolePoolsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1841,38 +2295,80 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolsResponder(resp *htt
 	return
 }
 
-// listMultiRolePoolsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMultiRolePoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
-	req, err := lastResults.workerPoolCollectionPreparer()
+// ListMultiRolePoolsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
+	req, err := lastResults.WorkerPoolCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePools", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMultiRolePoolsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePools", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMultiRolePoolsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePools", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMultiRolePoolsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolsComplete(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionIterator, err error) {
-	result.page, err = client.ListMultiRolePools(ctx, resourceGroupName, name)
-	return
+// ListMultiRolePoolsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolsComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan WorkerPoolResource, <-chan error) {
+	resultChan := make(chan WorkerPoolResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMultiRolePools(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMultiRolePoolsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListMultiRolePoolSkus get available SKUs for scaling a multi-role pool.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkus(ctx context.Context, resourceGroupName string, name string) (result SkuInfoCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkus(resourceGroupName string, name string) (result SkuInfoCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1881,8 +2377,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkus(ctx context.Con
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolSkus")
 	}
 
-	result.fn = client.listMultiRolePoolSkusNextResults
-	req, err := client.ListMultiRolePoolSkusPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListMultiRolePoolSkusPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolSkus", nil, "Failure preparing request")
 		return
@@ -1890,12 +2385,12 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkus(ctx context.Con
 
 	resp, err := client.ListMultiRolePoolSkusSender(req)
 	if err != nil {
-		result.sic.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolSkus", resp, "Failure sending request")
 		return
 	}
 
-	result.sic, err = client.ListMultiRolePoolSkusResponder(resp)
+	result, err = client.ListMultiRolePoolSkusResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolSkus", resp, "Failure responding to request")
 	}
@@ -1904,7 +2399,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkus(ctx context.Con
 }
 
 // ListMultiRolePoolSkusPreparer prepares the ListMultiRolePoolSkus request.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1921,13 +2416,14 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusPreparer(ctx con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/skus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMultiRolePoolSkusSender sends the ListMultiRolePoolSkus request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1944,38 +2440,80 @@ func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusResponder(resp *
 	return
 }
 
-// listMultiRolePoolSkusNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMultiRolePoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
-	req, err := lastResults.skuInfoCollectionPreparer()
+// ListMultiRolePoolSkusNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
+	req, err := lastResults.SkuInfoCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolSkusNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolSkus", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMultiRolePoolSkusSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolSkusNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolSkus", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMultiRolePoolSkusResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRolePoolSkusNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRolePoolSkus", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMultiRolePoolSkusComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusComplete(ctx context.Context, resourceGroupName string, name string) (result SkuInfoCollectionIterator, err error) {
-	result.page, err = client.ListMultiRolePoolSkus(ctx, resourceGroupName, name)
-	return
+// ListMultiRolePoolSkusComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMultiRolePoolSkusComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan SkuInfo, <-chan error) {
+	resultChan := make(chan SkuInfo)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMultiRolePoolSkus(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMultiRolePoolSkusNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListMultiRoleUsages get usage metrics for a multi-role pool of an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListMultiRoleUsages(ctx context.Context, resourceGroupName string, name string) (result UsageCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListMultiRoleUsages(resourceGroupName string, name string) (result UsageCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1984,8 +2522,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleUsages(ctx context.Conte
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleUsages")
 	}
 
-	result.fn = client.listMultiRoleUsagesNextResults
-	req, err := client.ListMultiRoleUsagesPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListMultiRoleUsagesPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleUsages", nil, "Failure preparing request")
 		return
@@ -1993,12 +2530,12 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleUsages(ctx context.Conte
 
 	resp, err := client.ListMultiRoleUsagesSender(req)
 	if err != nil {
-		result.uc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleUsages", resp, "Failure sending request")
 		return
 	}
 
-	result.uc, err = client.ListMultiRoleUsagesResponder(resp)
+	result, err = client.ListMultiRoleUsagesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleUsages", resp, "Failure responding to request")
 	}
@@ -2007,7 +2544,7 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleUsages(ctx context.Conte
 }
 
 // ListMultiRoleUsagesPreparer prepares the ListMultiRoleUsages request.
-func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2024,13 +2561,14 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/usages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMultiRoleUsagesSender sends the ListMultiRoleUsages request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2047,38 +2585,80 @@ func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesResponder(resp *ht
 	return
 }
 
-// listMultiRoleUsagesNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listMultiRoleUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
-	req, err := lastResults.usageCollectionPreparer()
+// ListMultiRoleUsagesNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
+	req, err := lastResults.UsageCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleUsagesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleUsages", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListMultiRoleUsagesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleUsagesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleUsages", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListMultiRoleUsagesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listMultiRoleUsagesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListMultiRoleUsages", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListMultiRoleUsagesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesComplete(ctx context.Context, resourceGroupName string, name string) (result UsageCollectionIterator, err error) {
-	result.page, err = client.ListMultiRoleUsages(ctx, resourceGroupName, name)
-	return
+// ListMultiRoleUsagesComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListMultiRoleUsagesComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan Usage, <-chan error) {
+	resultChan := make(chan Usage)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListMultiRoleUsages(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListMultiRoleUsagesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListOperations list all currently running operations on the App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListOperations(ctx context.Context, resourceGroupName string, name string) (result ListOperation, err error) {
+func (client AppServiceEnvironmentsClient) ListOperations(resourceGroupName string, name string) (result ListOperation, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2087,7 +2667,7 @@ func (client AppServiceEnvironmentsClient) ListOperations(ctx context.Context, r
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListOperations")
 	}
 
-	req, err := client.ListOperationsPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListOperationsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListOperations", nil, "Failure preparing request")
 		return
@@ -2109,7 +2689,7 @@ func (client AppServiceEnvironmentsClient) ListOperations(ctx context.Context, r
 }
 
 // ListOperationsPreparer prepares the ListOperations request.
-func (client AppServiceEnvironmentsClient) ListOperationsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListOperationsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2126,13 +2706,14 @@ func (client AppServiceEnvironmentsClient) ListOperationsPreparer(ctx context.Co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/operations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListOperationsSender sends the ListOperations request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListOperationsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2155,7 +2736,7 @@ func (client AppServiceEnvironmentsClient) ListOperationsResponder(resp *http.Re
 // Environment. filter is return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
 // $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq '2014-01-01T00:00:00Z' and endTime eq
 // '2014-12-31T23:59:59Z' and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client AppServiceEnvironmentsClient) ListUsages(ctx context.Context, resourceGroupName string, name string, filter string) (result CsmUsageQuotaCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListUsages(resourceGroupName string, name string, filter string) (result CsmUsageQuotaCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2164,8 +2745,7 @@ func (client AppServiceEnvironmentsClient) ListUsages(ctx context.Context, resou
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListUsages")
 	}
 
-	result.fn = client.listUsagesNextResults
-	req, err := client.ListUsagesPreparer(ctx, resourceGroupName, name, filter)
+	req, err := client.ListUsagesPreparer(resourceGroupName, name, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListUsages", nil, "Failure preparing request")
 		return
@@ -2173,12 +2753,12 @@ func (client AppServiceEnvironmentsClient) ListUsages(ctx context.Context, resou
 
 	resp, err := client.ListUsagesSender(req)
 	if err != nil {
-		result.cuqc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListUsages", resp, "Failure sending request")
 		return
 	}
 
-	result.cuqc, err = client.ListUsagesResponder(resp)
+	result, err = client.ListUsagesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListUsages", resp, "Failure responding to request")
 	}
@@ -2187,7 +2767,7 @@ func (client AppServiceEnvironmentsClient) ListUsages(ctx context.Context, resou
 }
 
 // ListUsagesPreparer prepares the ListUsages request.
-func (client AppServiceEnvironmentsClient) ListUsagesPreparer(ctx context.Context, resourceGroupName string, name string, filter string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListUsagesPreparer(resourceGroupName string, name string, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2207,13 +2787,14 @@ func (client AppServiceEnvironmentsClient) ListUsagesPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/usages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListUsagesSender sends the ListUsages request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListUsagesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2230,38 +2811,80 @@ func (client AppServiceEnvironmentsClient) ListUsagesResponder(resp *http.Respon
 	return
 }
 
-// listUsagesNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listUsagesNextResults(lastResults CsmUsageQuotaCollection) (result CsmUsageQuotaCollection, err error) {
-	req, err := lastResults.csmUsageQuotaCollectionPreparer()
+// ListUsagesNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListUsagesNextResults(lastResults CsmUsageQuotaCollection) (result CsmUsageQuotaCollection, err error) {
+	req, err := lastResults.CsmUsageQuotaCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listUsagesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListUsages", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListUsagesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listUsagesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListUsages", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListUsagesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listUsagesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListUsages", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListUsagesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListUsagesComplete(ctx context.Context, resourceGroupName string, name string, filter string) (result CsmUsageQuotaCollectionIterator, err error) {
-	result.page, err = client.ListUsages(ctx, resourceGroupName, name, filter)
-	return
+// ListUsagesComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListUsagesComplete(resourceGroupName string, name string, filter string, cancel <-chan struct{}) (<-chan CsmUsageQuota, <-chan error) {
+	resultChan := make(chan CsmUsageQuota)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListUsages(resourceGroupName, name, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListUsagesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListVips get IP addresses assigned to an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListVips(ctx context.Context, resourceGroupName string, name string) (result AddressResponse, err error) {
+func (client AppServiceEnvironmentsClient) ListVips(resourceGroupName string, name string) (result AddressResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2270,7 +2893,7 @@ func (client AppServiceEnvironmentsClient) ListVips(ctx context.Context, resourc
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListVips")
 	}
 
-	req, err := client.ListVipsPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListVipsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListVips", nil, "Failure preparing request")
 		return
@@ -2292,7 +2915,7 @@ func (client AppServiceEnvironmentsClient) ListVips(ctx context.Context, resourc
 }
 
 // ListVipsPreparer prepares the ListVips request.
-func (client AppServiceEnvironmentsClient) ListVipsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListVipsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2309,13 +2932,14 @@ func (client AppServiceEnvironmentsClient) ListVipsPreparer(ctx context.Context,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/virtualip", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListVipsSender sends the ListVips request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListVipsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2336,7 +2960,7 @@ func (client AppServiceEnvironmentsClient) ListVipsResponder(resp *http.Response
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. propertiesToInclude is comma separated list of app properties to include.
-func (client AppServiceEnvironmentsClient) ListWebApps(ctx context.Context, resourceGroupName string, name string, propertiesToInclude string) (result AppCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWebApps(resourceGroupName string, name string, propertiesToInclude string) (result AppCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2345,8 +2969,7 @@ func (client AppServiceEnvironmentsClient) ListWebApps(ctx context.Context, reso
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWebApps")
 	}
 
-	result.fn = client.listWebAppsNextResults
-	req, err := client.ListWebAppsPreparer(ctx, resourceGroupName, name, propertiesToInclude)
+	req, err := client.ListWebAppsPreparer(resourceGroupName, name, propertiesToInclude)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebApps", nil, "Failure preparing request")
 		return
@@ -2354,12 +2977,12 @@ func (client AppServiceEnvironmentsClient) ListWebApps(ctx context.Context, reso
 
 	resp, err := client.ListWebAppsSender(req)
 	if err != nil {
-		result.ac.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebApps", resp, "Failure sending request")
 		return
 	}
 
-	result.ac, err = client.ListWebAppsResponder(resp)
+	result, err = client.ListWebAppsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebApps", resp, "Failure responding to request")
 	}
@@ -2368,7 +2991,7 @@ func (client AppServiceEnvironmentsClient) ListWebApps(ctx context.Context, reso
 }
 
 // ListWebAppsPreparer prepares the ListWebApps request.
-func (client AppServiceEnvironmentsClient) ListWebAppsPreparer(ctx context.Context, resourceGroupName string, name string, propertiesToInclude string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWebAppsPreparer(resourceGroupName string, name string, propertiesToInclude string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2388,13 +3011,14 @@ func (client AppServiceEnvironmentsClient) ListWebAppsPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/sites", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWebAppsSender sends the ListWebApps request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWebAppsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2411,38 +3035,80 @@ func (client AppServiceEnvironmentsClient) ListWebAppsResponder(resp *http.Respo
 	return
 }
 
-// listWebAppsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWebAppsNextResults(lastResults AppCollection) (result AppCollection, err error) {
-	req, err := lastResults.appCollectionPreparer()
+// ListWebAppsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWebAppsNextResults(lastResults AppCollection) (result AppCollection, err error) {
+	req, err := lastResults.AppCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebAppsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebApps", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWebAppsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebAppsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebApps", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWebAppsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebAppsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebApps", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWebAppsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWebAppsComplete(ctx context.Context, resourceGroupName string, name string, propertiesToInclude string) (result AppCollectionIterator, err error) {
-	result.page, err = client.ListWebApps(ctx, resourceGroupName, name, propertiesToInclude)
-	return
+// ListWebAppsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWebAppsComplete(resourceGroupName string, name string, propertiesToInclude string, cancel <-chan struct{}) (<-chan Site, <-chan error) {
+	resultChan := make(chan Site)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWebApps(resourceGroupName, name, propertiesToInclude)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWebAppsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListWebWorkerMetricDefinitions get metric definitions for a worker pool of an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. workerPoolName is name of the worker pool.
-func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitions(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result ResourceMetricDefinitionCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitions(resourceGroupName string, name string, workerPoolName string) (result ResourceMetricDefinitionCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2451,8 +3117,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitions(ctx co
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetricDefinitions")
 	}
 
-	result.fn = client.listWebWorkerMetricDefinitionsNextResults
-	req, err := client.ListWebWorkerMetricDefinitionsPreparer(ctx, resourceGroupName, name, workerPoolName)
+	req, err := client.ListWebWorkerMetricDefinitionsPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -2460,12 +3125,12 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitions(ctx co
 
 	resp, err := client.ListWebWorkerMetricDefinitionsSender(req)
 	if err != nil {
-		result.rmdc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetricDefinitions", resp, "Failure sending request")
 		return
 	}
 
-	result.rmdc, err = client.ListWebWorkerMetricDefinitionsResponder(resp)
+	result, err = client.ListWebWorkerMetricDefinitionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetricDefinitions", resp, "Failure responding to request")
 	}
@@ -2474,7 +3139,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitions(ctx co
 }
 
 // ListWebWorkerMetricDefinitionsPreparer prepares the ListWebWorkerMetricDefinitions request.
-func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2492,13 +3157,14 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsPrepare
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWebWorkerMetricDefinitionsSender sends the ListWebWorkerMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2515,31 +3181,73 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsRespond
 	return
 }
 
-// listWebWorkerMetricDefinitionsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWebWorkerMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
-	req, err := lastResults.resourceMetricDefinitionCollectionPreparer()
+// ListWebWorkerMetricDefinitionsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
+	req, err := lastResults.ResourceMetricDefinitionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerMetricDefinitionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetricDefinitions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWebWorkerMetricDefinitionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerMetricDefinitionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetricDefinitions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWebWorkerMetricDefinitionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerMetricDefinitionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetricDefinitions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWebWorkerMetricDefinitionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result ResourceMetricDefinitionCollectionIterator, err error) {
-	result.page, err = client.ListWebWorkerMetricDefinitions(ctx, resourceGroupName, name, workerPoolName)
-	return
+// ListWebWorkerMetricDefinitionsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsComplete(resourceGroupName string, name string, workerPoolName string, cancel <-chan struct{}) (<-chan ResourceMetricDefinition, <-chan error) {
+	resultChan := make(chan ResourceMetricDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWebWorkerMetricDefinitions(resourceGroupName, name, workerPoolName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWebWorkerMetricDefinitionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListWebWorkerMetrics get metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
@@ -2549,7 +3257,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricDefinitionsComplet
 // The default is <code>false</code>. filter is return only usages/metrics specified in the filter. Filter conforms to
 // odata syntax. Example: $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq
 // '2014-01-01T00:00:00Z' and endTime eq '2014-12-31T23:59:59Z' and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client AppServiceEnvironmentsClient) ListWebWorkerMetrics(ctx context.Context, resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (result ResourceMetricCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetrics(resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (result ResourceMetricCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2558,8 +3266,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetrics(ctx context.Cont
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetrics")
 	}
 
-	result.fn = client.listWebWorkerMetricsNextResults
-	req, err := client.ListWebWorkerMetricsPreparer(ctx, resourceGroupName, name, workerPoolName, details, filter)
+	req, err := client.ListWebWorkerMetricsPreparer(resourceGroupName, name, workerPoolName, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetrics", nil, "Failure preparing request")
 		return
@@ -2567,12 +3274,12 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetrics(ctx context.Cont
 
 	resp, err := client.ListWebWorkerMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.ListWebWorkerMetricsResponder(resp)
+	result, err = client.ListWebWorkerMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetrics", resp, "Failure responding to request")
 	}
@@ -2581,7 +3288,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetrics(ctx context.Cont
 }
 
 // ListWebWorkerMetricsPreparer prepares the ListWebWorkerMetrics request.
-func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsPreparer(resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2605,13 +3312,14 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsPreparer(ctx cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWebWorkerMetricsSender sends the ListWebWorkerMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2628,38 +3336,80 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsResponder(resp *h
 	return
 }
 
-// listWebWorkerMetricsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWebWorkerMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// ListWebWorkerMetricsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWebWorkerMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWebWorkerMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWebWorkerMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.ListWebWorkerMetrics(ctx, resourceGroupName, name, workerPoolName, details, filter)
-	return
+// ListWebWorkerMetricsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWebWorkerMetricsComplete(resourceGroupName string, name string, workerPoolName string, details *bool, filter string, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWebWorkerMetrics(resourceGroupName, name, workerPoolName, details, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWebWorkerMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListWebWorkerUsages get usage metrics for a worker pool of an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. workerPoolName is name of the worker pool.
-func (client AppServiceEnvironmentsClient) ListWebWorkerUsages(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result UsageCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWebWorkerUsages(resourceGroupName string, name string, workerPoolName string) (result UsageCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2668,8 +3418,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerUsages(ctx context.Conte
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerUsages")
 	}
 
-	result.fn = client.listWebWorkerUsagesNextResults
-	req, err := client.ListWebWorkerUsagesPreparer(ctx, resourceGroupName, name, workerPoolName)
+	req, err := client.ListWebWorkerUsagesPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerUsages", nil, "Failure preparing request")
 		return
@@ -2677,12 +3426,12 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerUsages(ctx context.Conte
 
 	resp, err := client.ListWebWorkerUsagesSender(req)
 	if err != nil {
-		result.uc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerUsages", resp, "Failure sending request")
 		return
 	}
 
-	result.uc, err = client.ListWebWorkerUsagesResponder(resp)
+	result, err = client.ListWebWorkerUsagesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerUsages", resp, "Failure responding to request")
 	}
@@ -2691,7 +3440,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerUsages(ctx context.Conte
 }
 
 // ListWebWorkerUsagesPreparer prepares the ListWebWorkerUsages request.
-func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2709,13 +3458,14 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/usages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWebWorkerUsagesSender sends the ListWebWorkerUsages request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2732,31 +3482,73 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesResponder(resp *ht
 	return
 }
 
-// listWebWorkerUsagesNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWebWorkerUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
-	req, err := lastResults.usageCollectionPreparer()
+// ListWebWorkerUsagesNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
+	req, err := lastResults.UsageCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerUsagesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerUsages", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWebWorkerUsagesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerUsagesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerUsages", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWebWorkerUsagesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWebWorkerUsagesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWebWorkerUsages", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWebWorkerUsagesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result UsageCollectionIterator, err error) {
-	result.page, err = client.ListWebWorkerUsages(ctx, resourceGroupName, name, workerPoolName)
-	return
+// ListWebWorkerUsagesComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesComplete(resourceGroupName string, name string, workerPoolName string, cancel <-chan struct{}) (<-chan Usage, <-chan error) {
+	resultChan := make(chan Usage)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWebWorkerUsages(resourceGroupName, name, workerPoolName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWebWorkerUsagesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListWorkerPoolInstanceMetricDefinitions get metric definitions for a specific instance of a worker pool of an App
@@ -2764,7 +3556,7 @@ func (client AppServiceEnvironmentsClient) ListWebWorkerUsagesComplete(ctx conte
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. workerPoolName is name of the worker pool. instance is name of the instance in the worker pool.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitions(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string) (result ResourceMetricDefinitionCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitions(resourceGroupName string, name string, workerPoolName string, instance string) (result ResourceMetricDefinitionCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2773,8 +3565,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitio
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetricDefinitions")
 	}
 
-	result.fn = client.listWorkerPoolInstanceMetricDefinitionsNextResults
-	req, err := client.ListWorkerPoolInstanceMetricDefinitionsPreparer(ctx, resourceGroupName, name, workerPoolName, instance)
+	req, err := client.ListWorkerPoolInstanceMetricDefinitionsPreparer(resourceGroupName, name, workerPoolName, instance)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -2782,12 +3573,12 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitio
 
 	resp, err := client.ListWorkerPoolInstanceMetricDefinitionsSender(req)
 	if err != nil {
-		result.rmdc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetricDefinitions", resp, "Failure sending request")
 		return
 	}
 
-	result.rmdc, err = client.ListWorkerPoolInstanceMetricDefinitionsResponder(resp)
+	result, err = client.ListWorkerPoolInstanceMetricDefinitionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetricDefinitions", resp, "Failure responding to request")
 	}
@@ -2796,7 +3587,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitio
 }
 
 // ListWorkerPoolInstanceMetricDefinitionsPreparer prepares the ListWorkerPoolInstanceMetricDefinitions request.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitionsPreparer(resourceGroupName string, name string, workerPoolName string, instance string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -2815,13 +3606,14 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitio
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/instances/{instance}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWorkerPoolInstanceMetricDefinitionsSender sends the ListWorkerPoolInstanceMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2838,31 +3630,73 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitio
 	return
 }
 
-// listWorkerPoolInstanceMetricDefinitionsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWorkerPoolInstanceMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
-	req, err := lastResults.resourceMetricDefinitionCollectionPreparer()
+// ListWorkerPoolInstanceMetricDefinitionsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitionsNextResults(lastResults ResourceMetricDefinitionCollection) (result ResourceMetricDefinitionCollection, err error) {
+	req, err := lastResults.ResourceMetricDefinitionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolInstanceMetricDefinitionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetricDefinitions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWorkerPoolInstanceMetricDefinitionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolInstanceMetricDefinitionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetricDefinitions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWorkerPoolInstanceMetricDefinitionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolInstanceMetricDefinitionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetricDefinitions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWorkerPoolInstanceMetricDefinitionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitionsComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string) (result ResourceMetricDefinitionCollectionIterator, err error) {
-	result.page, err = client.ListWorkerPoolInstanceMetricDefinitions(ctx, resourceGroupName, name, workerPoolName, instance)
-	return
+// ListWorkerPoolInstanceMetricDefinitionsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitionsComplete(resourceGroupName string, name string, workerPoolName string, instance string, cancel <-chan struct{}) (<-chan ResourceMetricDefinition, <-chan error) {
+	resultChan := make(chan ResourceMetricDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWorkerPoolInstanceMetricDefinitions(resourceGroupName, name, workerPoolName, instance)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWorkerPoolInstanceMetricDefinitionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListWorkerPoolInstanceMetrics get metrics for a specific instance of a worker pool of an App Service Environment.
@@ -2873,7 +3707,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricDefinitio
 // usages/metrics specified in the filter. Filter conforms to odata syntax. Example: $filter=(name.value eq 'Metric1'
 // or name.value eq 'Metric2') and startTime eq '2014-01-01T00:00:00Z' and endTime eq '2014-12-31T23:59:59Z' and
 // timeGrain eq duration'[Hour|Minute|Day]'.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetrics(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (result ResourceMetricCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetrics(resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (result ResourceMetricCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2882,8 +3716,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetrics(ctx con
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetrics")
 	}
 
-	result.fn = client.listWorkerPoolInstanceMetricsNextResults
-	req, err := client.ListWorkerPoolInstanceMetricsPreparer(ctx, resourceGroupName, name, workerPoolName, instance, details, filter)
+	req, err := client.ListWorkerPoolInstanceMetricsPreparer(resourceGroupName, name, workerPoolName, instance, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetrics", nil, "Failure preparing request")
 		return
@@ -2891,12 +3724,12 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetrics(ctx con
 
 	resp, err := client.ListWorkerPoolInstanceMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.ListWorkerPoolInstanceMetricsResponder(resp)
+	result, err = client.ListWorkerPoolInstanceMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetrics", resp, "Failure responding to request")
 	}
@@ -2905,7 +3738,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetrics(ctx con
 }
 
 // ListWorkerPoolInstanceMetricsPreparer prepares the ListWorkerPoolInstanceMetrics request.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsPreparer(resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -2930,13 +3763,14 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsPreparer
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/instances/{instance}metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWorkerPoolInstanceMetricsSender sends the ListWorkerPoolInstanceMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2953,38 +3787,80 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsResponde
 	return
 }
 
-// listWorkerPoolInstanceMetricsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWorkerPoolInstanceMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// ListWorkerPoolInstanceMetricsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolInstanceMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWorkerPoolInstanceMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolInstanceMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWorkerPoolInstanceMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolInstanceMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolInstanceMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWorkerPoolInstanceMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.ListWorkerPoolInstanceMetrics(ctx, resourceGroupName, name, workerPoolName, instance, details, filter)
-	return
+// ListWorkerPoolInstanceMetricsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolInstanceMetricsComplete(resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWorkerPoolInstanceMetrics(resourceGroupName, name, workerPoolName, instance, details, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWorkerPoolInstanceMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListWorkerPools get all worker pools of an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) ListWorkerPools(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPools(resourceGroupName string, name string) (result WorkerPoolCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -2993,8 +3869,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPools(ctx context.Context, 
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPools")
 	}
 
-	result.fn = client.listWorkerPoolsNextResults
-	req, err := client.ListWorkerPoolsPreparer(ctx, resourceGroupName, name)
+	req, err := client.ListWorkerPoolsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPools", nil, "Failure preparing request")
 		return
@@ -3002,12 +3877,12 @@ func (client AppServiceEnvironmentsClient) ListWorkerPools(ctx context.Context, 
 
 	resp, err := client.ListWorkerPoolsSender(req)
 	if err != nil {
-		result.wpc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPools", resp, "Failure sending request")
 		return
 	}
 
-	result.wpc, err = client.ListWorkerPoolsResponder(resp)
+	result, err = client.ListWorkerPoolsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPools", resp, "Failure responding to request")
 	}
@@ -3016,7 +3891,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPools(ctx context.Context, 
 }
 
 // ListWorkerPoolsPreparer prepares the ListWorkerPools request.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPoolsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3033,13 +3908,14 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolsPreparer(ctx context.C
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWorkerPoolsSender sends the ListWorkerPools request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWorkerPoolsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -3056,38 +3932,80 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolsResponder(resp *http.R
 	return
 }
 
-// listWorkerPoolsNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWorkerPoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
-	req, err := lastResults.workerPoolCollectionPreparer()
+// ListWorkerPoolsNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
+	req, err := lastResults.WorkerPoolCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPools", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWorkerPoolsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPools", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWorkerPoolsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPools", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWorkerPoolsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolsComplete(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionIterator, err error) {
-	result.page, err = client.ListWorkerPools(ctx, resourceGroupName, name)
-	return
+// ListWorkerPoolsComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolsComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan WorkerPoolResource, <-chan error) {
+	resultChan := make(chan WorkerPoolResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWorkerPools(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWorkerPoolsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListWorkerPoolSkus get available SKUs for scaling a worker pool.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. workerPoolName is name of the worker pool.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolSkus(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result SkuInfoCollectionPage, err error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPoolSkus(resourceGroupName string, name string, workerPoolName string) (result SkuInfoCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -3096,8 +4014,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolSkus(ctx context.Contex
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolSkus")
 	}
 
-	result.fn = client.listWorkerPoolSkusNextResults
-	req, err := client.ListWorkerPoolSkusPreparer(ctx, resourceGroupName, name, workerPoolName)
+	req, err := client.ListWorkerPoolSkusPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolSkus", nil, "Failure preparing request")
 		return
@@ -3105,12 +4022,12 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolSkus(ctx context.Contex
 
 	resp, err := client.ListWorkerPoolSkusSender(req)
 	if err != nil {
-		result.sic.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolSkus", resp, "Failure sending request")
 		return
 	}
 
-	result.sic, err = client.ListWorkerPoolSkusResponder(resp)
+	result, err = client.ListWorkerPoolSkusResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolSkus", resp, "Failure responding to request")
 	}
@@ -3119,7 +4036,7 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolSkus(ctx context.Contex
 }
 
 // ListWorkerPoolSkusPreparer prepares the ListWorkerPoolSkus request.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3137,13 +4054,14 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusPreparer(ctx contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/skus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListWorkerPoolSkusSender sends the ListWorkerPoolSkus request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -3160,38 +4078,80 @@ func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusResponder(resp *htt
 	return
 }
 
-// listWorkerPoolSkusNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) listWorkerPoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
-	req, err := lastResults.skuInfoCollectionPreparer()
+// ListWorkerPoolSkusNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
+	req, err := lastResults.SkuInfoCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolSkusNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolSkus", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListWorkerPoolSkusSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolSkusNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolSkus", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListWorkerPoolSkusResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "listWorkerPoolSkusNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "ListWorkerPoolSkus", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListWorkerPoolSkusComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result SkuInfoCollectionIterator, err error) {
-	result.page, err = client.ListWorkerPoolSkus(ctx, resourceGroupName, name, workerPoolName)
-	return
+// ListWorkerPoolSkusComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ListWorkerPoolSkusComplete(resourceGroupName string, name string, workerPoolName string, cancel <-chan struct{}) (<-chan SkuInfo, <-chan error) {
+	resultChan := make(chan SkuInfo)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListWorkerPoolSkus(resourceGroupName, name, workerPoolName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListWorkerPoolSkusNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Reboot reboot all machines in an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) Reboot(ctx context.Context, resourceGroupName string, name string) (result autorest.Response, err error) {
+func (client AppServiceEnvironmentsClient) Reboot(resourceGroupName string, name string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -3200,7 +4160,7 @@ func (client AppServiceEnvironmentsClient) Reboot(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "Reboot")
 	}
 
-	req, err := client.RebootPreparer(ctx, resourceGroupName, name)
+	req, err := client.RebootPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Reboot", nil, "Failure preparing request")
 		return
@@ -3222,7 +4182,7 @@ func (client AppServiceEnvironmentsClient) Reboot(ctx context.Context, resourceG
 }
 
 // RebootPreparer prepares the Reboot request.
-func (client AppServiceEnvironmentsClient) RebootPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) RebootPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3239,13 +4199,14 @@ func (client AppServiceEnvironmentsClient) RebootPreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/reboot", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RebootSender sends the Reboot request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) RebootSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -3261,11 +4222,12 @@ func (client AppServiceEnvironmentsClient) RebootResponder(resp *http.Response) 
 	return
 }
 
-// Resume resume an App Service Environment.
+// Resume resume an App Service Environment. This method may poll for completion. Polling can be canceled by passing
+// the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) Resume(ctx context.Context, resourceGroupName string, name string) (result AppServiceEnvironmentsResumeFuture, err error) {
+func (client AppServiceEnvironmentsClient) Resume(resourceGroupName string, name string, cancel <-chan struct{}) (result AppCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -3274,23 +4236,29 @@ func (client AppServiceEnvironmentsClient) Resume(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "Resume")
 	}
 
-	req, err := client.ResumePreparer(ctx, resourceGroupName, name)
+	req, err := client.ResumePreparer(resourceGroupName, name, cancel)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Resume", nil, "Failure preparing request")
 		return
 	}
 
-	result, err = client.ResumeSender(req)
+	resp, err := client.ResumeSender(req)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Resume", result.Response(), "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Resume", resp, "Failure sending request")
 		return
+	}
+
+	result, err = client.ResumeResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Resume", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ResumePreparer prepares the Resume request.
-func (client AppServiceEnvironmentsClient) ResumePreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) ResumePreparer(resourceGroupName string, name string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3307,33 +4275,21 @@ func (client AppServiceEnvironmentsClient) ResumePreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/resume", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // ResumeSender sends the Resume request. The method will close the
 // http.Response Body if it receives an error.
-func (client AppServiceEnvironmentsClient) ResumeSender(req *http.Request) (future AppServiceEnvironmentsResumeFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client AppServiceEnvironmentsClient) ResumeSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // ResumeResponder handles the response to the Resume request. The method always
 // closes the http.Response Body.
-func (client AppServiceEnvironmentsClient) ResumeResponder(resp *http.Response) (result AppCollectionPage, err error) {
-	result.ac, err = client.resumeResponder(resp)
-	result.fn = client.resumeNextResults
-	return
-}
-
-func (client AppServiceEnvironmentsClient) resumeResponder(resp *http.Response) (result AppCollection, err error) {
+func (client AppServiceEnvironmentsClient) ResumeResponder(resp *http.Response) (result AppCollection, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -3344,38 +4300,81 @@ func (client AppServiceEnvironmentsClient) resumeResponder(resp *http.Response) 
 	return
 }
 
-// resumeNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) resumeNextResults(lastResults AppCollection) (result AppCollection, err error) {
-	req, err := lastResults.appCollectionPreparer()
+// ResumeNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) ResumeNextResults(lastResults AppCollection) (result AppCollection, err error) {
+	req, err := lastResults.AppCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "resumeNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Resume", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "resumeNextResults", resp, "Failure sending next results request")
-	}
-	return client.resumeResponder(resp)
-}
 
-// ResumeComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) ResumeComplete(ctx context.Context, resourceGroupName string, name string) (result AppServiceEnvironmentsResumeAllFuture, err error) {
-	var future AppServiceEnvironmentsResumeFuture
-	future, err = client.Resume(ctx, resourceGroupName, name)
-	result.Future = future.Future
-	result.req = future.req
+	resp, err := client.ResumeSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Resume", resp, "Failure sending next results request")
+	}
+
+	result, err = client.ResumeResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Resume", resp, "Failure responding to next results request")
+	}
+
 	return
 }
 
-// Suspend suspend an App Service Environment.
+// ResumeComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) ResumeComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan Site, <-chan error) {
+	resultChan := make(chan Site)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.Resume(resourceGroupName, name, cancel)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ResumeNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
+}
+
+// Suspend suspend an App Service Environment. This method may poll for completion. Polling can be canceled by passing
+// the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment.
-func (client AppServiceEnvironmentsClient) Suspend(ctx context.Context, resourceGroupName string, name string) (result AppServiceEnvironmentsSuspendFuture, err error) {
+func (client AppServiceEnvironmentsClient) Suspend(resourceGroupName string, name string, cancel <-chan struct{}) (result AppCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -3384,23 +4383,29 @@ func (client AppServiceEnvironmentsClient) Suspend(ctx context.Context, resource
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "Suspend")
 	}
 
-	req, err := client.SuspendPreparer(ctx, resourceGroupName, name)
+	req, err := client.SuspendPreparer(resourceGroupName, name, cancel)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Suspend", nil, "Failure preparing request")
 		return
 	}
 
-	result, err = client.SuspendSender(req)
+	resp, err := client.SuspendSender(req)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Suspend", result.Response(), "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Suspend", resp, "Failure sending request")
 		return
+	}
+
+	result, err = client.SuspendResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Suspend", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // SuspendPreparer prepares the Suspend request.
-func (client AppServiceEnvironmentsClient) SuspendPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) SuspendPreparer(resourceGroupName string, name string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3417,33 +4422,21 @@ func (client AppServiceEnvironmentsClient) SuspendPreparer(ctx context.Context, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/suspend", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // SuspendSender sends the Suspend request. The method will close the
 // http.Response Body if it receives an error.
-func (client AppServiceEnvironmentsClient) SuspendSender(req *http.Request) (future AppServiceEnvironmentsSuspendFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client AppServiceEnvironmentsClient) SuspendSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // SuspendResponder handles the response to the Suspend request. The method always
 // closes the http.Response Body.
-func (client AppServiceEnvironmentsClient) SuspendResponder(resp *http.Response) (result AppCollectionPage, err error) {
-	result.ac, err = client.suspendResponder(resp)
-	result.fn = client.suspendNextResults
-	return
-}
-
-func (client AppServiceEnvironmentsClient) suspendResponder(resp *http.Response) (result AppCollection, err error) {
+func (client AppServiceEnvironmentsClient) SuspendResponder(resp *http.Response) (result AppCollection, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -3454,38 +4447,80 @@ func (client AppServiceEnvironmentsClient) suspendResponder(resp *http.Response)
 	return
 }
 
-// suspendNextResults retrieves the next set of results, if any.
-func (client AppServiceEnvironmentsClient) suspendNextResults(lastResults AppCollection) (result AppCollection, err error) {
-	req, err := lastResults.appCollectionPreparer()
+// SuspendNextResults retrieves the next set of results, if any.
+func (client AppServiceEnvironmentsClient) SuspendNextResults(lastResults AppCollection) (result AppCollection, err error) {
+	req, err := lastResults.AppCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "suspendNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Suspend", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+
+	resp, err := client.SuspendSender(req)
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "suspendNextResults", resp, "Failure sending next results request")
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Suspend", resp, "Failure sending next results request")
 	}
-	return client.suspendResponder(resp)
+
+	result, err = client.SuspendResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Suspend", resp, "Failure responding to next results request")
+	}
+
+	return
 }
 
-// SuspendComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppServiceEnvironmentsClient) SuspendComplete(ctx context.Context, resourceGroupName string, name string) (result AppServiceEnvironmentsSuspendAllFuture, err error) {
-	var future AppServiceEnvironmentsSuspendFuture
-	future, err = client.Suspend(ctx, resourceGroupName, name)
-	result.Future = future.Future
-	result.req = future.req
-	return
+// SuspendComplete gets all elements from the list without paging.
+func (client AppServiceEnvironmentsClient) SuspendComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan Site, <-chan error) {
+	resultChan := make(chan Site)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.Suspend(resourceGroupName, name, cancel)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.SuspendNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update create or update an App Service Environment.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. hostingEnvironmentEnvelope is configuration details of the App Service Environment.
-func (client AppServiceEnvironmentsClient) Update(ctx context.Context, resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentPatchResource) (result AppServiceEnvironmentResource, err error) {
+func (client AppServiceEnvironmentsClient) Update(resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentPatchResource) (result AppServiceEnvironmentResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -3494,7 +4529,7 @@ func (client AppServiceEnvironmentsClient) Update(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, name, hostingEnvironmentEnvelope)
+	req, err := client.UpdatePreparer(resourceGroupName, name, hostingEnvironmentEnvelope)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "Update", nil, "Failure preparing request")
 		return
@@ -3516,7 +4551,7 @@ func (client AppServiceEnvironmentsClient) Update(ctx context.Context, resourceG
 }
 
 // UpdatePreparer prepares the Update request.
-func (client AppServiceEnvironmentsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentPatchResource) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) UpdatePreparer(resourceGroupName string, name string, hostingEnvironmentEnvelope AppServiceEnvironmentPatchResource) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3535,13 +4570,14 @@ func (client AppServiceEnvironmentsClient) UpdatePreparer(ctx context.Context, r
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}", pathParameters),
 		autorest.WithJSON(hostingEnvironmentEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -3562,7 +4598,7 @@ func (client AppServiceEnvironmentsClient) UpdateResponder(resp *http.Response) 
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. multiRolePoolEnvelope is properties of the multi-role pool.
-func (client AppServiceEnvironmentsClient) UpdateMultiRolePool(ctx context.Context, resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource) (result WorkerPoolResource, err error) {
+func (client AppServiceEnvironmentsClient) UpdateMultiRolePool(resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource) (result WorkerPoolResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -3571,7 +4607,7 @@ func (client AppServiceEnvironmentsClient) UpdateMultiRolePool(ctx context.Conte
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "UpdateMultiRolePool")
 	}
 
-	req, err := client.UpdateMultiRolePoolPreparer(ctx, resourceGroupName, name, multiRolePoolEnvelope)
+	req, err := client.UpdateMultiRolePoolPreparer(resourceGroupName, name, multiRolePoolEnvelope)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "UpdateMultiRolePool", nil, "Failure preparing request")
 		return
@@ -3593,7 +4629,7 @@ func (client AppServiceEnvironmentsClient) UpdateMultiRolePool(ctx context.Conte
 }
 
 // UpdateMultiRolePoolPreparer prepares the UpdateMultiRolePool request.
-func (client AppServiceEnvironmentsClient) UpdateMultiRolePoolPreparer(ctx context.Context, resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) UpdateMultiRolePoolPreparer(resourceGroupName string, name string, multiRolePoolEnvelope WorkerPoolResource) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3612,13 +4648,14 @@ func (client AppServiceEnvironmentsClient) UpdateMultiRolePoolPreparer(ctx conte
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default", pathParameters),
 		autorest.WithJSON(multiRolePoolEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateMultiRolePoolSender sends the UpdateMultiRolePool request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) UpdateMultiRolePoolSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -3639,7 +4676,7 @@ func (client AppServiceEnvironmentsClient) UpdateMultiRolePoolResponder(resp *ht
 //
 // resourceGroupName is name of the resource group to which the resource belongs. name is name of the App Service
 // Environment. workerPoolName is name of the worker pool. workerPoolEnvelope is properties of the worker pool.
-func (client AppServiceEnvironmentsClient) UpdateWorkerPool(ctx context.Context, resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource) (result WorkerPoolResource, err error) {
+func (client AppServiceEnvironmentsClient) UpdateWorkerPool(resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource) (result WorkerPoolResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -3648,7 +4685,7 @@ func (client AppServiceEnvironmentsClient) UpdateWorkerPool(ctx context.Context,
 		return result, validation.NewErrorWithValidationError(err, "web.AppServiceEnvironmentsClient", "UpdateWorkerPool")
 	}
 
-	req, err := client.UpdateWorkerPoolPreparer(ctx, resourceGroupName, name, workerPoolName, workerPoolEnvelope)
+	req, err := client.UpdateWorkerPoolPreparer(resourceGroupName, name, workerPoolName, workerPoolEnvelope)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.AppServiceEnvironmentsClient", "UpdateWorkerPool", nil, "Failure preparing request")
 		return
@@ -3670,7 +4707,7 @@ func (client AppServiceEnvironmentsClient) UpdateWorkerPool(ctx context.Context,
 }
 
 // UpdateWorkerPoolPreparer prepares the UpdateWorkerPool request.
-func (client AppServiceEnvironmentsClient) UpdateWorkerPoolPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource) (*http.Request, error) {
+func (client AppServiceEnvironmentsClient) UpdateWorkerPoolPreparer(resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPoolResource) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3690,13 +4727,14 @@ func (client AppServiceEnvironmentsClient) UpdateWorkerPoolPreparer(ctx context.
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}", pathParameters),
 		autorest.WithJSON(workerPoolEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateWorkerPoolSender sends the UpdateWorkerPool request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppServiceEnvironmentsClient) UpdateWorkerPoolSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

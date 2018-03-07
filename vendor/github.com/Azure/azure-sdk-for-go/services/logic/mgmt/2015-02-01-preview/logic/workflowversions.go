@@ -18,7 +18,6 @@ package logic
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // WorkflowVersionsClient is the REST API for Azure Logic Apps.
 type WorkflowVersionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewWorkflowVersionsClient creates an instance of the WorkflowVersionsClient client.
@@ -43,8 +42,8 @@ func NewWorkflowVersionsClientWithBaseURI(baseURI string, subscriptionID string)
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name. versionID is the workflow
 // versionId.
-func (client WorkflowVersionsClient) Get(ctx context.Context, resourceGroupName string, workflowName string, versionID string) (result WorkflowVersion, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, workflowName, versionID)
+func (client WorkflowVersionsClient) Get(resourceGroupName string, workflowName string, versionID string) (result WorkflowVersion, err error) {
+	req, err := client.GetPreparer(resourceGroupName, workflowName, versionID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowVersionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client WorkflowVersionsClient) Get(ctx context.Context, resourceGroupName 
 }
 
 // GetPreparer prepares the Get request.
-func (client WorkflowVersionsClient) GetPreparer(ctx context.Context, resourceGroupName string, workflowName string, versionID string) (*http.Request, error) {
+func (client WorkflowVersionsClient) GetPreparer(resourceGroupName string, workflowName string, versionID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -84,13 +83,14 @@ func (client WorkflowVersionsClient) GetPreparer(ctx context.Context, resourceGr
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions/{versionId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowVersionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -19,6 +19,7 @@ package spanner
 import (
 	"errors"
 	"fmt"
+	"reflect"
 	"testing"
 	"time"
 
@@ -59,7 +60,7 @@ func TestRetry(t *testing.T) {
 	err = runRetryable(context.Background(), func(ct context.Context) error {
 		return injErr
 	})
-	if wantErr := toSpannerError(injErr); !testEqual(err, wantErr) {
+	if wantErr := toSpannerError(injErr); !reflect.DeepEqual(err, wantErr) {
 		t.Errorf("runRetryable returns error %v, want %v", err, wantErr)
 	}
 	// Timeout
@@ -73,7 +74,7 @@ func TestRetry(t *testing.T) {
 		return retryErr
 	})
 	// Check error code and error message
-	if wantErrCode, wantErr := codes.DeadlineExceeded, errContextCanceled(ctx, retryErr); ErrCode(err) != wantErrCode || !testEqual(err, wantErr) {
+	if wantErrCode, wantErr := codes.DeadlineExceeded, errContextCanceled(ctx, retryErr); ErrCode(err) != wantErrCode || !reflect.DeepEqual(err, wantErr) {
 		t.Errorf("<err code, err>=\n<%v, %v>, want:\n<%v, %v>", ErrCode(err), err, wantErrCode, wantErr)
 	}
 	// Cancellation
@@ -88,7 +89,7 @@ func TestRetry(t *testing.T) {
 		return retryErr
 	})
 	// Check error code, error message, retry count
-	if wantErrCode, wantErr := codes.Canceled, errContextCanceled(ctx, retryErr); ErrCode(err) != wantErrCode || !testEqual(err, wantErr) || retries != 0 {
+	if wantErrCode, wantErr := codes.Canceled, errContextCanceled(ctx, retryErr); ErrCode(err) != wantErrCode || !reflect.DeepEqual(err, wantErr) || retries != 0 {
 		t.Errorf("<err code, err, retries>=\n<%v, %v, %v>, want:\n<%v, %v, %v>", ErrCode(err), err, retries, wantErrCode, wantErr, 0)
 	}
 }
@@ -101,7 +102,7 @@ func TestRetryInfo(t *testing.T) {
 		retryInfoKey: string(b),
 	}
 	gotDelay, ok := extractRetryDelay(errRetry(toSpannerErrorWithMetadata(grpc.Errorf(codes.Aborted, ""), metadata.New(trailers))))
-	if !ok || !testEqual(time.Second, gotDelay) {
+	if !ok || !reflect.DeepEqual(time.Second, gotDelay) {
 		t.Errorf("<ok, retryDelay> = <%t, %v>, want <true, %v>", ok, gotDelay, time.Second)
 	}
 }

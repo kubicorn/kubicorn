@@ -1,10 +1,10 @@
-// Copyright 2018 Google LLC
+// Copyright 2017, Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     https://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,9 +17,10 @@
 // Package logging is an auto-generated package for the
 // Stackdriver Logging API.
 //
-//   NOTE: This package is in alpha. It is not stable, and is likely to change.
+//   NOTE: This package is in alpha. It is not stable, and is likely to be subject to changes.
 //
-// Writes log entries and manages your Stackdriver Logging configuration.
+// The Stackdriver Logging API lets you write log entries and manage your
+// logs, log sinks and logs-based metrics.
 //
 // Use the client at cloud.google.com/go/logging in preference to this.
 package logging // import "cloud.google.com/go/logging/apiv2"

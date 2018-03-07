@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,97 +26,121 @@ import (
 
 // ClustersClient is the azure Service Fabric Resource Provider API Client
 type ClustersClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewClustersClient creates an instance of the ClustersClient client.
-func NewClustersClient() ClustersClient {
-	return NewClustersClientWithBaseURI(DefaultBaseURI)
+func NewClustersClient(subscriptionID string) ClustersClient {
+	return NewClustersClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewClustersClientWithBaseURI creates an instance of the ClustersClient client.
-func NewClustersClientWithBaseURI(baseURI string) ClustersClient {
-	return ClustersClient{NewWithBaseURI(baseURI)}
+func NewClustersClientWithBaseURI(baseURI string, subscriptionID string) ClustersClient {
+	return ClustersClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
 // Create create cluster resource
+// This method may poll for completion. Polling can be canceled by passing the cancel channel argument. The channel
+// will be used to cancel polling and any outstanding HTTP requests.
 //
-// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource subscriptionID
-// is the customer subscription identifier parameters is the cluster resource.
-func (client ClustersClient) Create(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string, parameters Cluster) (result ClustersCreateFuture, err error) {
+// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource cluster is the
+// cluster resource.
+func (client ClustersClient) Create(resourceGroupName string, clusterName string, cluster Cluster, cancel <-chan struct{}) (<-chan Cluster, <-chan error) {
+	resultChan := make(chan Cluster, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: parameters,
-			Constraints: []validation.Constraint{{Target: "parameters.ClusterProperties", Name: validation.Null, Rule: false,
-				Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.Certificate", Name: validation.Null, Rule: false,
-					Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.Certificate.Thumbprint", Name: validation.Null, Rule: true, Chain: nil}}},
-					{Target: "parameters.ClusterProperties.ReverseProxyCertificate", Name: validation.Null, Rule: false,
-						Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.ReverseProxyCertificate.Thumbprint", Name: validation.Null, Rule: true, Chain: nil}}},
-					{Target: "parameters.ClusterProperties.ManagementEndpoint", Name: validation.Null, Rule: true, Chain: nil},
-					{Target: "parameters.ClusterProperties.NodeTypes", Name: validation.Null, Rule: true, Chain: nil},
-					{Target: "parameters.ClusterProperties.DiagnosticsStorageAccountConfig", Name: validation.Null, Rule: false,
-						Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.DiagnosticsStorageAccountConfig.StorageAccountName", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.DiagnosticsStorageAccountConfig.ProtectedAccountKeyName", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.DiagnosticsStorageAccountConfig.BlobEndpoint", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.DiagnosticsStorageAccountConfig.QueueEndpoint", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.DiagnosticsStorageAccountConfig.TableEndpoint", Name: validation.Null, Rule: true, Chain: nil},
+		{TargetValue: cluster,
+			Constraints: []validation.Constraint{{Target: "cluster.ClusterProperties", Name: validation.Null, Rule: false,
+				Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.Certificate", Name: validation.Null, Rule: false,
+					Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.Certificate.Thumbprint", Name: validation.Null, Rule: true, Chain: nil}}},
+					{Target: "cluster.ClusterProperties.ReverseProxyCertificate", Name: validation.Null, Rule: false,
+						Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.ReverseProxyCertificate.Thumbprint", Name: validation.Null, Rule: true, Chain: nil}}},
+					{Target: "cluster.ClusterProperties.ManagementEndpoint", Name: validation.Null, Rule: true, Chain: nil},
+					{Target: "cluster.ClusterProperties.NodeTypes", Name: validation.Null, Rule: true, Chain: nil},
+					{Target: "cluster.ClusterProperties.DiagnosticsStorageAccountConfig", Name: validation.Null, Rule: false,
+						Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.DiagnosticsStorageAccountConfig.StorageAccountName", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.DiagnosticsStorageAccountConfig.ProtectedAccountKeyName", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.DiagnosticsStorageAccountConfig.BlobEndpoint", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.DiagnosticsStorageAccountConfig.QueueEndpoint", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.DiagnosticsStorageAccountConfig.TableEndpoint", Name: validation.Null, Rule: true, Chain: nil},
 						}},
-					{Target: "parameters.ClusterProperties.UpgradeDescription", Name: validation.Null, Rule: false,
-						Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.UpgradeReplicaSetCheckTimeout", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.UpgradeDescription.HealthCheckWaitDuration", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.UpgradeDescription.HealthCheckStableDuration", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.UpgradeDescription.HealthCheckRetryTimeout", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.UpgradeDescription.UpgradeTimeout", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.UpgradeDescription.UpgradeDomainTimeout", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.ClusterProperties.UpgradeDescription.HealthPolicy", Name: validation.Null, Rule: true,
-								Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyNodes", Name: validation.Null, Rule: false,
-									Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyNodes", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
-										{Target: "parameters.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyNodes", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
+					{Target: "cluster.ClusterProperties.UpgradeDescription", Name: validation.Null, Rule: false,
+						Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.UpgradeReplicaSetCheckTimeout", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.UpgradeDescription.HealthCheckWaitDuration", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.UpgradeDescription.HealthCheckStableDuration", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.UpgradeDescription.HealthCheckRetryTimeout", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.UpgradeDescription.UpgradeTimeout", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.UpgradeDescription.UpgradeDomainTimeout", Name: validation.Null, Rule: true, Chain: nil},
+							{Target: "cluster.ClusterProperties.UpgradeDescription.HealthPolicy", Name: validation.Null, Rule: true,
+								Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyNodes", Name: validation.Null, Rule: false,
+									Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyNodes", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
+										{Target: "cluster.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyNodes", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
 									}},
-									{Target: "parameters.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyApplications", Name: validation.Null, Rule: false,
-										Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyApplications", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
-											{Target: "parameters.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyApplications", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
+									{Target: "cluster.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyApplications", Name: validation.Null, Rule: false,
+										Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyApplications", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
+											{Target: "cluster.ClusterProperties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyApplications", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
 										}},
 								}},
-							{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy", Name: validation.Null, Rule: false,
-								Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyNodes", Name: validation.Null, Rule: true,
-									Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyNodes", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
-										{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyNodes", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
+							{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy", Name: validation.Null, Rule: false,
+								Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyNodes", Name: validation.Null, Rule: true,
+									Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyNodes", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
+										{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyNodes", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
 									}},
-									{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentUpgradeDomainDeltaUnhealthyNodes", Name: validation.Null, Rule: true,
-										Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentUpgradeDomainDeltaUnhealthyNodes", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
-											{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentUpgradeDomainDeltaUnhealthyNodes", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
+									{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentUpgradeDomainDeltaUnhealthyNodes", Name: validation.Null, Rule: true,
+										Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentUpgradeDomainDeltaUnhealthyNodes", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
+											{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentUpgradeDomainDeltaUnhealthyNodes", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
 										}},
-									{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyApplications", Name: validation.Null, Rule: true,
-										Chain: []validation.Constraint{{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyApplications", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
-											{Target: "parameters.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyApplications", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
+									{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyApplications", Name: validation.Null, Rule: true,
+										Chain: []validation.Constraint{{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyApplications", Name: validation.InclusiveMaximum, Rule: 100, Chain: nil},
+											{Target: "cluster.ClusterProperties.UpgradeDescription.DeltaHealthPolicy.MaxPercentDeltaUnhealthyApplications", Name: validation.InclusiveMinimum, Rule: 0, Chain: nil},
 										}},
 								}},
 						}},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "servicefabric.ClustersClient", "Create")
+		errChan <- validation.NewErrorWithValidationError(err, "servicefabric.ClustersClient", "Create")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreatePreparer(ctx, resourceGroupName, clusterName, subscriptionID, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Create", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result Cluster
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreatePreparer(resourceGroupName, clusterName, cluster, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Create", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Create", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Create", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Create", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreatePreparer prepares the Create request.
-func (client ClustersClient) CreatePreparer(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string, parameters Cluster) (*http.Request, error) {
+func (client ClustersClient) CreatePreparer(resourceGroupName string, clusterName string, cluster Cluster, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"clusterName":       autorest.Encode("path", clusterName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", subscriptionID),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
 	const APIVersion = "2017-07-01-preview"
@@ -130,24 +153,18 @@ func (client ClustersClient) CreatePreparer(ctx context.Context, resourceGroupNa
 		autorest.AsPut(),
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/clusters/{clusterName}", pathParameters),
-		autorest.WithJSON(parameters),
+		autorest.WithJSON(cluster),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
-func (client ClustersClient) CreateSender(req *http.Request) (future ClustersCreateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client ClustersClient) CreateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateResponder handles the response to the Create request. The method always
@@ -165,10 +182,9 @@ func (client ClustersClient) CreateResponder(resp *http.Response) (result Cluste
 
 // Delete delete cluster resource
 //
-// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource subscriptionID
-// is the customer subscription identifier
-func (client ClustersClient) Delete(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, clusterName, subscriptionID)
+// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource
+func (client ClustersClient) Delete(resourceGroupName string, clusterName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, clusterName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Delete", nil, "Failure preparing request")
 		return
@@ -190,11 +206,11 @@ func (client ClustersClient) Delete(ctx context.Context, resourceGroupName strin
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ClustersClient) DeletePreparer(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string) (*http.Request, error) {
+func (client ClustersClient) DeletePreparer(resourceGroupName string, clusterName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"clusterName":       autorest.Encode("path", clusterName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", subscriptionID),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
 	const APIVersion = "2017-07-01-preview"
@@ -207,13 +223,14 @@ func (client ClustersClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/clusters/{clusterName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ClustersClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -231,10 +248,9 @@ func (client ClustersClient) DeleteResponder(resp *http.Response) (result autore
 
 // Get get cluster resource
 //
-// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource subscriptionID
-// is the customer subscription identifier
-func (client ClustersClient) Get(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string) (result Cluster, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, clusterName, subscriptionID)
+// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource
+func (client ClustersClient) Get(resourceGroupName string, clusterName string) (result Cluster, err error) {
+	req, err := client.GetPreparer(resourceGroupName, clusterName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Get", nil, "Failure preparing request")
 		return
@@ -256,11 +272,11 @@ func (client ClustersClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client ClustersClient) GetPreparer(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string) (*http.Request, error) {
+func (client ClustersClient) GetPreparer(resourceGroupName string, clusterName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"clusterName":       autorest.Encode("path", clusterName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", subscriptionID),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
 	const APIVersion = "2017-07-01-preview"
@@ -273,13 +289,14 @@ func (client ClustersClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/clusters/{clusterName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ClustersClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -297,10 +314,8 @@ func (client ClustersClient) GetResponder(resp *http.Response) (result Cluster, 
 }
 
 // List list cluster resource
-//
-// subscriptionID is the customer subscription identifier
-func (client ClustersClient) List(ctx context.Context, subscriptionID string) (result ClusterListResult, err error) {
-	req, err := client.ListPreparer(ctx, subscriptionID)
+func (client ClustersClient) List() (result ClusterListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "List", nil, "Failure preparing request")
 		return
@@ -322,9 +337,9 @@ func (client ClustersClient) List(ctx context.Context, subscriptionID string) (r
 }
 
 // ListPreparer prepares the List request.
-func (client ClustersClient) ListPreparer(ctx context.Context, subscriptionID string) (*http.Request, error) {
+func (client ClustersClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
-		"subscriptionId": autorest.Encode("path", subscriptionID),
+		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
 
 	const APIVersion = "2017-07-01-preview"
@@ -337,13 +352,14 @@ func (client ClustersClient) ListPreparer(ctx context.Context, subscriptionID st
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.ServiceFabric/clusters", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ClustersClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -362,9 +378,9 @@ func (client ClustersClient) ListResponder(resp *http.Response) (result ClusterL
 
 // ListByResourceGroup list cluster resource by resource group
 //
-// resourceGroupName is the name of the resource group. subscriptionID is the customer subscription identifier
-func (client ClustersClient) ListByResourceGroup(ctx context.Context, resourceGroupName string, subscriptionID string) (result ClusterListResult, err error) {
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName, subscriptionID)
+// resourceGroupName is the name of the resource group.
+func (client ClustersClient) ListByResourceGroup(resourceGroupName string) (result ClusterListResult, err error) {
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -386,10 +402,10 @@ func (client ClustersClient) ListByResourceGroup(ctx context.Context, resourceGr
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client ClustersClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string, subscriptionID string) (*http.Request, error) {
+func (client ClustersClient) ListByResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", subscriptionID),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
 	const APIVersion = "2017-07-01-preview"
@@ -402,13 +418,14 @@ func (client ClustersClient) ListByResourceGroupPreparer(ctx context.Context, re
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/clusters", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client ClustersClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -426,32 +443,53 @@ func (client ClustersClient) ListByResourceGroupResponder(resp *http.Response) (
 }
 
 // Update update cluster configuration
+// This method may poll for completion. Polling can be canceled by passing the cancel channel argument. The channel
+// will be used to cancel polling and any outstanding HTTP requests.
 //
-// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource subscriptionID
-// is the customer subscription identifier parameters is the parameters which contains the property value and property
-// name which used to update the cluster configuration.
-func (client ClustersClient) Update(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string, parameters ClusterUpdateParameters) (result ClustersUpdateFuture, err error) {
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, clusterName, subscriptionID, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Update", nil, "Failure preparing request")
-		return
-	}
+// resourceGroupName is the name of the resource group. clusterName is the name of the cluster resource
+// clusterUpdateParameters is the parameters which contains the property value and property name which used to update
+// the cluster configuration.
+func (client ClustersClient) Update(resourceGroupName string, clusterName string, clusterUpdateParameters ClusterUpdateParameters, cancel <-chan struct{}) (<-chan Cluster, <-chan error) {
+	resultChan := make(chan Cluster, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result Cluster
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdatePreparer(resourceGroupName, clusterName, clusterUpdateParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Update", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Update", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Update", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servicefabric.ClustersClient", "Update", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ClustersClient) UpdatePreparer(ctx context.Context, resourceGroupName string, clusterName string, subscriptionID string, parameters ClusterUpdateParameters) (*http.Request, error) {
+func (client ClustersClient) UpdatePreparer(resourceGroupName string, clusterName string, clusterUpdateParameters ClusterUpdateParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"clusterName":       autorest.Encode("path", clusterName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", subscriptionID),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
 	const APIVersion = "2017-07-01-preview"
@@ -464,24 +502,18 @@ func (client ClustersClient) UpdatePreparer(ctx context.Context, resourceGroupNa
 		autorest.AsPatch(),
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/clusters/{clusterName}", pathParameters),
-		autorest.WithJSON(parameters),
+		autorest.WithJSON(clusterUpdateParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
-func (client ClustersClient) UpdateSender(req *http.Request) (future ClustersUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client ClustersClient) UpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateResponder handles the response to the Update request. The method always

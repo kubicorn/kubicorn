@@ -18,7 +18,6 @@ package customerinsights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // that interact with Azure Customer Insights service to manage your resources. The API has entities that capture the
 // relationship between an end user and the Azure Customer Insights service.
 type AuthorizationPoliciesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewAuthorizationPoliciesClient creates an instance of the AuthorizationPoliciesClient client.
@@ -46,7 +45,7 @@ func NewAuthorizationPoliciesClientWithBaseURI(baseURI string, subscriptionID st
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. authorizationPolicyName is the
 // name of the policy. parameters is parameters supplied to the CreateOrUpdate authorization policy operation.
-func (client AuthorizationPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string, parameters AuthorizationPolicyResourceFormat) (result AuthorizationPolicyResourceFormat, err error) {
+func (client AuthorizationPoliciesClient) CreateOrUpdate(resourceGroupName string, hubName string, authorizationPolicyName string, parameters AuthorizationPolicyResourceFormat) (result AuthorizationPolicyResourceFormat, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: authorizationPolicyName,
 			Constraints: []validation.Constraint{{Target: "authorizationPolicyName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -60,7 +59,7 @@ func (client AuthorizationPoliciesClient) CreateOrUpdate(ctx context.Context, re
 		return result, validation.NewErrorWithValidationError(err, "customerinsights.AuthorizationPoliciesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, hubName, authorizationPolicyName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, hubName, authorizationPolicyName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -82,7 +81,7 @@ func (client AuthorizationPoliciesClient) CreateOrUpdate(ctx context.Context, re
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client AuthorizationPoliciesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string, parameters AuthorizationPolicyResourceFormat) (*http.Request, error) {
+func (client AuthorizationPoliciesClient) CreateOrUpdatePreparer(resourceGroupName string, hubName string, authorizationPolicyName string, parameters AuthorizationPolicyResourceFormat) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationPolicyName": autorest.Encode("path", authorizationPolicyName),
 		"hubName":                 autorest.Encode("path", hubName),
@@ -102,13 +101,14 @@ func (client AuthorizationPoliciesClient) CreateOrUpdatePreparer(ctx context.Con
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/authorizationPolicies/{authorizationPolicyName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationPoliciesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -129,8 +129,8 @@ func (client AuthorizationPoliciesClient) CreateOrUpdateResponder(resp *http.Res
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. authorizationPolicyName is the
 // name of the policy.
-func (client AuthorizationPoliciesClient) Get(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string) (result AuthorizationPolicyResourceFormat, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, hubName, authorizationPolicyName)
+func (client AuthorizationPoliciesClient) Get(resourceGroupName string, hubName string, authorizationPolicyName string) (result AuthorizationPolicyResourceFormat, err error) {
+	req, err := client.GetPreparer(resourceGroupName, hubName, authorizationPolicyName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "Get", nil, "Failure preparing request")
 		return
@@ -152,7 +152,7 @@ func (client AuthorizationPoliciesClient) Get(ctx context.Context, resourceGroup
 }
 
 // GetPreparer prepares the Get request.
-func (client AuthorizationPoliciesClient) GetPreparer(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string) (*http.Request, error) {
+func (client AuthorizationPoliciesClient) GetPreparer(resourceGroupName string, hubName string, authorizationPolicyName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationPolicyName": autorest.Encode("path", authorizationPolicyName),
 		"hubName":                 autorest.Encode("path", hubName),
@@ -170,13 +170,14 @@ func (client AuthorizationPoliciesClient) GetPreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/authorizationPolicies/{authorizationPolicyName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationPoliciesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -196,9 +197,8 @@ func (client AuthorizationPoliciesClient) GetResponder(resp *http.Response) (res
 // ListByHub gets all the authorization policies in a specified hub.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub.
-func (client AuthorizationPoliciesClient) ListByHub(ctx context.Context, resourceGroupName string, hubName string) (result AuthorizationPolicyListResultPage, err error) {
-	result.fn = client.listByHubNextResults
-	req, err := client.ListByHubPreparer(ctx, resourceGroupName, hubName)
+func (client AuthorizationPoliciesClient) ListByHub(resourceGroupName string, hubName string) (result AuthorizationPolicyListResult, err error) {
+	req, err := client.ListByHubPreparer(resourceGroupName, hubName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "ListByHub", nil, "Failure preparing request")
 		return
@@ -206,12 +206,12 @@ func (client AuthorizationPoliciesClient) ListByHub(ctx context.Context, resourc
 
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
-		result.aplr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "ListByHub", resp, "Failure sending request")
 		return
 	}
 
-	result.aplr, err = client.ListByHubResponder(resp)
+	result, err = client.ListByHubResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "ListByHub", resp, "Failure responding to request")
 	}
@@ -220,7 +220,7 @@ func (client AuthorizationPoliciesClient) ListByHub(ctx context.Context, resourc
 }
 
 // ListByHubPreparer prepares the ListByHub request.
-func (client AuthorizationPoliciesClient) ListByHubPreparer(ctx context.Context, resourceGroupName string, hubName string) (*http.Request, error) {
+func (client AuthorizationPoliciesClient) ListByHubPreparer(resourceGroupName string, hubName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -237,13 +237,14 @@ func (client AuthorizationPoliciesClient) ListByHubPreparer(ctx context.Context,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/authorizationPolicies", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByHubSender sends the ListByHub request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationPoliciesClient) ListByHubSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -260,39 +261,81 @@ func (client AuthorizationPoliciesClient) ListByHubResponder(resp *http.Response
 	return
 }
 
-// listByHubNextResults retrieves the next set of results, if any.
-func (client AuthorizationPoliciesClient) listByHubNextResults(lastResults AuthorizationPolicyListResult) (result AuthorizationPolicyListResult, err error) {
-	req, err := lastResults.authorizationPolicyListResultPreparer()
+// ListByHubNextResults retrieves the next set of results, if any.
+func (client AuthorizationPoliciesClient) ListByHubNextResults(lastResults AuthorizationPolicyListResult) (result AuthorizationPolicyListResult, err error) {
+	req, err := lastResults.AuthorizationPolicyListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "listByHubNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "ListByHub", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "listByHubNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "ListByHub", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByHubResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "listByHubNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "ListByHub", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByHubComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AuthorizationPoliciesClient) ListByHubComplete(ctx context.Context, resourceGroupName string, hubName string) (result AuthorizationPolicyListResultIterator, err error) {
-	result.page, err = client.ListByHub(ctx, resourceGroupName, hubName)
-	return
+// ListByHubComplete gets all elements from the list without paging.
+func (client AuthorizationPoliciesClient) ListByHubComplete(resourceGroupName string, hubName string, cancel <-chan struct{}) (<-chan AuthorizationPolicyResourceFormat, <-chan error) {
+	resultChan := make(chan AuthorizationPolicyResourceFormat)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByHub(resourceGroupName, hubName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByHubNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // RegeneratePrimaryKey regenerates the primary policy key of the specified authorization policy.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. authorizationPolicyName is the
 // name of the policy.
-func (client AuthorizationPoliciesClient) RegeneratePrimaryKey(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string) (result AuthorizationPolicy, err error) {
-	req, err := client.RegeneratePrimaryKeyPreparer(ctx, resourceGroupName, hubName, authorizationPolicyName)
+func (client AuthorizationPoliciesClient) RegeneratePrimaryKey(resourceGroupName string, hubName string, authorizationPolicyName string) (result AuthorizationPolicy, err error) {
+	req, err := client.RegeneratePrimaryKeyPreparer(resourceGroupName, hubName, authorizationPolicyName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "RegeneratePrimaryKey", nil, "Failure preparing request")
 		return
@@ -314,7 +357,7 @@ func (client AuthorizationPoliciesClient) RegeneratePrimaryKey(ctx context.Conte
 }
 
 // RegeneratePrimaryKeyPreparer prepares the RegeneratePrimaryKey request.
-func (client AuthorizationPoliciesClient) RegeneratePrimaryKeyPreparer(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string) (*http.Request, error) {
+func (client AuthorizationPoliciesClient) RegeneratePrimaryKeyPreparer(resourceGroupName string, hubName string, authorizationPolicyName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationPolicyName": autorest.Encode("path", authorizationPolicyName),
 		"hubName":                 autorest.Encode("path", hubName),
@@ -332,13 +375,14 @@ func (client AuthorizationPoliciesClient) RegeneratePrimaryKeyPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/authorizationPolicies/{authorizationPolicyName}/regeneratePrimaryKey", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegeneratePrimaryKeySender sends the RegeneratePrimaryKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationPoliciesClient) RegeneratePrimaryKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -359,8 +403,8 @@ func (client AuthorizationPoliciesClient) RegeneratePrimaryKeyResponder(resp *ht
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. authorizationPolicyName is the
 // name of the policy.
-func (client AuthorizationPoliciesClient) RegenerateSecondaryKey(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string) (result AuthorizationPolicy, err error) {
-	req, err := client.RegenerateSecondaryKeyPreparer(ctx, resourceGroupName, hubName, authorizationPolicyName)
+func (client AuthorizationPoliciesClient) RegenerateSecondaryKey(resourceGroupName string, hubName string, authorizationPolicyName string) (result AuthorizationPolicy, err error) {
+	req, err := client.RegenerateSecondaryKeyPreparer(resourceGroupName, hubName, authorizationPolicyName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.AuthorizationPoliciesClient", "RegenerateSecondaryKey", nil, "Failure preparing request")
 		return
@@ -382,7 +426,7 @@ func (client AuthorizationPoliciesClient) RegenerateSecondaryKey(ctx context.Con
 }
 
 // RegenerateSecondaryKeyPreparer prepares the RegenerateSecondaryKey request.
-func (client AuthorizationPoliciesClient) RegenerateSecondaryKeyPreparer(ctx context.Context, resourceGroupName string, hubName string, authorizationPolicyName string) (*http.Request, error) {
+func (client AuthorizationPoliciesClient) RegenerateSecondaryKeyPreparer(resourceGroupName string, hubName string, authorizationPolicyName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationPolicyName": autorest.Encode("path", authorizationPolicyName),
 		"hubName":                 autorest.Encode("path", hubName),
@@ -400,13 +444,14 @@ func (client AuthorizationPoliciesClient) RegenerateSecondaryKeyPreparer(ctx con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/authorizationPolicies/{authorizationPolicyName}/regenerateSecondaryKey", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegenerateSecondaryKeySender sends the RegenerateSecondaryKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationPoliciesClient) RegenerateSecondaryKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

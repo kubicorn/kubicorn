@@ -18,7 +18,6 @@ package insights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // DiagnosticSettingsClient is the monitor Management Client
 type DiagnosticSettingsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDiagnosticSettingsClient creates an instance of the DiagnosticSettingsClient client.
@@ -43,8 +42,8 @@ func NewDiagnosticSettingsClientWithBaseURI(baseURI string, subscriptionID strin
 //
 // resourceURI is the identifier of the resource. parameters is parameters supplied to the operation. name is the name
 // of the diagnostic setting.
-func (client DiagnosticSettingsClient) CreateOrUpdate(ctx context.Context, resourceURI string, parameters DiagnosticSettingsResource, name string) (result DiagnosticSettingsResource, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceURI, parameters, name)
+func (client DiagnosticSettingsClient) CreateOrUpdate(resourceURI string, parameters DiagnosticSettingsResource, name string) (result DiagnosticSettingsResource, err error) {
+	req, err := client.CreateOrUpdatePreparer(resourceURI, parameters, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "insights.DiagnosticSettingsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client DiagnosticSettingsClient) CreateOrUpdate(ctx context.Context, resou
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client DiagnosticSettingsClient) CreateOrUpdatePreparer(ctx context.Context, resourceURI string, parameters DiagnosticSettingsResource, name string) (*http.Request, error) {
+func (client DiagnosticSettingsClient) CreateOrUpdatePreparer(resourceURI string, parameters DiagnosticSettingsResource, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":        autorest.Encode("path", name),
 		"resourceUri": autorest.Encode("path", resourceURI),
@@ -84,13 +83,14 @@ func (client DiagnosticSettingsClient) CreateOrUpdatePreparer(ctx context.Contex
 		autorest.WithPathParameters("/{resourceUri}/providers/microsoft.insights/diagnosticSettings/{name}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client DiagnosticSettingsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -110,8 +110,8 @@ func (client DiagnosticSettingsClient) CreateOrUpdateResponder(resp *http.Respon
 // Delete deletes existing diagnostic settings for the specified resource.
 //
 // resourceURI is the identifier of the resource. name is the name of the diagnostic setting.
-func (client DiagnosticSettingsClient) Delete(ctx context.Context, resourceURI string, name string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceURI, name)
+func (client DiagnosticSettingsClient) Delete(resourceURI string, name string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceURI, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "insights.DiagnosticSettingsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -133,7 +133,7 @@ func (client DiagnosticSettingsClient) Delete(ctx context.Context, resourceURI s
 }
 
 // DeletePreparer prepares the Delete request.
-func (client DiagnosticSettingsClient) DeletePreparer(ctx context.Context, resourceURI string, name string) (*http.Request, error) {
+func (client DiagnosticSettingsClient) DeletePreparer(resourceURI string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":        autorest.Encode("path", name),
 		"resourceUri": autorest.Encode("path", resourceURI),
@@ -149,13 +149,14 @@ func (client DiagnosticSettingsClient) DeletePreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{resourceUri}/providers/microsoft.insights/diagnosticSettings/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client DiagnosticSettingsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -174,8 +175,8 @@ func (client DiagnosticSettingsClient) DeleteResponder(resp *http.Response) (res
 // Get gets the active diagnostic settings for the specified resource.
 //
 // resourceURI is the identifier of the resource. name is the name of the diagnostic setting.
-func (client DiagnosticSettingsClient) Get(ctx context.Context, resourceURI string, name string) (result DiagnosticSettingsResource, err error) {
-	req, err := client.GetPreparer(ctx, resourceURI, name)
+func (client DiagnosticSettingsClient) Get(resourceURI string, name string) (result DiagnosticSettingsResource, err error) {
+	req, err := client.GetPreparer(resourceURI, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "insights.DiagnosticSettingsClient", "Get", nil, "Failure preparing request")
 		return
@@ -197,7 +198,7 @@ func (client DiagnosticSettingsClient) Get(ctx context.Context, resourceURI stri
 }
 
 // GetPreparer prepares the Get request.
-func (client DiagnosticSettingsClient) GetPreparer(ctx context.Context, resourceURI string, name string) (*http.Request, error) {
+func (client DiagnosticSettingsClient) GetPreparer(resourceURI string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":        autorest.Encode("path", name),
 		"resourceUri": autorest.Encode("path", resourceURI),
@@ -213,13 +214,14 @@ func (client DiagnosticSettingsClient) GetPreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{resourceUri}/providers/microsoft.insights/diagnosticSettings/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DiagnosticSettingsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -239,8 +241,8 @@ func (client DiagnosticSettingsClient) GetResponder(resp *http.Response) (result
 // List gets the active diagnostic settings list for the specified resource.
 //
 // resourceURI is the identifier of the resource.
-func (client DiagnosticSettingsClient) List(ctx context.Context, resourceURI string) (result DiagnosticSettingsResourceCollection, err error) {
-	req, err := client.ListPreparer(ctx, resourceURI)
+func (client DiagnosticSettingsClient) List(resourceURI string) (result DiagnosticSettingsResourceCollection, err error) {
+	req, err := client.ListPreparer(resourceURI)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "insights.DiagnosticSettingsClient", "List", nil, "Failure preparing request")
 		return
@@ -262,7 +264,7 @@ func (client DiagnosticSettingsClient) List(ctx context.Context, resourceURI str
 }
 
 // ListPreparer prepares the List request.
-func (client DiagnosticSettingsClient) ListPreparer(ctx context.Context, resourceURI string) (*http.Request, error) {
+func (client DiagnosticSettingsClient) ListPreparer(resourceURI string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceUri": autorest.Encode("path", resourceURI),
 	}
@@ -277,13 +279,14 @@ func (client DiagnosticSettingsClient) ListPreparer(ctx context.Context, resourc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{resourceUri}/providers/microsoft.insights/diagnosticSettings", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client DiagnosticSettingsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

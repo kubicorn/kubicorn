@@ -26,7 +26,8 @@ import strings "strings"
 import reflect "reflect"
 
 import io "io"
-import binary "encoding/binary"
+import encoding_binary "encoding/binary"
+import github_com_gogo_protobuf_proto "github.com/gogo/protobuf/proto"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -249,7 +250,10 @@ func (this *Big) VerboseEqual(that interface{}) error {
 }
 func (this *Big) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Big)
@@ -262,7 +266,10 @@ func (this *Big) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -327,7 +334,10 @@ func (this *BigUnsafe) VerboseEqual(that interface{}) error {
 }
 func (this *BigUnsafe) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*BigUnsafe)
@@ -340,7 +350,10 @@ func (this *BigUnsafe) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -402,7 +415,10 @@ func (this *Sub) VerboseEqual(that interface{}) error {
 }
 func (this *Sub) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Sub)
@@ -415,7 +431,10 @@ func (this *Sub) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -498,7 +517,10 @@ func (this *IntMerge) VerboseEqual(that interface{}) error {
 }
 func (this *IntMerge) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*IntMerge)
@@ -511,7 +533,10 @@ func (this *IntMerge) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -1297,7 +1322,7 @@ func (m *IntMerge) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 8) > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Fixed64 = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
+			m.Fixed64 = uint64(encoding_binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
 		case 8:
 			if wireType != 5 {
@@ -1307,7 +1332,7 @@ func (m *IntMerge) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Fixed32 = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			m.Fixed32 = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
 		case 9:
 			if wireType != 5 {
@@ -1317,7 +1342,7 @@ func (m *IntMerge) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Sfixed32 = int32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			m.Sfixed32 = int32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
 			hasFields[0] |= uint64(0x00000008)
 		case 10:
@@ -1328,7 +1353,7 @@ func (m *IntMerge) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 8) > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Sfixed64 = int64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
+			m.Sfixed64 = int64(encoding_binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
 		case 11:
 			if wireType != 0 {
@@ -1367,16 +1392,16 @@ func (m *IntMerge) Unmarshal(dAtA []byte) error {
 		}
 	}
 	if hasFields[0]&uint64(0x00000001) == 0 {
-		return proto.NewRequiredNotSetError("Int64")
+		return github_com_gogo_protobuf_proto.NewRequiredNotSetError("Int64")
 	}
 	if hasFields[0]&uint64(0x00000002) == 0 {
-		return proto.NewRequiredNotSetError("Sint32")
+		return github_com_gogo_protobuf_proto.NewRequiredNotSetError("Sint32")
 	}
 	if hasFields[0]&uint64(0x00000004) == 0 {
-		return proto.NewRequiredNotSetError("Uint32")
+		return github_com_gogo_protobuf_proto.NewRequiredNotSetError("Uint32")
 	}
 	if hasFields[0]&uint64(0x00000008) == 0 {
-		return proto.NewRequiredNotSetError("Sfixed32")
+		return github_com_gogo_protobuf_proto.NewRequiredNotSetError("Sfixed32")
 	}
 
 	if iNdEx > l {

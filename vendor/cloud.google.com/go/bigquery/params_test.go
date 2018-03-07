@@ -45,9 +45,9 @@ var scalarTests = []struct {
 	{time.Date(2016, 3, 20, 4, 22, 9, 5000, time.FixedZone("neg1-2", -3720)),
 		"2016-03-20 04:22:09.000005-01:02",
 		timestampParamType},
-	{civil.Date{Year: 2016, Month: 3, Day: 20}, "2016-03-20", dateParamType},
-	{civil.Time{Hour: 4, Minute: 5, Second: 6, Nanosecond: 789000000}, "04:05:06.789000", timeParamType},
-	{civil.DateTime{Date: civil.Date{Year: 2016, Month: 3, Day: 20}, Time: civil.Time{Hour: 4, Minute: 5, Second: 6, Nanosecond: 789000000}},
+	{civil.Date{2016, 3, 20}, "2016-03-20", dateParamType},
+	{civil.Time{4, 5, 6, 789000000}, "04:05:06.789000", timeParamType},
+	{civil.DateTime{civil.Date{2016, 3, 20}, civil.Time{4, 5, 6, 789000000}},
 		"2016-03-20 04:05:06.789000",
 		dateTimeParamType},
 }
@@ -264,18 +264,19 @@ func TestConvertParamValue(t *testing.T) {
 }
 
 func TestIntegration_ScalarParam(t *testing.T) {
-	roundToMicros := cmp.Transformer("RoundToMicros",
-		func(t time.Time) time.Time { return t.Round(time.Microsecond) })
+	timeEqualMicrosec := cmp.Comparer(func(t1, t2 time.Time) bool {
+		return t1.Round(time.Microsecond).Equal(t2.Round(time.Microsecond))
+	})
 	c := getClient(t)
 	for _, test := range scalarTests {
 		gotData, gotParam, err := paramRoundTrip(c, test.val)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if !testutil.Equal(gotData, test.val, roundToMicros) {
+		if !testutil.Equal(gotData, test.val, timeEqualMicrosec) {
 			t.Errorf("\ngot  %#v (%T)\nwant %#v (%T)", gotData, gotData, test.val, test.val)
 		}
-		if !testutil.Equal(gotParam, test.val, roundToMicros) {
+		if !testutil.Equal(gotParam, test.val, timeEqualMicrosec) {
 			t.Errorf("\ngot  %#v (%T)\nwant %#v (%T)", gotParam, gotParam, test.val, test.val)
 		}
 	}

@@ -29,21 +29,21 @@ const (
 	DefaultBaseURI = "http://localhost:19080"
 )
 
-// BaseClient is the base client for Servicefabric.
-type BaseClient struct {
+// ManagementClient is the base client for Servicefabric.
+type ManagementClient struct {
 	autorest.Client
 	BaseURI string
 	Timeout *int32
 }
 
-// New creates an instance of the BaseClient client.
-func New(timeout *int32) BaseClient {
+// New creates an instance of the ManagementClient client.
+func New(timeout *int32) ManagementClient {
 	return NewWithBaseURI(DefaultBaseURI, timeout)
 }
 
-// NewWithBaseURI creates an instance of the BaseClient client.
-func NewWithBaseURI(baseURI string, timeout *int32) BaseClient {
-	return BaseClient{
+// NewWithBaseURI creates an instance of the ManagementClient client.
+func NewWithBaseURI(baseURI string, timeout *int32) ManagementClient {
+	return ManagementClient{
 		Client:  autorest.NewClientWithUserAgent(UserAgent()),
 		BaseURI: baseURI,
 		Timeout: timeout,

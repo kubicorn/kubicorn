@@ -18,7 +18,6 @@ package authorization
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -29,7 +28,7 @@ import (
 // definitions and role assignments. A role definition describes the set of actions that can be performed on resources.
 // A role assignment grants access to Azure Active Directory users.
 type RoleDefinitionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewRoleDefinitionsClient creates an instance of the RoleDefinitionsClient client.
@@ -46,8 +45,8 @@ func NewRoleDefinitionsClientWithBaseURI(baseURI string, subscriptionID string) 
 //
 // scope is the scope of the role definition. roleDefinitionID is the ID of the role definition. roleDefinition is the
 // values for the role definition.
-func (client RoleDefinitionsClient) CreateOrUpdate(ctx context.Context, scope string, roleDefinitionID string, roleDefinition RoleDefinition) (result RoleDefinition, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, scope, roleDefinitionID, roleDefinition)
+func (client RoleDefinitionsClient) CreateOrUpdate(scope string, roleDefinitionID string, roleDefinition RoleDefinition) (result RoleDefinition, err error) {
+	req, err := client.CreateOrUpdatePreparer(scope, roleDefinitionID, roleDefinition)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -69,7 +68,7 @@ func (client RoleDefinitionsClient) CreateOrUpdate(ctx context.Context, scope st
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client RoleDefinitionsClient) CreateOrUpdatePreparer(ctx context.Context, scope string, roleDefinitionID string, roleDefinition RoleDefinition) (*http.Request, error) {
+func (client RoleDefinitionsClient) CreateOrUpdatePreparer(scope string, roleDefinitionID string, roleDefinition RoleDefinition) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"roleDefinitionId": autorest.Encode("path", roleDefinitionID),
 		"scope":            scope,
@@ -87,13 +86,14 @@ func (client RoleDefinitionsClient) CreateOrUpdatePreparer(ctx context.Context, 
 		autorest.WithPathParameters("/{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}", pathParameters),
 		autorest.WithJSON(roleDefinition),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client RoleDefinitionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -113,8 +113,8 @@ func (client RoleDefinitionsClient) CreateOrUpdateResponder(resp *http.Response)
 // Delete deletes a role definition.
 //
 // scope is the scope of the role definition. roleDefinitionID is the ID of the role definition to delete.
-func (client RoleDefinitionsClient) Delete(ctx context.Context, scope string, roleDefinitionID string) (result RoleDefinition, err error) {
-	req, err := client.DeletePreparer(ctx, scope, roleDefinitionID)
+func (client RoleDefinitionsClient) Delete(scope string, roleDefinitionID string) (result RoleDefinition, err error) {
+	req, err := client.DeletePreparer(scope, roleDefinitionID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -136,7 +136,7 @@ func (client RoleDefinitionsClient) Delete(ctx context.Context, scope string, ro
 }
 
 // DeletePreparer prepares the Delete request.
-func (client RoleDefinitionsClient) DeletePreparer(ctx context.Context, scope string, roleDefinitionID string) (*http.Request, error) {
+func (client RoleDefinitionsClient) DeletePreparer(scope string, roleDefinitionID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"roleDefinitionId": autorest.Encode("path", roleDefinitionID),
 		"scope":            scope,
@@ -152,13 +152,14 @@ func (client RoleDefinitionsClient) DeletePreparer(ctx context.Context, scope st
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client RoleDefinitionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -178,8 +179,8 @@ func (client RoleDefinitionsClient) DeleteResponder(resp *http.Response) (result
 // Get get role definition by name (GUID).
 //
 // scope is the scope of the role definition. roleDefinitionID is the ID of the role definition.
-func (client RoleDefinitionsClient) Get(ctx context.Context, scope string, roleDefinitionID string) (result RoleDefinition, err error) {
-	req, err := client.GetPreparer(ctx, scope, roleDefinitionID)
+func (client RoleDefinitionsClient) Get(scope string, roleDefinitionID string) (result RoleDefinition, err error) {
+	req, err := client.GetPreparer(scope, roleDefinitionID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -201,7 +202,7 @@ func (client RoleDefinitionsClient) Get(ctx context.Context, scope string, roleD
 }
 
 // GetPreparer prepares the Get request.
-func (client RoleDefinitionsClient) GetPreparer(ctx context.Context, scope string, roleDefinitionID string) (*http.Request, error) {
+func (client RoleDefinitionsClient) GetPreparer(scope string, roleDefinitionID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"roleDefinitionId": autorest.Encode("path", roleDefinitionID),
 		"scope":            scope,
@@ -217,13 +218,14 @@ func (client RoleDefinitionsClient) GetPreparer(ctx context.Context, scope strin
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client RoleDefinitionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -246,8 +248,8 @@ func (client RoleDefinitionsClient) GetResponder(resp *http.Response) (result Ro
 // /subscriptions/{guid}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId} for subscription level
 // role definitions, or /providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId} for tenant level role
 // definitions.
-func (client RoleDefinitionsClient) GetByID(ctx context.Context, roleDefinitionID string) (result RoleDefinition, err error) {
-	req, err := client.GetByIDPreparer(ctx, roleDefinitionID)
+func (client RoleDefinitionsClient) GetByID(roleDefinitionID string) (result RoleDefinition, err error) {
+	req, err := client.GetByIDPreparer(roleDefinitionID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "GetByID", nil, "Failure preparing request")
 		return
@@ -269,7 +271,7 @@ func (client RoleDefinitionsClient) GetByID(ctx context.Context, roleDefinitionI
 }
 
 // GetByIDPreparer prepares the GetByID request.
-func (client RoleDefinitionsClient) GetByIDPreparer(ctx context.Context, roleDefinitionID string) (*http.Request, error) {
+func (client RoleDefinitionsClient) GetByIDPreparer(roleDefinitionID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"roleDefinitionId": roleDefinitionID,
 	}
@@ -284,13 +286,14 @@ func (client RoleDefinitionsClient) GetByIDPreparer(ctx context.Context, roleDef
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{roleDefinitionId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetByIDSender sends the GetByID request. The method will close the
 // http.Response Body if it receives an error.
 func (client RoleDefinitionsClient) GetByIDSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -311,9 +314,8 @@ func (client RoleDefinitionsClient) GetByIDResponder(resp *http.Response) (resul
 //
 // scope is the scope of the role definition. filter is the filter to apply on the operation. Use atScopeAndBelow
 // filter to search below the given scope as well.
-func (client RoleDefinitionsClient) List(ctx context.Context, scope string, filter string) (result RoleDefinitionListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, scope, filter)
+func (client RoleDefinitionsClient) List(scope string, filter string) (result RoleDefinitionListResult, err error) {
+	req, err := client.ListPreparer(scope, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "List", nil, "Failure preparing request")
 		return
@@ -321,12 +323,12 @@ func (client RoleDefinitionsClient) List(ctx context.Context, scope string, filt
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rdlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rdlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "List", resp, "Failure responding to request")
 	}
@@ -335,7 +337,7 @@ func (client RoleDefinitionsClient) List(ctx context.Context, scope string, filt
 }
 
 // ListPreparer prepares the List request.
-func (client RoleDefinitionsClient) ListPreparer(ctx context.Context, scope string, filter string) (*http.Request, error) {
+func (client RoleDefinitionsClient) ListPreparer(scope string, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"scope": scope,
 	}
@@ -353,13 +355,14 @@ func (client RoleDefinitionsClient) ListPreparer(ctx context.Context, scope stri
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{scope}/providers/Microsoft.Authorization/roleDefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client RoleDefinitionsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -376,29 +379,71 @@ func (client RoleDefinitionsClient) ListResponder(resp *http.Response) (result R
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client RoleDefinitionsClient) listNextResults(lastResults RoleDefinitionListResult) (result RoleDefinitionListResult, err error) {
-	req, err := lastResults.roleDefinitionListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client RoleDefinitionsClient) ListNextResults(lastResults RoleDefinitionListResult) (result RoleDefinitionListResult, err error) {
+	req, err := lastResults.RoleDefinitionListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "authorization.RoleDefinitionsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client RoleDefinitionsClient) ListComplete(ctx context.Context, scope string, filter string) (result RoleDefinitionListResultIterator, err error) {
-	result.page, err = client.List(ctx, scope, filter)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client RoleDefinitionsClient) ListComplete(scope string, filter string, cancel <-chan struct{}) (<-chan RoleDefinition, <-chan error) {
+	resultChan := make(chan RoleDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(scope, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

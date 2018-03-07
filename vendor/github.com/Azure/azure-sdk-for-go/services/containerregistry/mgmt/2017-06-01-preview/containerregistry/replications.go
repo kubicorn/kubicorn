@@ -18,7 +18,6 @@ package containerregistry
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // ReplicationsClient is the client for the Replications methods of the Containerregistry service.
 type ReplicationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewReplicationsClient creates an instance of the ReplicationsClient client.
@@ -40,12 +39,16 @@ func NewReplicationsClientWithBaseURI(baseURI string, subscriptionID string) Rep
 	return ReplicationsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// Create creates a replication for a container registry with the specified parameters.
+// Create creates a replication for a container registry with the specified parameters. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group to which the container registry belongs. registryName is the
 // name of the container registry. replicationName is the name of the replication. replication is the parameters for
 // creating a replication.
-func (client ReplicationsClient) Create(ctx context.Context, resourceGroupName string, registryName string, replicationName string, replication Replication) (result ReplicationsCreateFuture, err error) {
+func (client ReplicationsClient) Create(resourceGroupName string, registryName string, replicationName string, replication Replication, cancel <-chan struct{}) (<-chan Replication, <-chan error) {
+	resultChan := make(chan Replication, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: registryName,
 			Constraints: []validation.Constraint{{Target: "registryName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -55,26 +58,46 @@ func (client ReplicationsClient) Create(ctx context.Context, resourceGroupName s
 			Constraints: []validation.Constraint{{Target: "replicationName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "replicationName", Name: validation.MinLength, Rule: 5, Chain: nil},
 				{Target: "replicationName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "Create")
+		errChan <- validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "Create")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreatePreparer(ctx, resourceGroupName, registryName, replicationName, replication)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Create", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result Replication
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreatePreparer(resourceGroupName, registryName, replicationName, replication, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Create", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Create", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Create", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Create", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreatePreparer prepares the Create request.
-func (client ReplicationsClient) CreatePreparer(ctx context.Context, resourceGroupName string, registryName string, replicationName string, replication Replication) (*http.Request, error) {
+func (client ReplicationsClient) CreatePreparer(resourceGroupName string, registryName string, replicationName string, replication Replication, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"registryName":      autorest.Encode("path", registryName),
 		"replicationName":   autorest.Encode("path", replicationName),
@@ -94,22 +117,16 @@ func (client ReplicationsClient) CreatePreparer(ctx context.Context, resourceGro
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/replications/{replicationName}", pathParameters),
 		autorest.WithJSON(replication),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
-func (client ReplicationsClient) CreateSender(req *http.Request) (future ReplicationsCreateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client ReplicationsClient) CreateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateResponder handles the response to the Create request. The method always
@@ -125,11 +142,15 @@ func (client ReplicationsClient) CreateResponder(resp *http.Response) (result Re
 	return
 }
 
-// Delete deletes a replication from a container registry.
+// Delete deletes a replication from a container registry. This method may poll for completion. Polling can be canceled
+// by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the resource group to which the container registry belongs. registryName is the
 // name of the container registry. replicationName is the name of the replication.
-func (client ReplicationsClient) Delete(ctx context.Context, resourceGroupName string, registryName string, replicationName string) (result ReplicationsDeleteFuture, err error) {
+func (client ReplicationsClient) Delete(resourceGroupName string, registryName string, replicationName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: registryName,
 			Constraints: []validation.Constraint{{Target: "registryName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -139,26 +160,46 @@ func (client ReplicationsClient) Delete(ctx context.Context, resourceGroupName s
 			Constraints: []validation.Constraint{{Target: "replicationName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "replicationName", Name: validation.MinLength, Rule: 5, Chain: nil},
 				{Target: "replicationName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "Delete")
+		errChan <- validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "Delete")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, registryName, replicationName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, registryName, replicationName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ReplicationsClient) DeletePreparer(ctx context.Context, resourceGroupName string, registryName string, replicationName string) (*http.Request, error) {
+func (client ReplicationsClient) DeletePreparer(resourceGroupName string, registryName string, replicationName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"registryName":      autorest.Encode("path", registryName),
 		"replicationName":   autorest.Encode("path", replicationName),
@@ -176,22 +217,16 @@ func (client ReplicationsClient) DeletePreparer(ctx context.Context, resourceGro
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/replications/{replicationName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client ReplicationsClient) DeleteSender(req *http.Request) (future ReplicationsDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client ReplicationsClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -210,7 +245,7 @@ func (client ReplicationsClient) DeleteResponder(resp *http.Response) (result au
 //
 // resourceGroupName is the name of the resource group to which the container registry belongs. registryName is the
 // name of the container registry. replicationName is the name of the replication.
-func (client ReplicationsClient) Get(ctx context.Context, resourceGroupName string, registryName string, replicationName string) (result Replication, err error) {
+func (client ReplicationsClient) Get(resourceGroupName string, registryName string, replicationName string) (result Replication, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: registryName,
 			Constraints: []validation.Constraint{{Target: "registryName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -223,7 +258,7 @@ func (client ReplicationsClient) Get(ctx context.Context, resourceGroupName stri
 		return result, validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, registryName, replicationName)
+	req, err := client.GetPreparer(resourceGroupName, registryName, replicationName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Get", nil, "Failure preparing request")
 		return
@@ -245,7 +280,7 @@ func (client ReplicationsClient) Get(ctx context.Context, resourceGroupName stri
 }
 
 // GetPreparer prepares the Get request.
-func (client ReplicationsClient) GetPreparer(ctx context.Context, resourceGroupName string, registryName string, replicationName string) (*http.Request, error) {
+func (client ReplicationsClient) GetPreparer(resourceGroupName string, registryName string, replicationName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"registryName":      autorest.Encode("path", registryName),
 		"replicationName":   autorest.Encode("path", replicationName),
@@ -263,13 +298,14 @@ func (client ReplicationsClient) GetPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/replications/{replicationName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ReplicationsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -290,7 +326,7 @@ func (client ReplicationsClient) GetResponder(resp *http.Response) (result Repli
 //
 // resourceGroupName is the name of the resource group to which the container registry belongs. registryName is the
 // name of the container registry.
-func (client ReplicationsClient) List(ctx context.Context, resourceGroupName string, registryName string) (result ReplicationListResultPage, err error) {
+func (client ReplicationsClient) List(resourceGroupName string, registryName string) (result ReplicationListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: registryName,
 			Constraints: []validation.Constraint{{Target: "registryName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -299,8 +335,7 @@ func (client ReplicationsClient) List(ctx context.Context, resourceGroupName str
 		return result, validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "List")
 	}
 
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, registryName)
+	req, err := client.ListPreparer(resourceGroupName, registryName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "List", nil, "Failure preparing request")
 		return
@@ -308,12 +343,12 @@ func (client ReplicationsClient) List(ctx context.Context, resourceGroupName str
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "List", resp, "Failure responding to request")
 	}
@@ -322,7 +357,7 @@ func (client ReplicationsClient) List(ctx context.Context, resourceGroupName str
 }
 
 // ListPreparer prepares the List request.
-func (client ReplicationsClient) ListPreparer(ctx context.Context, resourceGroupName string, registryName string) (*http.Request, error) {
+func (client ReplicationsClient) ListPreparer(resourceGroupName string, registryName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"registryName":      autorest.Encode("path", registryName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -339,13 +374,14 @@ func (client ReplicationsClient) ListPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/replications", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ReplicationsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -362,39 +398,85 @@ func (client ReplicationsClient) ListResponder(resp *http.Response) (result Repl
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ReplicationsClient) listNextResults(lastResults ReplicationListResult) (result ReplicationListResult, err error) {
-	req, err := lastResults.replicationListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ReplicationsClient) ListNextResults(lastResults ReplicationListResult) (result ReplicationListResult, err error) {
+	req, err := lastResults.ReplicationListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ReplicationsClient) ListComplete(ctx context.Context, resourceGroupName string, registryName string) (result ReplicationListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, registryName)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ReplicationsClient) ListComplete(resourceGroupName string, registryName string, cancel <-chan struct{}) (<-chan Replication, <-chan error) {
+	resultChan := make(chan Replication)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, registryName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
-// Update updates a replication for a container registry with the specified parameters.
+// Update updates a replication for a container registry with the specified parameters. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group to which the container registry belongs. registryName is the
 // name of the container registry. replicationName is the name of the replication. replicationUpdateParameters is the
 // parameters for updating a replication.
-func (client ReplicationsClient) Update(ctx context.Context, resourceGroupName string, registryName string, replicationName string, replicationUpdateParameters ReplicationUpdateParameters) (result ReplicationsUpdateFuture, err error) {
+func (client ReplicationsClient) Update(resourceGroupName string, registryName string, replicationName string, replicationUpdateParameters ReplicationUpdateParameters, cancel <-chan struct{}) (<-chan Replication, <-chan error) {
+	resultChan := make(chan Replication, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: registryName,
 			Constraints: []validation.Constraint{{Target: "registryName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -404,26 +486,46 @@ func (client ReplicationsClient) Update(ctx context.Context, resourceGroupName s
 			Constraints: []validation.Constraint{{Target: "replicationName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "replicationName", Name: validation.MinLength, Rule: 5, Chain: nil},
 				{Target: "replicationName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "Update")
+		errChan <- validation.NewErrorWithValidationError(err, "containerregistry.ReplicationsClient", "Update")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, registryName, replicationName, replicationUpdateParameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Update", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result Replication
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdatePreparer(resourceGroupName, registryName, replicationName, replicationUpdateParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Update", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Update", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Update", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "containerregistry.ReplicationsClient", "Update", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ReplicationsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, registryName string, replicationName string, replicationUpdateParameters ReplicationUpdateParameters) (*http.Request, error) {
+func (client ReplicationsClient) UpdatePreparer(resourceGroupName string, registryName string, replicationName string, replicationUpdateParameters ReplicationUpdateParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"registryName":      autorest.Encode("path", registryName),
 		"replicationName":   autorest.Encode("path", replicationName),
@@ -443,22 +545,16 @@ func (client ReplicationsClient) UpdatePreparer(ctx context.Context, resourceGro
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/replications/{replicationName}", pathParameters),
 		autorest.WithJSON(replicationUpdateParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
-func (client ReplicationsClient) UpdateSender(req *http.Request) (future ReplicationsUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client ReplicationsClient) UpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateResponder handles the response to the Update request. The method always

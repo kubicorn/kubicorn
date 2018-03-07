@@ -195,8 +195,7 @@ func (t *Transaction) rollback() {
 	// Note: Rollback is idempotent so it will be retried by the gapic layer.
 }
 
-// Get gets the document in the context of the transaction. The transaction holds a
-// pessimistic lock on the returned document.
+// Get gets the document in the context of the transaction.
 func (t *Transaction) Get(dr *DocumentRef) (*DocumentSnapshot, error) {
 	if len(t.writes) > 0 {
 		t.readAfterWrite = true
@@ -210,18 +209,6 @@ func (t *Transaction) Get(dr *DocumentRef) (*DocumentSnapshot, error) {
 		return nil, err
 	}
 	return newDocumentSnapshot(dr, docProto, t.c)
-}
-
-// GetAll retrieves multiple documents with a single call. The DocumentSnapshots are
-// returned in the order of the given DocumentRefs. If a document is not present, the
-// corresponding DocumentSnapshot will be nil. The transaction holds a pessimistic
-// lock on all of the returned documents.
-func (t *Transaction) GetAll(drs []*DocumentRef) ([]*DocumentSnapshot, error) {
-	if len(t.writes) > 0 {
-		t.readAfterWrite = true
-		return nil, errReadAfterWrite
-	}
-	return t.c.getAll(t.ctx, drs, t.id)
 }
 
 // A Queryer is a Query or a CollectionRef. CollectionRefs act as queries whose
@@ -247,13 +234,13 @@ func (t *Transaction) Documents(q Queryer) *DocumentIterator {
 // Create adds a Create operation to the Transaction.
 // See DocumentRef.Create for details.
 func (t *Transaction) Create(dr *DocumentRef, data interface{}) error {
-	return t.addWrites(dr.newCreateWrites(data))
+	return t.addWrites(dr.newReplaceWrites(data, nil, Exists(false)))
 }
 
 // Set adds a Set operation to the Transaction.
 // See DocumentRef.Set for details.
 func (t *Transaction) Set(dr *DocumentRef, data interface{}, opts ...SetOption) error {
-	return t.addWrites(dr.newSetWrites(data, opts))
+	return t.addWrites(dr.newReplaceWrites(data, opts, nil))
 }
 
 // Delete adds a Delete operation to the Transaction.
@@ -262,9 +249,21 @@ func (t *Transaction) Delete(dr *DocumentRef, opts ...Precondition) error {
 	return t.addWrites(dr.newDeleteWrites(opts))
 }
 
-// Update adds a new Update operation to the Transaction.
-// See DocumentRef.Update for details.
-func (t *Transaction) Update(dr *DocumentRef, data []Update, opts ...Precondition) error {
+// UpdateMap adds a new Update operation to the Transaction.
+// See DocumentRef.UpdateMap for details.
+func (t *Transaction) UpdateMap(dr *DocumentRef, data map[string]interface{}, opts ...Precondition) error {
+	return t.addWrites(dr.newUpdateMapWrites(data, opts))
+}
+
+// UpdateStruct adds a new Update operation to the Transaction.
+// See DocumentRef.UpdateStruct for details.
+func (t *Transaction) UpdateStruct(dr *DocumentRef, fieldPaths []string, data interface{}, opts ...Precondition) error {
+	return t.addWrites(dr.newUpdateStructWrites(fieldPaths, data, opts))
+}
+
+// UpdatePaths adds a new Update operation to the Transaction.
+// See DocumentRef.UpdatePaths for details.
+func (t *Transaction) UpdatePaths(dr *DocumentRef, data []FieldPathUpdate, opts ...Precondition) error {
 	return t.addWrites(dr.newUpdatePathWrites(data, opts))
 }
 

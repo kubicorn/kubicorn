@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // UserSubscriptionsClient is the apiManagement Client
 type UserSubscriptionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewUserSubscriptionsClient creates an instance of the UserSubscriptionsClient client.
@@ -53,7 +52,7 @@ func NewUserSubscriptionsClientWithBaseURI(baseURI string, subscriptionID string
 // | productId    | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 // | state        | eq                     |                                             | top is number of records to
 // return. skip is number of records to skip.
-func (client UserSubscriptionsClient) ListByUsers(ctx context.Context, resourceGroupName string, serviceName string, UID string, filter string, top *int32, skip *int32) (result SubscriptionCollectionPage, err error) {
+func (client UserSubscriptionsClient) ListByUsers(resourceGroupName string, serviceName string, UID string, filter string, top *int32, skip *int32) (result SubscriptionCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -72,8 +71,7 @@ func (client UserSubscriptionsClient) ListByUsers(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.UserSubscriptionsClient", "ListByUsers")
 	}
 
-	result.fn = client.listByUsersNextResults
-	req, err := client.ListByUsersPreparer(ctx, resourceGroupName, serviceName, UID, filter, top, skip)
+	req, err := client.ListByUsersPreparer(resourceGroupName, serviceName, UID, filter, top, skip)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "ListByUsers", nil, "Failure preparing request")
 		return
@@ -81,12 +79,12 @@ func (client UserSubscriptionsClient) ListByUsers(ctx context.Context, resourceG
 
 	resp, err := client.ListByUsersSender(req)
 	if err != nil {
-		result.sc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "ListByUsers", resp, "Failure sending request")
 		return
 	}
 
-	result.sc, err = client.ListByUsersResponder(resp)
+	result, err = client.ListByUsersResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "ListByUsers", resp, "Failure responding to request")
 	}
@@ -95,7 +93,7 @@ func (client UserSubscriptionsClient) ListByUsers(ctx context.Context, resourceG
 }
 
 // ListByUsersPreparer prepares the ListByUsers request.
-func (client UserSubscriptionsClient) ListByUsersPreparer(ctx context.Context, resourceGroupName string, serviceName string, UID string, filter string, top *int32, skip *int32) (*http.Request, error) {
+func (client UserSubscriptionsClient) ListByUsersPreparer(resourceGroupName string, serviceName string, UID string, filter string, top *int32, skip *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -122,13 +120,14 @@ func (client UserSubscriptionsClient) ListByUsersPreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/users/{uid}/subscriptions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByUsersSender sends the ListByUsers request. The method will close the
 // http.Response Body if it receives an error.
 func (client UserSubscriptionsClient) ListByUsersSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -145,29 +144,71 @@ func (client UserSubscriptionsClient) ListByUsersResponder(resp *http.Response) 
 	return
 }
 
-// listByUsersNextResults retrieves the next set of results, if any.
-func (client UserSubscriptionsClient) listByUsersNextResults(lastResults SubscriptionCollection) (result SubscriptionCollection, err error) {
-	req, err := lastResults.subscriptionCollectionPreparer()
+// ListByUsersNextResults retrieves the next set of results, if any.
+func (client UserSubscriptionsClient) ListByUsersNextResults(lastResults SubscriptionCollection) (result SubscriptionCollection, err error) {
+	req, err := lastResults.SubscriptionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "listByUsersNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "ListByUsers", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByUsersSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "listByUsersNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "ListByUsers", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByUsersResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "listByUsersNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "apimanagement.UserSubscriptionsClient", "ListByUsers", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByUsersComplete enumerates all values, automatically crossing page boundaries as required.
-func (client UserSubscriptionsClient) ListByUsersComplete(ctx context.Context, resourceGroupName string, serviceName string, UID string, filter string, top *int32, skip *int32) (result SubscriptionCollectionIterator, err error) {
-	result.page, err = client.ListByUsers(ctx, resourceGroupName, serviceName, UID, filter, top, skip)
-	return
+// ListByUsersComplete gets all elements from the list without paging.
+func (client UserSubscriptionsClient) ListByUsersComplete(resourceGroupName string, serviceName string, UID string, filter string, top *int32, skip *int32, cancel <-chan struct{}) (<-chan SubscriptionContract, <-chan error) {
+	resultChan := make(chan SubscriptionContract)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByUsers(resourceGroupName, serviceName, UID, filter, top, skip)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByUsersNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

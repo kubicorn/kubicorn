@@ -941,14 +941,6 @@ func (s *BasicChartDomain) MarshalJSON() ([]byte, error) {
 // one for the "Open Price", "High Price", "Low Price" and "Close
 // Price".
 type BasicChartSeries struct {
-	// LineStyle: The line style of this series. Valid only if the
-	// chartType is AREA,
-	// LINE, or SCATTER.
-	// COMBO charts are also supported if the
-	// series chart type is
-	// AREA or LINE.
-	LineStyle *LineStyle `json:"lineStyle,omitempty"`
-
 	// Series: The data being visualized in this chart series.
 	Series *ChartData `json:"series,omitempty"`
 
@@ -1004,7 +996,7 @@ type BasicChartSeries struct {
 	// chart</a>.
 	Type string `json:"type,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g. "LineStyle") to
+	// ForceSendFields is a list of field names (e.g. "Series") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -1012,8 +1004,8 @@ type BasicChartSeries struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "LineStyle") to include in
-	// API requests with the JSON null value. By default, fields with empty
+	// NullFields is a list of field names (e.g. "Series") to include in API
+	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
 	// null. It is an error if a field in this list has a non-empty value.
@@ -2894,9 +2886,6 @@ type ChartSpec struct {
 	// TitleTextPosition: The title text position.
 	// This field is optional.
 	TitleTextPosition *TextPosition `json:"titleTextPosition,omitempty"`
-
-	// WaterfallChart: A waterfall chart specification.
-	WaterfallChart *WaterfallChartSpec `json:"waterfallChart,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "AltText") to
 	// unconditionally include in API requests. By default, fields with
@@ -5267,106 +5256,6 @@ func (s *HistogramChartSpec) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// HistogramRule: Allows you to organize the numeric values in a source
-// data column into
-// buckets of a constant size. All values from HistogramRule.start
-// to
-// HistogramRule.end will be placed into groups of
-// size
-// HistogramRule.interval. In addition, all values
-// below
-// HistogramRule.start will be placed in one group, and all values
-// above
-// HistogramRule.end will be placed in another.
-// Only
-// HistogramRule.interval is required, though if HistogramRule.start
-// and HistogramRule.end are both provided, HistogramRule.start must
-// be less than HistogramRule.end. For example, a pivot table
-// showing
-// average purchase amount by age that has 50+ rows:
-//
-//     +-----+-------------------+
-//     | Age | AVERAGE of Amount |
-//     +-----+-------------------+
-//     | 16  |            $27.13 |
-//     | 17  |             $5.24 |
-//     | 18  |            $20.15 |
-//     ...
-//     +-----+-------------------+
-// could be turned into a pivot table that looks like the one below
-// by
-// applying a histogram group rule with a HistogramRule.start of 25,
-// an HistogramRule.interval of 20, and an HistogramRule.end
-// of 65.
-//
-//     +-------------+-------------------+
-//     | Grouped Age | AVERAGE of Amount |
-//     +-------------+-------------------+
-//     | < 25        |            $19.34 |
-//     | 25-45       |            $31.43 |
-//     | 45-65       |            $35.87 |
-//     | > 65        |            $27.55 |
-//     +-------------+-------------------+
-//     | Grand Total |            $29.12 |
-//     +-------------+-------------------+
-type HistogramRule struct {
-	// End: Optional. The maximum value at which items will be placed into
-	// buckets
-	// of constant size. Values above end will be lumped into a single
-	// bucket.
-	End float64 `json:"end,omitempty"`
-
-	// Interval: Required. The size of the buckets that will be created.
-	// Must be positive.
-	Interval float64 `json:"interval,omitempty"`
-
-	// Start: Optional. The minimum value at which items will be placed into
-	// buckets
-	// of constant size. Values below start will be lumped into a single
-	// bucket.
-	Start float64 `json:"start,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "End") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "End") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *HistogramRule) MarshalJSON() ([]byte, error) {
-	type NoMethod HistogramRule
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-func (s *HistogramRule) UnmarshalJSON(data []byte) error {
-	type NoMethod HistogramRule
-	var s1 struct {
-		End      gensupport.JSONFloat64 `json:"end"`
-		Interval gensupport.JSONFloat64 `json:"interval"`
-		Start    gensupport.JSONFloat64 `json:"start"`
-		*NoMethod
-	}
-	s1.NoMethod = (*NoMethod)(s)
-	if err := json.Unmarshal(data, &s1); err != nil {
-		return err
-	}
-	s.End = float64(s1.End)
-	s.Interval = float64(s1.Interval)
-	s.Start = float64(s1.Start)
-	return nil
-}
-
 // HistogramSeries: A histogram series containing the series color and
 // data.
 type HistogramSeries struct {
@@ -5611,154 +5500,6 @@ func (s *IterativeCalculationSettings) UnmarshalJSON(data []byte) error {
 	}
 	s.ConvergenceThreshold = float64(s1.ConvergenceThreshold)
 	return nil
-}
-
-// LineStyle: Properties that describe the style of a line.
-type LineStyle struct {
-	// Type: The dash type of the line.
-	//
-	// Possible values:
-	//   "LINE_DASH_TYPE_UNSPECIFIED" - Default value, do not use.
-	//   "INVISIBLE" - No dash type, which is equivalent to a non-visible
-	// line.
-	//   "CUSTOM" - A custom dash for a line. Modifying the exact custom
-	// dash style is
-	// currently unsupported.
-	//   "SOLID" - A solid line.
-	//   "DOTTED" - A dotted line.
-	//   "MEDIUM_DASHED" - A dashed line where the dashes have "medium"
-	// length.
-	//   "MEDIUM_DASHED_DOTTED" - A line that alternates between a "medium"
-	// dash and a dot.
-	//   "LONG_DASHED" - A dashed line where the dashes have "long" length.
-	//   "LONG_DASHED_DOTTED" - A line that alternates between a "long" dash
-	// and a dot.
-	Type string `json:"type,omitempty"`
-
-	// Width: The thickness of the line, in px.
-	Width int64 `json:"width,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Type") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Type") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *LineStyle) MarshalJSON() ([]byte, error) {
-	type NoMethod LineStyle
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// ManualRule: Allows you to manually organize the values in a source
-// data column into
-// buckets with names of your choosing. For example, a pivot table
-// that
-// aggregates population by state:
-//
-//     +-------+-------------------+
-//     | State | SUM of Population |
-//     +-------+-------------------+
-//     | AK    |               0.7 |
-//     | AL    |               4.8 |
-//     | AR    |               2.9 |
-//     ...
-//     +-------+-------------------+
-// could be turned into a pivot table that aggregates population by time
-// zone
-// by providing a list of groups (e.g. groupName = 'Central',
-// items = ['AL', 'AR', 'IA', ...]) to a manual group rule.
-// Note that a similar effect could be achieved by adding a time zone
-// column
-// to the source data and adjusting the pivot table.
-//
-//     +-----------+-------------------+
-//     | Time Zone | SUM of Population |
-//     +-----------+-------------------+
-//     | Central   |             106.3 |
-//     | Eastern   |             151.9 |
-//     | Mountain  |              17.4 |
-//     ...
-//     +-----------+-------------------+
-type ManualRule struct {
-	// Groups: The list of group names and the corresponding items from the
-	// source data
-	// that map to each group name.
-	Groups []*ManualRuleGroup `json:"groups,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Groups") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Groups") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *ManualRule) MarshalJSON() ([]byte, error) {
-	type NoMethod ManualRule
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// ManualRuleGroup: A group name and a list of items from the source
-// data that should be placed
-// in the group with this name.
-type ManualRuleGroup struct {
-	// GroupName: The group name, which must be a string. Each group in a
-	// given
-	// ManualRule must have a unique group name.
-	GroupName *ExtendedValue `json:"groupName,omitempty"`
-
-	// Items: The items in the source data that should be placed into this
-	// group. Each
-	// item may be a string, number, or boolean. Items may appear in at most
-	// one
-	// group within a given ManualRule. Items that do not appear in
-	// any
-	// group will appear on their own.
-	Items []*ExtendedValue `json:"items,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "GroupName") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "GroupName") to include in
-	// API requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *ManualRuleGroup) MarshalJSON() ([]byte, error) {
-	type NoMethod ManualRuleGroup
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 // MatchedDeveloperMetadata: A developer metadata entry and the data
@@ -6307,58 +6048,6 @@ func (s *PivotFilterCriteria) MarshalJSON() ([]byte, error) {
 // PivotGroup: A single grouping (either row or column) in a pivot
 // table.
 type PivotGroup struct {
-	// GroupRule: The group rule to apply to this row/column group.
-	GroupRule *PivotGroupRule `json:"groupRule,omitempty"`
-
-	// Label: The labels to use for the row/column groups which can be
-	// customized. For
-	// example, in the following pivot table, the row label is `Region`
-	// (which
-	// could be renamed to `State`) and the column label is `Product`
-	// (which
-	// could be renamed `Item`). Pivot tables created before December 2017
-	// do
-	// not have header labels. If you'd like to add header labels to an
-	// existing
-	// pivot table, please delete the existing pivot table and then create a
-	// new
-	// pivot table with same parameters.
-	//
-	//     +--------------+---------+-------+
-	//     | SUM of Units | Product |       |
-	//     | Region       | Pen     | Paper |
-	//     +--------------+---------+-------+
-	//     | New York     |     345 |    98 |
-	//     | Oregon       |     234 |   123 |
-	//     | Tennessee    |     531 |   415 |
-	//     +--------------+---------+-------+
-	//     | Grand Total  |    1110 |   636 |
-	//     +--------------+---------+-------+
-	Label string `json:"label,omitempty"`
-
-	// RepeatHeadings: True if the headings in this pivot group should be
-	// repeated.
-	// This is only valid for row groupings and will be ignored by
-	// columns.
-	//
-	// By default, we minimize repitition of headings by not showing
-	// higher
-	// level headings where they are the same. For example, even though
-	// the
-	// third row below corresponds to "Q1 Mar", "Q1" is not shown because
-	// it is redundant with previous rows. Setting repeat_headings to
-	// true
-	// would cause "Q1" to be repeated for "Feb" and "Mar".
-	//
-	//     +--------------+
-	//     | Q1     | Jan |
-	//     |        | Feb |
-	//     |        | Mar |
-	//     +--------+-----+
-	//     | Q1 Total     |
-	//     +--------------+
-	RepeatHeadings bool `json:"repeatHeadings,omitempty"`
-
 	// ShowTotals: True if the pivot table should include the totals for
 	// this grouping.
 	ShowTotals bool `json:"showTotals,omitempty"`
@@ -6388,7 +6077,7 @@ type PivotGroup struct {
 	// ValueMetadata: Metadata about values in the grouping.
 	ValueMetadata []*PivotGroupValueMetadata `json:"valueMetadata,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g. "GroupRule") to
+	// ForceSendFields is a list of field names (e.g. "ShowTotals") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -6396,7 +6085,7 @@ type PivotGroup struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "GroupRule") to include in
+	// NullFields is a list of field names (e.g. "ShowTotals") to include in
 	// API requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
@@ -6407,45 +6096,6 @@ type PivotGroup struct {
 
 func (s *PivotGroup) MarshalJSON() ([]byte, error) {
 	type NoMethod PivotGroup
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// PivotGroupRule: An optional setting on a PivotGroup that defines
-// buckets for the values
-// in the source data column rather than breaking out each individual
-// value.
-// Only one PivotGroup with a group rule may be added for each column
-// in
-// the source data, though on any given column you may add both
-// a
-// PivotGroup that has a rule and a PivotGroup that does not.
-type PivotGroupRule struct {
-	// HistogramRule: A HistogramRule.
-	HistogramRule *HistogramRule `json:"histogramRule,omitempty"`
-
-	// ManualRule: A ManualRule.
-	ManualRule *ManualRule `json:"manualRule,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "HistogramRule") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "HistogramRule") to include
-	// in API requests with the JSON null value. By default, fields with
-	// empty values are omitted from API requests. However, any field with
-	// an empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *PivotGroupRule) MarshalJSON() ([]byte, error) {
-	type NoMethod PivotGroupRule
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
@@ -6594,29 +6244,6 @@ func (s *PivotTable) MarshalJSON() ([]byte, error) {
 // PivotValue: The definition of how a value in a pivot table should be
 // calculated.
 type PivotValue struct {
-	// CalculatedDisplayType: If specified, indicates that pivot values
-	// should be displayed as
-	// the result of a calculation with another pivot value. For example,
-	// if
-	// calculated_display_type is specified as PERCENT_OF_GRAND_TOTAL, all
-	// the
-	// pivot values will be displayed as the percentage of the grand total.
-	// In
-	// the Sheets UI, this is referred to as "Show As" in the value section
-	// of a
-	// pivot table.
-	//
-	// Possible values:
-	//   "PIVOT_VALUE_CALCULATED_DISPLAY_TYPE_UNSPECIFIED" - Default value,
-	// do not use.
-	//   "PERCENT_OF_ROW_TOTAL" - Shows the pivot values as percentage of
-	// the row total values.
-	//   "PERCENT_OF_COLUMN_TOTAL" - Shows the pivot values as percentage of
-	// the column total values.
-	//   "PERCENT_OF_GRAND_TOTAL" - Shows the pivot values as percentage of
-	// the grand total values.
-	CalculatedDisplayType string `json:"calculatedDisplayType,omitempty"`
-
 	// Formula: A custom formula to calculate the value.  The formula must
 	// start
 	// with an `=` character.
@@ -6662,22 +6289,20 @@ type PivotValue struct {
 	// Only valid if PivotValue.formula was set.
 	SummarizeFunction string `json:"summarizeFunction,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g.
-	// "CalculatedDisplayType") to unconditionally include in API requests.
-	// By default, fields with empty values are omitted from API requests.
-	// However, any non-pointer, non-interface field appearing in
-	// ForceSendFields will be sent to the server regardless of whether the
-	// field is empty or not. This may be used to include empty fields in
-	// Patch requests.
+	// ForceSendFields is a list of field names (e.g. "Formula") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "CalculatedDisplayType") to
-	// include in API requests with the JSON null value. By default, fields
-	// with empty values are omitted from API requests. However, any field
-	// with an empty value appearing in NullFields will be sent to the
-	// server as null. It is an error if a field in this list has a
-	// non-empty value. This may be used to include null fields in Patch
-	// requests.
+	// NullFields is a list of field names (e.g. "Formula") to include in
+	// API requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
 	NullFields []string `json:"-"`
 }
 
@@ -7859,7 +7484,6 @@ type TextToColumnsRequest struct {
 	//   "PERIOD" - "."
 	//   "SPACE" - " "
 	//   "CUSTOM" - A custom value as defined in delimiter.
-	//   "AUTODETECT" - Automatically detect columns.
 	DelimiterType string `json:"delimiterType,omitempty"`
 
 	// Source: The source data range.  This must span exactly one column.
@@ -8728,226 +8352,6 @@ type ValueRange struct {
 
 func (s *ValueRange) MarshalJSON() ([]byte, error) {
 	type NoMethod ValueRange
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// WaterfallChartColumnStyle: Styles for a waterfall chart column.
-type WaterfallChartColumnStyle struct {
-	// Color: The color of the column.
-	Color *Color `json:"color,omitempty"`
-
-	// Label: The label of the column's legend.
-	Label string `json:"label,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Color") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Color") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *WaterfallChartColumnStyle) MarshalJSON() ([]byte, error) {
-	type NoMethod WaterfallChartColumnStyle
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// WaterfallChartCustomSubtotal: A custom subtotal column for a
-// waterfall chart series.
-type WaterfallChartCustomSubtotal struct {
-	// DataIsSubtotal: True if the data point at subtotal_index is the
-	// subtotal. If false,
-	// the subtotal will be computed and appear after the data point.
-	DataIsSubtotal bool `json:"dataIsSubtotal,omitempty"`
-
-	// Label: A label for the subtotal column.
-	Label string `json:"label,omitempty"`
-
-	// SubtotalIndex: The 0-based index of a data point within the series.
-	// If
-	// data_is_subtotal is true, the data point at this index is
-	// the
-	// subtotal. Otherwise, the subtotal appears after the data point
-	// with
-	// this index. A series can have multiple subtotals at arbitrary
-	// indices,
-	// but subtotals do not affect the indices of the data points.
-	// For
-	// example, if a series has 3 data points, their indices will always be
-	// 0,
-	// 1, and 2, regardless of how many subtotals exist on the series or
-	// what
-	// data points they are associated with.
-	SubtotalIndex int64 `json:"subtotalIndex,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "DataIsSubtotal") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "DataIsSubtotal") to
-	// include in API requests with the JSON null value. By default, fields
-	// with empty values are omitted from API requests. However, any field
-	// with an empty value appearing in NullFields will be sent to the
-	// server as null. It is an error if a field in this list has a
-	// non-empty value. This may be used to include null fields in Patch
-	// requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *WaterfallChartCustomSubtotal) MarshalJSON() ([]byte, error) {
-	type NoMethod WaterfallChartCustomSubtotal
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// WaterfallChartDomain: The domain of a waterfall chart.
-type WaterfallChartDomain struct {
-	// Data: The data of the WaterfallChartDomain.
-	Data *ChartData `json:"data,omitempty"`
-
-	// Reversed: True to reverse the order of the domain values (horizontal
-	// axis).
-	Reversed bool `json:"reversed,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Data") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Data") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *WaterfallChartDomain) MarshalJSON() ([]byte, error) {
-	type NoMethod WaterfallChartDomain
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// WaterfallChartSeries: A single series of data for a waterfall chart.
-type WaterfallChartSeries struct {
-	// CustomSubtotals: Custom subtotal columns appearing in this series.
-	// The order in which
-	// subtotals are defined is not significant. Only one subtotal may
-	// be
-	// defined for each data point.
-	CustomSubtotals []*WaterfallChartCustomSubtotal `json:"customSubtotals,omitempty"`
-
-	// Data: The data being visualized in this series.
-	Data *ChartData `json:"data,omitempty"`
-
-	// HideTrailingSubtotal: True to hide the subtotal column from the end
-	// of the series. By default,
-	// a subtotal column will appear at the end of each series. Setting
-	// this
-	// field to true will hide that subtotal column for this series.
-	HideTrailingSubtotal bool `json:"hideTrailingSubtotal,omitempty"`
-
-	// NegativeColumnsStyle: Styles for all columns in this series with
-	// negative values.
-	NegativeColumnsStyle *WaterfallChartColumnStyle `json:"negativeColumnsStyle,omitempty"`
-
-	// PositiveColumnsStyle: Styles for all columns in this series with
-	// positive values.
-	PositiveColumnsStyle *WaterfallChartColumnStyle `json:"positiveColumnsStyle,omitempty"`
-
-	// SubtotalColumnsStyle: Styles for all subtotal columns in this series.
-	SubtotalColumnsStyle *WaterfallChartColumnStyle `json:"subtotalColumnsStyle,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "CustomSubtotals") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "CustomSubtotals") to
-	// include in API requests with the JSON null value. By default, fields
-	// with empty values are omitted from API requests. However, any field
-	// with an empty value appearing in NullFields will be sent to the
-	// server as null. It is an error if a field in this list has a
-	// non-empty value. This may be used to include null fields in Patch
-	// requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *WaterfallChartSeries) MarshalJSON() ([]byte, error) {
-	type NoMethod WaterfallChartSeries
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// WaterfallChartSpec: A waterfall chart.
-type WaterfallChartSpec struct {
-	// ConnectorLineStyle: The line style for the connector lines.
-	ConnectorLineStyle *LineStyle `json:"connectorLineStyle,omitempty"`
-
-	// Domain: The domain data (horizontal axis) for the waterfall chart.
-	Domain *WaterfallChartDomain `json:"domain,omitempty"`
-
-	// FirstValueIsTotal: True to interpret the first value as a total.
-	FirstValueIsTotal bool `json:"firstValueIsTotal,omitempty"`
-
-	// HideConnectorLines: True to hide connector lines between columns.
-	HideConnectorLines bool `json:"hideConnectorLines,omitempty"`
-
-	// Series: The data this waterfall chart is visualizing.
-	Series []*WaterfallChartSeries `json:"series,omitempty"`
-
-	// StackedType: The stacked type.
-	//
-	// Possible values:
-	//   "WATERFALL_STACKED_TYPE_UNSPECIFIED" - Default value, do not use.
-	//   "STACKED" - Values corresponding to the same domain (horizontal
-	// axis) value will be
-	// stacked vertically.
-	//   "SEQUENTIAL" - Series will spread out along the horizontal axis.
-	StackedType string `json:"stackedType,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "ConnectorLineStyle")
-	// to unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "ConnectorLineStyle") to
-	// include in API requests with the JSON null value. By default, fields
-	// with empty values are omitted from API requests. However, any field
-	// with an empty value appearing in NullFields will be sent to the
-	// server as null. It is an error if a field in this list has a
-	// non-empty value. This may be used to include null fields in Patch
-	// requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *WaterfallChartSpec) MarshalJSON() ([]byte, error) {
-	type NoMethod WaterfallChartSpec
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }

@@ -1187,22 +1187,6 @@
         {"shape":"TooManyRequestsException"}
       ]
     },
-    "GetTags":{
-      "name":"GetTags",
-      "http":{
-        "method":"GET",
-        "requestUri":"/tags/{resource_arn}"
-      },
-      "input":{"shape":"GetTagsRequest"},
-      "output":{"shape":"Tags"},
-      "errors":[
-        {"shape":"BadRequestException"},
-        {"shape":"UnauthorizedException"},
-        {"shape":"TooManyRequestsException"},
-        {"shape":"NotFoundException"},
-        {"shape":"LimitExceededException"}
-      ]
-    },
     "GetUsage":{
       "name":"GetUsage",
       "http":{
@@ -1464,23 +1448,6 @@
         {"shape":"ConflictException"}
       ]
     },
-    "TagResource":{
-      "name":"TagResource",
-      "http":{
-        "method":"PUT",
-        "requestUri":"/tags/{resource_arn}",
-        "responseCode":204
-      },
-      "input":{"shape":"TagResourceRequest"},
-      "errors":[
-        {"shape":"BadRequestException"},
-        {"shape":"UnauthorizedException"},
-        {"shape":"TooManyRequestsException"},
-        {"shape":"NotFoundException"},
-        {"shape":"LimitExceededException"},
-        {"shape":"ConflictException"}
-      ]
-    },
     "TestInvokeAuthorizer":{
       "name":"TestInvokeAuthorizer",
       "http":{
@@ -1509,22 +1476,6 @@
         {"shape":"UnauthorizedException"},
         {"shape":"NotFoundException"},
         {"shape":"TooManyRequestsException"}
-      ]
-    },
-    "UntagResource":{
-      "name":"UntagResource",
-      "http":{
-        "method":"DELETE",
-        "requestUri":"/tags/{resource_arn}",
-        "responseCode":204
-      },
-      "input":{"shape":"UntagResourceRequest"},
-      "errors":[
-        {"shape":"BadRequestException"},
-        {"shape":"UnauthorizedException"},
-        {"shape":"TooManyRequestsException"},
-        {"shape":"NotFoundException"},
-        {"shape":"ConflictException"}
       ]
     },
     "UpdateAccount":{
@@ -1915,13 +1866,6 @@
         "warnings":{"shape":"ListOfString"}
       }
     },
-    "ApiKeySourceType":{
-      "type":"string",
-      "enum":[
-        "HEADER",
-        "AUTHORIZER"
-      ]
-    },
     "ApiKeys":{
       "type":"structure",
       "members":{
@@ -2262,8 +2206,6 @@
         "version":{"shape":"String"},
         "cloneFrom":{"shape":"String"},
         "binaryMediaTypes":{"shape":"ListOfString"},
-        "minimumCompressionSize":{"shape":"NullableInteger"},
-        "apiKeySource":{"shape":"ApiKeySourceType"},
         "endpointConfiguration":{"shape":"EndpointConfiguration"}
       }
     },
@@ -2287,8 +2229,7 @@
         "cacheClusterSize":{"shape":"CacheClusterSize"},
         "variables":{"shape":"MapOfStringToString"},
         "documentationVersion":{"shape":"String"},
-        "canarySettings":{"shape":"CanarySettings"},
-        "tags":{"shape":"MapOfStringToString"}
+        "canarySettings":{"shape":"CanarySettings"}
       }
     },
     "CreateUsagePlanKeyRequest":{
@@ -3750,27 +3691,6 @@
         }
       }
     },
-    "GetTagsRequest":{
-      "type":"structure",
-      "required":["resourceArn"],
-      "members":{
-        "resourceArn":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"resource_arn"
-        },
-        "position":{
-          "shape":"String",
-          "location":"querystring",
-          "locationName":"position"
-        },
-        "limit":{
-          "shape":"NullableInteger",
-          "location":"querystring",
-          "locationName":"limit"
-        }
-      }
-    },
     "GetUsagePlanKeyRequest":{
       "type":"structure",
       "required":[
@@ -4208,8 +4128,7 @@
         "requestParameters":{"shape":"MapOfStringToBoolean"},
         "requestModels":{"shape":"MapOfStringToString"},
         "methodResponses":{"shape":"MapOfMethodResponse"},
-        "methodIntegration":{"shape":"Integration"},
-        "authorizationScopes":{"shape":"ListOfString"}
+        "methodIntegration":{"shape":"Integration"}
       }
     },
     "MethodResponse":{
@@ -4427,8 +4346,7 @@
         "operationName":{"shape":"String"},
         "requestParameters":{"shape":"MapOfStringToBoolean"},
         "requestModels":{"shape":"MapOfStringToString"},
-        "requestValidatorId":{"shape":"String"},
-        "authorizationScopes":{"shape":"ListOfString"}
+        "requestValidatorId":{"shape":"String"}
       }
     },
     "PutMethodResponseRequest":{
@@ -4566,8 +4484,6 @@
         "version":{"shape":"String"},
         "warnings":{"shape":"ListOfString"},
         "binaryMediaTypes":{"shape":"ListOfString"},
-        "minimumCompressionSize":{"shape":"NullableInteger"},
-        "apiKeySource":{"shape":"ApiKeySourceType"},
         "endpointConfiguration":{"shape":"EndpointConfiguration"}
       }
     },
@@ -4656,7 +4572,6 @@
         "documentationVersion":{"shape":"String"},
         "accessLogSettings":{"shape":"AccessLogSettings"},
         "canarySettings":{"shape":"CanarySettings"},
-        "tags":{"shape":"MapOfStringToString"},
         "createdDate":{"shape":"Timestamp"},
         "lastUpdatedDate":{"shape":"Timestamp"}
       }
@@ -4679,27 +4594,6 @@
       "pattern":"[1-5]\\d\\d"
     },
     "String":{"type":"string"},
-    "TagResourceRequest":{
-      "type":"structure",
-      "required":[
-        "resourceArn",
-        "tags"
-      ],
-      "members":{
-        "resourceArn":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"resource_arn"
-        },
-        "tags":{"shape":"MapOfStringToString"}
-      }
-    },
-    "Tags":{
-      "type":"structure",
-      "members":{
-        "tags":{"shape":"MapOfStringToString"}
-      }
-    },
     "Template":{
       "type":"structure",
       "members":{
@@ -4818,25 +4712,6 @@
       },
       "error":{"httpStatusCode":401},
       "exception":true
-    },
-    "UntagResourceRequest":{
-      "type":"structure",
-      "required":[
-        "resourceArn",
-        "tagKeys"
-      ],
-      "members":{
-        "resourceArn":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"resource_arn"
-        },
-        "tagKeys":{
-          "shape":"ListOfString",
-          "location":"querystring",
-          "locationName":"tagKeys"
-        }
-      }
     },
     "UpdateAccountRequest":{
       "type":"structure",

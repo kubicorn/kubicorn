@@ -180,7 +180,10 @@ func (this *NidOptEnum) VerboseEqual(that interface{}) error {
 }
 func (this *NidOptEnum) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*NidOptEnum)
@@ -193,7 +196,10 @@ func (this *NidOptEnum) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -246,7 +252,10 @@ func (this *NinOptEnum) VerboseEqual(that interface{}) error {
 }
 func (this *NinOptEnum) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*NinOptEnum)
@@ -259,7 +268,10 @@ func (this *NinOptEnum) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -317,7 +329,10 @@ func (this *NidRepEnum) VerboseEqual(that interface{}) error {
 }
 func (this *NidRepEnum) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*NidRepEnum)
@@ -330,7 +345,10 @@ func (this *NidRepEnum) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -387,7 +405,10 @@ func (this *NinRepEnum) VerboseEqual(that interface{}) error {
 }
 func (this *NinRepEnum) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*NinRepEnum)
@@ -400,7 +421,10 @@ func (this *NinRepEnum) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}

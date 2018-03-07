@@ -18,7 +18,6 @@ package advisor
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/satori/go.uuid"
@@ -27,7 +26,7 @@ import (
 
 // RecommendationsClient is the REST APIs for Azure Advisor
 type RecommendationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewRecommendationsClient creates an instance of the RecommendationsClient client.
@@ -42,8 +41,8 @@ func NewRecommendationsClientWithBaseURI(baseURI string, subscriptionID string) 
 
 // Generate initiates the recommendation generation or computation process for a subscription. This operation is
 // asynchronous. The generated recommendations are stored in a cache in the Advisor service.
-func (client RecommendationsClient) Generate(ctx context.Context) (result autorest.Response, err error) {
-	req, err := client.GeneratePreparer(ctx)
+func (client RecommendationsClient) Generate() (result autorest.Response, err error) {
+	req, err := client.GeneratePreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "Generate", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client RecommendationsClient) Generate(ctx context.Context) (result autore
 }
 
 // GeneratePreparer prepares the Generate request.
-func (client RecommendationsClient) GeneratePreparer(ctx context.Context) (*http.Request, error) {
+func (client RecommendationsClient) GeneratePreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -80,13 +79,14 @@ func (client RecommendationsClient) GeneratePreparer(ctx context.Context) (*http
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GenerateSender sends the Generate request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecommendationsClient) GenerateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -106,8 +106,8 @@ func (client RecommendationsClient) GenerateResponder(resp *http.Response) (resu
 //
 // resourceURI is the fully qualified Azure Resource Manager identifier of the resource to which the recommendation
 // applies. recommendationID is the recommendation ID.
-func (client RecommendationsClient) Get(ctx context.Context, resourceURI string, recommendationID string) (result ResourceRecommendationBase, err error) {
-	req, err := client.GetPreparer(ctx, resourceURI, recommendationID)
+func (client RecommendationsClient) Get(resourceURI string, recommendationID string) (result ResourceRecommendationBase, err error) {
+	req, err := client.GetPreparer(resourceURI, recommendationID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "Get", nil, "Failure preparing request")
 		return
@@ -129,7 +129,7 @@ func (client RecommendationsClient) Get(ctx context.Context, resourceURI string,
 }
 
 // GetPreparer prepares the Get request.
-func (client RecommendationsClient) GetPreparer(ctx context.Context, resourceURI string, recommendationID string) (*http.Request, error) {
+func (client RecommendationsClient) GetPreparer(resourceURI string, recommendationID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"recommendationId": autorest.Encode("path", recommendationID),
 		"resourceUri":      autorest.Encode("path", resourceURI),
@@ -145,13 +145,14 @@ func (client RecommendationsClient) GetPreparer(ctx context.Context, resourceURI
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecommendationsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -174,8 +175,8 @@ func (client RecommendationsClient) GetResponder(resp *http.Response) (result Re
 //
 // operationID is the operation ID, which can be found from the Location field in the generate recommendation response
 // header.
-func (client RecommendationsClient) GetGenerateStatus(ctx context.Context, operationID uuid.UUID) (result autorest.Response, err error) {
-	req, err := client.GetGenerateStatusPreparer(ctx, operationID)
+func (client RecommendationsClient) GetGenerateStatus(operationID uuid.UUID) (result autorest.Response, err error) {
+	req, err := client.GetGenerateStatusPreparer(operationID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "GetGenerateStatus", nil, "Failure preparing request")
 		return
@@ -197,7 +198,7 @@ func (client RecommendationsClient) GetGenerateStatus(ctx context.Context, opera
 }
 
 // GetGenerateStatusPreparer prepares the GetGenerateStatus request.
-func (client RecommendationsClient) GetGenerateStatusPreparer(ctx context.Context, operationID uuid.UUID) (*http.Request, error) {
+func (client RecommendationsClient) GetGenerateStatusPreparer(operationID uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"operationId":    autorest.Encode("path", operationID),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -213,13 +214,14 @@ func (client RecommendationsClient) GetGenerateStatusPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/generateRecommendations/{operationId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetGenerateStatusSender sends the GetGenerateStatus request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecommendationsClient) GetGenerateStatusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -240,9 +242,8 @@ func (client RecommendationsClient) GetGenerateStatusResponder(resp *http.Respon
 //
 // filter is the filter to apply to the recommendations. top is the number of recommendations per page if a paged
 // version of this API is being used. skipToken is the page-continuation token to use with a paged version of this API.
-func (client RecommendationsClient) List(ctx context.Context, filter string, top *int32, skipToken string) (result ResourceRecommendationBaseListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, filter, top, skipToken)
+func (client RecommendationsClient) List(filter string, top *int32, skipToken string) (result ResourceRecommendationBaseListResult, err error) {
+	req, err := client.ListPreparer(filter, top, skipToken)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "List", nil, "Failure preparing request")
 		return
@@ -250,12 +251,12 @@ func (client RecommendationsClient) List(ctx context.Context, filter string, top
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rrblr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rrblr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "List", resp, "Failure responding to request")
 	}
@@ -264,7 +265,7 @@ func (client RecommendationsClient) List(ctx context.Context, filter string, top
 }
 
 // ListPreparer prepares the List request.
-func (client RecommendationsClient) ListPreparer(ctx context.Context, filter string, top *int32, skipToken string) (*http.Request, error) {
+func (client RecommendationsClient) ListPreparer(filter string, top *int32, skipToken string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -288,13 +289,14 @@ func (client RecommendationsClient) ListPreparer(ctx context.Context, filter str
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/recommendations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecommendationsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -311,29 +313,71 @@ func (client RecommendationsClient) ListResponder(resp *http.Response) (result R
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client RecommendationsClient) listNextResults(lastResults ResourceRecommendationBaseListResult) (result ResourceRecommendationBaseListResult, err error) {
-	req, err := lastResults.resourceRecommendationBaseListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client RecommendationsClient) ListNextResults(lastResults ResourceRecommendationBaseListResult) (result ResourceRecommendationBaseListResult, err error) {
+	req, err := lastResults.ResourceRecommendationBaseListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "advisor.RecommendationsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client RecommendationsClient) ListComplete(ctx context.Context, filter string, top *int32, skipToken string) (result ResourceRecommendationBaseListResultIterator, err error) {
-	result.page, err = client.List(ctx, filter, top, skipToken)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client RecommendationsClient) ListComplete(filter string, top *int32, skipToken string, cancel <-chan struct{}) (<-chan ResourceRecommendationBase, <-chan error) {
+	resultChan := make(chan ResourceRecommendationBase)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(filter, top, skipToken)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

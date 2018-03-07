@@ -86,9 +86,6 @@ func (c *AppSync) CreateApiKeyRequest(input *CreateApiKeyInput) (req *request.Re
 //   * ErrCodeApiKeyLimitExceededException "ApiKeyLimitExceededException"
 //   The API key exceeded a limit. Try your request again.
 //
-//   * ErrCodeApiKeyValidityOutOfBoundsException "ApiKeyValidityOutOfBoundsException"
-//   The API key expiration must be set to a value between 1 and 365 days.
-//
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKey
 func (c *AppSync) CreateApiKey(input *CreateApiKeyInput) (*CreateApiKeyOutput, error) {
 	req, out := c.CreateApiKeyRequest(input)
@@ -2043,102 +2040,6 @@ func (c *AppSync) StartSchemaCreationWithContext(ctx aws.Context, input *StartSc
 	return out, req.Send()
 }
 
-const opUpdateApiKey = "UpdateApiKey"
-
-// UpdateApiKeyRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateApiKey operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateApiKey for more information on using the UpdateApiKey
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateApiKeyRequest method.
-//    req, resp := client.UpdateApiKeyRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateApiKey
-func (c *AppSync) UpdateApiKeyRequest(input *UpdateApiKeyInput) (req *request.Request, output *UpdateApiKeyOutput) {
-	op := &request.Operation{
-		Name:       opUpdateApiKey,
-		HTTPMethod: "POST",
-		HTTPPath:   "/v1/apis/{apiId}/apikeys/{id}",
-	}
-
-	if input == nil {
-		input = &UpdateApiKeyInput{}
-	}
-
-	output = &UpdateApiKeyOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdateApiKey API operation for AWS AppSync.
-//
-// Updates an API key.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS AppSync's
-// API operation UpdateApiKey for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeBadRequestException "BadRequestException"
-//   The request is not well formed. For example, a value is invalid or a required
-//   field is missing. Check the field values, and try again.
-//
-//   * ErrCodeNotFoundException "NotFoundException"
-//   The resource specified in the request was not found. Check the resource and
-//   try again.
-//
-//   * ErrCodeUnauthorizedException "UnauthorizedException"
-//   You are not authorized to perform this operation.
-//
-//   * ErrCodeLimitExceededException "LimitExceededException"
-//   The request exceeded a limit. Try your request again.
-//
-//   * ErrCodeInternalFailureException "InternalFailureException"
-//   An internal AWS AppSync error occurred. Try your request again.
-//
-//   * ErrCodeApiKeyValidityOutOfBoundsException "ApiKeyValidityOutOfBoundsException"
-//   The API key expiration must be set to a value between 1 and 365 days.
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateApiKey
-func (c *AppSync) UpdateApiKey(input *UpdateApiKeyInput) (*UpdateApiKeyOutput, error) {
-	req, out := c.UpdateApiKeyRequest(input)
-	return out, req.Send()
-}
-
-// UpdateApiKeyWithContext is the same as UpdateApiKey with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateApiKey for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *AppSync) UpdateApiKeyWithContext(ctx aws.Context, input *UpdateApiKeyInput, opts ...request.Option) (*UpdateApiKeyOutput, error) {
-	req, out := c.UpdateApiKeyRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
 const opUpdateDataSource = "UpdateDataSource"
 
 // UpdateDataSourceRequest generates a "aws/request.Request" representing the
@@ -2512,14 +2413,14 @@ func (c *AppSync) UpdateTypeWithContext(ctx aws.Context, input *UpdateTypeInput,
 }
 
 // Describes an API key.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ApiKey
 type ApiKey struct {
 	_ struct{} `type:"structure"`
 
 	// A description of the purpose of the API key.
 	Description *string `locationName:"description" type:"string"`
 
-	// The time after which the API key expires. The date is represented as seconds
-	// since the epoch, rounded down to the nearest hour.
+	// The time when the API key expires.
 	Expires *int64 `locationName:"expires" type:"long"`
 
 	// The API key ID.
@@ -2554,6 +2455,7 @@ func (s *ApiKey) SetId(v string) *ApiKey {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKeyRequest
 type CreateApiKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2564,11 +2466,6 @@ type CreateApiKeyInput struct {
 
 	// A description of the purpose of the API key.
 	Description *string `locationName:"description" type:"string"`
-
-	// The time after which the API key expires. The date is represented as seconds
-	// since the epoch, rounded down to the nearest hour. The default value for
-	// this parameter is 7 days from creation time.
-	Expires *int64 `locationName:"expires" type:"long"`
 }
 
 // String returns the string representation
@@ -2606,12 +2503,7 @@ func (s *CreateApiKeyInput) SetDescription(v string) *CreateApiKeyInput {
 	return s
 }
 
-// SetExpires sets the Expires field's value.
-func (s *CreateApiKeyInput) SetExpires(v int64) *CreateApiKeyInput {
-	s.Expires = &v
-	return s
-}
-
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKeyResponse
 type CreateApiKeyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2635,6 +2527,7 @@ func (s *CreateApiKeyOutput) SetApiKey(v *ApiKey) *CreateApiKeyOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSourceRequest
 type CreateDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2762,6 +2655,7 @@ func (s *CreateDataSourceInput) SetType(v string) *CreateDataSourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSourceResponse
 type CreateDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2785,6 +2679,7 @@ func (s *CreateDataSourceOutput) SetDataSource(v *DataSource) *CreateDataSourceO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApiRequest
 type CreateGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2851,6 +2746,7 @@ func (s *CreateGraphqlApiInput) SetUserPoolConfig(v *UserPoolConfig) *CreateGrap
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApiResponse
 type CreateGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2874,6 +2770,7 @@ func (s *CreateGraphqlApiOutput) SetGraphqlApi(v *GraphqlApi) *CreateGraphqlApiO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolverRequest
 type CreateResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2894,7 +2791,7 @@ type CreateResolverInput struct {
 
 	// The mapping template to be used for requests.
 	//
-	// A resolver uses a request mapping template to convert a GraphQL expression
+	// A resolver use a request mapping template to convert a GraphQL expression
 	// into a format that a data source can understand. Mapping templates are written
 	// in Apache Velocity Template Language (VTL).
 	//
@@ -2981,6 +2878,7 @@ func (s *CreateResolverInput) SetTypeName(v string) *CreateResolverInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolverResponse
 type CreateResolverOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3004,6 +2902,7 @@ func (s *CreateResolverOutput) SetResolver(v *Resolver) *CreateResolverOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateTypeRequest
 type CreateTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3072,6 +2971,7 @@ func (s *CreateTypeInput) SetFormat(v string) *CreateTypeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateTypeResponse
 type CreateTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3096,6 +2996,7 @@ func (s *CreateTypeOutput) SetType(v *Type) *CreateTypeOutput {
 }
 
 // Describes a data source.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DataSource
 type DataSource struct {
 	_ struct{} `type:"structure"`
 
@@ -3122,16 +3023,6 @@ type DataSource struct {
 	ServiceRoleArn *string `locationName:"serviceRoleArn" type:"string"`
 
 	// The type of the data source.
-	//
-	//    * AMAZON_DYNAMODB: The data source is an Amazon DynamoDB table.
-	//
-	//    * AMAZON_ELASTICSEARCH: The data source is an Amazon Elasticsearch Service
-	//    domain.
-	//
-	//    * AWS_LAMBDA: The data source is an AWS Lambda function.
-	//
-	//    * NONE: There is no data source. This type is used when the required information
-	//    can be computed on the fly without connecting to a back-end data source.
 	Type *string `locationName:"type" type:"string" enum:"DataSourceType"`
 }
 
@@ -3193,6 +3084,7 @@ func (s *DataSource) SetType(v string) *DataSource {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKeyRequest
 type DeleteApiKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3245,6 +3137,7 @@ func (s *DeleteApiKeyInput) SetId(v string) *DeleteApiKeyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKeyResponse
 type DeleteApiKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3259,6 +3152,7 @@ func (s DeleteApiKeyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSourceRequest
 type DeleteDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3311,6 +3205,7 @@ func (s *DeleteDataSourceInput) SetName(v string) *DeleteDataSourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSourceResponse
 type DeleteDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3325,6 +3220,7 @@ func (s DeleteDataSourceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApiRequest
 type DeleteGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3363,6 +3259,7 @@ func (s *DeleteGraphqlApiInput) SetApiId(v string) *DeleteGraphqlApiInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApiResponse
 type DeleteGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3377,6 +3274,7 @@ func (s DeleteGraphqlApiOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolverRequest
 type DeleteResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3443,6 +3341,7 @@ func (s *DeleteResolverInput) SetTypeName(v string) *DeleteResolverInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolverResponse
 type DeleteResolverOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3457,6 +3356,7 @@ func (s DeleteResolverOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteTypeRequest
 type DeleteTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3509,6 +3409,7 @@ func (s *DeleteTypeInput) SetTypeName(v string) *DeleteTypeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteTypeResponse
 type DeleteTypeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3524,6 +3425,7 @@ func (s DeleteTypeOutput) GoString() string {
 }
 
 // Describes a DynamoDB data source configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DynamodbDataSourceConfig
 type DynamodbDataSourceConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -3586,6 +3488,7 @@ func (s *DynamodbDataSourceConfig) SetUseCallerCredentials(v bool) *DynamodbData
 }
 
 // Describes an Elasticsearch data source configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ElasticsearchDataSourceConfig
 type ElasticsearchDataSourceConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -3638,6 +3541,7 @@ func (s *ElasticsearchDataSourceConfig) SetEndpoint(v string) *ElasticsearchData
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceRequest
 type GetDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3690,6 +3594,7 @@ func (s *GetDataSourceInput) SetName(v string) *GetDataSourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceResponse
 type GetDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3713,6 +3618,7 @@ func (s *GetDataSourceOutput) SetDataSource(v *DataSource) *GetDataSourceOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiRequest
 type GetGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3751,6 +3657,7 @@ func (s *GetGraphqlApiInput) SetApiId(v string) *GetGraphqlApiInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiResponse
 type GetGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3774,6 +3681,7 @@ func (s *GetGraphqlApiOutput) SetGraphqlApi(v *GraphqlApi) *GetGraphqlApiOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchemaRequest
 type GetIntrospectionSchemaInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3826,6 +3734,7 @@ func (s *GetIntrospectionSchemaInput) SetFormat(v string) *GetIntrospectionSchem
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchemaResponse
 type GetIntrospectionSchemaOutput struct {
 	_ struct{} `type:"structure" payload:"Schema"`
 
@@ -3851,6 +3760,7 @@ func (s *GetIntrospectionSchemaOutput) SetSchema(v []byte) *GetIntrospectionSche
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolverRequest
 type GetResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3917,6 +3827,7 @@ func (s *GetResolverInput) SetTypeName(v string) *GetResolverInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolverResponse
 type GetResolverOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3940,6 +3851,7 @@ func (s *GetResolverOutput) SetResolver(v *Resolver) *GetResolverOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatusRequest
 type GetSchemaCreationStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3978,6 +3890,7 @@ func (s *GetSchemaCreationStatusInput) SetApiId(v string) *GetSchemaCreationStat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatusResponse
 type GetSchemaCreationStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4011,6 +3924,7 @@ func (s *GetSchemaCreationStatusOutput) SetStatus(v string) *GetSchemaCreationSt
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetTypeRequest
 type GetTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4077,6 +3991,7 @@ func (s *GetTypeInput) SetTypeName(v string) *GetTypeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetTypeResponse
 type GetTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4101,6 +4016,7 @@ func (s *GetTypeOutput) SetType(v *Type) *GetTypeOutput {
 }
 
 // Describes a GraphQL API.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GraphqlApi
 type GraphqlApi struct {
 	_ struct{} `type:"structure"`
 
@@ -4170,6 +4086,7 @@ func (s *GraphqlApi) SetUserPoolConfig(v *UserPoolConfig) *GraphqlApi {
 }
 
 // Describes a Lambda data source configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/LambdaDataSourceConfig
 type LambdaDataSourceConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -4208,6 +4125,7 @@ func (s *LambdaDataSourceConfig) SetLambdaFunctionArn(v string) *LambdaDataSourc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeysRequest
 type ListApiKeysInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4265,6 +4183,7 @@ func (s *ListApiKeysInput) SetNextToken(v string) *ListApiKeysInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeysResponse
 type ListApiKeysOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4298,6 +4217,7 @@ func (s *ListApiKeysOutput) SetNextToken(v string) *ListApiKeysOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSourcesRequest
 type ListDataSourcesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4355,6 +4275,7 @@ func (s *ListDataSourcesInput) SetNextToken(v string) *ListDataSourcesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSourcesResponse
 type ListDataSourcesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4388,6 +4309,7 @@ func (s *ListDataSourcesOutput) SetNextToken(v string) *ListDataSourcesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApisRequest
 type ListGraphqlApisInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4421,6 +4343,7 @@ func (s *ListGraphqlApisInput) SetNextToken(v string) *ListGraphqlApisInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApisResponse
 type ListGraphqlApisOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4454,6 +4377,7 @@ func (s *ListGraphqlApisOutput) SetNextToken(v string) *ListGraphqlApisOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolversRequest
 type ListResolversInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4525,6 +4449,7 @@ func (s *ListResolversInput) SetTypeName(v string) *ListResolversInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolversResponse
 type ListResolversOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4558,6 +4483,7 @@ func (s *ListResolversOutput) SetResolvers(v []*Resolver) *ListResolversOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesRequest
 type ListTypesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4629,6 +4555,7 @@ func (s *ListTypesInput) SetNextToken(v string) *ListTypesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesResponse
 type ListTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4663,6 +4590,7 @@ func (s *ListTypesOutput) SetTypes(v []*Type) *ListTypesOutput {
 }
 
 // Describes a resolver.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/Resolver
 type Resolver struct {
 	_ struct{} `type:"structure"`
 
@@ -4731,6 +4659,7 @@ func (s *Resolver) SetTypeName(v string) *Resolver {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreationRequest
 type StartSchemaCreationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4785,6 +4714,7 @@ func (s *StartSchemaCreationInput) SetDefinition(v []byte) *StartSchemaCreationI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreationResponse
 type StartSchemaCreationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4810,6 +4740,7 @@ func (s *StartSchemaCreationOutput) SetStatus(v string) *StartSchemaCreationOutp
 }
 
 // Describes a type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/Type
 type Type struct {
 	_ struct{} `type:"structure"`
 
@@ -4869,100 +4800,7 @@ func (s *Type) SetName(v string) *Type {
 	return s
 }
 
-type UpdateApiKeyInput struct {
-	_ struct{} `type:"structure"`
-
-	// The ID for the GraphQL API
-	//
-	// ApiId is a required field
-	ApiId *string `location:"uri" locationName:"apiId" type:"string" required:"true"`
-
-	// A description of the purpose of the API key.
-	Description *string `locationName:"description" type:"string"`
-
-	// The time after which the API key expires. The date is represented as seconds
-	// since the epoch.
-	Expires *int64 `locationName:"expires" type:"long"`
-
-	// The API key ID.
-	//
-	// Id is a required field
-	Id *string `location:"uri" locationName:"id" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s UpdateApiKeyInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s UpdateApiKeyInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *UpdateApiKeyInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "UpdateApiKeyInput"}
-	if s.ApiId == nil {
-		invalidParams.Add(request.NewErrParamRequired("ApiId"))
-	}
-	if s.Id == nil {
-		invalidParams.Add(request.NewErrParamRequired("Id"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetApiId sets the ApiId field's value.
-func (s *UpdateApiKeyInput) SetApiId(v string) *UpdateApiKeyInput {
-	s.ApiId = &v
-	return s
-}
-
-// SetDescription sets the Description field's value.
-func (s *UpdateApiKeyInput) SetDescription(v string) *UpdateApiKeyInput {
-	s.Description = &v
-	return s
-}
-
-// SetExpires sets the Expires field's value.
-func (s *UpdateApiKeyInput) SetExpires(v int64) *UpdateApiKeyInput {
-	s.Expires = &v
-	return s
-}
-
-// SetId sets the Id field's value.
-func (s *UpdateApiKeyInput) SetId(v string) *UpdateApiKeyInput {
-	s.Id = &v
-	return s
-}
-
-type UpdateApiKeyOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The API key.
-	ApiKey *ApiKey `locationName:"apiKey" type:"structure"`
-}
-
-// String returns the string representation
-func (s UpdateApiKeyOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s UpdateApiKeyOutput) GoString() string {
-	return s.String()
-}
-
-// SetApiKey sets the ApiKey field's value.
-func (s *UpdateApiKeyOutput) SetApiKey(v *ApiKey) *UpdateApiKeyOutput {
-	s.ApiKey = v
-	return s
-}
-
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSourceRequest
 type UpdateDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5089,6 +4927,7 @@ func (s *UpdateDataSourceInput) SetType(v string) *UpdateDataSourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSourceResponse
 type UpdateDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5112,6 +4951,7 @@ func (s *UpdateDataSourceOutput) SetDataSource(v *DataSource) *UpdateDataSourceO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApiRequest
 type UpdateGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5187,10 +5027,11 @@ func (s *UpdateGraphqlApiInput) SetUserPoolConfig(v *UserPoolConfig) *UpdateGrap
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApiResponse
 type UpdateGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 
-	// The updated GraphqlApi object.
+	// The udpated GraphqlApi object.
 	GraphqlApi *GraphqlApi `locationName:"graphqlApi" type:"structure"`
 }
 
@@ -5210,6 +5051,7 @@ func (s *UpdateGraphqlApiOutput) SetGraphqlApi(v *GraphqlApi) *UpdateGraphqlApiO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolverRequest
 type UpdateResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5313,6 +5155,7 @@ func (s *UpdateResolverInput) SetTypeName(v string) *UpdateResolverInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolverResponse
 type UpdateResolverOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5336,6 +5179,7 @@ func (s *UpdateResolverOutput) SetResolver(v *Resolver) *UpdateResolverOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateTypeRequest
 type UpdateTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5411,6 +5255,7 @@ func (s *UpdateTypeInput) SetTypeName(v string) *UpdateTypeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateTypeResponse
 type UpdateTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5435,6 +5280,7 @@ func (s *UpdateTypeOutput) SetType(v *Type) *UpdateTypeOutput {
 }
 
 // Describes an Amazon Cognito User Pool configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UserPoolConfig
 type UserPoolConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -5533,9 +5379,6 @@ const (
 
 	// DataSourceTypeAmazonElasticsearch is a DataSourceType enum value
 	DataSourceTypeAmazonElasticsearch = "AMAZON_ELASTICSEARCH"
-
-	// DataSourceTypeNone is a DataSourceType enum value
-	DataSourceTypeNone = "NONE"
 )
 
 const (

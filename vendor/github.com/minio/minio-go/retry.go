@@ -26,7 +26,7 @@ import (
 )
 
 // MaxRetry is the maximum number of retries before stopping.
-var MaxRetry = 10
+var MaxRetry = 5
 
 // MaxJitter will randomize over the full exponential backoff time
 const MaxJitter = 1.0

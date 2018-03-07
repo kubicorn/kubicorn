@@ -50,7 +50,6 @@
       "errors":[
         {"shape":"ResourceInUseException"},
         {"shape":"ResourceNotFoundException"},
-        {"shape":"LimitExceededException"},
         {"shape":"InvalidArgumentException"}
       ]
     },
@@ -179,24 +178,7 @@
       "errors":[
         {"shape":"ResourceInUseException"},
         {"shape":"ResourceNotFoundException"},
-        {"shape":"LimitExceededException"},
         {"shape":"InvalidArgumentException"}
-      ]
-    },
-    "ListShards":{
-      "name":"ListShards",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"ListShardsInput"},
-      "output":{"shape":"ListShardsOutput"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"InvalidArgumentException"},
-        {"shape":"LimitExceededException"},
-        {"shape":"ExpiredNextTokenException"},
-        {"shape":"ResourceInUseException"}
       ]
     },
     "ListStreams":{
@@ -394,7 +376,7 @@
       ],
       "members":{
         "StreamName":{"shape":"StreamName"},
-        "RetentionPeriodHours":{"shape":"RetentionPeriodHours"}
+        "RetentionPeriodHours":{"shape":"PositiveIntegerObject"}
       }
     },
     "DeleteStreamInput":{
@@ -511,13 +493,6 @@
       },
       "exception":true
     },
-    "ExpiredNextTokenException":{
-      "type":"structure",
-      "members":{
-        "message":{"shape":"ErrorMessage"}
-      },
-      "exception":true
-    },
     "GetRecordsInput":{
       "type":"structure",
       "required":["ShardIterator"],
@@ -584,7 +559,7 @@
       ],
       "members":{
         "StreamName":{"shape":"StreamName"},
-        "RetentionPeriodHours":{"shape":"RetentionPeriodHours"}
+        "RetentionPeriodHours":{"shape":"PositiveIntegerObject"}
       }
     },
     "InvalidArgumentException":{
@@ -647,28 +622,6 @@
         "message":{"shape":"ErrorMessage"}
       },
       "exception":true
-    },
-    "ListShardsInput":{
-      "type":"structure",
-      "members":{
-        "StreamName":{"shape":"StreamName"},
-        "NextToken":{"shape":"NextToken"},
-        "ExclusiveStartShardId":{"shape":"ShardId"},
-        "MaxResults":{"shape":"ListShardsInputLimit"},
-        "StreamCreationTimestamp":{"shape":"Timestamp"}
-      }
-    },
-    "ListShardsInputLimit":{
-      "type":"integer",
-      "max":10000,
-      "min":1
-    },
-    "ListShardsOutput":{
-      "type":"structure",
-      "members":{
-        "Shards":{"shape":"ShardList"},
-        "NextToken":{"shape":"NextToken"}
-      }
     },
     "ListStreamsInput":{
       "type":"structure",
@@ -753,11 +706,6 @@
     "MillisBehindLatest":{
       "type":"long",
       "min":0
-    },
-    "NextToken":{
-      "type":"string",
-      "max":1048576,
-      "min":1
     },
     "PartitionKey":{
       "type":"string",
@@ -900,11 +848,6 @@
       },
       "exception":true
     },
-    "RetentionPeriodHours":{
-      "type":"integer",
-      "max":168,
-      "min":1
-    },
     "ScalingType":{
       "type":"string",
       "enum":["UNIFORM_SCALING"]
@@ -1024,7 +967,7 @@
         "StreamStatus":{"shape":"StreamStatus"},
         "Shards":{"shape":"ShardList"},
         "HasMoreShards":{"shape":"BooleanObject"},
-        "RetentionPeriodHours":{"shape":"RetentionPeriodHours"},
+        "RetentionPeriodHours":{"shape":"PositiveIntegerObject"},
         "StreamCreationTimestamp":{"shape":"Timestamp"},
         "EnhancedMonitoring":{"shape":"EnhancedMonitoringList"},
         "EncryptionType":{"shape":"EncryptionType"},

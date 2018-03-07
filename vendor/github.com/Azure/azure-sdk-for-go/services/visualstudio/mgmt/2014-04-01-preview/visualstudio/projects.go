@@ -18,7 +18,6 @@ package visualstudio
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/satori/go.uuid"
@@ -30,7 +29,7 @@ import (
 // x-ms-request-id header that can be used to obtain information about the request. You must make sure that requests
 // made to these resources are secure. For more information, see https://docs.microsoft.com/en-us/rest/api/index.
 type ProjectsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewProjectsClient creates an instance of the ProjectsClient client.
@@ -46,29 +45,50 @@ func NewProjectsClientWithBaseURI(baseURI string, subscriptionID string) Project
 // Create creates a Team Services project in the collection with the specified name. 'VersionControlOption' and
 // 'ProcessTemplateId' must be specified in the resource properties. Valid values for VersionControlOption: Git, Tfvc.
 // Valid values for ProcessTemplateId: 6B724908-EF14-45CF-84F8-768B5384DA45, ADCC42AB-9882-485E-A3ED-7678F01F66BC,
-// 27450541-8E31-4150-9947-DC59F998FC01 (these IDs correspond to Scrum, Agile, and CMMI process templates).
+// 27450541-8E31-4150-9947-DC59F998FC01 (these IDs correspond to Scrum, Agile, and CMMI process templates). This method
+// may poll for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to
+// cancel polling and any outstanding HTTP requests.
 //
 // body is the request data. resourceGroupName is name of the resource group within the Azure subscription.
 // rootResourceName is name of the Team Services account. resourceName is name of the Team Services project. validating
 // is this parameter is ignored and should be set to an empty string.
-func (client ProjectsClient) Create(ctx context.Context, body ProjectResource, resourceGroupName string, rootResourceName string, resourceName string, validating string) (result ProjectsCreateFuture, err error) {
-	req, err := client.CreatePreparer(ctx, body, resourceGroupName, rootResourceName, resourceName, validating)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "Create", nil, "Failure preparing request")
-		return
-	}
+func (client ProjectsClient) Create(body ProjectResource, resourceGroupName string, rootResourceName string, resourceName string, validating string, cancel <-chan struct{}) (<-chan ProjectResource, <-chan error) {
+	resultChan := make(chan ProjectResource, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result ProjectResource
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreatePreparer(body, resourceGroupName, rootResourceName, resourceName, validating, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "Create", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "Create", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "Create", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "Create", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreatePreparer prepares the Create request.
-func (client ProjectsClient) CreatePreparer(ctx context.Context, body ProjectResource, resourceGroupName string, rootResourceName string, resourceName string, validating string) (*http.Request, error) {
+func (client ProjectsClient) CreatePreparer(body ProjectResource, resourceGroupName string, rootResourceName string, resourceName string, validating string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"resourceName":      autorest.Encode("path", resourceName),
@@ -91,22 +111,16 @@ func (client ProjectsClient) CreatePreparer(ctx context.Context, body ProjectRes
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{rootResourceName}/project/{resourceName}", pathParameters),
 		autorest.WithJSON(body),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
-func (client ProjectsClient) CreateSender(req *http.Request) (future ProjectsCreateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client ProjectsClient) CreateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateResponder handles the response to the Create request. The method always
@@ -126,8 +140,8 @@ func (client ProjectsClient) CreateResponder(resp *http.Response) (result Projec
 //
 // resourceGroupName is name of the resource group within the Azure subscription. rootResourceName is name of the Team
 // Services account. resourceName is name of the Team Services project.
-func (client ProjectsClient) Get(ctx context.Context, resourceGroupName string, rootResourceName string, resourceName string) (result ProjectResource, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, rootResourceName, resourceName)
+func (client ProjectsClient) Get(resourceGroupName string, rootResourceName string, resourceName string) (result ProjectResource, err error) {
+	req, err := client.GetPreparer(resourceGroupName, rootResourceName, resourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "Get", nil, "Failure preparing request")
 		return
@@ -149,7 +163,7 @@ func (client ProjectsClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client ProjectsClient) GetPreparer(ctx context.Context, resourceGroupName string, rootResourceName string, resourceName string) (*http.Request, error) {
+func (client ProjectsClient) GetPreparer(resourceGroupName string, rootResourceName string, resourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"resourceName":      autorest.Encode("path", resourceName),
@@ -167,13 +181,14 @@ func (client ProjectsClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{rootResourceName}/project/{resourceName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProjectsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -196,8 +211,8 @@ func (client ProjectsClient) GetResponder(resp *http.Response) (result ProjectRe
 // Services account. resourceName is name of the Team Services project. subContainerName is this parameter should be
 // set to the resourceName. operation is the operation type. The only supported value is 'put'. jobID is the job
 // identifier.
-func (client ProjectsClient) GetJobStatus(ctx context.Context, resourceGroupName string, rootResourceName string, resourceName string, subContainerName string, operation string, jobID *uuid.UUID) (result ProjectResource, err error) {
-	req, err := client.GetJobStatusPreparer(ctx, resourceGroupName, rootResourceName, resourceName, subContainerName, operation, jobID)
+func (client ProjectsClient) GetJobStatus(resourceGroupName string, rootResourceName string, resourceName string, subContainerName string, operation string, jobID *uuid.UUID) (result ProjectResource, err error) {
+	req, err := client.GetJobStatusPreparer(resourceGroupName, rootResourceName, resourceName, subContainerName, operation, jobID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "GetJobStatus", nil, "Failure preparing request")
 		return
@@ -219,7 +234,7 @@ func (client ProjectsClient) GetJobStatus(ctx context.Context, resourceGroupName
 }
 
 // GetJobStatusPreparer prepares the GetJobStatus request.
-func (client ProjectsClient) GetJobStatusPreparer(ctx context.Context, resourceGroupName string, rootResourceName string, resourceName string, subContainerName string, operation string, jobID *uuid.UUID) (*http.Request, error) {
+func (client ProjectsClient) GetJobStatusPreparer(resourceGroupName string, rootResourceName string, resourceName string, subContainerName string, operation string, jobID *uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"resourceName":      autorest.Encode("path", resourceName),
@@ -242,13 +257,14 @@ func (client ProjectsClient) GetJobStatusPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{rootResourceName}/project/{resourceName}/subContainers/{subContainerName}/status", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetJobStatusSender sends the GetJobStatus request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProjectsClient) GetJobStatusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -270,8 +286,8 @@ func (client ProjectsClient) GetJobStatusResponder(resp *http.Response) (result 
 //
 // resourceGroupName is name of the resource group within the Azure subscription. rootResourceName is name of the Team
 // Services account.
-func (client ProjectsClient) ListByResourceGroup(ctx context.Context, resourceGroupName string, rootResourceName string) (result ProjectResourceListResult, err error) {
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName, rootResourceName)
+func (client ProjectsClient) ListByResourceGroup(resourceGroupName string, rootResourceName string) (result ProjectResourceListResult, err error) {
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName, rootResourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -293,7 +309,7 @@ func (client ProjectsClient) ListByResourceGroup(ctx context.Context, resourceGr
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client ProjectsClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string, rootResourceName string) (*http.Request, error) {
+func (client ProjectsClient) ListByResourceGroupPreparer(resourceGroupName string, rootResourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"rootResourceName":  autorest.Encode("path", rootResourceName),
@@ -310,13 +326,14 @@ func (client ProjectsClient) ListByResourceGroupPreparer(ctx context.Context, re
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{rootResourceName}/project", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProjectsClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -337,8 +354,8 @@ func (client ProjectsClient) ListByResourceGroupResponder(resp *http.Response) (
 //
 // resourceGroupName is name of the resource group within the Azure subscription. body is the request data.
 // rootResourceName is name of the Team Services account. resourceName is name of the Team Services project.
-func (client ProjectsClient) Update(ctx context.Context, resourceGroupName string, body ProjectResource, rootResourceName string, resourceName string) (result ProjectResource, err error) {
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, body, rootResourceName, resourceName)
+func (client ProjectsClient) Update(resourceGroupName string, body ProjectResource, rootResourceName string, resourceName string) (result ProjectResource, err error) {
+	req, err := client.UpdatePreparer(resourceGroupName, body, rootResourceName, resourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ProjectsClient", "Update", nil, "Failure preparing request")
 		return
@@ -360,7 +377,7 @@ func (client ProjectsClient) Update(ctx context.Context, resourceGroupName strin
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ProjectsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, body ProjectResource, rootResourceName string, resourceName string) (*http.Request, error) {
+func (client ProjectsClient) UpdatePreparer(resourceGroupName string, body ProjectResource, rootResourceName string, resourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"resourceName":      autorest.Encode("path", resourceName),
@@ -380,13 +397,14 @@ func (client ProjectsClient) UpdatePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{rootResourceName}/project/{resourceName}", pathParameters),
 		autorest.WithJSON(body),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProjectsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

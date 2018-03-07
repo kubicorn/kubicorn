@@ -26,6 +26,7 @@
 package logadmin // import "cloud.google.com/go/logging/logadmin"
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"net/http"
@@ -53,20 +54,22 @@ import (
 
 // Client is a Logging client. A Client is associated with a single Cloud project.
 type Client struct {
-	lClient *vkit.Client        // logging client
-	sClient *vkit.ConfigClient  // sink client
-	mClient *vkit.MetricsClient // metric client
-	parent  string
-	closed  bool
+	lClient   *vkit.Client        // logging client
+	sClient   *vkit.ConfigClient  // sink client
+	mClient   *vkit.MetricsClient // metric client
+	projectID string
+	closed    bool
 }
 
 // NewClient returns a new logging client associated with the provided project ID.
 //
 // By default NewClient uses AdminScope. To use a different scope, call
 // NewClient using a WithScopes option (see https://godoc.org/google.golang.org/api/option#WithScopes).
-func NewClient(ctx context.Context, parent string, opts ...option.ClientOption) (*Client, error) {
-	if !strings.ContainsRune(parent, '/') {
-		parent = "projects/" + parent
+func NewClient(ctx context.Context, projectID string, opts ...option.ClientOption) (*Client, error) {
+	// Check for '/' in project ID to reserve the ability to support various owning resources,
+	// in the form "{Collection}/{Name}", for instance "organizations/my-org".
+	if strings.ContainsRune(projectID, '/') {
+		return nil, errors.New("logging: project ID contains '/'")
 	}
 	opts = append([]option.ClientOption{
 		option.WithEndpoint(internal.ProdAddr),
@@ -103,12 +106,17 @@ func NewClient(ctx context.Context, parent string, opts ...option.ClientOption) 
 	sc.SetGoogleClientInfo("gccl", version.Repo)
 	mc.SetGoogleClientInfo("gccl", version.Repo)
 	client := &Client{
-		lClient: lc,
-		sClient: sc,
-		mClient: mc,
-		parent:  parent,
+		lClient:   lc,
+		sClient:   sc,
+		mClient:   mc,
+		projectID: projectID,
 	}
 	return client, nil
+}
+
+// parent returns the string used in many RPCs to denote the parent resource of the log.
+func (c *Client) parent() string {
+	return "projects/" + c.projectID
 }
 
 // Close closes the client.
@@ -129,7 +137,7 @@ func (c *Client) Close() error {
 // logID identifies the log within the project. An example log ID is "syslog". Requires AdminScope.
 func (c *Client) DeleteLog(ctx context.Context, logID string) error {
 	return c.lClient.DeleteLog(ctx, &logpb.DeleteLogRequest{
-		LogName: internal.LogPath(c.parent, logID),
+		LogName: internal.LogPath(c.parent(), logID),
 	})
 }
 
@@ -189,16 +197,6 @@ func (p projectIDs) set(r *logpb.ListLogEntriesRequest) {
 	}
 }
 
-// ResourceNames sets the resource names from which to retrieve
-// log entries. Examples: "projects/my-project-1A", "organizations/my-org".
-func ResourceNames(rns []string) EntriesOption { return resourceNames(rns) }
-
-type resourceNames []string
-
-func (rn resourceNames) set(r *logpb.ListLogEntriesRequest) {
-	r.ResourceNames = append([]string(nil), rn...)
-}
-
 // Filter sets an advanced logs filter for listing log entries (see
 // https://cloud.google.com/logging/docs/view/advanced_filters). The filter is
 // compared against all log entries in the projects specified by ProjectIDs.
@@ -230,7 +228,7 @@ func (newestFirst) set(r *logpb.ListLogEntriesRequest) { r.OrderBy = "timestamp 
 // NewClient. This may be overridden by passing a ProjectIDs option. Requires ReadScope or AdminScope.
 func (c *Client) Entries(ctx context.Context, opts ...EntriesOption) *EntryIterator {
 	it := &EntryIterator{
-		it: c.lClient.ListLogEntries(ctx, listLogEntriesRequest(c.parent, opts)),
+		it: c.lClient.ListLogEntries(ctx, listLogEntriesRequest(c.projectID, opts)),
 	}
 	it.pageInfo, it.nextFunc = iterator.NewPageInfo(
 		it.fetch,
@@ -239,9 +237,9 @@ func (c *Client) Entries(ctx context.Context, opts ...EntriesOption) *EntryItera
 	return it
 }
 
-func listLogEntriesRequest(parent string, opts []EntriesOption) *logpb.ListLogEntriesRequest {
+func listLogEntriesRequest(projectID string, opts []EntriesOption) *logpb.ListLogEntriesRequest {
 	req := &logpb.ListLogEntriesRequest{
-		ResourceNames: []string{parent},
+		ResourceNames: []string{"projects/" + projectID},
 	}
 	for _, opt := range opts {
 		opt.set(req)
@@ -342,8 +340,8 @@ func fromLogEntry(le *logpb.LogEntry) (*logging.Entry, error) {
 // Logs lists the logs owned by the parent resource of the client.
 func (c *Client) Logs(ctx context.Context) *LogIterator {
 	it := &LogIterator{
-		parentResource: c.parent,
-		it:             c.lClient.ListLogs(ctx, &logpb.ListLogsRequest{Parent: c.parent}),
+		parentResource: c.parent(),
+		it:             c.lClient.ListLogs(ctx, &logpb.ListLogsRequest{Parent: c.parent()}),
 	}
 	it.pageInfo, it.nextFunc = iterator.NewPageInfo(
 		it.fetch,

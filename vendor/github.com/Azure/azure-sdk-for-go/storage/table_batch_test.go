@@ -19,7 +19,7 @@ package storage
 import (
 	"time"
 
-	"github.com/satori/go.uuid"
+	"github.com/satori/uuid"
 	chk "gopkg.in/check.v1"
 )
 

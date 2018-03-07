@@ -27,8 +27,7 @@
         {"shape":"UnauthorizedException"},
         {"shape":"LimitExceededException"},
         {"shape":"InternalFailureException"},
-        {"shape":"ApiKeyLimitExceededException"},
-        {"shape":"ApiKeyValidityOutOfBoundsException"}
+        {"shape":"ApiKeyLimitExceededException"}
       ]
     },
     "CreateDataSource":{
@@ -356,23 +355,6 @@
         {"shape":"InternalFailureException"}
       ]
     },
-    "UpdateApiKey":{
-      "name":"UpdateApiKey",
-      "http":{
-        "method":"POST",
-        "requestUri":"/v1/apis/{apiId}/apikeys/{id}"
-      },
-      "input":{"shape":"UpdateApiKeyRequest"},
-      "output":{"shape":"UpdateApiKeyResponse"},
-      "errors":[
-        {"shape":"BadRequestException"},
-        {"shape":"NotFoundException"},
-        {"shape":"UnauthorizedException"},
-        {"shape":"LimitExceededException"},
-        {"shape":"InternalFailureException"},
-        {"shape":"ApiKeyValidityOutOfBoundsException"}
-      ]
-    },
     "UpdateDataSource":{
       "name":"UpdateDataSource",
       "http":{
@@ -454,14 +436,6 @@
       "error":{"httpStatusCode":400},
       "exception":true
     },
-    "ApiKeyValidityOutOfBoundsException":{
-      "type":"structure",
-      "members":{
-        "message":{"shape":"String"}
-      },
-      "error":{"httpStatusCode":400},
-      "exception":true
-    },
     "ApiKeys":{
       "type":"list",
       "member":{"shape":"ApiKey"}
@@ -509,8 +483,7 @@
           "location":"uri",
           "locationName":"apiId"
         },
-        "description":{"shape":"String"},
-        "expires":{"shape":"Long"}
+        "description":{"shape":"String"}
       }
     },
     "CreateApiKeyResponse":{
@@ -554,7 +527,7 @@
         "authenticationType"
       ],
       "members":{
-        "name":{"shape":"String"},
+        "name":{"shape":"ResourceName"},
         "authenticationType":{"shape":"AuthenticationType"},
         "userPoolConfig":{"shape":"UserPoolConfig"}
       }
@@ -638,8 +611,7 @@
       "enum":[
         "AWS_LAMBDA",
         "AMAZON_DYNAMODB",
-        "AMAZON_ELASTICSEARCH",
-        "NONE"
+        "AMAZON_ELASTICSEARCH"
       ]
     },
     "DataSources":{
@@ -1253,33 +1225,6 @@
       "error":{"httpStatusCode":401},
       "exception":true
     },
-    "UpdateApiKeyRequest":{
-      "type":"structure",
-      "required":[
-        "apiId",
-        "id"
-      ],
-      "members":{
-        "apiId":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"apiId"
-        },
-        "id":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"id"
-        },
-        "description":{"shape":"String"},
-        "expires":{"shape":"Long"}
-      }
-    },
-    "UpdateApiKeyResponse":{
-      "type":"structure",
-      "members":{
-        "apiKey":{"shape":"ApiKey"}
-      }
-    },
     "UpdateDataSourceRequest":{
       "type":"structure",
       "required":[
@@ -1324,7 +1269,7 @@
           "location":"uri",
           "locationName":"apiId"
         },
-        "name":{"shape":"String"},
+        "name":{"shape":"ResourceName"},
         "authenticationType":{"shape":"AuthenticationType"},
         "userPoolConfig":{"shape":"UserPoolConfig"}
       }

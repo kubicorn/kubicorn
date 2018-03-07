@@ -18,7 +18,6 @@ package mobileengagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // DevicesClient is the microsoft Azure Mobile Engagement REST APIs.
 type DevicesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDevicesClient creates an instance of the DevicesClient client.
@@ -44,8 +43,8 @@ func NewDevicesClientWithBaseURI(baseURI string, subscriptionID string) DevicesC
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. deviceID is device identifier.
-func (client DevicesClient) GetByDeviceID(ctx context.Context, resourceGroupName string, appCollection string, appName string, deviceID string) (result Device, err error) {
-	req, err := client.GetByDeviceIDPreparer(ctx, resourceGroupName, appCollection, appName, deviceID)
+func (client DevicesClient) GetByDeviceID(resourceGroupName string, appCollection string, appName string, deviceID string) (result Device, err error) {
+	req, err := client.GetByDeviceIDPreparer(resourceGroupName, appCollection, appName, deviceID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "GetByDeviceID", nil, "Failure preparing request")
 		return
@@ -67,7 +66,7 @@ func (client DevicesClient) GetByDeviceID(ctx context.Context, resourceGroupName
 }
 
 // GetByDeviceIDPreparer prepares the GetByDeviceID request.
-func (client DevicesClient) GetByDeviceIDPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, deviceID string) (*http.Request, error) {
+func (client DevicesClient) GetByDeviceIDPreparer(resourceGroupName string, appCollection string, appName string, deviceID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -86,13 +85,14 @@ func (client DevicesClient) GetByDeviceIDPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/devices/{deviceId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetByDeviceIDSender sends the GetByDeviceID request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) GetByDeviceIDSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -113,8 +113,8 @@ func (client DevicesClient) GetByDeviceIDResponder(resp *http.Response) (result 
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. userID is user identifier.
-func (client DevicesClient) GetByUserID(ctx context.Context, resourceGroupName string, appCollection string, appName string, userID string) (result Device, err error) {
-	req, err := client.GetByUserIDPreparer(ctx, resourceGroupName, appCollection, appName, userID)
+func (client DevicesClient) GetByUserID(resourceGroupName string, appCollection string, appName string, userID string) (result Device, err error) {
+	req, err := client.GetByUserIDPreparer(resourceGroupName, appCollection, appName, userID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "GetByUserID", nil, "Failure preparing request")
 		return
@@ -136,7 +136,7 @@ func (client DevicesClient) GetByUserID(ctx context.Context, resourceGroupName s
 }
 
 // GetByUserIDPreparer prepares the GetByUserID request.
-func (client DevicesClient) GetByUserIDPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, userID string) (*http.Request, error) {
+func (client DevicesClient) GetByUserIDPreparer(resourceGroupName string, appCollection string, appName string, userID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -155,13 +155,14 @@ func (client DevicesClient) GetByUserIDPreparer(ctx context.Context, resourceGro
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/users/{userId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetByUserIDSender sends the GetByUserID request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) GetByUserIDSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -207,9 +208,8 @@ func (client DevicesClient) GetByUserIDResponder(resp *http.Response) (result De
 // for recent timestamps). Using `lastModified` excludes all devices from the output that have no property matching the
 // timestamp criteria, like `$select`. Please note that the internal value of `lastModified` timestamp for a given
 // property is never part of the results.
-func (client DevicesClient) List(ctx context.Context, resourceGroupName string, appCollection string, appName string, top *int32, selectParameter string, filter string) (result DevicesQueryResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, appCollection, appName, top, selectParameter, filter)
+func (client DevicesClient) List(resourceGroupName string, appCollection string, appName string, top *int32, selectParameter string, filter string) (result DevicesQueryResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName, appCollection, appName, top, selectParameter, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "List", nil, "Failure preparing request")
 		return
@@ -217,12 +217,12 @@ func (client DevicesClient) List(ctx context.Context, resourceGroupName string, 
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.dqr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.dqr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "List", resp, "Failure responding to request")
 	}
@@ -231,7 +231,7 @@ func (client DevicesClient) List(ctx context.Context, resourceGroupName string, 
 }
 
 // ListPreparer prepares the List request.
-func (client DevicesClient) ListPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, top *int32, selectParameter string, filter string) (*http.Request, error) {
+func (client DevicesClient) ListPreparer(resourceGroupName string, appCollection string, appName string, top *int32, selectParameter string, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -258,13 +258,14 @@ func (client DevicesClient) ListPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/devices", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -281,31 +282,73 @@ func (client DevicesClient) ListResponder(resp *http.Response) (result DevicesQu
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client DevicesClient) listNextResults(lastResults DevicesQueryResult) (result DevicesQueryResult, err error) {
-	req, err := lastResults.devicesQueryResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client DevicesClient) ListNextResults(lastResults DevicesQueryResult) (result DevicesQueryResult, err error) {
+	req, err := lastResults.DevicesQueryResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client DevicesClient) ListComplete(ctx context.Context, resourceGroupName string, appCollection string, appName string, top *int32, selectParameter string, filter string) (result DevicesQueryResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, appCollection, appName, top, selectParameter, filter)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client DevicesClient) ListComplete(resourceGroupName string, appCollection string, appName string, top *int32, selectParameter string, filter string, cancel <-chan struct{}) (<-chan DeviceQueryResult, <-chan error) {
+	resultChan := make(chan DeviceQueryResult)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, appCollection, appName, top, selectParameter, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // TagByDeviceID update the tags registered for a set of devices running an application. Updates are performed
@@ -314,14 +357,14 @@ func (client DevicesClient) ListComplete(ctx context.Context, resourceGroupName 
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name.
-func (client DevicesClient) TagByDeviceID(ctx context.Context, resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (result DeviceTagsResult, err error) {
+func (client DevicesClient) TagByDeviceID(resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (result DeviceTagsResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Tags", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "mobileengagement.DevicesClient", "TagByDeviceID")
 	}
 
-	req, err := client.TagByDeviceIDPreparer(ctx, resourceGroupName, appCollection, appName, parameters)
+	req, err := client.TagByDeviceIDPreparer(resourceGroupName, appCollection, appName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "TagByDeviceID", nil, "Failure preparing request")
 		return
@@ -343,7 +386,7 @@ func (client DevicesClient) TagByDeviceID(ctx context.Context, resourceGroupName
 }
 
 // TagByDeviceIDPreparer prepares the TagByDeviceID request.
-func (client DevicesClient) TagByDeviceIDPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (*http.Request, error) {
+func (client DevicesClient) TagByDeviceIDPreparer(resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -363,13 +406,14 @@ func (client DevicesClient) TagByDeviceIDPreparer(ctx context.Context, resourceG
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/devices/tag", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // TagByDeviceIDSender sends the TagByDeviceID request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) TagByDeviceIDSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -392,14 +436,14 @@ func (client DevicesClient) TagByDeviceIDResponder(resp *http.Response) (result 
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name.
-func (client DevicesClient) TagByUserID(ctx context.Context, resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (result DeviceTagsResult, err error) {
+func (client DevicesClient) TagByUserID(resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (result DeviceTagsResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Tags", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "mobileengagement.DevicesClient", "TagByUserID")
 	}
 
-	req, err := client.TagByUserIDPreparer(ctx, resourceGroupName, appCollection, appName, parameters)
+	req, err := client.TagByUserIDPreparer(resourceGroupName, appCollection, appName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.DevicesClient", "TagByUserID", nil, "Failure preparing request")
 		return
@@ -421,7 +465,7 @@ func (client DevicesClient) TagByUserID(ctx context.Context, resourceGroupName s
 }
 
 // TagByUserIDPreparer prepares the TagByUserID request.
-func (client DevicesClient) TagByUserIDPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (*http.Request, error) {
+func (client DevicesClient) TagByUserIDPreparer(resourceGroupName string, appCollection string, appName string, parameters DeviceTagsParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -441,13 +485,14 @@ func (client DevicesClient) TagByUserIDPreparer(ctx context.Context, resourceGro
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/users/tag", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // TagByUserIDSender sends the TagByUserID request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) TagByUserIDSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

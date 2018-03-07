@@ -18,7 +18,6 @@ package links
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -30,7 +29,7 @@ import (
 // same subscription. Each resource can be linked to 50 other resources. If any of the linked resources are deleted or
 // moved, the link owner must clean up the remaining link.
 type ResourceLinksClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewResourceLinksClient creates an instance of the ResourceLinksClient client.
@@ -50,7 +49,7 @@ func NewResourceLinksClientWithBaseURI(baseURI string, subscriptionID string) Re
 // For example,
 // /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup/Microsoft.Web/sites/mySite/Microsoft.Resources/links/myLink
 // parameters is parameters for creating or updating a resource link.
-func (client ResourceLinksClient) CreateOrUpdate(ctx context.Context, linkID string, parameters ResourceLink) (result ResourceLink, err error) {
+func (client ResourceLinksClient) CreateOrUpdate(linkID string, parameters ResourceLink) (result ResourceLink, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Properties", Name: validation.Null, Rule: false,
@@ -58,7 +57,7 @@ func (client ResourceLinksClient) CreateOrUpdate(ctx context.Context, linkID str
 		return result, validation.NewErrorWithValidationError(err, "links.ResourceLinksClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, linkID, parameters)
+	req, err := client.CreateOrUpdatePreparer(linkID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -80,7 +79,7 @@ func (client ResourceLinksClient) CreateOrUpdate(ctx context.Context, linkID str
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ResourceLinksClient) CreateOrUpdatePreparer(ctx context.Context, linkID string, parameters ResourceLink) (*http.Request, error) {
+func (client ResourceLinksClient) CreateOrUpdatePreparer(linkID string, parameters ResourceLink) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"linkId": linkID,
 	}
@@ -97,13 +96,14 @@ func (client ResourceLinksClient) CreateOrUpdatePreparer(ctx context.Context, li
 		autorest.WithPathParameters("/{linkId}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client ResourceLinksClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -113,7 +113,7 @@ func (client ResourceLinksClient) CreateOrUpdateResponder(resp *http.Response) (
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
+		azure.WithErrorUnlessStatusCode(http.StatusCreated, http.StatusOK),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
@@ -126,8 +126,8 @@ func (client ResourceLinksClient) CreateOrUpdateResponder(resp *http.Response) (
 // /subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/{provider-namespace}/{resource-type}/{resource-name}/Microsoft.Resources/links/{link-name}.
 // For example,
 // /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup/Microsoft.Web/sites/mySite/Microsoft.Resources/links/myLink
-func (client ResourceLinksClient) Delete(ctx context.Context, linkID string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, linkID)
+func (client ResourceLinksClient) Delete(linkID string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(linkID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "Delete", nil, "Failure preparing request")
 		return
@@ -149,7 +149,7 @@ func (client ResourceLinksClient) Delete(ctx context.Context, linkID string) (re
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ResourceLinksClient) DeletePreparer(ctx context.Context, linkID string) (*http.Request, error) {
+func (client ResourceLinksClient) DeletePreparer(linkID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"linkId": linkID,
 	}
@@ -164,13 +164,14 @@ func (client ResourceLinksClient) DeletePreparer(ctx context.Context, linkID str
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{linkId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ResourceLinksClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -190,8 +191,8 @@ func (client ResourceLinksClient) DeleteResponder(resp *http.Response) (result a
 //
 // linkID is the fully qualified Id of the resource link. For example,
 // /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup/Microsoft.Web/sites/mySite/Microsoft.Resources/links/myLink
-func (client ResourceLinksClient) Get(ctx context.Context, linkID string) (result ResourceLink, err error) {
-	req, err := client.GetPreparer(ctx, linkID)
+func (client ResourceLinksClient) Get(linkID string) (result ResourceLink, err error) {
+	req, err := client.GetPreparer(linkID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "Get", nil, "Failure preparing request")
 		return
@@ -213,7 +214,7 @@ func (client ResourceLinksClient) Get(ctx context.Context, linkID string) (resul
 }
 
 // GetPreparer prepares the Get request.
-func (client ResourceLinksClient) GetPreparer(ctx context.Context, linkID string) (*http.Request, error) {
+func (client ResourceLinksClient) GetPreparer(linkID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"linkId": linkID,
 	}
@@ -228,13 +229,14 @@ func (client ResourceLinksClient) GetPreparer(ctx context.Context, linkID string
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{linkId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ResourceLinksClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -257,9 +259,8 @@ func (client ResourceLinksClient) GetResponder(resp *http.Response) (result Reso
 // and under a resource group, set the scope to
 // /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup. filter is the filter to apply when
 // getting resource links. To get links only at the specified scope (not below the scope), use Filter.atScope().
-func (client ResourceLinksClient) ListAtSourceScope(ctx context.Context, scope string, filter Filter) (result ResourceLinkResultPage, err error) {
-	result.fn = client.listAtSourceScopeNextResults
-	req, err := client.ListAtSourceScopePreparer(ctx, scope, filter)
+func (client ResourceLinksClient) ListAtSourceScope(scope string, filter Filter) (result ResourceLinkResult, err error) {
+	req, err := client.ListAtSourceScopePreparer(scope, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSourceScope", nil, "Failure preparing request")
 		return
@@ -267,12 +268,12 @@ func (client ResourceLinksClient) ListAtSourceScope(ctx context.Context, scope s
 
 	resp, err := client.ListAtSourceScopeSender(req)
 	if err != nil {
-		result.rlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSourceScope", resp, "Failure sending request")
 		return
 	}
 
-	result.rlr, err = client.ListAtSourceScopeResponder(resp)
+	result, err = client.ListAtSourceScopeResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSourceScope", resp, "Failure responding to request")
 	}
@@ -281,7 +282,7 @@ func (client ResourceLinksClient) ListAtSourceScope(ctx context.Context, scope s
 }
 
 // ListAtSourceScopePreparer prepares the ListAtSourceScope request.
-func (client ResourceLinksClient) ListAtSourceScopePreparer(ctx context.Context, scope string, filter Filter) (*http.Request, error) {
+func (client ResourceLinksClient) ListAtSourceScopePreparer(scope string, filter Filter) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"scope": scope,
 	}
@@ -299,13 +300,14 @@ func (client ResourceLinksClient) ListAtSourceScopePreparer(ctx context.Context,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{scope}/providers/Microsoft.Resources/links", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAtSourceScopeSender sends the ListAtSourceScope request. The method will close the
 // http.Response Body if it receives an error.
 func (client ResourceLinksClient) ListAtSourceScopeSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -322,40 +324,81 @@ func (client ResourceLinksClient) ListAtSourceScopeResponder(resp *http.Response
 	return
 }
 
-// listAtSourceScopeNextResults retrieves the next set of results, if any.
-func (client ResourceLinksClient) listAtSourceScopeNextResults(lastResults ResourceLinkResult) (result ResourceLinkResult, err error) {
-	req, err := lastResults.resourceLinkResultPreparer()
+// ListAtSourceScopeNextResults retrieves the next set of results, if any.
+func (client ResourceLinksClient) ListAtSourceScopeNextResults(lastResults ResourceLinkResult) (result ResourceLinkResult, err error) {
+	req, err := lastResults.ResourceLinkResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "listAtSourceScopeNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSourceScope", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAtSourceScopeSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "listAtSourceScopeNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSourceScope", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAtSourceScopeResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "listAtSourceScopeNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSourceScope", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAtSourceScopeComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ResourceLinksClient) ListAtSourceScopeComplete(ctx context.Context, scope string, filter Filter) (result ResourceLinkResultIterator, err error) {
-	result.page, err = client.ListAtSourceScope(ctx, scope, filter)
-	return
+// ListAtSourceScopeComplete gets all elements from the list without paging.
+func (client ResourceLinksClient) ListAtSourceScopeComplete(scope string, filter Filter, cancel <-chan struct{}) (<-chan ResourceLink, <-chan error) {
+	resultChan := make(chan ResourceLink)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAtSourceScope(scope, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAtSourceScopeNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListAtSubscription gets all the linked resources for the subscription.
 //
 // filter is the filter to apply on the list resource links operation. The supported filter for list resource links is
 // targetid. For example, $filter=targetid eq {value}
-func (client ResourceLinksClient) ListAtSubscription(ctx context.Context, filter string) (result ResourceLinkResultPage, err error) {
-	result.fn = client.listAtSubscriptionNextResults
-	req, err := client.ListAtSubscriptionPreparer(ctx, filter)
+func (client ResourceLinksClient) ListAtSubscription(filter string) (result ResourceLinkResult, err error) {
+	req, err := client.ListAtSubscriptionPreparer(filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSubscription", nil, "Failure preparing request")
 		return
@@ -363,12 +406,12 @@ func (client ResourceLinksClient) ListAtSubscription(ctx context.Context, filter
 
 	resp, err := client.ListAtSubscriptionSender(req)
 	if err != nil {
-		result.rlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSubscription", resp, "Failure sending request")
 		return
 	}
 
-	result.rlr, err = client.ListAtSubscriptionResponder(resp)
+	result, err = client.ListAtSubscriptionResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSubscription", resp, "Failure responding to request")
 	}
@@ -377,7 +420,7 @@ func (client ResourceLinksClient) ListAtSubscription(ctx context.Context, filter
 }
 
 // ListAtSubscriptionPreparer prepares the ListAtSubscription request.
-func (client ResourceLinksClient) ListAtSubscriptionPreparer(ctx context.Context, filter string) (*http.Request, error) {
+func (client ResourceLinksClient) ListAtSubscriptionPreparer(filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -395,13 +438,14 @@ func (client ResourceLinksClient) ListAtSubscriptionPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Resources/links", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAtSubscriptionSender sends the ListAtSubscription request. The method will close the
 // http.Response Body if it receives an error.
 func (client ResourceLinksClient) ListAtSubscriptionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -418,29 +462,71 @@ func (client ResourceLinksClient) ListAtSubscriptionResponder(resp *http.Respons
 	return
 }
 
-// listAtSubscriptionNextResults retrieves the next set of results, if any.
-func (client ResourceLinksClient) listAtSubscriptionNextResults(lastResults ResourceLinkResult) (result ResourceLinkResult, err error) {
-	req, err := lastResults.resourceLinkResultPreparer()
+// ListAtSubscriptionNextResults retrieves the next set of results, if any.
+func (client ResourceLinksClient) ListAtSubscriptionNextResults(lastResults ResourceLinkResult) (result ResourceLinkResult, err error) {
+	req, err := lastResults.ResourceLinkResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "listAtSubscriptionNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSubscription", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAtSubscriptionSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "listAtSubscriptionNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSubscription", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAtSubscriptionResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "listAtSubscriptionNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "links.ResourceLinksClient", "ListAtSubscription", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAtSubscriptionComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ResourceLinksClient) ListAtSubscriptionComplete(ctx context.Context, filter string) (result ResourceLinkResultIterator, err error) {
-	result.page, err = client.ListAtSubscription(ctx, filter)
-	return
+// ListAtSubscriptionComplete gets all elements from the list without paging.
+func (client ResourceLinksClient) ListAtSubscriptionComplete(filter string, cancel <-chan struct{}) (<-chan ResourceLink, <-chan error) {
+	resultChan := make(chan ResourceLink)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAtSubscription(filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAtSubscriptionNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

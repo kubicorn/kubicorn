@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // NetworkStatusClient is the apiManagement Client
 type NetworkStatusClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewNetworkStatusClient creates an instance of the NetworkStatusClient client.
@@ -44,7 +43,7 @@ func NewNetworkStatusClientWithBaseURI(baseURI string, subscriptionID string) Ne
 // inside the Cloud Service. This also returns the DNS Servers as visible to the CloudService.
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
-func (client NetworkStatusClient) GetByService(ctx context.Context, resourceGroupName string, serviceName string) (result NetworkStatusContract, err error) {
+func (client NetworkStatusClient) GetByService(resourceGroupName string, serviceName string) (result NetworkStatusContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -53,7 +52,7 @@ func (client NetworkStatusClient) GetByService(ctx context.Context, resourceGrou
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.NetworkStatusClient", "GetByService")
 	}
 
-	req, err := client.GetByServicePreparer(ctx, resourceGroupName, serviceName)
+	req, err := client.GetByServicePreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.NetworkStatusClient", "GetByService", nil, "Failure preparing request")
 		return
@@ -75,7 +74,7 @@ func (client NetworkStatusClient) GetByService(ctx context.Context, resourceGrou
 }
 
 // GetByServicePreparer prepares the GetByService request.
-func (client NetworkStatusClient) GetByServicePreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client NetworkStatusClient) GetByServicePreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -92,13 +91,14 @@ func (client NetworkStatusClient) GetByServicePreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/networkstatus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetByServiceSender sends the GetByService request. The method will close the
 // http.Response Body if it receives an error.
 func (client NetworkStatusClient) GetByServiceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

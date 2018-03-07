@@ -1300,8 +1300,6 @@ func (c *CloudWatch) PutMetricAlarmRequest(input *PutMetricAlarmInput) (req *req
 //
 // If you are an IAM user, you must have Amazon EC2 permissions for some operations:
 //
-//    * iam:CreateServiceLinkedRole for all alarms with EC2 actions
-//
 //    * ec2:DescribeInstanceStatus and ec2:DescribeInstances for all alarms
 //    on EC2 instance status metrics
 //
@@ -1573,6 +1571,7 @@ func (c *CloudWatch) SetAlarmStateWithContext(ctx aws.Context, input *SetAlarmSt
 }
 
 // Represents the history of a specific alarm.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/AlarmHistoryItem
 type AlarmHistoryItem struct {
 	_ struct{} `type:"structure"`
 
@@ -1633,6 +1632,7 @@ func (s *AlarmHistoryItem) SetTimestamp(v time.Time) *AlarmHistoryItem {
 }
 
 // Represents a specific dashboard.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DashboardEntry
 type DashboardEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -1686,6 +1686,7 @@ func (s *DashboardEntry) SetSize(v int64) *DashboardEntry {
 }
 
 // An error or warning for the operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DashboardValidationMessage
 type DashboardValidationMessage struct {
 	_ struct{} `type:"structure"`
 
@@ -1719,6 +1720,7 @@ func (s *DashboardValidationMessage) SetMessage(v string) *DashboardValidationMe
 }
 
 // Encapsulates the statistical data that CloudWatch computes from metric data.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/Datapoint
 type Datapoint struct {
 	_ struct{} `type:"structure"`
 
@@ -1806,6 +1808,7 @@ func (s *Datapoint) SetUnit(v string) *Datapoint {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DeleteAlarmsInput
 type DeleteAlarmsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1844,6 +1847,7 @@ func (s *DeleteAlarmsInput) SetAlarmNames(v []*string) *DeleteAlarmsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DeleteAlarmsOutput
 type DeleteAlarmsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1858,6 +1862,7 @@ func (s DeleteAlarmsOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DeleteDashboardsInput
 type DeleteDashboardsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1896,6 +1901,7 @@ func (s *DeleteDashboardsInput) SetDashboardNames(v []*string) *DeleteDashboards
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DeleteDashboardsOutput
 type DeleteDashboardsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1910,6 +1916,7 @@ func (s DeleteDashboardsOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeAlarmHistoryInput
 type DescribeAlarmHistoryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1995,6 +2002,7 @@ func (s *DescribeAlarmHistoryInput) SetStartDate(v time.Time) *DescribeAlarmHist
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeAlarmHistoryOutput
 type DescribeAlarmHistoryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2027,6 +2035,7 @@ func (s *DescribeAlarmHistoryOutput) SetNextToken(v string) *DescribeAlarmHistor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeAlarmsForMetricInput
 type DescribeAlarmsForMetricInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2146,6 +2155,7 @@ func (s *DescribeAlarmsForMetricInput) SetUnit(v string) *DescribeAlarmsForMetri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeAlarmsForMetricOutput
 type DescribeAlarmsForMetricOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2169,6 +2179,7 @@ func (s *DescribeAlarmsForMetricOutput) SetMetricAlarms(v []*MetricAlarm) *Descr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeAlarmsInput
 type DescribeAlarmsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2258,6 +2269,7 @@ func (s *DescribeAlarmsInput) SetStateValue(v string) *DescribeAlarmsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeAlarmsOutput
 type DescribeAlarmsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2291,6 +2303,7 @@ func (s *DescribeAlarmsOutput) SetNextToken(v string) *DescribeAlarmsOutput {
 }
 
 // Expands the identity of a metric.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/Dimension
 type Dimension struct {
 	_ struct{} `type:"structure"`
 
@@ -2350,6 +2363,7 @@ func (s *Dimension) SetValue(v string) *Dimension {
 }
 
 // Represents filters for a dimension.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DimensionFilter
 type DimensionFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -2403,6 +2417,7 @@ func (s *DimensionFilter) SetValue(v string) *DimensionFilter {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DisableAlarmActionsInput
 type DisableAlarmActionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2441,6 +2456,7 @@ func (s *DisableAlarmActionsInput) SetAlarmNames(v []*string) *DisableAlarmActio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DisableAlarmActionsOutput
 type DisableAlarmActionsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2455,6 +2471,7 @@ func (s DisableAlarmActionsOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/EnableAlarmActionsInput
 type EnableAlarmActionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2493,6 +2510,7 @@ func (s *EnableAlarmActionsInput) SetAlarmNames(v []*string) *EnableAlarmActions
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/EnableAlarmActionsOutput
 type EnableAlarmActionsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2507,6 +2525,7 @@ func (s EnableAlarmActionsOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetDashboardInput
 type GetDashboardInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2545,6 +2564,7 @@ func (s *GetDashboardInput) SetDashboardName(v string) *GetDashboardInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetDashboardOutput
 type GetDashboardOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2588,6 +2608,7 @@ func (s *GetDashboardOutput) SetDashboardName(v string) *GetDashboardOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetMetricStatisticsInput
 type GetMetricStatisticsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2801,6 +2822,7 @@ func (s *GetMetricStatisticsInput) SetUnit(v string) *GetMetricStatisticsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetMetricStatisticsOutput
 type GetMetricStatisticsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2833,6 +2855,7 @@ func (s *GetMetricStatisticsOutput) SetLabel(v string) *GetMetricStatisticsOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/ListDashboardsInput
 type ListDashboardsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2868,6 +2891,7 @@ func (s *ListDashboardsInput) SetNextToken(v string) *ListDashboardsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/ListDashboardsOutput
 type ListDashboardsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2900,6 +2924,7 @@ func (s *ListDashboardsOutput) SetNextToken(v string) *ListDashboardsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/ListMetricsInput
 type ListMetricsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2977,6 +3002,7 @@ func (s *ListMetricsInput) SetNextToken(v string) *ListMetricsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/ListMetricsOutput
 type ListMetricsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3010,6 +3036,7 @@ func (s *ListMetricsOutput) SetNextToken(v string) *ListMetricsOutput {
 }
 
 // Represents a specific metric.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/Metric
 type Metric struct {
 	_ struct{} `type:"structure"`
 
@@ -3052,6 +3079,7 @@ func (s *Metric) SetNamespace(v string) *Metric {
 }
 
 // Represents an alarm.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/MetricAlarm
 type MetricAlarm struct {
 	_ struct{} `type:"structure"`
 
@@ -3305,6 +3333,7 @@ func (s *MetricAlarm) SetUnit(v string) *MetricAlarm {
 
 // Encapsulates the information sent to either create a metric or add new values
 // to be aggregated into an existing metric.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/MetricDatum
 type MetricDatum struct {
 	_ struct{} `type:"structure"`
 
@@ -3433,6 +3462,7 @@ func (s *MetricDatum) SetValue(v float64) *MetricDatum {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutDashboardInput
 type PutDashboardInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3492,6 +3522,7 @@ func (s *PutDashboardInput) SetDashboardName(v string) *PutDashboardInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutDashboardOutput
 type PutDashboardOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3523,6 +3554,7 @@ func (s *PutDashboardOutput) SetDashboardValidationMessages(v []*DashboardValida
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutMetricAlarmInput
 type PutMetricAlarmInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3856,6 +3888,7 @@ func (s *PutMetricAlarmInput) SetUnit(v string) *PutMetricAlarmInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutMetricAlarmOutput
 type PutMetricAlarmOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3870,6 +3903,7 @@ func (s PutMetricAlarmOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutMetricDataInput
 type PutMetricDataInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3938,6 +3972,7 @@ func (s *PutMetricDataInput) SetNamespace(v string) *PutMetricDataInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutMetricDataOutput
 type PutMetricDataOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3952,6 +3987,7 @@ func (s PutMetricDataOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/SetAlarmStateInput
 type SetAlarmStateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4031,6 +4067,7 @@ func (s *SetAlarmStateInput) SetStateValue(v string) *SetAlarmStateInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/SetAlarmStateOutput
 type SetAlarmStateOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4046,6 +4083,7 @@ func (s SetAlarmStateOutput) GoString() string {
 }
 
 // Represents a set of statistics that describes a specific metric.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/StatisticSet
 type StatisticSet struct {
 	_ struct{} `type:"structure"`
 

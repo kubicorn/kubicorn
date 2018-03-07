@@ -1136,6 +1136,7 @@ func (c *CloudHSMV2) UntagResourceWithContext(ctx aws.Context, input *UntagResou
 }
 
 // Contains information about a backup of an AWS CloudHSM cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/Backup
 type Backup struct {
 	_ struct{} `type:"structure"`
 
@@ -1189,6 +1190,7 @@ func (s *Backup) SetCreateTimestamp(v time.Time) *Backup {
 }
 
 // Contains one or more certificates or a certificate signing request (CSR).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/Certificates
 type Certificates struct {
 	_ struct{} `type:"structure"`
 
@@ -1251,6 +1253,7 @@ func (s *Certificates) SetManufacturerHardwareCertificate(v string) *Certificate
 }
 
 // Contains information about an AWS CloudHSM cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/Cluster
 type Cluster struct {
 	_ struct{} `type:"structure"`
 
@@ -1384,6 +1387,7 @@ func (s *Cluster) SetVpcId(v string) *Cluster {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/CreateClusterRequest
 type CreateClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1457,6 +1461,7 @@ func (s *CreateClusterInput) SetSubnetIds(v []*string) *CreateClusterInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/CreateClusterResponse
 type CreateClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1480,6 +1485,7 @@ func (s *CreateClusterOutput) SetCluster(v *Cluster) *CreateClusterOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/CreateHsmRequest
 type CreateHsmInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1545,6 +1551,7 @@ func (s *CreateHsmInput) SetIpAddress(v string) *CreateHsmInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/CreateHsmResponse
 type CreateHsmOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1568,6 +1575,7 @@ func (s *CreateHsmOutput) SetHsm(v *Hsm) *CreateHsmOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DeleteClusterRequest
 type DeleteClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1607,6 +1615,7 @@ func (s *DeleteClusterInput) SetClusterId(v string) *DeleteClusterInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DeleteClusterResponse
 type DeleteClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1630,6 +1639,7 @@ func (s *DeleteClusterOutput) SetCluster(v *Cluster) *DeleteClusterOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DeleteHsmRequest
 type DeleteHsmInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1697,6 +1707,7 @@ func (s *DeleteHsmInput) SetHsmId(v string) *DeleteHsmInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DeleteHsmResponse
 type DeleteHsmOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1720,6 +1731,7 @@ func (s *DeleteHsmOutput) SetHsmId(v string) *DeleteHsmOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DescribeBackupsRequest
 type DescribeBackupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1784,6 +1796,7 @@ func (s *DescribeBackupsInput) SetNextToken(v string) *DescribeBackupsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DescribeBackupsResponse
 type DescribeBackupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1818,6 +1831,7 @@ func (s *DescribeBackupsOutput) SetNextToken(v string) *DescribeBackupsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DescribeClustersRequest
 type DescribeClustersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1883,6 +1897,7 @@ func (s *DescribeClustersInput) SetNextToken(v string) *DescribeClustersInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DescribeClustersResponse
 type DescribeClustersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1919,6 +1934,7 @@ func (s *DescribeClustersOutput) SetNextToken(v string) *DescribeClustersOutput 
 
 // Contains information about a hardware security module (HSM) in an AWS CloudHSM
 // cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/Hsm
 type Hsm struct {
 	_ struct{} `type:"structure"`
 
@@ -2007,6 +2023,7 @@ func (s *Hsm) SetSubnetId(v string) *Hsm {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/InitializeClusterRequest
 type InitializeClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2080,6 +2097,7 @@ func (s *InitializeClusterInput) SetTrustAnchor(v string) *InitializeClusterInpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/InitializeClusterResponse
 type InitializeClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2112,6 +2130,7 @@ func (s *InitializeClusterOutput) SetStateMessage(v string) *InitializeClusterOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/ListTagsRequest
 type ListTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2174,6 +2193,7 @@ func (s *ListTagsInput) SetResourceId(v string) *ListTagsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/ListTagsResponse
 type ListTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2210,6 +2230,7 @@ func (s *ListTagsOutput) SetTagList(v []*Tag) *ListTagsOutput {
 }
 
 // Contains a tag. A tag is a key-value pair.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/Tag
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -2265,6 +2286,7 @@ func (s *Tag) SetValue(v string) *Tag {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/TagResourceRequest
 type TagResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2331,6 +2353,7 @@ func (s *TagResourceInput) SetTagList(v []*Tag) *TagResourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/TagResourceResponse
 type TagResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2345,6 +2368,7 @@ func (s TagResourceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/UntagResourceRequest
 type UntagResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2402,6 +2426,7 @@ func (s *UntagResourceInput) SetTagKeyList(v []*string) *UntagResourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/UntagResourceResponse
 type UntagResourceOutput struct {
 	_ struct{} `type:"structure"`
 }

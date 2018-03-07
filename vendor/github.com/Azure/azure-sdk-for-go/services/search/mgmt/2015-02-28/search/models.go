@@ -25,11 +25,11 @@ import (
 type ProvisioningState string
 
 const (
-	// Failed ...
+	// Failed specifies the failed state for provisioning state.
 	Failed ProvisioningState = "failed"
-	// Provisioning ...
+	// Provisioning specifies the provisioning state for provisioning state.
 	Provisioning ProvisioningState = "provisioning"
-	// Succeeded ...
+	// Succeeded specifies the succeeded state for provisioning state.
 	Succeeded ProvisioningState = "succeeded"
 )
 
@@ -37,17 +37,17 @@ const (
 type ServiceStatus string
 
 const (
-	// ServiceStatusDegraded ...
+	// ServiceStatusDegraded specifies the service status degraded state for service status.
 	ServiceStatusDegraded ServiceStatus = "degraded"
-	// ServiceStatusDeleting ...
+	// ServiceStatusDeleting specifies the service status deleting state for service status.
 	ServiceStatusDeleting ServiceStatus = "deleting"
-	// ServiceStatusDisabled ...
+	// ServiceStatusDisabled specifies the service status disabled state for service status.
 	ServiceStatusDisabled ServiceStatus = "disabled"
-	// ServiceStatusError ...
+	// ServiceStatusError specifies the service status error state for service status.
 	ServiceStatusError ServiceStatus = "error"
-	// ServiceStatusProvisioning ...
+	// ServiceStatusProvisioning specifies the service status provisioning state for service status.
 	ServiceStatusProvisioning ServiceStatus = "provisioning"
-	// ServiceStatusRunning ...
+	// ServiceStatusRunning specifies the service status running state for service status.
 	ServiceStatusRunning ServiceStatus = "running"
 )
 
@@ -55,118 +55,88 @@ const (
 type SkuType string
 
 const (
-	// Free ...
+	// Free specifies the free state for sku type.
 	Free SkuType = "free"
-	// Standard ...
+	// Standard specifies the standard state for sku type.
 	Standard SkuType = "standard"
-	// Standard2 ...
+	// Standard2 specifies the standard 2 state for sku type.
 	Standard2 SkuType = "standard2"
 )
 
-// AdminKeyResult response containing the primary and secondary API keys for a given Azure Search service.
+// AdminKeyResult is response containing the primary and secondary API keys for a given Azure Search service.
 type AdminKeyResult struct {
 	autorest.Response `json:"-"`
-	// PrimaryKey - The primary API key of the Search service.
-	PrimaryKey *string `json:"primaryKey,omitempty"`
-	// SecondaryKey - The secondary API key of the Search service.
-	SecondaryKey *string `json:"secondaryKey,omitempty"`
+	PrimaryKey        *string `json:"primaryKey,omitempty"`
+	SecondaryKey      *string `json:"secondaryKey,omitempty"`
 }
 
-// ListQueryKeysResult response containing the query API keys for a given Azure Search service.
+// ListQueryKeysResult is response containing the query API keys for a given Azure Search service.
 type ListQueryKeysResult struct {
 	autorest.Response `json:"-"`
-	// Value - The query keys for the Azure Search service.
-	Value *[]QueryKey `json:"value,omitempty"`
+	Value             *[]QueryKey `json:"value,omitempty"`
 }
 
-// QueryKey describes an API key for a given Azure Search service that has permissions for query operations only.
+// QueryKey is describes an API key for a given Azure Search service that has permissions for query operations only.
 type QueryKey struct {
-	// Name - The name of the query API key; may be empty.
 	Name *string `json:"name,omitempty"`
-	// Key - The value of the query API key.
-	Key *string `json:"key,omitempty"`
+	Key  *string `json:"key,omitempty"`
 }
 
-// Resource ...
+// Resource is
 type Resource struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Location *string             `json:"location,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
 }
 
-// ServiceCreateOrUpdateParameters properties that describe an Azure Search service.
+// ServiceCreateOrUpdateParameters is properties that describe an Azure Search service.
 type ServiceCreateOrUpdateParameters struct {
-	// Location - The geographic location of the Search service.
-	Location *string `json:"location,omitempty"`
-	// Tags - Tags to help categorize the Search service in the Azure Portal.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Properties - Properties of the Search service.
-	Properties *ServiceProperties `json:"properties,omitempty"`
+	Location   *string             `json:"location,omitempty"`
+	Tags       *map[string]*string `json:"tags,omitempty"`
+	Properties *ServiceProperties  `json:"properties,omitempty"`
 }
 
-// ServiceListResult response containing a list of Azure Search services for a given resource group.
+// ServiceListResult is response containing a list of Azure Search services for a given resource group.
 type ServiceListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The Search services in the resource group.
-	Value *[]ServiceResource `json:"value,omitempty"`
+	Value             *[]ServiceResource `json:"value,omitempty"`
 }
 
-// ServiceProperties defines properties of an Azure Search service that can be modified.
+// ServiceProperties is defines properties of an Azure Search service that can be modified.
 type ServiceProperties struct {
-	// Sku - The SKU of the Search Service, which determines price tier and capacity limits.
-	Sku *Sku `json:"sku,omitempty"`
-	// ReplicaCount - The number of replicas in the Search service. If specified, it must be a value between 1 and 6 inclusive.
-	ReplicaCount *int32 `json:"replicaCount,omitempty"`
-	// PartitionCount - The number of partitions in the Search service; if specified, it can be 1, 2, 3, 4, 6, or 12.
+	Sku            *Sku   `json:"sku,omitempty"`
+	ReplicaCount   *int32 `json:"replicaCount,omitempty"`
 	PartitionCount *int32 `json:"partitionCount,omitempty"`
 }
 
-// ServiceReadableProperties defines all the properties of an Azure Search service.
+// ServiceReadableProperties is defines all the properties of an Azure Search service.
 type ServiceReadableProperties struct {
-	// Status - The status of the Search service. Possible values include: 'ServiceStatusRunning', 'ServiceStatusProvisioning', 'ServiceStatusDeleting', 'ServiceStatusDegraded', 'ServiceStatusDisabled', 'ServiceStatusError'
-	Status ServiceStatus `json:"status,omitempty"`
-	// StatusDetails - The details of the Search service status.
-	StatusDetails *string `json:"statusDetails,omitempty"`
-	// ProvisioningState - The state of the last provisioning operation performed on the Search service. Possible values include: 'Succeeded', 'Provisioning', 'Failed'
+	Status            ServiceStatus     `json:"status,omitempty"`
+	StatusDetails     *string           `json:"statusDetails,omitempty"`
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
-	// Sku - The SKU of the Search Service, which determines price tier and capacity limits.
-	Sku *Sku `json:"sku,omitempty"`
-	// ReplicaCount - The number of replicas in the Search service. If specified, it must be a value between 1 and 6 inclusive.
-	ReplicaCount *int32 `json:"replicaCount,omitempty"`
-	// PartitionCount - The number of partitions in the Search service; if specified, it can be 1, 2, 3, 4, 6, or 12.
-	PartitionCount *int32 `json:"partitionCount,omitempty"`
+	Sku               *Sku              `json:"sku,omitempty"`
+	ReplicaCount      *int32            `json:"replicaCount,omitempty"`
+	PartitionCount    *int32            `json:"partitionCount,omitempty"`
 }
 
-// ServiceResource describes an Azure Search service and its current state.
+// ServiceResource is describes an Azure Search service and its current state.
 type ServiceResource struct {
 	autorest.Response `json:"-"`
-	// ID - The resource Id of the Azure Search service.
-	ID *string `json:"id,omitempty"`
-	// Name - The name of the Search service.
-	Name *string `json:"name,omitempty"`
-	// Location - The geographic location of the Search service.
-	Location *string `json:"location,omitempty"`
-	// Tags - Tags to help categorize the Search service in the Azure Portal.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Properties - Properties of the Search service.
-	Properties *ServiceReadableProperties `json:"properties,omitempty"`
+	ID                *string                    `json:"id,omitempty"`
+	Name              *string                    `json:"name,omitempty"`
+	Location          *string                    `json:"location,omitempty"`
+	Tags              *map[string]*string        `json:"tags,omitempty"`
+	Properties        *ServiceReadableProperties `json:"properties,omitempty"`
 }
 
-// Sku defines the SKU of an Azure Search Service, which determines price tier and capacity limits.
+// Sku is defines the SKU of an Azure Search Service, which determines price tier and capacity limits.
 type Sku struct {
-	// Name - The SKU of the Search service. Possible values include: 'Free', 'Standard', 'Standard2'
 	Name SkuType `json:"name,omitempty"`
 }
 
-// SubResource ...
+// SubResource is
 type SubResource struct {
-	// ID - Resource Id
 	ID *string `json:"id,omitempty"`
 }

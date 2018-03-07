@@ -18,7 +18,6 @@ package trafficmanager
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // HeatMapClient is the client for the HeatMap methods of the Trafficmanager service.
 type HeatMapClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewHeatMapClient creates an instance of the HeatMapClient client.
@@ -46,7 +45,7 @@ func NewHeatMapClientWithBaseURI(baseURI string, subscriptionID string) HeatMapC
 // of the Traffic Manager profile. heatMapType is the type of HeatMap for the Traffic Manager profile. topLeft is the
 // top left latitude,longitude pair of the rectangular viewport to query for. botRight is the bottom right
 // latitude,longitude pair of the rectangular viewport to query for.
-func (client HeatMapClient) Get(ctx context.Context, resourceGroupName string, profileName string, heatMapType string, topLeft []float64, botRight []float64) (result HeatMapModel, err error) {
+func (client HeatMapClient) Get(resourceGroupName string, profileName string, heatMapType string, topLeft []float64, botRight []float64) (result HeatMapModel, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: topLeft,
 			Constraints: []validation.Constraint{{Target: "topLeft", Name: validation.Null, Rule: false,
@@ -61,7 +60,7 @@ func (client HeatMapClient) Get(ctx context.Context, resourceGroupName string, p
 		return result, validation.NewErrorWithValidationError(err, "trafficmanager.HeatMapClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, profileName, heatMapType, topLeft, botRight)
+	req, err := client.GetPreparer(resourceGroupName, profileName, heatMapType, topLeft, botRight)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "trafficmanager.HeatMapClient", "Get", nil, "Failure preparing request")
 		return
@@ -83,7 +82,7 @@ func (client HeatMapClient) Get(ctx context.Context, resourceGroupName string, p
 }
 
 // GetPreparer prepares the Get request.
-func (client HeatMapClient) GetPreparer(ctx context.Context, resourceGroupName string, profileName string, heatMapType string, topLeft []float64, botRight []float64) (*http.Request, error) {
+func (client HeatMapClient) GetPreparer(resourceGroupName string, profileName string, heatMapType string, topLeft []float64, botRight []float64) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"heatMapType":       autorest.Encode("path", heatMapType),
 		"profileName":       autorest.Encode("path", profileName),
@@ -107,13 +106,14 @@ func (client HeatMapClient) GetPreparer(ctx context.Context, resourceGroupName s
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficmanagerprofiles/{profileName}/heatMaps/{heatMapType}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client HeatMapClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -18,7 +18,6 @@ package servicebus
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // EventHubsClient is the azure Service Bus client
 type EventHubsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewEventHubsClient creates an instance of the EventHubsClient client.
@@ -43,7 +42,7 @@ func NewEventHubsClientWithBaseURI(baseURI string, subscriptionID string) EventH
 // ListByNamespace gets all the Event Hubs in a service bus Namespace.
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
-func (client EventHubsClient) ListByNamespace(ctx context.Context, resourceGroupName string, namespaceName string) (result EventHubListResultPage, err error) {
+func (client EventHubsClient) ListByNamespace(resourceGroupName string, namespaceName string) (result EventHubListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -54,8 +53,7 @@ func (client EventHubsClient) ListByNamespace(ctx context.Context, resourceGroup
 		return result, validation.NewErrorWithValidationError(err, "servicebus.EventHubsClient", "ListByNamespace")
 	}
 
-	result.fn = client.listByNamespaceNextResults
-	req, err := client.ListByNamespacePreparer(ctx, resourceGroupName, namespaceName)
+	req, err := client.ListByNamespacePreparer(resourceGroupName, namespaceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "ListByNamespace", nil, "Failure preparing request")
 		return
@@ -63,12 +61,12 @@ func (client EventHubsClient) ListByNamespace(ctx context.Context, resourceGroup
 
 	resp, err := client.ListByNamespaceSender(req)
 	if err != nil {
-		result.ehlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "ListByNamespace", resp, "Failure sending request")
 		return
 	}
 
-	result.ehlr, err = client.ListByNamespaceResponder(resp)
+	result, err = client.ListByNamespaceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "ListByNamespace", resp, "Failure responding to request")
 	}
@@ -77,7 +75,7 @@ func (client EventHubsClient) ListByNamespace(ctx context.Context, resourceGroup
 }
 
 // ListByNamespacePreparer prepares the ListByNamespace request.
-func (client EventHubsClient) ListByNamespacePreparer(ctx context.Context, resourceGroupName string, namespaceName string) (*http.Request, error) {
+func (client EventHubsClient) ListByNamespacePreparer(resourceGroupName string, namespaceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"namespaceName":     autorest.Encode("path", namespaceName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -94,13 +92,14 @@ func (client EventHubsClient) ListByNamespacePreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceBus/namespaces/{namespaceName}/eventhubs", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByNamespaceSender sends the ListByNamespace request. The method will close the
 // http.Response Body if it receives an error.
 func (client EventHubsClient) ListByNamespaceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -117,29 +116,71 @@ func (client EventHubsClient) ListByNamespaceResponder(resp *http.Response) (res
 	return
 }
 
-// listByNamespaceNextResults retrieves the next set of results, if any.
-func (client EventHubsClient) listByNamespaceNextResults(lastResults EventHubListResult) (result EventHubListResult, err error) {
-	req, err := lastResults.eventHubListResultPreparer()
+// ListByNamespaceNextResults retrieves the next set of results, if any.
+func (client EventHubsClient) ListByNamespaceNextResults(lastResults EventHubListResult) (result EventHubListResult, err error) {
+	req, err := lastResults.EventHubListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "listByNamespaceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "ListByNamespace", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByNamespaceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "listByNamespaceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "ListByNamespace", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByNamespaceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "listByNamespaceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "servicebus.EventHubsClient", "ListByNamespace", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByNamespaceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client EventHubsClient) ListByNamespaceComplete(ctx context.Context, resourceGroupName string, namespaceName string) (result EventHubListResultIterator, err error) {
-	result.page, err = client.ListByNamespace(ctx, resourceGroupName, namespaceName)
-	return
+// ListByNamespaceComplete gets all elements from the list without paging.
+func (client EventHubsClient) ListByNamespaceComplete(resourceGroupName string, namespaceName string, cancel <-chan struct{}) (<-chan Eventhub, <-chan error) {
+	resultChan := make(chan Eventhub)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByNamespace(resourceGroupName, namespaceName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByNamespaceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

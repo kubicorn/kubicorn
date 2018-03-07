@@ -83,7 +83,10 @@ func (this *MyMessage) VerboseEqual(that interface{}) error {
 }
 func (this *MyMessage) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*MyMessage)
@@ -96,7 +99,10 @@ func (this *MyMessage) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}

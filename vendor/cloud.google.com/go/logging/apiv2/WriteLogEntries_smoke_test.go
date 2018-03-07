@@ -1,10 +1,10 @@
-// Copyright 2018 Google LLC
+// Copyright 2017, Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     https://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,6 @@ import (
 )
 
 import (
-	"fmt"
 	"strconv"
 	"testing"
 	"time"
@@ -32,7 +31,6 @@ import (
 	"google.golang.org/api/option"
 )
 
-var _ = fmt.Sprintf
 var _ = iterator.Done
 var _ = strconv.FormatUint
 var _ = time.Now
@@ -56,7 +54,7 @@ func TestLoggingServiceV2Smoke(t *testing.T) {
 	}
 
 	var entries []*loggingpb.LogEntry = nil
-	var formattedLogName string = fmt.Sprintf("projects/%s/logs/%s", projectId, "test-"+strconv.FormatInt(time.Now().UnixNano(), 10)+"")
+	var formattedLogName string = LogPath(projectId, "test-"+strconv.FormatInt(time.Now().UnixNano(), 10)+"")
 	var request = &loggingpb.WriteLogEntriesRequest{
 		Entries: entries,
 		LogName: formattedLogName,

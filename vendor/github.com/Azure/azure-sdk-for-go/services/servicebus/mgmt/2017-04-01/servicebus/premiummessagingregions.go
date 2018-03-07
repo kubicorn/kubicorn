@@ -18,7 +18,6 @@ package servicebus
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // PremiumMessagingRegionsClient is the azure Service Bus client
 type PremiumMessagingRegionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPremiumMessagingRegionsClient creates an instance of the PremiumMessagingRegionsClient client.
@@ -40,9 +39,8 @@ func NewPremiumMessagingRegionsClientWithBaseURI(baseURI string, subscriptionID 
 }
 
 // List gets the available premium messaging regions for servicebus
-func (client PremiumMessagingRegionsClient) List(ctx context.Context) (result PremiumMessagingRegionsListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx)
+func (client PremiumMessagingRegionsClient) List() (result PremiumMessagingRegionsListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "List", nil, "Failure preparing request")
 		return
@@ -50,12 +48,12 @@ func (client PremiumMessagingRegionsClient) List(ctx context.Context) (result Pr
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.pmrlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.pmrlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "List", resp, "Failure responding to request")
 	}
@@ -64,7 +62,7 @@ func (client PremiumMessagingRegionsClient) List(ctx context.Context) (result Pr
 }
 
 // ListPreparer prepares the List request.
-func (client PremiumMessagingRegionsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client PremiumMessagingRegionsClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -79,13 +77,14 @@ func (client PremiumMessagingRegionsClient) ListPreparer(ctx context.Context) (*
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.ServiceBus/premiumMessagingRegions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client PremiumMessagingRegionsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -102,29 +101,71 @@ func (client PremiumMessagingRegionsClient) ListResponder(resp *http.Response) (
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client PremiumMessagingRegionsClient) listNextResults(lastResults PremiumMessagingRegionsListResult) (result PremiumMessagingRegionsListResult, err error) {
-	req, err := lastResults.premiumMessagingRegionsListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client PremiumMessagingRegionsClient) ListNextResults(lastResults PremiumMessagingRegionsListResult) (result PremiumMessagingRegionsListResult, err error) {
+	req, err := lastResults.PremiumMessagingRegionsListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "servicebus.PremiumMessagingRegionsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client PremiumMessagingRegionsClient) ListComplete(ctx context.Context) (result PremiumMessagingRegionsListResultIterator, err error) {
-	result.page, err = client.List(ctx)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client PremiumMessagingRegionsClient) ListComplete(cancel <-chan struct{}) (<-chan PremiumMessagingRegions, <-chan error) {
+	resultChan := make(chan PremiumMessagingRegions)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

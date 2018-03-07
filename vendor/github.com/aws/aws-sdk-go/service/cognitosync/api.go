@@ -1670,6 +1670,7 @@ func (c *CognitoSync) UpdateRecordsWithContext(ctx aws.Context, input *UpdateRec
 }
 
 // The input for the BulkPublish operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/BulkPublishRequest
 type BulkPublishInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1713,6 +1714,7 @@ func (s *BulkPublishInput) SetIdentityPoolId(v string) *BulkPublishInput {
 }
 
 // The output for the BulkPublish operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/BulkPublishResponse
 type BulkPublishOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1738,6 +1740,7 @@ func (s *BulkPublishOutput) SetIdentityPoolId(v string) *BulkPublishOutput {
 }
 
 // Configuration options for configure Cognito streams.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/CognitoStreams
 type CognitoStreams struct {
 	_ struct{} `type:"structure"`
 
@@ -1807,6 +1810,7 @@ func (s *CognitoStreams) SetStreamingStatus(v string) *CognitoStreams {
 // a particular entity in an application (like a saved game). Datasets are automatically
 // created if they don't exist. Data is synced by dataset, and a dataset can
 // hold up to 1MB of key-value pairs.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/Dataset
 type Dataset struct {
 	_ struct{} `type:"structure"`
 
@@ -1887,6 +1891,7 @@ func (s *Dataset) SetNumRecords(v int64) *Dataset {
 }
 
 // A request to delete the specific dataset.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DeleteDatasetRequest
 type DeleteDatasetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1966,6 +1971,7 @@ func (s *DeleteDatasetInput) SetIdentityPoolId(v string) *DeleteDatasetInput {
 }
 
 // Response to a successful DeleteDataset request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DeleteDatasetResponse
 type DeleteDatasetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1995,6 +2001,7 @@ func (s *DeleteDatasetOutput) SetDataset(v *Dataset) *DeleteDatasetOutput {
 
 // A request for meta data about a dataset (creation date, number of records,
 // size) by owner and dataset name.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DescribeDatasetRequest
 type DescribeDatasetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2074,6 +2081,7 @@ func (s *DescribeDatasetInput) SetIdentityPoolId(v string) *DescribeDatasetInput
 }
 
 // Response to a successful DescribeDataset request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DescribeDatasetResponse
 type DescribeDatasetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2102,6 +2110,7 @@ func (s *DescribeDatasetOutput) SetDataset(v *Dataset) *DescribeDatasetOutput {
 }
 
 // A request for usage information about the identity pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DescribeIdentityPoolUsageRequest
 type DescribeIdentityPoolUsageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2145,6 +2154,7 @@ func (s *DescribeIdentityPoolUsageInput) SetIdentityPoolId(v string) *DescribeId
 }
 
 // Response to a successful DescribeIdentityPoolUsage request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DescribeIdentityPoolUsageResponse
 type DescribeIdentityPoolUsageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2169,6 +2179,7 @@ func (s *DescribeIdentityPoolUsageOutput) SetIdentityPoolUsage(v *IdentityPoolUs
 }
 
 // A request for information about the usage of an identity pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DescribeIdentityUsageRequest
 type DescribeIdentityUsageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2230,6 +2241,7 @@ func (s *DescribeIdentityUsageInput) SetIdentityPoolId(v string) *DescribeIdenti
 }
 
 // The response to a successful DescribeIdentityUsage request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/DescribeIdentityUsageResponse
 type DescribeIdentityUsageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2254,6 +2266,7 @@ func (s *DescribeIdentityUsageOutput) SetIdentityUsage(v *IdentityUsage) *Descri
 }
 
 // The input for the GetBulkPublishDetails operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/GetBulkPublishDetailsRequest
 type GetBulkPublishDetailsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2297,6 +2310,7 @@ func (s *GetBulkPublishDetailsInput) SetIdentityPoolId(v string) *GetBulkPublish
 }
 
 // The output for the GetBulkPublishDetails operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/GetBulkPublishDetailsResponse
 type GetBulkPublishDetailsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2369,6 +2383,7 @@ func (s *GetBulkPublishDetailsOutput) SetIdentityPoolId(v string) *GetBulkPublis
 }
 
 // A request for a list of the configured Cognito Events
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/GetCognitoEventsRequest
 type GetCognitoEventsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2411,6 +2426,7 @@ func (s *GetCognitoEventsInput) SetIdentityPoolId(v string) *GetCognitoEventsInp
 }
 
 // The response from the GetCognitoEvents request
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/GetCognitoEventsResponse
 type GetCognitoEventsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2435,6 +2451,7 @@ func (s *GetCognitoEventsOutput) SetEvents(v map[string]*string) *GetCognitoEven
 }
 
 // The input for the GetIdentityPoolConfiguration operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/GetIdentityPoolConfigurationRequest
 type GetIdentityPoolConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2479,6 +2496,7 @@ func (s *GetIdentityPoolConfigurationInput) SetIdentityPoolId(v string) *GetIden
 }
 
 // The output for the GetIdentityPoolConfiguration operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/GetIdentityPoolConfigurationResponse
 type GetIdentityPoolConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2522,6 +2540,7 @@ func (s *GetIdentityPoolConfigurationOutput) SetPushSync(v *PushSync) *GetIdenti
 }
 
 // Usage information for the identity pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/IdentityPoolUsage
 type IdentityPoolUsage struct {
 	_ struct{} `type:"structure"`
 
@@ -2574,6 +2593,7 @@ func (s *IdentityPoolUsage) SetSyncSessionsCount(v int64) *IdentityPoolUsage {
 }
 
 // Usage information for the identity.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/IdentityUsage
 type IdentityUsage struct {
 	_ struct{} `type:"structure"`
 
@@ -2636,6 +2656,7 @@ func (s *IdentityUsage) SetLastModifiedDate(v time.Time) *IdentityUsage {
 }
 
 // Request for a list of datasets for an identity.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/ListDatasetsRequest
 type ListDatasetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2715,6 +2736,7 @@ func (s *ListDatasetsInput) SetNextToken(v string) *ListDatasetsInput {
 }
 
 // Returned for a successful ListDatasets request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/ListDatasetsResponse
 type ListDatasetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2757,6 +2779,7 @@ func (s *ListDatasetsOutput) SetNextToken(v string) *ListDatasetsOutput {
 }
 
 // A request for usage information on an identity pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/ListIdentityPoolUsageRequest
 type ListIdentityPoolUsageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2790,6 +2813,7 @@ func (s *ListIdentityPoolUsageInput) SetNextToken(v string) *ListIdentityPoolUsa
 }
 
 // Returned for a successful ListIdentityPoolUsage request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/ListIdentityPoolUsageResponse
 type ListIdentityPoolUsageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2841,6 +2865,7 @@ func (s *ListIdentityPoolUsageOutput) SetNextToken(v string) *ListIdentityPoolUs
 }
 
 // A request for a list of records.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/ListRecordsRequest
 type ListRecordsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2956,6 +2981,7 @@ func (s *ListRecordsInput) SetSyncSessionToken(v string) *ListRecordsInput {
 }
 
 // Returned for a successful ListRecordsRequest.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/ListRecordsResponse
 type ListRecordsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3052,6 +3078,7 @@ func (s *ListRecordsOutput) SetSyncSessionToken(v string) *ListRecordsOutput {
 }
 
 // Configuration options to be applied to the identity pool.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/PushSync
 type PushSync struct {
 	_ struct{} `type:"structure"`
 
@@ -3098,6 +3125,7 @@ func (s *PushSync) SetRoleArn(v string) *PushSync {
 }
 
 // The basic data structure of a dataset.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/Record
 type Record struct {
 	_ struct{} `type:"structure"`
 
@@ -3167,6 +3195,7 @@ func (s *Record) SetValue(v string) *Record {
 }
 
 // An update operation for a record.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/RecordPatch
 type RecordPatch struct {
 	_ struct{} `type:"structure"`
 
@@ -3255,6 +3284,7 @@ func (s *RecordPatch) SetValue(v string) *RecordPatch {
 }
 
 // A request to RegisterDevice.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/RegisterDeviceRequest
 type RegisterDeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3344,6 +3374,7 @@ func (s *RegisterDeviceInput) SetToken(v string) *RegisterDeviceInput {
 }
 
 // Response to a RegisterDevice request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/RegisterDeviceResponse
 type RegisterDeviceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3368,6 +3399,7 @@ func (s *RegisterDeviceOutput) SetDeviceId(v string) *RegisterDeviceOutput {
 }
 
 // A request to configure Cognito Events"
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/SetCognitoEventsRequest
 type SetCognitoEventsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3423,6 +3455,7 @@ func (s *SetCognitoEventsInput) SetIdentityPoolId(v string) *SetCognitoEventsInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/SetCognitoEventsOutput
 type SetCognitoEventsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3438,6 +3471,7 @@ func (s SetCognitoEventsOutput) GoString() string {
 }
 
 // The input for the SetIdentityPoolConfiguration operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/SetIdentityPoolConfigurationRequest
 type SetIdentityPoolConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3509,6 +3543,7 @@ func (s *SetIdentityPoolConfigurationInput) SetPushSync(v *PushSync) *SetIdentit
 }
 
 // The output for the SetIdentityPoolConfiguration operation
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/SetIdentityPoolConfigurationResponse
 type SetIdentityPoolConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3552,6 +3587,7 @@ func (s *SetIdentityPoolConfigurationOutput) SetPushSync(v *PushSync) *SetIdenti
 }
 
 // A request to SubscribeToDatasetRequest.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/SubscribeToDatasetRequest
 type SubscribeToDatasetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3646,6 +3682,7 @@ func (s *SubscribeToDatasetInput) SetIdentityPoolId(v string) *SubscribeToDatase
 }
 
 // Response to a SubscribeToDataset request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/SubscribeToDatasetResponse
 type SubscribeToDatasetOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3661,6 +3698,7 @@ func (s SubscribeToDatasetOutput) GoString() string {
 }
 
 // A request to UnsubscribeFromDataset.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/UnsubscribeFromDatasetRequest
 type UnsubscribeFromDatasetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3755,6 +3793,7 @@ func (s *UnsubscribeFromDatasetInput) SetIdentityPoolId(v string) *UnsubscribeFr
 }
 
 // Response to an UnsubscribeFromDataset request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/UnsubscribeFromDatasetResponse
 type UnsubscribeFromDatasetOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3771,6 +3810,7 @@ func (s UnsubscribeFromDatasetOutput) GoString() string {
 
 // A request to post updates to records or add and delete records for a dataset
 // and user.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/UpdateRecordsRequest
 type UpdateRecordsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3906,6 +3946,7 @@ func (s *UpdateRecordsInput) SetSyncSessionToken(v string) *UpdateRecordsInput {
 }
 
 // Returned for a successful UpdateRecordsRequest.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-sync-2014-06-30/UpdateRecordsResponse
 type UpdateRecordsOutput struct {
 	_ struct{} `type:"structure"`
 

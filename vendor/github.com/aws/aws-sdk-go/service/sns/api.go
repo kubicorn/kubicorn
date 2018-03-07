@@ -3087,6 +3087,7 @@ func (c *SNS) UnsubscribeWithContext(ctx aws.Context, input *UnsubscribeInput, o
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/AddPermissionInput
 type AddPermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3171,6 +3172,7 @@ func (s *AddPermissionInput) SetTopicArn(v string) *AddPermissionInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/AddPermissionOutput
 type AddPermissionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3186,6 +3188,7 @@ func (s AddPermissionOutput) GoString() string {
 }
 
 // The input for the CheckIfPhoneNumberIsOptedOut action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CheckIfPhoneNumberIsOptedOutInput
 type CheckIfPhoneNumberIsOptedOutInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3225,6 +3228,7 @@ func (s *CheckIfPhoneNumberIsOptedOutInput) SetPhoneNumber(v string) *CheckIfPho
 }
 
 // The response from the CheckIfPhoneNumberIsOptedOut action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CheckIfPhoneNumberIsOptedOutResponse
 type CheckIfPhoneNumberIsOptedOutOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3255,6 +3259,7 @@ func (s *CheckIfPhoneNumberIsOptedOutOutput) SetIsOptedOut(v bool) *CheckIfPhone
 }
 
 // Input for ConfirmSubscription action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ConfirmSubscriptionInput
 type ConfirmSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3320,6 +3325,7 @@ func (s *ConfirmSubscriptionInput) SetTopicArn(v string) *ConfirmSubscriptionInp
 }
 
 // Response for ConfirmSubscriptions action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ConfirmSubscriptionResponse
 type ConfirmSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3344,6 +3350,7 @@ func (s *ConfirmSubscriptionOutput) SetSubscriptionArn(v string) *ConfirmSubscri
 }
 
 // Input for CreatePlatformApplication action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CreatePlatformApplicationInput
 type CreatePlatformApplicationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3414,6 +3421,7 @@ func (s *CreatePlatformApplicationInput) SetPlatform(v string) *CreatePlatformAp
 }
 
 // Response from CreatePlatformApplication action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CreatePlatformApplicationResponse
 type CreatePlatformApplicationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3438,6 +3446,7 @@ func (s *CreatePlatformApplicationOutput) SetPlatformApplicationArn(v string) *C
 }
 
 // Input for CreatePlatformEndpoint action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CreatePlatformEndpointInput
 type CreatePlatformEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3515,6 +3524,7 @@ func (s *CreatePlatformEndpointInput) SetToken(v string) *CreatePlatformEndpoint
 }
 
 // Response from CreateEndpoint action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CreateEndpointResponse
 type CreatePlatformEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3539,6 +3549,7 @@ func (s *CreatePlatformEndpointOutput) SetEndpointArn(v string) *CreatePlatformE
 }
 
 // Input for CreateTopic action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CreateTopicInput
 type CreateTopicInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3582,6 +3593,7 @@ func (s *CreateTopicInput) SetName(v string) *CreateTopicInput {
 }
 
 // Response from CreateTopic action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/CreateTopicResponse
 type CreateTopicOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3606,6 +3618,7 @@ func (s *CreateTopicOutput) SetTopicArn(v string) *CreateTopicOutput {
 }
 
 // Input for DeleteEndpoint action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/DeleteEndpointInput
 type DeleteEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3644,6 +3657,7 @@ func (s *DeleteEndpointInput) SetEndpointArn(v string) *DeleteEndpointInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/DeleteEndpointOutput
 type DeleteEndpointOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3659,6 +3673,7 @@ func (s DeleteEndpointOutput) GoString() string {
 }
 
 // Input for DeletePlatformApplication action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/DeletePlatformApplicationInput
 type DeletePlatformApplicationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3697,6 +3712,7 @@ func (s *DeletePlatformApplicationInput) SetPlatformApplicationArn(v string) *De
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/DeletePlatformApplicationOutput
 type DeletePlatformApplicationOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3711,6 +3727,7 @@ func (s DeletePlatformApplicationOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/DeleteTopicInput
 type DeleteTopicInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3749,6 +3766,7 @@ func (s *DeleteTopicInput) SetTopicArn(v string) *DeleteTopicInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/DeleteTopicOutput
 type DeleteTopicOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3764,6 +3782,7 @@ func (s DeleteTopicOutput) GoString() string {
 }
 
 // Endpoint for mobile app and device.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/Endpoint
 type Endpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -3797,6 +3816,7 @@ func (s *Endpoint) SetEndpointArn(v string) *Endpoint {
 }
 
 // Input for GetEndpointAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetEndpointAttributesInput
 type GetEndpointAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3836,6 +3856,7 @@ func (s *GetEndpointAttributesInput) SetEndpointArn(v string) *GetEndpointAttrib
 }
 
 // Response from GetEndpointAttributes of the EndpointArn.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetEndpointAttributesResponse
 type GetEndpointAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3873,6 +3894,7 @@ func (s *GetEndpointAttributesOutput) SetAttributes(v map[string]*string) *GetEn
 }
 
 // Input for GetPlatformApplicationAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetPlatformApplicationAttributesInput
 type GetPlatformApplicationAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3912,6 +3934,7 @@ func (s *GetPlatformApplicationAttributesInput) SetPlatformApplicationArn(v stri
 }
 
 // Response for GetPlatformApplicationAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetPlatformApplicationAttributesResponse
 type GetPlatformApplicationAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3949,6 +3972,7 @@ func (s *GetPlatformApplicationAttributesOutput) SetAttributes(v map[string]*str
 }
 
 // The input for the GetSMSAttributes request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetSMSAttributesInput
 type GetSMSAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3978,6 +4002,7 @@ func (s *GetSMSAttributesInput) SetAttributes(v []*string) *GetSMSAttributesInpu
 }
 
 // The response from the GetSMSAttributes request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetSMSAttributesResponse
 type GetSMSAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4002,6 +4027,7 @@ func (s *GetSMSAttributesOutput) SetAttributes(v map[string]*string) *GetSMSAttr
 }
 
 // Input for GetSubscriptionAttributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetSubscriptionAttributesInput
 type GetSubscriptionAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4041,6 +4067,7 @@ func (s *GetSubscriptionAttributesInput) SetSubscriptionArn(v string) *GetSubscr
 }
 
 // Response for GetSubscriptionAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetSubscriptionAttributesResponse
 type GetSubscriptionAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4082,6 +4109,7 @@ func (s *GetSubscriptionAttributesOutput) SetAttributes(v map[string]*string) *G
 }
 
 // Input for GetTopicAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetTopicAttributesInput
 type GetTopicAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4121,6 +4149,7 @@ func (s *GetTopicAttributesInput) SetTopicArn(v string) *GetTopicAttributesInput
 }
 
 // Response for GetTopicAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/GetTopicAttributesResponse
 type GetTopicAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4168,6 +4197,7 @@ func (s *GetTopicAttributesOutput) SetAttributes(v map[string]*string) *GetTopic
 }
 
 // Input for ListEndpointsByPlatformApplication action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListEndpointsByPlatformApplicationInput
 type ListEndpointsByPlatformApplicationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4218,6 +4248,7 @@ func (s *ListEndpointsByPlatformApplicationInput) SetPlatformApplicationArn(v st
 }
 
 // Response for ListEndpointsByPlatformApplication action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListEndpointsByPlatformApplicationResponse
 type ListEndpointsByPlatformApplicationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4252,6 +4283,7 @@ func (s *ListEndpointsByPlatformApplicationOutput) SetNextToken(v string) *ListE
 }
 
 // The input for the ListPhoneNumbersOptedOut action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListPhoneNumbersOptedOutInput
 type ListPhoneNumbersOptedOutInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4278,6 +4310,7 @@ func (s *ListPhoneNumbersOptedOutInput) SetNextToken(v string) *ListPhoneNumbers
 }
 
 // The response from the ListPhoneNumbersOptedOut action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListPhoneNumbersOptedOutResponse
 type ListPhoneNumbersOptedOutOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4313,6 +4346,7 @@ func (s *ListPhoneNumbersOptedOutOutput) SetPhoneNumbers(v []*string) *ListPhone
 }
 
 // Input for ListPlatformApplications action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListPlatformApplicationsInput
 type ListPlatformApplicationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4338,6 +4372,7 @@ func (s *ListPlatformApplicationsInput) SetNextToken(v string) *ListPlatformAppl
 }
 
 // Response for ListPlatformApplications action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListPlatformApplicationsResponse
 type ListPlatformApplicationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4372,6 +4407,7 @@ func (s *ListPlatformApplicationsOutput) SetPlatformApplications(v []*PlatformAp
 }
 
 // Input for ListSubscriptionsByTopic action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListSubscriptionsByTopicInput
 type ListSubscriptionsByTopicInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4420,6 +4456,7 @@ func (s *ListSubscriptionsByTopicInput) SetTopicArn(v string) *ListSubscriptions
 }
 
 // Response for ListSubscriptionsByTopic action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListSubscriptionsByTopicResponse
 type ListSubscriptionsByTopicOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4454,6 +4491,7 @@ func (s *ListSubscriptionsByTopicOutput) SetSubscriptions(v []*Subscription) *Li
 }
 
 // Input for ListSubscriptions action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListSubscriptionsInput
 type ListSubscriptionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4478,6 +4516,7 @@ func (s *ListSubscriptionsInput) SetNextToken(v string) *ListSubscriptionsInput 
 }
 
 // Response for ListSubscriptions action
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListSubscriptionsResponse
 type ListSubscriptionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4511,6 +4550,7 @@ func (s *ListSubscriptionsOutput) SetSubscriptions(v []*Subscription) *ListSubsc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListTopicsInput
 type ListTopicsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4535,6 +4575,7 @@ func (s *ListTopicsInput) SetNextToken(v string) *ListTopicsInput {
 }
 
 // Response for ListTopics action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/ListTopicsResponse
 type ListTopicsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4577,6 +4618,7 @@ func (s *ListTopicsOutput) SetTopics(v []*Topic) *ListTopicsOutput {
 // name, type, and value, are included in the message size restriction, which
 // is currently 256 KB (262,144 bytes). For more information, see Using Amazon
 // SNS Message Attributes (http://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/MessageAttributeValue
 type MessageAttributeValue struct {
 	_ struct{} `type:"structure"`
 
@@ -4639,6 +4681,7 @@ func (s *MessageAttributeValue) SetStringValue(v string) *MessageAttributeValue 
 }
 
 // Input for the OptInPhoneNumber action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/OptInPhoneNumberInput
 type OptInPhoneNumberInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4678,6 +4721,7 @@ func (s *OptInPhoneNumberInput) SetPhoneNumber(v string) *OptInPhoneNumberInput 
 }
 
 // The response for the OptInPhoneNumber action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/OptInPhoneNumberResponse
 type OptInPhoneNumberOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4693,6 +4737,7 @@ func (s OptInPhoneNumberOutput) GoString() string {
 }
 
 // Platform application object.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/PlatformApplication
 type PlatformApplication struct {
 	_ struct{} `type:"structure"`
 
@@ -4726,6 +4771,7 @@ func (s *PlatformApplication) SetPlatformApplicationArn(v string) *PlatformAppli
 }
 
 // Input for Publish action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/PublishInput
 type PublishInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4897,6 +4943,7 @@ func (s *PublishInput) SetTopicArn(v string) *PublishInput {
 }
 
 // Response for Publish action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/PublishResponse
 type PublishOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4923,6 +4970,7 @@ func (s *PublishOutput) SetMessageId(v string) *PublishOutput {
 }
 
 // Input for RemovePermission action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/RemovePermissionInput
 type RemovePermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4975,6 +5023,7 @@ func (s *RemovePermissionInput) SetTopicArn(v string) *RemovePermissionInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/RemovePermissionOutput
 type RemovePermissionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4990,6 +5039,7 @@ func (s RemovePermissionOutput) GoString() string {
 }
 
 // Input for SetEndpointAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetEndpointAttributesInput
 type SetEndpointAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5055,6 +5105,7 @@ func (s *SetEndpointAttributesInput) SetEndpointArn(v string) *SetEndpointAttrib
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetEndpointAttributesOutput
 type SetEndpointAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5070,6 +5121,7 @@ func (s SetEndpointAttributesOutput) GoString() string {
 }
 
 // Input for SetPlatformApplicationAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetPlatformApplicationAttributesInput
 type SetPlatformApplicationAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5155,6 +5207,7 @@ func (s *SetPlatformApplicationAttributesInput) SetPlatformApplicationArn(v stri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetPlatformApplicationAttributesOutput
 type SetPlatformApplicationAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5170,6 +5223,7 @@ func (s SetPlatformApplicationAttributesOutput) GoString() string {
 }
 
 // The input for the SetSMSAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetSMSAttributesInput
 type SetSMSAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5280,6 +5334,7 @@ func (s *SetSMSAttributesInput) SetAttributes(v map[string]*string) *SetSMSAttri
 }
 
 // The response for the SetSMSAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetSMSAttributesResponse
 type SetSMSAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5295,6 +5350,7 @@ func (s SetSMSAttributesOutput) GoString() string {
 }
 
 // Input for SetSubscriptionAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetSubscriptionAttributesInput
 type SetSubscriptionAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5359,6 +5415,7 @@ func (s *SetSubscriptionAttributesInput) SetSubscriptionArn(v string) *SetSubscr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetSubscriptionAttributesOutput
 type SetSubscriptionAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5374,6 +5431,7 @@ func (s SetSubscriptionAttributesOutput) GoString() string {
 }
 
 // Input for SetTopicAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetTopicAttributesInput
 type SetTopicAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5438,6 +5496,7 @@ func (s *SetTopicAttributesInput) SetTopicArn(v string) *SetTopicAttributesInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetTopicAttributesOutput
 type SetTopicAttributesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5453,6 +5512,7 @@ func (s SetTopicAttributesOutput) GoString() string {
 }
 
 // Input for Subscribe action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SubscribeInput
 type SubscribeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5550,6 +5610,7 @@ func (s *SubscribeInput) SetTopicArn(v string) *SubscribeInput {
 }
 
 // Response for Subscribe action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SubscribeResponse
 type SubscribeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5575,6 +5636,7 @@ func (s *SubscribeOutput) SetSubscriptionArn(v string) *SubscribeOutput {
 }
 
 // A wrapper type for the attributes of an Amazon SNS subscription.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/Subscription
 type Subscription struct {
 	_ struct{} `type:"structure"`
 
@@ -5636,6 +5698,7 @@ func (s *Subscription) SetTopicArn(v string) *Subscription {
 
 // A wrapper type for the topic's Amazon Resource Name (ARN). To retrieve a
 // topic's attributes, use GetTopicAttributes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/Topic
 type Topic struct {
 	_ struct{} `type:"structure"`
 
@@ -5660,6 +5723,7 @@ func (s *Topic) SetTopicArn(v string) *Topic {
 }
 
 // Input for Unsubscribe action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/UnsubscribeInput
 type UnsubscribeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5698,6 +5762,7 @@ func (s *UnsubscribeInput) SetSubscriptionArn(v string) *UnsubscribeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/UnsubscribeOutput
 type UnsubscribeOutput struct {
 	_ struct{} `type:"structure"`
 }

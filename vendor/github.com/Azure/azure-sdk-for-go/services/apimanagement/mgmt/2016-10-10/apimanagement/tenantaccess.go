@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // TenantAccessClient is the apiManagement Client
 type TenantAccessClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewTenantAccessClient creates an instance of the TenantAccessClient client.
@@ -43,7 +42,7 @@ func NewTenantAccessClientWithBaseURI(baseURI string, subscriptionID string) Ten
 // Get get tenant access information details.
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
-func (client TenantAccessClient) Get(ctx context.Context, resourceGroupName string, serviceName string) (result AccessInformationContract, err error) {
+func (client TenantAccessClient) Get(resourceGroupName string, serviceName string) (result AccessInformationContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -52,7 +51,7 @@ func (client TenantAccessClient) Get(ctx context.Context, resourceGroupName stri
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.TenantAccessClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName)
+	req, err := client.GetPreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.TenantAccessClient", "Get", nil, "Failure preparing request")
 		return
@@ -74,7 +73,7 @@ func (client TenantAccessClient) Get(ctx context.Context, resourceGroupName stri
 }
 
 // GetPreparer prepares the Get request.
-func (client TenantAccessClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client TenantAccessClient) GetPreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -91,13 +90,14 @@ func (client TenantAccessClient) GetPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tenant/access", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantAccessClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -117,7 +117,7 @@ func (client TenantAccessClient) GetResponder(resp *http.Response) (result Acces
 // RegeneratePrimaryKey regenerate primary access key.
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
-func (client TenantAccessClient) RegeneratePrimaryKey(ctx context.Context, resourceGroupName string, serviceName string) (result autorest.Response, err error) {
+func (client TenantAccessClient) RegeneratePrimaryKey(resourceGroupName string, serviceName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -126,7 +126,7 @@ func (client TenantAccessClient) RegeneratePrimaryKey(ctx context.Context, resou
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.TenantAccessClient", "RegeneratePrimaryKey")
 	}
 
-	req, err := client.RegeneratePrimaryKeyPreparer(ctx, resourceGroupName, serviceName)
+	req, err := client.RegeneratePrimaryKeyPreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.TenantAccessClient", "RegeneratePrimaryKey", nil, "Failure preparing request")
 		return
@@ -148,7 +148,7 @@ func (client TenantAccessClient) RegeneratePrimaryKey(ctx context.Context, resou
 }
 
 // RegeneratePrimaryKeyPreparer prepares the RegeneratePrimaryKey request.
-func (client TenantAccessClient) RegeneratePrimaryKeyPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client TenantAccessClient) RegeneratePrimaryKeyPreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -165,13 +165,14 @@ func (client TenantAccessClient) RegeneratePrimaryKeyPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tenant/access/regeneratePrimaryKey", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegeneratePrimaryKeySender sends the RegeneratePrimaryKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantAccessClient) RegeneratePrimaryKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -190,7 +191,7 @@ func (client TenantAccessClient) RegeneratePrimaryKeyResponder(resp *http.Respon
 // RegenerateSecondaryKey regenerate secondary access key.
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
-func (client TenantAccessClient) RegenerateSecondaryKey(ctx context.Context, resourceGroupName string, serviceName string) (result autorest.Response, err error) {
+func (client TenantAccessClient) RegenerateSecondaryKey(resourceGroupName string, serviceName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -199,7 +200,7 @@ func (client TenantAccessClient) RegenerateSecondaryKey(ctx context.Context, res
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.TenantAccessClient", "RegenerateSecondaryKey")
 	}
 
-	req, err := client.RegenerateSecondaryKeyPreparer(ctx, resourceGroupName, serviceName)
+	req, err := client.RegenerateSecondaryKeyPreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.TenantAccessClient", "RegenerateSecondaryKey", nil, "Failure preparing request")
 		return
@@ -221,7 +222,7 @@ func (client TenantAccessClient) RegenerateSecondaryKey(ctx context.Context, res
 }
 
 // RegenerateSecondaryKeyPreparer prepares the RegenerateSecondaryKey request.
-func (client TenantAccessClient) RegenerateSecondaryKeyPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client TenantAccessClient) RegenerateSecondaryKeyPreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -238,13 +239,14 @@ func (client TenantAccessClient) RegenerateSecondaryKeyPreparer(ctx context.Cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tenant/access/regenerateSecondaryKey", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegenerateSecondaryKeySender sends the RegenerateSecondaryKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantAccessClient) RegenerateSecondaryKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -265,7 +267,7 @@ func (client TenantAccessClient) RegenerateSecondaryKeyResponder(resp *http.Resp
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
 // parameters is parameters. ifMatch is the entity state (Etag) version of the tenant access settings to update. A
 // value of "*" can be used for If-Match to unconditionally apply the operation.
-func (client TenantAccessClient) Update(ctx context.Context, resourceGroupName string, serviceName string, parameters AccessInformationUpdateParameters, ifMatch string) (result autorest.Response, err error) {
+func (client TenantAccessClient) Update(resourceGroupName string, serviceName string, parameters AccessInformationUpdateParameters, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -274,7 +276,7 @@ func (client TenantAccessClient) Update(ctx context.Context, resourceGroupName s
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.TenantAccessClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, serviceName, parameters, ifMatch)
+	req, err := client.UpdatePreparer(resourceGroupName, serviceName, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.TenantAccessClient", "Update", nil, "Failure preparing request")
 		return
@@ -296,7 +298,7 @@ func (client TenantAccessClient) Update(ctx context.Context, resourceGroupName s
 }
 
 // UpdatePreparer prepares the Update request.
-func (client TenantAccessClient) UpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, parameters AccessInformationUpdateParameters, ifMatch string) (*http.Request, error) {
+func (client TenantAccessClient) UpdatePreparer(resourceGroupName string, serviceName string, parameters AccessInformationUpdateParameters, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -316,13 +318,14 @@ func (client TenantAccessClient) UpdatePreparer(ctx context.Context, resourceGro
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantAccessClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -18,7 +18,6 @@ package sql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // interact with Azure SQL Database services to manage your databases. The API enables you to create, retrieve, update,
 // and delete databases.
 type GeoBackupPoliciesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewGeoBackupPoliciesClient creates an instance of the GeoBackupPoliciesClient client.
@@ -48,14 +47,14 @@ func NewGeoBackupPoliciesClientWithBaseURI(baseURI string, subscriptionID string
 // Azure Resource Manager API or the portal. serverName is the name of the server. databaseName is the name of the
 // database. geoBackupPolicyName is the name of the geo backup policy. parameters is the required parameters for
 // creating or updating the geo backup policy.
-func (client GeoBackupPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string, parameters GeoBackupPolicy) (result GeoBackupPolicy, err error) {
+func (client GeoBackupPoliciesClient) CreateOrUpdate(resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string, parameters GeoBackupPolicy) (result GeoBackupPolicy, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.GeoBackupPolicyProperties", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "sql.GeoBackupPoliciesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serverName, databaseName, geoBackupPolicyName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serverName, databaseName, geoBackupPolicyName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -77,7 +76,7 @@ func (client GeoBackupPoliciesClient) CreateOrUpdate(ctx context.Context, resour
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client GeoBackupPoliciesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string, parameters GeoBackupPolicy) (*http.Request, error) {
+func (client GeoBackupPoliciesClient) CreateOrUpdatePreparer(resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string, parameters GeoBackupPolicy) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"databaseName":        autorest.Encode("path", databaseName),
 		"geoBackupPolicyName": autorest.Encode("path", geoBackupPolicyName),
@@ -98,13 +97,14 @@ func (client GeoBackupPoliciesClient) CreateOrUpdatePreparer(ctx context.Context
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/geoBackupPolicies/{geoBackupPolicyName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client GeoBackupPoliciesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -114,7 +114,7 @@ func (client GeoBackupPoliciesClient) CreateOrUpdateResponder(resp *http.Respons
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
+		azure.WithErrorUnlessStatusCode(http.StatusCreated, http.StatusOK),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
@@ -126,8 +126,8 @@ func (client GeoBackupPoliciesClient) CreateOrUpdateResponder(resp *http.Respons
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. databaseName is the name of the
 // database. geoBackupPolicyName is the name of the geo backup policy.
-func (client GeoBackupPoliciesClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string) (result GeoBackupPolicy, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, serverName, databaseName, geoBackupPolicyName)
+func (client GeoBackupPoliciesClient) Get(resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string) (result GeoBackupPolicy, err error) {
+	req, err := client.GetPreparer(resourceGroupName, serverName, databaseName, geoBackupPolicyName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "Get", nil, "Failure preparing request")
 		return
@@ -149,7 +149,7 @@ func (client GeoBackupPoliciesClient) Get(ctx context.Context, resourceGroupName
 }
 
 // GetPreparer prepares the Get request.
-func (client GeoBackupPoliciesClient) GetPreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string) (*http.Request, error) {
+func (client GeoBackupPoliciesClient) GetPreparer(resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"databaseName":        autorest.Encode("path", databaseName),
 		"geoBackupPolicyName": autorest.Encode("path", geoBackupPolicyName),
@@ -168,13 +168,14 @@ func (client GeoBackupPoliciesClient) GetPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/geoBackupPolicies/{geoBackupPolicyName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client GeoBackupPoliciesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -196,8 +197,8 @@ func (client GeoBackupPoliciesClient) GetResponder(resp *http.Response) (result 
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. databaseName is the name of the
 // database.
-func (client GeoBackupPoliciesClient) ListByDatabase(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result GeoBackupPolicyListResult, err error) {
-	req, err := client.ListByDatabasePreparer(ctx, resourceGroupName, serverName, databaseName)
+func (client GeoBackupPoliciesClient) ListByDatabase(resourceGroupName string, serverName string, databaseName string) (result GeoBackupPolicyListResult, err error) {
+	req, err := client.ListByDatabasePreparer(resourceGroupName, serverName, databaseName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "ListByDatabase", nil, "Failure preparing request")
 		return
@@ -219,7 +220,7 @@ func (client GeoBackupPoliciesClient) ListByDatabase(ctx context.Context, resour
 }
 
 // ListByDatabasePreparer prepares the ListByDatabase request.
-func (client GeoBackupPoliciesClient) ListByDatabasePreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (*http.Request, error) {
+func (client GeoBackupPoliciesClient) ListByDatabasePreparer(resourceGroupName string, serverName string, databaseName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"databaseName":      autorest.Encode("path", databaseName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -237,13 +238,14 @@ func (client GeoBackupPoliciesClient) ListByDatabasePreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/geoBackupPolicies", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByDatabaseSender sends the ListByDatabase request. The method will close the
 // http.Response Body if it receives an error.
 func (client GeoBackupPoliciesClient) ListByDatabaseSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

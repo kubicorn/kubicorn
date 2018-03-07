@@ -46,31 +46,34 @@ func NewClient(ctx context.Context, opts ...option.ClientOption) (*http.Client, 
 	if o.HTTPClient != nil {
 		return o.HTTPClient, o.Endpoint, nil
 	}
-	trans := baseTransport(ctx)
-	trans = userAgentTransport{
-		base:      trans,
+	uat := userAgentTransport{
+		base:      baseTransport(ctx),
 		userAgent: o.UserAgent,
 	}
-	trans = addOCTransport(trans)
+	var hc *http.Client
 	switch {
 	case o.NoAuth:
-		// Do nothing.
+		hc = &http.Client{Transport: uat}
 	case o.APIKey != "":
-		trans = &transport.APIKey{
-			Transport: trans,
-			Key:       o.APIKey,
+		hc = &http.Client{
+			Transport: &transport.APIKey{
+				Key:       o.APIKey,
+				Transport: uat,
+			},
 		}
 	default:
 		creds, err := internal.Creds(ctx, &o)
 		if err != nil {
 			return nil, "", err
 		}
-		trans = &oauth2.Transport{
-			Base:   trans,
-			Source: creds.TokenSource,
+		hc = &http.Client{
+			Transport: &oauth2.Transport{
+				Source: creds.TokenSource,
+				Base:   uat,
+			},
 		}
 	}
-	return &http.Client{Transport: trans}, o.Endpoint, nil
+	return hc, o.Endpoint, nil
 }
 
 type userAgentTransport struct {

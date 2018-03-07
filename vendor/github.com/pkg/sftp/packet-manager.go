@@ -2,7 +2,6 @@ package sftp
 
 import (
 	"encoding"
-	"sort"
 	"sync"
 )
 
@@ -36,22 +35,6 @@ func newPktMgr(sender packetSender) *packetManager {
 	}
 	go s.controller()
 	return s
-}
-
-type responsePackets []responsePacket
-
-func (r responsePackets) Sort() {
-	sort.Slice(r, func(i, j int) bool {
-		return r[i].id() < r[j].id()
-	})
-}
-
-type requestPacketIDs []uint32
-
-func (r requestPacketIDs) Sort() {
-	sort.Slice(r, func(i, j int) bool {
-		return r[i] < r[j]
-	})
 }
 
 // register incoming packets to be handled

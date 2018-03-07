@@ -20,6 +20,7 @@ import strings "strings"
 import reflect "reflect"
 
 import io "io"
+import github_com_gogo_protobuf_proto "github.com/gogo/protobuf/proto"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -60,7 +61,10 @@ func init() {
 }
 func (this *A) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*A)
@@ -73,7 +77,10 @@ func (this *A) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -274,7 +281,7 @@ func (m *A) Unmarshal(dAtA []byte) error {
 		}
 	}
 	if hasFields[0]&uint64(0x00000001) == 0 {
-		return proto.NewRequiredNotSetError("Int")
+		return github_com_gogo_protobuf_proto.NewRequiredNotSetError("Int")
 	}
 
 	if iNdEx > l {

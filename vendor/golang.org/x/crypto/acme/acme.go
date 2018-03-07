@@ -400,7 +400,7 @@ func (c *Client) RevokeAuthorization(ctx context.Context, url string) error {
 
 // WaitAuthorization polls an authorization at the given URL
 // until it is in one of the final states, StatusValid or StatusInvalid,
-// the ACME CA responded with a 4xx error code, or the context is done.
+// or the context is done.
 //
 // It returns a non-nil Authorization only if its Status is StatusValid.
 // In all other cases WaitAuthorization returns an error.
@@ -412,13 +412,6 @@ func (c *Client) WaitAuthorization(ctx context.Context, url string) (*Authorizat
 		if err != nil {
 			return nil, err
 		}
-		if res.StatusCode >= 400 && res.StatusCode <= 499 {
-			// Non-retriable error. For instance, Let's Encrypt may return 404 Not Found
-			// when requesting an expired authorization.
-			defer res.Body.Close()
-			return nil, responseError(res)
-		}
-
 		retry := res.Header.Get("Retry-After")
 		if res.StatusCode != http.StatusOK && res.StatusCode != http.StatusAccepted {
 			res.Body.Close()

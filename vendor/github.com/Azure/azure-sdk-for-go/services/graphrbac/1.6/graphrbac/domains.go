@@ -18,7 +18,6 @@ package graphrbac
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // DomainsClient is the the Graph RBAC Management Client
 type DomainsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDomainsClient creates an instance of the DomainsClient client.
@@ -42,8 +41,8 @@ func NewDomainsClientWithBaseURI(baseURI string, tenantID string) DomainsClient 
 // Get gets a specific domain in the current tenant.
 //
 // domainName is name of the domain.
-func (client DomainsClient) Get(ctx context.Context, domainName string) (result Domain, err error) {
-	req, err := client.GetPreparer(ctx, domainName)
+func (client DomainsClient) Get(domainName string) (result Domain, err error) {
+	req, err := client.GetPreparer(domainName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.DomainsClient", "Get", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client DomainsClient) Get(ctx context.Context, domainName string) (result 
 }
 
 // GetPreparer prepares the Get request.
-func (client DomainsClient) GetPreparer(ctx context.Context, domainName string) (*http.Request, error) {
+func (client DomainsClient) GetPreparer(domainName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"domainName": autorest.Encode("path", domainName),
 		"tenantID":   autorest.Encode("path", client.TenantID),
@@ -81,14 +80,13 @@ func (client DomainsClient) GetPreparer(ctx context.Context, domainName string) 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/domains/{domainName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DomainsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // GetResponder handles the response to the Get request. The method always
@@ -107,8 +105,8 @@ func (client DomainsClient) GetResponder(resp *http.Response) (result Domain, er
 // List gets a list of domains for the current tenant.
 //
 // filter is the filter to apply to the operation.
-func (client DomainsClient) List(ctx context.Context, filter string) (result DomainListResult, err error) {
-	req, err := client.ListPreparer(ctx, filter)
+func (client DomainsClient) List(filter string) (result DomainListResult, err error) {
+	req, err := client.ListPreparer(filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.DomainsClient", "List", nil, "Failure preparing request")
 		return
@@ -130,7 +128,7 @@ func (client DomainsClient) List(ctx context.Context, filter string) (result Dom
 }
 
 // ListPreparer prepares the List request.
-func (client DomainsClient) ListPreparer(ctx context.Context, filter string) (*http.Request, error) {
+func (client DomainsClient) ListPreparer(filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"tenantID": autorest.Encode("path", client.TenantID),
 	}
@@ -148,14 +146,13 @@ func (client DomainsClient) ListPreparer(ctx context.Context, filter string) (*h
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/domains", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client DomainsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // ListResponder handles the response to the List request. The method always

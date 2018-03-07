@@ -18,7 +18,6 @@ package customerinsights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // interact with Azure Customer Insights service to manage your resources. The API has entities that capture the
 // relationship between an end user and the Azure Customer Insights service.
 type PredictionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPredictionsClient creates an instance of the PredictionsClient client.
@@ -42,11 +41,15 @@ func NewPredictionsClientWithBaseURI(baseURI string, subscriptionID string) Pred
 	return PredictionsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates a Prediction or updates an existing Prediction in the hub.
+// CreateOrUpdate creates a Prediction or updates an existing Prediction in the hub. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. predictionName is the name of
 // the Prediction. parameters is parameters supplied to the create/update Prediction operation.
-func (client PredictionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, hubName string, predictionName string, parameters PredictionResourceFormat) (result PredictionsCreateOrUpdateFuture, err error) {
+func (client PredictionsClient) CreateOrUpdate(resourceGroupName string, hubName string, predictionName string, parameters PredictionResourceFormat, cancel <-chan struct{}) (<-chan PredictionResourceFormat, <-chan error) {
+	resultChan := make(chan PredictionResourceFormat, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: predictionName,
 			Constraints: []validation.Constraint{{Target: "predictionName", Name: validation.MaxLength, Rule: 512, Chain: nil},
@@ -58,33 +61,49 @@ func (client PredictionsClient) CreateOrUpdate(ctx context.Context, resourceGrou
 					{Target: "parameters.Prediction.PrimaryProfileType", Name: validation.Null, Rule: true, Chain: nil},
 					{Target: "parameters.Prediction.ScopeExpression", Name: validation.Null, Rule: true, Chain: nil},
 					{Target: "parameters.Prediction.AutoAnalyze", Name: validation.Null, Rule: true, Chain: nil},
-					{Target: "parameters.Prediction.Mappings", Name: validation.Null, Rule: true,
-						Chain: []validation.Constraint{{Target: "parameters.Prediction.Mappings.Score", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.Prediction.Mappings.Grade", Name: validation.Null, Rule: true, Chain: nil},
-							{Target: "parameters.Prediction.Mappings.Reason", Name: validation.Null, Rule: true, Chain: nil},
-						}},
+					{Target: "parameters.Prediction.Mappings", Name: validation.Null, Rule: true, Chain: nil},
 					{Target: "parameters.Prediction.ScoreLabel", Name: validation.Null, Rule: true, Chain: nil},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "customerinsights.PredictionsClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "customerinsights.PredictionsClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, hubName, predictionName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result PredictionResourceFormat
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, hubName, predictionName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client PredictionsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, hubName string, predictionName string, parameters PredictionResourceFormat) (*http.Request, error) {
+func (client PredictionsClient) CreateOrUpdatePreparer(resourceGroupName string, hubName string, predictionName string, parameters PredictionResourceFormat, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"predictionName":    autorest.Encode("path", predictionName),
@@ -104,22 +123,16 @@ func (client PredictionsClient) CreateOrUpdatePreparer(ctx context.Context, reso
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/predictions/{predictionName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client PredictionsClient) CreateOrUpdateSender(req *http.Request) (future PredictionsCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client PredictionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -135,28 +148,48 @@ func (client PredictionsClient) CreateOrUpdateResponder(resp *http.Response) (re
 	return
 }
 
-// Delete deletes a Prediction in the hub.
+// Delete deletes a Prediction in the hub. This method may poll for completion. Polling can be canceled by passing the
+// cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. predictionName is the name of
 // the Prediction.
-func (client PredictionsClient) Delete(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (result PredictionsDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, hubName, predictionName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client PredictionsClient) Delete(resourceGroupName string, hubName string, predictionName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, hubName, predictionName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client PredictionsClient) DeletePreparer(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (*http.Request, error) {
+func (client PredictionsClient) DeletePreparer(resourceGroupName string, hubName string, predictionName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"predictionName":    autorest.Encode("path", predictionName),
@@ -174,22 +207,16 @@ func (client PredictionsClient) DeletePreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/predictions/{predictionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client PredictionsClient) DeleteSender(req *http.Request) (future PredictionsDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client PredictionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -208,8 +235,8 @@ func (client PredictionsClient) DeleteResponder(resp *http.Response) (result aut
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. predictionName is the name of
 // the Prediction.
-func (client PredictionsClient) Get(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (result PredictionResourceFormat, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, hubName, predictionName)
+func (client PredictionsClient) Get(resourceGroupName string, hubName string, predictionName string) (result PredictionResourceFormat, err error) {
+	req, err := client.GetPreparer(resourceGroupName, hubName, predictionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -231,7 +258,7 @@ func (client PredictionsClient) Get(ctx context.Context, resourceGroupName strin
 }
 
 // GetPreparer prepares the Get request.
-func (client PredictionsClient) GetPreparer(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (*http.Request, error) {
+func (client PredictionsClient) GetPreparer(resourceGroupName string, hubName string, predictionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"predictionName":    autorest.Encode("path", predictionName),
@@ -249,13 +276,14 @@ func (client PredictionsClient) GetPreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/predictions/{predictionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PredictionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -276,8 +304,8 @@ func (client PredictionsClient) GetResponder(resp *http.Response) (result Predic
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. predictionName is the name of
 // the Prediction.
-func (client PredictionsClient) GetModelStatus(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (result PredictionModelStatus, err error) {
-	req, err := client.GetModelStatusPreparer(ctx, resourceGroupName, hubName, predictionName)
+func (client PredictionsClient) GetModelStatus(resourceGroupName string, hubName string, predictionName string) (result PredictionModelStatus, err error) {
+	req, err := client.GetModelStatusPreparer(resourceGroupName, hubName, predictionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "GetModelStatus", nil, "Failure preparing request")
 		return
@@ -299,7 +327,7 @@ func (client PredictionsClient) GetModelStatus(ctx context.Context, resourceGrou
 }
 
 // GetModelStatusPreparer prepares the GetModelStatus request.
-func (client PredictionsClient) GetModelStatusPreparer(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (*http.Request, error) {
+func (client PredictionsClient) GetModelStatusPreparer(resourceGroupName string, hubName string, predictionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"predictionName":    autorest.Encode("path", predictionName),
@@ -317,13 +345,14 @@ func (client PredictionsClient) GetModelStatusPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/predictions/{predictionName}/getModelStatus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetModelStatusSender sends the GetModelStatus request. The method will close the
 // http.Response Body if it receives an error.
 func (client PredictionsClient) GetModelStatusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -344,8 +373,8 @@ func (client PredictionsClient) GetModelStatusResponder(resp *http.Response) (re
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. predictionName is the name of
 // the Prediction.
-func (client PredictionsClient) GetTrainingResults(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (result PredictionTrainingResults, err error) {
-	req, err := client.GetTrainingResultsPreparer(ctx, resourceGroupName, hubName, predictionName)
+func (client PredictionsClient) GetTrainingResults(resourceGroupName string, hubName string, predictionName string) (result PredictionTrainingResults, err error) {
+	req, err := client.GetTrainingResultsPreparer(resourceGroupName, hubName, predictionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "GetTrainingResults", nil, "Failure preparing request")
 		return
@@ -367,7 +396,7 @@ func (client PredictionsClient) GetTrainingResults(ctx context.Context, resource
 }
 
 // GetTrainingResultsPreparer prepares the GetTrainingResults request.
-func (client PredictionsClient) GetTrainingResultsPreparer(ctx context.Context, resourceGroupName string, hubName string, predictionName string) (*http.Request, error) {
+func (client PredictionsClient) GetTrainingResultsPreparer(resourceGroupName string, hubName string, predictionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"predictionName":    autorest.Encode("path", predictionName),
@@ -385,13 +414,14 @@ func (client PredictionsClient) GetTrainingResultsPreparer(ctx context.Context, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/predictions/{predictionName}/getTrainingResults", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetTrainingResultsSender sends the GetTrainingResults request. The method will close the
 // http.Response Body if it receives an error.
 func (client PredictionsClient) GetTrainingResultsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -411,9 +441,8 @@ func (client PredictionsClient) GetTrainingResultsResponder(resp *http.Response)
 // ListByHub gets all the predictions in the specified hub.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub.
-func (client PredictionsClient) ListByHub(ctx context.Context, resourceGroupName string, hubName string) (result PredictionListResultPage, err error) {
-	result.fn = client.listByHubNextResults
-	req, err := client.ListByHubPreparer(ctx, resourceGroupName, hubName)
+func (client PredictionsClient) ListByHub(resourceGroupName string, hubName string) (result PredictionListResult, err error) {
+	req, err := client.ListByHubPreparer(resourceGroupName, hubName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "ListByHub", nil, "Failure preparing request")
 		return
@@ -421,12 +450,12 @@ func (client PredictionsClient) ListByHub(ctx context.Context, resourceGroupName
 
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
-		result.plr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "ListByHub", resp, "Failure sending request")
 		return
 	}
 
-	result.plr, err = client.ListByHubResponder(resp)
+	result, err = client.ListByHubResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "ListByHub", resp, "Failure responding to request")
 	}
@@ -435,7 +464,7 @@ func (client PredictionsClient) ListByHub(ctx context.Context, resourceGroupName
 }
 
 // ListByHubPreparer prepares the ListByHub request.
-func (client PredictionsClient) ListByHubPreparer(ctx context.Context, resourceGroupName string, hubName string) (*http.Request, error) {
+func (client PredictionsClient) ListByHubPreparer(resourceGroupName string, hubName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -452,13 +481,14 @@ func (client PredictionsClient) ListByHubPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/predictions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByHubSender sends the ListByHub request. The method will close the
 // http.Response Body if it receives an error.
 func (client PredictionsClient) ListByHubSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -475,39 +505,81 @@ func (client PredictionsClient) ListByHubResponder(resp *http.Response) (result 
 	return
 }
 
-// listByHubNextResults retrieves the next set of results, if any.
-func (client PredictionsClient) listByHubNextResults(lastResults PredictionListResult) (result PredictionListResult, err error) {
-	req, err := lastResults.predictionListResultPreparer()
+// ListByHubNextResults retrieves the next set of results, if any.
+func (client PredictionsClient) ListByHubNextResults(lastResults PredictionListResult) (result PredictionListResult, err error) {
+	req, err := lastResults.PredictionListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "listByHubNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "ListByHub", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "listByHubNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "ListByHub", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByHubResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "listByHubNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "ListByHub", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByHubComplete enumerates all values, automatically crossing page boundaries as required.
-func (client PredictionsClient) ListByHubComplete(ctx context.Context, resourceGroupName string, hubName string) (result PredictionListResultIterator, err error) {
-	result.page, err = client.ListByHub(ctx, resourceGroupName, hubName)
-	return
+// ListByHubComplete gets all elements from the list without paging.
+func (client PredictionsClient) ListByHubComplete(resourceGroupName string, hubName string, cancel <-chan struct{}) (<-chan PredictionResourceFormat, <-chan error) {
+	resultChan := make(chan PredictionResourceFormat)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByHub(resourceGroupName, hubName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByHubNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ModelStatus creates or updates the model status of prediction.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. predictionName is the name of
 // the Prediction. parameters is parameters supplied to the create/update prediction model status operation.
-func (client PredictionsClient) ModelStatus(ctx context.Context, resourceGroupName string, hubName string, predictionName string, parameters PredictionModelStatus) (result autorest.Response, err error) {
-	req, err := client.ModelStatusPreparer(ctx, resourceGroupName, hubName, predictionName, parameters)
+func (client PredictionsClient) ModelStatus(resourceGroupName string, hubName string, predictionName string, parameters PredictionModelStatus) (result autorest.Response, err error) {
+	req, err := client.ModelStatusPreparer(resourceGroupName, hubName, predictionName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.PredictionsClient", "ModelStatus", nil, "Failure preparing request")
 		return
@@ -529,7 +601,7 @@ func (client PredictionsClient) ModelStatus(ctx context.Context, resourceGroupNa
 }
 
 // ModelStatusPreparer prepares the ModelStatus request.
-func (client PredictionsClient) ModelStatusPreparer(ctx context.Context, resourceGroupName string, hubName string, predictionName string, parameters PredictionModelStatus) (*http.Request, error) {
+func (client PredictionsClient) ModelStatusPreparer(resourceGroupName string, hubName string, predictionName string, parameters PredictionModelStatus) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"predictionName":    autorest.Encode("path", predictionName),
@@ -549,13 +621,14 @@ func (client PredictionsClient) ModelStatusPreparer(ctx context.Context, resourc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/predictions/{predictionName}/modelStatus", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ModelStatusSender sends the ModelStatus request. The method will close the
 // http.Response Body if it receives an error.
 func (client PredictionsClient) ModelStatusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

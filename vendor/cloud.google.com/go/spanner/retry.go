@@ -157,11 +157,6 @@ func extractRetryDelay(err error) (time.Duration, bool) {
 // TODO: consider using https://github.com/googleapis/gax-go once it
 // becomes available internally.
 func runRetryable(ctx context.Context, f func(context.Context) error) error {
-	return toSpannerError(runRetryableNoWrap(ctx, f))
-}
-
-// Like runRetryable, but doesn't wrap the returned error in a spanner.Error.
-func runRetryableNoWrap(ctx context.Context, f func(context.Context) error) error {
 	var funcErr error
 	retryCount := 0
 	for {
@@ -183,7 +178,6 @@ func runRetryableNoWrap(ctx context.Context, f func(context.Context) error) erro
 			if !ok {
 				b = defaultBackoff.delay(retryCount)
 			}
-			tracePrintf(ctx, nil, "Backing off for %s, then retrying", b)
 			select {
 			case <-ctx.Done():
 				return errContextCanceled(ctx, funcErr)
@@ -193,6 +187,6 @@ func runRetryableNoWrap(ctx context.Context, f func(context.Context) error) erro
 			continue
 		}
 		// Error isn't retryable / no error, return immediately.
-		return funcErr
+		return toSpannerError(funcErr)
 	}
 }

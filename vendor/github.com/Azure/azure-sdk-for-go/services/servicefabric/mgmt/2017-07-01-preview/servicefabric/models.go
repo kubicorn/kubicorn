@@ -19,8 +19,8 @@ package servicefabric
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/Azure/go-autorest/autorest/to"
 	"net/http"
@@ -30,25 +30,25 @@ import (
 type ClusterState string
 
 const (
-	// AutoScale ...
+	// AutoScale specifies the auto scale state for cluster state.
 	AutoScale ClusterState = "AutoScale"
-	// BaselineUpgrade ...
+	// BaselineUpgrade specifies the baseline upgrade state for cluster state.
 	BaselineUpgrade ClusterState = "BaselineUpgrade"
-	// Deploying ...
+	// Deploying specifies the deploying state for cluster state.
 	Deploying ClusterState = "Deploying"
-	// EnforcingClusterVersion ...
+	// EnforcingClusterVersion specifies the enforcing cluster version state for cluster state.
 	EnforcingClusterVersion ClusterState = "EnforcingClusterVersion"
-	// Ready ...
+	// Ready specifies the ready state for cluster state.
 	Ready ClusterState = "Ready"
-	// UpdatingInfrastructure ...
+	// UpdatingInfrastructure specifies the updating infrastructure state for cluster state.
 	UpdatingInfrastructure ClusterState = "UpdatingInfrastructure"
-	// UpdatingUserCertificate ...
+	// UpdatingUserCertificate specifies the updating user certificate state for cluster state.
 	UpdatingUserCertificate ClusterState = "UpdatingUserCertificate"
-	// UpdatingUserConfiguration ...
+	// UpdatingUserConfiguration specifies the updating user configuration state for cluster state.
 	UpdatingUserConfiguration ClusterState = "UpdatingUserConfiguration"
-	// UpgradeServiceUnreachable ...
+	// UpgradeServiceUnreachable specifies the upgrade service unreachable state for cluster state.
 	UpgradeServiceUnreachable ClusterState = "UpgradeServiceUnreachable"
-	// WaitingForNodes ...
+	// WaitingForNodes specifies the waiting for nodes state for cluster state.
 	WaitingForNodes ClusterState = "WaitingForNodes"
 )
 
@@ -56,13 +56,13 @@ const (
 type DefaultMoveCost string
 
 const (
-	// High ...
+	// High specifies the high state for default move cost.
 	High DefaultMoveCost = "High"
-	// Low ...
+	// Low specifies the low state for default move cost.
 	Low DefaultMoveCost = "Low"
-	// Medium ...
+	// Medium specifies the medium state for default move cost.
 	Medium DefaultMoveCost = "Medium"
-	// Zero ...
+	// Zero specifies the zero state for default move cost.
 	Zero DefaultMoveCost = "Zero"
 )
 
@@ -70,11 +70,11 @@ const (
 type DurabilityLevel string
 
 const (
-	// Bronze ...
+	// Bronze specifies the bronze state for durability level.
 	Bronze DurabilityLevel = "Bronze"
-	// Gold ...
+	// Gold specifies the gold state for durability level.
 	Gold DurabilityLevel = "Gold"
-	// Silver ...
+	// Silver specifies the silver state for durability level.
 	Silver DurabilityLevel = "Silver"
 )
 
@@ -82,9 +82,9 @@ const (
 type Environment string
 
 const (
-	// Linux ...
+	// Linux specifies the linux state for environment.
 	Linux Environment = "Linux"
-	// Windows ...
+	// Windows specifies the windows state for environment.
 	Windows Environment = "Windows"
 )
 
@@ -92,13 +92,11 @@ const (
 type PartitionScheme string
 
 const (
-	// PartitionSchemeNamed ...
+	// PartitionSchemeNamed specifies the partition scheme named state for partition scheme.
 	PartitionSchemeNamed PartitionScheme = "Named"
-	// PartitionSchemePartitionSchemeDescription ...
-	PartitionSchemePartitionSchemeDescription PartitionScheme = "PartitionSchemeDescription"
-	// PartitionSchemeSingleton ...
+	// PartitionSchemeSingleton specifies the partition scheme singleton state for partition scheme.
 	PartitionSchemeSingleton PartitionScheme = "Singleton"
-	// PartitionSchemeUniformInt64Range ...
+	// PartitionSchemeUniformInt64Range specifies the partition scheme uniform int 64 range state for partition scheme.
 	PartitionSchemeUniformInt64Range PartitionScheme = "UniformInt64Range"
 )
 
@@ -106,13 +104,13 @@ const (
 type ProvisioningState string
 
 const (
-	// Canceled ...
+	// Canceled specifies the canceled state for provisioning state.
 	Canceled ProvisioningState = "Canceled"
-	// Failed ...
+	// Failed specifies the failed state for provisioning state.
 	Failed ProvisioningState = "Failed"
-	// Succeeded ...
+	// Succeeded specifies the succeeded state for provisioning state.
 	Succeeded ProvisioningState = "Succeeded"
-	// Updating ...
+	// Updating specifies the updating state for provisioning state.
 	Updating ProvisioningState = "Updating"
 )
 
@@ -120,15 +118,15 @@ const (
 type ReliabilityLevel string
 
 const (
-	// ReliabilityLevelBronze ...
+	// ReliabilityLevelBronze specifies the reliability level bronze state for reliability level.
 	ReliabilityLevelBronze ReliabilityLevel = "Bronze"
-	// ReliabilityLevelGold ...
+	// ReliabilityLevelGold specifies the reliability level gold state for reliability level.
 	ReliabilityLevelGold ReliabilityLevel = "Gold"
-	// ReliabilityLevelNone ...
+	// ReliabilityLevelNone specifies the reliability level none state for reliability level.
 	ReliabilityLevelNone ReliabilityLevel = "None"
-	// ReliabilityLevelPlatinum ...
+	// ReliabilityLevelPlatinum specifies the reliability level platinum state for reliability level.
 	ReliabilityLevelPlatinum ReliabilityLevel = "Platinum"
-	// ReliabilityLevelSilver ...
+	// ReliabilityLevelSilver specifies the reliability level silver state for reliability level.
 	ReliabilityLevelSilver ReliabilityLevel = "Silver"
 )
 
@@ -136,11 +134,11 @@ const (
 type ReliabilityLevel1 string
 
 const (
-	// ReliabilityLevel1Bronze ...
+	// ReliabilityLevel1Bronze specifies the reliability level 1 bronze state for reliability level 1.
 	ReliabilityLevel1Bronze ReliabilityLevel1 = "Bronze"
-	// ReliabilityLevel1Gold ...
+	// ReliabilityLevel1Gold specifies the reliability level 1 gold state for reliability level 1.
 	ReliabilityLevel1Gold ReliabilityLevel1 = "Gold"
-	// ReliabilityLevel1Silver ...
+	// ReliabilityLevel1Silver specifies the reliability level 1 silver state for reliability level 1.
 	ReliabilityLevel1Silver ReliabilityLevel1 = "Silver"
 )
 
@@ -148,13 +146,13 @@ const (
 type Scheme string
 
 const (
-	// Affinity ...
+	// Affinity specifies the affinity state for scheme.
 	Affinity Scheme = "Affinity"
-	// AlignedAffinity ...
+	// AlignedAffinity specifies the aligned affinity state for scheme.
 	AlignedAffinity Scheme = "AlignedAffinity"
-	// Invalid ...
+	// Invalid specifies the invalid state for scheme.
 	Invalid Scheme = "Invalid"
-	// NonAlignedAffinity ...
+	// NonAlignedAffinity specifies the non aligned affinity state for scheme.
 	NonAlignedAffinity Scheme = "NonAlignedAffinity"
 )
 
@@ -162,41 +160,49 @@ const (
 type ServiceKind string
 
 const (
-	// ServiceKindServiceProperties ...
-	ServiceKindServiceProperties ServiceKind = "ServiceProperties"
-	// ServiceKindStateful ...
+	// ServiceKindInvalid specifies the service kind invalid state for service kind.
+	ServiceKindInvalid ServiceKind = "Invalid"
+	// ServiceKindStateful specifies the service kind stateful state for service kind.
 	ServiceKindStateful ServiceKind = "Stateful"
-	// ServiceKindStateless ...
+	// ServiceKindStateless specifies the service kind stateless state for service kind.
 	ServiceKindStateless ServiceKind = "Stateless"
 )
 
-// ServiceKindBasicServiceUpdateProperties enumerates the values for service kind basic service update properties.
-type ServiceKindBasicServiceUpdateProperties string
+// ServiceResourceType enumerates the values for service resource type.
+type ServiceResourceType string
 
 const (
-	// ServiceKindBasicServiceUpdatePropertiesServiceKindServiceUpdateProperties ...
-	ServiceKindBasicServiceUpdatePropertiesServiceKindServiceUpdateProperties ServiceKindBasicServiceUpdateProperties = "ServiceUpdateProperties"
-	// ServiceKindBasicServiceUpdatePropertiesServiceKindStateful ...
-	ServiceKindBasicServiceUpdatePropertiesServiceKindStateful ServiceKindBasicServiceUpdateProperties = "Stateful"
-	// ServiceKindBasicServiceUpdatePropertiesServiceKindStateless ...
-	ServiceKindBasicServiceUpdatePropertiesServiceKindStateless ServiceKindBasicServiceUpdateProperties = "Stateless"
+	// ServiceResourceTypeStatefulService specifies the service resource type stateful service state for service resource
+	// type.
+	ServiceResourceTypeStatefulService ServiceResourceType = "StatefulService"
+	// ServiceResourceTypeStatelessService specifies the service resource type stateless service state for service resource
+	// type.
+	ServiceResourceTypeStatelessService ServiceResourceType = "StatelessService"
+)
+
+// ServiceResourceTypeServiceUpdateProperties enumerates the values for service resource type service update
+// properties.
+type ServiceResourceTypeServiceUpdateProperties string
+
+const (
+	// ServiceResourceTypeStatefulServiceUpdate specifies the service resource type stateful service update state for
+	// service resource type service update properties.
+	ServiceResourceTypeStatefulServiceUpdate ServiceResourceTypeServiceUpdateProperties = "StatefulServiceUpdate"
+	// ServiceResourceTypeStatelessServiceUpdate specifies the service resource type stateless service update state for
+	// service resource type service update properties.
+	ServiceResourceTypeStatelessServiceUpdate ServiceResourceTypeServiceUpdateProperties = "StatelessServiceUpdate"
 )
 
 // Type enumerates the values for type.
 type Type string
 
-const (
-	// TypeServicePlacementPolicyDescription ...
-	TypeServicePlacementPolicyDescription Type = "ServicePlacementPolicyDescription"
-)
-
 // UpgradeMode enumerates the values for upgrade mode.
 type UpgradeMode string
 
 const (
-	// Automatic ...
+	// Automatic specifies the automatic state for upgrade mode.
 	Automatic UpgradeMode = "Automatic"
-	// Manual ...
+	// Manual specifies the manual state for upgrade mode.
 	Manual UpgradeMode = "Manual"
 )
 
@@ -204,9 +210,9 @@ const (
 type UpgradeMode1 string
 
 const (
-	// UpgradeMode1Automatic ...
+	// UpgradeMode1Automatic specifies the upgrade mode 1 automatic state for upgrade mode 1.
 	UpgradeMode1Automatic UpgradeMode1 = "Automatic"
-	// UpgradeMode1Manual ...
+	// UpgradeMode1Manual specifies the upgrade mode 1 manual state for upgrade mode 1.
 	UpgradeMode1Manual UpgradeMode1 = "Manual"
 )
 
@@ -214,13 +220,13 @@ const (
 type Weight string
 
 const (
-	// WeightHigh ...
+	// WeightHigh specifies the weight high state for weight.
 	WeightHigh Weight = "High"
-	// WeightLow ...
+	// WeightLow specifies the weight low state for weight.
 	WeightLow Weight = "Low"
-	// WeightMedium ...
+	// WeightMedium specifies the weight medium state for weight.
 	WeightMedium Weight = "Medium"
-	// WeightZero ...
+	// WeightZero specifies the weight zero state for weight.
 	WeightZero Weight = "Zero"
 )
 
@@ -228,472 +234,121 @@ const (
 type X509StoreName string
 
 const (
-	// AddressBook ...
+	// AddressBook specifies the address book state for x509 store name.
 	AddressBook X509StoreName = "AddressBook"
-	// AuthRoot ...
+	// AuthRoot specifies the auth root state for x509 store name.
 	AuthRoot X509StoreName = "AuthRoot"
-	// CertificateAuthority ...
+	// CertificateAuthority specifies the certificate authority state for x509 store name.
 	CertificateAuthority X509StoreName = "CertificateAuthority"
-	// Disallowed ...
+	// Disallowed specifies the disallowed state for x509 store name.
 	Disallowed X509StoreName = "Disallowed"
-	// My ...
+	// My specifies the my state for x509 store name.
 	My X509StoreName = "My"
-	// Root ...
+	// Root specifies the root state for x509 store name.
 	Root X509StoreName = "Root"
-	// TrustedPeople ...
+	// TrustedPeople specifies the trusted people state for x509 store name.
 	TrustedPeople X509StoreName = "TrustedPeople"
-	// TrustedPublisher ...
+	// TrustedPublisher specifies the trusted publisher state for x509 store name.
 	TrustedPublisher X509StoreName = "TrustedPublisher"
 )
 
-// ApplicationDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ApplicationDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationDeleteFuture) Result(client ApplicationClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("servicefabric.ApplicationDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ApplicationHealthPolicy defines a health policy used to evaluate the health of an application or one of its children
-// entities.
+// ApplicationHealthPolicy is defines a health policy used to evaluate the health of an application or one of its
+// children entities.
 type ApplicationHealthPolicy struct {
-	// ConsiderWarningAsError - Indicates whether warnings are treated with the same severity as errors.
-	ConsiderWarningAsError *bool `json:"ConsiderWarningAsError,omitempty"`
-	// MaxPercentUnhealthyDeployedApplications - The maximum allowed percentage of unhealthy deployed applications. Allowed values are Byte values from zero to 100.
-	// The percentage represents the maximum tolerated percentage of deployed applications that can be unhealthy before the application is considered in error.
-	// This is calculated by dividing the number of unhealthy deployed applications over the number of nodes where the application is currently deployed on in the cluster.
-	// The computation rounds up to tolerate one failure on small numbers of nodes. Default percentage is zero.
+	ConsiderWarningAsError                  *bool                             `json:"ConsiderWarningAsError,omitempty"`
 	MaxPercentUnhealthyDeployedApplications *int32                            `json:"MaxPercentUnhealthyDeployedApplications,omitempty"`
 	DefaultServiceTypeHealthPolicy          *ServiceTypeHealthPolicy          `json:"DefaultServiceTypeHealthPolicy,omitempty"`
 	ServiceTypeHealthPolicyMap              *[]ServiceTypeHealthPolicyMapItem `json:"ServiceTypeHealthPolicyMap,omitempty"`
 }
 
-// ApplicationMetricDescription describes capacity information for a custom resource balancing metric. This can be used
-// to limit the total consumption of this metric by the services of this application.
+// ApplicationMetricDescription is describes capacity information for a custom resource balancing metric. This can be
+// used to limit the total consumption of this metric by the services of this application.
 type ApplicationMetricDescription struct {
-	// Name - The name of the metric.
-	Name *string `json:"Name,omitempty"`
-	// MaximumCapacity - The maximum node capacity for Service Fabric application.
-	// This is the maximum Load for an instance of this application on a single node. Even if the capacity of node is greater than this value, Service Fabric will limit the total load of services within the application on each node to this value.
-	// If set to zero, capacity for this metric is unlimited on each node.
-	// When creating a new application with application capacity defined, the product of MaximumNodes and this value must always be smaller than or equal to TotalApplicationCapacity.
-	// When updating existing application with application capacity, the product of MaximumNodes and this value must always be smaller than or equal to TotalApplicationCapacity.
-	MaximumCapacity *int64 `json:"MaximumCapacity,omitempty"`
-	// ReservationCapacity - The node reservation capacity for Service Fabric application.
-	// This is the amount of load which is reserved on nodes which have instances of this application.
-	// If MinimumNodes is specified, then the product of these values will be the capacity reserved in the cluster for the application.
-	// If set to zero, no capacity is reserved for this metric.
-	// When setting application capacity or when updating application capacity; this value must be smaller than or equal to MaximumCapacity for each metric.
-	ReservationCapacity *int64 `json:"ReservationCapacity,omitempty"`
-	// TotalApplicationCapacity - The total metric capacity for Service Fabric application.
-	// This is the total metric capacity for this application in the cluster. Service Fabric will try to limit the sum of loads of services within the application to this value.
-	// When creating a new application with application capacity defined, the product of MaximumNodes and MaximumCapacity must always be smaller than or equal to this value.
-	TotalApplicationCapacity *int64 `json:"TotalApplicationCapacity,omitempty"`
+	Name                     *string `json:"Name,omitempty"`
+	MaximumCapacity          *int64  `json:"MaximumCapacity,omitempty"`
+	ReservationCapacity      *int64  `json:"ReservationCapacity,omitempty"`
+	TotalApplicationCapacity *int64  `json:"TotalApplicationCapacity,omitempty"`
 }
 
-// ApplicationParameter describes an application parameter override to be applied when creating or upgrading an
+// ApplicationParameter is describes an application parameter override to be applied when creating or upgrading an
 // application.
 type ApplicationParameter struct {
-	// Key - The name of the parameter.
-	Key *string `json:"Key,omitempty"`
-	// Value - The value of the parameter.
+	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
 }
 
-// ApplicationPatchFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ApplicationPatchFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationPatchFuture) Result(client ApplicationClient) (aru ApplicationResourceUpdate, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return aru, autorest.NewError("servicefabric.ApplicationPatchFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		aru, err = client.PatchResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	aru, err = client.PatchResponder(resp)
-	return
-}
-
-// ApplicationProperties the application resource properties.
+// ApplicationProperties is the application resource properties.
 type ApplicationProperties struct {
-	TypeVersion   *string                   `json:"typeVersion,omitempty"`
-	Parameters    *[]ApplicationParameter   `json:"parameters,omitempty"`
-	UpgradePolicy *ApplicationUpgradePolicy `json:"upgradePolicy,omitempty"`
-	// MinimumNodes - The minimum number of nodes where Service Fabric will reserve capacity for this application. Note that this does not mean that the services of this application will be placed on all of those nodes. If this property is set to zero, no capacity will be reserved. The value of this property cannot be more than the value of the MaximumNodes property.
-	MinimumNodes *int64 `json:"minimumNodes,omitempty"`
-	// MaximumNodes - The maximum number of nodes where Service Fabric will reserve capacity for this application. Note that this does not mean that the services of this application will be placed on all of those nodes. By default, the value of this property is zero and it means that the services can be placed on any node.
-	MaximumNodes *int64 `json:"maximumNodes,omitempty"`
-	// RemoveApplicationCapacity - The version of the application type
+	TypeVersion               *string                         `json:"typeVersion,omitempty"`
+	Parameters                *[]ApplicationParameter         `json:"parameters,omitempty"`
+	UpgradePolicy             *ApplicationUpgradePolicy       `json:"upgradePolicy,omitempty"`
+	MinimumNodes              *int64                          `json:"minimumNodes,omitempty"`
+	MaximumNodes              *int64                          `json:"maximumNodes,omitempty"`
 	RemoveApplicationCapacity *bool                           `json:"removeApplicationCapacity,omitempty"`
 	Metrics                   *[]ApplicationMetricDescription `json:"metrics,omitempty"`
-	// ProvisioningState - The current deployment or provisioning state, which only appears in the response
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	TypeName          *string `json:"typeName,omitempty"`
+	ProvisioningState         *string                         `json:"provisioningState,omitempty"`
+	TypeName                  *string                         `json:"typeName,omitempty"`
 }
 
-// ApplicationPutFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ApplicationPutFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationPutFuture) Result(client ApplicationClient) (ar ApplicationResource, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("servicefabric.ApplicationPutFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.PutResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.PutResponder(resp)
-	return
-}
-
-// ApplicationResource the application resource.
+// ApplicationResource is the application resource.
 type ApplicationResource struct {
-	autorest.Response `json:"-"`
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
+	autorest.Response      `json:"-"`
+	ID                     *string `json:"id,omitempty"`
+	Name                   *string `json:"name,omitempty"`
+	Type                   *string `json:"type,omitempty"`
 	Location               *string `json:"location,omitempty"`
 	*ApplicationProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationResource struct.
-func (ar *ApplicationResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ar.ApplicationProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ar.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ar.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ar.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		ar.Location = &location
-	}
-
-	return nil
-}
-
-// ApplicationResourceList the list of application resources.
+// ApplicationResourceList is the list of application resources.
 type ApplicationResourceList struct {
 	autorest.Response `json:"-"`
 	Value             *[]ApplicationResource `json:"value,omitempty"`
 }
 
-// ApplicationResourceUpdate the application resource for patch operations.
+// ApplicationResourceUpdate is the application resource for patch operations.
 type ApplicationResourceUpdate struct {
-	autorest.Response `json:"-"`
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
+	autorest.Response            `json:"-"`
+	ID                           *string `json:"id,omitempty"`
+	Name                         *string `json:"name,omitempty"`
+	Type                         *string `json:"type,omitempty"`
 	Location                     *string `json:"location,omitempty"`
 	*ApplicationUpdateProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationResourceUpdate struct.
-func (aru *ApplicationResourceUpdate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationUpdateProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		aru.ApplicationUpdateProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		aru.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		aru.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		aru.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		aru.Location = &location
-	}
-
-	return nil
-}
-
-// ApplicationTypeDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ApplicationTypeDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationTypeDeleteFuture) Result(client ApplicationTypeClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("servicefabric.ApplicationTypeDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ApplicationTypeProperties the application type name properties
+// ApplicationTypeProperties is the application type name properties
 type ApplicationTypeProperties struct {
-	// ProvisioningState - The current deployment or provisioning state, which only appears in the response.
 	ProvisioningState *string `json:"provisioningState,omitempty"`
 }
 
-// ApplicationTypeResource the application type name resource
+// ApplicationTypeResource is the application type name resource
 type ApplicationTypeResource struct {
-	autorest.Response `json:"-"`
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
+	autorest.Response          `json:"-"`
+	ID                         *string `json:"id,omitempty"`
+	Name                       *string `json:"name,omitempty"`
+	Type                       *string `json:"type,omitempty"`
 	Location                   *string `json:"location,omitempty"`
 	*ApplicationTypeProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationTypeResource struct.
-func (atr *ApplicationTypeResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationTypeProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		atr.ApplicationTypeProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		atr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		atr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		atr.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		atr.Location = &location
-	}
-
-	return nil
-}
-
-// ApplicationTypeResourceList the list of application type names.
+// ApplicationTypeResourceList is the list of application type names.
 type ApplicationTypeResourceList struct {
 	autorest.Response `json:"-"`
 	Value             *[]ApplicationTypeResource `json:"value,omitempty"`
 }
 
-// ApplicationUpdateProperties the application resource properties for patch operations.
+// ApplicationUpdateProperties is the application resource properties for patch operations.
 type ApplicationUpdateProperties struct {
-	TypeVersion   *string                   `json:"typeVersion,omitempty"`
-	Parameters    *[]ApplicationParameter   `json:"parameters,omitempty"`
-	UpgradePolicy *ApplicationUpgradePolicy `json:"upgradePolicy,omitempty"`
-	// MinimumNodes - The minimum number of nodes where Service Fabric will reserve capacity for this application. Note that this does not mean that the services of this application will be placed on all of those nodes. If this property is set to zero, no capacity will be reserved. The value of this property cannot be more than the value of the MaximumNodes property.
-	MinimumNodes *int64 `json:"minimumNodes,omitempty"`
-	// MaximumNodes - The maximum number of nodes where Service Fabric will reserve capacity for this application. Note that this does not mean that the services of this application will be placed on all of those nodes. By default, the value of this property is zero and it means that the services can be placed on any node.
-	MaximumNodes *int64 `json:"maximumNodes,omitempty"`
-	// RemoveApplicationCapacity - The version of the application type
+	TypeVersion               *string                         `json:"typeVersion,omitempty"`
+	Parameters                *[]ApplicationParameter         `json:"parameters,omitempty"`
+	UpgradePolicy             *ApplicationUpgradePolicy       `json:"upgradePolicy,omitempty"`
+	MinimumNodes              *int64                          `json:"minimumNodes,omitempty"`
+	MaximumNodes              *int64                          `json:"maximumNodes,omitempty"`
 	RemoveApplicationCapacity *bool                           `json:"removeApplicationCapacity,omitempty"`
 	Metrics                   *[]ApplicationMetricDescription `json:"metrics,omitempty"`
 }
 
-// ApplicationUpgradePolicy describes the policy for a monitored application upgrade.
+// ApplicationUpgradePolicy is the application upgrade policy.
 type ApplicationUpgradePolicy struct {
 	UpgradeReplicaSetCheckTimeout  *int64                          `json:"upgradeReplicaSetCheckTimeout,omitempty"`
 	ForceRestart                   *bool                           `json:"forceRestart,omitempty"`
@@ -701,484 +356,179 @@ type ApplicationUpgradePolicy struct {
 	ApplicationHealthPolicy        *ApplicationHealthPolicy        `json:"applicationHealthPolicy,omitempty"`
 }
 
-// AvailableOperationDisplay operation supported by Service Fabric resource provider
+// AvailableOperationDisplay is operation supported by Service Fabric resource provider
 type AvailableOperationDisplay struct {
-	// Provider - The name of the provider.
-	Provider *string `json:"provider,omitempty"`
-	// Resource - The resource on which the operation is performed
-	Resource *string `json:"resource,omitempty"`
-	// Operation - The operation that can be performed.
-	Operation *string `json:"operation,omitempty"`
-	// Description - Operation description
+	Provider    *string `json:"provider,omitempty"`
+	Resource    *string `json:"resource,omitempty"`
+	Operation   *string `json:"operation,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
-// AzureActiveDirectory the settings to enable AAD authentication on the cluster.
+// AzureActiveDirectory is the settings to enable AAD authentication on the cluster.
 type AzureActiveDirectory struct {
-	// TenantID - Azure active directory tenant id.
-	TenantID *string `json:"tenantId,omitempty"`
-	// ClusterApplication - Azure active directory cluster application id.
+	TenantID           *string `json:"tenantId,omitempty"`
 	ClusterApplication *string `json:"clusterApplication,omitempty"`
-	// ClientApplication - Azure active directory client application id.
-	ClientApplication *string `json:"clientApplication,omitempty"`
+	ClientApplication  *string `json:"clientApplication,omitempty"`
 }
 
-// CertificateDescription describes the certificate details.
+// CertificateDescription is describes the certificate details.
 type CertificateDescription struct {
-	// Thumbprint - Thumbprint of the primary certificate.
-	Thumbprint *string `json:"thumbprint,omitempty"`
-	// ThumbprintSecondary - Thumbprint of the secondary certificate.
-	ThumbprintSecondary *string `json:"thumbprintSecondary,omitempty"`
-	// X509StoreName - The local certificate store location. Possible values include: 'AddressBook', 'AuthRoot', 'CertificateAuthority', 'Disallowed', 'My', 'Root', 'TrustedPeople', 'TrustedPublisher'
-	X509StoreName X509StoreName `json:"x509StoreName,omitempty"`
+	Thumbprint          *string       `json:"thumbprint,omitempty"`
+	ThumbprintSecondary *string       `json:"thumbprintSecondary,omitempty"`
+	X509StoreName       X509StoreName `json:"x509StoreName,omitempty"`
 }
 
-// ClientCertificateCommonName describes the client certificate details using common name.
+// ClientCertificateCommonName is describes the client certificate details using common name.
 type ClientCertificateCommonName struct {
-	// IsAdmin - Indicates if the client certificate has admin access to the cluster. Non admin clients can perform only read only operations on the cluster.
-	IsAdmin *bool `json:"isAdmin,omitempty"`
-	// CertificateCommonName - The common name of the client certificate.
-	CertificateCommonName *string `json:"certificateCommonName,omitempty"`
-	// CertificateIssuerThumbprint - The issuer thumbprint of the client certificate.
+	IsAdmin                     *bool   `json:"isAdmin,omitempty"`
+	CertificateCommonName       *string `json:"certificateCommonName,omitempty"`
 	CertificateIssuerThumbprint *string `json:"certificateIssuerThumbprint,omitempty"`
 }
 
-// ClientCertificateThumbprint describes the client certificate details using thumbprint.
+// ClientCertificateThumbprint is describes the client certificate details using thumbprint.
 type ClientCertificateThumbprint struct {
-	// IsAdmin - Indicates if the client certificate has admin access to the cluster. Non admin clients can perform only read only operations on the cluster.
-	IsAdmin *bool `json:"isAdmin,omitempty"`
-	// CertificateThumbprint - The thumbprint of the client certificate.
+	IsAdmin               *bool   `json:"isAdmin,omitempty"`
 	CertificateThumbprint *string `json:"certificateThumbprint,omitempty"`
 }
 
-// Cluster the cluster resource
+// Cluster is the cluster resource
 type Cluster struct {
-	autorest.Response `json:"-"`
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// ClusterProperties - The cluster resource properties
+	autorest.Response  `json:"-"`
+	ID                 *string             `json:"id,omitempty"`
+	Name               *string             `json:"name,omitempty"`
+	Type               *string             `json:"type,omitempty"`
+	Location           *string             `json:"location,omitempty"`
+	Tags               *map[string]*string `json:"tags,omitempty"`
 	*ClusterProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Cluster struct.
-func (c *Cluster) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ClusterProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		c.ClusterProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		c.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		c.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		c.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		c.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		c.Tags = &tags
-	}
-
-	return nil
-}
-
-// ClusterCodeVersionsListResult the list results of the ServiceFabric runtime versions.
+// ClusterCodeVersionsListResult is the list results of the ServiceFabric runtime versions.
 type ClusterCodeVersionsListResult struct {
 	autorest.Response `json:"-"`
 	Value             *[]ClusterCodeVersionsResult `json:"value,omitempty"`
-	// NextLink - The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	NextLink          *string                      `json:"nextLink,omitempty"`
 }
 
-// ClusterCodeVersionsResult the result of the ServiceFabric runtime versions
+// ClusterCodeVersionsResult is the result of the ServiceFabric runtime versions
 type ClusterCodeVersionsResult struct {
-	// ID - The identification of the result
-	ID *string `json:"id,omitempty"`
-	// Name - The name of the result
-	Name *string `json:"name,omitempty"`
-	// Type - The result resource type
+	ID                     *string `json:"id,omitempty"`
+	Name                   *string `json:"name,omitempty"`
 	Type                   *string `json:"type,omitempty"`
 	*ClusterVersionDetails `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ClusterCodeVersionsResult struct.
-func (ccvr *ClusterCodeVersionsResult) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ccvr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ccvr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ccvr.Type = &typeVar
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ClusterVersionDetails
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ccvr.ClusterVersionDetails = &properties
-	}
-
-	return nil
-}
-
-// ClusterHealthPolicy defines a health policy used to evaluate the health of the cluster or of a cluster node.
+// ClusterHealthPolicy is defines a health policy used to evaluate the health of the cluster or of a cluster node.
 type ClusterHealthPolicy struct {
-	// MaxPercentUnhealthyNodes - The maximum allowed percentage of unhealthy nodes before reporting an error. For example, to allow 10% of nodes to be unhealthy, this value would be 10.
-	MaxPercentUnhealthyNodes *int32 `json:"maxPercentUnhealthyNodes,omitempty"`
-	// MaxPercentUnhealthyApplications - The maximum allowed percentage of unhealthy applications before reporting an error. For example, to allow 10% of applications to be unhealthy, this value would be 10.
+	MaxPercentUnhealthyNodes        *int32 `json:"maxPercentUnhealthyNodes,omitempty"`
 	MaxPercentUnhealthyApplications *int32 `json:"maxPercentUnhealthyApplications,omitempty"`
 }
 
-// ClusterListResult cluster list results
+// ClusterListResult is cluster list results
 type ClusterListResult struct {
 	autorest.Response `json:"-"`
 	Value             *[]Cluster `json:"value,omitempty"`
-	// NextLink - The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	NextLink          *string    `json:"nextLink,omitempty"`
 }
 
-// ClusterProperties describes the cluster resource properties.
+// ClusterProperties is describes the cluster resource properties.
 type ClusterProperties struct {
-	// AvailableClusterVersions - The Service Fabric runtime versions available for this cluster.
-	AvailableClusterVersions *[]ClusterVersionDetails `json:"availableClusterVersions,omitempty"`
-	// ClusterID - A service generated unique identifier for the cluster resource.
-	ClusterID *string `json:"clusterId,omitempty"`
-	// ClusterState - Possible values include: 'WaitingForNodes', 'Deploying', 'BaselineUpgrade', 'UpdatingUserConfiguration', 'UpdatingUserCertificate', 'UpdatingInfrastructure', 'EnforcingClusterVersion', 'UpgradeServiceUnreachable', 'AutoScale', 'Ready'
-	ClusterState ClusterState `json:"clusterState,omitempty"`
-	// ClusterEndpoint - The Azure Resource Provider endpoint. A system service in the cluster connects to this  endpoint.
-	ClusterEndpoint *string `json:"clusterEndpoint,omitempty"`
-	// ClusterCodeVersion - The Service Fabric runtime version of the cluster. This property can only by set the user when **upgradeMode** is set to 'Manual'. To get list of available Service Fabric versions for new clusters use [ClusterVersion API](./ClusterVersion.md). To get the list of available version for existing clusters use **availableClusterVersions**.
-	ClusterCodeVersion *string `json:"clusterCodeVersion,omitempty"`
-	// Certificate - The certificate to use for securing the cluster. The certificate provided will be used for  node to node security within the cluster, SSL certificate for cluster management endpoint and default  admin client.
-	Certificate *CertificateDescription `json:"certificate,omitempty"`
-	// ReliabilityLevel - Possible values include: 'ReliabilityLevelNone', 'ReliabilityLevelBronze', 'ReliabilityLevelSilver', 'ReliabilityLevelGold', 'ReliabilityLevelPlatinum'
-	ReliabilityLevel ReliabilityLevel `json:"reliabilityLevel,omitempty"`
-	// UpgradeMode - Possible values include: 'Automatic', 'Manual'
-	UpgradeMode UpgradeMode `json:"upgradeMode,omitempty"`
-	// ClientCertificateThumbprints - The list of client certificates referenced by thumbprint that are allowed to manage the cluster.
-	ClientCertificateThumbprints *[]ClientCertificateThumbprint `json:"clientCertificateThumbprints,omitempty"`
-	// ClientCertificateCommonNames - The list of client certificates referenced by common name that are allowed to manage the cluster.
-	ClientCertificateCommonNames *[]ClientCertificateCommonName `json:"clientCertificateCommonNames,omitempty"`
-	// FabricSettings - The list of custom fabric settings to configure the cluster.
-	FabricSettings *[]SettingsSectionDescription `json:"fabricSettings,omitempty"`
-	// ReverseProxyCertificate - The server certificate used by reverse proxy.
-	ReverseProxyCertificate *CertificateDescription `json:"reverseProxyCertificate,omitempty"`
-	// ManagementEndpoint - The http management endpoint of the cluster.
-	ManagementEndpoint *string `json:"managementEndpoint,omitempty"`
-	// NodeTypes - The list of node types in the cluster.
-	NodeTypes *[]NodeTypeDescription `json:"nodeTypes,omitempty"`
-	// AzureActiveDirectory - The AAD authentication settings of the cluster.
-	AzureActiveDirectory *AzureActiveDirectory `json:"azureActiveDirectory,omitempty"`
-	// ProvisioningState - The provisioning state of the cluster resource. Possible values include: 'Updating', 'Succeeded', 'Failed', 'Canceled'
-	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
-	// VMImage - The VM image VMSS has been configured with. Generic names such as Windows or Linux can be used.
-	VMImage *string `json:"vmImage,omitempty"`
-	// DiagnosticsStorageAccountConfig - The storage account information for storing Service Fabric diagnostic logs.
+	AvailableClusterVersions        *[]ClusterVersionDetails         `json:"availableClusterVersions,omitempty"`
+	ClusterID                       *string                          `json:"clusterId,omitempty"`
+	ClusterState                    ClusterState                     `json:"clusterState,omitempty"`
+	ClusterEndpoint                 *string                          `json:"clusterEndpoint,omitempty"`
+	ClusterCodeVersion              *string                          `json:"clusterCodeVersion,omitempty"`
+	Certificate                     *CertificateDescription          `json:"certificate,omitempty"`
+	ReliabilityLevel                ReliabilityLevel                 `json:"reliabilityLevel,omitempty"`
+	UpgradeMode                     UpgradeMode                      `json:"upgradeMode,omitempty"`
+	ClientCertificateThumbprints    *[]ClientCertificateThumbprint   `json:"clientCertificateThumbprints,omitempty"`
+	ClientCertificateCommonNames    *[]ClientCertificateCommonName   `json:"clientCertificateCommonNames,omitempty"`
+	FabricSettings                  *[]SettingsSectionDescription    `json:"fabricSettings,omitempty"`
+	ReverseProxyCertificate         *CertificateDescription          `json:"reverseProxyCertificate,omitempty"`
+	ManagementEndpoint              *string                          `json:"managementEndpoint,omitempty"`
+	NodeTypes                       *[]NodeTypeDescription           `json:"nodeTypes,omitempty"`
+	AzureActiveDirectory            *AzureActiveDirectory            `json:"azureActiveDirectory,omitempty"`
+	ProvisioningState               ProvisioningState                `json:"provisioningState,omitempty"`
+	VMImage                         *string                          `json:"vmImage,omitempty"`
 	DiagnosticsStorageAccountConfig *DiagnosticsStorageAccountConfig `json:"diagnosticsStorageAccountConfig,omitempty"`
-	// UpgradeDescription - The policy to use when upgrading the cluster.
-	UpgradeDescription *ClusterUpgradePolicy `json:"upgradeDescription,omitempty"`
-	// AddOnFeatures - The list of add-on features to enable in the cluster.
-	AddOnFeatures *[]string `json:"addOnFeatures,omitempty"`
+	UpgradeDescription              *ClusterUpgradePolicy            `json:"upgradeDescription,omitempty"`
+	AddOnFeatures                   *[]string                        `json:"addOnFeatures,omitempty"`
 }
 
-// ClusterPropertiesUpdateParameters describes the cluster resource properties that can be updated during PATCH
+// ClusterPropertiesUpdateParameters is describes the cluster resource properties that can be updated during PATCH
 // operation.
 type ClusterPropertiesUpdateParameters struct {
-	// ReliabilityLevel - The reliability level sets the replica set size of system services. Learn about [ReliabilityLevel](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-capacity). Possible values include: 'ReliabilityLevel1Bronze', 'ReliabilityLevel1Silver', 'ReliabilityLevel1Gold'
-	ReliabilityLevel ReliabilityLevel `json:"reliabilityLevel,omitempty"`
-	// UpgradeMode - The upgrade mode of the cluster. This indicates if the cluster should be automatically upgraded when new Service Fabric runtime version is available. Possible values include: 'UpgradeMode1Automatic', 'UpgradeMode1Manual'
-	UpgradeMode UpgradeMode `json:"upgradeMode,omitempty"`
-	// ClusterCodeVersion - The Service Fabric runtime version of the cluster. This property can only by set the user when **upgradeMode** is set to 'Manual'. To get list of available Service Fabric versions for new clusters use [ClusterVersion API](./ClusterVersion.md). To get the list of available version for existing clusters use **availableClusterVersions**.
-	ClusterCodeVersion *string `json:"clusterCodeVersion,omitempty"`
-	// Certificate - The certificate to use for securing the cluster. The certificate provided will be used for  node to node security within the cluster, SSL certificate for cluster management endpoint and default  admin client.
-	Certificate *CertificateDescription `json:"certificate,omitempty"`
-	// ClientCertificateThumbprints - The list of client certificates referenced by thumbprint that are allowed to manage the cluster. This will overwrite the existing list.
+	ReliabilityLevel             ReliabilityLevel               `json:"reliabilityLevel,omitempty"`
+	UpgradeMode                  UpgradeMode                    `json:"upgradeMode,omitempty"`
+	ClusterCodeVersion           *string                        `json:"clusterCodeVersion,omitempty"`
+	Certificate                  *CertificateDescription        `json:"certificate,omitempty"`
 	ClientCertificateThumbprints *[]ClientCertificateThumbprint `json:"clientCertificateThumbprints,omitempty"`
-	// ClientCertificateCommonNames - The list of client certificates referenced by common name that are allowed to manage the cluster. This will overwrite the existing list.
 	ClientCertificateCommonNames *[]ClientCertificateCommonName `json:"clientCertificateCommonNames,omitempty"`
-	// FabricSettings - The list of custom fabric settings to configure the cluster. This will overwrite the existing list.
-	FabricSettings *[]SettingsSectionDescription `json:"fabricSettings,omitempty"`
-	// ReverseProxyCertificate - The server certificate used by reverse proxy.
-	ReverseProxyCertificate *CertificateDescription `json:"reverseProxyCertificate,omitempty"`
-	// NodeTypes - The list of node types in the cluster. This will overwrite the existing list.
-	NodeTypes *[]NodeTypeDescription `json:"nodeTypes,omitempty"`
-	// UpgradeDescription - The policy to use when upgrading the cluster.
-	UpgradeDescription *ClusterUpgradePolicy `json:"upgradeDescription,omitempty"`
-	// AddOnFeatures - The list of add-on features to enable in the cluster.
-	AddOnFeatures *[]string `json:"addOnFeatures,omitempty"`
+	FabricSettings               *[]SettingsSectionDescription  `json:"fabricSettings,omitempty"`
+	ReverseProxyCertificate      *CertificateDescription        `json:"reverseProxyCertificate,omitempty"`
+	NodeTypes                    *[]NodeTypeDescription         `json:"nodeTypes,omitempty"`
+	UpgradeDescription           *ClusterUpgradePolicy          `json:"upgradeDescription,omitempty"`
+	AddOnFeatures                *[]string                      `json:"addOnFeatures,omitempty"`
 }
 
-// ClustersCreateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ClustersCreateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ClustersCreateFuture) Result(client ClustersClient) (c Cluster, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return c, autorest.NewError("servicefabric.ClustersCreateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		c, err = client.CreateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	c, err = client.CreateResponder(resp)
-	return
-}
-
-// ClustersUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ClustersUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ClustersUpdateFuture) Result(client ClustersClient) (c Cluster, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return c, autorest.NewError("servicefabric.ClustersUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		c, err = client.UpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	c, err = client.UpdateResponder(resp)
-	return
-}
-
-// ClusterUpdateParameters cluster update request
+// ClusterUpdateParameters is cluster update request
 type ClusterUpdateParameters struct {
 	*ClusterPropertiesUpdateParameters `json:"properties,omitempty"`
-	// Tags - Cluster update parameters
-	Tags *map[string]*string `json:"tags,omitempty"`
+	Tags                               *map[string]*string `json:"tags,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ClusterUpdateParameters struct.
-func (cup *ClusterUpdateParameters) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ClusterPropertiesUpdateParameters
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		cup.ClusterPropertiesUpdateParameters = &properties
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		cup.Tags = &tags
-	}
-
-	return nil
-}
-
-// ClusterUpgradeDeltaHealthPolicy describes the delta health policies for the cluster upgrade.
+// ClusterUpgradeDeltaHealthPolicy is describes the delta health policies for the cluster upgrade.
 type ClusterUpgradeDeltaHealthPolicy struct {
-	// MaxPercentDeltaUnhealthyNodes - The maximum allowed percentage of nodes health degradation allowed during cluster upgrades. The delta is measured between the state of the nodes at the beginning of upgrade and the state of the nodes at the time of the health evaluation. The check is performed after every upgrade domain upgrade completion to make sure the global state of the cluster is within tolerated limits.
-	MaxPercentDeltaUnhealthyNodes *int32 `json:"maxPercentDeltaUnhealthyNodes,omitempty"`
-	// MaxPercentUpgradeDomainDeltaUnhealthyNodes - The maximum allowed percentage of upgrade domain nodes health degradation allowed during cluster upgrades. The delta is measured between the state of the upgrade domain nodes at the beginning of upgrade and the state of the upgrade domain nodes at the time of the health evaluation. The check is performed after every upgrade domain upgrade completion for all completed upgrade domains to make sure the state of the upgrade domains is within tolerated limits.
+	MaxPercentDeltaUnhealthyNodes              *int32 `json:"maxPercentDeltaUnhealthyNodes,omitempty"`
 	MaxPercentUpgradeDomainDeltaUnhealthyNodes *int32 `json:"maxPercentUpgradeDomainDeltaUnhealthyNodes,omitempty"`
-	// MaxPercentDeltaUnhealthyApplications - The maximum allowed percentage of applications health degradation allowed during cluster upgrades. The delta is measured between the state of the applications at the beginning of upgrade and the state of the applications at the time of the health evaluation. The check is performed after every upgrade domain upgrade completion to make sure the global state of the cluster is within tolerated limits. System services are not included in this.
-	MaxPercentDeltaUnhealthyApplications *int32 `json:"maxPercentDeltaUnhealthyApplications,omitempty"`
+	MaxPercentDeltaUnhealthyApplications       *int32 `json:"maxPercentDeltaUnhealthyApplications,omitempty"`
 }
 
-// ClusterUpgradePolicy describes the policy used when upgrading the cluster.
+// ClusterUpgradePolicy is describes the policy used when upgrading the cluster.
 type ClusterUpgradePolicy struct {
-	// ForceRestart - If true, then processes are forcefully restarted during upgrade even when the code version has not changed (the upgrade only changes configuration or data).
-	ForceRestart *bool `json:"forceRestart,omitempty"`
-	// UpgradeReplicaSetCheckTimeout - The maximum amount of time to block processing of an upgrade domain and revent loss of availability when there are unexpected issues. When this timeout expires, processing of the upgrade domain will proceed regardless of availability loss issues. The timeout is reset at the start of each upgrade domain. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format.
-	UpgradeReplicaSetCheckTimeout *string `json:"upgradeReplicaSetCheckTimeout,omitempty"`
-	// HealthCheckWaitDuration - The length of time to wait after completing an upgrade domain before performing health checks. The duration can be in either hh:mm:ss or in d.hh:mm:ss.ms format.
-	HealthCheckWaitDuration *string `json:"healthCheckWaitDuration,omitempty"`
-	// HealthCheckStableDuration - The amount of time that the application or cluster must remain healthy before the upgrade proceeds to the next upgrade domain. The duration can be in either hh:mm:ss or in d.hh:mm:ss.ms format.
-	HealthCheckStableDuration *string `json:"healthCheckStableDuration,omitempty"`
-	// HealthCheckRetryTimeout - The amount of time to retry health evaluation when the application or cluster is unhealthy before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format.
-	HealthCheckRetryTimeout *string `json:"healthCheckRetryTimeout,omitempty"`
-	// UpgradeTimeout - The amount of time the overall upgrade has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format.
-	UpgradeTimeout *string `json:"upgradeTimeout,omitempty"`
-	// UpgradeDomainTimeout - The amount of time each upgrade domain has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format.
-	UpgradeDomainTimeout *string `json:"upgradeDomainTimeout,omitempty"`
-	// HealthPolicy - The cluster health policy used when upgrading the cluster.
-	HealthPolicy *ClusterHealthPolicy `json:"healthPolicy,omitempty"`
-	// DeltaHealthPolicy - The delta health policy used when upgrading the cluster.
-	DeltaHealthPolicy *ClusterUpgradeDeltaHealthPolicy `json:"deltaHealthPolicy,omitempty"`
+	ForceRestart                  *bool                            `json:"forceRestart,omitempty"`
+	UpgradeReplicaSetCheckTimeout *string                          `json:"upgradeReplicaSetCheckTimeout,omitempty"`
+	HealthCheckWaitDuration       *string                          `json:"healthCheckWaitDuration,omitempty"`
+	HealthCheckStableDuration     *string                          `json:"healthCheckStableDuration,omitempty"`
+	HealthCheckRetryTimeout       *string                          `json:"healthCheckRetryTimeout,omitempty"`
+	UpgradeTimeout                *string                          `json:"upgradeTimeout,omitempty"`
+	UpgradeDomainTimeout          *string                          `json:"upgradeDomainTimeout,omitempty"`
+	HealthPolicy                  *ClusterHealthPolicy             `json:"healthPolicy,omitempty"`
+	DeltaHealthPolicy             *ClusterUpgradeDeltaHealthPolicy `json:"deltaHealthPolicy,omitempty"`
 }
 
-// ClusterVersionDetails the detail of the Service Fabric runtime version result
+// ClusterVersionDetails is the detail of the Service Fabric runtime version result
 type ClusterVersionDetails struct {
-	// CodeVersion - The Service Fabric runtime version of the cluster.
-	CodeVersion *string `json:"codeVersion,omitempty"`
-	// SupportExpiryUtc - The date of expiry of support of the version.
-	SupportExpiryUtc *string `json:"supportExpiryUtc,omitempty"`
-	// Environment - Indicates if this version is for Windows or Linux operating system. Possible values include: 'Windows', 'Linux'
-	Environment Environment `json:"environment,omitempty"`
+	CodeVersion      *string     `json:"codeVersion,omitempty"`
+	SupportExpiryUtc *string     `json:"supportExpiryUtc,omitempty"`
+	Environment      Environment `json:"environment,omitempty"`
 }
 
-// DiagnosticsStorageAccountConfig the storage account information for storing Service Fabric diagnostic logs.
+// DiagnosticsStorageAccountConfig is the storage account information for storing Service Fabric diagnostic logs.
 type DiagnosticsStorageAccountConfig struct {
-	// StorageAccountName - The Azure storage account name.
-	StorageAccountName *string `json:"storageAccountName,omitempty"`
-	// ProtectedAccountKeyName - The protected diagnostics storage key name.
+	StorageAccountName      *string `json:"storageAccountName,omitempty"`
 	ProtectedAccountKeyName *string `json:"protectedAccountKeyName,omitempty"`
-	// BlobEndpoint - The blob endpoint of the azure storage account.
-	BlobEndpoint *string `json:"blobEndpoint,omitempty"`
-	// QueueEndpoint - The queue endpoint of the azure storage account.
-	QueueEndpoint *string `json:"queueEndpoint,omitempty"`
-	// TableEndpoint - The table endpoint of the azure storage account.
-	TableEndpoint *string `json:"tableEndpoint,omitempty"`
+	BlobEndpoint            *string `json:"blobEndpoint,omitempty"`
+	QueueEndpoint           *string `json:"queueEndpoint,omitempty"`
+	TableEndpoint           *string `json:"tableEndpoint,omitempty"`
 }
 
-// EndpointRangeDescription port range details
+// EndpointRangeDescription is port range details
 type EndpointRangeDescription struct {
-	// StartPort - Starting port of a range of ports
 	StartPort *int32 `json:"startPort,omitempty"`
-	// EndPort - End port of a range of ports
-	EndPort *int32 `json:"endPort,omitempty"`
+	EndPort   *int32 `json:"endPort,omitempty"`
 }
 
-// ErrorModel the error details.
+// ErrorModel is the error details.
 type ErrorModel struct {
-	// Code - The error code.
-	Code *string `json:"code,omitempty"`
-	// Message - The error message.
+	Code    *string `json:"code,omitempty"`
 	Message *string `json:"message,omitempty"`
 }
 
-// NamedPartitionSchemeDescription describes the named partition scheme of the service.
+// NamedPartitionSchemeDescription is describes the named partition scheme of the service.
 type NamedPartitionSchemeDescription struct {
-	// PartitionScheme - Possible values include: 'PartitionSchemePartitionSchemeDescription', 'PartitionSchemeNamed', 'PartitionSchemeSingleton', 'PartitionSchemeUniformInt64Range'
 	PartitionScheme PartitionScheme `json:"PartitionScheme,omitempty"`
-	// Count - The number of partitions.
-	Count *int32 `json:"Count,omitempty"`
-	// Names - Array of size specified by the ‘Count’ parameter, for the names of the partitions.
-	Names *[]string `json:"Names,omitempty"`
+	Count           *int32          `json:"Count,omitempty"`
+	Names           *[]string       `json:"Names,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for NamedPartitionSchemeDescription.
@@ -1192,186 +542,72 @@ func (npsd NamedPartitionSchemeDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsNamedPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
+// AsNamedPartitionSchemeDescription is the PartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
 func (npsd NamedPartitionSchemeDescription) AsNamedPartitionSchemeDescription() (*NamedPartitionSchemeDescription, bool) {
 	return &npsd, true
 }
 
-// AsSingletonPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
+// AsSingletonPartitionSchemeDescription is the PartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
 func (npsd NamedPartitionSchemeDescription) AsSingletonPartitionSchemeDescription() (*SingletonPartitionSchemeDescription, bool) {
 	return nil, false
 }
 
-// AsUniformInt64RangePartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
+// AsUniformInt64RangePartitionSchemeDescription is the PartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
 func (npsd NamedPartitionSchemeDescription) AsUniformInt64RangePartitionSchemeDescription() (*UniformInt64RangePartitionSchemeDescription, bool) {
 	return nil, false
 }
 
-// AsPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
-func (npsd NamedPartitionSchemeDescription) AsPartitionSchemeDescription() (*PartitionSchemeDescription, bool) {
-	return nil, false
-}
-
-// AsBasicPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for NamedPartitionSchemeDescription.
-func (npsd NamedPartitionSchemeDescription) AsBasicPartitionSchemeDescription() (BasicPartitionSchemeDescription, bool) {
-	return &npsd, true
-}
-
-// NodeTypeDescription describes a node type in the cluster, each node type represents sub set of nodes in the cluster.
+// NodeTypeDescription is describes a node type in the cluster, each node type represents sub set of nodes in the
+// cluster.
 type NodeTypeDescription struct {
-	// Name - The name of the node type.
-	Name *string `json:"name,omitempty"`
-	// PlacementProperties - The placement tags applied to nodes in the node type, which can be used to indicate where certain services (workload) should run.
-	PlacementProperties *map[string]*string `json:"placementProperties,omitempty"`
-	// Capacities - The capacity tags applied to the nodes in the node type, the cluster resource manager uses these tags to understand how much resource a node has.
-	Capacities *map[string]*string `json:"capacities,omitempty"`
-	// ClientConnectionEndpointPort - The TCP cluster management endpoint port.
-	ClientConnectionEndpointPort *int32 `json:"clientConnectionEndpointPort,omitempty"`
-	// HTTPGatewayEndpointPort - The HTTP cluster management endpoint port.
-	HTTPGatewayEndpointPort *int32 `json:"httpGatewayEndpointPort,omitempty"`
-	// DurabilityLevel - Possible values include: 'Bronze', 'Silver', 'Gold'
-	DurabilityLevel DurabilityLevel `json:"durabilityLevel,omitempty"`
-	// ApplicationPorts - The range of ports from which cluster assigned port to Service Fabric applications.
-	ApplicationPorts *EndpointRangeDescription `json:"applicationPorts,omitempty"`
-	// EphemeralPorts - The range of empheral ports that nodes in this node type should be configured with.
-	EphemeralPorts *EndpointRangeDescription `json:"ephemeralPorts,omitempty"`
-	// IsPrimary - The node type on which system services will run. Only one node type should be marked as primary. Primary node type cannot be deleted or changed for existing clusters.
-	IsPrimary *bool `json:"isPrimary,omitempty"`
-	// VMInstanceCount - The number of nodes in the node type. This count should match the capacity property in the corresponding VirtualMachineScaleSet resource.
-	VMInstanceCount *int32 `json:"vmInstanceCount,omitempty"`
-	// ReverseProxyEndpointPort - The endpoint used by reverse proxy.
-	ReverseProxyEndpointPort *int32 `json:"reverseProxyEndpointPort,omitempty"`
+	Name                         *string                   `json:"name,omitempty"`
+	PlacementProperties          *map[string]*string       `json:"placementProperties,omitempty"`
+	Capacities                   *map[string]*string       `json:"capacities,omitempty"`
+	ClientConnectionEndpointPort *int32                    `json:"clientConnectionEndpointPort,omitempty"`
+	HTTPGatewayEndpointPort      *int32                    `json:"httpGatewayEndpointPort,omitempty"`
+	DurabilityLevel              DurabilityLevel           `json:"durabilityLevel,omitempty"`
+	ApplicationPorts             *EndpointRangeDescription `json:"applicationPorts,omitempty"`
+	EphemeralPorts               *EndpointRangeDescription `json:"ephemeralPorts,omitempty"`
+	IsPrimary                    *bool                     `json:"isPrimary,omitempty"`
+	VMInstanceCount              *int32                    `json:"vmInstanceCount,omitempty"`
+	ReverseProxyEndpointPort     *int32                    `json:"reverseProxyEndpointPort,omitempty"`
 }
 
-// OperationListResult describes the result of the request to list Service Fabric operations.
+// OperationListResult is describes the result of the request to list Service Fabric operations.
 type OperationListResult struct {
 	autorest.Response `json:"-"`
-	// Value - List of Service Fabric operations supported by the Microsoft.ServiceFabric resource provider.
-	Value *[]OperationResult `json:"value,omitempty"`
-	// NextLink - URL to get the next set of operation list results if there are any.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]OperationResult `json:"value,omitempty"`
+	NextLink          *string            `json:"nextLink,omitempty"`
 }
 
-// OperationListResultIterator provides access to a complete listing of OperationResult values.
-type OperationListResultIterator struct {
-	i    int
-	page OperationListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *OperationListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter OperationListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter OperationListResultIterator) Response() OperationListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter OperationListResultIterator) Value() OperationResult {
-	if !iter.page.NotDone() {
-		return OperationResult{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (olr OperationListResult) IsEmpty() bool {
-	return olr.Value == nil || len(*olr.Value) == 0
-}
-
-// operationListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (olr OperationListResult) operationListResultPreparer() (*http.Request, error) {
-	if olr.NextLink == nil || len(to.String(olr.NextLink)) < 1 {
+// OperationListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client OperationListResult) OperationListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(olr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// OperationListResultPage contains a page of OperationResult values.
-type OperationListResultPage struct {
-	fn  func(OperationListResult) (OperationListResult, error)
-	olr OperationListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *OperationListResultPage) Next() error {
-	next, err := page.fn(page.olr)
-	if err != nil {
-		return err
-	}
-	page.olr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page OperationListResultPage) NotDone() bool {
-	return !page.olr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page OperationListResultPage) Response() OperationListResult {
-	return page.olr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page OperationListResultPage) Values() []OperationResult {
-	if page.olr.IsEmpty() {
-		return nil
-	}
-	return *page.olr.Value
-}
-
-// OperationResult available operation list result
+// OperationResult is available operation list result
 type OperationResult struct {
-	// Name - The name of the operation.
-	Name *string `json:"name,omitempty"`
-	// Display - The object that represents the operation.
-	Display *AvailableOperationDisplay `json:"display,omitempty"`
-	// Origin - Origin result
-	Origin *string `json:"origin,omitempty"`
-	// NextLink - The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Name     *string                    `json:"name,omitempty"`
+	Display  *AvailableOperationDisplay `json:"display,omitempty"`
+	Origin   *string                    `json:"origin,omitempty"`
+	NextLink *string                    `json:"nextLink,omitempty"`
 }
 
-// BasicPartitionSchemeDescription describes how the service is partitioned.
-type BasicPartitionSchemeDescription interface {
+// PartitionSchemeDescription is describes how the service is partitioned.
+type PartitionSchemeDescription interface {
 	AsNamedPartitionSchemeDescription() (*NamedPartitionSchemeDescription, bool)
 	AsSingletonPartitionSchemeDescription() (*SingletonPartitionSchemeDescription, bool)
 	AsUniformInt64RangePartitionSchemeDescription() (*UniformInt64RangePartitionSchemeDescription, bool)
-	AsPartitionSchemeDescription() (*PartitionSchemeDescription, bool)
 }
 
-// PartitionSchemeDescription describes how the service is partitioned.
-type PartitionSchemeDescription struct {
-	// PartitionScheme - Possible values include: 'PartitionSchemePartitionSchemeDescription', 'PartitionSchemeNamed', 'PartitionSchemeSingleton', 'PartitionSchemeUniformInt64Range'
-	PartitionScheme PartitionScheme `json:"PartitionScheme,omitempty"`
-}
-
-func unmarshalBasicPartitionSchemeDescription(body []byte) (BasicPartitionSchemeDescription, error) {
+func unmarshalPartitionSchemeDescription(body []byte) (PartitionSchemeDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -1392,22 +628,20 @@ func unmarshalBasicPartitionSchemeDescription(body []byte) (BasicPartitionScheme
 		err := json.Unmarshal(body, &ui6rpsd)
 		return ui6rpsd, err
 	default:
-		var psd PartitionSchemeDescription
-		err := json.Unmarshal(body, &psd)
-		return psd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicPartitionSchemeDescriptionArray(body []byte) ([]BasicPartitionSchemeDescription, error) {
+func unmarshalPartitionSchemeDescriptionArray(body []byte) ([]PartitionSchemeDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	psdArray := make([]BasicPartitionSchemeDescription, len(rawMessages))
+	psdArray := make([]PartitionSchemeDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		psd, err := unmarshalBasicPartitionSchemeDescription(*rawMessage)
+		psd, err := unmarshalPartitionSchemeDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -1416,69 +650,24 @@ func unmarshalBasicPartitionSchemeDescriptionArray(body []byte) ([]BasicPartitio
 	return psdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for PartitionSchemeDescription.
-func (psd PartitionSchemeDescription) MarshalJSON() ([]byte, error) {
-	psd.PartitionScheme = PartitionSchemePartitionSchemeDescription
-	type Alias PartitionSchemeDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(psd),
-	})
-}
-
-// AsNamedPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for PartitionSchemeDescription.
-func (psd PartitionSchemeDescription) AsNamedPartitionSchemeDescription() (*NamedPartitionSchemeDescription, bool) {
-	return nil, false
-}
-
-// AsSingletonPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for PartitionSchemeDescription.
-func (psd PartitionSchemeDescription) AsSingletonPartitionSchemeDescription() (*SingletonPartitionSchemeDescription, bool) {
-	return nil, false
-}
-
-// AsUniformInt64RangePartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for PartitionSchemeDescription.
-func (psd PartitionSchemeDescription) AsUniformInt64RangePartitionSchemeDescription() (*UniformInt64RangePartitionSchemeDescription, bool) {
-	return nil, false
-}
-
-// AsPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for PartitionSchemeDescription.
-func (psd PartitionSchemeDescription) AsPartitionSchemeDescription() (*PartitionSchemeDescription, bool) {
-	return &psd, true
-}
-
-// AsBasicPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for PartitionSchemeDescription.
-func (psd PartitionSchemeDescription) AsBasicPartitionSchemeDescription() (BasicPartitionSchemeDescription, bool) {
-	return &psd, true
-}
-
-// ProxyResource the resource model definition for proxy-only resource.
+// ProxyResource is the resource model definition.
 type ProxyResource struct {
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
+	ID       *string `json:"id,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	Type     *string `json:"type,omitempty"`
 	Location *string `json:"location,omitempty"`
 }
 
-// Resource the resource model definition.
+// Resource is the resource model definition.
 type Resource struct {
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Location *string             `json:"location,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
 }
 
-// RollingUpgradeMonitoringPolicy the policy used for monitoring the application upgrade
+// RollingUpgradeMonitoringPolicy is the policy used for monitoring the application upgrade
 type RollingUpgradeMonitoringPolicy struct {
 	HealthCheckWaitDuration   *string `json:"healthCheckWaitDuration,omitempty"`
 	HealthCheckStableDuration *string `json:"healthCheckStableDuration,omitempty"`
@@ -1487,101 +676,26 @@ type RollingUpgradeMonitoringPolicy struct {
 	UpgradeDomainTimeout      *string `json:"upgradeDomainTimeout,omitempty"`
 }
 
-// ServiceCorrelationDescription creates a particular correlation between services.
+// ServiceCorrelationDescription is creates a particular correlation between services.
 type ServiceCorrelationDescription struct {
-	// Scheme - Possible values include: 'Invalid', 'Affinity', 'AlignedAffinity', 'NonAlignedAffinity'
 	Scheme      Scheme  `json:"Scheme,omitempty"`
 	ServiceName *string `json:"ServiceName,omitempty"`
 }
 
-// ServiceDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServiceDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServiceDeleteFuture) Result(client ServiceClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("servicefabric.ServiceDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ServiceLoadMetricDescription specifies a metric to load balance a service during runtime.
+// ServiceLoadMetricDescription is specifies a metric to load balance a service during runtime.
 type ServiceLoadMetricDescription struct {
-	// Name - The name of the metric. If the service chooses to report load during runtime, the load metric name should match the name that is specified in Name exactly. Note that metric names are case sensitive.
-	Name *string `json:"Name,omitempty"`
-	// Weight - Possible values include: 'WeightZero', 'WeightLow', 'WeightMedium', 'WeightHigh'
-	Weight Weight `json:"Weight,omitempty"`
-	// PrimaryDefaultLoad - Used only for Stateful services. The default amount of load, as a number, that this service creates for this metric when it is a Primary replica.
-	PrimaryDefaultLoad *int32 `json:"PrimaryDefaultLoad,omitempty"`
-	// SecondaryDefaultLoad - Used only for Stateful services. The default amount of load, as a number, that this service creates for this metric when it is a Secondary replica.
-	SecondaryDefaultLoad *int32 `json:"SecondaryDefaultLoad,omitempty"`
-	// DefaultLoad - Used only for Stateless services. The default amount of load, as a number, that this service creates for this metric.
-	DefaultLoad *int32 `json:"DefaultLoad,omitempty"`
+	Name                 *string `json:"Name,omitempty"`
+	Weight               Weight  `json:"Weight,omitempty"`
+	PrimaryDefaultLoad   *int32  `json:"PrimaryDefaultLoad,omitempty"`
+	SecondaryDefaultLoad *int32  `json:"SecondaryDefaultLoad,omitempty"`
+	DefaultLoad          *int32  `json:"DefaultLoad,omitempty"`
 }
 
-// ServicePatchFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServicePatchFuture struct {
-	azure.Future
-	req *http.Request
+// ServicePlacementPolicyDescription is describes the policy to be used for placement of a Service Fabric service.
+type ServicePlacementPolicyDescription interface {
 }
 
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServicePatchFuture) Result(client ServiceClient) (sru ServiceResourceUpdate, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sru, autorest.NewError("servicefabric.ServicePatchFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sru, err = client.PatchResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sru, err = client.PatchResponder(resp)
-	return
-}
-
-// BasicServicePlacementPolicyDescription describes the policy to be used for placement of a Service Fabric service.
-type BasicServicePlacementPolicyDescription interface {
-	AsServicePlacementPolicyDescription() (*ServicePlacementPolicyDescription, bool)
-}
-
-// ServicePlacementPolicyDescription describes the policy to be used for placement of a Service Fabric service.
-type ServicePlacementPolicyDescription struct {
-	// Type - Possible values include: 'TypeServicePlacementPolicyDescription'
-	Type Type `json:"Type,omitempty"`
-}
-
-func unmarshalBasicServicePlacementPolicyDescription(body []byte) (BasicServicePlacementPolicyDescription, error) {
+func unmarshalServicePlacementPolicyDescription(body []byte) (ServicePlacementPolicyDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -1590,22 +704,20 @@ func unmarshalBasicServicePlacementPolicyDescription(body []byte) (BasicServiceP
 
 	switch m["Type"] {
 	default:
-		var sppd ServicePlacementPolicyDescription
-		err := json.Unmarshal(body, &sppd)
-		return sppd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicServicePlacementPolicyDescriptionArray(body []byte) ([]BasicServicePlacementPolicyDescription, error) {
+func unmarshalServicePlacementPolicyDescriptionArray(body []byte) ([]ServicePlacementPolicyDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	sppdArray := make([]BasicServicePlacementPolicyDescription, len(rawMessages))
+	sppdArray := make([]ServicePlacementPolicyDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		sppd, err := unmarshalBasicServicePlacementPolicyDescription(*rawMessage)
+		sppd, err := unmarshalServicePlacementPolicyDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -1614,85 +726,43 @@ func unmarshalBasicServicePlacementPolicyDescriptionArray(body []byte) ([]BasicS
 	return sppdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for ServicePlacementPolicyDescription.
-func (sppd ServicePlacementPolicyDescription) MarshalJSON() ([]byte, error) {
-	sppd.Type = TypeServicePlacementPolicyDescription
-	type Alias ServicePlacementPolicyDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(sppd),
-	})
+// ServiceProperties is the service resource properties.
+type ServiceProperties interface {
+	AsStatelessService() (*StatelessService, bool)
+	AsStatefulService() (*StatefulService, bool)
 }
 
-// AsServicePlacementPolicyDescription is the BasicServicePlacementPolicyDescription implementation for ServicePlacementPolicyDescription.
-func (sppd ServicePlacementPolicyDescription) AsServicePlacementPolicyDescription() (*ServicePlacementPolicyDescription, bool) {
-	return &sppd, true
-}
-
-// AsBasicServicePlacementPolicyDescription is the BasicServicePlacementPolicyDescription implementation for ServicePlacementPolicyDescription.
-func (sppd ServicePlacementPolicyDescription) AsBasicServicePlacementPolicyDescription() (BasicServicePlacementPolicyDescription, bool) {
-	return &sppd, true
-}
-
-// BasicServiceProperties the service resource properties.
-type BasicServiceProperties interface {
-	AsStatelessServiceProperties() (*StatelessServiceProperties, bool)
-	AsStatefulServiceProperties() (*StatefulServiceProperties, bool)
-	AsServiceProperties() (*ServiceProperties, bool)
-}
-
-// ServiceProperties the service resource properties.
-type ServiceProperties struct {
-	// PlacementConstraints - The placement constraints as a string. Placement constraints are boolean expressions on node properties and allow for restricting a service to particular nodes based on the service requirements. For example, to place a service on nodes where NodeType is blue specify the following: "NodeColor == blue)".
-	PlacementConstraints     *string                                   `json:"placementConstraints,omitempty"`
-	CorrelationScheme        *[]ServiceCorrelationDescription          `json:"correlationScheme,omitempty"`
-	ServiceLoadMetrics       *[]ServiceLoadMetricDescription           `json:"serviceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *[]BasicServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost DefaultMoveCost `json:"defaultMoveCost,omitempty"`
-	// ProvisioningState - The current deployment or provisioning state, which only appears in the response
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// ServiceTypeName - The name of the service type
-	ServiceTypeName      *string                         `json:"serviceTypeName,omitempty"`
-	PartitionDescription BasicPartitionSchemeDescription `json:"partitionDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindServiceProperties', 'ServiceKindStateless', 'ServiceKindStateful'
-	ServiceKind ServiceKind `json:"serviceKind,omitempty"`
-}
-
-func unmarshalBasicServiceProperties(body []byte) (BasicServiceProperties, error) {
+func unmarshalServiceProperties(body []byte) (ServiceProperties, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
 		return nil, err
 	}
 
-	switch m[""] {
-	case string(ServiceKindStateless):
-		var ssp StatelessServiceProperties
-		err := json.Unmarshal(body, &ssp)
-		return ssp, err
-	case string(ServiceKindStateful):
-		var ssp StatefulServiceProperties
-		err := json.Unmarshal(body, &ssp)
-		return ssp, err
+	switch m["serviceResourceType"] {
+	case string(ServiceResourceTypeStatelessService):
+		var ss StatelessService
+		err := json.Unmarshal(body, &ss)
+		return ss, err
+	case string(ServiceResourceTypeStatefulService):
+		var ss StatefulService
+		err := json.Unmarshal(body, &ss)
+		return ss, err
 	default:
-		var sp ServiceProperties
-		err := json.Unmarshal(body, &sp)
-		return sp, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicServicePropertiesArray(body []byte) ([]BasicServiceProperties, error) {
+func unmarshalServicePropertiesArray(body []byte) ([]ServiceProperties, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	spArray := make([]BasicServiceProperties, len(rawMessages))
+	spArray := make([]ServiceProperties, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		sp, err := unmarshalBasicServiceProperties(*rawMessage)
+		sp, err := unmarshalServiceProperties(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -1701,166 +771,13 @@ func unmarshalBasicServicePropertiesArray(body []byte) ([]BasicServiceProperties
 	return spArray, nil
 }
 
-// MarshalJSON is the custom marshaler for ServiceProperties.
-func (sp ServiceProperties) MarshalJSON() ([]byte, error) {
-	sp.ServiceKind = ServiceKindServiceProperties
-	type Alias ServiceProperties
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(sp),
-	})
-}
-
-// AsServiceProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsServiceProperties() (*ServiceProperties, bool) {
-	return &sp, true
-}
-
-// AsBasicServiceProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsBasicServiceProperties() (BasicServiceProperties, bool) {
-	return &sp, true
-}
-
-// AsServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// AsBasicServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsBasicServiceUpdateProperties() (BasicServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// AsStatelessServiceProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsStatelessServiceProperties() (*StatelessServiceProperties, bool) {
-	return nil, false
-}
-
-// AsStatelessServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsStatelessServiceUpdateProperties() (*StatelessServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// AsStatefulServiceProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsStatefulServiceProperties() (*StatefulServiceProperties, bool) {
-	return nil, false
-}
-
-// AsStatefulServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceProperties.
-func (sp ServiceProperties) AsStatefulServiceUpdateProperties() (*StatefulServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// UnmarshalJSON is the custom unmarshaler for ServiceProperties struct.
-func (sp *ServiceProperties) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["provisioningState"]
-	if v != nil {
-		var provisioningState string
-		err = json.Unmarshal(*m["provisioningState"], &provisioningState)
-		if err != nil {
-			return err
-		}
-		sp.ProvisioningState = &provisioningState
-	}
-
-	v = m["serviceTypeName"]
-	if v != nil {
-		var serviceTypeName string
-		err = json.Unmarshal(*m["serviceTypeName"], &serviceTypeName)
-		if err != nil {
-			return err
-		}
-		sp.ServiceTypeName = &serviceTypeName
-	}
-
-	v = m["partitionDescription"]
-	if v != nil {
-		partitionDescription, err := unmarshalBasicPartitionSchemeDescription(*m["partitionDescription"])
-		if err != nil {
-			return err
-		}
-		sp.PartitionDescription = partitionDescription
-	}
-
-	v = m["serviceKind"]
-	if v != nil {
-		var serviceKind ServiceKind
-		err = json.Unmarshal(*m["serviceKind"], &serviceKind)
-		if err != nil {
-			return err
-		}
-		sp.ServiceKind = serviceKind
-	}
-
-	v = m["placementConstraints"]
-	if v != nil {
-		var placementConstraints string
-		err = json.Unmarshal(*m["placementConstraints"], &placementConstraints)
-		if err != nil {
-			return err
-		}
-		sp.PlacementConstraints = &placementConstraints
-	}
-
-	v = m["correlationScheme"]
-	if v != nil {
-		var correlationScheme []ServiceCorrelationDescription
-		err = json.Unmarshal(*m["correlationScheme"], &correlationScheme)
-		if err != nil {
-			return err
-		}
-		sp.CorrelationScheme = &correlationScheme
-	}
-
-	v = m["serviceLoadMetrics"]
-	if v != nil {
-		var serviceLoadMetrics []ServiceLoadMetricDescription
-		err = json.Unmarshal(*m["serviceLoadMetrics"], &serviceLoadMetrics)
-		if err != nil {
-			return err
-		}
-		sp.ServiceLoadMetrics = &serviceLoadMetrics
-	}
-
-	v = m["servicePlacementPolicies"]
-	if v != nil {
-		servicePlacementPolicies, err := unmarshalBasicServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
-		if err != nil {
-			return err
-		}
-		sp.ServicePlacementPolicies = &servicePlacementPolicies
-	}
-
-	v = m["defaultMoveCost"]
-	if v != nil {
-		var defaultMoveCost DefaultMoveCost
-		err = json.Unmarshal(*m["defaultMoveCost"], &defaultMoveCost)
-		if err != nil {
-			return err
-		}
-		sp.DefaultMoveCost = defaultMoveCost
-	}
-
-	return nil
-}
-
-// ServicePropertiesBase the common service resource properties.
+// ServicePropertiesBase is the common service resource properties.
 type ServicePropertiesBase struct {
-	// PlacementConstraints - The placement constraints as a string. Placement constraints are boolean expressions on node properties and allow for restricting a service to particular nodes based on the service requirements. For example, to place a service on nodes where NodeType is blue specify the following: "NodeColor == blue)".
-	PlacementConstraints     *string                                   `json:"placementConstraints,omitempty"`
-	CorrelationScheme        *[]ServiceCorrelationDescription          `json:"correlationScheme,omitempty"`
-	ServiceLoadMetrics       *[]ServiceLoadMetricDescription           `json:"serviceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *[]BasicServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost DefaultMoveCost `json:"defaultMoveCost,omitempty"`
+	PlacementConstraints     *string                              `json:"placementConstraints,omitempty"`
+	CorrelationScheme        *[]ServiceCorrelationDescription     `json:"correlationScheme,omitempty"`
+	ServiceLoadMetrics       *[]ServiceLoadMetricDescription      `json:"serviceLoadMetrics,omitempty"`
+	ServicePlacementPolicies *[]ServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
+	DefaultMoveCost          DefaultMoveCost                      `json:"defaultMoveCost,omitempty"`
 }
 
 // UnmarshalJSON is the custom unmarshaler for ServicePropertiesBase struct.
@@ -1904,7 +821,7 @@ func (spb *ServicePropertiesBase) UnmarshalJSON(body []byte) error {
 
 	v = m["servicePlacementPolicies"]
 	if v != nil {
-		servicePlacementPolicies, err := unmarshalBasicServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
+		servicePlacementPolicies, err := unmarshalServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
 		if err != nil {
 			return err
 		}
@@ -1924,49 +841,14 @@ func (spb *ServicePropertiesBase) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
-// ServicePutFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServicePutFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServicePutFuture) Result(client ServiceClient) (sr ServiceResource, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sr, autorest.NewError("servicefabric.ServicePutFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sr, err = client.PutResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sr, err = client.PutResponder(resp)
-	return
-}
-
-// ServiceResource the service resource.
+// ServiceResource is the service resource.
 type ServiceResource struct {
 	autorest.Response `json:"-"`
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
-	Location               *string `json:"location,omitempty"`
-	BasicServiceProperties `json:"properties,omitempty"`
+	ID                *string `json:"id,omitempty"`
+	Name              *string `json:"name,omitempty"`
+	Type              *string `json:"type,omitempty"`
+	Location          *string `json:"location,omitempty"`
+	ServiceProperties `json:"properties,omitempty"`
 }
 
 // UnmarshalJSON is the custom unmarshaler for ServiceResource struct.
@@ -1980,11 +862,11 @@ func (sr *ServiceResource) UnmarshalJSON(body []byte) error {
 
 	v = m["properties"]
 	if v != nil {
-		properties, err := unmarshalBasicServiceProperties(*m["properties"])
+		properties, err := unmarshalServiceProperties(*m["properties"])
 		if err != nil {
 			return err
 		}
-		sr.BasicServiceProperties = properties
+		sr.ServiceProperties = properties
 	}
 
 	v = m["id"]
@@ -2030,24 +912,20 @@ func (sr *ServiceResource) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
-// ServiceResourceList the list of service resources.
+// ServiceResourceList is the list of service resources.
 type ServiceResourceList struct {
 	autorest.Response `json:"-"`
 	Value             *[]ServiceResource `json:"value,omitempty"`
 }
 
-// ServiceResourceUpdate the service resource for patch operations.
+// ServiceResourceUpdate is the service resource for patch operations.
 type ServiceResourceUpdate struct {
-	autorest.Response `json:"-"`
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
-	Location                     *string `json:"location,omitempty"`
-	BasicServiceUpdateProperties `json:"properties,omitempty"`
+	autorest.Response       `json:"-"`
+	ID                      *string `json:"id,omitempty"`
+	Name                    *string `json:"name,omitempty"`
+	Type                    *string `json:"type,omitempty"`
+	Location                *string `json:"location,omitempty"`
+	ServiceUpdateProperties `json:"properties,omitempty"`
 }
 
 // UnmarshalJSON is the custom unmarshaler for ServiceResourceUpdate struct.
@@ -2061,11 +939,11 @@ func (sru *ServiceResourceUpdate) UnmarshalJSON(body []byte) error {
 
 	v = m["properties"]
 	if v != nil {
-		properties, err := unmarshalBasicServiceUpdateProperties(*m["properties"])
+		properties, err := unmarshalServiceUpdateProperties(*m["properties"])
 		if err != nil {
 			return err
 		}
-		sru.BasicServiceUpdateProperties = properties
+		sru.ServiceUpdateProperties = properties
 	}
 
 	v = m["id"]
@@ -2111,95 +989,62 @@ func (sru *ServiceResourceUpdate) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
-// ServiceTypeDeltaHealthPolicy service health policy
+// ServiceTypeDeltaHealthPolicy is service health policy
 type ServiceTypeDeltaHealthPolicy struct {
-	// MaxPercentDeltaUnhealthyServices - Maximum percentage of unhealthy services in cluster
 	MaxPercentDeltaUnhealthyServices *int32 `json:"maxPercentDeltaUnhealthyServices,omitempty"`
 }
 
-// ServiceTypeHealthPolicy represents the health policy used to evaluate the health of services belonging to a service
-// type.
+// ServiceTypeHealthPolicy is represents the health policy used to evaluate the health of services belonging to a
+// service type.
 type ServiceTypeHealthPolicy struct {
-	// MaxPercentUnhealthyPartitionsPerService - The maximum allowed percentage of unhealthy partitions per service. Allowed values are Byte values from zero to 100
-	// The percentage represents the maximum tolerated percentage of partitions that can be unhealthy before the service is considered in error.
-	// If the percentage is respected but there is at least one unhealthy partition, the health is evaluated as Warning.
-	// The percentage is calculated by dividing the number of unhealthy partitions over the total number of partitions in the service.
-	// The computation rounds up to tolerate one failure on small numbers of partitions. Default percentage is zero.
 	MaxPercentUnhealthyPartitionsPerService *int32 `json:"MaxPercentUnhealthyPartitionsPerService,omitempty"`
-	// MaxPercentUnhealthyReplicasPerPartition - The maximum allowed percentage of unhealthy replicas per partition. Allowed values are Byte values from zero to 100.
-	// The percentage represents the maximum tolerated percentage of replicas that can be unhealthy before the partition is considered in error.
-	// If the percentage is respected but there is at least one unhealthy replica, the health is evaluated as Warning.
-	// The percentage is calculated by dividing the number of unhealthy replicas over the total number of replicas in the partition.
-	// The computation rounds up to tolerate one failure on small numbers of replicas. Default percentage is zero.
 	MaxPercentUnhealthyReplicasPerPartition *int32 `json:"MaxPercentUnhealthyReplicasPerPartition,omitempty"`
-	// MaxPercentUnhealthyServices - The maximum maximum allowed percentage of unhealthy services. Allowed values are Byte values from zero to 100.
-	// The percentage represents the maximum tolerated percentage of services that can be unhealthy before the application is considered in error.
-	// If the percentage is respected but there is at least one unhealthy service, the health is evaluated as Warning.
-	// This is calculated by dividing the number of unhealthy services of the specific service type over the total number of services of the specific service type.
-	// The computation rounds up to tolerate one failure on small numbers of services. Default percentage is zero.
-	MaxPercentUnhealthyServices *int32 `json:"MaxPercentUnhealthyServices,omitempty"`
+	MaxPercentUnhealthyServices             *int32 `json:"MaxPercentUnhealthyServices,omitempty"`
 }
 
-// ServiceTypeHealthPolicyMapItem defines an item in ServiceTypeHealthPolicyMap.
+// ServiceTypeHealthPolicyMapItem is defines an item in ServiceTypeHealthPolicyMap.
 type ServiceTypeHealthPolicyMapItem struct {
-	// Key - The key of the service type health policy map item. This is the name of the service type.
 	Key   *string                  `json:"Key,omitempty"`
 	Value *ServiceTypeHealthPolicy `json:"Value,omitempty"`
 }
 
-// BasicServiceUpdateProperties the service resource properties for patch operations.
-type BasicServiceUpdateProperties interface {
-	AsStatelessServiceUpdateProperties() (*StatelessServiceUpdateProperties, bool)
-	AsStatefulServiceUpdateProperties() (*StatefulServiceUpdateProperties, bool)
-	AsServiceUpdateProperties() (*ServiceUpdateProperties, bool)
+// ServiceUpdateProperties is the service resource properties for patch operations.
+type ServiceUpdateProperties interface {
+	AsStatelessServiceUpdate() (*StatelessServiceUpdate, bool)
+	AsStatefulServiceUpdate() (*StatefulServiceUpdate, bool)
 }
 
-// ServiceUpdateProperties the service resource properties for patch operations.
-type ServiceUpdateProperties struct {
-	// PlacementConstraints - The placement constraints as a string. Placement constraints are boolean expressions on node properties and allow for restricting a service to particular nodes based on the service requirements. For example, to place a service on nodes where NodeType is blue specify the following: "NodeColor == blue)".
-	PlacementConstraints     *string                                   `json:"placementConstraints,omitempty"`
-	CorrelationScheme        *[]ServiceCorrelationDescription          `json:"correlationScheme,omitempty"`
-	ServiceLoadMetrics       *[]ServiceLoadMetricDescription           `json:"serviceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *[]BasicServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost DefaultMoveCost `json:"defaultMoveCost,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceUpdatePropertiesServiceKindServiceUpdateProperties', 'ServiceKindBasicServiceUpdatePropertiesServiceKindStateless', 'ServiceKindBasicServiceUpdatePropertiesServiceKindStateful'
-	ServiceKind ServiceKindBasicServiceUpdateProperties `json:"serviceKind,omitempty"`
-}
-
-func unmarshalBasicServiceUpdateProperties(body []byte) (BasicServiceUpdateProperties, error) {
+func unmarshalServiceUpdateProperties(body []byte) (ServiceUpdateProperties, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
 		return nil, err
 	}
 
-	switch m[""] {
-	case string(ServiceKindBasicServiceUpdatePropertiesServiceKindStateless):
-		var ssup StatelessServiceUpdateProperties
-		err := json.Unmarshal(body, &ssup)
-		return ssup, err
-	case string(ServiceKindBasicServiceUpdatePropertiesServiceKindStateful):
-		var ssup StatefulServiceUpdateProperties
-		err := json.Unmarshal(body, &ssup)
-		return ssup, err
+	switch m["serviceResourceType"] {
+	case string(ServiceResourceTypeStatelessServiceUpdate):
+		var ssu StatelessServiceUpdate
+		err := json.Unmarshal(body, &ssu)
+		return ssu, err
+	case string(ServiceResourceTypeStatefulServiceUpdate):
+		var ssu StatefulServiceUpdate
+		err := json.Unmarshal(body, &ssu)
+		return ssu, err
 	default:
-		var sup ServiceUpdateProperties
-		err := json.Unmarshal(body, &sup)
-		return sup, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicServiceUpdatePropertiesArray(body []byte) ([]BasicServiceUpdateProperties, error) {
+func unmarshalServiceUpdatePropertiesArray(body []byte) ([]ServiceUpdateProperties, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	supArray := make([]BasicServiceUpdateProperties, len(rawMessages))
+	supArray := make([]ServiceUpdateProperties, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		sup, err := unmarshalBasicServiceUpdateProperties(*rawMessage)
+		sup, err := unmarshalServiceUpdateProperties(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -2208,148 +1053,21 @@ func unmarshalBasicServiceUpdatePropertiesArray(body []byte) ([]BasicServiceUpda
 	return supArray, nil
 }
 
-// MarshalJSON is the custom marshaler for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) MarshalJSON() ([]byte, error) {
-	sup.ServiceKind = ServiceKindBasicServiceUpdatePropertiesServiceKindServiceUpdateProperties
-	type Alias ServiceUpdateProperties
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(sup),
-	})
-}
-
-// AsServiceProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsServiceProperties() (*ServiceProperties, bool) {
-	return nil, false
-}
-
-// AsBasicServiceProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsBasicServiceProperties() (BasicServiceProperties, bool) {
-	return nil, false
-}
-
-// AsServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
-	return &sup, true
-}
-
-// AsBasicServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsBasicServiceUpdateProperties() (BasicServiceUpdateProperties, bool) {
-	return &sup, true
-}
-
-// AsStatelessServiceProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsStatelessServiceProperties() (*StatelessServiceProperties, bool) {
-	return nil, false
-}
-
-// AsStatelessServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsStatelessServiceUpdateProperties() (*StatelessServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// AsStatefulServiceProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsStatefulServiceProperties() (*StatefulServiceProperties, bool) {
-	return nil, false
-}
-
-// AsStatefulServiceUpdateProperties is the BasicServicePropertiesBase implementation for ServiceUpdateProperties.
-func (sup ServiceUpdateProperties) AsStatefulServiceUpdateProperties() (*StatefulServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// UnmarshalJSON is the custom unmarshaler for ServiceUpdateProperties struct.
-func (sup *ServiceUpdateProperties) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["serviceKind"]
-	if v != nil {
-		var serviceKind ServiceKindBasicServiceUpdateProperties
-		err = json.Unmarshal(*m["serviceKind"], &serviceKind)
-		if err != nil {
-			return err
-		}
-		sup.ServiceKind = serviceKind
-	}
-
-	v = m["placementConstraints"]
-	if v != nil {
-		var placementConstraints string
-		err = json.Unmarshal(*m["placementConstraints"], &placementConstraints)
-		if err != nil {
-			return err
-		}
-		sup.PlacementConstraints = &placementConstraints
-	}
-
-	v = m["correlationScheme"]
-	if v != nil {
-		var correlationScheme []ServiceCorrelationDescription
-		err = json.Unmarshal(*m["correlationScheme"], &correlationScheme)
-		if err != nil {
-			return err
-		}
-		sup.CorrelationScheme = &correlationScheme
-	}
-
-	v = m["serviceLoadMetrics"]
-	if v != nil {
-		var serviceLoadMetrics []ServiceLoadMetricDescription
-		err = json.Unmarshal(*m["serviceLoadMetrics"], &serviceLoadMetrics)
-		if err != nil {
-			return err
-		}
-		sup.ServiceLoadMetrics = &serviceLoadMetrics
-	}
-
-	v = m["servicePlacementPolicies"]
-	if v != nil {
-		servicePlacementPolicies, err := unmarshalBasicServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
-		if err != nil {
-			return err
-		}
-		sup.ServicePlacementPolicies = &servicePlacementPolicies
-	}
-
-	v = m["defaultMoveCost"]
-	if v != nil {
-		var defaultMoveCost DefaultMoveCost
-		err = json.Unmarshal(*m["defaultMoveCost"], &defaultMoveCost)
-		if err != nil {
-			return err
-		}
-		sup.DefaultMoveCost = defaultMoveCost
-	}
-
-	return nil
-}
-
-// SettingsParameterDescription describes a parameter in fabric settings of the cluster.
+// SettingsParameterDescription is describes a parameter in fabric settings of the cluster.
 type SettingsParameterDescription struct {
-	// Name - The parameter name of fabric setting.
-	Name *string `json:"name,omitempty"`
-	// Value - The parameter value of fabric setting.
+	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`
 }
 
-// SettingsSectionDescription describes a section in the fabric settings of the cluster.
+// SettingsSectionDescription is describes a section in the fabric settings of the cluster.
 type SettingsSectionDescription struct {
-	// Name - The section name of the fabric settings.
-	Name *string `json:"name,omitempty"`
-	// Parameters - The collection of parameters in the section.
+	Name       *string                         `json:"name,omitempty"`
 	Parameters *[]SettingsParameterDescription `json:"parameters,omitempty"`
 }
 
-// SingletonPartitionSchemeDescription describes the partition scheme of a singleton-partitioned, or non-partitioned
+// SingletonPartitionSchemeDescription is describes the partition scheme of a singleton-partitioned, or non-partitioned
 // service.
 type SingletonPartitionSchemeDescription struct {
-	// PartitionScheme - Possible values include: 'PartitionSchemePartitionSchemeDescription', 'PartitionSchemeNamed', 'PartitionSchemeSingleton', 'PartitionSchemeUniformInt64Range'
 	PartitionScheme PartitionScheme `json:"PartitionScheme,omitempty"`
 }
 
@@ -2364,114 +1082,84 @@ func (spsd SingletonPartitionSchemeDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsNamedPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
+// AsNamedPartitionSchemeDescription is the PartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
 func (spsd SingletonPartitionSchemeDescription) AsNamedPartitionSchemeDescription() (*NamedPartitionSchemeDescription, bool) {
 	return nil, false
 }
 
-// AsSingletonPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
+// AsSingletonPartitionSchemeDescription is the PartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
 func (spsd SingletonPartitionSchemeDescription) AsSingletonPartitionSchemeDescription() (*SingletonPartitionSchemeDescription, bool) {
 	return &spsd, true
 }
 
-// AsUniformInt64RangePartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
+// AsUniformInt64RangePartitionSchemeDescription is the PartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
 func (spsd SingletonPartitionSchemeDescription) AsUniformInt64RangePartitionSchemeDescription() (*UniformInt64RangePartitionSchemeDescription, bool) {
 	return nil, false
 }
 
-// AsPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
-func (spsd SingletonPartitionSchemeDescription) AsPartitionSchemeDescription() (*PartitionSchemeDescription, bool) {
-	return nil, false
+// StatefulService is the properties of a stateful service resource.
+type StatefulService struct {
+	PlacementConstraints       *string                              `json:"placementConstraints,omitempty"`
+	CorrelationScheme          *[]ServiceCorrelationDescription     `json:"correlationScheme,omitempty"`
+	ServiceLoadMetrics         *[]ServiceLoadMetricDescription      `json:"serviceLoadMetrics,omitempty"`
+	ServicePlacementPolicies   *[]ServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
+	DefaultMoveCost            DefaultMoveCost                      `json:"defaultMoveCost,omitempty"`
+	ProvisioningState          *string                              `json:"provisioningState,omitempty"`
+	ServiceKind                ServiceKind                          `json:"serviceKind,omitempty"`
+	ServiceTypeName            *string                              `json:"serviceTypeName,omitempty"`
+	PartitionDescription       PartitionSchemeDescription           `json:"partitionDescription,omitempty"`
+	ServiceResourceType        ServiceResourceType                  `json:"serviceResourceType,omitempty"`
+	HasPersistedState          *bool                                `json:"hasPersistedState,omitempty"`
+	TargetReplicaSetSize       *int32                               `json:"targetReplicaSetSize,omitempty"`
+	MinReplicaSetSize          *int32                               `json:"minReplicaSetSize,omitempty"`
+	ReplicaRestartWaitDuration *date.Time                           `json:"replicaRestartWaitDuration,omitempty"`
+	QuorumLossWaitDuration     *date.Time                           `json:"quorumLossWaitDuration,omitempty"`
+	StandByReplicaKeepDuration *date.Time                           `json:"standByReplicaKeepDuration,omitempty"`
 }
 
-// AsBasicPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for SingletonPartitionSchemeDescription.
-func (spsd SingletonPartitionSchemeDescription) AsBasicPartitionSchemeDescription() (BasicPartitionSchemeDescription, bool) {
-	return &spsd, true
-}
-
-// StatefulServiceProperties the properties of a stateful service resource.
-type StatefulServiceProperties struct {
-	// PlacementConstraints - The placement constraints as a string. Placement constraints are boolean expressions on node properties and allow for restricting a service to particular nodes based on the service requirements. For example, to place a service on nodes where NodeType is blue specify the following: "NodeColor == blue)".
-	PlacementConstraints     *string                                   `json:"placementConstraints,omitempty"`
-	CorrelationScheme        *[]ServiceCorrelationDescription          `json:"correlationScheme,omitempty"`
-	ServiceLoadMetrics       *[]ServiceLoadMetricDescription           `json:"serviceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *[]BasicServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost DefaultMoveCost `json:"defaultMoveCost,omitempty"`
-	// ProvisioningState - The current deployment or provisioning state, which only appears in the response
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// ServiceTypeName - The name of the service type
-	ServiceTypeName      *string                         `json:"serviceTypeName,omitempty"`
-	PartitionDescription BasicPartitionSchemeDescription `json:"partitionDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindServiceProperties', 'ServiceKindStateless', 'ServiceKindStateful'
-	ServiceKind ServiceKind `json:"serviceKind,omitempty"`
-	// HasPersistedState - A flag indicating whether this is a persistent service which stores states on the local disk. If it is then the value of this property is true, if not it is false.
-	HasPersistedState *bool `json:"hasPersistedState,omitempty"`
-	// TargetReplicaSetSize - The target replica set size as a number.
-	TargetReplicaSetSize *int32 `json:"targetReplicaSetSize,omitempty"`
-	// MinReplicaSetSize - The minimum replica set size as a number.
-	MinReplicaSetSize *int32 `json:"minReplicaSetSize,omitempty"`
-	// ReplicaRestartWaitDuration - The duration between when a replica goes down and when a new replica is created, represented in ISO 8601 format (hh:mm:ss.s).
-	ReplicaRestartWaitDuration *date.Time `json:"replicaRestartWaitDuration,omitempty"`
-	// QuorumLossWaitDuration - The maximum duration for which a partition is allowed to be in a state of quorum loss, represented in ISO 8601 format (hh:mm:ss.s).
-	QuorumLossWaitDuration *date.Time `json:"quorumLossWaitDuration,omitempty"`
-	// StandByReplicaKeepDuration - The definition on how long StandBy replicas should be maintained before being removed, represented in ISO 8601 format (hh:mm:ss.s).
-	StandByReplicaKeepDuration *date.Time `json:"standByReplicaKeepDuration,omitempty"`
-}
-
-// MarshalJSON is the custom marshaler for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) MarshalJSON() ([]byte, error) {
-	ssp.ServiceKind = ServiceKindStateful
-	type Alias StatefulServiceProperties
+// MarshalJSON is the custom marshaler for StatefulService.
+func (ss StatefulService) MarshalJSON() ([]byte, error) {
+	ss.ServiceResourceType = ServiceResourceTypeStatefulService
+	type Alias StatefulService
 	return json.Marshal(&struct {
 		Alias
 	}{
-		Alias: (Alias)(ssp),
+		Alias: (Alias)(ss),
 	})
 }
 
-// AsServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsServiceProperties() (*ServiceProperties, bool) {
+// AsStatelessService is the ServiceProperties implementation for StatefulService.
+func (ss StatefulService) AsStatelessService() (*StatelessService, bool) {
 	return nil, false
 }
 
-// AsBasicServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsBasicServiceProperties() (BasicServiceProperties, bool) {
-	return &ssp, true
+// AsStatefulService is the ServiceProperties implementation for StatefulService.
+func (ss StatefulService) AsStatefulService() (*StatefulService, bool) {
+	return &ss, true
 }
 
-// AsServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
+// AsServiceProperties is the ServiceProperties implementation for StatefulService.
+func (ss StatefulService) AsServiceProperties() (*ServiceProperties, bool) {
 	return nil, false
 }
 
-// AsBasicServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsBasicServiceUpdateProperties() (BasicServiceUpdateProperties, bool) {
+// AsServiceUpdateProperties is the ServiceProperties implementation for StatefulService.
+func (ss StatefulService) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
 	return nil, false
 }
 
-// AsStatelessServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsStatelessServiceProperties() (*StatelessServiceProperties, bool) {
+// AsStatelessServiceUpdate is the ServiceProperties implementation for StatefulService.
+func (ss StatefulService) AsStatelessServiceUpdate() (*StatelessServiceUpdate, bool) {
 	return nil, false
 }
 
-// AsStatelessServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsStatelessServiceUpdateProperties() (*StatelessServiceUpdateProperties, bool) {
+// AsStatefulServiceUpdate is the ServiceProperties implementation for StatefulService.
+func (ss StatefulService) AsStatefulServiceUpdate() (*StatefulServiceUpdate, bool) {
 	return nil, false
 }
 
-// AsStatefulServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsStatefulServiceProperties() (*StatefulServiceProperties, bool) {
-	return &ssp, true
-}
-
-// AsStatefulServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceProperties.
-func (ssp StatefulServiceProperties) AsStatefulServiceUpdateProperties() (*StatefulServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// UnmarshalJSON is the custom unmarshaler for StatefulServiceProperties struct.
-func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
+// UnmarshalJSON is the custom unmarshaler for StatefulService struct.
+func (ss *StatefulService) UnmarshalJSON(body []byte) error {
 	var m map[string]*json.RawMessage
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -2486,7 +1174,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.HasPersistedState = &hasPersistedState
+		ss.HasPersistedState = &hasPersistedState
 	}
 
 	v = m["targetReplicaSetSize"]
@@ -2496,7 +1184,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.TargetReplicaSetSize = &targetReplicaSetSize
+		ss.TargetReplicaSetSize = &targetReplicaSetSize
 	}
 
 	v = m["minReplicaSetSize"]
@@ -2506,7 +1194,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.MinReplicaSetSize = &minReplicaSetSize
+		ss.MinReplicaSetSize = &minReplicaSetSize
 	}
 
 	v = m["replicaRestartWaitDuration"]
@@ -2516,7 +1204,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.ReplicaRestartWaitDuration = &replicaRestartWaitDuration
+		ss.ReplicaRestartWaitDuration = &replicaRestartWaitDuration
 	}
 
 	v = m["quorumLossWaitDuration"]
@@ -2526,7 +1214,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.QuorumLossWaitDuration = &quorumLossWaitDuration
+		ss.QuorumLossWaitDuration = &quorumLossWaitDuration
 	}
 
 	v = m["standByReplicaKeepDuration"]
@@ -2536,7 +1224,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.StandByReplicaKeepDuration = &standByReplicaKeepDuration
+		ss.StandByReplicaKeepDuration = &standByReplicaKeepDuration
 	}
 
 	v = m["provisioningState"]
@@ -2546,26 +1234,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.ProvisioningState = &provisioningState
-	}
-
-	v = m["serviceTypeName"]
-	if v != nil {
-		var serviceTypeName string
-		err = json.Unmarshal(*m["serviceTypeName"], &serviceTypeName)
-		if err != nil {
-			return err
-		}
-		ssp.ServiceTypeName = &serviceTypeName
-	}
-
-	v = m["partitionDescription"]
-	if v != nil {
-		partitionDescription, err := unmarshalBasicPartitionSchemeDescription(*m["partitionDescription"])
-		if err != nil {
-			return err
-		}
-		ssp.PartitionDescription = partitionDescription
+		ss.ProvisioningState = &provisioningState
 	}
 
 	v = m["serviceKind"]
@@ -2575,7 +1244,36 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.ServiceKind = serviceKind
+		ss.ServiceKind = serviceKind
+	}
+
+	v = m["serviceTypeName"]
+	if v != nil {
+		var serviceTypeName string
+		err = json.Unmarshal(*m["serviceTypeName"], &serviceTypeName)
+		if err != nil {
+			return err
+		}
+		ss.ServiceTypeName = &serviceTypeName
+	}
+
+	v = m["partitionDescription"]
+	if v != nil {
+		partitionDescription, err := unmarshalPartitionSchemeDescription(*m["partitionDescription"])
+		if err != nil {
+			return err
+		}
+		ss.PartitionDescription = partitionDescription
+	}
+
+	v = m["serviceResourceType"]
+	if v != nil {
+		var serviceResourceType ServiceResourceType
+		err = json.Unmarshal(*m["serviceResourceType"], &serviceResourceType)
+		if err != nil {
+			return err
+		}
+		ss.ServiceResourceType = serviceResourceType
 	}
 
 	v = m["placementConstraints"]
@@ -2585,7 +1283,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.PlacementConstraints = &placementConstraints
+		ss.PlacementConstraints = &placementConstraints
 	}
 
 	v = m["correlationScheme"]
@@ -2595,7 +1293,7 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.CorrelationScheme = &correlationScheme
+		ss.CorrelationScheme = &correlationScheme
 	}
 
 	v = m["serviceLoadMetrics"]
@@ -2605,16 +1303,16 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.ServiceLoadMetrics = &serviceLoadMetrics
+		ss.ServiceLoadMetrics = &serviceLoadMetrics
 	}
 
 	v = m["servicePlacementPolicies"]
 	if v != nil {
-		servicePlacementPolicies, err := unmarshalBasicServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
+		servicePlacementPolicies, err := unmarshalServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
 		if err != nil {
 			return err
 		}
-		ssp.ServicePlacementPolicies = &servicePlacementPolicies
+		ss.ServicePlacementPolicies = &servicePlacementPolicies
 	}
 
 	v = m["defaultMoveCost"]
@@ -2624,88 +1322,70 @@ func (ssp *StatefulServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.DefaultMoveCost = defaultMoveCost
+		ss.DefaultMoveCost = defaultMoveCost
 	}
 
 	return nil
 }
 
-// StatefulServiceUpdateProperties the properties of a stateful service resource for patch operations.
-type StatefulServiceUpdateProperties struct {
-	// PlacementConstraints - The placement constraints as a string. Placement constraints are boolean expressions on node properties and allow for restricting a service to particular nodes based on the service requirements. For example, to place a service on nodes where NodeType is blue specify the following: "NodeColor == blue)".
-	PlacementConstraints     *string                                   `json:"placementConstraints,omitempty"`
-	CorrelationScheme        *[]ServiceCorrelationDescription          `json:"correlationScheme,omitempty"`
-	ServiceLoadMetrics       *[]ServiceLoadMetricDescription           `json:"serviceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *[]BasicServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost DefaultMoveCost `json:"defaultMoveCost,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceUpdatePropertiesServiceKindServiceUpdateProperties', 'ServiceKindBasicServiceUpdatePropertiesServiceKindStateless', 'ServiceKindBasicServiceUpdatePropertiesServiceKindStateful'
-	ServiceKind ServiceKindBasicServiceUpdateProperties `json:"serviceKind,omitempty"`
-	// TargetReplicaSetSize - The target replica set size as a number.
-	TargetReplicaSetSize *int32 `json:"targetReplicaSetSize,omitempty"`
-	// MinReplicaSetSize - The minimum replica set size as a number.
-	MinReplicaSetSize *int32 `json:"minReplicaSetSize,omitempty"`
-	// ReplicaRestartWaitDuration - The duration between when a replica goes down and when a new replica is created, represented in ISO 8601 format (hh:mm:ss.s).
-	ReplicaRestartWaitDuration *date.Time `json:"replicaRestartWaitDuration,omitempty"`
-	// QuorumLossWaitDuration - The maximum duration for which a partition is allowed to be in a state of quorum loss, represented in ISO 8601 format (hh:mm:ss.s).
-	QuorumLossWaitDuration *date.Time `json:"quorumLossWaitDuration,omitempty"`
-	// StandByReplicaKeepDuration - The definition on how long StandBy replicas should be maintained before being removed, represented in ISO 8601 format (hh:mm:ss.s).
-	StandByReplicaKeepDuration *date.Time `json:"standByReplicaKeepDuration,omitempty"`
+// StatefulServiceUpdate is the properties of a stateful service resource for patch operations.
+type StatefulServiceUpdate struct {
+	PlacementConstraints       *string                                    `json:"placementConstraints,omitempty"`
+	CorrelationScheme          *[]ServiceCorrelationDescription           `json:"correlationScheme,omitempty"`
+	ServiceLoadMetrics         *[]ServiceLoadMetricDescription            `json:"serviceLoadMetrics,omitempty"`
+	ServicePlacementPolicies   *[]ServicePlacementPolicyDescription       `json:"servicePlacementPolicies,omitempty"`
+	DefaultMoveCost            DefaultMoveCost                            `json:"defaultMoveCost,omitempty"`
+	ServiceResourceType        ServiceResourceTypeServiceUpdateProperties `json:"serviceResourceType,omitempty"`
+	TargetReplicaSetSize       *int32                                     `json:"targetReplicaSetSize,omitempty"`
+	MinReplicaSetSize          *int32                                     `json:"minReplicaSetSize,omitempty"`
+	ReplicaRestartWaitDuration *date.Time                                 `json:"replicaRestartWaitDuration,omitempty"`
+	QuorumLossWaitDuration     *date.Time                                 `json:"quorumLossWaitDuration,omitempty"`
+	StandByReplicaKeepDuration *date.Time                                 `json:"standByReplicaKeepDuration,omitempty"`
 }
 
-// MarshalJSON is the custom marshaler for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) MarshalJSON() ([]byte, error) {
-	ssup.ServiceKind = ServiceKindBasicServiceUpdatePropertiesServiceKindStateful
-	type Alias StatefulServiceUpdateProperties
+// MarshalJSON is the custom marshaler for StatefulServiceUpdate.
+func (ssu StatefulServiceUpdate) MarshalJSON() ([]byte, error) {
+	ssu.ServiceResourceType = ServiceResourceTypeStatefulServiceUpdate
+	type Alias StatefulServiceUpdate
 	return json.Marshal(&struct {
 		Alias
 	}{
-		Alias: (Alias)(ssup),
+		Alias: (Alias)(ssu),
 	})
 }
 
-// AsServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsServiceProperties() (*ServiceProperties, bool) {
+// AsStatelessServiceUpdate is the ServiceUpdateProperties implementation for StatefulServiceUpdate.
+func (ssu StatefulServiceUpdate) AsStatelessServiceUpdate() (*StatelessServiceUpdate, bool) {
 	return nil, false
 }
 
-// AsBasicServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsBasicServiceProperties() (BasicServiceProperties, bool) {
+// AsStatefulServiceUpdate is the ServiceUpdateProperties implementation for StatefulServiceUpdate.
+func (ssu StatefulServiceUpdate) AsStatefulServiceUpdate() (*StatefulServiceUpdate, bool) {
+	return &ssu, true
+}
+
+// AsServiceProperties is the ServiceUpdateProperties implementation for StatefulServiceUpdate.
+func (ssu StatefulServiceUpdate) AsServiceProperties() (*ServiceProperties, bool) {
 	return nil, false
 }
 
-// AsServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
+// AsServiceUpdateProperties is the ServiceUpdateProperties implementation for StatefulServiceUpdate.
+func (ssu StatefulServiceUpdate) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
 	return nil, false
 }
 
-// AsBasicServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsBasicServiceUpdateProperties() (BasicServiceUpdateProperties, bool) {
-	return &ssup, true
-}
-
-// AsStatelessServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsStatelessServiceProperties() (*StatelessServiceProperties, bool) {
+// AsStatelessService is the ServiceUpdateProperties implementation for StatefulServiceUpdate.
+func (ssu StatefulServiceUpdate) AsStatelessService() (*StatelessService, bool) {
 	return nil, false
 }
 
-// AsStatelessServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsStatelessServiceUpdateProperties() (*StatelessServiceUpdateProperties, bool) {
+// AsStatefulService is the ServiceUpdateProperties implementation for StatefulServiceUpdate.
+func (ssu StatefulServiceUpdate) AsStatefulService() (*StatefulService, bool) {
 	return nil, false
 }
 
-// AsStatefulServiceProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsStatefulServiceProperties() (*StatefulServiceProperties, bool) {
-	return nil, false
-}
-
-// AsStatefulServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatefulServiceUpdateProperties.
-func (ssup StatefulServiceUpdateProperties) AsStatefulServiceUpdateProperties() (*StatefulServiceUpdateProperties, bool) {
-	return &ssup, true
-}
-
-// UnmarshalJSON is the custom unmarshaler for StatefulServiceUpdateProperties struct.
-func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
+// UnmarshalJSON is the custom unmarshaler for StatefulServiceUpdate struct.
+func (ssu *StatefulServiceUpdate) UnmarshalJSON(body []byte) error {
 	var m map[string]*json.RawMessage
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -2720,7 +1400,7 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.TargetReplicaSetSize = &targetReplicaSetSize
+		ssu.TargetReplicaSetSize = &targetReplicaSetSize
 	}
 
 	v = m["minReplicaSetSize"]
@@ -2730,7 +1410,7 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.MinReplicaSetSize = &minReplicaSetSize
+		ssu.MinReplicaSetSize = &minReplicaSetSize
 	}
 
 	v = m["replicaRestartWaitDuration"]
@@ -2740,7 +1420,7 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.ReplicaRestartWaitDuration = &replicaRestartWaitDuration
+		ssu.ReplicaRestartWaitDuration = &replicaRestartWaitDuration
 	}
 
 	v = m["quorumLossWaitDuration"]
@@ -2750,7 +1430,7 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.QuorumLossWaitDuration = &quorumLossWaitDuration
+		ssu.QuorumLossWaitDuration = &quorumLossWaitDuration
 	}
 
 	v = m["standByReplicaKeepDuration"]
@@ -2760,17 +1440,17 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.StandByReplicaKeepDuration = &standByReplicaKeepDuration
+		ssu.StandByReplicaKeepDuration = &standByReplicaKeepDuration
 	}
 
-	v = m["serviceKind"]
+	v = m["serviceResourceType"]
 	if v != nil {
-		var serviceKind ServiceKindBasicServiceUpdateProperties
-		err = json.Unmarshal(*m["serviceKind"], &serviceKind)
+		var serviceResourceType ServiceResourceTypeServiceUpdateProperties
+		err = json.Unmarshal(*m["serviceResourceType"], &serviceResourceType)
 		if err != nil {
 			return err
 		}
-		ssup.ServiceKind = serviceKind
+		ssu.ServiceResourceType = serviceResourceType
 	}
 
 	v = m["placementConstraints"]
@@ -2780,7 +1460,7 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.PlacementConstraints = &placementConstraints
+		ssu.PlacementConstraints = &placementConstraints
 	}
 
 	v = m["correlationScheme"]
@@ -2790,7 +1470,7 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.CorrelationScheme = &correlationScheme
+		ssu.CorrelationScheme = &correlationScheme
 	}
 
 	v = m["serviceLoadMetrics"]
@@ -2800,16 +1480,16 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.ServiceLoadMetrics = &serviceLoadMetrics
+		ssu.ServiceLoadMetrics = &serviceLoadMetrics
 	}
 
 	v = m["servicePlacementPolicies"]
 	if v != nil {
-		servicePlacementPolicies, err := unmarshalBasicServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
+		servicePlacementPolicies, err := unmarshalServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
 		if err != nil {
 			return err
 		}
-		ssup.ServicePlacementPolicies = &servicePlacementPolicies
+		ssu.ServicePlacementPolicies = &servicePlacementPolicies
 	}
 
 	v = m["defaultMoveCost"]
@@ -2819,85 +1499,70 @@ func (ssup *StatefulServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.DefaultMoveCost = defaultMoveCost
+		ssu.DefaultMoveCost = defaultMoveCost
 	}
 
 	return nil
 }
 
-// StatelessServiceProperties the properties of a stateless service resource.
-type StatelessServiceProperties struct {
-	// PlacementConstraints - The placement constraints as a string. Placement constraints are boolean expressions on node properties and allow for restricting a service to particular nodes based on the service requirements. For example, to place a service on nodes where NodeType is blue specify the following: "NodeColor == blue)".
-	PlacementConstraints     *string                                   `json:"placementConstraints,omitempty"`
-	CorrelationScheme        *[]ServiceCorrelationDescription          `json:"correlationScheme,omitempty"`
-	ServiceLoadMetrics       *[]ServiceLoadMetricDescription           `json:"serviceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *[]BasicServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost DefaultMoveCost `json:"defaultMoveCost,omitempty"`
-	// ProvisioningState - The current deployment or provisioning state, which only appears in the response
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// ServiceTypeName - The name of the service type
-	ServiceTypeName      *string                         `json:"serviceTypeName,omitempty"`
-	PartitionDescription BasicPartitionSchemeDescription `json:"partitionDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindServiceProperties', 'ServiceKindStateless', 'ServiceKindStateful'
-	ServiceKind ServiceKind `json:"serviceKind,omitempty"`
-	// InstanceCount - The instance count.
-	InstanceCount *int32 `json:"instanceCount,omitempty"`
+// StatelessService is the properties of a stateless service resource.
+type StatelessService struct {
+	PlacementConstraints     *string                              `json:"placementConstraints,omitempty"`
+	CorrelationScheme        *[]ServiceCorrelationDescription     `json:"correlationScheme,omitempty"`
+	ServiceLoadMetrics       *[]ServiceLoadMetricDescription      `json:"serviceLoadMetrics,omitempty"`
+	ServicePlacementPolicies *[]ServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
+	DefaultMoveCost          DefaultMoveCost                      `json:"defaultMoveCost,omitempty"`
+	ProvisioningState        *string                              `json:"provisioningState,omitempty"`
+	ServiceKind              ServiceKind                          `json:"serviceKind,omitempty"`
+	ServiceTypeName          *string                              `json:"serviceTypeName,omitempty"`
+	PartitionDescription     PartitionSchemeDescription           `json:"partitionDescription,omitempty"`
+	ServiceResourceType      ServiceResourceType                  `json:"serviceResourceType,omitempty"`
+	InstanceCount            *int32                               `json:"instanceCount,omitempty"`
 }
 
-// MarshalJSON is the custom marshaler for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) MarshalJSON() ([]byte, error) {
-	ssp.ServiceKind = ServiceKindStateless
-	type Alias StatelessServiceProperties
+// MarshalJSON is the custom marshaler for StatelessService.
+func (ss StatelessService) MarshalJSON() ([]byte, error) {
+	ss.ServiceResourceType = ServiceResourceTypeStatelessService
+	type Alias StatelessService
 	return json.Marshal(&struct {
 		Alias
 	}{
-		Alias: (Alias)(ssp),
+		Alias: (Alias)(ss),
 	})
 }
 
-// AsServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsServiceProperties() (*ServiceProperties, bool) {
+// AsStatelessService is the ServiceProperties implementation for StatelessService.
+func (ss StatelessService) AsStatelessService() (*StatelessService, bool) {
+	return &ss, true
+}
+
+// AsStatefulService is the ServiceProperties implementation for StatelessService.
+func (ss StatelessService) AsStatefulService() (*StatefulService, bool) {
 	return nil, false
 }
 
-// AsBasicServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsBasicServiceProperties() (BasicServiceProperties, bool) {
-	return &ssp, true
-}
-
-// AsServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
+// AsServiceProperties is the ServiceProperties implementation for StatelessService.
+func (ss StatelessService) AsServiceProperties() (*ServiceProperties, bool) {
 	return nil, false
 }
 
-// AsBasicServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsBasicServiceUpdateProperties() (BasicServiceUpdateProperties, bool) {
+// AsServiceUpdateProperties is the ServiceProperties implementation for StatelessService.
+func (ss StatelessService) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
 	return nil, false
 }
 
-// AsStatelessServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsStatelessServiceProperties() (*StatelessServiceProperties, bool) {
-	return &ssp, true
-}
-
-// AsStatelessServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsStatelessServiceUpdateProperties() (*StatelessServiceUpdateProperties, bool) {
+// AsStatelessServiceUpdate is the ServiceProperties implementation for StatelessService.
+func (ss StatelessService) AsStatelessServiceUpdate() (*StatelessServiceUpdate, bool) {
 	return nil, false
 }
 
-// AsStatefulServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsStatefulServiceProperties() (*StatefulServiceProperties, bool) {
+// AsStatefulServiceUpdate is the ServiceProperties implementation for StatelessService.
+func (ss StatelessService) AsStatefulServiceUpdate() (*StatefulServiceUpdate, bool) {
 	return nil, false
 }
 
-// AsStatefulServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceProperties.
-func (ssp StatelessServiceProperties) AsStatefulServiceUpdateProperties() (*StatefulServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// UnmarshalJSON is the custom unmarshaler for StatelessServiceProperties struct.
-func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
+// UnmarshalJSON is the custom unmarshaler for StatelessService struct.
+func (ss *StatelessService) UnmarshalJSON(body []byte) error {
 	var m map[string]*json.RawMessage
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -2912,7 +1577,7 @@ func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.InstanceCount = &instanceCount
+		ss.InstanceCount = &instanceCount
 	}
 
 	v = m["provisioningState"]
@@ -2922,26 +1587,7 @@ func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.ProvisioningState = &provisioningState
-	}
-
-	v = m["serviceTypeName"]
-	if v != nil {
-		var serviceTypeName string
-		err = json.Unmarshal(*m["serviceTypeName"], &serviceTypeName)
-		if err != nil {
-			return err
-		}
-		ssp.ServiceTypeName = &serviceTypeName
-	}
-
-	v = m["partitionDescription"]
-	if v != nil {
-		partitionDescription, err := unmarshalBasicPartitionSchemeDescription(*m["partitionDescription"])
-		if err != nil {
-			return err
-		}
-		ssp.PartitionDescription = partitionDescription
+		ss.ProvisioningState = &provisioningState
 	}
 
 	v = m["serviceKind"]
@@ -2951,7 +1597,36 @@ func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.ServiceKind = serviceKind
+		ss.ServiceKind = serviceKind
+	}
+
+	v = m["serviceTypeName"]
+	if v != nil {
+		var serviceTypeName string
+		err = json.Unmarshal(*m["serviceTypeName"], &serviceTypeName)
+		if err != nil {
+			return err
+		}
+		ss.ServiceTypeName = &serviceTypeName
+	}
+
+	v = m["partitionDescription"]
+	if v != nil {
+		partitionDescription, err := unmarshalPartitionSchemeDescription(*m["partitionDescription"])
+		if err != nil {
+			return err
+		}
+		ss.PartitionDescription = partitionDescription
+	}
+
+	v = m["serviceResourceType"]
+	if v != nil {
+		var serviceResourceType ServiceResourceType
+		err = json.Unmarshal(*m["serviceResourceType"], &serviceResourceType)
+		if err != nil {
+			return err
+		}
+		ss.ServiceResourceType = serviceResourceType
 	}
 
 	v = m["placementConstraints"]
@@ -2961,7 +1636,7 @@ func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.PlacementConstraints = &placementConstraints
+		ss.PlacementConstraints = &placementConstraints
 	}
 
 	v = m["correlationScheme"]
@@ -2971,7 +1646,7 @@ func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.CorrelationScheme = &correlationScheme
+		ss.CorrelationScheme = &correlationScheme
 	}
 
 	v = m["serviceLoadMetrics"]
@@ -2981,16 +1656,16 @@ func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.ServiceLoadMetrics = &serviceLoadMetrics
+		ss.ServiceLoadMetrics = &serviceLoadMetrics
 	}
 
 	v = m["servicePlacementPolicies"]
 	if v != nil {
-		servicePlacementPolicies, err := unmarshalBasicServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
+		servicePlacementPolicies, err := unmarshalServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
 		if err != nil {
 			return err
 		}
-		ssp.ServicePlacementPolicies = &servicePlacementPolicies
+		ss.ServicePlacementPolicies = &servicePlacementPolicies
 	}
 
 	v = m["defaultMoveCost"]
@@ -3000,80 +1675,66 @@ func (ssp *StatelessServiceProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssp.DefaultMoveCost = defaultMoveCost
+		ss.DefaultMoveCost = defaultMoveCost
 	}
 
 	return nil
 }
 
-// StatelessServiceUpdateProperties the properties of a stateless service resource for patch operations.
-type StatelessServiceUpdateProperties struct {
-	// PlacementConstraints - The placement constraints as a string. Placement constraints are boolean expressions on node properties and allow for restricting a service to particular nodes based on the service requirements. For example, to place a service on nodes where NodeType is blue specify the following: "NodeColor == blue)".
-	PlacementConstraints     *string                                   `json:"placementConstraints,omitempty"`
-	CorrelationScheme        *[]ServiceCorrelationDescription          `json:"correlationScheme,omitempty"`
-	ServiceLoadMetrics       *[]ServiceLoadMetricDescription           `json:"serviceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *[]BasicServicePlacementPolicyDescription `json:"servicePlacementPolicies,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost DefaultMoveCost `json:"defaultMoveCost,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceUpdatePropertiesServiceKindServiceUpdateProperties', 'ServiceKindBasicServiceUpdatePropertiesServiceKindStateless', 'ServiceKindBasicServiceUpdatePropertiesServiceKindStateful'
-	ServiceKind ServiceKindBasicServiceUpdateProperties `json:"serviceKind,omitempty"`
-	// InstanceCount - The instance count.
-	InstanceCount *int32 `json:"instanceCount,omitempty"`
+// StatelessServiceUpdate is the properties of a stateless service resource for patch operations.
+type StatelessServiceUpdate struct {
+	PlacementConstraints     *string                                    `json:"placementConstraints,omitempty"`
+	CorrelationScheme        *[]ServiceCorrelationDescription           `json:"correlationScheme,omitempty"`
+	ServiceLoadMetrics       *[]ServiceLoadMetricDescription            `json:"serviceLoadMetrics,omitempty"`
+	ServicePlacementPolicies *[]ServicePlacementPolicyDescription       `json:"servicePlacementPolicies,omitempty"`
+	DefaultMoveCost          DefaultMoveCost                            `json:"defaultMoveCost,omitempty"`
+	ServiceResourceType      ServiceResourceTypeServiceUpdateProperties `json:"serviceResourceType,omitempty"`
+	InstanceCount            *int32                                     `json:"instanceCount,omitempty"`
 }
 
-// MarshalJSON is the custom marshaler for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) MarshalJSON() ([]byte, error) {
-	ssup.ServiceKind = ServiceKindBasicServiceUpdatePropertiesServiceKindStateless
-	type Alias StatelessServiceUpdateProperties
+// MarshalJSON is the custom marshaler for StatelessServiceUpdate.
+func (ssu StatelessServiceUpdate) MarshalJSON() ([]byte, error) {
+	ssu.ServiceResourceType = ServiceResourceTypeStatelessServiceUpdate
+	type Alias StatelessServiceUpdate
 	return json.Marshal(&struct {
 		Alias
 	}{
-		Alias: (Alias)(ssup),
+		Alias: (Alias)(ssu),
 	})
 }
 
-// AsServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsServiceProperties() (*ServiceProperties, bool) {
+// AsStatelessServiceUpdate is the ServiceUpdateProperties implementation for StatelessServiceUpdate.
+func (ssu StatelessServiceUpdate) AsStatelessServiceUpdate() (*StatelessServiceUpdate, bool) {
+	return &ssu, true
+}
+
+// AsStatefulServiceUpdate is the ServiceUpdateProperties implementation for StatelessServiceUpdate.
+func (ssu StatelessServiceUpdate) AsStatefulServiceUpdate() (*StatefulServiceUpdate, bool) {
 	return nil, false
 }
 
-// AsBasicServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsBasicServiceProperties() (BasicServiceProperties, bool) {
+// AsServiceProperties is the ServiceUpdateProperties implementation for StatelessServiceUpdate.
+func (ssu StatelessServiceUpdate) AsServiceProperties() (*ServiceProperties, bool) {
 	return nil, false
 }
 
-// AsServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
+// AsServiceUpdateProperties is the ServiceUpdateProperties implementation for StatelessServiceUpdate.
+func (ssu StatelessServiceUpdate) AsServiceUpdateProperties() (*ServiceUpdateProperties, bool) {
 	return nil, false
 }
 
-// AsBasicServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsBasicServiceUpdateProperties() (BasicServiceUpdateProperties, bool) {
-	return &ssup, true
-}
-
-// AsStatelessServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsStatelessServiceProperties() (*StatelessServiceProperties, bool) {
+// AsStatelessService is the ServiceUpdateProperties implementation for StatelessServiceUpdate.
+func (ssu StatelessServiceUpdate) AsStatelessService() (*StatelessService, bool) {
 	return nil, false
 }
 
-// AsStatelessServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsStatelessServiceUpdateProperties() (*StatelessServiceUpdateProperties, bool) {
-	return &ssup, true
-}
-
-// AsStatefulServiceProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsStatefulServiceProperties() (*StatefulServiceProperties, bool) {
+// AsStatefulService is the ServiceUpdateProperties implementation for StatelessServiceUpdate.
+func (ssu StatelessServiceUpdate) AsStatefulService() (*StatefulService, bool) {
 	return nil, false
 }
 
-// AsStatefulServiceUpdateProperties is the BasicServicePropertiesBase implementation for StatelessServiceUpdateProperties.
-func (ssup StatelessServiceUpdateProperties) AsStatefulServiceUpdateProperties() (*StatefulServiceUpdateProperties, bool) {
-	return nil, false
-}
-
-// UnmarshalJSON is the custom unmarshaler for StatelessServiceUpdateProperties struct.
-func (ssup *StatelessServiceUpdateProperties) UnmarshalJSON(body []byte) error {
+// UnmarshalJSON is the custom unmarshaler for StatelessServiceUpdate struct.
+func (ssu *StatelessServiceUpdate) UnmarshalJSON(body []byte) error {
 	var m map[string]*json.RawMessage
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -3088,17 +1749,17 @@ func (ssup *StatelessServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.InstanceCount = &instanceCount
+		ssu.InstanceCount = &instanceCount
 	}
 
-	v = m["serviceKind"]
+	v = m["serviceResourceType"]
 	if v != nil {
-		var serviceKind ServiceKindBasicServiceUpdateProperties
-		err = json.Unmarshal(*m["serviceKind"], &serviceKind)
+		var serviceResourceType ServiceResourceTypeServiceUpdateProperties
+		err = json.Unmarshal(*m["serviceResourceType"], &serviceResourceType)
 		if err != nil {
 			return err
 		}
-		ssup.ServiceKind = serviceKind
+		ssu.ServiceResourceType = serviceResourceType
 	}
 
 	v = m["placementConstraints"]
@@ -3108,7 +1769,7 @@ func (ssup *StatelessServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.PlacementConstraints = &placementConstraints
+		ssu.PlacementConstraints = &placementConstraints
 	}
 
 	v = m["correlationScheme"]
@@ -3118,7 +1779,7 @@ func (ssup *StatelessServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.CorrelationScheme = &correlationScheme
+		ssu.CorrelationScheme = &correlationScheme
 	}
 
 	v = m["serviceLoadMetrics"]
@@ -3128,16 +1789,16 @@ func (ssup *StatelessServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.ServiceLoadMetrics = &serviceLoadMetrics
+		ssu.ServiceLoadMetrics = &serviceLoadMetrics
 	}
 
 	v = m["servicePlacementPolicies"]
 	if v != nil {
-		servicePlacementPolicies, err := unmarshalBasicServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
+		servicePlacementPolicies, err := unmarshalServicePlacementPolicyDescriptionArray(*m["servicePlacementPolicies"])
 		if err != nil {
 			return err
 		}
-		ssup.ServicePlacementPolicies = &servicePlacementPolicies
+		ssu.ServicePlacementPolicies = &servicePlacementPolicies
 	}
 
 	v = m["defaultMoveCost"]
@@ -3147,25 +1808,19 @@ func (ssup *StatelessServiceUpdateProperties) UnmarshalJSON(body []byte) error {
 		if err != nil {
 			return err
 		}
-		ssup.DefaultMoveCost = defaultMoveCost
+		ssu.DefaultMoveCost = defaultMoveCost
 	}
 
 	return nil
 }
 
-// UniformInt64RangePartitionSchemeDescription describes a partitioning scheme where an integer range is allocated
+// UniformInt64RangePartitionSchemeDescription is describes a partitioning scheme where an integer range is allocated
 // evenly across a number of partitions.
 type UniformInt64RangePartitionSchemeDescription struct {
-	// PartitionScheme - Possible values include: 'PartitionSchemePartitionSchemeDescription', 'PartitionSchemeNamed', 'PartitionSchemeSingleton', 'PartitionSchemeUniformInt64Range'
 	PartitionScheme PartitionScheme `json:"PartitionScheme,omitempty"`
-	// Count - The number of partitions.
-	Count *int32 `json:"Count,omitempty"`
-	// LowKey - String indicating the lower bound of the partition key range that
-	// should be split between the partition ‘Count’
-	LowKey *string `json:"LowKey,omitempty"`
-	// HighKey - String indicating the upper bound of the partition key range that
-	// should be split between the partition ‘Count’
-	HighKey *string `json:"HighKey,omitempty"`
+	Count           *int32          `json:"Count,omitempty"`
+	LowKey          *string         `json:"LowKey,omitempty"`
+	HighKey         *string         `json:"HighKey,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for UniformInt64RangePartitionSchemeDescription.
@@ -3179,179 +1834,39 @@ func (ui6rpsd UniformInt64RangePartitionSchemeDescription) MarshalJSON() ([]byte
 	})
 }
 
-// AsNamedPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
+// AsNamedPartitionSchemeDescription is the PartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
 func (ui6rpsd UniformInt64RangePartitionSchemeDescription) AsNamedPartitionSchemeDescription() (*NamedPartitionSchemeDescription, bool) {
 	return nil, false
 }
 
-// AsSingletonPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
+// AsSingletonPartitionSchemeDescription is the PartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
 func (ui6rpsd UniformInt64RangePartitionSchemeDescription) AsSingletonPartitionSchemeDescription() (*SingletonPartitionSchemeDescription, bool) {
 	return nil, false
 }
 
-// AsUniformInt64RangePartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
+// AsUniformInt64RangePartitionSchemeDescription is the PartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
 func (ui6rpsd UniformInt64RangePartitionSchemeDescription) AsUniformInt64RangePartitionSchemeDescription() (*UniformInt64RangePartitionSchemeDescription, bool) {
 	return &ui6rpsd, true
 }
 
-// AsPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
-func (ui6rpsd UniformInt64RangePartitionSchemeDescription) AsPartitionSchemeDescription() (*PartitionSchemeDescription, bool) {
-	return nil, false
-}
-
-// AsBasicPartitionSchemeDescription is the BasicPartitionSchemeDescription implementation for UniformInt64RangePartitionSchemeDescription.
-func (ui6rpsd UniformInt64RangePartitionSchemeDescription) AsBasicPartitionSchemeDescription() (BasicPartitionSchemeDescription, bool) {
-	return &ui6rpsd, true
-}
-
-// VersionDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type VersionDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VersionDeleteFuture) Result(client VersionClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("servicefabric.VersionDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// VersionProperties the properties of the version resource.
+// VersionProperties is the properties of the version resource.
 type VersionProperties struct {
-	// ProvisioningState - The current deployment or provisioning state, which only appears in the response
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// AppPackageURL - The URL to the application package
+	ProvisioningState    *string                 `json:"provisioningState,omitempty"`
 	AppPackageURL        *string                 `json:"appPackageUrl,omitempty"`
 	DefaultParameterList *[]ApplicationParameter `json:"defaultParameterList,omitempty"`
 }
 
-// VersionPutFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type VersionPutFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VersionPutFuture) Result(client VersionClient) (vr VersionResource, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return vr, autorest.NewError("servicefabric.VersionPutFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		vr, err = client.PutResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	vr, err = client.PutResponder(resp)
-	return
-}
-
-// VersionResource a version resource for the specified application type name.
+// VersionResource is a version resource for the specified application type name.
 type VersionResource struct {
-	autorest.Response `json:"-"`
-	// ID - Azure resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Azure resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Azure resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
+	autorest.Response  `json:"-"`
+	ID                 *string `json:"id,omitempty"`
+	Name               *string `json:"name,omitempty"`
+	Type               *string `json:"type,omitempty"`
 	Location           *string `json:"location,omitempty"`
 	*VersionProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VersionResource struct.
-func (vr *VersionResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VersionProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vr.VersionProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		vr.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		vr.Location = &location
-	}
-
-	return nil
-}
-
-// VersionResourceList the list of version resources for the specified application type name.
+// VersionResourceList is the list of version resources for the specified application type name.
 type VersionResourceList struct {
 	autorest.Response `json:"-"`
 	Value             *[]VersionResource `json:"value,omitempty"`

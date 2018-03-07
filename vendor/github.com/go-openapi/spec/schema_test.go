@@ -203,10 +203,3 @@ func TestSchema(t *testing.T) {
 	}
 
 }
-
-func BenchmarkSchemaUnmarshal(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		sch := &Schema{}
-		sch.UnmarshalJSON([]byte(schemaJSON))
-	}
-}

@@ -7473,6 +7473,7 @@ func (c *Lightsail) UpdateLoadBalancerAttributeWithContext(ctx aws.Context, inpu
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AllocateStaticIpRequest
 type AllocateStaticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7511,6 +7512,7 @@ func (s *AllocateStaticIpInput) SetStaticIpName(v string) *AllocateStaticIpInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AllocateStaticIpResult
 type AllocateStaticIpOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7535,6 +7537,7 @@ func (s *AllocateStaticIpOutput) SetOperations(v []*Operation) *AllocateStaticIp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachDiskRequest
 type AttachDiskInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7602,6 +7605,7 @@ func (s *AttachDiskInput) SetInstanceName(v string) *AttachDiskInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachDiskResult
 type AttachDiskOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7625,6 +7629,7 @@ func (s *AttachDiskOutput) SetOperations(v []*Operation) *AttachDiskOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachInstancesToLoadBalancerRequest
 type AttachInstancesToLoadBalancerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7678,6 +7683,7 @@ func (s *AttachInstancesToLoadBalancerInput) SetLoadBalancerName(v string) *Atta
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachInstancesToLoadBalancerResult
 type AttachInstancesToLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7701,6 +7707,7 @@ func (s *AttachInstancesToLoadBalancerOutput) SetOperations(v []*Operation) *Att
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachLoadBalancerTlsCertificateRequest
 type AttachLoadBalancerTlsCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7754,6 +7761,7 @@ func (s *AttachLoadBalancerTlsCertificateInput) SetLoadBalancerName(v string) *A
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachLoadBalancerTlsCertificateResult
 type AttachLoadBalancerTlsCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7777,6 +7785,7 @@ func (s *AttachLoadBalancerTlsCertificateOutput) SetOperations(v []*Operation) *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachStaticIpRequest
 type AttachStaticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7829,6 +7838,7 @@ func (s *AttachStaticIpInput) SetStaticIpName(v string) *AttachStaticIpInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AttachStaticIpResult
 type AttachStaticIpOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7853,6 +7863,7 @@ func (s *AttachStaticIpOutput) SetOperations(v []*Operation) *AttachStaticIpOutp
 }
 
 // Describes an Availability Zone.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/AvailabilityZone
 type AvailabilityZone struct {
 	_ struct{} `type:"structure"`
 
@@ -7886,6 +7897,7 @@ func (s *AvailabilityZone) SetZoneName(v string) *AvailabilityZone {
 }
 
 // Describes a blueprint (a virtual private server image).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Blueprint
 type Blueprint struct {
 	_ struct{} `type:"structure"`
 
@@ -8017,6 +8029,7 @@ func (s *Blueprint) SetVersionCode(v string) *Blueprint {
 
 // Describes a bundle, which is a set of specs describing your virtual private
 // server (or instance).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Bundle
 type Bundle struct {
 	_ struct{} `type:"structure"`
 
@@ -8137,6 +8150,7 @@ func (s *Bundle) SetTransferPerMonthInGb(v int64) *Bundle {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CloseInstancePublicPortsRequest
 type CloseInstancePublicPortsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8189,6 +8203,7 @@ func (s *CloseInstancePublicPortsInput) SetPortInfo(v *PortInfo) *CloseInstanceP
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CloseInstancePublicPortsResult
 type CloseInstancePublicPortsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8212,6 +8227,7 @@ func (s *CloseInstancePublicPortsOutput) SetOperation(v *Operation) *CloseInstan
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDiskFromSnapshotRequest
 type CreateDiskFromSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8298,6 +8314,7 @@ func (s *CreateDiskFromSnapshotInput) SetSizeInGb(v int64) *CreateDiskFromSnapsh
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDiskFromSnapshotResult
 type CreateDiskFromSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8321,6 +8338,7 @@ func (s *CreateDiskFromSnapshotOutput) SetOperations(v []*Operation) *CreateDisk
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDiskRequest
 type CreateDiskInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8392,6 +8410,7 @@ func (s *CreateDiskInput) SetSizeInGb(v int64) *CreateDiskInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDiskResult
 type CreateDiskOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8415,6 +8434,7 @@ func (s *CreateDiskOutput) SetOperations(v []*Operation) *CreateDiskOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDiskSnapshotRequest
 type CreateDiskSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8468,6 +8488,7 @@ func (s *CreateDiskSnapshotInput) SetDiskSnapshotName(v string) *CreateDiskSnaps
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDiskSnapshotResult
 type CreateDiskSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8491,6 +8512,7 @@ func (s *CreateDiskSnapshotOutput) SetOperations(v []*Operation) *CreateDiskSnap
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDomainEntryRequest
 type CreateDomainEntryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8545,6 +8567,7 @@ func (s *CreateDomainEntryInput) SetDomainName(v string) *CreateDomainEntryInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDomainEntryResult
 type CreateDomainEntryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8568,6 +8591,7 @@ func (s *CreateDomainEntryOutput) SetOperation(v *Operation) *CreateDomainEntryO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDomainRequest
 type CreateDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8611,6 +8635,7 @@ func (s *CreateDomainInput) SetDomainName(v string) *CreateDomainInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDomainResult
 type CreateDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8635,6 +8660,7 @@ func (s *CreateDomainOutput) SetOperation(v *Operation) *CreateDomainOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateInstanceSnapshotRequest
 type CreateInstanceSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8687,6 +8713,7 @@ func (s *CreateInstanceSnapshotInput) SetInstanceSnapshotName(v string) *CreateI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateInstanceSnapshotResult
 type CreateInstanceSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8711,6 +8738,7 @@ func (s *CreateInstanceSnapshotOutput) SetOperations(v []*Operation) *CreateInst
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateInstancesFromSnapshotRequest
 type CreateInstancesFromSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8831,6 +8859,7 @@ func (s *CreateInstancesFromSnapshotInput) SetUserData(v string) *CreateInstance
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateInstancesFromSnapshotResult
 type CreateInstancesFromSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8855,6 +8884,7 @@ func (s *CreateInstancesFromSnapshotOutput) SetOperations(v []*Operation) *Creat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateInstancesRequest
 type CreateInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8979,6 +9009,7 @@ func (s *CreateInstancesInput) SetUserData(v string) *CreateInstancesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateInstancesResult
 type CreateInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9003,6 +9034,7 @@ func (s *CreateInstancesOutput) SetOperations(v []*Operation) *CreateInstancesOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateKeyPairRequest
 type CreateKeyPairInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9041,6 +9073,7 @@ func (s *CreateKeyPairInput) SetKeyPairName(v string) *CreateKeyPairInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateKeyPairResult
 type CreateKeyPairOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9093,6 +9126,7 @@ func (s *CreateKeyPairOutput) SetPublicKeyBase64(v string) *CreateKeyPairOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateLoadBalancerRequest
 type CreateLoadBalancerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9190,6 +9224,7 @@ func (s *CreateLoadBalancerInput) SetLoadBalancerName(v string) *CreateLoadBalan
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateLoadBalancerResult
 type CreateLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9213,6 +9248,7 @@ func (s *CreateLoadBalancerOutput) SetOperations(v []*Operation) *CreateLoadBala
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateLoadBalancerTlsCertificateRequest
 type CreateLoadBalancerTlsCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9288,6 +9324,7 @@ func (s *CreateLoadBalancerTlsCertificateInput) SetLoadBalancerName(v string) *C
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateLoadBalancerTlsCertificateResult
 type CreateLoadBalancerTlsCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9311,6 +9348,7 @@ func (s *CreateLoadBalancerTlsCertificateOutput) SetOperations(v []*Operation) *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDiskRequest
 type DeleteDiskInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9349,6 +9387,7 @@ func (s *DeleteDiskInput) SetDiskName(v string) *DeleteDiskInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDiskResult
 type DeleteDiskOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9372,6 +9411,7 @@ func (s *DeleteDiskOutput) SetOperations(v []*Operation) *DeleteDiskOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDiskSnapshotRequest
 type DeleteDiskSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9410,6 +9450,7 @@ func (s *DeleteDiskSnapshotInput) SetDiskSnapshotName(v string) *DeleteDiskSnaps
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDiskSnapshotResult
 type DeleteDiskSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9433,6 +9474,7 @@ func (s *DeleteDiskSnapshotOutput) SetOperations(v []*Operation) *DeleteDiskSnap
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDomainEntryRequest
 type DeleteDomainEntryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9485,6 +9527,7 @@ func (s *DeleteDomainEntryInput) SetDomainName(v string) *DeleteDomainEntryInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDomainEntryResult
 type DeleteDomainEntryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9509,6 +9552,7 @@ func (s *DeleteDomainEntryOutput) SetOperation(v *Operation) *DeleteDomainEntryO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDomainRequest
 type DeleteDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9547,6 +9591,7 @@ func (s *DeleteDomainInput) SetDomainName(v string) *DeleteDomainInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteDomainResult
 type DeleteDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9571,6 +9616,7 @@ func (s *DeleteDomainOutput) SetOperation(v *Operation) *DeleteDomainOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteInstanceRequest
 type DeleteInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9609,6 +9655,7 @@ func (s *DeleteInstanceInput) SetInstanceName(v string) *DeleteInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteInstanceResult
 type DeleteInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9633,6 +9680,7 @@ func (s *DeleteInstanceOutput) SetOperations(v []*Operation) *DeleteInstanceOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteInstanceSnapshotRequest
 type DeleteInstanceSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9671,6 +9719,7 @@ func (s *DeleteInstanceSnapshotInput) SetInstanceSnapshotName(v string) *DeleteI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteInstanceSnapshotResult
 type DeleteInstanceSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9695,6 +9744,7 @@ func (s *DeleteInstanceSnapshotOutput) SetOperations(v []*Operation) *DeleteInst
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteKeyPairRequest
 type DeleteKeyPairInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9733,6 +9783,7 @@ func (s *DeleteKeyPairInput) SetKeyPairName(v string) *DeleteKeyPairInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteKeyPairResult
 type DeleteKeyPairOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9757,6 +9808,7 @@ func (s *DeleteKeyPairOutput) SetOperation(v *Operation) *DeleteKeyPairOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteLoadBalancerRequest
 type DeleteLoadBalancerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9795,6 +9847,7 @@ func (s *DeleteLoadBalancerInput) SetLoadBalancerName(v string) *DeleteLoadBalan
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteLoadBalancerResult
 type DeleteLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9818,6 +9871,7 @@ func (s *DeleteLoadBalancerOutput) SetOperations(v []*Operation) *DeleteLoadBala
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteLoadBalancerTlsCertificateRequest
 type DeleteLoadBalancerTlsCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9879,6 +9933,7 @@ func (s *DeleteLoadBalancerTlsCertificateInput) SetLoadBalancerName(v string) *D
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DeleteLoadBalancerTlsCertificateResult
 type DeleteLoadBalancerTlsCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9902,6 +9957,7 @@ func (s *DeleteLoadBalancerTlsCertificateOutput) SetOperations(v []*Operation) *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DetachDiskRequest
 type DetachDiskInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9941,6 +9997,7 @@ func (s *DetachDiskInput) SetDiskName(v string) *DetachDiskInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DetachDiskResult
 type DetachDiskOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9964,6 +10021,7 @@ func (s *DetachDiskOutput) SetOperations(v []*Operation) *DetachDiskOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DetachInstancesFromLoadBalancerRequest
 type DetachInstancesFromLoadBalancerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10017,6 +10075,7 @@ func (s *DetachInstancesFromLoadBalancerInput) SetLoadBalancerName(v string) *De
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DetachInstancesFromLoadBalancerResult
 type DetachInstancesFromLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10040,6 +10099,7 @@ func (s *DetachInstancesFromLoadBalancerOutput) SetOperations(v []*Operation) *D
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DetachStaticIpRequest
 type DetachStaticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10078,6 +10138,7 @@ func (s *DetachStaticIpInput) SetStaticIpName(v string) *DetachStaticIpInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DetachStaticIpResult
 type DetachStaticIpOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10103,6 +10164,7 @@ func (s *DetachStaticIpOutput) SetOperations(v []*Operation) *DetachStaticIpOutp
 }
 
 // Describes a system disk or an block storage disk.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Disk
 type Disk struct {
 	_ struct{} `type:"structure"`
 
@@ -10263,6 +10325,7 @@ func (s *Disk) SetSupportCode(v string) *Disk {
 }
 
 // Describes a block storage disk mapping.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DiskMap
 type DiskMap struct {
 	_ struct{} `type:"structure"`
 
@@ -10296,6 +10359,7 @@ func (s *DiskMap) SetOriginalDiskPath(v string) *DiskMap {
 }
 
 // Describes a block storage disk snapshot.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DiskSnapshot
 type DiskSnapshot struct {
 	_ struct{} `type:"structure"`
 
@@ -10413,6 +10477,7 @@ func (s *DiskSnapshot) SetSupportCode(v string) *DiskSnapshot {
 }
 
 // Describes a domain where you are storing recordsets in Lightsail.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Domain
 type Domain struct {
 	_ struct{} `type:"structure"`
 
@@ -10493,6 +10558,7 @@ func (s *Domain) SetSupportCode(v string) *Domain {
 }
 
 // Describes a domain recordset entry.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DomainEntry
 type DomainEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -10565,6 +10631,7 @@ func (s *DomainEntry) SetType(v string) *DomainEntry {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DownloadDefaultKeyPairRequest
 type DownloadDefaultKeyPairInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10579,6 +10646,7 @@ func (s DownloadDefaultKeyPairInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/DownloadDefaultKeyPairResult
 type DownloadDefaultKeyPairOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10611,6 +10679,7 @@ func (s *DownloadDefaultKeyPairOutput) SetPublicKeyBase64(v string) *DownloadDef
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetActiveNamesRequest
 type GetActiveNamesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10634,6 +10703,7 @@ func (s *GetActiveNamesInput) SetPageToken(v string) *GetActiveNamesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetActiveNamesResult
 type GetActiveNamesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10667,6 +10737,7 @@ func (s *GetActiveNamesOutput) SetNextPageToken(v string) *GetActiveNamesOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetBlueprintsRequest
 type GetBlueprintsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10700,6 +10771,7 @@ func (s *GetBlueprintsInput) SetPageToken(v string) *GetBlueprintsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetBlueprintsResult
 type GetBlueprintsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10734,6 +10806,7 @@ func (s *GetBlueprintsOutput) SetNextPageToken(v string) *GetBlueprintsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetBundlesRequest
 type GetBundlesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10768,6 +10841,7 @@ func (s *GetBundlesInput) SetPageToken(v string) *GetBundlesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetBundlesResult
 type GetBundlesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10802,6 +10876,7 @@ func (s *GetBundlesOutput) SetNextPageToken(v string) *GetBundlesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDiskRequest
 type GetDiskInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10840,6 +10915,7 @@ func (s *GetDiskInput) SetDiskName(v string) *GetDiskInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDiskResult
 type GetDiskOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10863,6 +10939,7 @@ func (s *GetDiskOutput) SetDisk(v *Disk) *GetDiskOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDiskSnapshotRequest
 type GetDiskSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10901,6 +10978,7 @@ func (s *GetDiskSnapshotInput) SetDiskSnapshotName(v string) *GetDiskSnapshotInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDiskSnapshotResult
 type GetDiskSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10924,6 +11002,7 @@ func (s *GetDiskSnapshotOutput) SetDiskSnapshot(v *DiskSnapshot) *GetDiskSnapsho
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDiskSnapshotsRequest
 type GetDiskSnapshotsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10948,6 +11027,7 @@ func (s *GetDiskSnapshotsInput) SetPageToken(v string) *GetDiskSnapshotsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDiskSnapshotsResult
 type GetDiskSnapshotsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10981,6 +11061,7 @@ func (s *GetDiskSnapshotsOutput) SetNextPageToken(v string) *GetDiskSnapshotsOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDisksRequest
 type GetDisksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11005,6 +11086,7 @@ func (s *GetDisksInput) SetPageToken(v string) *GetDisksInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDisksResult
 type GetDisksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11038,6 +11120,7 @@ func (s *GetDisksOutput) SetNextPageToken(v string) *GetDisksOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDomainRequest
 type GetDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11076,6 +11159,7 @@ func (s *GetDomainInput) SetDomainName(v string) *GetDomainInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDomainResult
 type GetDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11100,6 +11184,7 @@ func (s *GetDomainOutput) SetDomain(v *Domain) *GetDomainOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDomainsRequest
 type GetDomainsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11124,6 +11209,7 @@ func (s *GetDomainsInput) SetPageToken(v string) *GetDomainsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetDomainsResult
 type GetDomainsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11158,6 +11244,7 @@ func (s *GetDomainsOutput) SetNextPageToken(v string) *GetDomainsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceAccessDetailsRequest
 type GetInstanceAccessDetailsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11205,6 +11292,7 @@ func (s *GetInstanceAccessDetailsInput) SetProtocol(v string) *GetInstanceAccess
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceAccessDetailsResult
 type GetInstanceAccessDetailsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11229,6 +11317,7 @@ func (s *GetInstanceAccessDetailsOutput) SetAccessDetails(v *InstanceAccessDetai
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceRequest
 type GetInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11267,6 +11356,7 @@ func (s *GetInstanceInput) SetInstanceName(v string) *GetInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceMetricDataRequest
 type GetInstanceMetricDataInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11392,6 +11482,7 @@ func (s *GetInstanceMetricDataInput) SetUnit(v string) *GetInstanceMetricDataInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceMetricDataResult
 type GetInstanceMetricDataOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11425,6 +11516,7 @@ func (s *GetInstanceMetricDataOutput) SetMetricName(v string) *GetInstanceMetric
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceResult
 type GetInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11448,6 +11540,7 @@ func (s *GetInstanceOutput) SetInstance(v *Instance) *GetInstanceOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstancePortStatesRequest
 type GetInstancePortStatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11486,6 +11579,7 @@ func (s *GetInstancePortStatesInput) SetInstanceName(v string) *GetInstancePortS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstancePortStatesResult
 type GetInstancePortStatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11509,6 +11603,7 @@ func (s *GetInstancePortStatesOutput) SetPortStates(v []*InstancePortState) *Get
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceSnapshotRequest
 type GetInstanceSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11547,6 +11642,7 @@ func (s *GetInstanceSnapshotInput) SetInstanceSnapshotName(v string) *GetInstanc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceSnapshotResult
 type GetInstanceSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11571,6 +11667,7 @@ func (s *GetInstanceSnapshotOutput) SetInstanceSnapshot(v *InstanceSnapshot) *Ge
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceSnapshotsRequest
 type GetInstanceSnapshotsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11595,6 +11692,7 @@ func (s *GetInstanceSnapshotsInput) SetPageToken(v string) *GetInstanceSnapshots
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceSnapshotsResult
 type GetInstanceSnapshotsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11629,6 +11727,7 @@ func (s *GetInstanceSnapshotsOutput) SetNextPageToken(v string) *GetInstanceSnap
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceStateRequest
 type GetInstanceStateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11667,6 +11766,7 @@ func (s *GetInstanceStateInput) SetInstanceName(v string) *GetInstanceStateInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstanceStateResult
 type GetInstanceStateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11690,6 +11790,7 @@ func (s *GetInstanceStateOutput) SetState(v *InstanceState) *GetInstanceStateOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstancesRequest
 type GetInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11714,6 +11815,7 @@ func (s *GetInstancesInput) SetPageToken(v string) *GetInstancesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetInstancesResult
 type GetInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11747,6 +11849,7 @@ func (s *GetInstancesOutput) SetNextPageToken(v string) *GetInstancesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetKeyPairRequest
 type GetKeyPairInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11785,6 +11888,7 @@ func (s *GetKeyPairInput) SetKeyPairName(v string) *GetKeyPairInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetKeyPairResult
 type GetKeyPairOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11808,6 +11912,7 @@ func (s *GetKeyPairOutput) SetKeyPair(v *KeyPair) *GetKeyPairOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetKeyPairsRequest
 type GetKeyPairsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11832,6 +11937,7 @@ func (s *GetKeyPairsInput) SetPageToken(v string) *GetKeyPairsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetKeyPairsResult
 type GetKeyPairsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11865,6 +11971,7 @@ func (s *GetKeyPairsOutput) SetNextPageToken(v string) *GetKeyPairsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancerRequest
 type GetLoadBalancerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11903,6 +12010,7 @@ func (s *GetLoadBalancerInput) SetLoadBalancerName(v string) *GetLoadBalancerInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancerMetricDataRequest
 type GetLoadBalancerMetricDataInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12109,6 +12217,7 @@ func (s *GetLoadBalancerMetricDataInput) SetUnit(v string) *GetLoadBalancerMetri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancerMetricDataResult
 type GetLoadBalancerMetricDataOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12142,6 +12251,7 @@ func (s *GetLoadBalancerMetricDataOutput) SetMetricName(v string) *GetLoadBalanc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancerResult
 type GetLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12165,6 +12275,7 @@ func (s *GetLoadBalancerOutput) SetLoadBalancer(v *LoadBalancer) *GetLoadBalance
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancerTlsCertificatesRequest
 type GetLoadBalancerTlsCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12203,6 +12314,7 @@ func (s *GetLoadBalancerTlsCertificatesInput) SetLoadBalancerName(v string) *Get
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancerTlsCertificatesResult
 type GetLoadBalancerTlsCertificatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12226,6 +12338,7 @@ func (s *GetLoadBalancerTlsCertificatesOutput) SetTlsCertificates(v []*LoadBalan
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancersRequest
 type GetLoadBalancersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12249,6 +12362,7 @@ func (s *GetLoadBalancersInput) SetPageToken(v string) *GetLoadBalancersInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetLoadBalancersResult
 type GetLoadBalancersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12282,6 +12396,7 @@ func (s *GetLoadBalancersOutput) SetNextPageToken(v string) *GetLoadBalancersOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetOperationRequest
 type GetOperationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12320,6 +12435,7 @@ func (s *GetOperationInput) SetOperationId(v string) *GetOperationInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetOperationResult
 type GetOperationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12344,6 +12460,7 @@ func (s *GetOperationOutput) SetOperation(v *Operation) *GetOperationOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetOperationsForResourceRequest
 type GetOperationsForResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12392,6 +12509,7 @@ func (s *GetOperationsForResourceInput) SetResourceName(v string) *GetOperations
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetOperationsForResourceResult
 type GetOperationsForResourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12438,6 +12556,7 @@ func (s *GetOperationsForResourceOutput) SetOperations(v []*Operation) *GetOpera
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetOperationsRequest
 type GetOperationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12462,6 +12581,7 @@ func (s *GetOperationsInput) SetPageToken(v string) *GetOperationsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetOperationsResult
 type GetOperationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12496,6 +12616,7 @@ func (s *GetOperationsOutput) SetOperations(v []*Operation) *GetOperationsOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetRegionsRequest
 type GetRegionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12521,6 +12642,7 @@ func (s *GetRegionsInput) SetIncludeAvailabilityZones(v bool) *GetRegionsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetRegionsResult
 type GetRegionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12545,6 +12667,7 @@ func (s *GetRegionsOutput) SetRegions(v []*Region) *GetRegionsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetStaticIpRequest
 type GetStaticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12583,6 +12706,7 @@ func (s *GetStaticIpInput) SetStaticIpName(v string) *GetStaticIpInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetStaticIpResult
 type GetStaticIpOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12607,6 +12731,7 @@ func (s *GetStaticIpOutput) SetStaticIp(v *StaticIp) *GetStaticIpOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetStaticIpsRequest
 type GetStaticIpsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12631,6 +12756,7 @@ func (s *GetStaticIpsInput) SetPageToken(v string) *GetStaticIpsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/GetStaticIpsResult
 type GetStaticIpsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12665,6 +12791,7 @@ func (s *GetStaticIpsOutput) SetStaticIps(v []*StaticIp) *GetStaticIpsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/ImportKeyPairRequest
 type ImportKeyPairInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12717,6 +12844,7 @@ func (s *ImportKeyPairInput) SetPublicKeyBase64(v string) *ImportKeyPairInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/ImportKeyPairResult
 type ImportKeyPairOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12741,6 +12869,7 @@ func (s *ImportKeyPairOutput) SetOperation(v *Operation) *ImportKeyPairOutput {
 }
 
 // Describes an instance (a virtual private server).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Instance
 type Instance struct {
 	_ struct{} `type:"structure"`
 
@@ -12923,6 +13052,7 @@ func (s *Instance) SetUsername(v string) *Instance {
 
 // The parameters for gaining temporary access to one of your Amazon Lightsail
 // instances.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstanceAccessDetails
 type InstanceAccessDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -13035,6 +13165,7 @@ func (s *InstanceAccessDetails) SetUsername(v string) *InstanceAccessDetails {
 }
 
 // Describes the hardware for the instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstanceHardware
 type InstanceHardware struct {
 	_ struct{} `type:"structure"`
 
@@ -13077,6 +13208,7 @@ func (s *InstanceHardware) SetRamSizeInGb(v float64) *InstanceHardware {
 }
 
 // Describes information about the health of the instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstanceHealthSummary
 type InstanceHealthSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -13120,6 +13252,7 @@ func (s *InstanceHealthSummary) SetInstanceName(v string) *InstanceHealthSummary
 }
 
 // Describes monthly data transfer rates and port information for an instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstanceNetworking
 type InstanceNetworking struct {
 	_ struct{} `type:"structure"`
 
@@ -13154,6 +13287,7 @@ func (s *InstanceNetworking) SetPorts(v []*InstancePortInfo) *InstanceNetworking
 }
 
 // Describes information about the instance ports.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstancePortInfo
 type InstancePortInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -13249,6 +13383,7 @@ func (s *InstancePortInfo) SetToPort(v int64) *InstancePortInfo {
 }
 
 // Describes the port state.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstancePortState
 type InstancePortState struct {
 	_ struct{} `type:"structure"`
 
@@ -13317,6 +13452,7 @@ func (s *InstancePortState) SetToPort(v int64) *InstancePortState {
 }
 
 // Describes the snapshot of the virtual private server, or instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstanceSnapshot
 type InstanceSnapshot struct {
 	_ struct{} `type:"structure"`
 
@@ -13463,6 +13599,7 @@ func (s *InstanceSnapshot) SetSupportCode(v string) *InstanceSnapshot {
 }
 
 // Describes the virtual private server (or instance) status.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/InstanceState
 type InstanceState struct {
 	_ struct{} `type:"structure"`
 
@@ -13495,6 +13632,7 @@ func (s *InstanceState) SetName(v string) *InstanceState {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/IsVpcPeeredRequest
 type IsVpcPeeredInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13509,6 +13647,7 @@ func (s IsVpcPeeredInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/IsVpcPeeredResult
 type IsVpcPeeredOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13533,6 +13672,7 @@ func (s *IsVpcPeeredOutput) SetIsPeered(v bool) *IsVpcPeeredOutput {
 }
 
 // Describes the SSH key pair.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/KeyPair
 type KeyPair struct {
 	_ struct{} `type:"structure"`
 
@@ -13613,6 +13753,7 @@ func (s *KeyPair) SetSupportCode(v string) *KeyPair {
 }
 
 // Describes the Lightsail load balancer.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/LoadBalancer
 type LoadBalancer struct {
 	_ struct{} `type:"structure"`
 
@@ -13772,6 +13913,7 @@ func (s *LoadBalancer) SetTlsCertificateSummaries(v []*LoadBalancerTlsCertificat
 // Describes a load balancer TLS/SSL certificate.
 //
 // TLS is just an updated, more secure version of Secure Socket Layer (SSL).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/LoadBalancerTlsCertificate
 type LoadBalancerTlsCertificate struct {
 	_ struct{} `type:"structure"`
 
@@ -14015,6 +14157,7 @@ func (s *LoadBalancerTlsCertificate) SetSupportCode(v string) *LoadBalancerTlsCe
 
 // Contains information about the domain names on a TLS/SSL certificate that
 // you will use to validate domain ownership.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/LoadBalancerTlsCertificateDomainValidationOption
 type LoadBalancerTlsCertificateDomainValidationOption struct {
 	_ struct{} `type:"structure"`
 
@@ -14048,6 +14191,7 @@ func (s *LoadBalancerTlsCertificateDomainValidationOption) SetValidationStatus(v
 }
 
 // Describes the validation record of each domain name in the TLS/SSL certificate.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/LoadBalancerTlsCertificateDomainValidationRecord
 type LoadBalancerTlsCertificateDomainValidationRecord struct {
 	_ struct{} `type:"structure"`
 
@@ -14109,6 +14253,7 @@ func (s *LoadBalancerTlsCertificateDomainValidationRecord) SetValue(v string) *L
 
 // Contains information about the status of Lightsail's managed renewal for
 // the certificate.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/LoadBalancerTlsCertificateRenewalSummary
 type LoadBalancerTlsCertificateRenewalSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -14145,6 +14290,7 @@ func (s *LoadBalancerTlsCertificateRenewalSummary) SetRenewalStatus(v string) *L
 }
 
 // Provides a summary of TLS/SSL certificate metadata.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/LoadBalancerTlsCertificateSummary
 type LoadBalancerTlsCertificateSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -14178,6 +14324,7 @@ func (s *LoadBalancerTlsCertificateSummary) SetName(v string) *LoadBalancerTlsCe
 }
 
 // Describes the metric data point.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/MetricDatapoint
 type MetricDatapoint struct {
 	_ struct{} `type:"structure"`
 
@@ -14257,6 +14404,7 @@ func (s *MetricDatapoint) SetUnit(v string) *MetricDatapoint {
 
 // Describes the monthly data transfer in and out of your virtual private server
 // (or instance).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/MonthlyTransfer
 type MonthlyTransfer struct {
 	_ struct{} `type:"structure"`
 
@@ -14280,6 +14428,7 @@ func (s *MonthlyTransfer) SetGbPerMonthAllocated(v int64) *MonthlyTransfer {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/OpenInstancePublicPortsRequest
 type OpenInstancePublicPortsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14332,6 +14481,7 @@ func (s *OpenInstancePublicPortsInput) SetPortInfo(v *PortInfo) *OpenInstancePub
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/OpenInstancePublicPortsResult
 type OpenInstancePublicPortsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14356,6 +14506,7 @@ func (s *OpenInstancePublicPortsOutput) SetOperation(v *Operation) *OpenInstance
 }
 
 // Describes the API operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Operation
 type Operation struct {
 	_ struct{} `type:"structure"`
 
@@ -14480,6 +14631,7 @@ func (s *Operation) SetStatusChangedAt(v time.Time) *Operation {
 
 // The password data for the Windows Server-based instance, including the ciphertext
 // and the key pair name.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/PasswordData
 type PasswordData struct {
 	_ struct{} `type:"structure"`
 
@@ -14530,6 +14682,7 @@ func (s *PasswordData) SetKeyPairName(v string) *PasswordData {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/PeerVpcRequest
 type PeerVpcInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14544,6 +14697,7 @@ func (s PeerVpcInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/PeerVpcResult
 type PeerVpcOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14569,6 +14723,7 @@ func (s *PeerVpcOutput) SetOperation(v *Operation) *PeerVpcOutput {
 
 // Describes information about the ports on your virtual private server (or
 // instance).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/PortInfo
 type PortInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -14610,6 +14765,7 @@ func (s *PortInfo) SetToPort(v int64) *PortInfo {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/PutInstancePublicPortsRequest
 type PutInstancePublicPortsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14662,6 +14818,7 @@ func (s *PutInstancePublicPortsInput) SetPortInfos(v []*PortInfo) *PutInstancePu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/PutInstancePublicPortsResult
 type PutInstancePublicPortsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14685,6 +14842,7 @@ func (s *PutInstancePublicPortsOutput) SetOperation(v *Operation) *PutInstancePu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/RebootInstanceRequest
 type RebootInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14723,6 +14881,7 @@ func (s *RebootInstanceInput) SetInstanceName(v string) *RebootInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/RebootInstanceResult
 type RebootInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14747,6 +14906,7 @@ func (s *RebootInstanceOutput) SetOperations(v []*Operation) *RebootInstanceOutp
 }
 
 // Describes the AWS Region.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/Region
 type Region struct {
 	_ struct{} `type:"structure"`
 
@@ -14807,6 +14967,7 @@ func (s *Region) SetName(v string) *Region {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/ReleaseStaticIpRequest
 type ReleaseStaticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14845,6 +15006,7 @@ func (s *ReleaseStaticIpInput) SetStaticIpName(v string) *ReleaseStaticIpInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/ReleaseStaticIpResult
 type ReleaseStaticIpOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14869,6 +15031,7 @@ func (s *ReleaseStaticIpOutput) SetOperations(v []*Operation) *ReleaseStaticIpOu
 }
 
 // Describes the resource location.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/ResourceLocation
 type ResourceLocation struct {
 	_ struct{} `type:"structure"`
 
@@ -14901,6 +15064,7 @@ func (s *ResourceLocation) SetRegionName(v string) *ResourceLocation {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/StartInstanceRequest
 type StartInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14939,6 +15103,7 @@ func (s *StartInstanceInput) SetInstanceName(v string) *StartInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/StartInstanceResult
 type StartInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14963,6 +15128,7 @@ func (s *StartInstanceOutput) SetOperations(v []*Operation) *StartInstanceOutput
 }
 
 // Describes the static IP.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/StaticIp
 type StaticIp struct {
 	_ struct{} `type:"structure"`
 
@@ -15060,6 +15226,7 @@ func (s *StaticIp) SetSupportCode(v string) *StaticIp {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/StopInstanceRequest
 type StopInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15112,6 +15279,7 @@ func (s *StopInstanceInput) SetInstanceName(v string) *StopInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/StopInstanceResult
 type StopInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15135,6 +15303,7 @@ func (s *StopInstanceOutput) SetOperations(v []*Operation) *StopInstanceOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/UnpeerVpcRequest
 type UnpeerVpcInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15149,6 +15318,7 @@ func (s UnpeerVpcInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/UnpeerVpcResult
 type UnpeerVpcOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15172,6 +15342,7 @@ func (s *UnpeerVpcOutput) SetOperation(v *Operation) *UnpeerVpcOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/UpdateDomainEntryRequest
 type UpdateDomainEntryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15224,6 +15395,7 @@ func (s *UpdateDomainEntryInput) SetDomainName(v string) *UpdateDomainEntryInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/UpdateDomainEntryResult
 type UpdateDomainEntryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15247,6 +15419,7 @@ func (s *UpdateDomainEntryOutput) SetOperations(v []*Operation) *UpdateDomainEnt
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/UpdateLoadBalancerAttributeRequest
 type UpdateLoadBalancerAttributeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15316,6 +15489,7 @@ func (s *UpdateLoadBalancerAttributeInput) SetLoadBalancerName(v string) *Update
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/UpdateLoadBalancerAttributeResult
 type UpdateLoadBalancerAttributeOutput struct {
 	_ struct{} `type:"structure"`
 

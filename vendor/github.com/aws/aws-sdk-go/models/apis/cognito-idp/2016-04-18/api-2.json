@@ -1101,19 +1101,6 @@
         {"shape":"InternalErrorException"}
       ]
     },
-    "GetSigningCertificate":{
-      "name":"GetSigningCertificate",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"GetSigningCertificateRequest"},
-      "output":{"shape":"GetSigningCertificateResponse"},
-      "errors":[
-        {"shape":"InternalErrorException"},
-        {"shape":"ResourceNotFoundException"}
-      ]
-    },
     "GetUICustomization":{
       "name":"GetUICustomization",
       "http":{
@@ -2456,8 +2443,7 @@
         "REFRESH_TOKEN_AUTH",
         "REFRESH_TOKEN",
         "CUSTOM_AUTH",
-        "ADMIN_NO_SRP_AUTH",
-        "USER_PASSWORD_AUTH"
+        "ADMIN_NO_SRP_AUTH"
       ]
     },
     "AuthParametersType":{
@@ -3353,8 +3339,7 @@
       "type":"string",
       "enum":[
         "ADMIN_NO_SRP_AUTH",
-        "CUSTOM_AUTH_FLOW_ONLY",
-        "USER_PASSWORD_AUTH"
+        "CUSTOM_AUTH_FLOW_ONLY"
       ]
     },
     "FeedbackValueType":{
@@ -3456,19 +3441,6 @@
       "required":["IdentityProvider"],
       "members":{
         "IdentityProvider":{"shape":"IdentityProviderType"}
-      }
-    },
-    "GetSigningCertificateRequest":{
-      "type":"structure",
-      "required":["UserPoolId"],
-      "members":{
-        "UserPoolId":{"shape":"UserPoolIdType"}
-      }
-    },
-    "GetSigningCertificateResponse":{
-      "type":"structure",
-      "members":{
-        "Certificate":{"shape":"StringType"}
       }
     },
     "GetUICustomizationRequest":{
@@ -3731,8 +3703,7 @@
         "DefineAuthChallenge":{"shape":"ArnType"},
         "CreateAuthChallenge":{"shape":"ArnType"},
         "VerifyAuthChallengeResponse":{"shape":"ArnType"},
-        "PreTokenGeneration":{"shape":"ArnType"},
-        "UserMigration":{"shape":"ArnType"}
+        "PreTokenGeneration":{"shape":"ArnType"}
       }
     },
     "LimitExceededException":{
@@ -5018,7 +4989,6 @@
         "UserPoolTags":{"shape":"UserPoolTagsType"},
         "SmsConfigurationFailure":{"shape":"StringType"},
         "EmailConfigurationFailure":{"shape":"StringType"},
-        "Domain":{"shape":"DomainType"},
         "AdminCreateUserConfig":{"shape":"AdminCreateUserConfigType"},
         "UserPoolAddOns":{"shape":"UserPoolAddOnsType"}
       }

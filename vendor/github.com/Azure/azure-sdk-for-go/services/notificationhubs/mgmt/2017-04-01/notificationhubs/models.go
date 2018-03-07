@@ -18,9 +18,7 @@ package notificationhubs
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"encoding/json"
 	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/Azure/go-autorest/autorest/to"
 	"net/http"
@@ -30,11 +28,11 @@ import (
 type AccessRights string
 
 const (
-	// Listen ...
+	// Listen specifies the listen state for access rights.
 	Listen AccessRights = "Listen"
-	// Manage ...
+	// Manage specifies the manage state for access rights.
 	Manage AccessRights = "Manage"
-	// Send ...
+	// Send specifies the send state for access rights.
 	Send AccessRights = "Send"
 )
 
@@ -42,9 +40,9 @@ const (
 type NamespaceType string
 
 const (
-	// Messaging ...
+	// Messaging specifies the messaging state for namespace type.
 	Messaging NamespaceType = "Messaging"
-	// NotificationHub ...
+	// NotificationHub specifies the notification hub state for namespace type.
 	NotificationHub NamespaceType = "NotificationHub"
 )
 
@@ -52,1399 +50,352 @@ const (
 type SkuName string
 
 const (
-	// Basic ...
+	// Basic specifies the basic state for sku name.
 	Basic SkuName = "Basic"
-	// Free ...
+	// Free specifies the free state for sku name.
 	Free SkuName = "Free"
-	// Standard ...
+	// Standard specifies the standard state for sku name.
 	Standard SkuName = "Standard"
 )
 
-// AdmCredential description of a NotificationHub AdmCredential.
+// AdmCredential is description of a NotificationHub AdmCredential.
 type AdmCredential struct {
-	// AdmCredentialProperties - Properties of NotificationHub AdmCredential.
 	*AdmCredentialProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for AdmCredential struct.
-func (ac *AdmCredential) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties AdmCredentialProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ac.AdmCredentialProperties = &properties
-	}
-
-	return nil
-}
-
-// AdmCredentialProperties description of a NotificationHub AdmCredential.
+// AdmCredentialProperties is description of a NotificationHub AdmCredential.
 type AdmCredentialProperties struct {
-	// ClientID - The client identifier.
-	ClientID *string `json:"clientId,omitempty"`
-	// ClientSecret - The credential secret access key.
+	ClientID     *string `json:"clientId,omitempty"`
 	ClientSecret *string `json:"clientSecret,omitempty"`
-	// AuthTokenURL - The URL of the authorization token.
 	AuthTokenURL *string `json:"authTokenUrl,omitempty"`
 }
 
-// ApnsCredential description of a NotificationHub ApnsCredential.
+// ApnsCredential is description of a NotificationHub ApnsCredential.
 type ApnsCredential struct {
-	// ApnsCredentialProperties - Properties of NotificationHub ApnsCredential.
 	*ApnsCredentialProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApnsCredential struct.
-func (ac *ApnsCredential) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApnsCredentialProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ac.ApnsCredentialProperties = &properties
-	}
-
-	return nil
-}
-
-// ApnsCredentialProperties description of a NotificationHub ApnsCredential.
+// ApnsCredentialProperties is description of a NotificationHub ApnsCredential.
 type ApnsCredentialProperties struct {
-	// ApnsCertificate - The APNS certificate.
 	ApnsCertificate *string `json:"apnsCertificate,omitempty"`
-	// CertificateKey - The certificate key.
-	CertificateKey *string `json:"certificateKey,omitempty"`
-	// Endpoint - The endpoint of this credential.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Thumbprint - The Apns certificate Thumbprint
-	Thumbprint *string `json:"thumbprint,omitempty"`
-	// KeyID - A 10-character key identifier (kid) key, obtained from your developer account
-	KeyID *string `json:"keyId,omitempty"`
-	// AppName - The name of the application
-	AppName *string `json:"appName,omitempty"`
-	// AppID - The issuer (iss) registered claim key, whose value is your 10-character Team ID, obtained from your developer account
-	AppID *string `json:"appId,omitempty"`
-	// Token - Provider Authentication Token, obtained through your developer account
-	Token *string `json:"token,omitempty"`
+	CertificateKey  *string `json:"certificateKey,omitempty"`
+	Endpoint        *string `json:"endpoint,omitempty"`
+	Thumbprint      *string `json:"thumbprint,omitempty"`
+	KeyID           *string `json:"keyId,omitempty"`
+	AppName         *string `json:"appName,omitempty"`
+	AppID           *string `json:"appId,omitempty"`
+	Token           *string `json:"token,omitempty"`
 }
 
-// BaiduCredential description of a NotificationHub BaiduCredential.
+// BaiduCredential is description of a NotificationHub BaiduCredential.
 type BaiduCredential struct {
-	// BaiduCredentialProperties - Properties of NotificationHub BaiduCredential.
 	*BaiduCredentialProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for BaiduCredential struct.
-func (bc *BaiduCredential) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties BaiduCredentialProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		bc.BaiduCredentialProperties = &properties
-	}
-
-	return nil
-}
-
-// BaiduCredentialProperties description of a NotificationHub BaiduCredential.
+// BaiduCredentialProperties is description of a NotificationHub BaiduCredential.
 type BaiduCredentialProperties struct {
-	// BaiduAPIKey - Baidu Api Key.
-	BaiduAPIKey *string `json:"baiduApiKey,omitempty"`
-	// BaiduEndPoint - Baidu Endpoint.
-	BaiduEndPoint *string `json:"baiduEndPoint,omitempty"`
-	// BaiduSecretKey - Baidu Secret Key
+	BaiduAPIKey    *string `json:"baiduApiKey,omitempty"`
+	BaiduEndPoint  *string `json:"baiduEndPoint,omitempty"`
 	BaiduSecretKey *string `json:"baiduSecretKey,omitempty"`
 }
 
-// CheckAvailabilityParameters parameters supplied to the Check Name Availability for Namespace and NotificationHubs.
+// CheckAvailabilityParameters is parameters supplied to the Check Name Availability for Namespace and
+// NotificationHubs.
 type CheckAvailabilityParameters struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// IsAvailiable - True if the name is available and can be used to create new Namespace/NotificationHub. Otherwise false.
-	IsAvailiable *bool `json:"isAvailiable,omitempty"`
+	ID           *string             `json:"id,omitempty"`
+	Name         *string             `json:"name,omitempty"`
+	Type         *string             `json:"type,omitempty"`
+	Location     *string             `json:"location,omitempty"`
+	Tags         *map[string]*string `json:"tags,omitempty"`
+	Sku          *Sku                `json:"sku,omitempty"`
+	IsAvailiable *bool               `json:"isAvailiable,omitempty"`
 }
 
-// CheckAvailabilityResult description of a CheckAvailibility resource.
+// CheckAvailabilityResult is description of a CheckAvailibility resource.
 type CheckAvailabilityResult struct {
 	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// IsAvailiable - True if the name is available and can be used to create new Namespace/NotificationHub. Otherwise false.
-	IsAvailiable *bool `json:"isAvailiable,omitempty"`
+	ID                *string             `json:"id,omitempty"`
+	Name              *string             `json:"name,omitempty"`
+	Type              *string             `json:"type,omitempty"`
+	Location          *string             `json:"location,omitempty"`
+	Tags              *map[string]*string `json:"tags,omitempty"`
+	Sku               *Sku                `json:"sku,omitempty"`
+	IsAvailiable      *bool               `json:"isAvailiable,omitempty"`
 }
 
-// CheckNameAvailabilityRequestParameters parameters supplied to the Check Name Availability for Namespace and
+// CheckNameAvailabilityRequestParameters is parameters supplied to the Check Name Availability for Namespace and
 // NotificationHubs.
 type CheckNameAvailabilityRequestParameters struct {
-	// Name - Resource name
 	Name *string `json:"Name,omitempty"`
-	// Type - Resource type
 	Type *string `json:"Type,omitempty"`
 }
 
-// CheckNameAvailabilityResponse ...
+// CheckNameAvailabilityResponse is
 type CheckNameAvailabilityResponse struct {
 	autorest.Response `json:"-"`
-	// NameAvailable - Checks if the namespace name is available
-	NameAvailable *bool `json:"NameAvailable,omitempty"`
-	// Reason - States the reason due to which the namespace name is not available
-	Reason *string `json:"Reason,omitempty"`
-	// Message - The messsage returned when checking for namespace name availability
-	Message *string `json:"Message,omitempty"`
+	NameAvailable     *bool   `json:"NameAvailable,omitempty"`
+	Reason            *string `json:"Reason,omitempty"`
+	Message           *string `json:"Message,omitempty"`
 }
 
-// CreateOrUpdateParameters parameters supplied to the CreateOrUpdate NotificationHub operation.
+// CreateOrUpdateParameters is parameters supplied to the CreateOrUpdate NotificationHub operation.
 type CreateOrUpdateParameters struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// Properties - Properties of the NotificationHub.
+	ID          *string             `json:"id,omitempty"`
+	Name        *string             `json:"name,omitempty"`
+	Type        *string             `json:"type,omitempty"`
+	Location    *string             `json:"location,omitempty"`
+	Tags        *map[string]*string `json:"tags,omitempty"`
+	Sku         *Sku                `json:"sku,omitempty"`
 	*Properties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for CreateOrUpdateParameters struct.
-func (coup *CreateOrUpdateParameters) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties Properties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		coup.Properties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		coup.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		coup.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		coup.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		coup.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		coup.Tags = &tags
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		coup.Sku = &sku
-	}
-
-	return nil
-}
-
-// GcmCredential description of a NotificationHub GcmCredential.
+// GcmCredential is description of a NotificationHub GcmCredential.
 type GcmCredential struct {
-	// GcmCredentialProperties - Properties of NotificationHub GcmCredential.
 	*GcmCredentialProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for GcmCredential struct.
-func (gc *GcmCredential) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties GcmCredentialProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		gc.GcmCredentialProperties = &properties
-	}
-
-	return nil
-}
-
-// GcmCredentialProperties description of a NotificationHub GcmCredential.
+// GcmCredentialProperties is description of a NotificationHub GcmCredential.
 type GcmCredentialProperties struct {
-	// GcmEndpoint - The GCM endpoint.
-	GcmEndpoint *string `json:"gcmEndpoint,omitempty"`
-	// GoogleAPIKey - The Google API key.
+	GcmEndpoint  *string `json:"gcmEndpoint,omitempty"`
 	GoogleAPIKey *string `json:"googleApiKey,omitempty"`
 }
 
-// ListResult the response of the List NotificationHub operation.
+// ListResult is the response of the List NotificationHub operation.
 type ListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Result of the List NotificationHub operation.
-	Value *[]ResourceType `json:"value,omitempty"`
-	// NextLink - Link to the next set of results. Not empty if Value contains incomplete list of NotificationHub
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ResourceType `json:"value,omitempty"`
+	NextLink          *string         `json:"nextLink,omitempty"`
 }
 
-// ListResultIterator provides access to a complete listing of ResourceType values.
-type ListResultIterator struct {
-	i    int
-	page ListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ListResultIterator) Response() ListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ListResultIterator) Value() ResourceType {
-	if !iter.page.NotDone() {
-		return ResourceType{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (lr ListResult) IsEmpty() bool {
-	return lr.Value == nil || len(*lr.Value) == 0
-}
-
-// listResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (lr ListResult) listResultPreparer() (*http.Request, error) {
-	if lr.NextLink == nil || len(to.String(lr.NextLink)) < 1 {
+// ListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ListResult) ListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(lr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ListResultPage contains a page of ResourceType values.
-type ListResultPage struct {
-	fn func(ListResult) (ListResult, error)
-	lr ListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ListResultPage) Next() error {
-	next, err := page.fn(page.lr)
-	if err != nil {
-		return err
-	}
-	page.lr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ListResultPage) NotDone() bool {
-	return !page.lr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ListResultPage) Response() ListResult {
-	return page.lr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ListResultPage) Values() []ResourceType {
-	if page.lr.IsEmpty() {
-		return nil
-	}
-	return *page.lr.Value
-}
-
-// MpnsCredential description of a NotificationHub MpnsCredential.
+// MpnsCredential is description of a NotificationHub MpnsCredential.
 type MpnsCredential struct {
-	// MpnsCredentialProperties - Properties of NotificationHub MpnsCredential.
 	*MpnsCredentialProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for MpnsCredential struct.
-func (mc *MpnsCredential) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties MpnsCredentialProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		mc.MpnsCredentialProperties = &properties
-	}
-
-	return nil
-}
-
-// MpnsCredentialProperties description of a NotificationHub MpnsCredential.
+// MpnsCredentialProperties is description of a NotificationHub MpnsCredential.
 type MpnsCredentialProperties struct {
-	// MpnsCertificate - The MPNS certificate.
 	MpnsCertificate *string `json:"mpnsCertificate,omitempty"`
-	// CertificateKey - The certificate key for this credential.
-	CertificateKey *string `json:"certificateKey,omitempty"`
-	// Thumbprint - The Mpns certificate Thumbprint
-	Thumbprint *string `json:"thumbprint,omitempty"`
+	CertificateKey  *string `json:"certificateKey,omitempty"`
+	Thumbprint      *string `json:"thumbprint,omitempty"`
 }
 
-// NamespaceCreateOrUpdateParameters parameters supplied to the CreateOrUpdate Namespace operation.
+// NamespaceCreateOrUpdateParameters is parameters supplied to the CreateOrUpdate Namespace operation.
 type NamespaceCreateOrUpdateParameters struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// NamespaceProperties - Properties of the Namespace.
+	ID                   *string             `json:"id,omitempty"`
+	Name                 *string             `json:"name,omitempty"`
+	Type                 *string             `json:"type,omitempty"`
+	Location             *string             `json:"location,omitempty"`
+	Tags                 *map[string]*string `json:"tags,omitempty"`
+	Sku                  *Sku                `json:"sku,omitempty"`
 	*NamespaceProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for NamespaceCreateOrUpdateParameters struct.
-func (ncoup *NamespaceCreateOrUpdateParameters) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties NamespaceProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ncoup.NamespaceProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ncoup.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ncoup.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ncoup.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		ncoup.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		ncoup.Tags = &tags
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		ncoup.Sku = &sku
-	}
-
-	return nil
-}
-
-// NamespaceListResult the response of the List Namespace operation.
+// NamespaceListResult is the response of the List Namespace operation.
 type NamespaceListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Result of the List Namespace operation.
-	Value *[]NamespaceResource `json:"value,omitempty"`
-	// NextLink - Link to the next set of results. Not empty if Value contains incomplete list of Namespaces
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]NamespaceResource `json:"value,omitempty"`
+	NextLink          *string              `json:"nextLink,omitempty"`
 }
 
-// NamespaceListResultIterator provides access to a complete listing of NamespaceResource values.
-type NamespaceListResultIterator struct {
-	i    int
-	page NamespaceListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *NamespaceListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter NamespaceListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter NamespaceListResultIterator) Response() NamespaceListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter NamespaceListResultIterator) Value() NamespaceResource {
-	if !iter.page.NotDone() {
-		return NamespaceResource{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (nlr NamespaceListResult) IsEmpty() bool {
-	return nlr.Value == nil || len(*nlr.Value) == 0
-}
-
-// namespaceListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (nlr NamespaceListResult) namespaceListResultPreparer() (*http.Request, error) {
-	if nlr.NextLink == nil || len(to.String(nlr.NextLink)) < 1 {
+// NamespaceListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client NamespaceListResult) NamespaceListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(nlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// NamespaceListResultPage contains a page of NamespaceResource values.
-type NamespaceListResultPage struct {
-	fn  func(NamespaceListResult) (NamespaceListResult, error)
-	nlr NamespaceListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *NamespaceListResultPage) Next() error {
-	next, err := page.fn(page.nlr)
-	if err != nil {
-		return err
-	}
-	page.nlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page NamespaceListResultPage) NotDone() bool {
-	return !page.nlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page NamespaceListResultPage) Response() NamespaceListResult {
-	return page.nlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page NamespaceListResultPage) Values() []NamespaceResource {
-	if page.nlr.IsEmpty() {
-		return nil
-	}
-	return *page.nlr.Value
-}
-
-// NamespacePatchParameters parameters supplied to the Patch Namespace operation.
+// NamespacePatchParameters is parameters supplied to the Patch Namespace operation.
 type NamespacePatchParameters struct {
-	// Tags - Resource tags
 	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
+	Sku  *Sku                `json:"sku,omitempty"`
 }
 
-// NamespaceProperties namespace properties.
+// NamespaceProperties is namespace properties.
 type NamespaceProperties struct {
-	// Name - The name of the namespace.
-	Name *string `json:"name,omitempty"`
-	// ProvisioningState - Provisioning state of the Namespace.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// Region - Specifies the targeted region in which the namespace should be created. It can be any of the following values: Australia EastAustralia SoutheastCentral USEast USEast US 2West USNorth Central USSouth Central USEast AsiaSoutheast AsiaBrazil SouthJapan EastJapan WestNorth EuropeWest Europe
-	Region *string `json:"region,omitempty"`
-	// Status - Status of the namespace. It can be any of these values:1 = Created/Active2 = Creating3 = Suspended4 = Deleting
-	Status *string `json:"status,omitempty"`
-	// CreatedAt - The time the namespace was created.
-	CreatedAt *date.Time `json:"createdAt,omitempty"`
-	// ServiceBusEndpoint - Endpoint you can use to perform NotificationHub operations.
-	ServiceBusEndpoint *string `json:"serviceBusEndpoint,omitempty"`
-	// SubscriptionID - The Id of the Azure subscription associated with the namespace.
-	SubscriptionID *string `json:"subscriptionId,omitempty"`
-	// ScaleUnit - ScaleUnit where the namespace gets created
-	ScaleUnit *string `json:"scaleUnit,omitempty"`
-	// Enabled - Whether or not the namespace is currently enabled.
-	Enabled *bool `json:"enabled,omitempty"`
-	// Critical - Whether or not the namespace is set as Critical.
-	Critical *bool `json:"critical,omitempty"`
-	// NamespaceType - The namespace type. Possible values include: 'Messaging', 'NotificationHub'
-	NamespaceType NamespaceType `json:"namespaceType,omitempty"`
+	Name               *string       `json:"name,omitempty"`
+	ProvisioningState  *string       `json:"provisioningState,omitempty"`
+	Region             *string       `json:"region,omitempty"`
+	Status             *string       `json:"status,omitempty"`
+	CreatedAt          *date.Time    `json:"createdAt,omitempty"`
+	ServiceBusEndpoint *string       `json:"serviceBusEndpoint,omitempty"`
+	SubscriptionID     *string       `json:"subscriptionId,omitempty"`
+	ScaleUnit          *string       `json:"scaleUnit,omitempty"`
+	Enabled            *bool         `json:"enabled,omitempty"`
+	Critical           *bool         `json:"critical,omitempty"`
+	NamespaceType      NamespaceType `json:"namespaceType,omitempty"`
 }
 
-// NamespaceResource description of a Namespace resource.
+// NamespaceResource is description of a Namespace resource.
 type NamespaceResource struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// NamespaceProperties - Properties of the Namespace.
+	autorest.Response    `json:"-"`
+	ID                   *string             `json:"id,omitempty"`
+	Name                 *string             `json:"name,omitempty"`
+	Type                 *string             `json:"type,omitempty"`
+	Location             *string             `json:"location,omitempty"`
+	Tags                 *map[string]*string `json:"tags,omitempty"`
+	Sku                  *Sku                `json:"sku,omitempty"`
 	*NamespaceProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for NamespaceResource struct.
-func (nr *NamespaceResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties NamespaceProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		nr.NamespaceProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		nr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		nr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		nr.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		nr.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		nr.Tags = &tags
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		nr.Sku = &sku
-	}
-
-	return nil
-}
-
-// NamespacesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type NamespacesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future NamespacesDeleteFuture) Result(client NamespacesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("notificationhubs.NamespacesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// PnsCredentialsProperties description of a NotificationHub PNS Credentials.
+// PnsCredentialsProperties is description of a NotificationHub PNS Credentials.
 type PnsCredentialsProperties struct {
-	// ApnsCredential - The ApnsCredential of the created NotificationHub
-	ApnsCredential *ApnsCredential `json:"apnsCredential,omitempty"`
-	// WnsCredential - The WnsCredential of the created NotificationHub
-	WnsCredential *WnsCredential `json:"wnsCredential,omitempty"`
-	// GcmCredential - The GcmCredential of the created NotificationHub
-	GcmCredential *GcmCredential `json:"gcmCredential,omitempty"`
-	// MpnsCredential - The MpnsCredential of the created NotificationHub
-	MpnsCredential *MpnsCredential `json:"mpnsCredential,omitempty"`
-	// AdmCredential - The AdmCredential of the created NotificationHub
-	AdmCredential *AdmCredential `json:"admCredential,omitempty"`
-	// BaiduCredential - The BaiduCredential of the created NotificationHub
+	ApnsCredential  *ApnsCredential  `json:"apnsCredential,omitempty"`
+	WnsCredential   *WnsCredential   `json:"wnsCredential,omitempty"`
+	GcmCredential   *GcmCredential   `json:"gcmCredential,omitempty"`
+	MpnsCredential  *MpnsCredential  `json:"mpnsCredential,omitempty"`
+	AdmCredential   *AdmCredential   `json:"admCredential,omitempty"`
 	BaiduCredential *BaiduCredential `json:"baiduCredential,omitempty"`
 }
 
-// PnsCredentialsResource description of a NotificationHub PNS Credentials.
+// PnsCredentialsResource is description of a NotificationHub PNS Credentials.
 type PnsCredentialsResource struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// PnsCredentialsProperties - NotificationHub PNS Credentials.
+	autorest.Response         `json:"-"`
+	ID                        *string             `json:"id,omitempty"`
+	Name                      *string             `json:"name,omitempty"`
+	Type                      *string             `json:"type,omitempty"`
+	Location                  *string             `json:"location,omitempty"`
+	Tags                      *map[string]*string `json:"tags,omitempty"`
+	Sku                       *Sku                `json:"sku,omitempty"`
 	*PnsCredentialsProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for PnsCredentialsResource struct.
-func (pcr *PnsCredentialsResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties PnsCredentialsProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		pcr.PnsCredentialsProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		pcr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		pcr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		pcr.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		pcr.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		pcr.Tags = &tags
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		pcr.Sku = &sku
-	}
-
-	return nil
-}
-
-// PolicykeyResource namespace/NotificationHub Regenerate Keys
+// PolicykeyResource is namespace/NotificationHub Regenerate Keys
 type PolicykeyResource struct {
-	// PolicyKey - Name of the key that has to be regenerated for the Namespace/Notification Hub Authorization Rule. The value can be Primary Key/Secondary Key.
 	PolicyKey *string `json:"policyKey,omitempty"`
 }
 
-// Properties notificationHub properties.
+// Properties is notificationHub properties.
 type Properties struct {
-	// Name - The NotificationHub name.
-	Name *string `json:"name,omitempty"`
-	// RegistrationTTL - The RegistrationTtl of the created NotificationHub
-	RegistrationTTL *string `json:"registrationTtl,omitempty"`
-	// AuthorizationRules - The AuthorizationRules of the created NotificationHub
+	Name               *string                                    `json:"name,omitempty"`
+	RegistrationTTL    *string                                    `json:"registrationTtl,omitempty"`
 	AuthorizationRules *[]SharedAccessAuthorizationRuleProperties `json:"authorizationRules,omitempty"`
-	// ApnsCredential - The ApnsCredential of the created NotificationHub
-	ApnsCredential *ApnsCredential `json:"apnsCredential,omitempty"`
-	// WnsCredential - The WnsCredential of the created NotificationHub
-	WnsCredential *WnsCredential `json:"wnsCredential,omitempty"`
-	// GcmCredential - The GcmCredential of the created NotificationHub
-	GcmCredential *GcmCredential `json:"gcmCredential,omitempty"`
-	// MpnsCredential - The MpnsCredential of the created NotificationHub
-	MpnsCredential *MpnsCredential `json:"mpnsCredential,omitempty"`
-	// AdmCredential - The AdmCredential of the created NotificationHub
-	AdmCredential *AdmCredential `json:"admCredential,omitempty"`
-	// BaiduCredential - The BaiduCredential of the created NotificationHub
-	BaiduCredential *BaiduCredential `json:"baiduCredential,omitempty"`
+	ApnsCredential     *ApnsCredential                            `json:"apnsCredential,omitempty"`
+	WnsCredential      *WnsCredential                             `json:"wnsCredential,omitempty"`
+	GcmCredential      *GcmCredential                             `json:"gcmCredential,omitempty"`
+	MpnsCredential     *MpnsCredential                            `json:"mpnsCredential,omitempty"`
+	AdmCredential      *AdmCredential                             `json:"admCredential,omitempty"`
+	BaiduCredential    *BaiduCredential                           `json:"baiduCredential,omitempty"`
 }
 
-// Resource ...
+// Resource is
 type Resource struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Location *string             `json:"location,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
+	Sku      *Sku                `json:"sku,omitempty"`
 }
 
-// ResourceListKeys namespace/NotificationHub Connection String
+// ResourceListKeys is namespace/NotificationHub Connection String
 type ResourceListKeys struct {
-	autorest.Response `json:"-"`
-	// PrimaryConnectionString - PrimaryConnectionString of the AuthorizationRule.
-	PrimaryConnectionString *string `json:"primaryConnectionString,omitempty"`
-	// SecondaryConnectionString - SecondaryConnectionString of the created AuthorizationRule
+	autorest.Response         `json:"-"`
+	PrimaryConnectionString   *string `json:"primaryConnectionString,omitempty"`
 	SecondaryConnectionString *string `json:"secondaryConnectionString,omitempty"`
-	// PrimaryKey - PrimaryKey of the created AuthorizationRule.
-	PrimaryKey *string `json:"primaryKey,omitempty"`
-	// SecondaryKey - SecondaryKey of the created AuthorizationRule
-	SecondaryKey *string `json:"secondaryKey,omitempty"`
-	// KeyName - KeyName of the created AuthorizationRule
-	KeyName *string `json:"keyName,omitempty"`
+	PrimaryKey                *string `json:"primaryKey,omitempty"`
+	SecondaryKey              *string `json:"secondaryKey,omitempty"`
+	KeyName                   *string `json:"keyName,omitempty"`
 }
 
-// ResourceType description of a NotificationHub Resource.
+// ResourceType is description of a NotificationHub Resource.
 type ResourceType struct {
 	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// Properties - Properties of the NotificationHub.
-	*Properties `json:"properties,omitempty"`
+	ID                *string             `json:"id,omitempty"`
+	Name              *string             `json:"name,omitempty"`
+	Type              *string             `json:"type,omitempty"`
+	Location          *string             `json:"location,omitempty"`
+	Tags              *map[string]*string `json:"tags,omitempty"`
+	Sku               *Sku                `json:"sku,omitempty"`
+	*Properties       `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ResourceType struct.
-func (rt *ResourceType) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties Properties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rt.Properties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rt.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rt.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rt.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		rt.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		rt.Tags = &tags
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		rt.Sku = &sku
-	}
-
-	return nil
-}
-
-// SharedAccessAuthorizationRuleCreateOrUpdateParameters parameters supplied to the CreateOrUpdate Namespace
+// SharedAccessAuthorizationRuleCreateOrUpdateParameters is parameters supplied to the CreateOrUpdate Namespace
 // AuthorizationRules.
 type SharedAccessAuthorizationRuleCreateOrUpdateParameters struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// Properties - Properties of the Namespace AuthorizationRules.
+	ID         *string                                  `json:"id,omitempty"`
+	Name       *string                                  `json:"name,omitempty"`
+	Type       *string                                  `json:"type,omitempty"`
+	Location   *string                                  `json:"location,omitempty"`
+	Tags       *map[string]*string                      `json:"tags,omitempty"`
+	Sku        *Sku                                     `json:"sku,omitempty"`
 	Properties *SharedAccessAuthorizationRuleProperties `json:"properties,omitempty"`
 }
 
-// SharedAccessAuthorizationRuleListResult the response of the List Namespace operation.
+// SharedAccessAuthorizationRuleListResult is the response of the List Namespace operation.
 type SharedAccessAuthorizationRuleListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Result of the List AuthorizationRules operation.
-	Value *[]SharedAccessAuthorizationRuleResource `json:"value,omitempty"`
-	// NextLink - Link to the next set of results. Not empty if Value contains incomplete list of AuthorizationRules
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SharedAccessAuthorizationRuleResource `json:"value,omitempty"`
+	NextLink          *string                                  `json:"nextLink,omitempty"`
 }
 
-// SharedAccessAuthorizationRuleListResultIterator provides access to a complete listing of
-// SharedAccessAuthorizationRuleResource values.
-type SharedAccessAuthorizationRuleListResultIterator struct {
-	i    int
-	page SharedAccessAuthorizationRuleListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SharedAccessAuthorizationRuleListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SharedAccessAuthorizationRuleListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SharedAccessAuthorizationRuleListResultIterator) Response() SharedAccessAuthorizationRuleListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SharedAccessAuthorizationRuleListResultIterator) Value() SharedAccessAuthorizationRuleResource {
-	if !iter.page.NotDone() {
-		return SharedAccessAuthorizationRuleResource{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (saarlr SharedAccessAuthorizationRuleListResult) IsEmpty() bool {
-	return saarlr.Value == nil || len(*saarlr.Value) == 0
-}
-
-// sharedAccessAuthorizationRuleListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (saarlr SharedAccessAuthorizationRuleListResult) sharedAccessAuthorizationRuleListResultPreparer() (*http.Request, error) {
-	if saarlr.NextLink == nil || len(to.String(saarlr.NextLink)) < 1 {
+// SharedAccessAuthorizationRuleListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SharedAccessAuthorizationRuleListResult) SharedAccessAuthorizationRuleListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(saarlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SharedAccessAuthorizationRuleListResultPage contains a page of SharedAccessAuthorizationRuleResource values.
-type SharedAccessAuthorizationRuleListResultPage struct {
-	fn     func(SharedAccessAuthorizationRuleListResult) (SharedAccessAuthorizationRuleListResult, error)
-	saarlr SharedAccessAuthorizationRuleListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SharedAccessAuthorizationRuleListResultPage) Next() error {
-	next, err := page.fn(page.saarlr)
-	if err != nil {
-		return err
-	}
-	page.saarlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SharedAccessAuthorizationRuleListResultPage) NotDone() bool {
-	return !page.saarlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SharedAccessAuthorizationRuleListResultPage) Response() SharedAccessAuthorizationRuleListResult {
-	return page.saarlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SharedAccessAuthorizationRuleListResultPage) Values() []SharedAccessAuthorizationRuleResource {
-	if page.saarlr.IsEmpty() {
-		return nil
-	}
-	return *page.saarlr.Value
-}
-
-// SharedAccessAuthorizationRuleProperties sharedAccessAuthorizationRule properties.
+// SharedAccessAuthorizationRuleProperties is sharedAccessAuthorizationRule properties.
 type SharedAccessAuthorizationRuleProperties struct {
-	// Rights - The rights associated with the rule.
 	Rights *[]AccessRights `json:"rights,omitempty"`
 }
 
-// SharedAccessAuthorizationRuleResource description of a Namespace AuthorizationRules.
+// SharedAccessAuthorizationRuleResource is description of a Namespace AuthorizationRules.
 type SharedAccessAuthorizationRuleResource struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - The sku of the created namespace
-	Sku *Sku `json:"sku,omitempty"`
-	// SharedAccessAuthorizationRuleProperties - Pproperties of the Namespace AuthorizationRule.
+	autorest.Response                        `json:"-"`
+	ID                                       *string             `json:"id,omitempty"`
+	Name                                     *string             `json:"name,omitempty"`
+	Type                                     *string             `json:"type,omitempty"`
+	Location                                 *string             `json:"location,omitempty"`
+	Tags                                     *map[string]*string `json:"tags,omitempty"`
+	Sku                                      *Sku                `json:"sku,omitempty"`
 	*SharedAccessAuthorizationRuleProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SharedAccessAuthorizationRuleResource struct.
-func (saarr *SharedAccessAuthorizationRuleResource) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SharedAccessAuthorizationRuleProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		saarr.SharedAccessAuthorizationRuleProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		saarr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		saarr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		saarr.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		saarr.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		saarr.Tags = &tags
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		saarr.Sku = &sku
-	}
-
-	return nil
-}
-
-// Sku the Sku description for a namespace
+// Sku is the Sku description for a namespace
 type Sku struct {
-	// Name - Name of the notification hub sku. Possible values include: 'Free', 'Basic', 'Standard'
-	Name SkuName `json:"name,omitempty"`
-	// Tier - The tier of particular sku
-	Tier *string `json:"tier,omitempty"`
-	// Size - The Sku size
-	Size *string `json:"size,omitempty"`
-	// Family - The Sku Family
-	Family *string `json:"family,omitempty"`
-	// Capacity - The capacity of the resource
-	Capacity *int32 `json:"capacity,omitempty"`
+	Name     SkuName `json:"name,omitempty"`
+	Tier     *string `json:"tier,omitempty"`
+	Size     *string `json:"size,omitempty"`
+	Family   *string `json:"family,omitempty"`
+	Capacity *int32  `json:"capacity,omitempty"`
 }
 
-// SubResource ...
+// SubResource is
 type SubResource struct {
-	// ID - Resource Id
 	ID *string `json:"id,omitempty"`
 }
 
-// WnsCredential description of a NotificationHub WnsCredential.
+// WnsCredential is description of a NotificationHub WnsCredential.
 type WnsCredential struct {
-	// WnsCredentialProperties - Properties of NotificationHub WnsCredential.
 	*WnsCredentialProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for WnsCredential struct.
-func (wc *WnsCredential) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties WnsCredentialProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		wc.WnsCredentialProperties = &properties
-	}
-
-	return nil
-}
-
-// WnsCredentialProperties description of a NotificationHub WnsCredential.
+// WnsCredentialProperties is description of a NotificationHub WnsCredential.
 type WnsCredentialProperties struct {
-	// PackageSid - The package ID for this credential.
-	PackageSid *string `json:"packageSid,omitempty"`
-	// SecretKey - The secret key.
-	SecretKey *string `json:"secretKey,omitempty"`
-	// WindowsLiveEndpoint - The Windows Live endpoint.
+	PackageSid          *string `json:"packageSid,omitempty"`
+	SecretKey           *string `json:"secretKey,omitempty"`
 	WindowsLiveEndpoint *string `json:"windowsLiveEndpoint,omitempty"`
 }

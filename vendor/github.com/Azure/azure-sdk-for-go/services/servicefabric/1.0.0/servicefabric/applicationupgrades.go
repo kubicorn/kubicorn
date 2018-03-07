@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ApplicationUpgradesClient is the client for the ApplicationUpgrades methods of the Servicefabric service.
 type ApplicationUpgradesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewApplicationUpgradesClient creates an instance of the ApplicationUpgradesClient client.
@@ -42,8 +41,8 @@ func NewApplicationUpgradesClientWithBaseURI(baseURI string, timeout *int32) App
 // Get get application upgrades
 //
 // applicationName is the name of the application
-func (client ApplicationUpgradesClient) Get(ctx context.Context, applicationName string) (result ApplicationUpgrade, err error) {
-	req, err := client.GetPreparer(ctx, applicationName)
+func (client ApplicationUpgradesClient) Get(applicationName string) (result ApplicationUpgrade, err error) {
+	req, err := client.GetPreparer(applicationName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ApplicationUpgradesClient", "Get", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client ApplicationUpgradesClient) Get(ctx context.Context, applicationName
 }
 
 // GetPreparer prepares the Get request.
-func (client ApplicationUpgradesClient) GetPreparer(ctx context.Context, applicationName string) (*http.Request, error) {
+func (client ApplicationUpgradesClient) GetPreparer(applicationName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 	}
@@ -83,13 +82,14 @@ func (client ApplicationUpgradesClient) GetPreparer(ctx context.Context, applica
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/Applications/{applicationName}/$/GetUpgradeProgress", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationUpgradesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -109,8 +109,8 @@ func (client ApplicationUpgradesClient) GetResponder(resp *http.Response) (resul
 // Resume resume application upgrades
 //
 // applicationName is the name of the application resumeApplicationUpgrade is the upgrade of the resume application
-func (client ApplicationUpgradesClient) Resume(ctx context.Context, applicationName string, resumeApplicationUpgrade ResumeApplicationUpgrade) (result String, err error) {
-	req, err := client.ResumePreparer(ctx, applicationName, resumeApplicationUpgrade)
+func (client ApplicationUpgradesClient) Resume(applicationName string, resumeApplicationUpgrade ResumeApplicationUpgrade) (result String, err error) {
+	req, err := client.ResumePreparer(applicationName, resumeApplicationUpgrade)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ApplicationUpgradesClient", "Resume", nil, "Failure preparing request")
 		return
@@ -132,7 +132,7 @@ func (client ApplicationUpgradesClient) Resume(ctx context.Context, applicationN
 }
 
 // ResumePreparer prepares the Resume request.
-func (client ApplicationUpgradesClient) ResumePreparer(ctx context.Context, applicationName string, resumeApplicationUpgrade ResumeApplicationUpgrade) (*http.Request, error) {
+func (client ApplicationUpgradesClient) ResumePreparer(applicationName string, resumeApplicationUpgrade ResumeApplicationUpgrade) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 	}
@@ -152,13 +152,14 @@ func (client ApplicationUpgradesClient) ResumePreparer(ctx context.Context, appl
 		autorest.WithPathParameters("/Applications/{applicationName}/$/MoveNextUpgradeDomain", pathParameters),
 		autorest.WithJSON(resumeApplicationUpgrade),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ResumeSender sends the Resume request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationUpgradesClient) ResumeSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -179,8 +180,8 @@ func (client ApplicationUpgradesClient) ResumeResponder(resp *http.Response) (re
 //
 // applicationName is the name of the application startApplicationUpgrade is the description of the start application
 // upgrade
-func (client ApplicationUpgradesClient) Start(ctx context.Context, applicationName string, startApplicationUpgrade StartApplicationUpgrade) (result String, err error) {
-	req, err := client.StartPreparer(ctx, applicationName, startApplicationUpgrade)
+func (client ApplicationUpgradesClient) Start(applicationName string, startApplicationUpgrade StartApplicationUpgrade) (result String, err error) {
+	req, err := client.StartPreparer(applicationName, startApplicationUpgrade)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ApplicationUpgradesClient", "Start", nil, "Failure preparing request")
 		return
@@ -202,7 +203,7 @@ func (client ApplicationUpgradesClient) Start(ctx context.Context, applicationNa
 }
 
 // StartPreparer prepares the Start request.
-func (client ApplicationUpgradesClient) StartPreparer(ctx context.Context, applicationName string, startApplicationUpgrade StartApplicationUpgrade) (*http.Request, error) {
+func (client ApplicationUpgradesClient) StartPreparer(applicationName string, startApplicationUpgrade StartApplicationUpgrade) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 	}
@@ -222,13 +223,14 @@ func (client ApplicationUpgradesClient) StartPreparer(ctx context.Context, appli
 		autorest.WithPathParameters("/Applications/{applicationName}/$/Upgrade", pathParameters),
 		autorest.WithJSON(startApplicationUpgrade),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // StartSender sends the Start request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationUpgradesClient) StartSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -249,8 +251,8 @@ func (client ApplicationUpgradesClient) StartResponder(resp *http.Response) (res
 //
 // applicationName is the name of the application updateApplicationUpgrade is the description of the update application
 // upgrade
-func (client ApplicationUpgradesClient) Update(ctx context.Context, applicationName string, updateApplicationUpgrade UpdateApplicationUpgrade) (result String, err error) {
-	req, err := client.UpdatePreparer(ctx, applicationName, updateApplicationUpgrade)
+func (client ApplicationUpgradesClient) Update(applicationName string, updateApplicationUpgrade UpdateApplicationUpgrade) (result String, err error) {
+	req, err := client.UpdatePreparer(applicationName, updateApplicationUpgrade)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ApplicationUpgradesClient", "Update", nil, "Failure preparing request")
 		return
@@ -272,7 +274,7 @@ func (client ApplicationUpgradesClient) Update(ctx context.Context, applicationN
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ApplicationUpgradesClient) UpdatePreparer(ctx context.Context, applicationName string, updateApplicationUpgrade UpdateApplicationUpgrade) (*http.Request, error) {
+func (client ApplicationUpgradesClient) UpdatePreparer(applicationName string, updateApplicationUpgrade UpdateApplicationUpgrade) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 	}
@@ -292,13 +294,14 @@ func (client ApplicationUpgradesClient) UpdatePreparer(ctx context.Context, appl
 		autorest.WithPathParameters("/Applications/{applicationName}/$/UpdateUpgrade", pathParameters),
 		autorest.WithJSON(updateApplicationUpgrade),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationUpgradesClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

@@ -24,10 +24,7 @@ import (
 	"testing"
 	"time"
 
-	"cloud.google.com/go/internal/testutil"
-
 	"github.com/golang/protobuf/proto"
-	"github.com/google/go-cmp/cmp"
 	"golang.org/x/net/context"
 	pb "google.golang.org/genproto/googleapis/datastore/v1"
 	"google.golang.org/grpc"
@@ -263,43 +260,6 @@ type Y2 struct {
 	F []int64
 }
 
-type Pointers struct {
-	Pi *int
-	Ps *string
-	Pb *bool
-	Pf *float64
-	Pg *GeoPoint
-	Pt *time.Time
-}
-
-type PointersOmitEmpty struct {
-	Pi *int       `datastore:",omitempty"`
-	Ps *string    `datastore:",omitempty"`
-	Pb *bool      `datastore:",omitempty"`
-	Pf *float64   `datastore:",omitempty"`
-	Pg *GeoPoint  `datastore:",omitempty"`
-	Pt *time.Time `datastore:",omitempty"`
-}
-
-func populatedPointers() *Pointers {
-	var (
-		i int
-		s string
-		b bool
-		f float64
-		g GeoPoint
-		t time.Time
-	)
-	return &Pointers{
-		Pi: &i,
-		Ps: &s,
-		Pb: &b,
-		Pf: &f,
-		Pg: &g,
-		Pt: &t,
-	}
-}
-
 type Tagged struct {
 	A int   `datastore:"a,noindex"`
 	B []int `datastore:"b"`
@@ -442,6 +402,10 @@ type PtrToStructField struct {
 }
 
 var two int = 2
+
+type PtrToInt struct {
+	I *int
+}
 
 type EmbeddedTime struct {
 	time.Time
@@ -1679,6 +1643,15 @@ var testCases = []testCase{
 		"",
 	},
 	{
+		"save struct with pointer to int field",
+		&PtrToInt{
+			I: &two,
+		},
+		&PtrToInt{},
+		"unsupported struct field",
+		"",
+	},
+	{
 		"struct with nil ptr to struct fields",
 		&PtrToStructField{
 			nil,
@@ -1927,20 +1900,6 @@ var testCases = []testCase{
 		"",
 		"",
 	},
-	{
-		"pointer fields: nil",
-		&Pointers{},
-		&Pointers{},
-		"",
-		"",
-	},
-	{
-		"pointer fields: populated with zeroes",
-		populatedPointers(),
-		populatedPointers(),
-		"",
-		"",
-	},
 }
 
 // checkErr returns the empty string if either both want and err are zero,
@@ -1983,7 +1942,18 @@ func TestRoundTrip(t *testing.T) {
 			sortPL(*pl)
 		}
 
-		if !testutil.Equal(got, tc.want, cmp.AllowUnexported(X0{}, X2{})) {
+		equal := false
+		switch v := got.(type) {
+		// Round tripping a time.Time can result in a different time.Location: Local instead of UTC.
+		// We therefore test equality explicitly, instead of relying on reflect.DeepEqual.
+		case *T:
+			equal = v.T.Equal(tc.want.(*T).T)
+		case *SpecialTime:
+			equal = v.MyTime.Equal(tc.want.(*SpecialTime).MyTime.Time)
+		default:
+			equal = reflect.DeepEqual(got, tc.want)
+		}
+		if !equal {
 			t.Errorf("%s: compare:\ngot:  %+#v\nwant: %+#v", tc.desc, got, tc.want)
 			continue
 		}
@@ -2737,7 +2707,7 @@ func TestLoadSavePLS(t *testing.T) {
 				t.Errorf("%s: save: %v", tc.desc, err)
 				continue
 			}
-			if !testutil.Equal(e, tc.wantSave) {
+			if !reflect.DeepEqual(e, tc.wantSave) {
 				t.Errorf("%s: save: \ngot:  %+v\nwant: %+v", tc.desc, e, tc.wantSave)
 				continue
 			}
@@ -2759,7 +2729,7 @@ func TestLoadSavePLS(t *testing.T) {
 				t.Errorf("%s: load: %v", tc.desc, err)
 				continue
 			}
-			if !testutil.Equal(gota, tc.wantLoad) {
+			if !reflect.DeepEqual(gota, tc.wantLoad) {
 				t.Errorf("%s: load: \ngot:  %+v\nwant: %+v", tc.desc, gota, tc.wantLoad)
 				continue
 			}
@@ -2894,7 +2864,7 @@ func TestQueryConstruction(t *testing.T) {
 			}
 			continue
 		}
-		if !testutil.Equal(test.q, test.exp, cmp.AllowUnexported(Query{})) {
+		if !reflect.DeepEqual(test.q, test.exp) {
 			t.Errorf("%d: mismatch: got %v want %v", i, test.q, test.exp)
 		}
 	}
@@ -3352,7 +3322,7 @@ func TestKeyLoaderEndToEnd(t *testing.T) {
 	}
 
 	for i := range dst {
-		if !testutil.Equal(dst[i].K, keys[i]) {
+		if !reflect.DeepEqual(dst[i].K, keys[i]) {
 			t.Fatalf("unexpected entity %d to have key %+v, got %+v", i, keys[i], dst[i].K)
 		}
 	}

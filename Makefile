@@ -34,7 +34,7 @@ clean: ## Clean the project tree from binary files, and any bootstrap files.
 	rm -rf bin/*
 	rm -rf bootstrap/bootstrap.go
 
-gofmt: install-tools
+gofmt: install-tools ## Go fmt your code
 	echo "Fixing format of go files..."; \
 	for package in $(FMT_PKGS); \
 	do \

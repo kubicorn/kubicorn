@@ -19,6 +19,7 @@ package servicefabric
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/Azure/go-autorest/autorest"
 )
 
@@ -26,15 +27,15 @@ import (
 type AggregatedHealthState string
 
 const (
-	// Error ...
+	// Error specifies the error state for aggregated health state.
 	Error AggregatedHealthState = "Error"
-	// Invalid ...
+	// Invalid specifies the invalid state for aggregated health state.
 	Invalid AggregatedHealthState = "Invalid"
-	// Ok ...
+	// Ok specifies the ok state for aggregated health state.
 	Ok AggregatedHealthState = "Ok"
-	// Unknown ...
+	// Unknown specifies the unknown state for aggregated health state.
 	Unknown AggregatedHealthState = "Unknown"
-	// Warning ...
+	// Warning specifies the warning state for aggregated health state.
 	Warning AggregatedHealthState = "Warning"
 )
 
@@ -42,15 +43,15 @@ const (
 type AggregatedHealthState1 string
 
 const (
-	// AggregatedHealthState1Error ...
+	// AggregatedHealthState1Error specifies the aggregated health state 1 error state for aggregated health state 1.
 	AggregatedHealthState1Error AggregatedHealthState1 = "Error"
-	// AggregatedHealthState1Invalid ...
+	// AggregatedHealthState1Invalid specifies the aggregated health state 1 invalid state for aggregated health state 1.
 	AggregatedHealthState1Invalid AggregatedHealthState1 = "Invalid"
-	// AggregatedHealthState1Ok ...
+	// AggregatedHealthState1Ok specifies the aggregated health state 1 ok state for aggregated health state 1.
 	AggregatedHealthState1Ok AggregatedHealthState1 = "Ok"
-	// AggregatedHealthState1Unknown ...
+	// AggregatedHealthState1Unknown specifies the aggregated health state 1 unknown state for aggregated health state 1.
 	AggregatedHealthState1Unknown AggregatedHealthState1 = "Unknown"
-	// AggregatedHealthState1Warning ...
+	// AggregatedHealthState1Warning specifies the aggregated health state 1 warning state for aggregated health state 1.
 	AggregatedHealthState1Warning AggregatedHealthState1 = "Warning"
 )
 
@@ -58,15 +59,18 @@ const (
 type AggregatedHealthState10 string
 
 const (
-	// AggregatedHealthState10Error ...
+	// AggregatedHealthState10Error specifies the aggregated health state 10 error state for aggregated health state 10.
 	AggregatedHealthState10Error AggregatedHealthState10 = "Error"
-	// AggregatedHealthState10Invalid ...
+	// AggregatedHealthState10Invalid specifies the aggregated health state 10 invalid state for aggregated health state
+	// 10.
 	AggregatedHealthState10Invalid AggregatedHealthState10 = "Invalid"
-	// AggregatedHealthState10Ok ...
+	// AggregatedHealthState10Ok specifies the aggregated health state 10 ok state for aggregated health state 10.
 	AggregatedHealthState10Ok AggregatedHealthState10 = "Ok"
-	// AggregatedHealthState10Unknown ...
+	// AggregatedHealthState10Unknown specifies the aggregated health state 10 unknown state for aggregated health state
+	// 10.
 	AggregatedHealthState10Unknown AggregatedHealthState10 = "Unknown"
-	// AggregatedHealthState10Warning ...
+	// AggregatedHealthState10Warning specifies the aggregated health state 10 warning state for aggregated health state
+	// 10.
 	AggregatedHealthState10Warning AggregatedHealthState10 = "Warning"
 )
 
@@ -74,15 +78,18 @@ const (
 type AggregatedHealthState11 string
 
 const (
-	// AggregatedHealthState11Error ...
+	// AggregatedHealthState11Error specifies the aggregated health state 11 error state for aggregated health state 11.
 	AggregatedHealthState11Error AggregatedHealthState11 = "Error"
-	// AggregatedHealthState11Invalid ...
+	// AggregatedHealthState11Invalid specifies the aggregated health state 11 invalid state for aggregated health state
+	// 11.
 	AggregatedHealthState11Invalid AggregatedHealthState11 = "Invalid"
-	// AggregatedHealthState11Ok ...
+	// AggregatedHealthState11Ok specifies the aggregated health state 11 ok state for aggregated health state 11.
 	AggregatedHealthState11Ok AggregatedHealthState11 = "Ok"
-	// AggregatedHealthState11Unknown ...
+	// AggregatedHealthState11Unknown specifies the aggregated health state 11 unknown state for aggregated health state
+	// 11.
 	AggregatedHealthState11Unknown AggregatedHealthState11 = "Unknown"
-	// AggregatedHealthState11Warning ...
+	// AggregatedHealthState11Warning specifies the aggregated health state 11 warning state for aggregated health state
+	// 11.
 	AggregatedHealthState11Warning AggregatedHealthState11 = "Warning"
 )
 
@@ -90,15 +97,18 @@ const (
 type AggregatedHealthState12 string
 
 const (
-	// AggregatedHealthState12Error ...
+	// AggregatedHealthState12Error specifies the aggregated health state 12 error state for aggregated health state 12.
 	AggregatedHealthState12Error AggregatedHealthState12 = "Error"
-	// AggregatedHealthState12Invalid ...
+	// AggregatedHealthState12Invalid specifies the aggregated health state 12 invalid state for aggregated health state
+	// 12.
 	AggregatedHealthState12Invalid AggregatedHealthState12 = "Invalid"
-	// AggregatedHealthState12Ok ...
+	// AggregatedHealthState12Ok specifies the aggregated health state 12 ok state for aggregated health state 12.
 	AggregatedHealthState12Ok AggregatedHealthState12 = "Ok"
-	// AggregatedHealthState12Unknown ...
+	// AggregatedHealthState12Unknown specifies the aggregated health state 12 unknown state for aggregated health state
+	// 12.
 	AggregatedHealthState12Unknown AggregatedHealthState12 = "Unknown"
-	// AggregatedHealthState12Warning ...
+	// AggregatedHealthState12Warning specifies the aggregated health state 12 warning state for aggregated health state
+	// 12.
 	AggregatedHealthState12Warning AggregatedHealthState12 = "Warning"
 )
 
@@ -106,15 +116,18 @@ const (
 type AggregatedHealthState13 string
 
 const (
-	// AggregatedHealthState13Error ...
+	// AggregatedHealthState13Error specifies the aggregated health state 13 error state for aggregated health state 13.
 	AggregatedHealthState13Error AggregatedHealthState13 = "Error"
-	// AggregatedHealthState13Invalid ...
+	// AggregatedHealthState13Invalid specifies the aggregated health state 13 invalid state for aggregated health state
+	// 13.
 	AggregatedHealthState13Invalid AggregatedHealthState13 = "Invalid"
-	// AggregatedHealthState13Ok ...
+	// AggregatedHealthState13Ok specifies the aggregated health state 13 ok state for aggregated health state 13.
 	AggregatedHealthState13Ok AggregatedHealthState13 = "Ok"
-	// AggregatedHealthState13Unknown ...
+	// AggregatedHealthState13Unknown specifies the aggregated health state 13 unknown state for aggregated health state
+	// 13.
 	AggregatedHealthState13Unknown AggregatedHealthState13 = "Unknown"
-	// AggregatedHealthState13Warning ...
+	// AggregatedHealthState13Warning specifies the aggregated health state 13 warning state for aggregated health state
+	// 13.
 	AggregatedHealthState13Warning AggregatedHealthState13 = "Warning"
 )
 
@@ -122,15 +135,18 @@ const (
 type AggregatedHealthState14 string
 
 const (
-	// AggregatedHealthState14Error ...
+	// AggregatedHealthState14Error specifies the aggregated health state 14 error state for aggregated health state 14.
 	AggregatedHealthState14Error AggregatedHealthState14 = "Error"
-	// AggregatedHealthState14Invalid ...
+	// AggregatedHealthState14Invalid specifies the aggregated health state 14 invalid state for aggregated health state
+	// 14.
 	AggregatedHealthState14Invalid AggregatedHealthState14 = "Invalid"
-	// AggregatedHealthState14Ok ...
+	// AggregatedHealthState14Ok specifies the aggregated health state 14 ok state for aggregated health state 14.
 	AggregatedHealthState14Ok AggregatedHealthState14 = "Ok"
-	// AggregatedHealthState14Unknown ...
+	// AggregatedHealthState14Unknown specifies the aggregated health state 14 unknown state for aggregated health state
+	// 14.
 	AggregatedHealthState14Unknown AggregatedHealthState14 = "Unknown"
-	// AggregatedHealthState14Warning ...
+	// AggregatedHealthState14Warning specifies the aggregated health state 14 warning state for aggregated health state
+	// 14.
 	AggregatedHealthState14Warning AggregatedHealthState14 = "Warning"
 )
 
@@ -138,15 +154,18 @@ const (
 type AggregatedHealthState15 string
 
 const (
-	// AggregatedHealthState15Error ...
+	// AggregatedHealthState15Error specifies the aggregated health state 15 error state for aggregated health state 15.
 	AggregatedHealthState15Error AggregatedHealthState15 = "Error"
-	// AggregatedHealthState15Invalid ...
+	// AggregatedHealthState15Invalid specifies the aggregated health state 15 invalid state for aggregated health state
+	// 15.
 	AggregatedHealthState15Invalid AggregatedHealthState15 = "Invalid"
-	// AggregatedHealthState15Ok ...
+	// AggregatedHealthState15Ok specifies the aggregated health state 15 ok state for aggregated health state 15.
 	AggregatedHealthState15Ok AggregatedHealthState15 = "Ok"
-	// AggregatedHealthState15Unknown ...
+	// AggregatedHealthState15Unknown specifies the aggregated health state 15 unknown state for aggregated health state
+	// 15.
 	AggregatedHealthState15Unknown AggregatedHealthState15 = "Unknown"
-	// AggregatedHealthState15Warning ...
+	// AggregatedHealthState15Warning specifies the aggregated health state 15 warning state for aggregated health state
+	// 15.
 	AggregatedHealthState15Warning AggregatedHealthState15 = "Warning"
 )
 
@@ -154,15 +173,15 @@ const (
 type AggregatedHealthState2 string
 
 const (
-	// AggregatedHealthState2Error ...
+	// AggregatedHealthState2Error specifies the aggregated health state 2 error state for aggregated health state 2.
 	AggregatedHealthState2Error AggregatedHealthState2 = "Error"
-	// AggregatedHealthState2Invalid ...
+	// AggregatedHealthState2Invalid specifies the aggregated health state 2 invalid state for aggregated health state 2.
 	AggregatedHealthState2Invalid AggregatedHealthState2 = "Invalid"
-	// AggregatedHealthState2Ok ...
+	// AggregatedHealthState2Ok specifies the aggregated health state 2 ok state for aggregated health state 2.
 	AggregatedHealthState2Ok AggregatedHealthState2 = "Ok"
-	// AggregatedHealthState2Unknown ...
+	// AggregatedHealthState2Unknown specifies the aggregated health state 2 unknown state for aggregated health state 2.
 	AggregatedHealthState2Unknown AggregatedHealthState2 = "Unknown"
-	// AggregatedHealthState2Warning ...
+	// AggregatedHealthState2Warning specifies the aggregated health state 2 warning state for aggregated health state 2.
 	AggregatedHealthState2Warning AggregatedHealthState2 = "Warning"
 )
 
@@ -170,15 +189,15 @@ const (
 type AggregatedHealthState3 string
 
 const (
-	// AggregatedHealthState3Error ...
+	// AggregatedHealthState3Error specifies the aggregated health state 3 error state for aggregated health state 3.
 	AggregatedHealthState3Error AggregatedHealthState3 = "Error"
-	// AggregatedHealthState3Invalid ...
+	// AggregatedHealthState3Invalid specifies the aggregated health state 3 invalid state for aggregated health state 3.
 	AggregatedHealthState3Invalid AggregatedHealthState3 = "Invalid"
-	// AggregatedHealthState3Ok ...
+	// AggregatedHealthState3Ok specifies the aggregated health state 3 ok state for aggregated health state 3.
 	AggregatedHealthState3Ok AggregatedHealthState3 = "Ok"
-	// AggregatedHealthState3Unknown ...
+	// AggregatedHealthState3Unknown specifies the aggregated health state 3 unknown state for aggregated health state 3.
 	AggregatedHealthState3Unknown AggregatedHealthState3 = "Unknown"
-	// AggregatedHealthState3Warning ...
+	// AggregatedHealthState3Warning specifies the aggregated health state 3 warning state for aggregated health state 3.
 	AggregatedHealthState3Warning AggregatedHealthState3 = "Warning"
 )
 
@@ -186,15 +205,15 @@ const (
 type AggregatedHealthState4 string
 
 const (
-	// AggregatedHealthState4Error ...
+	// AggregatedHealthState4Error specifies the aggregated health state 4 error state for aggregated health state 4.
 	AggregatedHealthState4Error AggregatedHealthState4 = "Error"
-	// AggregatedHealthState4Invalid ...
+	// AggregatedHealthState4Invalid specifies the aggregated health state 4 invalid state for aggregated health state 4.
 	AggregatedHealthState4Invalid AggregatedHealthState4 = "Invalid"
-	// AggregatedHealthState4Ok ...
+	// AggregatedHealthState4Ok specifies the aggregated health state 4 ok state for aggregated health state 4.
 	AggregatedHealthState4Ok AggregatedHealthState4 = "Ok"
-	// AggregatedHealthState4Unknown ...
+	// AggregatedHealthState4Unknown specifies the aggregated health state 4 unknown state for aggregated health state 4.
 	AggregatedHealthState4Unknown AggregatedHealthState4 = "Unknown"
-	// AggregatedHealthState4Warning ...
+	// AggregatedHealthState4Warning specifies the aggregated health state 4 warning state for aggregated health state 4.
 	AggregatedHealthState4Warning AggregatedHealthState4 = "Warning"
 )
 
@@ -202,15 +221,15 @@ const (
 type AggregatedHealthState5 string
 
 const (
-	// AggregatedHealthState5Error ...
+	// AggregatedHealthState5Error specifies the aggregated health state 5 error state for aggregated health state 5.
 	AggregatedHealthState5Error AggregatedHealthState5 = "Error"
-	// AggregatedHealthState5Invalid ...
+	// AggregatedHealthState5Invalid specifies the aggregated health state 5 invalid state for aggregated health state 5.
 	AggregatedHealthState5Invalid AggregatedHealthState5 = "Invalid"
-	// AggregatedHealthState5Ok ...
+	// AggregatedHealthState5Ok specifies the aggregated health state 5 ok state for aggregated health state 5.
 	AggregatedHealthState5Ok AggregatedHealthState5 = "Ok"
-	// AggregatedHealthState5Unknown ...
+	// AggregatedHealthState5Unknown specifies the aggregated health state 5 unknown state for aggregated health state 5.
 	AggregatedHealthState5Unknown AggregatedHealthState5 = "Unknown"
-	// AggregatedHealthState5Warning ...
+	// AggregatedHealthState5Warning specifies the aggregated health state 5 warning state for aggregated health state 5.
 	AggregatedHealthState5Warning AggregatedHealthState5 = "Warning"
 )
 
@@ -218,15 +237,15 @@ const (
 type AggregatedHealthState6 string
 
 const (
-	// AggregatedHealthState6Error ...
+	// AggregatedHealthState6Error specifies the aggregated health state 6 error state for aggregated health state 6.
 	AggregatedHealthState6Error AggregatedHealthState6 = "Error"
-	// AggregatedHealthState6Invalid ...
+	// AggregatedHealthState6Invalid specifies the aggregated health state 6 invalid state for aggregated health state 6.
 	AggregatedHealthState6Invalid AggregatedHealthState6 = "Invalid"
-	// AggregatedHealthState6Ok ...
+	// AggregatedHealthState6Ok specifies the aggregated health state 6 ok state for aggregated health state 6.
 	AggregatedHealthState6Ok AggregatedHealthState6 = "Ok"
-	// AggregatedHealthState6Unknown ...
+	// AggregatedHealthState6Unknown specifies the aggregated health state 6 unknown state for aggregated health state 6.
 	AggregatedHealthState6Unknown AggregatedHealthState6 = "Unknown"
-	// AggregatedHealthState6Warning ...
+	// AggregatedHealthState6Warning specifies the aggregated health state 6 warning state for aggregated health state 6.
 	AggregatedHealthState6Warning AggregatedHealthState6 = "Warning"
 )
 
@@ -234,15 +253,15 @@ const (
 type AggregatedHealthState7 string
 
 const (
-	// AggregatedHealthState7Error ...
+	// AggregatedHealthState7Error specifies the aggregated health state 7 error state for aggregated health state 7.
 	AggregatedHealthState7Error AggregatedHealthState7 = "Error"
-	// AggregatedHealthState7Invalid ...
+	// AggregatedHealthState7Invalid specifies the aggregated health state 7 invalid state for aggregated health state 7.
 	AggregatedHealthState7Invalid AggregatedHealthState7 = "Invalid"
-	// AggregatedHealthState7Ok ...
+	// AggregatedHealthState7Ok specifies the aggregated health state 7 ok state for aggregated health state 7.
 	AggregatedHealthState7Ok AggregatedHealthState7 = "Ok"
-	// AggregatedHealthState7Unknown ...
+	// AggregatedHealthState7Unknown specifies the aggregated health state 7 unknown state for aggregated health state 7.
 	AggregatedHealthState7Unknown AggregatedHealthState7 = "Unknown"
-	// AggregatedHealthState7Warning ...
+	// AggregatedHealthState7Warning specifies the aggregated health state 7 warning state for aggregated health state 7.
 	AggregatedHealthState7Warning AggregatedHealthState7 = "Warning"
 )
 
@@ -250,15 +269,15 @@ const (
 type AggregatedHealthState8 string
 
 const (
-	// AggregatedHealthState8Error ...
+	// AggregatedHealthState8Error specifies the aggregated health state 8 error state for aggregated health state 8.
 	AggregatedHealthState8Error AggregatedHealthState8 = "Error"
-	// AggregatedHealthState8Invalid ...
+	// AggregatedHealthState8Invalid specifies the aggregated health state 8 invalid state for aggregated health state 8.
 	AggregatedHealthState8Invalid AggregatedHealthState8 = "Invalid"
-	// AggregatedHealthState8Ok ...
+	// AggregatedHealthState8Ok specifies the aggregated health state 8 ok state for aggregated health state 8.
 	AggregatedHealthState8Ok AggregatedHealthState8 = "Ok"
-	// AggregatedHealthState8Unknown ...
+	// AggregatedHealthState8Unknown specifies the aggregated health state 8 unknown state for aggregated health state 8.
 	AggregatedHealthState8Unknown AggregatedHealthState8 = "Unknown"
-	// AggregatedHealthState8Warning ...
+	// AggregatedHealthState8Warning specifies the aggregated health state 8 warning state for aggregated health state 8.
 	AggregatedHealthState8Warning AggregatedHealthState8 = "Warning"
 )
 
@@ -266,15 +285,15 @@ const (
 type AggregatedHealthState9 string
 
 const (
-	// AggregatedHealthState9Error ...
+	// AggregatedHealthState9Error specifies the aggregated health state 9 error state for aggregated health state 9.
 	AggregatedHealthState9Error AggregatedHealthState9 = "Error"
-	// AggregatedHealthState9Invalid ...
+	// AggregatedHealthState9Invalid specifies the aggregated health state 9 invalid state for aggregated health state 9.
 	AggregatedHealthState9Invalid AggregatedHealthState9 = "Invalid"
-	// AggregatedHealthState9Ok ...
+	// AggregatedHealthState9Ok specifies the aggregated health state 9 ok state for aggregated health state 9.
 	AggregatedHealthState9Ok AggregatedHealthState9 = "Ok"
-	// AggregatedHealthState9Unknown ...
+	// AggregatedHealthState9Unknown specifies the aggregated health state 9 unknown state for aggregated health state 9.
 	AggregatedHealthState9Unknown AggregatedHealthState9 = "Unknown"
-	// AggregatedHealthState9Warning ...
+	// AggregatedHealthState9Warning specifies the aggregated health state 9 warning state for aggregated health state 9.
 	AggregatedHealthState9Warning AggregatedHealthState9 = "Warning"
 )
 
@@ -282,13 +301,13 @@ const (
 type DeactivationIntent string
 
 const (
-	// Pause ...
+	// Pause specifies the pause state for deactivation intent.
 	Pause DeactivationIntent = "Pause"
-	// RemoveData ...
+	// RemoveData specifies the remove data state for deactivation intent.
 	RemoveData DeactivationIntent = "RemoveData"
-	// RemoveNode ...
+	// RemoveNode specifies the remove node state for deactivation intent.
 	RemoveNode DeactivationIntent = "RemoveNode"
-	// Restart ...
+	// Restart specifies the restart state for deactivation intent.
 	Restart DeactivationIntent = "Restart"
 )
 
@@ -296,13 +315,13 @@ const (
 type DefaultMoveCost string
 
 const (
-	// High ...
+	// High specifies the high state for default move cost.
 	High DefaultMoveCost = "High"
-	// Low ...
+	// Low specifies the low state for default move cost.
 	Low DefaultMoveCost = "Low"
-	// Medium ...
+	// Medium specifies the medium state for default move cost.
 	Medium DefaultMoveCost = "Medium"
-	// Zero ...
+	// Zero specifies the zero state for default move cost.
 	Zero DefaultMoveCost = "Zero"
 )
 
@@ -310,13 +329,13 @@ const (
 type DefaultMoveCost1 string
 
 const (
-	// DefaultMoveCost1High ...
+	// DefaultMoveCost1High specifies the default move cost 1 high state for default move cost 1.
 	DefaultMoveCost1High DefaultMoveCost1 = "High"
-	// DefaultMoveCost1Low ...
+	// DefaultMoveCost1Low specifies the default move cost 1 low state for default move cost 1.
 	DefaultMoveCost1Low DefaultMoveCost1 = "Low"
-	// DefaultMoveCost1Medium ...
+	// DefaultMoveCost1Medium specifies the default move cost 1 medium state for default move cost 1.
 	DefaultMoveCost1Medium DefaultMoveCost1 = "Medium"
-	// DefaultMoveCost1Zero ...
+	// DefaultMoveCost1Zero specifies the default move cost 1 zero state for default move cost 1.
 	DefaultMoveCost1Zero DefaultMoveCost1 = "Zero"
 )
 
@@ -324,13 +343,13 @@ const (
 type DefaultMoveCost2 string
 
 const (
-	// DefaultMoveCost2High ...
+	// DefaultMoveCost2High specifies the default move cost 2 high state for default move cost 2.
 	DefaultMoveCost2High DefaultMoveCost2 = "High"
-	// DefaultMoveCost2Low ...
+	// DefaultMoveCost2Low specifies the default move cost 2 low state for default move cost 2.
 	DefaultMoveCost2Low DefaultMoveCost2 = "Low"
-	// DefaultMoveCost2Medium ...
+	// DefaultMoveCost2Medium specifies the default move cost 2 medium state for default move cost 2.
 	DefaultMoveCost2Medium DefaultMoveCost2 = "Medium"
-	// DefaultMoveCost2Zero ...
+	// DefaultMoveCost2Zero specifies the default move cost 2 zero state for default move cost 2.
 	DefaultMoveCost2Zero DefaultMoveCost2 = "Zero"
 )
 
@@ -338,13 +357,13 @@ const (
 type DefaultMoveCost3 string
 
 const (
-	// DefaultMoveCost3High ...
+	// DefaultMoveCost3High specifies the default move cost 3 high state for default move cost 3.
 	DefaultMoveCost3High DefaultMoveCost3 = "High"
-	// DefaultMoveCost3Low ...
+	// DefaultMoveCost3Low specifies the default move cost 3 low state for default move cost 3.
 	DefaultMoveCost3Low DefaultMoveCost3 = "Low"
-	// DefaultMoveCost3Medium ...
+	// DefaultMoveCost3Medium specifies the default move cost 3 medium state for default move cost 3.
 	DefaultMoveCost3Medium DefaultMoveCost3 = "Medium"
-	// DefaultMoveCost3Zero ...
+	// DefaultMoveCost3Zero specifies the default move cost 3 zero state for default move cost 3.
 	DefaultMoveCost3Zero DefaultMoveCost3 = "Zero"
 )
 
@@ -352,15 +371,15 @@ const (
 type FailureReason string
 
 const (
-	// FailureReasonHealthCheck ...
+	// FailureReasonHealthCheck specifies the failure reason health check state for failure reason.
 	FailureReasonHealthCheck FailureReason = "HealthCheck"
-	// FailureReasonInterrupted ...
+	// FailureReasonInterrupted specifies the failure reason interrupted state for failure reason.
 	FailureReasonInterrupted FailureReason = "Interrupted"
-	// FailureReasonInvalid ...
+	// FailureReasonInvalid specifies the failure reason invalid state for failure reason.
 	FailureReasonInvalid FailureReason = "Invalid"
-	// FailureReasonOverallUpgradeTimeout ...
+	// FailureReasonOverallUpgradeTimeout specifies the failure reason overall upgrade timeout state for failure reason.
 	FailureReasonOverallUpgradeTimeout FailureReason = "OverallUpgradeTimeout"
-	// FailureReasonUpgradeDomainTimeout ...
+	// FailureReasonUpgradeDomainTimeout specifies the failure reason upgrade domain timeout state for failure reason.
 	FailureReasonUpgradeDomainTimeout FailureReason = "UpgradeDomainTimeout"
 )
 
@@ -368,15 +387,16 @@ const (
 type FailureReason1 string
 
 const (
-	// FailureReason1HealthCheck ...
+	// FailureReason1HealthCheck specifies the failure reason 1 health check state for failure reason 1.
 	FailureReason1HealthCheck FailureReason1 = "HealthCheck"
-	// FailureReason1Interrupted ...
+	// FailureReason1Interrupted specifies the failure reason 1 interrupted state for failure reason 1.
 	FailureReason1Interrupted FailureReason1 = "Interrupted"
-	// FailureReason1Invalid ...
+	// FailureReason1Invalid specifies the failure reason 1 invalid state for failure reason 1.
 	FailureReason1Invalid FailureReason1 = "Invalid"
-	// FailureReason1OverallUpgradeTimeout ...
+	// FailureReason1OverallUpgradeTimeout specifies the failure reason 1 overall upgrade timeout state for failure reason
+	// 1.
 	FailureReason1OverallUpgradeTimeout FailureReason1 = "OverallUpgradeTimeout"
-	// FailureReason1UpgradeDomainTimeout ...
+	// FailureReason1UpgradeDomainTimeout specifies the failure reason 1 upgrade domain timeout state for failure reason 1.
 	FailureReason1UpgradeDomainTimeout FailureReason1 = "UpgradeDomainTimeout"
 )
 
@@ -384,15 +404,15 @@ const (
 type HealthState string
 
 const (
-	// HealthStateError ...
+	// HealthStateError specifies the health state error state for health state.
 	HealthStateError HealthState = "Error"
-	// HealthStateInvalid ...
+	// HealthStateInvalid specifies the health state invalid state for health state.
 	HealthStateInvalid HealthState = "Invalid"
-	// HealthStateOk ...
+	// HealthStateOk specifies the health state ok state for health state.
 	HealthStateOk HealthState = "Ok"
-	// HealthStateUnknown ...
+	// HealthStateUnknown specifies the health state unknown state for health state.
 	HealthStateUnknown HealthState = "Unknown"
-	// HealthStateWarning ...
+	// HealthStateWarning specifies the health state warning state for health state.
 	HealthStateWarning HealthState = "Warning"
 )
 
@@ -400,15 +420,15 @@ const (
 type HealthState1 string
 
 const (
-	// HealthState1Error ...
+	// HealthState1Error specifies the health state 1 error state for health state 1.
 	HealthState1Error HealthState1 = "Error"
-	// HealthState1Invalid ...
+	// HealthState1Invalid specifies the health state 1 invalid state for health state 1.
 	HealthState1Invalid HealthState1 = "Invalid"
-	// HealthState1Ok ...
+	// HealthState1Ok specifies the health state 1 ok state for health state 1.
 	HealthState1Ok HealthState1 = "Ok"
-	// HealthState1Unknown ...
+	// HealthState1Unknown specifies the health state 1 unknown state for health state 1.
 	HealthState1Unknown HealthState1 = "Unknown"
-	// HealthState1Warning ...
+	// HealthState1Warning specifies the health state 1 warning state for health state 1.
 	HealthState1Warning HealthState1 = "Warning"
 )
 
@@ -416,15 +436,15 @@ const (
 type HealthState2 string
 
 const (
-	// HealthState2Error ...
+	// HealthState2Error specifies the health state 2 error state for health state 2.
 	HealthState2Error HealthState2 = "Error"
-	// HealthState2Invalid ...
+	// HealthState2Invalid specifies the health state 2 invalid state for health state 2.
 	HealthState2Invalid HealthState2 = "Invalid"
-	// HealthState2Ok ...
+	// HealthState2Ok specifies the health state 2 ok state for health state 2.
 	HealthState2Ok HealthState2 = "Ok"
-	// HealthState2Unknown ...
+	// HealthState2Unknown specifies the health state 2 unknown state for health state 2.
 	HealthState2Unknown HealthState2 = "Unknown"
-	// HealthState2Warning ...
+	// HealthState2Warning specifies the health state 2 warning state for health state 2.
 	HealthState2Warning HealthState2 = "Warning"
 )
 
@@ -432,15 +452,15 @@ const (
 type HealthState3 string
 
 const (
-	// HealthState3Error ...
+	// HealthState3Error specifies the health state 3 error state for health state 3.
 	HealthState3Error HealthState3 = "Error"
-	// HealthState3Invalid ...
+	// HealthState3Invalid specifies the health state 3 invalid state for health state 3.
 	HealthState3Invalid HealthState3 = "Invalid"
-	// HealthState3Ok ...
+	// HealthState3Ok specifies the health state 3 ok state for health state 3.
 	HealthState3Ok HealthState3 = "Ok"
-	// HealthState3Unknown ...
+	// HealthState3Unknown specifies the health state 3 unknown state for health state 3.
 	HealthState3Unknown HealthState3 = "Unknown"
-	// HealthState3Warning ...
+	// HealthState3Warning specifies the health state 3 warning state for health state 3.
 	HealthState3Warning HealthState3 = "Warning"
 )
 
@@ -448,15 +468,15 @@ const (
 type HealthState4 string
 
 const (
-	// HealthState4Error ...
+	// HealthState4Error specifies the health state 4 error state for health state 4.
 	HealthState4Error HealthState4 = "Error"
-	// HealthState4Invalid ...
+	// HealthState4Invalid specifies the health state 4 invalid state for health state 4.
 	HealthState4Invalid HealthState4 = "Invalid"
-	// HealthState4Ok ...
+	// HealthState4Ok specifies the health state 4 ok state for health state 4.
 	HealthState4Ok HealthState4 = "Ok"
-	// HealthState4Unknown ...
+	// HealthState4Unknown specifies the health state 4 unknown state for health state 4.
 	HealthState4Unknown HealthState4 = "Unknown"
-	// HealthState4Warning ...
+	// HealthState4Warning specifies the health state 4 warning state for health state 4.
 	HealthState4Warning HealthState4 = "Warning"
 )
 
@@ -464,15 +484,15 @@ const (
 type HealthState5 string
 
 const (
-	// HealthState5Error ...
+	// HealthState5Error specifies the health state 5 error state for health state 5.
 	HealthState5Error HealthState5 = "Error"
-	// HealthState5Invalid ...
+	// HealthState5Invalid specifies the health state 5 invalid state for health state 5.
 	HealthState5Invalid HealthState5 = "Invalid"
-	// HealthState5Ok ...
+	// HealthState5Ok specifies the health state 5 ok state for health state 5.
 	HealthState5Ok HealthState5 = "Ok"
-	// HealthState5Unknown ...
+	// HealthState5Unknown specifies the health state 5 unknown state for health state 5.
 	HealthState5Unknown HealthState5 = "Unknown"
-	// HealthState5Warning ...
+	// HealthState5Warning specifies the health state 5 warning state for health state 5.
 	HealthState5Warning HealthState5 = "Warning"
 )
 
@@ -480,15 +500,15 @@ const (
 type HealthState6 string
 
 const (
-	// HealthState6Error ...
+	// HealthState6Error specifies the health state 6 error state for health state 6.
 	HealthState6Error HealthState6 = "Error"
-	// HealthState6Invalid ...
+	// HealthState6Invalid specifies the health state 6 invalid state for health state 6.
 	HealthState6Invalid HealthState6 = "Invalid"
-	// HealthState6Ok ...
+	// HealthState6Ok specifies the health state 6 ok state for health state 6.
 	HealthState6Ok HealthState6 = "Ok"
-	// HealthState6Unknown ...
+	// HealthState6Unknown specifies the health state 6 unknown state for health state 6.
 	HealthState6Unknown HealthState6 = "Unknown"
-	// HealthState6Warning ...
+	// HealthState6Warning specifies the health state 6 warning state for health state 6.
 	HealthState6Warning HealthState6 = "Warning"
 )
 
@@ -496,49 +516,47 @@ const (
 type Kind string
 
 const (
-	// KindApplication ...
+	// KindApplication specifies the kind application state for kind.
 	KindApplication Kind = "Application"
-	// KindApplications ...
+	// KindApplications specifies the kind applications state for kind.
 	KindApplications Kind = "Applications"
-	// KindApplicationType ...
+	// KindApplicationType specifies the kind application type state for kind.
 	KindApplicationType Kind = "ApplicationType"
-	// KindDeltaNodesCheck ...
+	// KindDeltaNodesCheck specifies the kind delta nodes check state for kind.
 	KindDeltaNodesCheck Kind = "DeltaNodesCheck"
-	// KindDeployedApplication ...
+	// KindDeployedApplication specifies the kind deployed application state for kind.
 	KindDeployedApplication Kind = "DeployedApplication"
-	// KindDeployedApplications ...
+	// KindDeployedApplications specifies the kind deployed applications state for kind.
 	KindDeployedApplications Kind = "DeployedApplications"
-	// KindDeployedServicePackage ...
+	// KindDeployedServicePackage specifies the kind deployed service package state for kind.
 	KindDeployedServicePackage Kind = "DeployedServicePackage"
-	// KindDeployedServicePackages ...
+	// KindDeployedServicePackages specifies the kind deployed service packages state for kind.
 	KindDeployedServicePackages Kind = "DeployedServicePackages"
-	// KindEvent ...
+	// KindEvent specifies the kind event state for kind.
 	KindEvent Kind = "Event"
-	// KindHealthEvaluation ...
-	KindHealthEvaluation Kind = "HealthEvaluation"
-	// KindNode ...
+	// KindNode specifies the kind node state for kind.
 	KindNode Kind = "Node"
-	// KindNodes ...
+	// KindNodes specifies the kind nodes state for kind.
 	KindNodes Kind = "Nodes"
-	// KindPartition ...
+	// KindPartition specifies the kind partition state for kind.
 	KindPartition Kind = "Partition"
-	// KindPartitions ...
+	// KindPartitions specifies the kind partitions state for kind.
 	KindPartitions Kind = "Partitions"
-	// KindReplica ...
+	// KindReplica specifies the kind replica state for kind.
 	KindReplica Kind = "Replica"
-	// KindReplicas ...
+	// KindReplicas specifies the kind replicas state for kind.
 	KindReplicas Kind = "Replicas"
-	// KindService ...
+	// KindService specifies the kind service state for kind.
 	KindService Kind = "Service"
-	// KindServices ...
+	// KindServices specifies the kind services state for kind.
 	KindServices Kind = "Services"
-	// KindSystemApplication ...
+	// KindSystemApplication specifies the kind system application state for kind.
 	KindSystemApplication Kind = "SystemApplication"
-	// KindUpgradeDomainDeltaNodesCheck ...
+	// KindUpgradeDomainDeltaNodesCheck specifies the kind upgrade domain delta nodes check state for kind.
 	KindUpgradeDomainDeltaNodesCheck Kind = "UpgradeDomainDeltaNodesCheck"
-	// KindUpgradeDomainDeployedApplications ...
+	// KindUpgradeDomainDeployedApplications specifies the kind upgrade domain deployed applications state for kind.
 	KindUpgradeDomainDeployedApplications Kind = "UpgradeDomainDeployedApplications"
-	// KindUpgradeDomainNodes ...
+	// KindUpgradeDomainNodes specifies the kind upgrade domain nodes state for kind.
 	KindUpgradeDomainNodes Kind = "UpgradeDomainNodes"
 )
 
@@ -546,13 +564,14 @@ const (
 type NodeDeactivationIntent string
 
 const (
-	// NodeDeactivationIntentInvalid ...
+	// NodeDeactivationIntentInvalid specifies the node deactivation intent invalid state for node deactivation intent.
 	NodeDeactivationIntentInvalid NodeDeactivationIntent = "Invalid"
-	// NodeDeactivationIntentPause ...
+	// NodeDeactivationIntentPause specifies the node deactivation intent pause state for node deactivation intent.
 	NodeDeactivationIntentPause NodeDeactivationIntent = "Pause"
-	// NodeDeactivationIntentRemoveData ...
+	// NodeDeactivationIntentRemoveData specifies the node deactivation intent remove data state for node deactivation
+	// intent.
 	NodeDeactivationIntentRemoveData NodeDeactivationIntent = "RemoveData"
-	// NodeDeactivationIntentRestart ...
+	// NodeDeactivationIntentRestart specifies the node deactivation intent restart state for node deactivation intent.
 	NodeDeactivationIntentRestart NodeDeactivationIntent = "Restart"
 )
 
@@ -560,13 +579,15 @@ const (
 type NodeDeactivationStatus string
 
 const (
-	// NodeDeactivationStatusCompleted ...
+	// NodeDeactivationStatusCompleted specifies the node deactivation status completed state for node deactivation status.
 	NodeDeactivationStatusCompleted NodeDeactivationStatus = "Completed"
-	// NodeDeactivationStatusInvalid ...
+	// NodeDeactivationStatusInvalid specifies the node deactivation status invalid state for node deactivation status.
 	NodeDeactivationStatusInvalid NodeDeactivationStatus = "Invalid"
-	// NodeDeactivationStatusSafetyCheckComplete ...
+	// NodeDeactivationStatusSafetyCheckComplete specifies the node deactivation status safety check complete state for
+	// node deactivation status.
 	NodeDeactivationStatusSafetyCheckComplete NodeDeactivationStatus = "SafetyCheckComplete"
-	// NodeDeactivationStatusSafetyCheckInProgress ...
+	// NodeDeactivationStatusSafetyCheckInProgress specifies the node deactivation status safety check in progress state
+	// for node deactivation status.
 	NodeDeactivationStatusSafetyCheckInProgress NodeDeactivationStatus = "SafetyCheckInProgress"
 )
 
@@ -574,21 +595,21 @@ const (
 type NodeStatus string
 
 const (
-	// NodeStatusDisabled ...
+	// NodeStatusDisabled specifies the node status disabled state for node status.
 	NodeStatusDisabled NodeStatus = "Disabled"
-	// NodeStatusDisabling ...
+	// NodeStatusDisabling specifies the node status disabling state for node status.
 	NodeStatusDisabling NodeStatus = "Disabling"
-	// NodeStatusDown ...
+	// NodeStatusDown specifies the node status down state for node status.
 	NodeStatusDown NodeStatus = "Down"
-	// NodeStatusEnabling ...
+	// NodeStatusEnabling specifies the node status enabling state for node status.
 	NodeStatusEnabling NodeStatus = "Enabling"
-	// NodeStatusInvalid ...
+	// NodeStatusInvalid specifies the node status invalid state for node status.
 	NodeStatusInvalid NodeStatus = "Invalid"
-	// NodeStatusRemoved ...
+	// NodeStatusRemoved specifies the node status removed state for node status.
 	NodeStatusRemoved NodeStatus = "Removed"
-	// NodeStatusUnknown ...
+	// NodeStatusUnknown specifies the node status unknown state for node status.
 	NodeStatusUnknown NodeStatus = "Unknown"
-	// NodeStatusUp ...
+	// NodeStatusUp specifies the node status up state for node status.
 	NodeStatusUp NodeStatus = "Up"
 )
 
@@ -596,13 +617,13 @@ const (
 type PartitionScheme string
 
 const (
-	// PartitionSchemeInvalid ...
+	// PartitionSchemeInvalid specifies the partition scheme invalid state for partition scheme.
 	PartitionSchemeInvalid PartitionScheme = "Invalid"
-	// PartitionSchemeNamed ...
+	// PartitionSchemeNamed specifies the partition scheme named state for partition scheme.
 	PartitionSchemeNamed PartitionScheme = "Named"
-	// PartitionSchemeSingleton ...
+	// PartitionSchemeSingleton specifies the partition scheme singleton state for partition scheme.
 	PartitionSchemeSingleton PartitionScheme = "Singleton"
-	// PartitionSchemeUniformInt64 ...
+	// PartitionSchemeUniformInt64 specifies the partition scheme uniform int 64 state for partition scheme.
 	PartitionSchemeUniformInt64 PartitionScheme = "UniformInt64"
 )
 
@@ -610,17 +631,17 @@ const (
 type PartitionStatus string
 
 const (
-	// PartitionStatusDeleting ...
+	// PartitionStatusDeleting specifies the partition status deleting state for partition status.
 	PartitionStatusDeleting PartitionStatus = "Deleting"
-	// PartitionStatusInQuorumLoss ...
+	// PartitionStatusInQuorumLoss specifies the partition status in quorum loss state for partition status.
 	PartitionStatusInQuorumLoss PartitionStatus = "InQuorumLoss"
-	// PartitionStatusInvalid ...
+	// PartitionStatusInvalid specifies the partition status invalid state for partition status.
 	PartitionStatusInvalid PartitionStatus = "Invalid"
-	// PartitionStatusNotReady ...
+	// PartitionStatusNotReady specifies the partition status not ready state for partition status.
 	PartitionStatusNotReady PartitionStatus = "NotReady"
-	// PartitionStatusReady ...
+	// PartitionStatusReady specifies the partition status ready state for partition status.
 	PartitionStatusReady PartitionStatus = "Ready"
-	// PartitionStatusReconfiguring ...
+	// PartitionStatusReconfiguring specifies the partition status reconfiguring state for partition status.
 	PartitionStatusReconfiguring PartitionStatus = "Reconfiguring"
 )
 
@@ -628,15 +649,15 @@ const (
 type ReplicaRole string
 
 const (
-	// ReplicaRoleActiveSecondary ...
+	// ReplicaRoleActiveSecondary specifies the replica role active secondary state for replica role.
 	ReplicaRoleActiveSecondary ReplicaRole = "ActiveSecondary"
-	// ReplicaRoleIdleSecondary ...
+	// ReplicaRoleIdleSecondary specifies the replica role idle secondary state for replica role.
 	ReplicaRoleIdleSecondary ReplicaRole = "IdleSecondary"
-	// ReplicaRoleInvalid ...
+	// ReplicaRoleInvalid specifies the replica role invalid state for replica role.
 	ReplicaRoleInvalid ReplicaRole = "Invalid"
-	// ReplicaRoleNone ...
+	// ReplicaRoleNone specifies the replica role none state for replica role.
 	ReplicaRoleNone ReplicaRole = "None"
-	// ReplicaRolePrimary ...
+	// ReplicaRolePrimary specifies the replica role primary state for replica role.
 	ReplicaRolePrimary ReplicaRole = "Primary"
 )
 
@@ -644,15 +665,15 @@ const (
 type ReplicaRole1 string
 
 const (
-	// ReplicaRole1ActiveSecondary ...
+	// ReplicaRole1ActiveSecondary specifies the replica role 1 active secondary state for replica role 1.
 	ReplicaRole1ActiveSecondary ReplicaRole1 = "ActiveSecondary"
-	// ReplicaRole1IdleSecondary ...
+	// ReplicaRole1IdleSecondary specifies the replica role 1 idle secondary state for replica role 1.
 	ReplicaRole1IdleSecondary ReplicaRole1 = "IdleSecondary"
-	// ReplicaRole1Invalid ...
+	// ReplicaRole1Invalid specifies the replica role 1 invalid state for replica role 1.
 	ReplicaRole1Invalid ReplicaRole1 = "Invalid"
-	// ReplicaRole1None ...
+	// ReplicaRole1None specifies the replica role 1 none state for replica role 1.
 	ReplicaRole1None ReplicaRole1 = "None"
-	// ReplicaRole1Primary ...
+	// ReplicaRole1Primary specifies the replica role 1 primary state for replica role 1.
 	ReplicaRole1Primary ReplicaRole1 = "Primary"
 )
 
@@ -660,17 +681,17 @@ const (
 type ReplicaStatus string
 
 const (
-	// ReplicaStatusDown ...
+	// ReplicaStatusDown specifies the replica status down state for replica status.
 	ReplicaStatusDown ReplicaStatus = "Down"
-	// ReplicaStatusDropped ...
+	// ReplicaStatusDropped specifies the replica status dropped state for replica status.
 	ReplicaStatusDropped ReplicaStatus = "Dropped"
-	// ReplicaStatusInBuild ...
+	// ReplicaStatusInBuild specifies the replica status in build state for replica status.
 	ReplicaStatusInBuild ReplicaStatus = "InBuild"
-	// ReplicaStatusInvalid ...
+	// ReplicaStatusInvalid specifies the replica status invalid state for replica status.
 	ReplicaStatusInvalid ReplicaStatus = "Invalid"
-	// ReplicaStatusReady ...
+	// ReplicaStatusReady specifies the replica status ready state for replica status.
 	ReplicaStatusReady ReplicaStatus = "Ready"
-	// ReplicaStatusStandby ...
+	// ReplicaStatusStandby specifies the replica status standby state for replica status.
 	ReplicaStatusStandby ReplicaStatus = "Standby"
 )
 
@@ -678,17 +699,17 @@ const (
 type ReplicaStatus1 string
 
 const (
-	// ReplicaStatus1Down ...
+	// ReplicaStatus1Down specifies the replica status 1 down state for replica status 1.
 	ReplicaStatus1Down ReplicaStatus1 = "Down"
-	// ReplicaStatus1Dropped ...
+	// ReplicaStatus1Dropped specifies the replica status 1 dropped state for replica status 1.
 	ReplicaStatus1Dropped ReplicaStatus1 = "Dropped"
-	// ReplicaStatus1InBuild ...
+	// ReplicaStatus1InBuild specifies the replica status 1 in build state for replica status 1.
 	ReplicaStatus1InBuild ReplicaStatus1 = "InBuild"
-	// ReplicaStatus1Invalid ...
+	// ReplicaStatus1Invalid specifies the replica status 1 invalid state for replica status 1.
 	ReplicaStatus1Invalid ReplicaStatus1 = "Invalid"
-	// ReplicaStatus1Ready ...
+	// ReplicaStatus1Ready specifies the replica status 1 ready state for replica status 1.
 	ReplicaStatus1Ready ReplicaStatus1 = "Ready"
-	// ReplicaStatus1Standby ...
+	// ReplicaStatus1Standby specifies the replica status 1 standby state for replica status 1.
 	ReplicaStatus1Standby ReplicaStatus1 = "Standby"
 )
 
@@ -696,13 +717,15 @@ const (
 type RollingUpgradeMode string
 
 const (
-	// RollingUpgradeModeInvalid ...
+	// RollingUpgradeModeInvalid specifies the rolling upgrade mode invalid state for rolling upgrade mode.
 	RollingUpgradeModeInvalid RollingUpgradeMode = "Invalid"
-	// RollingUpgradeModeMonitored ...
+	// RollingUpgradeModeMonitored specifies the rolling upgrade mode monitored state for rolling upgrade mode.
 	RollingUpgradeModeMonitored RollingUpgradeMode = "Monitored"
-	// RollingUpgradeModeUnmonitoredAuto ...
+	// RollingUpgradeModeUnmonitoredAuto specifies the rolling upgrade mode unmonitored auto state for rolling upgrade
+	// mode.
 	RollingUpgradeModeUnmonitoredAuto RollingUpgradeMode = "UnmonitoredAuto"
-	// RollingUpgradeModeUnmonitoredManual ...
+	// RollingUpgradeModeUnmonitoredManual specifies the rolling upgrade mode unmonitored manual state for rolling upgrade
+	// mode.
 	RollingUpgradeModeUnmonitoredManual RollingUpgradeMode = "UnmonitoredManual"
 )
 
@@ -710,13 +733,15 @@ const (
 type RollingUpgradeMode1 string
 
 const (
-	// RollingUpgradeMode1Invalid ...
+	// RollingUpgradeMode1Invalid specifies the rolling upgrade mode 1 invalid state for rolling upgrade mode 1.
 	RollingUpgradeMode1Invalid RollingUpgradeMode1 = "Invalid"
-	// RollingUpgradeMode1Monitored ...
+	// RollingUpgradeMode1Monitored specifies the rolling upgrade mode 1 monitored state for rolling upgrade mode 1.
 	RollingUpgradeMode1Monitored RollingUpgradeMode1 = "Monitored"
-	// RollingUpgradeMode1UnmonitoredAuto ...
+	// RollingUpgradeMode1UnmonitoredAuto specifies the rolling upgrade mode 1 unmonitored auto state for rolling upgrade
+	// mode 1.
 	RollingUpgradeMode1UnmonitoredAuto RollingUpgradeMode1 = "UnmonitoredAuto"
-	// RollingUpgradeMode1UnmonitoredManual ...
+	// RollingUpgradeMode1UnmonitoredManual specifies the rolling upgrade mode 1 unmonitored manual state for rolling
+	// upgrade mode 1.
 	RollingUpgradeMode1UnmonitoredManual RollingUpgradeMode1 = "UnmonitoredManual"
 )
 
@@ -724,13 +749,15 @@ const (
 type RollingUpgradeMode2 string
 
 const (
-	// RollingUpgradeMode2Invalid ...
+	// RollingUpgradeMode2Invalid specifies the rolling upgrade mode 2 invalid state for rolling upgrade mode 2.
 	RollingUpgradeMode2Invalid RollingUpgradeMode2 = "Invalid"
-	// RollingUpgradeMode2Monitored ...
+	// RollingUpgradeMode2Monitored specifies the rolling upgrade mode 2 monitored state for rolling upgrade mode 2.
 	RollingUpgradeMode2Monitored RollingUpgradeMode2 = "Monitored"
-	// RollingUpgradeMode2UnmonitoredAuto ...
+	// RollingUpgradeMode2UnmonitoredAuto specifies the rolling upgrade mode 2 unmonitored auto state for rolling upgrade
+	// mode 2.
 	RollingUpgradeMode2UnmonitoredAuto RollingUpgradeMode2 = "UnmonitoredAuto"
-	// RollingUpgradeMode2UnmonitoredManual ...
+	// RollingUpgradeMode2UnmonitoredManual specifies the rolling upgrade mode 2 unmonitored manual state for rolling
+	// upgrade mode 2.
 	RollingUpgradeMode2UnmonitoredManual RollingUpgradeMode2 = "UnmonitoredManual"
 )
 
@@ -738,13 +765,15 @@ const (
 type RollingUpgradeMode3 string
 
 const (
-	// RollingUpgradeMode3Invalid ...
+	// RollingUpgradeMode3Invalid specifies the rolling upgrade mode 3 invalid state for rolling upgrade mode 3.
 	RollingUpgradeMode3Invalid RollingUpgradeMode3 = "Invalid"
-	// RollingUpgradeMode3Monitored ...
+	// RollingUpgradeMode3Monitored specifies the rolling upgrade mode 3 monitored state for rolling upgrade mode 3.
 	RollingUpgradeMode3Monitored RollingUpgradeMode3 = "Monitored"
-	// RollingUpgradeMode3UnmonitoredAuto ...
+	// RollingUpgradeMode3UnmonitoredAuto specifies the rolling upgrade mode 3 unmonitored auto state for rolling upgrade
+	// mode 3.
 	RollingUpgradeMode3UnmonitoredAuto RollingUpgradeMode3 = "UnmonitoredAuto"
-	// RollingUpgradeMode3UnmonitoredManual ...
+	// RollingUpgradeMode3UnmonitoredManual specifies the rolling upgrade mode 3 unmonitored manual state for rolling
+	// upgrade mode 3.
 	RollingUpgradeMode3UnmonitoredManual RollingUpgradeMode3 = "UnmonitoredManual"
 )
 
@@ -752,13 +781,15 @@ const (
 type RollingUpgradeMode4 string
 
 const (
-	// RollingUpgradeMode4Invalid ...
+	// RollingUpgradeMode4Invalid specifies the rolling upgrade mode 4 invalid state for rolling upgrade mode 4.
 	RollingUpgradeMode4Invalid RollingUpgradeMode4 = "Invalid"
-	// RollingUpgradeMode4Monitored ...
+	// RollingUpgradeMode4Monitored specifies the rolling upgrade mode 4 monitored state for rolling upgrade mode 4.
 	RollingUpgradeMode4Monitored RollingUpgradeMode4 = "Monitored"
-	// RollingUpgradeMode4UnmonitoredAuto ...
+	// RollingUpgradeMode4UnmonitoredAuto specifies the rolling upgrade mode 4 unmonitored auto state for rolling upgrade
+	// mode 4.
 	RollingUpgradeMode4UnmonitoredAuto RollingUpgradeMode4 = "UnmonitoredAuto"
-	// RollingUpgradeMode4UnmonitoredManual ...
+	// RollingUpgradeMode4UnmonitoredManual specifies the rolling upgrade mode 4 unmonitored manual state for rolling
+	// upgrade mode 4.
 	RollingUpgradeMode4UnmonitoredManual RollingUpgradeMode4 = "UnmonitoredManual"
 )
 
@@ -766,13 +797,15 @@ const (
 type RollingUpgradeMode5 string
 
 const (
-	// RollingUpgradeMode5Invalid ...
+	// RollingUpgradeMode5Invalid specifies the rolling upgrade mode 5 invalid state for rolling upgrade mode 5.
 	RollingUpgradeMode5Invalid RollingUpgradeMode5 = "Invalid"
-	// RollingUpgradeMode5Monitored ...
+	// RollingUpgradeMode5Monitored specifies the rolling upgrade mode 5 monitored state for rolling upgrade mode 5.
 	RollingUpgradeMode5Monitored RollingUpgradeMode5 = "Monitored"
-	// RollingUpgradeMode5UnmonitoredAuto ...
+	// RollingUpgradeMode5UnmonitoredAuto specifies the rolling upgrade mode 5 unmonitored auto state for rolling upgrade
+	// mode 5.
 	RollingUpgradeMode5UnmonitoredAuto RollingUpgradeMode5 = "UnmonitoredAuto"
-	// RollingUpgradeMode5UnmonitoredManual ...
+	// RollingUpgradeMode5UnmonitoredManual specifies the rolling upgrade mode 5 unmonitored manual state for rolling
+	// upgrade mode 5.
 	RollingUpgradeMode5UnmonitoredManual RollingUpgradeMode5 = "UnmonitoredManual"
 )
 
@@ -780,13 +813,17 @@ const (
 type ServiceCorrelationScheme string
 
 const (
-	// ServiceCorrelationSchemeAffinity ...
+	// ServiceCorrelationSchemeAffinity specifies the service correlation scheme affinity state for service correlation
+	// scheme.
 	ServiceCorrelationSchemeAffinity ServiceCorrelationScheme = "Affinity"
-	// ServiceCorrelationSchemeAlignedAffinity ...
+	// ServiceCorrelationSchemeAlignedAffinity specifies the service correlation scheme aligned affinity state for service
+	// correlation scheme.
 	ServiceCorrelationSchemeAlignedAffinity ServiceCorrelationScheme = "AlignedAffinity"
-	// ServiceCorrelationSchemeInvalid ...
+	// ServiceCorrelationSchemeInvalid specifies the service correlation scheme invalid state for service correlation
+	// scheme.
 	ServiceCorrelationSchemeInvalid ServiceCorrelationScheme = "Invalid"
-	// ServiceCorrelationSchemeNonAlignedAffinity ...
+	// ServiceCorrelationSchemeNonAlignedAffinity specifies the service correlation scheme non aligned affinity state for
+	// service correlation scheme.
 	ServiceCorrelationSchemeNonAlignedAffinity ServiceCorrelationScheme = "NonAlignedAffinity"
 )
 
@@ -794,11 +831,11 @@ const (
 type ServiceKind string
 
 const (
-	// ServiceKindInvalid ...
+	// ServiceKindInvalid specifies the service kind invalid state for service kind.
 	ServiceKindInvalid ServiceKind = "Invalid"
-	// ServiceKindStateful ...
+	// ServiceKindStateful specifies the service kind stateful state for service kind.
 	ServiceKindStateful ServiceKind = "Stateful"
-	// ServiceKindStateless ...
+	// ServiceKindStateless specifies the service kind stateless state for service kind.
 	ServiceKindStateless ServiceKind = "Stateless"
 )
 
@@ -806,11 +843,11 @@ const (
 type ServiceKind1 string
 
 const (
-	// ServiceKind1Invalid ...
+	// ServiceKind1Invalid specifies the service kind 1 invalid state for service kind 1.
 	ServiceKind1Invalid ServiceKind1 = "Invalid"
-	// ServiceKind1Stateful ...
+	// ServiceKind1Stateful specifies the service kind 1 stateful state for service kind 1.
 	ServiceKind1Stateful ServiceKind1 = "Stateful"
-	// ServiceKind1Stateless ...
+	// ServiceKind1Stateless specifies the service kind 1 stateless state for service kind 1.
 	ServiceKind1Stateless ServiceKind1 = "Stateless"
 )
 
@@ -818,11 +855,11 @@ const (
 type ServiceKind2 string
 
 const (
-	// ServiceKind2Invalid ...
+	// ServiceKind2Invalid specifies the service kind 2 invalid state for service kind 2.
 	ServiceKind2Invalid ServiceKind2 = "Invalid"
-	// ServiceKind2Stateful ...
+	// ServiceKind2Stateful specifies the service kind 2 stateful state for service kind 2.
 	ServiceKind2Stateful ServiceKind2 = "Stateful"
-	// ServiceKind2Stateless ...
+	// ServiceKind2Stateless specifies the service kind 2 stateless state for service kind 2.
 	ServiceKind2Stateless ServiceKind2 = "Stateless"
 )
 
@@ -830,11 +867,11 @@ const (
 type ServiceKind3 string
 
 const (
-	// ServiceKind3Invalid ...
+	// ServiceKind3Invalid specifies the service kind 3 invalid state for service kind 3.
 	ServiceKind3Invalid ServiceKind3 = "Invalid"
-	// ServiceKind3Stateful ...
+	// ServiceKind3Stateful specifies the service kind 3 stateful state for service kind 3.
 	ServiceKind3Stateful ServiceKind3 = "Stateful"
-	// ServiceKind3Stateless ...
+	// ServiceKind3Stateless specifies the service kind 3 stateless state for service kind 3.
 	ServiceKind3Stateless ServiceKind3 = "Stateless"
 )
 
@@ -842,11 +879,11 @@ const (
 type ServiceKind4 string
 
 const (
-	// ServiceKind4Invalid ...
+	// ServiceKind4Invalid specifies the service kind 4 invalid state for service kind 4.
 	ServiceKind4Invalid ServiceKind4 = "Invalid"
-	// ServiceKind4Stateful ...
+	// ServiceKind4Stateful specifies the service kind 4 stateful state for service kind 4.
 	ServiceKind4Stateful ServiceKind4 = "Stateful"
-	// ServiceKind4Stateless ...
+	// ServiceKind4Stateless specifies the service kind 4 stateless state for service kind 4.
 	ServiceKind4Stateless ServiceKind4 = "Stateless"
 )
 
@@ -854,11 +891,11 @@ const (
 type ServiceKind5 string
 
 const (
-	// ServiceKind5Invalid ...
+	// ServiceKind5Invalid specifies the service kind 5 invalid state for service kind 5.
 	ServiceKind5Invalid ServiceKind5 = "Invalid"
-	// ServiceKind5Stateful ...
+	// ServiceKind5Stateful specifies the service kind 5 stateful state for service kind 5.
 	ServiceKind5Stateful ServiceKind5 = "Stateful"
-	// ServiceKind5Stateless ...
+	// ServiceKind5Stateless specifies the service kind 5 stateless state for service kind 5.
 	ServiceKind5Stateless ServiceKind5 = "Stateless"
 )
 
@@ -866,99 +903,25 @@ const (
 type ServiceKind6 string
 
 const (
-	// ServiceKind6Invalid ...
+	// ServiceKind6Invalid specifies the service kind 6 invalid state for service kind 6.
 	ServiceKind6Invalid ServiceKind6 = "Invalid"
-	// ServiceKind6Stateful ...
+	// ServiceKind6Stateful specifies the service kind 6 stateful state for service kind 6.
 	ServiceKind6Stateful ServiceKind6 = "Stateful"
-	// ServiceKind6Stateless ...
+	// ServiceKind6Stateless specifies the service kind 6 stateless state for service kind 6.
 	ServiceKind6Stateless ServiceKind6 = "Stateless"
-)
-
-// ServiceKindBasicCreateServiceDescription enumerates the values for service kind basic create service description.
-type ServiceKindBasicCreateServiceDescription string
-
-const (
-	// ServiceKindCreateServiceDescription ...
-	ServiceKindCreateServiceDescription ServiceKindBasicCreateServiceDescription = "CreateServiceDescription"
-	// ServiceKindStateful1 ...
-	ServiceKindStateful1 ServiceKindBasicCreateServiceDescription = "Stateful"
-	// ServiceKindStateless1 ...
-	ServiceKindStateless1 ServiceKindBasicCreateServiceDescription = "Stateless"
-)
-
-// ServiceKindBasicCreateServiceGroupDescription enumerates the values for service kind basic create service group
-// description.
-type ServiceKindBasicCreateServiceGroupDescription string
-
-const (
-	// ServiceKindBasicCreateServiceGroupDescriptionServiceKindCreateServiceGroupDescription ...
-	ServiceKindBasicCreateServiceGroupDescriptionServiceKindCreateServiceGroupDescription ServiceKindBasicCreateServiceGroupDescription = "CreateServiceGroupDescription"
-	// ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateful ...
-	ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateful ServiceKindBasicCreateServiceGroupDescription = "Stateful"
-	// ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateless ...
-	ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateless ServiceKindBasicCreateServiceGroupDescription = "Stateless"
-)
-
-// ServiceKindBasicServiceDescription enumerates the values for service kind basic service description.
-type ServiceKindBasicServiceDescription string
-
-const (
-	// ServiceKindBasicServiceDescriptionServiceKindServiceDescription ...
-	ServiceKindBasicServiceDescriptionServiceKindServiceDescription ServiceKindBasicServiceDescription = "ServiceDescription"
-	// ServiceKindBasicServiceDescriptionServiceKindStateful ...
-	ServiceKindBasicServiceDescriptionServiceKindStateful ServiceKindBasicServiceDescription = "Stateful"
-	// ServiceKindBasicServiceDescriptionServiceKindStateless ...
-	ServiceKindBasicServiceDescriptionServiceKindStateless ServiceKindBasicServiceDescription = "Stateless"
-)
-
-// ServiceKindBasicServiceGroupDescription enumerates the values for service kind basic service group description.
-type ServiceKindBasicServiceGroupDescription string
-
-const (
-	// ServiceKindBasicServiceGroupDescriptionServiceKindServiceGroupDescription ...
-	ServiceKindBasicServiceGroupDescriptionServiceKindServiceGroupDescription ServiceKindBasicServiceGroupDescription = "ServiceGroupDescription"
-	// ServiceKindBasicServiceGroupDescriptionServiceKindStateful ...
-	ServiceKindBasicServiceGroupDescriptionServiceKindStateful ServiceKindBasicServiceGroupDescription = "Stateful"
-	// ServiceKindBasicServiceGroupDescriptionServiceKindStateless ...
-	ServiceKindBasicServiceGroupDescriptionServiceKindStateless ServiceKindBasicServiceGroupDescription = "Stateless"
-)
-
-// ServiceKindBasicUpdateServiceDescription enumerates the values for service kind basic update service description.
-type ServiceKindBasicUpdateServiceDescription string
-
-const (
-	// ServiceKindBasicUpdateServiceDescriptionServiceKindStateful ...
-	ServiceKindBasicUpdateServiceDescriptionServiceKindStateful ServiceKindBasicUpdateServiceDescription = "Stateful"
-	// ServiceKindBasicUpdateServiceDescriptionServiceKindStateless ...
-	ServiceKindBasicUpdateServiceDescriptionServiceKindStateless ServiceKindBasicUpdateServiceDescription = "Stateless"
-	// ServiceKindBasicUpdateServiceDescriptionServiceKindUpdateServiceDescription ...
-	ServiceKindBasicUpdateServiceDescriptionServiceKindUpdateServiceDescription ServiceKindBasicUpdateServiceDescription = "UpdateServiceDescription"
-)
-
-// ServiceKindBasicUpdateServiceGroupDescription enumerates the values for service kind basic update service group
-// description.
-type ServiceKindBasicUpdateServiceGroupDescription string
-
-const (
-	// ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateful ...
-	ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateful ServiceKindBasicUpdateServiceGroupDescription = "Stateful"
-	// ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateless ...
-	ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateless ServiceKindBasicUpdateServiceGroupDescription = "Stateless"
-	// ServiceKindBasicUpdateServiceGroupDescriptionServiceKindUpdateServiceGroupDescription ...
-	ServiceKindBasicUpdateServiceGroupDescriptionServiceKindUpdateServiceGroupDescription ServiceKindBasicUpdateServiceGroupDescription = "UpdateServiceGroupDescription"
 )
 
 // ServiceLoadMetricWeight enumerates the values for service load metric weight.
 type ServiceLoadMetricWeight string
 
 const (
-	// ServiceLoadMetricWeightHigh ...
+	// ServiceLoadMetricWeightHigh specifies the service load metric weight high state for service load metric weight.
 	ServiceLoadMetricWeightHigh ServiceLoadMetricWeight = "High"
-	// ServiceLoadMetricWeightLow ...
+	// ServiceLoadMetricWeightLow specifies the service load metric weight low state for service load metric weight.
 	ServiceLoadMetricWeightLow ServiceLoadMetricWeight = "Low"
-	// ServiceLoadMetricWeightMedium ...
+	// ServiceLoadMetricWeightMedium specifies the service load metric weight medium state for service load metric weight.
 	ServiceLoadMetricWeightMedium ServiceLoadMetricWeight = "Medium"
-	// ServiceLoadMetricWeightZero ...
+	// ServiceLoadMetricWeightZero specifies the service load metric weight zero state for service load metric weight.
 	ServiceLoadMetricWeightZero ServiceLoadMetricWeight = "Zero"
 )
 
@@ -966,13 +929,13 @@ const (
 type ServicePartitionKind string
 
 const (
-	// ServicePartitionKindInt64Range ...
+	// ServicePartitionKindInt64Range specifies the service partition kind int 64 range state for service partition kind.
 	ServicePartitionKindInt64Range ServicePartitionKind = "Int64Range"
-	// ServicePartitionKindInvalid ...
+	// ServicePartitionKindInvalid specifies the service partition kind invalid state for service partition kind.
 	ServicePartitionKindInvalid ServicePartitionKind = "Invalid"
-	// ServicePartitionKindNamed ...
+	// ServicePartitionKindNamed specifies the service partition kind named state for service partition kind.
 	ServicePartitionKindNamed ServicePartitionKind = "Named"
-	// ServicePartitionKindSingleton ...
+	// ServicePartitionKindSingleton specifies the service partition kind singleton state for service partition kind.
 	ServicePartitionKindSingleton ServicePartitionKind = "Singleton"
 )
 
@@ -980,17 +943,17 @@ const (
 type ServiceStatus string
 
 const (
-	// ServiceStatusActive ...
+	// ServiceStatusActive specifies the service status active state for service status.
 	ServiceStatusActive ServiceStatus = "Active"
-	// ServiceStatusCreating ...
+	// ServiceStatusCreating specifies the service status creating state for service status.
 	ServiceStatusCreating ServiceStatus = "Creating"
-	// ServiceStatusDeleting ...
+	// ServiceStatusDeleting specifies the service status deleting state for service status.
 	ServiceStatusDeleting ServiceStatus = "Deleting"
-	// ServiceStatusFaile ...
+	// ServiceStatusFaile specifies the service status faile state for service status.
 	ServiceStatusFaile ServiceStatus = "Faile"
-	// ServiceStatusInvalid ...
+	// ServiceStatusInvalid specifies the service status invalid state for service status.
 	ServiceStatusInvalid ServiceStatus = "Invalid"
-	// ServiceStatusUpgrading ...
+	// ServiceStatusUpgrading specifies the service status upgrading state for service status.
 	ServiceStatusUpgrading ServiceStatus = "Upgrading"
 )
 
@@ -998,9 +961,9 @@ const (
 type UpgradeKind string
 
 const (
-	// UpgradeKindInvalid ...
+	// UpgradeKindInvalid specifies the upgrade kind invalid state for upgrade kind.
 	UpgradeKindInvalid UpgradeKind = "Invalid"
-	// UpgradeKindRolling ...
+	// UpgradeKindRolling specifies the upgrade kind rolling state for upgrade kind.
 	UpgradeKindRolling UpgradeKind = "Rolling"
 )
 
@@ -1008,17 +971,18 @@ const (
 type UpgradeState string
 
 const (
-	// UpgradeStateInvalid ...
+	// UpgradeStateInvalid specifies the upgrade state invalid state for upgrade state.
 	UpgradeStateInvalid UpgradeState = "Invalid"
-	// UpgradeStateRollingBackCompleted ...
+	// UpgradeStateRollingBackCompleted specifies the upgrade state rolling back completed state for upgrade state.
 	UpgradeStateRollingBackCompleted UpgradeState = "RollingBackCompleted"
-	// UpgradeStateRollingBackInProgress ...
+	// UpgradeStateRollingBackInProgress specifies the upgrade state rolling back in progress state for upgrade state.
 	UpgradeStateRollingBackInProgress UpgradeState = "RollingBackInProgress"
-	// UpgradeStateRollingForwardCompleted ...
+	// UpgradeStateRollingForwardCompleted specifies the upgrade state rolling forward completed state for upgrade state.
 	UpgradeStateRollingForwardCompleted UpgradeState = "RollingForwardCompleted"
-	// UpgradeStateRollingForwardInProgress ...
+	// UpgradeStateRollingForwardInProgress specifies the upgrade state rolling forward in progress state for upgrade
+	// state.
 	UpgradeStateRollingForwardInProgress UpgradeState = "RollingForwardInProgress"
-	// UpgradeStateRollingForwardPending ...
+	// UpgradeStateRollingForwardPending specifies the upgrade state rolling forward pending state for upgrade state.
 	UpgradeStateRollingForwardPending UpgradeState = "RollingForwardPending"
 )
 
@@ -1026,21 +990,23 @@ const (
 type UpgradeState1 string
 
 const (
-	// UpgradeState1Invalid ...
+	// UpgradeState1Invalid specifies the upgrade state 1 invalid state for upgrade state 1.
 	UpgradeState1Invalid UpgradeState1 = "Invalid"
-	// UpgradeState1RollingBackCompleted ...
+	// UpgradeState1RollingBackCompleted specifies the upgrade state 1 rolling back completed state for upgrade state 1.
 	UpgradeState1RollingBackCompleted UpgradeState1 = "RollingBackCompleted"
-	// UpgradeState1RollingBackInProgress ...
+	// UpgradeState1RollingBackInProgress specifies the upgrade state 1 rolling back in progress state for upgrade state 1.
 	UpgradeState1RollingBackInProgress UpgradeState1 = "RollingBackInProgress"
-	// UpgradeState1RollingForwardCompleted ...
+	// UpgradeState1RollingForwardCompleted specifies the upgrade state 1 rolling forward completed state for upgrade state
+	// 1.
 	UpgradeState1RollingForwardCompleted UpgradeState1 = "RollingForwardCompleted"
-	// UpgradeState1RollingForwardInProgress ...
+	// UpgradeState1RollingForwardInProgress specifies the upgrade state 1 rolling forward in progress state for upgrade
+	// state 1.
 	UpgradeState1RollingForwardInProgress UpgradeState1 = "RollingForwardInProgress"
-	// UpgradeState1RollingForwardPending ...
+	// UpgradeState1RollingForwardPending specifies the upgrade state 1 rolling forward pending state for upgrade state 1.
 	UpgradeState1RollingForwardPending UpgradeState1 = "RollingForwardPending"
 )
 
-// Application the application
+// Application is the application
 type Application struct {
 	autorest.Response `json:"-"`
 	ID                *string                      `json:"Id,omitempty"`
@@ -1049,11 +1015,10 @@ type Application struct {
 	TypeVersion       *string                      `json:"TypeVersion,omitempty"`
 	Status            *string                      `json:"Status,omitempty"`
 	Parameters        *[]ApplicationParametersItem `json:"Parameters,omitempty"`
-	// HealthState - Possible values include: 'HealthState3Invalid', 'HealthState3Ok', 'HealthState3Warning', 'HealthState3Error', 'HealthState3Unknown'
-	HealthState HealthState `json:"HealthState,omitempty"`
+	HealthState       HealthState                  `json:"HealthState,omitempty"`
 }
 
-// ApplicationDescription the description of the application
+// ApplicationDescription is the description of the application
 type ApplicationDescription struct {
 	Name          *string                                    `json:"Name,omitempty"`
 	TypeName      *string                                    `json:"TypeName,omitempty"`
@@ -1061,17 +1026,16 @@ type ApplicationDescription struct {
 	ParameterList *[]ApplicationDescriptionParameterListItem `json:"ParameterList,omitempty"`
 }
 
-// ApplicationDescriptionParameterListItem the list of the parameter
+// ApplicationDescriptionParameterListItem is the list of the parameter
 type ApplicationDescriptionParameterListItem struct {
 	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
 }
 
-// ApplicationHealth the health of the application
+// ApplicationHealth is the health of the application
 type ApplicationHealth struct {
-	autorest.Response `json:"-"`
-	HealthEvents      *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState7Invalid', 'AggregatedHealthState7Ok', 'AggregatedHealthState7Warning', 'AggregatedHealthState7Error', 'AggregatedHealthState7Unknown'
+	autorest.Response               `json:"-"`
+	HealthEvents                    *[]HealthEvent                                          `json:"HealthEvents,omitempty"`
 	AggregatedHealthState           AggregatedHealthState                                   `json:"AggregatedHealthState,omitempty"`
 	UnhealthyEvaluations            *string                                                 `json:"UnhealthyEvaluations,omitempty"`
 	Name                            *string                                                 `json:"Name,omitempty"`
@@ -1079,23 +1043,20 @@ type ApplicationHealth struct {
 	DeployedApplicationHealthStates *[]ApplicationHealthDeployedApplicationHealthStatesItem `json:"DeployedApplicationHealthStates,omitempty"`
 }
 
-// ApplicationHealthDeployedApplicationHealthStatesItem the states of the deployed application health
+// ApplicationHealthDeployedApplicationHealthStatesItem is the states of the deployed application health
 type ApplicationHealthDeployedApplicationHealthStatesItem struct {
-	ApplicationName *string `json:"ApplicationName,omitempty"`
-	NodeName        *string `json:"NodeName,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState6Invalid', 'AggregatedHealthState6Ok', 'AggregatedHealthState6Warning', 'AggregatedHealthState6Error', 'AggregatedHealthState6Unknown'
+	ApplicationName       *string               `json:"ApplicationName,omitempty"`
+	NodeName              *string               `json:"NodeName,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// ApplicationHealthEvaluation the evaluation of the application health
+// ApplicationHealthEvaluation is the evaluation of the application health
 type ApplicationHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	ServiceName          *string                `json:"ServiceName,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	ServiceName           *string                `json:"ServiceName,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for ApplicationHealthEvaluation.
@@ -1109,157 +1070,139 @@ func (ahe ApplicationHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return &ahe, true
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for ApplicationHealthEvaluation.
 func (ahe ApplicationHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
-func (ahe ApplicationHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationHealthEvaluation.
-func (ahe ApplicationHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &ahe, true
-}
-
-// ApplicationHealthPolicy the policy of the application health
+// ApplicationHealthPolicy is the policy of the application health
 type ApplicationHealthPolicy struct {
-	ConsiderWarningAsError                  *bool  `json:"ConsiderWarningAsError,omitempty"`
-	MaxPercentUnhealthyDeployedApplications *int32 `json:"MaxPercentUnhealthyDeployedApplications,omitempty"`
-	// DefaultServiceTypeHealthPolicy - The policy of the default service type health
-	DefaultServiceTypeHealthPolicy *ApplicationHealthPolicyDefaultServiceTypeHealthPolicy `json:"DefaultServiceTypeHealthPolicy,omitempty"`
+	ConsiderWarningAsError                  *bool                                                  `json:"ConsiderWarningAsError,omitempty"`
+	MaxPercentUnhealthyDeployedApplications *int32                                                 `json:"MaxPercentUnhealthyDeployedApplications,omitempty"`
+	DefaultServiceTypeHealthPolicy          *ApplicationHealthPolicyDefaultServiceTypeHealthPolicy `json:"DefaultServiceTypeHealthPolicy,omitempty"`
 }
 
-// ApplicationHealthPolicyDefaultServiceTypeHealthPolicy the policy of the default service type health
+// ApplicationHealthPolicyDefaultServiceTypeHealthPolicy is the policy of the default service type health
 type ApplicationHealthPolicyDefaultServiceTypeHealthPolicy struct {
 	MaxPercentUnhealthyServices             *int32 `json:"MaxPercentUnhealthyServices,omitempty"`
 	MaxPercentUnhealthyPartitionsPerService *int32 `json:"MaxPercentUnhealthyPartitionsPerService,omitempty"`
 	MaxPercentUnhealthyReplicasPerPartition *int32 `json:"MaxPercentUnhealthyReplicasPerPartition,omitempty"`
 }
 
-// ApplicationHealthPolicyMap the application health policy of the cluster
+// ApplicationHealthPolicyMap is the application health policy of the cluster
 type ApplicationHealthPolicyMap struct {
-	// ConsiderWarningAsError - The boolean of the consider warning as error
-	ConsiderWarningAsError *bool `json:"ConsiderWarningAsError,omitempty"`
-	// MaxPercentUnhealthyDeployedApplications - The max percent of the unhealthy deployed applications
+	ConsiderWarningAsError                  *bool  `json:"ConsiderWarningAsError,omitempty"`
 	MaxPercentUnhealthyDeployedApplications *int32 `json:"MaxPercentUnhealthyDeployedApplications,omitempty"`
-	// DefaultServiceTypeHealthPolicy - The policy of the default service type health
-	DefaultServiceTypeHealthPolicy *int32 `json:"DefaultServiceTypeHealthPolicy,omitempty"`
-	// MaxPercentUnhealthyServices - The policy of the default service type health
-	MaxPercentUnhealthyServices *int32 `json:"MaxPercentUnhealthyServices,omitempty"`
-	// MaxPercentUnhealthyPartitionsPerService - The max percent unhealthy partitions per service
+	DefaultServiceTypeHealthPolicy          *int32 `json:"DefaultServiceTypeHealthPolicy,omitempty"`
+	MaxPercentUnhealthyServices             *int32 `json:"MaxPercentUnhealthyServices,omitempty"`
 	MaxPercentUnhealthyPartitionsPerService *int32 `json:"MaxPercentUnhealthyPartitionsPerService,omitempty"`
-	// MaxPercentUnhealthyReplicasPerPartition - The max percent unhealthy replicas per partition
 	MaxPercentUnhealthyReplicasPerPartition *int32 `json:"MaxPercentUnhealthyReplicasPerPartition,omitempty"`
 }
 
-// ApplicationHealthReport the report of the application health
+// ApplicationHealthReport is the report of the application health
 type ApplicationHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -1267,38 +1210,35 @@ type ApplicationHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// ApplicationHealthServiceHealthStatesItem the states of the service health
+// ApplicationHealthServiceHealthStatesItem is the states of the service health
 type ApplicationHealthServiceHealthStatesItem struct {
-	ServiceName *string `json:"ServiceName,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState5Invalid', 'AggregatedHealthState5Ok', 'AggregatedHealthState5Warning', 'AggregatedHealthState5Error', 'AggregatedHealthState5Unknown'
+	ServiceName           *string               `json:"ServiceName,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// ApplicationList the list of the application
+// ApplicationList is the list of the application
 type ApplicationList struct {
 	autorest.Response `json:"-"`
 	ContinuationToken *string        `json:"ContinuationToken,omitempty"`
 	Items             *[]Application `json:"Items,omitempty"`
 }
 
-// ApplicationManifest the manifest of the application
+// ApplicationManifest is the manifest of the application
 type ApplicationManifest struct {
 	autorest.Response `json:"-"`
 	Manifest          *string `json:"Manifest,omitempty"`
 }
 
-// ApplicationParametersItem the parameters
+// ApplicationParametersItem is the parameters
 type ApplicationParametersItem struct {
 	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
 }
 
-// ApplicationsHealthEvaluation the evaluation of the applications health
+// ApplicationsHealthEvaluation is the evaluation of the applications health
 type ApplicationsHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                     *string                `json:"Description,omitempty"`
+	AggregatedHealthState           AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                            Kind                   `json:"Kind,omitempty"`
 	UnhealthyEvaluations            *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 	TotalCount                      *int32                 `json:"TotalCount,omitempty"`
@@ -1316,140 +1256,128 @@ func (ahe ApplicationsHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return &ahe, true
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for ApplicationsHealthEvaluation.
 func (ahe ApplicationsHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
-func (ahe ApplicationsHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationsHealthEvaluation.
-func (ahe ApplicationsHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &ahe, true
-}
-
-// ApplicationType the type of the application
+// ApplicationType is the type of the application
 type ApplicationType struct {
 	Name                 *string                                    `json:"Name,omitempty"`
 	Version              *string                                    `json:"Version,omitempty"`
 	DefaultParameterList *[]ApplicationTypeDefaultParameterListItem `json:"DefaultParameterList,omitempty"`
 }
 
-// ApplicationTypeDefaultParameterListItem the list of the default parameter
+// ApplicationTypeDefaultParameterListItem is the list of the default parameter
 type ApplicationTypeDefaultParameterListItem struct {
 	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
 }
 
-// ApplicationTypeHealthEvaluation the evaluation of the application type health
+// ApplicationTypeHealthEvaluation is the evaluation of the application type health
 type ApplicationTypeHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                     *string                `json:"Description,omitempty"`
+	AggregatedHealthState           AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                            Kind                   `json:"Kind,omitempty"`
 	ApplicationTypeName             *string                `json:"ApplicationTypeName,omitempty"`
 	UnhealthyEvaluations            *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
@@ -1468,217 +1396,188 @@ func (athe ApplicationTypeHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for ApplicationTypeHealthEvaluation.
 func (athe ApplicationTypeHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return &athe, true
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
-func (athe ApplicationTypeHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for ApplicationTypeHealthEvaluation.
-func (athe ApplicationTypeHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &athe, true
-}
-
-// ApplicationUpgrade the upgrade of the application
+// ApplicationUpgrade is the upgrade of the application
 type ApplicationUpgrade struct {
-	autorest.Response            `json:"-"`
-	Name                         *string `json:"Name,omitempty"`
-	TypeName                     *string `json:"TypeName,omitempty"`
-	TargetApplicationTypeVersion *string `json:"TargetApplicationTypeVersion,omitempty"`
-	UpgradeDomains               *string `json:"UpgradeDomains,omitempty"`
-	// UpgradeState - Possible values include: 'UpgradeStateInvalid', 'UpgradeStateRollingBackInProgress', 'UpgradeStateRollingBackCompleted', 'UpgradeStateRollingForwardPending', 'UpgradeStateRollingForwardInProgress', 'UpgradeStateRollingForwardCompleted'
-	UpgradeState      UpgradeState `json:"UpgradeState,omitempty"`
-	NextUpgradeDomain *string      `json:"NextUpgradeDomain,omitempty"`
-	// RollingUpgradeMode - Possible values include: 'RollingUpgradeMode1Invalid', 'RollingUpgradeMode1UnmonitoredAuto', 'RollingUpgradeMode1UnmonitoredManual', 'RollingUpgradeMode1Monitored'
-	RollingUpgradeMode                  RollingUpgradeMode `json:"RollingUpgradeMode,omitempty"`
-	UpgradeDurationInMilliseconds       *string            `json:"UpgradeDurationInMilliseconds,omitempty"`
-	UpgradeDomainDurationInMilliseconds *string            `json:"UpgradeDomainDurationInMilliseconds,omitempty"`
-	UnhealthyEvaluations                *string            `json:"UnhealthyEvaluations,omitempty"`
-	// CurrentUpgradeDomainProgress - The progress of the current upgrade domain
-	CurrentUpgradeDomainProgress *ApplicationUpgradeCurrentUpgradeDomainProgress `json:"CurrentUpgradeDomainProgress,omitempty"`
-	StartTimestampUtc            *string                                         `json:"StartTimestampUtc,omitempty"`
-	FailureTimestampUtc          *string                                         `json:"FailureTimestampUtc,omitempty"`
-	// FailureReason - Possible values include: 'FailureReasonInvalid', 'FailureReasonInterrupted', 'FailureReasonHealthCheck', 'FailureReasonUpgradeDomainTimeout', 'FailureReasonOverallUpgradeTimeout'
-	FailureReason FailureReason `json:"FailureReason,omitempty"`
-	// DeployedApplicationHealthStates - The states of the deployed application health
-	DeployedApplicationHealthStates *ApplicationUpgradeDeployedApplicationHealthStates `json:"DeployedApplicationHealthStates,omitempty"`
+	autorest.Response                   `json:"-"`
+	Name                                *string                                            `json:"Name,omitempty"`
+	TypeName                            *string                                            `json:"TypeName,omitempty"`
+	TargetApplicationTypeVersion        *string                                            `json:"TargetApplicationTypeVersion,omitempty"`
+	UpgradeDomains                      *string                                            `json:"UpgradeDomains,omitempty"`
+	UpgradeState                        UpgradeState                                       `json:"UpgradeState,omitempty"`
+	NextUpgradeDomain                   *string                                            `json:"NextUpgradeDomain,omitempty"`
+	RollingUpgradeMode                  RollingUpgradeMode                                 `json:"RollingUpgradeMode,omitempty"`
+	UpgradeDurationInMilliseconds       *string                                            `json:"UpgradeDurationInMilliseconds,omitempty"`
+	UpgradeDomainDurationInMilliseconds *string                                            `json:"UpgradeDomainDurationInMilliseconds,omitempty"`
+	UnhealthyEvaluations                *string                                            `json:"UnhealthyEvaluations,omitempty"`
+	CurrentUpgradeDomainProgress        *ApplicationUpgradeCurrentUpgradeDomainProgress    `json:"CurrentUpgradeDomainProgress,omitempty"`
+	StartTimestampUtc                   *string                                            `json:"StartTimestampUtc,omitempty"`
+	FailureTimestampUtc                 *string                                            `json:"FailureTimestampUtc,omitempty"`
+	FailureReason                       FailureReason                                      `json:"FailureReason,omitempty"`
+	DeployedApplicationHealthStates     *ApplicationUpgradeDeployedApplicationHealthStates `json:"DeployedApplicationHealthStates,omitempty"`
 }
 
-// ApplicationUpgradeCurrentUpgradeDomainProgress the progress of the current upgrade domain
+// ApplicationUpgradeCurrentUpgradeDomainProgress is the progress of the current upgrade domain
 type ApplicationUpgradeCurrentUpgradeDomainProgress struct {
 	DomainName              *string `json:"DomainName,omitempty"`
 	NodeUpgradeProgressList *string `json:"NodeUpgradeProgressList,omitempty"`
 }
 
-// ApplicationUpgradeDeployedApplicationHealthStates the states of the deployed application health
+// ApplicationUpgradeDeployedApplicationHealthStates is the states of the deployed application health
 type ApplicationUpgradeDeployedApplicationHealthStates struct {
 	DomainName              *string `json:"DomainName,omitempty"`
 	NodeUpgradeProgressList *string `json:"NodeUpgradeProgressList,omitempty"`
 }
 
-// ClusterHealth the health of the cluster
+// ClusterHealth is the health of the cluster
 type ClusterHealth struct {
-	autorest.Response `json:"-"`
-	HealthEvents      *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState15Invalid', 'AggregatedHealthState15Ok', 'AggregatedHealthState15Warning', 'AggregatedHealthState15Error', 'AggregatedHealthState15Unknown'
+	autorest.Response      `json:"-"`
+	HealthEvents           *[]HealthEvent                             `json:"HealthEvents,omitempty"`
 	AggregatedHealthState  AggregatedHealthState                      `json:"AggregatedHealthState,omitempty"`
 	UnhealthyEvaluations   *[]UnhealthyEvaluation                     `json:"UnhealthyEvaluations,omitempty"`
 	NodeHealthStates       *[]ClusterHealthNodeHealthStatesItem       `json:"NodeHealthStates,omitempty"`
 	ApplicationHealthState *[]ClusterHealthApplicationHealthStateItem `json:"ApplicationHealthState,omitempty"`
 }
 
-// ClusterHealthApplicationHealthStateItem the state of the application health
+// ClusterHealthApplicationHealthStateItem is the state of the application health
 type ClusterHealthApplicationHealthStateItem struct {
-	Name *string `json:"Name,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState14Invalid', 'AggregatedHealthState14Ok', 'AggregatedHealthState14Warning', 'AggregatedHealthState14Error', 'AggregatedHealthState14Unknown'
+	Name                  *string               `json:"Name,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// ClusterHealthNodeHealthStatesItem the states of tehe node health
+// ClusterHealthNodeHealthStatesItem is the states of tehe node health
 type ClusterHealthNodeHealthStatesItem struct {
-	Name *string `json:"Name,omitempty"`
-	// ID - The id
-	ID *ClusterHealthNodeHealthStatesItemID `json:"Id,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState13Invalid', 'AggregatedHealthState13Ok', 'AggregatedHealthState13Warning', 'AggregatedHealthState13Error', 'AggregatedHealthState13Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
+	Name                  *string                              `json:"Name,omitempty"`
+	ID                    *ClusterHealthNodeHealthStatesItemID `json:"Id,omitempty"`
+	AggregatedHealthState AggregatedHealthState                `json:"AggregatedHealthState,omitempty"`
 }
 
-// ClusterHealthNodeHealthStatesItemID the id
+// ClusterHealthNodeHealthStatesItemID is the id
 type ClusterHealthNodeHealthStatesItemID struct {
 	ID *string `json:"Id,omitempty"`
 }
 
-// ClusterHealthPolicy the policy of the cluster health
+// ClusterHealthPolicy is the policy of the cluster health
 type ClusterHealthPolicy struct {
-	// RollingUpgradeMode - The mode of the rolling upgrade. Possible values include: 'RollingUpgradeMode4Invalid', 'RollingUpgradeMode4UnmonitoredAuto', 'RollingUpgradeMode4UnmonitoredManual', 'RollingUpgradeMode4Monitored'
-	RollingUpgradeMode RollingUpgradeMode `json:"RollingUpgradeMode,omitempty"`
-	// ForceRestart - The flag of the force restart
-	ForceRestart *bool `json:"ForceRestart,omitempty"`
-	// FailureAction - The action of the failure
-	FailureAction *string `json:"FailureAction,omitempty"`
-	// UpgradeReplicaSetCheckTimeoutInSeconds - The seconds of the upgrade replica set check timeout
-	UpgradeReplicaSetCheckTimeoutInSeconds *int32 `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
-	// HealthCheckWaitDurationInMilliseconds - The milliseconds of the health check wait duration
-	HealthCheckWaitDurationInMilliseconds *string `json:"HealthCheckWaitDurationInMilliseconds,omitempty"`
-	// HealthCheckStableDurationInMilliseconds - The milliseconds of the health check stable duration
-	HealthCheckStableDurationInMilliseconds *string `json:"HealthCheckStableDurationInMilliseconds,omitempty"`
-	// HealthCheckRetryTimeoutInMilliseconds - The milliseconds of the health check retry timeout
-	HealthCheckRetryTimeoutInMilliseconds *string `json:"HealthCheckRetryTimeoutInMilliseconds,omitempty"`
-	// UpgradeTimeoutInMilliseconds - The milliseconds of the upgrade timeout
-	UpgradeTimeoutInMilliseconds *string `json:"UpgradeTimeoutInMilliseconds,omitempty"`
-	// UpgradeDomainTimeoutInMilliseconds - The milliseconds of the upgrade domain timeout
-	UpgradeDomainTimeoutInMilliseconds *string `json:"UpgradeDomainTimeoutInMilliseconds,omitempty"`
+	RollingUpgradeMode                      RollingUpgradeMode `json:"RollingUpgradeMode,omitempty"`
+	ForceRestart                            *bool              `json:"ForceRestart,omitempty"`
+	FailureAction                           *string            `json:"FailureAction,omitempty"`
+	UpgradeReplicaSetCheckTimeoutInSeconds  *int32             `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
+	HealthCheckWaitDurationInMilliseconds   *string            `json:"HealthCheckWaitDurationInMilliseconds,omitempty"`
+	HealthCheckStableDurationInMilliseconds *string            `json:"HealthCheckStableDurationInMilliseconds,omitempty"`
+	HealthCheckRetryTimeoutInMilliseconds   *string            `json:"HealthCheckRetryTimeoutInMilliseconds,omitempty"`
+	UpgradeTimeoutInMilliseconds            *string            `json:"UpgradeTimeoutInMilliseconds,omitempty"`
+	UpgradeDomainTimeoutInMilliseconds      *string            `json:"UpgradeDomainTimeoutInMilliseconds,omitempty"`
 }
 
-// ClusterHealthReport the report of the cluster health
+// ClusterHealthReport is the report of the cluster health
 type ClusterHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -1686,7 +1585,7 @@ type ClusterHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// ClusterLoadInformation the information of the cluster load
+// ClusterLoadInformation is the information of the cluster load
 type ClusterLoadInformation struct {
 	autorest.Response         `json:"-"`
 	LastBalancingStartTimeUtc *string                  `json:"LastBalancingStartTimeUtc,omitempty"`
@@ -1694,51 +1593,44 @@ type ClusterLoadInformation struct {
 	LoadMetricInformation     *[]LoadMetricInformation `json:"LoadMetricInformation,omitempty"`
 }
 
-// ClusterUpgradeHealthPolicy the upgrade health policy of the cluster
+// ClusterUpgradeHealthPolicy is the upgrade health policy of the cluster
 type ClusterUpgradeHealthPolicy struct {
-	// MaxPercentDeltaUnhealthyNodes - The max percent of the delta unhealthy nodes, values are [0-100]
-	MaxPercentDeltaUnhealthyNodes *int32 `json:"MaxPercentDeltaUnhealthyNodes,omitempty"`
-	// MaxPercentUpgradeDomainDeltaUnhealthyNodes - The max percent of the upgrade domain delta unhealthy nodes, values are [0-100]
+	MaxPercentDeltaUnhealthyNodes              *int32 `json:"MaxPercentDeltaUnhealthyNodes,omitempty"`
 	MaxPercentUpgradeDomainDeltaUnhealthyNodes *int32 `json:"MaxPercentUpgradeDomainDeltaUnhealthyNodes,omitempty"`
 }
 
-// ClusterUpgradeProgress the progress of the cluster upgrade
+// ClusterUpgradeProgress is the progress of the cluster upgrade
 type ClusterUpgradeProgress struct {
-	autorest.Response `json:"-"`
-	CodeVersion       *string   `json:"CodeVersion,omitempty"`
-	ConfigVersion     *string   `json:"ConfigVersion,omitempty"`
-	UpgradeDomains    *[]string `json:"UpgradeDomains,omitempty"`
-	// UpgradeState - Possible values include: 'UpgradeState1Invalid', 'UpgradeState1RollingBackInProgress', 'UpgradeState1RollingBackCompleted', 'UpgradeState1RollingForwardPending', 'UpgradeState1RollingForwardInProgress', 'UpgradeState1RollingForwardCompleted'
-	UpgradeState      UpgradeState `json:"UpgradeState,omitempty"`
-	NextUpgradeDomain *string      `json:"NextUpgradeDomain,omitempty"`
-	// RollingUpgradeMode - Possible values include: 'RollingUpgradeMode5Invalid', 'RollingUpgradeMode5UnmonitoredAuto', 'RollingUpgradeMode5UnmonitoredManual', 'RollingUpgradeMode5Monitored'
-	RollingUpgradeMode                  RollingUpgradeMode     `json:"RollingUpgradeMode,omitempty"`
-	UpgradeDurationInMilliseconds       *string                `json:"UpgradeDurationInMilliseconds,omitempty"`
-	UpgradeDomainDurationInMilliseconds *string                `json:"UpgradeDomainDurationInMilliseconds,omitempty"`
-	UnhealthyEvaluations                *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
-	// CurrentUpgradeDomainProgress - The progress of the current upgrade domain
-	CurrentUpgradeDomainProgress *ClusterUpgradeProgressCurrentUpgradeDomainProgress `json:"CurrentUpgradeDomainProgress,omitempty"`
-	StartTimestampUtc            *string                                             `json:"StartTimestampUtc,omitempty"`
-	FailureTimestampUtc          *string                                             `json:"FailureTimestampUtc,omitempty"`
-	// FailureReason - Possible values include: 'FailureReason1Invalid', 'FailureReason1Interrupted', 'FailureReason1HealthCheck', 'FailureReason1UpgradeDomainTimeout', 'FailureReason1OverallUpgradeTimeout'
-	FailureReason FailureReason `json:"FailureReason,omitempty"`
-	// UpgradeDomainProgressAtFailure - The failure of the upgrade domain progress at
-	UpgradeDomainProgressAtFailure *ClusterUpgradeProgressUpgradeDomainProgressAtFailure `json:"UpgradeDomainProgressAtFailure,omitempty"`
+	autorest.Response                   `json:"-"`
+	CodeVersion                         *string                                               `json:"CodeVersion,omitempty"`
+	ConfigVersion                       *string                                               `json:"ConfigVersion,omitempty"`
+	UpgradeDomains                      *[]string                                             `json:"UpgradeDomains,omitempty"`
+	UpgradeState                        UpgradeState                                          `json:"UpgradeState,omitempty"`
+	NextUpgradeDomain                   *string                                               `json:"NextUpgradeDomain,omitempty"`
+	RollingUpgradeMode                  RollingUpgradeMode                                    `json:"RollingUpgradeMode,omitempty"`
+	UpgradeDurationInMilliseconds       *string                                               `json:"UpgradeDurationInMilliseconds,omitempty"`
+	UpgradeDomainDurationInMilliseconds *string                                               `json:"UpgradeDomainDurationInMilliseconds,omitempty"`
+	UnhealthyEvaluations                *[]UnhealthyEvaluation                                `json:"UnhealthyEvaluations,omitempty"`
+	CurrentUpgradeDomainProgress        *ClusterUpgradeProgressCurrentUpgradeDomainProgress   `json:"CurrentUpgradeDomainProgress,omitempty"`
+	StartTimestampUtc                   *string                                               `json:"StartTimestampUtc,omitempty"`
+	FailureTimestampUtc                 *string                                               `json:"FailureTimestampUtc,omitempty"`
+	FailureReason                       FailureReason                                         `json:"FailureReason,omitempty"`
+	UpgradeDomainProgressAtFailure      *ClusterUpgradeProgressUpgradeDomainProgressAtFailure `json:"UpgradeDomainProgressAtFailure,omitempty"`
 }
 
-// ClusterUpgradeProgressCurrentUpgradeDomainProgress the progress of the current upgrade domain
+// ClusterUpgradeProgressCurrentUpgradeDomainProgress is the progress of the current upgrade domain
 type ClusterUpgradeProgressCurrentUpgradeDomainProgress struct {
 	DomainName              *string `json:"DomainName,omitempty"`
 	NodeUpgradeProgressList *string `json:"NodeUpgradeProgressList,omitempty"`
 }
 
-// ClusterUpgradeProgressUpgradeDomainProgressAtFailure the failure of the upgrade domain progress at
+// ClusterUpgradeProgressUpgradeDomainProgressAtFailure is the failure of the upgrade domain progress at
 type ClusterUpgradeProgressUpgradeDomainProgressAtFailure struct {
 	DomainName              *string `json:"DomainName,omitempty"`
 	NodeUpgradeProgressList *string `json:"NodeUpgradeProgressList,omitempty"`
 }
 
-// CodePackageEntryPointStatistics the statistics of the code package entry point
+// CodePackageEntryPointStatistics is the statistics of the code package entry point
 type CodePackageEntryPointStatistics struct {
 	LastExitCode                     *int32  `json:"LastExitCode,omitempty"`
 	LastActivationTime               *string `json:"LastActivationTime,omitempty"`
@@ -1753,29 +1645,13 @@ type CodePackageEntryPointStatistics struct {
 	ExitCount                        *int32  `json:"ExitCount,omitempty"`
 }
 
-// BasicCreateServiceDescription the description of the create service
-type BasicCreateServiceDescription interface {
+// CreateServiceDescription is the description of the create service
+type CreateServiceDescription interface {
 	AsStatelessCreateServiceDescription() (*StatelessCreateServiceDescription, bool)
 	AsStatefulCreateServiceDescription() (*StatefulCreateServiceDescription, bool)
-	AsCreateServiceDescription() (*CreateServiceDescription, bool)
 }
 
-// CreateServiceDescription the description of the create service
-type CreateServiceDescription struct {
-	ApplicationName          *string                        `json:"ApplicationName,omitempty"`
-	ServiceName              *string                        `json:"ServiceName,omitempty"`
-	ServiceTypeName          *string                        `json:"ServiceTypeName,omitempty"`
-	PartitionDescription     *PartitionDescription          `json:"PartitionDescription,omitempty"`
-	PlacementConstraints     *string                        `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme        *ServiceCorrelationDescription `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics       *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
-	Flags                    *int32                         `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindCreateServiceDescription', 'ServiceKindStateless1', 'ServiceKindStateful1'
-	ServiceKind ServiceKindBasicCreateServiceDescription `json:"ServiceKind,omitempty"`
-}
-
-func unmarshalBasicCreateServiceDescription(body []byte) (BasicCreateServiceDescription, error) {
+func unmarshalCreateServiceDescription(body []byte) (CreateServiceDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -1783,31 +1659,29 @@ func unmarshalBasicCreateServiceDescription(body []byte) (BasicCreateServiceDesc
 	}
 
 	switch m["ServiceKind"] {
-	case string(ServiceKindStateless1):
+	case string(ServiceKindStateless):
 		var scsd StatelessCreateServiceDescription
 		err := json.Unmarshal(body, &scsd)
 		return scsd, err
-	case string(ServiceKindStateful1):
+	case string(ServiceKindStateful):
 		var scsd StatefulCreateServiceDescription
 		err := json.Unmarshal(body, &scsd)
 		return scsd, err
 	default:
-		var csd CreateServiceDescription
-		err := json.Unmarshal(body, &csd)
-		return csd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicCreateServiceDescriptionArray(body []byte) ([]BasicCreateServiceDescription, error) {
+func unmarshalCreateServiceDescriptionArray(body []byte) ([]CreateServiceDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	csdArray := make([]BasicCreateServiceDescription, len(rawMessages))
+	csdArray := make([]CreateServiceDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		csd, err := unmarshalBasicCreateServiceDescription(*rawMessage)
+		csd, err := unmarshalCreateServiceDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -1816,61 +1690,13 @@ func unmarshalBasicCreateServiceDescriptionArray(body []byte) ([]BasicCreateServ
 	return csdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for CreateServiceDescription.
-func (csd CreateServiceDescription) MarshalJSON() ([]byte, error) {
-	csd.ServiceKind = ServiceKindCreateServiceDescription
-	type Alias CreateServiceDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(csd),
-	})
-}
-
-// AsStatelessCreateServiceDescription is the BasicCreateServiceDescription implementation for CreateServiceDescription.
-func (csd CreateServiceDescription) AsStatelessCreateServiceDescription() (*StatelessCreateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsStatefulCreateServiceDescription is the BasicCreateServiceDescription implementation for CreateServiceDescription.
-func (csd CreateServiceDescription) AsStatefulCreateServiceDescription() (*StatefulCreateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsCreateServiceDescription is the BasicCreateServiceDescription implementation for CreateServiceDescription.
-func (csd CreateServiceDescription) AsCreateServiceDescription() (*CreateServiceDescription, bool) {
-	return &csd, true
-}
-
-// AsBasicCreateServiceDescription is the BasicCreateServiceDescription implementation for CreateServiceDescription.
-func (csd CreateServiceDescription) AsBasicCreateServiceDescription() (BasicCreateServiceDescription, bool) {
-	return &csd, true
-}
-
-// BasicCreateServiceGroupDescription the description of the create service group
-type BasicCreateServiceGroupDescription interface {
+// CreateServiceGroupDescription is the description of the create service group
+type CreateServiceGroupDescription interface {
 	AsStatelessCreateServiceGroupDescription() (*StatelessCreateServiceGroupDescription, bool)
 	AsStatefulCreateServiceGroupDescription() (*StatefulCreateServiceGroupDescription, bool)
-	AsCreateServiceGroupDescription() (*CreateServiceGroupDescription, bool)
 }
 
-// CreateServiceGroupDescription the description of the create service group
-type CreateServiceGroupDescription struct {
-	ApplicationName               *string                          `json:"ApplicationName,omitempty"`
-	ServiceName                   *string                          `json:"ServiceName,omitempty"`
-	ServiceTypeName               *string                          `json:"ServiceTypeName,omitempty"`
-	PartitionDescription          *PartitionDescription            `json:"PartitionDescription,omitempty"`
-	PlacementConstraints          *string                          `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme             *ServiceCorrelationDescription   `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics            *ServiceCorrelationDescription   `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies      *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
-	Flags                         *int32                           `json:"Flags,omitempty"`
-	ServiceGroupMemberDescription *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindCreateServiceGroupDescription', 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateful'
-	ServiceKind ServiceKindBasicCreateServiceGroupDescription `json:"ServiceKind,omitempty"`
-}
-
-func unmarshalBasicCreateServiceGroupDescription(body []byte) (BasicCreateServiceGroupDescription, error) {
+func unmarshalCreateServiceGroupDescription(body []byte) (CreateServiceGroupDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -1878,31 +1704,29 @@ func unmarshalBasicCreateServiceGroupDescription(body []byte) (BasicCreateServic
 	}
 
 	switch m["ServiceKind"] {
-	case string(ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateless):
+	case string(ServiceKindStateless):
 		var scsgd StatelessCreateServiceGroupDescription
 		err := json.Unmarshal(body, &scsgd)
 		return scsgd, err
-	case string(ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateful):
+	case string(ServiceKindStateful):
 		var scsgd StatefulCreateServiceGroupDescription
 		err := json.Unmarshal(body, &scsgd)
 		return scsgd, err
 	default:
-		var csgd CreateServiceGroupDescription
-		err := json.Unmarshal(body, &csgd)
-		return csgd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicCreateServiceGroupDescriptionArray(body []byte) ([]BasicCreateServiceGroupDescription, error) {
+func unmarshalCreateServiceGroupDescriptionArray(body []byte) ([]CreateServiceGroupDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	csgdArray := make([]BasicCreateServiceGroupDescription, len(rawMessages))
+	csgdArray := make([]CreateServiceGroupDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		csgd, err := unmarshalBasicCreateServiceGroupDescription(*rawMessage)
+		csgd, err := unmarshalCreateServiceGroupDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -1911,43 +1735,10 @@ func unmarshalBasicCreateServiceGroupDescriptionArray(body []byte) ([]BasicCreat
 	return csgdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for CreateServiceGroupDescription.
-func (csgd CreateServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	csgd.ServiceKind = ServiceKindBasicCreateServiceGroupDescriptionServiceKindCreateServiceGroupDescription
-	type Alias CreateServiceGroupDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(csgd),
-	})
-}
-
-// AsStatelessCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for CreateServiceGroupDescription.
-func (csgd CreateServiceGroupDescription) AsStatelessCreateServiceGroupDescription() (*StatelessCreateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsStatefulCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for CreateServiceGroupDescription.
-func (csgd CreateServiceGroupDescription) AsStatefulCreateServiceGroupDescription() (*StatefulCreateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for CreateServiceGroupDescription.
-func (csgd CreateServiceGroupDescription) AsCreateServiceGroupDescription() (*CreateServiceGroupDescription, bool) {
-	return &csgd, true
-}
-
-// AsBasicCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for CreateServiceGroupDescription.
-func (csgd CreateServiceGroupDescription) AsBasicCreateServiceGroupDescription() (BasicCreateServiceGroupDescription, bool) {
-	return &csgd, true
-}
-
-// DeltaNodesCheckHealthEvaluation the evaluation of the delta nodes check health
+// DeltaNodesCheckHealthEvaluation is the evaluation of the delta nodes check health
 type DeltaNodesCheckHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                   *string                `json:"Description,omitempty"`
+	AggregatedHealthState         AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                          Kind                   `json:"Kind,omitempty"`
 	UnhealthyEvaluations          *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 	BaselineErrorCount            *int32                 `json:"BaselineErrorCount,omitempty"`
@@ -1967,122 +1758,112 @@ func (dnche DeltaNodesCheckHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return &dnche, true
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
 func (dnche DeltaNodesCheckHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
-func (dnche DeltaNodesCheckHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for DeltaNodesCheckHealthEvaluation.
-func (dnche DeltaNodesCheckHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &dnche, true
-}
-
-// DeployedApplication the application of the deployed
+// DeployedApplication is the application of the deployed
 type DeployedApplication struct {
 	autorest.Response `json:"-"`
 	ID                *string `json:"Id,omitempty"`
@@ -2094,11 +1875,10 @@ type DeployedApplication struct {
 	TempDirectory     *string `json:"TempDirectory,omitempty"`
 }
 
-// DeployedApplicationHealth the health of the deployed application
+// DeployedApplicationHealth is the health of the deployed application
 type DeployedApplicationHealth struct {
-	autorest.Response `json:"-"`
-	HealthEvents      *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState3Invalid', 'AggregatedHealthState3Ok', 'AggregatedHealthState3Warning', 'AggregatedHealthState3Error', 'AggregatedHealthState3Unknown'
+	autorest.Response                  `json:"-"`
+	HealthEvents                       *[]HealthEvent                     `json:"HealthEvents,omitempty"`
 	AggregatedHealthState              AggregatedHealthState              `json:"AggregatedHealthState,omitempty"`
 	UnhealthyEvaluations               *string                            `json:"UnhealthyEvaluations,omitempty"`
 	Name                               *string                            `json:"Name,omitempty"`
@@ -2106,16 +1886,14 @@ type DeployedApplicationHealth struct {
 	DeployedServicePackageHealthStates *DeployedServicePackageHealthState `json:"DeployedServicePackageHealthStates,omitempty"`
 }
 
-// DeployedApplicationHealthEvaluation the evaluation of the deployed application health
+// DeployedApplicationHealthEvaluation is the evaluation of the deployed application health
 type DeployedApplicationHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	ApplicationName      *string                `json:"ApplicationName,omitempty"`
-	NodeName             *string                `json:"NodeName,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	ApplicationName       *string                `json:"ApplicationName,omitempty"`
+	NodeName              *string                `json:"NodeName,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for DeployedApplicationHealthEvaluation.
@@ -2129,126 +1907,115 @@ func (dahe DeployedApplicationHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return &dahe, true
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationHealthEvaluation.
 func (dahe DeployedApplicationHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
-func (dahe DeployedApplicationHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationHealthEvaluation.
-func (dahe DeployedApplicationHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &dahe, true
-}
-
-// DeployedApplicationHealthReport the report of the deployed application health
+// DeployedApplicationHealthReport is the report of the deployed application health
 type DeployedApplicationHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -2256,12 +2023,10 @@ type DeployedApplicationHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// DeployedApplicationsHealthEvaluation the evaluation of the deployed applications health
+// DeployedApplicationsHealthEvaluation is the evaluation of the deployed applications health
 type DeployedApplicationsHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                             *string                `json:"Description,omitempty"`
+	AggregatedHealthState                   AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                                    Kind                   `json:"Kind,omitempty"`
 	UnhealthyEvaluations                    *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 	TotalCount                              *int32                 `json:"TotalCount,omitempty"`
@@ -2279,122 +2044,112 @@ func (dahe DeployedApplicationsHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return &dahe, true
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
 func (dahe DeployedApplicationsHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
-func (dahe DeployedApplicationsHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for DeployedApplicationsHealthEvaluation.
-func (dahe DeployedApplicationsHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &dahe, true
-}
-
-// DeployedCodePackage the package of the deployed code
+// DeployedCodePackage is the package of the deployed code
 type DeployedCodePackage struct {
 	Name                 *string     `json:"Name,omitempty"`
 	Version              *string     `json:"Version,omitempty"`
@@ -2406,51 +2161,45 @@ type DeployedCodePackage struct {
 	HasSetupEntryPoint   *bool       `json:"HasSetupEntryPoint,omitempty"`
 }
 
-// DeployedReplica the replica of the deployed
+// DeployedReplica is the replica of the deployed
 type DeployedReplica struct {
-	// ServiceKind - Possible values include: 'ServiceKindInvalid', 'ServiceKindStateless', 'ServiceKindStateful'
-	ServiceKind            ServiceKind `json:"ServiceKind,omitempty"`
-	ServiceName            *string     `json:"ServiceName,omitempty"`
-	ServiceTypeName        *string     `json:"ServiceTypeName,omitempty"`
-	ServiceManifestVersion *string     `json:"ServiceManifestVersion,omitempty"`
-	ServiceManifestName    *string     `json:"ServiceManifestName,omitempty"`
-	CodePackageName        *string     `json:"CodePackageName,omitempty"`
-	PartitionID            *string     `json:"PartitionId,omitempty"`
-	InstanceID             *string     `json:"InstanceId,omitempty"`
-	ReplicaID              *string     `json:"ReplicaId,omitempty"`
-	// ReplicaRole - Possible values include: 'ReplicaRoleInvalid', 'ReplicaRoleNone', 'ReplicaRolePrimary', 'ReplicaRoleIdleSecondary', 'ReplicaRoleActiveSecondary'
-	ReplicaRole ReplicaRole `json:"ReplicaRole,omitempty"`
-	// ReplicaStatus - Possible values include: 'ReplicaStatusInvalid', 'ReplicaStatusInBuild', 'ReplicaStatusStandby', 'ReplicaStatusReady', 'ReplicaStatusDown', 'ReplicaStatusDropped'
-	ReplicaStatus ReplicaStatus `json:"ReplicaStatus,omitempty"`
-	Address       *string       `json:"Address,omitempty"`
+	ServiceKind            ServiceKind   `json:"ServiceKind,omitempty"`
+	ServiceName            *string       `json:"ServiceName,omitempty"`
+	ServiceTypeName        *string       `json:"ServiceTypeName,omitempty"`
+	ServiceManifestVersion *string       `json:"ServiceManifestVersion,omitempty"`
+	ServiceManifestName    *string       `json:"ServiceManifestName,omitempty"`
+	CodePackageName        *string       `json:"CodePackageName,omitempty"`
+	PartitionID            *string       `json:"PartitionId,omitempty"`
+	InstanceID             *string       `json:"InstanceId,omitempty"`
+	ReplicaID              *string       `json:"ReplicaId,omitempty"`
+	ReplicaRole            ReplicaRole   `json:"ReplicaRole,omitempty"`
+	ReplicaStatus          ReplicaStatus `json:"ReplicaStatus,omitempty"`
+	Address                *string       `json:"Address,omitempty"`
 }
 
-// DeployedReplicaDetail the detail of the deployed replica
+// DeployedReplicaDetail is the detail of the deployed replica
 type DeployedReplicaDetail struct {
-	autorest.Response `json:"-"`
-	// ServiceKind - Possible values include: 'ServiceKind1Invalid', 'ServiceKind1Stateless', 'ServiceKind1Stateful'
-	ServiceKind                         ServiceKind `json:"ServiceKind,omitempty"`
-	ServiceName                         *string     `json:"ServiceName,omitempty"`
-	PartitionID                         *string     `json:"PartitionId,omitempty"`
-	CurrentServiceOperation             *int32      `json:"CurrentServiceOperation,omitempty"`
-	CurrentReplicatorOperation          *int32      `json:"CurrentReplicatorOperation,omitempty"`
-	CurrentServiceOperationStartTimeUtc *string     `json:"CurrentServiceOperationStartTimeUtc,omitempty"`
-	InstanceID                          *string     `json:"InstanceId,omitempty"`
-	ReplicaID                           *string     `json:"ReplicaId,omitempty"`
-	ReadStatus                          *int32      `json:"ReadStatus,omitempty"`
-	WriteStatus                         *int32      `json:"WriteStatus,omitempty"`
-	// ReplicatorStatus - The status of the replicator
-	ReplicatorStatus *DeployedReplicaDetailReplicatorStatus `json:"ReplicatorStatus,omitempty"`
+	autorest.Response                   `json:"-"`
+	ServiceKind                         ServiceKind                            `json:"ServiceKind,omitempty"`
+	ServiceName                         *string                                `json:"ServiceName,omitempty"`
+	PartitionID                         *string                                `json:"PartitionId,omitempty"`
+	CurrentServiceOperation             *int32                                 `json:"CurrentServiceOperation,omitempty"`
+	CurrentReplicatorOperation          *int32                                 `json:"CurrentReplicatorOperation,omitempty"`
+	CurrentServiceOperationStartTimeUtc *string                                `json:"CurrentServiceOperationStartTimeUtc,omitempty"`
+	InstanceID                          *string                                `json:"InstanceId,omitempty"`
+	ReplicaID                           *string                                `json:"ReplicaId,omitempty"`
+	ReadStatus                          *int32                                 `json:"ReadStatus,omitempty"`
+	WriteStatus                         *int32                                 `json:"WriteStatus,omitempty"`
+	ReplicatorStatus                    *DeployedReplicaDetailReplicatorStatus `json:"ReplicatorStatus,omitempty"`
 }
 
-// DeployedReplicaDetailReplicatorStatus the status of the replicator
+// DeployedReplicaDetailReplicatorStatus is the status of the replicator
 type DeployedReplicaDetailReplicatorStatus struct {
-	Kind *int32 `json:"Kind,omitempty"`
-	// ReplicationQueueStatus - The status of the replication queue
+	Kind                   *int32                                                       `json:"Kind,omitempty"`
 	ReplicationQueueStatus *DeployedReplicaDetailReplicatorStatusReplicationQueueStatus `json:"ReplicationQueueStatus,omitempty"`
 }
 
-// DeployedReplicaDetailReplicatorStatusReplicationQueueStatus the status of the replication queue
+// DeployedReplicaDetailReplicatorStatusReplicationQueueStatus is the status of the replication queue
 type DeployedReplicaDetailReplicatorStatusReplicationQueueStatus struct {
 	QueueUtilizationPercentage *string `json:"QueueUtilizationPercentage,omitempty"`
 	QueueMemorySize            *string `json:"QueueMemorySize,omitempty"`
@@ -2460,11 +2209,10 @@ type DeployedReplicaDetailReplicatorStatusReplicationQueueStatus struct {
 	LastSequenceNumber         *string `json:"LastSequenceNumber,omitempty"`
 }
 
-// DeployedServiceHealthReport the report of the deployed service package health
+// DeployedServiceHealthReport is the report of the deployed service package health
 type DeployedServiceHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -2472,35 +2220,32 @@ type DeployedServiceHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// DeployedServicePackage the package of the deployed service
+// DeployedServicePackage is the package of the deployed service
 type DeployedServicePackage struct {
 	Name    *string `json:"Name,omitempty"`
 	Version *string `json:"Version,omitempty"`
 	Status  *string `json:"Status,omitempty"`
 }
 
-// DeployedServicePackageHealth the health of the deployed service package
+// DeployedServicePackageHealth is the health of the deployed service package
 type DeployedServicePackageHealth struct {
-	autorest.Response   `json:"-"`
-	ApplicationName     *string        `json:"ApplicationName,omitempty"`
-	ServiceManifestName *string        `json:"ServiceManifestName,omitempty"`
-	NodeName            *string        `json:"NodeName,omitempty"`
-	HealthEvents        *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState4Invalid', 'AggregatedHealthState4Ok', 'AggregatedHealthState4Warning', 'AggregatedHealthState4Error', 'AggregatedHealthState4Unknown'
+	autorest.Response     `json:"-"`
+	ApplicationName       *string               `json:"ApplicationName,omitempty"`
+	ServiceManifestName   *string               `json:"ServiceManifestName,omitempty"`
+	NodeName              *string               `json:"NodeName,omitempty"`
+	HealthEvents          *[]HealthEvent        `json:"HealthEvents,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// DeployedServicePackageHealthEvaluation the evaluation of the deployed service package health
+// DeployedServicePackageHealthEvaluation is the evaluation of the deployed service package health
 type DeployedServicePackageHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	ApplicationName      *string                `json:"ApplicationName,omitempty"`
-	NodeName             *string                `json:"NodeName,omitempty"`
-	ServiceManifestName  *string                `json:"ServiceManifestName,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	ApplicationName       *string                `json:"ApplicationName,omitempty"`
+	NodeName              *string                `json:"NodeName,omitempty"`
+	ServiceManifestName   *string                `json:"ServiceManifestName,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for DeployedServicePackageHealthEvaluation.
@@ -2514,139 +2259,126 @@ func (dsphe DeployedServicePackageHealthEvaluation) MarshalJSON() ([]byte, error
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return &dsphe, true
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
 func (dsphe DeployedServicePackageHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
-func (dsphe DeployedServicePackageHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackageHealthEvaluation.
-func (dsphe DeployedServicePackageHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &dsphe, true
-}
-
-// DeployedServicePackageHealthState the state of the deployed service package health
+// DeployedServicePackageHealthState is the state of the deployed service package health
 type DeployedServicePackageHealthState struct {
-	ApplicationName     *string `json:"ApplicationName,omitempty"`
-	ServiceManifestName *string `json:"ServiceManifestName,omitempty"`
-	NodeName            *string `json:"NodeName,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState2Invalid', 'AggregatedHealthState2Ok', 'AggregatedHealthState2Warning', 'AggregatedHealthState2Error', 'AggregatedHealthState2Unknown'
+	ApplicationName       *string               `json:"ApplicationName,omitempty"`
+	ServiceManifestName   *string               `json:"ServiceManifestName,omitempty"`
+	NodeName              *string               `json:"NodeName,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// DeployedServicePackagesHealthEvaluation the evaluation of the deployed service packages health
+// DeployedServicePackagesHealthEvaluation is the evaluation of the deployed service packages health
 type DeployedServicePackagesHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
-	TotalCount           *int32                 `json:"TotalCount,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	TotalCount            *int32                 `json:"TotalCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for DeployedServicePackagesHealthEvaluation.
@@ -2660,122 +2392,112 @@ func (dsphe DeployedServicePackagesHealthEvaluation) MarshalJSON() ([]byte, erro
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return &dsphe, true
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
 func (dsphe DeployedServicePackagesHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
-func (dsphe DeployedServicePackagesHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for DeployedServicePackagesHealthEvaluation.
-func (dsphe DeployedServicePackagesHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &dsphe, true
-}
-
-// DeployedServiceType the type of the deploye service
+// DeployedServiceType is the type of the deploye service
 type DeployedServiceType struct {
 	ServiceTypeName     *string `json:"ServiceTypeName,omitempty"`
 	CodePackageName     *string `json:"CodePackageName,omitempty"`
@@ -2783,13 +2505,12 @@ type DeployedServiceType struct {
 	Status              *string `json:"Status,omitempty"`
 }
 
-// DisableNode the node
+// DisableNode is the node
 type DisableNode struct {
-	// DeactivationIntent - Possible values include: 'Pause', 'Restart', 'RemoveData', 'RemoveNode'
 	DeactivationIntent DeactivationIntent `json:"DeactivationIntent,omitempty"`
 }
 
-// EntryPoint the point of the entry
+// EntryPoint is the point of the entry
 type EntryPoint struct {
 	EntryPointLocation              *int32                           `json:"EntryPointLocation,omitempty"`
 	ProcessID                       *int32                           `json:"ProcessId,omitempty"`
@@ -2799,27 +2520,24 @@ type EntryPoint struct {
 	CodePackageEntryPointStatistics *CodePackageEntryPointStatistics `json:"CodePackageEntryPointStatistics,omitempty"`
 }
 
-// ErrorModel the model of the error
+// ErrorModel is the model of the error
 type ErrorModel struct {
-	// Error - The error
 	Error *ErrorModelError `json:"Error,omitempty"`
 }
 
-// ErrorModelError the error
+// ErrorModelError is the error
 type ErrorModelError struct {
 	Code    *string `json:"Code,omitempty"`
 	Message *string `json:"Message,omitempty"`
 }
 
-// EventHealthEvaluation the evaluation of the event health
+// EventHealthEvaluation is the evaluation of the event health
 type EventHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                   Kind         `json:"Kind,omitempty"`
-	UnhealthyEvent         *HealthEvent `json:"UnhealthyEvent,omitempty"`
-	ConsiderWarningAsError *bool        `json:"ConsiderWarningAsError,omitempty"`
+	Description            *string               `json:"Description,omitempty"`
+	AggregatedHealthState  AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
+	Kind                   Kind                  `json:"Kind,omitempty"`
+	UnhealthyEvent         *HealthEvent          `json:"UnhealthyEvent,omitempty"`
+	ConsiderWarningAsError *bool                 `json:"ConsiderWarningAsError,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for EventHealthEvaluation.
@@ -2833,123 +2551,113 @@ func (ehe EventHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return &ehe, true
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for EventHealthEvaluation.
 func (ehe EventHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
-func (ehe EventHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for EventHealthEvaluation.
-func (ehe EventHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &ehe, true
-}
-
-// BasicHealthEvaluation the evauation of the health
-type BasicHealthEvaluation interface {
+// HealthEvaluation is the evauation of the health
+type HealthEvaluation interface {
 	AsEventHealthEvaluation() (*EventHealthEvaluation, bool)
 	AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool)
 	AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool)
@@ -2971,19 +2679,9 @@ type BasicHealthEvaluation interface {
 	AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool)
 	AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool)
 	AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool)
-	AsHealthEvaluation() (*HealthEvaluation, bool)
 }
 
-// HealthEvaluation the evauation of the health
-type HealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind Kind `json:"Kind,omitempty"`
-}
-
-func unmarshalBasicHealthEvaluation(body []byte) (BasicHealthEvaluation, error) {
+func unmarshalHealthEvaluation(body []byte) (HealthEvaluation, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -3076,22 +2774,20 @@ func unmarshalBasicHealthEvaluation(body []byte) (BasicHealthEvaluation, error) 
 		err := json.Unmarshal(body, &athe)
 		return athe, err
 	default:
-		var he HealthEvaluation
-		err := json.Unmarshal(body, &he)
-		return he, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicHealthEvaluationArray(body []byte) ([]BasicHealthEvaluation, error) {
+func unmarshalHealthEvaluationArray(body []byte) ([]HealthEvaluation, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	heArray := make([]BasicHealthEvaluation, len(rawMessages))
+	heArray := make([]HealthEvaluation, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		he, err := unmarshalBasicHealthEvaluation(*rawMessage)
+		he, err := unmarshalHealthEvaluation(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -3100,137 +2796,10 @@ func unmarshalBasicHealthEvaluationArray(body []byte) ([]BasicHealthEvaluation, 
 	return heArray, nil
 }
 
-// MarshalJSON is the custom marshaler for HealthEvaluation.
-func (he HealthEvaluation) MarshalJSON() ([]byte, error) {
-	he.Kind = KindHealthEvaluation
-	type Alias HealthEvaluation
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(he),
-	})
-}
-
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return &he, true
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for HealthEvaluation.
-func (he HealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &he, true
-}
-
-// HealthEvent the event of the health
+// HealthEvent is the event of the health
 type HealthEvent struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState2Invalid', 'HealthState2Ok', 'HealthState2Warning', 'HealthState2Error', 'HealthState2Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
@@ -3244,11 +2813,10 @@ type HealthEvent struct {
 	LastErrorTransitionAt    *string     `json:"LastErrorTransitionAt,omitempty"`
 }
 
-// HealthReport the report of the health
+// HealthReport is the report of the health
 type HealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -3256,84 +2824,82 @@ type HealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// ListApplicationType ...
+// ListApplicationType is
 type ListApplicationType struct {
 	autorest.Response `json:"-"`
 	Value             *[]ApplicationType `json:"value,omitempty"`
 }
 
-// ListDeployedApplication ...
+// ListDeployedApplication is
 type ListDeployedApplication struct {
 	autorest.Response `json:"-"`
 	Value             *[]DeployedApplication `json:"value,omitempty"`
 }
 
-// ListDeployedCodePackage ...
+// ListDeployedCodePackage is
 type ListDeployedCodePackage struct {
 	autorest.Response `json:"-"`
 	Value             *[]DeployedCodePackage `json:"value,omitempty"`
 }
 
-// ListDeployedReplica ...
+// ListDeployedReplica is
 type ListDeployedReplica struct {
 	autorest.Response `json:"-"`
 	Value             *[]DeployedReplica `json:"value,omitempty"`
 }
 
-// ListDeployedServicePackage ...
+// ListDeployedServicePackage is
 type ListDeployedServicePackage struct {
 	autorest.Response `json:"-"`
 	Value             *[]DeployedServicePackage `json:"value,omitempty"`
 }
 
-// ListDeployedServiceType ...
+// ListDeployedServiceType is
 type ListDeployedServiceType struct {
 	autorest.Response `json:"-"`
 	Value             *[]DeployedServiceType `json:"value,omitempty"`
 }
 
-// ListServiceType ...
+// ListServiceType is
 type ListServiceType struct {
 	autorest.Response `json:"-"`
 	Value             *[]ServiceType `json:"value,omitempty"`
 }
 
-// LoadMetricInformation the information of the load metric
+// LoadMetricInformation is the information of the load metric
 type LoadMetricInformation struct {
-	Name                        *string `json:"Name,omitempty"`
-	IsBalancedBefore            *bool   `json:"IsBalancedBefore,omitempty"`
-	IsBalancedAfter             *bool   `json:"IsBalancedAfter,omitempty"`
-	DeviationBefore             *int32  `json:"DeviationBefore,omitempty"`
-	DeviationAfter              *int32  `json:"DeviationAfter,omitempty"`
-	BalancingThreshold          *int32  `json:"BalancingThreshold,omitempty"`
-	Action                      *string `json:"Action,omitempty"`
-	ActivityThreshold           *int32  `json:"ActivityThreshold,omitempty"`
-	ClusterCapacity             *string `json:"ClusterCapacity,omitempty"`
-	ClusterLoad                 *string `json:"ClusterLoad,omitempty"`
-	RemainingUnbufferedCapacity *string `json:"RemainingUnbufferedCapacity,omitempty"`
-	NodeBufferPercentage        *int32  `json:"NodeBufferPercentage,omitempty"`
-	BufferedCapacity            *string `json:"BufferedCapacity,omitempty"`
-	RemainingBufferedCapacity   *string `json:"RemainingBufferedCapacity,omitempty"`
-	IsClusterCapacityViolation  *bool   `json:"IsClusterCapacityViolation,omitempty"`
-	MinNodeLoadValue            *string `json:"MinNodeLoadValue,omitempty"`
-	// MinNodeLoadID - The id of the min node
-	MinNodeLoadID    *LoadMetricInformationMinNodeLoadID `json:"MinNodeLoadId,omitempty"`
-	MaxNodeLoadValue *string                             `json:"MaxNodeLoadValue,omitempty"`
-	// MaxNodeLoadID - The id of the max node load
-	MaxNodeLoadID *LoadMetricInformationMaxNodeLoadID `json:"MaxNodeLoadId,omitempty"`
+	Name                        *string                             `json:"Name,omitempty"`
+	IsBalancedBefore            *bool                               `json:"IsBalancedBefore,omitempty"`
+	IsBalancedAfter             *bool                               `json:"IsBalancedAfter,omitempty"`
+	DeviationBefore             *int32                              `json:"DeviationBefore,omitempty"`
+	DeviationAfter              *int32                              `json:"DeviationAfter,omitempty"`
+	BalancingThreshold          *int32                              `json:"BalancingThreshold,omitempty"`
+	Action                      *string                             `json:"Action,omitempty"`
+	ActivityThreshold           *int32                              `json:"ActivityThreshold,omitempty"`
+	ClusterCapacity             *string                             `json:"ClusterCapacity,omitempty"`
+	ClusterLoad                 *string                             `json:"ClusterLoad,omitempty"`
+	RemainingUnbufferedCapacity *string                             `json:"RemainingUnbufferedCapacity,omitempty"`
+	NodeBufferPercentage        *int32                              `json:"NodeBufferPercentage,omitempty"`
+	BufferedCapacity            *string                             `json:"BufferedCapacity,omitempty"`
+	RemainingBufferedCapacity   *string                             `json:"RemainingBufferedCapacity,omitempty"`
+	IsClusterCapacityViolation  *bool                               `json:"IsClusterCapacityViolation,omitempty"`
+	MinNodeLoadValue            *string                             `json:"MinNodeLoadValue,omitempty"`
+	MinNodeLoadID               *LoadMetricInformationMinNodeLoadID `json:"MinNodeLoadId,omitempty"`
+	MaxNodeLoadValue            *string                             `json:"MaxNodeLoadValue,omitempty"`
+	MaxNodeLoadID               *LoadMetricInformationMaxNodeLoadID `json:"MaxNodeLoadId,omitempty"`
 }
 
-// LoadMetricInformationMaxNodeLoadID the id of the max node load
+// LoadMetricInformationMaxNodeLoadID is the id of the max node load
 type LoadMetricInformationMaxNodeLoadID struct {
 	ID *string `json:"Id,omitempty"`
 }
 
-// LoadMetricInformationMinNodeLoadID the id of the min node
+// LoadMetricInformationMinNodeLoadID is the id of the min node
 type LoadMetricInformationMinNodeLoadID struct {
 	ID *string `json:"Id,omitempty"`
 }
 
-// MonitoringPolicy the policy of the monitoring
+// MonitoringPolicy is the policy of the monitoring
 type MonitoringPolicy struct {
 	FailureAction                           *string `json:"FailureAction,omitempty"`
 	HealthCheckWaitDurationInMilliseconds   *string `json:"HealthCheckWaitDurationInMilliseconds,omitempty"`
@@ -3343,47 +2909,40 @@ type MonitoringPolicy struct {
 	UpgradeDomainTimeoutInMilliseconds      *string `json:"UpgradeDomainTimeoutInMilliseconds,omitempty"`
 }
 
-// Node the node
+// Node is the node
 type Node struct {
-	autorest.Response `json:"-"`
-	Name              *string `json:"Name,omitempty"`
-	IPAddressOrFQDN   *string `json:"IpAddressOrFQDN,omitempty"`
-	Type              *string `json:"Type,omitempty"`
-	CodeVersion       *string `json:"CodeVersion,omitempty"`
-	ConfigVersion     *string `json:"ConfigVersion,omitempty"`
-	// NodeStatus - Possible values include: 'NodeStatusInvalid', 'NodeStatusUp', 'NodeStatusDown', 'NodeStatusEnabling', 'NodeStatusDisabling', 'NodeStatusDisabled', 'NodeStatusUnknown', 'NodeStatusRemoved'
-	NodeStatus          NodeStatus `json:"NodeStatus,omitempty"`
-	NodeUpTimeInSeconds *string    `json:"NodeUpTimeInSeconds,omitempty"`
-	// HealthState - Possible values include: 'HealthStateInvalid', 'HealthStateOk', 'HealthStateWarning', 'HealthStateError', 'HealthStateUnknown'
-	HealthState   HealthState `json:"HealthState,omitempty"`
-	IsSeedNode    *bool       `json:"IsSeedNode,omitempty"`
-	UpgradeDomain *string     `json:"UpgradeDomain,omitempty"`
-	FaultDomain   *string     `json:"FaultDomain,omitempty"`
-	// ID - The id
-	ID         *NodeID `json:"Id,omitempty"`
-	InstanceID *string `json:"InstanceId,omitempty"`
-	// NodeDeactivationInfo - The info of the deactivation info
+	autorest.Response    `json:"-"`
+	Name                 *string                   `json:"Name,omitempty"`
+	IPAddressOrFQDN      *string                   `json:"IpAddressOrFQDN,omitempty"`
+	Type                 *string                   `json:"Type,omitempty"`
+	CodeVersion          *string                   `json:"CodeVersion,omitempty"`
+	ConfigVersion        *string                   `json:"ConfigVersion,omitempty"`
+	NodeStatus           NodeStatus                `json:"NodeStatus,omitempty"`
+	NodeUpTimeInSeconds  *string                   `json:"NodeUpTimeInSeconds,omitempty"`
+	HealthState          HealthState               `json:"HealthState,omitempty"`
+	IsSeedNode           *bool                     `json:"IsSeedNode,omitempty"`
+	UpgradeDomain        *string                   `json:"UpgradeDomain,omitempty"`
+	FaultDomain          *string                   `json:"FaultDomain,omitempty"`
+	ID                   *NodeID                   `json:"Id,omitempty"`
+	InstanceID           *string                   `json:"InstanceId,omitempty"`
 	NodeDeactivationInfo *NodeNodeDeactivationInfo `json:"NodeDeactivationInfo,omitempty"`
 }
 
-// NodeHealth the health of the node
+// NodeHealth is the health of the node
 type NodeHealth struct {
-	autorest.Response `json:"-"`
-	HealthEvents      *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState1Invalid', 'AggregatedHealthState1Ok', 'AggregatedHealthState1Warning', 'AggregatedHealthState1Error', 'AggregatedHealthState1Unknown'
+	autorest.Response     `json:"-"`
+	HealthEvents          *[]HealthEvent        `json:"HealthEvents,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 	Name                  *string               `json:"Name,omitempty"`
 }
 
-// NodeHealthEvaluation the evaluation of the node health
+// NodeHealthEvaluation is the evaluation of the node health
 type NodeHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	NodeName             *string                `json:"NodeName,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	NodeName              *string                `json:"NodeName,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for NodeHealthEvaluation.
@@ -3397,126 +2956,115 @@ func (nhe NodeHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return &nhe, true
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for NodeHealthEvaluation.
 func (nhe NodeHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
-func (nhe NodeHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for NodeHealthEvaluation.
-func (nhe NodeHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &nhe, true
-}
-
-// NodeHealthReport the report of the node health
+// NodeHealthReport is the report of the node health
 type NodeHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -3524,26 +3072,26 @@ type NodeHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// NodeID the id
+// NodeID is the id
 type NodeID struct {
 	ID *string `json:"Id,omitempty"`
 }
 
-// NodeList the list of the node
+// NodeList is the list of the node
 type NodeList struct {
 	autorest.Response `json:"-"`
 	ContinuationToken *string `json:"ContinuationToken,omitempty"`
 	Items             *[]Node `json:"Items,omitempty"`
 }
 
-// NodeLoadInformation the information of the node load
+// NodeLoadInformation is the information of the node load
 type NodeLoadInformation struct {
 	autorest.Response         `json:"-"`
 	NodeName                  *string                    `json:"NodeName,omitempty"`
 	NodeLoadMetricInformation *NodeLoadMetricInformation `json:"NodeLoadMetricInformation,omitempty"`
 }
 
-// NodeLoadMetricInformation the information of the node load metric
+// NodeLoadMetricInformation is the information of the node load metric
 type NodeLoadMetricInformation struct {
 	Name                          *string `json:"Name,omitempty"`
 	NodeCapacity                  *string `json:"NodeCapacity,omitempty"`
@@ -3554,20 +3102,16 @@ type NodeLoadMetricInformation struct {
 	NodeRemainingBufferedCapacity *string `json:"NodeRemainingBufferedCapacity,omitempty"`
 }
 
-// NodeNodeDeactivationInfo the info of the deactivation info
+// NodeNodeDeactivationInfo is the info of the deactivation info
 type NodeNodeDeactivationInfo struct {
-	// NodeDeactivationIntent - Possible values include: 'NodeDeactivationIntentInvalid', 'NodeDeactivationIntentPause', 'NodeDeactivationIntentRestart', 'NodeDeactivationIntentRemoveData'
 	NodeDeactivationIntent NodeDeactivationIntent `json:"NodeDeactivationIntent,omitempty"`
-	// NodeDeactivationStatus - Possible values include: 'NodeDeactivationStatusInvalid', 'NodeDeactivationStatusSafetyCheckInProgress', 'NodeDeactivationStatusSafetyCheckComplete', 'NodeDeactivationStatusCompleted'
 	NodeDeactivationStatus NodeDeactivationStatus `json:"NodeDeactivationStatus,omitempty"`
 }
 
-// NodesHealthEvaluation the evaluation of the nodes health
+// NodesHealthEvaluation is the evaluation of the nodes health
 type NodesHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description              *string                `json:"Description,omitempty"`
+	AggregatedHealthState    AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                     Kind                   `json:"Kind,omitempty"`
 	UnhealthyEvaluations     *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 	TotalCount               *int32                 `json:"TotalCount,omitempty"`
@@ -3585,147 +3129,132 @@ func (nhe NodesHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return &nhe, true
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for NodesHealthEvaluation.
 func (nhe NodesHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
-func (nhe NodesHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for NodesHealthEvaluation.
-func (nhe NodesHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &nhe, true
-}
-
-// Partition the partition
+// Partition is the partition
 type Partition struct {
-	autorest.Response `json:"-"`
-	// ServiceKind - Possible values include: 'ServiceKind4Invalid', 'ServiceKind4Stateless', 'ServiceKind4Stateful'
-	ServiceKind          ServiceKind           `json:"ServiceKind,omitempty"`
-	PartitionInformation *PartitionInformation `json:"PartitionInformation,omitempty"`
-	InstanceCount        *int32                `json:"InstanceCount,omitempty"`
-	TargetReplicaSetSize *int32                `json:"TargetReplicaSetSize,omitempty"`
-	MinReplicaSetSize    *int32                `json:"MinReplicaSetSize,omitempty"`
-	// HealthState - Possible values include: 'HealthState5Invalid', 'HealthState5Ok', 'HealthState5Warning', 'HealthState5Error', 'HealthState5Unknown'
-	HealthState HealthState `json:"HealthState,omitempty"`
-	// PartitionStatus - Possible values include: 'PartitionStatusInvalid', 'PartitionStatusReady', 'PartitionStatusNotReady', 'PartitionStatusInQuorumLoss', 'PartitionStatusReconfiguring', 'PartitionStatusDeleting'
-	PartitionStatus PartitionStatus `json:"PartitionStatus,omitempty"`
-	// CurrentConfigurationEpoch - The epoch of the current configuration
+	autorest.Response         `json:"-"`
+	ServiceKind               ServiceKind                         `json:"ServiceKind,omitempty"`
+	PartitionInformation      *PartitionInformation               `json:"PartitionInformation,omitempty"`
+	InstanceCount             *int32                              `json:"InstanceCount,omitempty"`
+	TargetReplicaSetSize      *int32                              `json:"TargetReplicaSetSize,omitempty"`
+	MinReplicaSetSize         *int32                              `json:"MinReplicaSetSize,omitempty"`
+	HealthState               HealthState                         `json:"HealthState,omitempty"`
+	PartitionStatus           PartitionStatus                     `json:"PartitionStatus,omitempty"`
 	CurrentConfigurationEpoch *PartitionCurrentConfigurationEpoch `json:"CurrentConfigurationEpoch,omitempty"`
 }
 
-// PartitionCurrentConfigurationEpoch the epoch of the current configuration
+// PartitionCurrentConfigurationEpoch is the epoch of the current configuration
 type PartitionCurrentConfigurationEpoch struct {
 	ConfigurationVersion *string `json:"ConfigurationVersion,omitempty"`
 	DataLossVersion      *string `json:"DataLossVersion,omitempty"`
 }
 
-// PartitionDescription the description of the partition
+// PartitionDescription is the description of the partition
 type PartitionDescription struct {
-	// PartitionScheme - Possible values include: 'PartitionSchemeInvalid', 'PartitionSchemeSingleton', 'PartitionSchemeUniformInt64', 'PartitionSchemeNamed'
 	PartitionScheme PartitionScheme `json:"PartitionScheme,omitempty"`
 	Count           *int32          `json:"Count,omitempty"`
 	Names           *[]string       `json:"Names,omitempty"`
@@ -3733,25 +3262,22 @@ type PartitionDescription struct {
 	HighKey         *string         `json:"HighKey,omitempty"`
 }
 
-// PartitionHealth the health of the partition
+// PartitionHealth is the health of the partition
 type PartitionHealth struct {
-	autorest.Response `json:"-"`
-	HealthEvents      *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState11Invalid', 'AggregatedHealthState11Ok', 'AggregatedHealthState11Warning', 'AggregatedHealthState11Error', 'AggregatedHealthState11Unknown'
+	autorest.Response     `json:"-"`
+	HealthEvents          *[]HealthEvent                            `json:"HealthEvents,omitempty"`
 	AggregatedHealthState AggregatedHealthState                     `json:"AggregatedHealthState,omitempty"`
 	PartitionID           *string                                   `json:"PartitionId,omitempty"`
 	ReplicaHealthStates   *[]PartitionHealthReplicaHealthStatesItem `json:"ReplicaHealthStates,omitempty"`
 }
 
-// PartitionHealthEvaluation the evaluation of the partition health
+// PartitionHealthEvaluation is the evaluation of the partition health
 type PartitionHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	PartitionID          *string                `json:"PartitionId,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	PartitionID           *string                `json:"PartitionId,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for PartitionHealthEvaluation.
@@ -3765,135 +3291,123 @@ func (phe PartitionHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return &phe, true
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for PartitionHealthEvaluation.
 func (phe PartitionHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
-func (phe PartitionHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for PartitionHealthEvaluation.
-func (phe PartitionHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &phe, true
-}
-
-// PartitionHealthReplicaHealthStatesItem the states of the replica health
+// PartitionHealthReplicaHealthStatesItem is the states of the replica health
 type PartitionHealthReplicaHealthStatesItem struct {
-	HealthEvents *int32  `json:"HealthEvents,omitempty"`
-	PartitionID  *string `json:"PartitionId,omitempty"`
-	ReplicaID    *string `json:"ReplicaId,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState10Invalid', 'AggregatedHealthState10Ok', 'AggregatedHealthState10Warning', 'AggregatedHealthState10Error', 'AggregatedHealthState10Unknown'
+	HealthEvents          *int32                `json:"HealthEvents,omitempty"`
+	PartitionID           *string               `json:"PartitionId,omitempty"`
+	ReplicaID             *string               `json:"ReplicaId,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// PartitionHealthReport the report of the partition health
+// PartitionHealthReport is the report of the partition health
 type PartitionHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -3901,9 +3415,8 @@ type PartitionHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// PartitionInformation the information of the partition
+// PartitionInformation is the information of the partition
 type PartitionInformation struct {
-	// ServicePartitionKind - Possible values include: 'ServicePartitionKindInvalid', 'ServicePartitionKindSingleton', 'ServicePartitionKindInt64Range', 'ServicePartitionKindNamed'
 	ServicePartitionKind ServicePartitionKind `json:"ServicePartitionKind,omitempty"`
 	ID                   *string              `json:"Id,omitempty"`
 	Name                 *[]string            `json:"Name,omitempty"`
@@ -3911,14 +3424,14 @@ type PartitionInformation struct {
 	HighKey              *string              `json:"HighKey,omitempty"`
 }
 
-// PartitionList the list of the partition
+// PartitionList is the list of the partition
 type PartitionList struct {
 	autorest.Response `json:"-"`
 	ContinuationToken *string      `json:"ContinuationToken,omitempty"`
 	Items             *[]Partition `json:"Items,omitempty"`
 }
 
-// PartitionLoadInformation the information of the partition load
+// PartitionLoadInformation is the information of the partition load
 type PartitionLoadInformation struct {
 	autorest.Response          `json:"-"`
 	PartitionID                *string   `json:"PartitionId,omitempty"`
@@ -3926,12 +3439,10 @@ type PartitionLoadInformation struct {
 	SecondaryLoadMetricReports *[]string `json:"SecondaryLoadMetricReports,omitempty"`
 }
 
-// PartitionsHealthEvaluation the evaluation of the partitions health
+// PartitionsHealthEvaluation is the evaluation of the partitions health
 type PartitionsHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                             *string                `json:"Description,omitempty"`
+	AggregatedHealthState                   AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                                    Kind                   `json:"Kind,omitempty"`
 	UnhealthyEvaluations                    *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 	TotalCount                              *int32                 `json:"TotalCount,omitempty"`
@@ -3949,174 +3460,154 @@ func (phe PartitionsHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return &phe, true
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for PartitionsHealthEvaluation.
 func (phe PartitionsHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
-func (phe PartitionsHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for PartitionsHealthEvaluation.
-func (phe PartitionsHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &phe, true
-}
-
-// RegisterApplicationType the type of the register application
+// RegisterApplicationType is the type of the register application
 type RegisterApplicationType struct {
 	ApplicationTypeBuildPath *string `json:"ApplicationTypeBuildPath,omitempty"`
 }
 
-// RegisterClusterPackage the package of the register cluster
+// RegisterClusterPackage is the package of the register cluster
 type RegisterClusterPackage struct {
-	// CodeFilePath - The path of the code file
-	CodeFilePath *string `json:"CodeFilePath,omitempty"`
-	// ClusterManifestFilePath - The relative path of the cluster manifest file
+	CodeFilePath            *string `json:"CodeFilePath,omitempty"`
 	ClusterManifestFilePath *string `json:"ClusterManifestFilePath,omitempty"`
 }
 
-// Replica the replica
+// Replica is the replica
 type Replica struct {
-	autorest.Response `json:"-"`
-	// ServiceKind - Possible values include: 'ServiceKind5Invalid', 'ServiceKind5Stateless', 'ServiceKind5Stateful'
-	ServiceKind ServiceKind `json:"ServiceKind,omitempty"`
-	InstanceID  *string     `json:"InstanceId,omitempty"`
-	ReplicaID   *string     `json:"ReplicaId,omitempty"`
-	// ReplicaRole - Possible values include: 'ReplicaRole1Invalid', 'ReplicaRole1None', 'ReplicaRole1Primary', 'ReplicaRole1IdleSecondary', 'ReplicaRole1ActiveSecondary'
-	ReplicaRole ReplicaRole `json:"ReplicaRole,omitempty"`
-	// ReplicaStatus - Possible values include: 'ReplicaStatus1Invalid', 'ReplicaStatus1InBuild', 'ReplicaStatus1Standby', 'ReplicaStatus1Ready', 'ReplicaStatus1Down', 'ReplicaStatus1Dropped'
-	ReplicaStatus ReplicaStatus `json:"ReplicaStatus,omitempty"`
-	// HealthState - Possible values include: 'HealthState6Invalid', 'HealthState6Ok', 'HealthState6Warning', 'HealthState6Error', 'HealthState6Unknown'
-	HealthState                  HealthState `json:"HealthState,omitempty"`
-	Address                      *string     `json:"Address,omitempty"`
-	NodeName                     *string     `json:"NodeName,omitempty"`
-	LastInBuildDurationInSeconds *string     `json:"LastInBuildDurationInSeconds,omitempty"`
+	autorest.Response            `json:"-"`
+	ServiceKind                  ServiceKind   `json:"ServiceKind,omitempty"`
+	InstanceID                   *string       `json:"InstanceId,omitempty"`
+	ReplicaID                    *string       `json:"ReplicaId,omitempty"`
+	ReplicaRole                  ReplicaRole   `json:"ReplicaRole,omitempty"`
+	ReplicaStatus                ReplicaStatus `json:"ReplicaStatus,omitempty"`
+	HealthState                  HealthState   `json:"HealthState,omitempty"`
+	Address                      *string       `json:"Address,omitempty"`
+	NodeName                     *string       `json:"NodeName,omitempty"`
+	LastInBuildDurationInSeconds *string       `json:"LastInBuildDurationInSeconds,omitempty"`
 }
 
-// ReplicaHealth the health of the replica
+// ReplicaHealth is the health of the replica
 type ReplicaHealth struct {
-	autorest.Response `json:"-"`
-	// ServiceKind - Possible values include: 'ServiceKind6Invalid', 'ServiceKind6Stateless', 'ServiceKind6Stateful'
-	ServiceKind  ServiceKind    `json:"ServiceKind,omitempty"`
-	PartitionID  *string        `json:"PartitionId,omitempty"`
-	ReplicaID    *string        `json:"ReplicaId,omitempty"`
-	HealthEvents *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState12Invalid', 'AggregatedHealthState12Ok', 'AggregatedHealthState12Warning', 'AggregatedHealthState12Error', 'AggregatedHealthState12Unknown'
+	autorest.Response     `json:"-"`
+	ServiceKind           ServiceKind           `json:"ServiceKind,omitempty"`
+	PartitionID           *string               `json:"PartitionId,omitempty"`
+	ReplicaID             *string               `json:"ReplicaId,omitempty"`
+	HealthEvents          *[]HealthEvent        `json:"HealthEvents,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// ReplicaHealthEvaluation the evaluation of the replica health
+// ReplicaHealthEvaluation is the evaluation of the replica health
 type ReplicaHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	PartitionID          *string                `json:"PartitionId,omitempty"`
-	ReplicaOrInstanceID  *string                `json:"ReplicaOrInstanceId,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	PartitionID           *string                `json:"PartitionId,omitempty"`
+	ReplicaOrInstanceID   *string                `json:"ReplicaOrInstanceId,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for ReplicaHealthEvaluation.
@@ -4130,126 +3621,115 @@ func (rhe ReplicaHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return &rhe, true
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for ReplicaHealthEvaluation.
 func (rhe ReplicaHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
-func (rhe ReplicaHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for ReplicaHealthEvaluation.
-func (rhe ReplicaHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &rhe, true
-}
-
-// ReplicaHealthReport the report of the replica health
+// ReplicaHealthReport is the report of the replica health
 type ReplicaHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -4257,14 +3737,14 @@ type ReplicaHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// ReplicaList the list of the replica
+// ReplicaList is the list of the replica
 type ReplicaList struct {
 	autorest.Response `json:"-"`
 	ContinuationToken *string    `json:"ContinuationToken,omitempty"`
 	Items             *[]Replica `json:"Items,omitempty"`
 }
 
-// ReplicaLoadInformation the information of the replica load
+// ReplicaLoadInformation is the information of the replica load
 type ReplicaLoadInformation struct {
 	autorest.Response   `json:"-"`
 	PartitionID         *string   `json:"PartitionId,omitempty"`
@@ -4272,12 +3752,10 @@ type ReplicaLoadInformation struct {
 	ReportedLoad        *[]string `json:"ReportedLoad,omitempty"`
 }
 
-// ReplicasHealthEvaluation the evaluation of the replicas health
+// ReplicasHealthEvaluation is the evaluation of the replicas health
 type ReplicasHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                             *string                `json:"Description,omitempty"`
+	AggregatedHealthState                   AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                                    Kind                   `json:"Kind,omitempty"`
 	UnhealthyEvaluations                    *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 	TotalCount                              *int32                 `json:"TotalCount,omitempty"`
@@ -4295,122 +3773,112 @@ func (rhe ReplicasHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return &rhe, true
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for ReplicasHealthEvaluation.
 func (rhe ReplicasHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
-func (rhe ReplicasHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for ReplicasHealthEvaluation.
-func (rhe ReplicasHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &rhe, true
-}
-
-// ResolvedServicePartition the partition of the resolved service
+// ResolvedServicePartition is the partition of the resolved service
 type ResolvedServicePartition struct {
 	autorest.Response    `json:"-"`
 	Name                 *string                                  `json:"Name,omitempty"`
@@ -4419,70 +3887,49 @@ type ResolvedServicePartition struct {
 	Version              *string                                  `json:"Version,omitempty"`
 }
 
-// ResolvedServicePartitionEndpointsItem the endpoints
+// ResolvedServicePartitionEndpointsItem is the endpoints
 type ResolvedServicePartitionEndpointsItem struct {
 	Kind    *int32  `json:"Kind,omitempty"`
 	Address *string `json:"Address,omitempty"`
 }
 
-// ResumeApplicationUpgrade the upgrade of the resume application
+// ResumeApplicationUpgrade is the upgrade of the resume application
 type ResumeApplicationUpgrade struct {
 	UpgradeDomainName *string `json:"UpgradeDomainName,omitempty"`
 }
 
-// ResumeClusterUpgrade the upgrade of the resume cluster
+// ResumeClusterUpgrade is the upgrade of the resume cluster
 type ResumeClusterUpgrade struct {
 	UpgradeDomain *string `json:"UpgradeDomain,omitempty"`
 }
 
-// Service the service
+// Service is the service
 type Service struct {
 	autorest.Response `json:"-"`
-	ID                *string `json:"Id,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKind2Invalid', 'ServiceKind2Stateless', 'ServiceKind2Stateful'
-	ServiceKind       ServiceKind `json:"ServiceKind,omitempty"`
-	Name              *string     `json:"Name,omitempty"`
-	TypeName          *string     `json:"TypeName,omitempty"`
-	ManifestVersion   *string     `json:"ManifestVersion,omitempty"`
-	HasPersistedState *bool       `json:"HasPersistedState,omitempty"`
-	// HealthState - Possible values include: 'HealthState4Invalid', 'HealthState4Ok', 'HealthState4Warning', 'HealthState4Error', 'HealthState4Unknown'
-	HealthState HealthState `json:"HealthState,omitempty"`
-	// ServiceStatus - Possible values include: 'ServiceStatusInvalid', 'ServiceStatusActive', 'ServiceStatusUpgrading', 'ServiceStatusDeleting', 'ServiceStatusCreating', 'ServiceStatusFaile'
-	ServiceStatus  ServiceStatus `json:"ServiceStatus,omitempty"`
-	IsServiceGroup *bool         `json:"IsServiceGroup,omitempty"`
+	ID                *string       `json:"Id,omitempty"`
+	ServiceKind       ServiceKind   `json:"ServiceKind,omitempty"`
+	Name              *string       `json:"Name,omitempty"`
+	TypeName          *string       `json:"TypeName,omitempty"`
+	ManifestVersion   *string       `json:"ManifestVersion,omitempty"`
+	HasPersistedState *bool         `json:"HasPersistedState,omitempty"`
+	HealthState       HealthState   `json:"HealthState,omitempty"`
+	ServiceStatus     ServiceStatus `json:"ServiceStatus,omitempty"`
+	IsServiceGroup    *bool         `json:"IsServiceGroup,omitempty"`
 }
 
-// ServiceCorrelationDescription the description of the service correlation
+// ServiceCorrelationDescription is the description of the service correlation
 type ServiceCorrelationDescription struct {
-	ServiceName *string `json:"ServiceName,omitempty"`
-	// ServiceCorrelationScheme - Possible values include: 'ServiceCorrelationSchemeInvalid', 'ServiceCorrelationSchemeAffinity', 'ServiceCorrelationSchemeAlignedAffinity', 'ServiceCorrelationSchemeNonAlignedAffinity'
+	ServiceName              *string                  `json:"ServiceName,omitempty"`
 	ServiceCorrelationScheme ServiceCorrelationScheme `json:"ServiceCorrelationScheme,omitempty"`
 }
 
-// BasicServiceDescription the description of the service
-type BasicServiceDescription interface {
+// ServiceDescription is the description of the service
+type ServiceDescription interface {
 	AsStatelessServiceDescription() (*StatelessServiceDescription, bool)
 	AsStatefulServiceDescription() (*StatefulServiceDescription, bool)
-	AsServiceDescription() (*ServiceDescription, bool)
 }
 
-// ServiceDescription the description of the service
-type ServiceDescription struct {
-	autorest.Response        `json:"-"`
-	ApplicationName          *string                        `json:"ApplicationName,omitempty"`
-	ServiceName              *string                        `json:"ServiceName,omitempty"`
-	ServiceTypeName          *string                        `json:"ServiceTypeName,omitempty"`
-	PartitionDescription     *PartitionDescription          `json:"PartitionDescription,omitempty"`
-	PlacementConstraints     *string                        `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme        *ServiceCorrelationDescription `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics       *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
-	Flags                    *int32                         `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceDescriptionServiceKindServiceDescription', 'ServiceKindBasicServiceDescriptionServiceKindStateless', 'ServiceKindBasicServiceDescriptionServiceKindStateful'
-	ServiceKind ServiceKindBasicServiceDescription `json:"ServiceKind,omitempty"`
-}
-
-func unmarshalBasicServiceDescription(body []byte) (BasicServiceDescription, error) {
+func unmarshalServiceDescription(body []byte) (ServiceDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -4490,31 +3937,29 @@ func unmarshalBasicServiceDescription(body []byte) (BasicServiceDescription, err
 	}
 
 	switch m["ServiceKind"] {
-	case string(ServiceKindBasicServiceDescriptionServiceKindStateless):
+	case string(ServiceKindStateless):
 		var ssd StatelessServiceDescription
 		err := json.Unmarshal(body, &ssd)
 		return ssd, err
-	case string(ServiceKindBasicServiceDescriptionServiceKindStateful):
+	case string(ServiceKindStateful):
 		var ssd StatefulServiceDescription
 		err := json.Unmarshal(body, &ssd)
 		return ssd, err
 	default:
-		var sd ServiceDescription
-		err := json.Unmarshal(body, &sd)
-		return sd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicServiceDescriptionArray(body []byte) ([]BasicServiceDescription, error) {
+func unmarshalServiceDescriptionArray(body []byte) ([]ServiceDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	sdArray := make([]BasicServiceDescription, len(rawMessages))
+	sdArray := make([]ServiceDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		sd, err := unmarshalBasicServiceDescription(*rawMessage)
+		sd, err := unmarshalServiceDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -4523,46 +3968,15 @@ func unmarshalBasicServiceDescriptionArray(body []byte) ([]BasicServiceDescripti
 	return sdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for ServiceDescription.
-func (sd ServiceDescription) MarshalJSON() ([]byte, error) {
-	sd.ServiceKind = ServiceKindBasicServiceDescriptionServiceKindServiceDescription
-	type Alias ServiceDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(sd),
-	})
-}
-
-// AsStatelessServiceDescription is the BasicServiceDescription implementation for ServiceDescription.
-func (sd ServiceDescription) AsStatelessServiceDescription() (*StatelessServiceDescription, bool) {
-	return nil, false
-}
-
-// AsStatefulServiceDescription is the BasicServiceDescription implementation for ServiceDescription.
-func (sd ServiceDescription) AsStatefulServiceDescription() (*StatefulServiceDescription, bool) {
-	return nil, false
-}
-
-// AsServiceDescription is the BasicServiceDescription implementation for ServiceDescription.
-func (sd ServiceDescription) AsServiceDescription() (*ServiceDescription, bool) {
-	return &sd, true
-}
-
-// AsBasicServiceDescription is the BasicServiceDescription implementation for ServiceDescription.
-func (sd ServiceDescription) AsBasicServiceDescription() (BasicServiceDescription, bool) {
-	return &sd, true
-}
-
-// ServiceDescriptionModel ...
+// ServiceDescriptionModel is
 type ServiceDescriptionModel struct {
 	autorest.Response `json:"-"`
-	Value             BasicServiceDescription `json:"value,omitempty"`
+	Value             ServiceDescription `json:"value,omitempty"`
 }
 
 // UnmarshalJSON is the custom unmarshaler for ServiceDescriptionModel struct.
 func (sdm *ServiceDescriptionModel) UnmarshalJSON(body []byte) error {
-	sd, err := unmarshalBasicServiceDescription(body)
+	sd, err := unmarshalServiceDescription(body)
 	if err != nil {
 		return err
 	}
@@ -4571,37 +3985,19 @@ func (sdm *ServiceDescriptionModel) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
-// ServiceDescriptionTemplate the template of the service description
+// ServiceDescriptionTemplate is the template of the service description
 type ServiceDescriptionTemplate struct {
 	ServiceName     *string `json:"ServiceName,omitempty"`
 	ServiceTypeName *string `json:"ServiceTypeName,omitempty"`
 }
 
-// BasicServiceGroupDescription the description of the service group
-type BasicServiceGroupDescription interface {
+// ServiceGroupDescription is the description of the service group
+type ServiceGroupDescription interface {
 	AsStatelessServiceGroupDescription() (*StatelessServiceGroupDescription, bool)
 	AsStatefulServiceGroupDescription() (*StatefulServiceGroupDescription, bool)
-	AsServiceGroupDescription() (*ServiceGroupDescription, bool)
 }
 
-// ServiceGroupDescription the description of the service group
-type ServiceGroupDescription struct {
-	autorest.Response             `json:"-"`
-	ApplicationName               *string                          `json:"ApplicationName,omitempty"`
-	ServiceName                   *string                          `json:"ServiceName,omitempty"`
-	ServiceTypeName               *string                          `json:"ServiceTypeName,omitempty"`
-	PartitionDescription          *PartitionDescription            `json:"PartitionDescription,omitempty"`
-	PlacementConstraints          *string                          `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme             *ServiceCorrelationDescription   `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics            *ServiceCorrelationDescription   `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies      *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
-	Flags                         *int32                           `json:"Flags,omitempty"`
-	ServiceGroupMemberDescription *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceGroupDescriptionServiceKindServiceGroupDescription', 'ServiceKindBasicServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicServiceGroupDescriptionServiceKindStateful'
-	ServiceKind ServiceKindBasicServiceGroupDescription `json:"ServiceKind,omitempty"`
-}
-
-func unmarshalBasicServiceGroupDescription(body []byte) (BasicServiceGroupDescription, error) {
+func unmarshalServiceGroupDescription(body []byte) (ServiceGroupDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -4609,31 +4005,29 @@ func unmarshalBasicServiceGroupDescription(body []byte) (BasicServiceGroupDescri
 	}
 
 	switch m["ServiceKind"] {
-	case string(ServiceKindBasicServiceGroupDescriptionServiceKindStateless):
+	case string(ServiceKindStateless):
 		var ssgd StatelessServiceGroupDescription
 		err := json.Unmarshal(body, &ssgd)
 		return ssgd, err
-	case string(ServiceKindBasicServiceGroupDescriptionServiceKindStateful):
+	case string(ServiceKindStateful):
 		var ssgd StatefulServiceGroupDescription
 		err := json.Unmarshal(body, &ssgd)
 		return ssgd, err
 	default:
-		var sgd ServiceGroupDescription
-		err := json.Unmarshal(body, &sgd)
-		return sgd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicServiceGroupDescriptionArray(body []byte) ([]BasicServiceGroupDescription, error) {
+func unmarshalServiceGroupDescriptionArray(body []byte) ([]ServiceGroupDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	sgdArray := make([]BasicServiceGroupDescription, len(rawMessages))
+	sgdArray := make([]ServiceGroupDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		sgd, err := unmarshalBasicServiceGroupDescription(*rawMessage)
+		sgd, err := unmarshalServiceGroupDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -4642,46 +4036,15 @@ func unmarshalBasicServiceGroupDescriptionArray(body []byte) ([]BasicServiceGrou
 	return sgdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for ServiceGroupDescription.
-func (sgd ServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	sgd.ServiceKind = ServiceKindBasicServiceGroupDescriptionServiceKindServiceGroupDescription
-	type Alias ServiceGroupDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(sgd),
-	})
-}
-
-// AsStatelessServiceGroupDescription is the BasicServiceGroupDescription implementation for ServiceGroupDescription.
-func (sgd ServiceGroupDescription) AsStatelessServiceGroupDescription() (*StatelessServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsStatefulServiceGroupDescription is the BasicServiceGroupDescription implementation for ServiceGroupDescription.
-func (sgd ServiceGroupDescription) AsStatefulServiceGroupDescription() (*StatefulServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsServiceGroupDescription is the BasicServiceGroupDescription implementation for ServiceGroupDescription.
-func (sgd ServiceGroupDescription) AsServiceGroupDescription() (*ServiceGroupDescription, bool) {
-	return &sgd, true
-}
-
-// AsBasicServiceGroupDescription is the BasicServiceGroupDescription implementation for ServiceGroupDescription.
-func (sgd ServiceGroupDescription) AsBasicServiceGroupDescription() (BasicServiceGroupDescription, bool) {
-	return &sgd, true
-}
-
-// ServiceGroupDescriptionModel ...
+// ServiceGroupDescriptionModel is
 type ServiceGroupDescriptionModel struct {
 	autorest.Response `json:"-"`
-	Value             BasicServiceGroupDescription `json:"value,omitempty"`
+	Value             ServiceGroupDescription `json:"value,omitempty"`
 }
 
 // UnmarshalJSON is the custom unmarshaler for ServiceGroupDescriptionModel struct.
 func (sgdm *ServiceGroupDescriptionModel) UnmarshalJSON(body []byte) error {
-	sgd, err := unmarshalBasicServiceGroupDescription(body)
+	sgd, err := unmarshalServiceGroupDescription(body)
 	if err != nil {
 		return err
 	}
@@ -4690,40 +4053,36 @@ func (sgdm *ServiceGroupDescriptionModel) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
-// ServiceGroupMember the member of the service group
+// ServiceGroupMember is the member of the service group
 type ServiceGroupMember struct {
 	autorest.Response             `json:"-"`
 	Name                          *string                          `json:"Name,omitempty"`
 	ServiceGroupMemberDescription *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
 }
 
-// ServiceGroupMemberDescription the description of the service group member
+// ServiceGroupMemberDescription is the description of the service group member
 type ServiceGroupMemberDescription struct {
-	ServiceName     *string `json:"ServiceName,omitempty"`
-	ServiceTypeName *string `json:"ServiceTypeName,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKind3Invalid', 'ServiceKind3Stateless', 'ServiceKind3Stateful'
-	ServiceKind ServiceKind `json:"ServiceKind,omitempty"`
+	ServiceName     *string     `json:"ServiceName,omitempty"`
+	ServiceTypeName *string     `json:"ServiceTypeName,omitempty"`
+	ServiceKind     ServiceKind `json:"ServiceKind,omitempty"`
 }
 
-// ServiceHealth the health of the service
+// ServiceHealth is the health of the service
 type ServiceHealth struct {
-	autorest.Response `json:"-"`
-	HealthEvents      *[]HealthEvent `json:"HealthEvents,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState9Invalid', 'AggregatedHealthState9Ok', 'AggregatedHealthState9Warning', 'AggregatedHealthState9Error', 'AggregatedHealthState9Unknown'
+	autorest.Response     `json:"-"`
+	HealthEvents          *[]HealthEvent                            `json:"HealthEvents,omitempty"`
 	AggregatedHealthState AggregatedHealthState                     `json:"AggregatedHealthState,omitempty"`
 	Name                  *string                                   `json:"Name,omitempty"`
 	PartitionHealthStates *[]ServiceHealthPartitionHealthStatesItem `json:"PartitionHealthStates,omitempty"`
 }
 
-// ServiceHealthEvaluation the evaluation of the service health
+// ServiceHealthEvaluation is the evaluation of the service health
 type ServiceHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	ServiceName          *string                `json:"ServiceName,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	ServiceName           *string                `json:"ServiceName,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for ServiceHealthEvaluation.
@@ -4737,133 +4096,121 @@ func (she ServiceHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return &she, true
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for ServiceHealthEvaluation.
 func (she ServiceHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
-func (she ServiceHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for ServiceHealthEvaluation.
-func (she ServiceHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &she, true
-}
-
-// ServiceHealthPartitionHealthStatesItem the states of the partition health
+// ServiceHealthPartitionHealthStatesItem is the states of the partition health
 type ServiceHealthPartitionHealthStatesItem struct {
-	PartitionID *string `json:"PartitionId,omitempty"`
-	// AggregatedHealthState - Possible values include: 'AggregatedHealthState8Invalid', 'AggregatedHealthState8Ok', 'AggregatedHealthState8Warning', 'AggregatedHealthState8Error', 'AggregatedHealthState8Unknown'
+	PartitionID           *string               `json:"PartitionId,omitempty"`
 	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
 }
 
-// ServiceHealthReport the report of the service health
+// ServiceHealthReport is the report of the service health
 type ServiceHealthReport struct {
-	SourceID *string `json:"SourceId,omitempty"`
-	Property *string `json:"Property,omitempty"`
-	// HealthState - Possible values include: 'HealthState1Invalid', 'HealthState1Ok', 'HealthState1Warning', 'HealthState1Error', 'HealthState1Unknown'
+	SourceID                 *string     `json:"SourceId,omitempty"`
+	Property                 *string     `json:"Property,omitempty"`
 	HealthState              HealthState `json:"HealthState,omitempty"`
 	Description              *string     `json:"Description,omitempty"`
 	TimeToLiveInMilliSeconds *string     `json:"TimeToLiveInMilliSeconds,omitempty"`
@@ -4871,39 +4218,36 @@ type ServiceHealthReport struct {
 	RemoveWhenExpired        *bool       `json:"RemoveWhenExpired,omitempty"`
 }
 
-// ServiceList the list of the service
+// ServiceList is the list of the service
 type ServiceList struct {
 	autorest.Response `json:"-"`
 	ContinuationToken *string    `json:"ContinuationToken,omitempty"`
 	Items             *[]Service `json:"Items,omitempty"`
 }
 
-// ServiceLoadMetricDescription the description of the service load metric
+// ServiceLoadMetricDescription is the description of the service load metric
 type ServiceLoadMetricDescription struct {
-	Name *string `json:"Name,omitempty"`
-	// ServiceLoadMetricWeight - Possible values include: 'ServiceLoadMetricWeightZero', 'ServiceLoadMetricWeightLow', 'ServiceLoadMetricWeightMedium', 'ServiceLoadMetricWeightHigh'
+	Name                    *string                 `json:"Name,omitempty"`
 	ServiceLoadMetricWeight ServiceLoadMetricWeight `json:"ServiceLoadMetricWeight,omitempty"`
 	PrimaryDefaultLoad      *int32                  `json:"PrimaryDefaultLoad,omitempty"`
 	SecondaryDefaultLoad    *int32                  `json:"SecondaryDefaultLoad,omitempty"`
 }
 
-// ServiceManifest the manifest of the service
+// ServiceManifest is the manifest of the service
 type ServiceManifest struct {
 	autorest.Response `json:"-"`
 	Manifest          *string `json:"Manifest,omitempty"`
 }
 
-// ServicePlacementPolicyDescription the description of the service placement policy
+// ServicePlacementPolicyDescription is the description of the service placement policy
 type ServicePlacementPolicyDescription struct {
 	Type *string `json:"Type,omitempty"`
 }
 
-// ServicesHealthEvaluation the evaluation of the services health
+// ServicesHealthEvaluation is the evaluation of the services health
 type ServicesHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                 *string                `json:"Description,omitempty"`
+	AggregatedHealthState       AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                        Kind                   `json:"Kind,omitempty"`
 	ServiceTypeName             *string                `json:"ServiceTypeName,omitempty"`
 	UnhealthyEvaluations        *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
@@ -4922,131 +4266,120 @@ func (she ServicesHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return &she, true
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for ServicesHealthEvaluation.
 func (she ServicesHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
-func (she ServicesHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for ServicesHealthEvaluation.
-func (she ServicesHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &she, true
-}
-
-// ServiceType the type of the service
+// ServiceType is the type of the service
 type ServiceType struct {
-	// ServiceTypeDescription - The description of the service type
 	ServiceTypeDescription *ServiceTypeServiceTypeDescription `json:"ServiceTypeDescription,omitempty"`
 	ServiceManifestVersion *string                            `json:"ServiceManifestVersion,omitempty"`
 	ServiceManifestName    *string                            `json:"ServiceManifestName,omitempty"`
 	IsServiceGroup         *bool                              `json:"IsServiceGroup,omitempty"`
 }
 
-// ServiceTypeServiceTypeDescription the description of the service type
+// ServiceTypeServiceTypeDescription is the description of the service type
 type ServiceTypeServiceTypeDescription struct {
 	IsStateful           *bool   `json:"IsStateful,omitempty"`
 	ServiceTypeName      *string `json:"ServiceTypeName,omitempty"`
@@ -5054,78 +4387,64 @@ type ServiceTypeServiceTypeDescription struct {
 	HasPersistedState    *bool   `json:"HasPersistedState,omitempty"`
 }
 
-// StartApplicationUpgrade the description of the start application upgrade
+// StartApplicationUpgrade is the description of the start application upgrade
 type StartApplicationUpgrade struct {
-	Name                         *string                                  `json:"Name,omitempty"`
-	TargetApplicationTypeVersion *string                                  `json:"TargetApplicationTypeVersion,omitempty"`
-	Parameters                   *[]StartApplicationUpgradeParametersItem `json:"Parameters,omitempty"`
-	// UpgradeKind - Possible values include: 'UpgradeKindInvalid', 'UpgradeKindRolling'
-	UpgradeKind UpgradeKind `json:"UpgradeKind,omitempty"`
-	// RollingUpgradeMode - Possible values include: 'RollingUpgradeMode2Invalid', 'RollingUpgradeMode2UnmonitoredAuto', 'RollingUpgradeMode2UnmonitoredManual', 'RollingUpgradeMode2Monitored'
-	RollingUpgradeMode                     RollingUpgradeMode       `json:"RollingUpgradeMode,omitempty"`
-	UpgradeReplicaSetCheckTimeoutInSeconds *int32                   `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
-	ForceRestart                           *bool                    `json:"ForceRestart,omitempty"`
-	MonitoringPolicy                       *MonitoringPolicy        `json:"MonitoringPolicy,omitempty"`
-	ApplicationHealthPolicy                *ApplicationHealthPolicy `json:"ApplicationHealthPolicy,omitempty"`
+	Name                                   *string                                  `json:"Name,omitempty"`
+	TargetApplicationTypeVersion           *string                                  `json:"TargetApplicationTypeVersion,omitempty"`
+	Parameters                             *[]StartApplicationUpgradeParametersItem `json:"Parameters,omitempty"`
+	UpgradeKind                            UpgradeKind                              `json:"UpgradeKind,omitempty"`
+	RollingUpgradeMode                     RollingUpgradeMode                       `json:"RollingUpgradeMode,omitempty"`
+	UpgradeReplicaSetCheckTimeoutInSeconds *int32                                   `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
+	ForceRestart                           *bool                                    `json:"ForceRestart,omitempty"`
+	MonitoringPolicy                       *MonitoringPolicy                        `json:"MonitoringPolicy,omitempty"`
+	ApplicationHealthPolicy                *ApplicationHealthPolicy                 `json:"ApplicationHealthPolicy,omitempty"`
 }
 
-// StartApplicationUpgradeParametersItem the parameters
+// StartApplicationUpgradeParametersItem is the parameters
 type StartApplicationUpgradeParametersItem struct {
 	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
 }
 
-// StartClusterUpgrade the description of the start cluster upgrade
+// StartClusterUpgrade is the description of the start cluster upgrade
 type StartClusterUpgrade struct {
-	// ConfigVersion - The version of the config
-	ConfigVersion *string `json:"ConfigVersion,omitempty"`
-	// CodeVersion - The version of the code
-	CodeVersion *string `json:"CodeVersion,omitempty"`
-	// UpgradeKind - The kind of the upgrade
-	UpgradeKind *string `json:"UpgradeKind,omitempty"`
-	// RollingUpgradeMode - The mode of the rolling upgrade. Possible values include: 'RollingUpgradeModeInvalid', 'RollingUpgradeModeUnmonitoredAuto', 'RollingUpgradeModeUnmonitoredManual', 'RollingUpgradeModeMonitored'
-	RollingUpgradeMode RollingUpgradeMode `json:"RollingUpgradeMode,omitempty"`
-	// UpgradeReplicaSetCheckTimeoutInSeconds - The seconds of the upgrade replica set check timeout
-	UpgradeReplicaSetCheckTimeoutInSeconds *int32 `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
-	// ForceRestart - The flag of the force restart
-	ForceRestart *bool `json:"ForceRestart,omitempty"`
-	// EnableDeltaHealthEvaluation - The evaluation of the enable delta health
-	EnableDeltaHealthEvaluation *bool `json:"EnableDeltaHealthEvaluation,omitempty"`
-	// MonitoringPolicy - The policy of the monitoring
-	MonitoringPolicy *map[string]interface{} `json:"MonitoringPolicy,omitempty"`
-	// ClusterUpgradeHealthPolicy - The policy of the cluster upgrade health
-	ClusterUpgradeHealthPolicy *ClusterUpgradeHealthPolicy `json:"ClusterUpgradeHealthPolicy,omitempty"`
-	// ApplicationHealthPolicyMap - The map of the application health policy
-	ApplicationHealthPolicyMap *ApplicationHealthPolicyMap `json:"ApplicationHealthPolicyMap,omitempty"`
+	ConfigVersion                          *string                     `json:"ConfigVersion,omitempty"`
+	CodeVersion                            *string                     `json:"CodeVersion,omitempty"`
+	UpgradeKind                            *string                     `json:"UpgradeKind,omitempty"`
+	RollingUpgradeMode                     RollingUpgradeMode          `json:"RollingUpgradeMode,omitempty"`
+	UpgradeReplicaSetCheckTimeoutInSeconds *int32                      `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
+	ForceRestart                           *bool                       `json:"ForceRestart,omitempty"`
+	EnableDeltaHealthEvaluation            *bool                       `json:"EnableDeltaHealthEvaluation,omitempty"`
+	MonitoringPolicy                       *map[string]interface{}     `json:"MonitoringPolicy,omitempty"`
+	ClusterUpgradeHealthPolicy             *ClusterUpgradeHealthPolicy `json:"ClusterUpgradeHealthPolicy,omitempty"`
+	ApplicationHealthPolicyMap             *ApplicationHealthPolicyMap `json:"ApplicationHealthPolicyMap,omitempty"`
 }
 
-// StatefulCreateServiceDescription the description of the stateful create service
+// StatefulCreateServiceDescription is the description of the stateful create service
 type StatefulCreateServiceDescription struct {
-	ApplicationName          *string                        `json:"ApplicationName,omitempty"`
-	ServiceName              *string                        `json:"ServiceName,omitempty"`
-	ServiceTypeName          *string                        `json:"ServiceTypeName,omitempty"`
-	PartitionDescription     *PartitionDescription          `json:"PartitionDescription,omitempty"`
-	PlacementConstraints     *string                        `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme        *ServiceCorrelationDescription `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics       *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
-	Flags                    *int32                         `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindCreateServiceDescription', 'ServiceKindStateless1', 'ServiceKindStateful1'
-	ServiceKind                       ServiceKindBasicCreateServiceDescription `json:"ServiceKind,omitempty"`
-	TargetReplicaSetSize              *int32                                   `json:"TargetReplicaSetSize,omitempty"`
-	MinReplicaSetSize                 *int32                                   `json:"MinReplicaSetSize,omitempty"`
-	HasPersistedState                 *bool                                    `json:"HasPersistedState,omitempty"`
-	ReplicaRestartWaitDurationSeconds *int32                                   `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
-	QuorumLossWaitDurationSeconds     *int32                                   `json:"QuorumLossWaitDurationSeconds,omitempty"`
-	StandByReplicaKeepDurationSeconds *int32                                   `json:"StandByReplicaKeepDurationSeconds,omitempty"`
-	// DefaultMoveCost - Possible values include: 'DefaultMoveCost3Zero', 'DefaultMoveCost3Low', 'DefaultMoveCost3Medium', 'DefaultMoveCost3High'
-	DefaultMoveCost            DefaultMoveCost `json:"DefaultMoveCost,omitempty"`
-	IsDefaultMoveCostSpecified *bool           `json:"IsDefaultMoveCostSpecified,omitempty"`
+	ApplicationName                   *string                        `json:"ApplicationName,omitempty"`
+	ServiceName                       *string                        `json:"ServiceName,omitempty"`
+	ServiceTypeName                   *string                        `json:"ServiceTypeName,omitempty"`
+	PartitionDescription              *PartitionDescription          `json:"PartitionDescription,omitempty"`
+	PlacementConstraints              *string                        `json:"PlacementConstraints,omitempty"`
+	CorrelationScheme                 *ServiceCorrelationDescription `json:"CorrelationScheme,omitempty"`
+	ServiceLoadMetrics                *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
+	ServicePlacementPolicies          *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
+	Flags                             *int32                         `json:"Flags,omitempty"`
+	ServiceKind                       ServiceKind                    `json:"ServiceKind,omitempty"`
+	TargetReplicaSetSize              *int32                         `json:"TargetReplicaSetSize,omitempty"`
+	MinReplicaSetSize                 *int32                         `json:"MinReplicaSetSize,omitempty"`
+	HasPersistedState                 *bool                          `json:"HasPersistedState,omitempty"`
+	ReplicaRestartWaitDurationSeconds *int32                         `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
+	QuorumLossWaitDurationSeconds     *int32                         `json:"QuorumLossWaitDurationSeconds,omitempty"`
+	StandByReplicaKeepDurationSeconds *int32                         `json:"StandByReplicaKeepDurationSeconds,omitempty"`
+	DefaultMoveCost                   DefaultMoveCost                `json:"DefaultMoveCost,omitempty"`
+	IsDefaultMoveCostSpecified        *bool                          `json:"IsDefaultMoveCostSpecified,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatefulCreateServiceDescription.
 func (scsd StatefulCreateServiceDescription) MarshalJSON() ([]byte, error) {
-	scsd.ServiceKind = ServiceKindStateful1
+	scsd.ServiceKind = ServiceKindStateful
 	type Alias StatefulCreateServiceDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5134,54 +4453,42 @@ func (scsd StatefulCreateServiceDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessCreateServiceDescription is the BasicCreateServiceDescription implementation for StatefulCreateServiceDescription.
+// AsStatelessCreateServiceDescription is the CreateServiceDescription implementation for StatefulCreateServiceDescription.
 func (scsd StatefulCreateServiceDescription) AsStatelessCreateServiceDescription() (*StatelessCreateServiceDescription, bool) {
 	return nil, false
 }
 
-// AsStatefulCreateServiceDescription is the BasicCreateServiceDescription implementation for StatefulCreateServiceDescription.
+// AsStatefulCreateServiceDescription is the CreateServiceDescription implementation for StatefulCreateServiceDescription.
 func (scsd StatefulCreateServiceDescription) AsStatefulCreateServiceDescription() (*StatefulCreateServiceDescription, bool) {
 	return &scsd, true
 }
 
-// AsCreateServiceDescription is the BasicCreateServiceDescription implementation for StatefulCreateServiceDescription.
-func (scsd StatefulCreateServiceDescription) AsCreateServiceDescription() (*CreateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsBasicCreateServiceDescription is the BasicCreateServiceDescription implementation for StatefulCreateServiceDescription.
-func (scsd StatefulCreateServiceDescription) AsBasicCreateServiceDescription() (BasicCreateServiceDescription, bool) {
-	return &scsd, true
-}
-
-// StatefulCreateServiceGroupDescription the description of the stateful create service group
+// StatefulCreateServiceGroupDescription is the description of the stateful create service group
 type StatefulCreateServiceGroupDescription struct {
-	ApplicationName               *string                          `json:"ApplicationName,omitempty"`
-	ServiceName                   *string                          `json:"ServiceName,omitempty"`
-	ServiceTypeName               *string                          `json:"ServiceTypeName,omitempty"`
-	PartitionDescription          *PartitionDescription            `json:"PartitionDescription,omitempty"`
-	PlacementConstraints          *string                          `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme             *ServiceCorrelationDescription   `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics            *ServiceCorrelationDescription   `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies      *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
-	Flags                         *int32                           `json:"Flags,omitempty"`
-	ServiceGroupMemberDescription *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindCreateServiceGroupDescription', 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateful'
-	ServiceKind                       ServiceKindBasicCreateServiceGroupDescription `json:"ServiceKind,omitempty"`
-	TargetReplicaSetSize              *int32                                        `json:"TargetReplicaSetSize,omitempty"`
-	MinReplicaSetSize                 *int32                                        `json:"MinReplicaSetSize,omitempty"`
-	HasPersistedState                 *bool                                         `json:"HasPersistedState,omitempty"`
-	ReplicaRestartWaitDurationSeconds *int32                                        `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
-	QuorumLossWaitDurationSeconds     *int32                                        `json:"QuorumLossWaitDurationSeconds,omitempty"`
-	StandByReplicaKeepDurationSeconds *int32                                        `json:"StandByReplicaKeepDurationSeconds,omitempty"`
-	// DefaultMoveCost - Possible values include: 'DefaultMoveCost1Zero', 'DefaultMoveCost1Low', 'DefaultMoveCost1Medium', 'DefaultMoveCost1High'
-	DefaultMoveCost            DefaultMoveCost `json:"DefaultMoveCost,omitempty"`
-	IsDefaultMoveCostSpecified *bool           `json:"IsDefaultMoveCostSpecified,omitempty"`
+	ApplicationName                   *string                          `json:"ApplicationName,omitempty"`
+	ServiceName                       *string                          `json:"ServiceName,omitempty"`
+	ServiceTypeName                   *string                          `json:"ServiceTypeName,omitempty"`
+	PartitionDescription              *PartitionDescription            `json:"PartitionDescription,omitempty"`
+	PlacementConstraints              *string                          `json:"PlacementConstraints,omitempty"`
+	CorrelationScheme                 *ServiceCorrelationDescription   `json:"CorrelationScheme,omitempty"`
+	ServiceLoadMetrics                *ServiceCorrelationDescription   `json:"ServiceLoadMetrics,omitempty"`
+	ServicePlacementPolicies          *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
+	Flags                             *int32                           `json:"Flags,omitempty"`
+	ServiceGroupMemberDescription     *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
+	ServiceKind                       ServiceKind                      `json:"ServiceKind,omitempty"`
+	TargetReplicaSetSize              *int32                           `json:"TargetReplicaSetSize,omitempty"`
+	MinReplicaSetSize                 *int32                           `json:"MinReplicaSetSize,omitempty"`
+	HasPersistedState                 *bool                            `json:"HasPersistedState,omitempty"`
+	ReplicaRestartWaitDurationSeconds *int32                           `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
+	QuorumLossWaitDurationSeconds     *int32                           `json:"QuorumLossWaitDurationSeconds,omitempty"`
+	StandByReplicaKeepDurationSeconds *int32                           `json:"StandByReplicaKeepDurationSeconds,omitempty"`
+	DefaultMoveCost                   DefaultMoveCost                  `json:"DefaultMoveCost,omitempty"`
+	IsDefaultMoveCostSpecified        *bool                            `json:"IsDefaultMoveCostSpecified,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatefulCreateServiceGroupDescription.
 func (scsgd StatefulCreateServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	scsgd.ServiceKind = ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateful
+	scsgd.ServiceKind = ServiceKindStateful
 	type Alias StatefulCreateServiceGroupDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5190,53 +4497,41 @@ func (scsgd StatefulCreateServiceGroupDescription) MarshalJSON() ([]byte, error)
 	})
 }
 
-// AsStatelessCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatefulCreateServiceGroupDescription.
+// AsStatelessCreateServiceGroupDescription is the CreateServiceGroupDescription implementation for StatefulCreateServiceGroupDescription.
 func (scsgd StatefulCreateServiceGroupDescription) AsStatelessCreateServiceGroupDescription() (*StatelessCreateServiceGroupDescription, bool) {
 	return nil, false
 }
 
-// AsStatefulCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatefulCreateServiceGroupDescription.
+// AsStatefulCreateServiceGroupDescription is the CreateServiceGroupDescription implementation for StatefulCreateServiceGroupDescription.
 func (scsgd StatefulCreateServiceGroupDescription) AsStatefulCreateServiceGroupDescription() (*StatefulCreateServiceGroupDescription, bool) {
 	return &scsgd, true
 }
 
-// AsCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatefulCreateServiceGroupDescription.
-func (scsgd StatefulCreateServiceGroupDescription) AsCreateServiceGroupDescription() (*CreateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsBasicCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatefulCreateServiceGroupDescription.
-func (scsgd StatefulCreateServiceGroupDescription) AsBasicCreateServiceGroupDescription() (BasicCreateServiceGroupDescription, bool) {
-	return &scsgd, true
-}
-
-// StatefulServiceDescription the description of the stateful service
+// StatefulServiceDescription is the description of the stateful service
 type StatefulServiceDescription struct {
-	ApplicationName          *string                        `json:"ApplicationName,omitempty"`
-	ServiceName              *string                        `json:"ServiceName,omitempty"`
-	ServiceTypeName          *string                        `json:"ServiceTypeName,omitempty"`
-	PartitionDescription     *PartitionDescription          `json:"PartitionDescription,omitempty"`
-	PlacementConstraints     *string                        `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme        *ServiceCorrelationDescription `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics       *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
-	Flags                    *int32                         `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceDescriptionServiceKindServiceDescription', 'ServiceKindBasicServiceDescriptionServiceKindStateless', 'ServiceKindBasicServiceDescriptionServiceKindStateful'
-	ServiceKind                       ServiceKindBasicServiceDescription `json:"ServiceKind,omitempty"`
-	TargetReplicaSetSize              *int32                             `json:"TargetReplicaSetSize,omitempty"`
-	MinReplicaSetSize                 *int32                             `json:"MinReplicaSetSize,omitempty"`
-	HasPersistedState                 *bool                              `json:"HasPersistedState,omitempty"`
-	ReplicaRestartWaitDurationSeconds *int32                             `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
-	QuorumLossWaitDurationSeconds     *int32                             `json:"QuorumLossWaitDurationSeconds,omitempty"`
-	StandByReplicaKeepDurationSeconds *int32                             `json:"StandByReplicaKeepDurationSeconds,omitempty"`
-	// DefaultMoveCost - Possible values include: 'DefaultMoveCost2Zero', 'DefaultMoveCost2Low', 'DefaultMoveCost2Medium', 'DefaultMoveCost2High'
-	DefaultMoveCost            DefaultMoveCost `json:"DefaultMoveCost,omitempty"`
-	IsDefaultMoveCostSpecified *bool           `json:"IsDefaultMoveCostSpecified,omitempty"`
+	ApplicationName                   *string                        `json:"ApplicationName,omitempty"`
+	ServiceName                       *string                        `json:"ServiceName,omitempty"`
+	ServiceTypeName                   *string                        `json:"ServiceTypeName,omitempty"`
+	PartitionDescription              *PartitionDescription          `json:"PartitionDescription,omitempty"`
+	PlacementConstraints              *string                        `json:"PlacementConstraints,omitempty"`
+	CorrelationScheme                 *ServiceCorrelationDescription `json:"CorrelationScheme,omitempty"`
+	ServiceLoadMetrics                *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
+	ServicePlacementPolicies          *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
+	Flags                             *int32                         `json:"Flags,omitempty"`
+	ServiceKind                       ServiceKind                    `json:"ServiceKind,omitempty"`
+	TargetReplicaSetSize              *int32                         `json:"TargetReplicaSetSize,omitempty"`
+	MinReplicaSetSize                 *int32                         `json:"MinReplicaSetSize,omitempty"`
+	HasPersistedState                 *bool                          `json:"HasPersistedState,omitempty"`
+	ReplicaRestartWaitDurationSeconds *int32                         `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
+	QuorumLossWaitDurationSeconds     *int32                         `json:"QuorumLossWaitDurationSeconds,omitempty"`
+	StandByReplicaKeepDurationSeconds *int32                         `json:"StandByReplicaKeepDurationSeconds,omitempty"`
+	DefaultMoveCost                   DefaultMoveCost                `json:"DefaultMoveCost,omitempty"`
+	IsDefaultMoveCostSpecified        *bool                          `json:"IsDefaultMoveCostSpecified,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatefulServiceDescription.
 func (ssd StatefulServiceDescription) MarshalJSON() ([]byte, error) {
-	ssd.ServiceKind = ServiceKindBasicServiceDescriptionServiceKindStateful
+	ssd.ServiceKind = ServiceKindStateful
 	type Alias StatefulServiceDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5245,54 +4540,42 @@ func (ssd StatefulServiceDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessServiceDescription is the BasicServiceDescription implementation for StatefulServiceDescription.
+// AsStatelessServiceDescription is the ServiceDescription implementation for StatefulServiceDescription.
 func (ssd StatefulServiceDescription) AsStatelessServiceDescription() (*StatelessServiceDescription, bool) {
 	return nil, false
 }
 
-// AsStatefulServiceDescription is the BasicServiceDescription implementation for StatefulServiceDescription.
+// AsStatefulServiceDescription is the ServiceDescription implementation for StatefulServiceDescription.
 func (ssd StatefulServiceDescription) AsStatefulServiceDescription() (*StatefulServiceDescription, bool) {
 	return &ssd, true
 }
 
-// AsServiceDescription is the BasicServiceDescription implementation for StatefulServiceDescription.
-func (ssd StatefulServiceDescription) AsServiceDescription() (*ServiceDescription, bool) {
-	return nil, false
-}
-
-// AsBasicServiceDescription is the BasicServiceDescription implementation for StatefulServiceDescription.
-func (ssd StatefulServiceDescription) AsBasicServiceDescription() (BasicServiceDescription, bool) {
-	return &ssd, true
-}
-
-// StatefulServiceGroupDescription the description of the stateful service group
+// StatefulServiceGroupDescription is the description of the stateful service group
 type StatefulServiceGroupDescription struct {
-	ApplicationName               *string                          `json:"ApplicationName,omitempty"`
-	ServiceName                   *string                          `json:"ServiceName,omitempty"`
-	ServiceTypeName               *string                          `json:"ServiceTypeName,omitempty"`
-	PartitionDescription          *PartitionDescription            `json:"PartitionDescription,omitempty"`
-	PlacementConstraints          *string                          `json:"PlacementConstraints,omitempty"`
-	CorrelationScheme             *ServiceCorrelationDescription   `json:"CorrelationScheme,omitempty"`
-	ServiceLoadMetrics            *ServiceCorrelationDescription   `json:"ServiceLoadMetrics,omitempty"`
-	ServicePlacementPolicies      *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
-	Flags                         *int32                           `json:"Flags,omitempty"`
-	ServiceGroupMemberDescription *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceGroupDescriptionServiceKindServiceGroupDescription', 'ServiceKindBasicServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicServiceGroupDescriptionServiceKindStateful'
-	ServiceKind                       ServiceKindBasicServiceGroupDescription `json:"ServiceKind,omitempty"`
-	TargetReplicaSetSize              *int32                                  `json:"TargetReplicaSetSize,omitempty"`
-	MinReplicaSetSize                 *int32                                  `json:"MinReplicaSetSize,omitempty"`
-	HasPersistedState                 *bool                                   `json:"HasPersistedState,omitempty"`
-	ReplicaRestartWaitDurationSeconds *int32                                  `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
-	QuorumLossWaitDurationSeconds     *int32                                  `json:"QuorumLossWaitDurationSeconds,omitempty"`
-	StandByReplicaKeepDurationSeconds *int32                                  `json:"StandByReplicaKeepDurationSeconds,omitempty"`
-	// DefaultMoveCost - Possible values include: 'Zero', 'Low', 'Medium', 'High'
-	DefaultMoveCost            DefaultMoveCost `json:"DefaultMoveCost,omitempty"`
-	IsDefaultMoveCostSpecified *bool           `json:"IsDefaultMoveCostSpecified,omitempty"`
+	ApplicationName                   *string                          `json:"ApplicationName,omitempty"`
+	ServiceName                       *string                          `json:"ServiceName,omitempty"`
+	ServiceTypeName                   *string                          `json:"ServiceTypeName,omitempty"`
+	PartitionDescription              *PartitionDescription            `json:"PartitionDescription,omitempty"`
+	PlacementConstraints              *string                          `json:"PlacementConstraints,omitempty"`
+	CorrelationScheme                 *ServiceCorrelationDescription   `json:"CorrelationScheme,omitempty"`
+	ServiceLoadMetrics                *ServiceCorrelationDescription   `json:"ServiceLoadMetrics,omitempty"`
+	ServicePlacementPolicies          *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
+	Flags                             *int32                           `json:"Flags,omitempty"`
+	ServiceGroupMemberDescription     *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
+	ServiceKind                       ServiceKind                      `json:"ServiceKind,omitempty"`
+	TargetReplicaSetSize              *int32                           `json:"TargetReplicaSetSize,omitempty"`
+	MinReplicaSetSize                 *int32                           `json:"MinReplicaSetSize,omitempty"`
+	HasPersistedState                 *bool                            `json:"HasPersistedState,omitempty"`
+	ReplicaRestartWaitDurationSeconds *int32                           `json:"ReplicaRestartWaitDurationSeconds,omitempty"`
+	QuorumLossWaitDurationSeconds     *int32                           `json:"QuorumLossWaitDurationSeconds,omitempty"`
+	StandByReplicaKeepDurationSeconds *int32                           `json:"StandByReplicaKeepDurationSeconds,omitempty"`
+	DefaultMoveCost                   DefaultMoveCost                  `json:"DefaultMoveCost,omitempty"`
+	IsDefaultMoveCostSpecified        *bool                            `json:"IsDefaultMoveCostSpecified,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatefulServiceGroupDescription.
 func (ssgd StatefulServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	ssgd.ServiceKind = ServiceKindBasicServiceGroupDescriptionServiceKindStateful
+	ssgd.ServiceKind = ServiceKindStateful
 	type Alias StatefulServiceGroupDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5301,41 +4584,30 @@ func (ssgd StatefulServiceGroupDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessServiceGroupDescription is the BasicServiceGroupDescription implementation for StatefulServiceGroupDescription.
+// AsStatelessServiceGroupDescription is the ServiceGroupDescription implementation for StatefulServiceGroupDescription.
 func (ssgd StatefulServiceGroupDescription) AsStatelessServiceGroupDescription() (*StatelessServiceGroupDescription, bool) {
 	return nil, false
 }
 
-// AsStatefulServiceGroupDescription is the BasicServiceGroupDescription implementation for StatefulServiceGroupDescription.
+// AsStatefulServiceGroupDescription is the ServiceGroupDescription implementation for StatefulServiceGroupDescription.
 func (ssgd StatefulServiceGroupDescription) AsStatefulServiceGroupDescription() (*StatefulServiceGroupDescription, bool) {
 	return &ssgd, true
 }
 
-// AsServiceGroupDescription is the BasicServiceGroupDescription implementation for StatefulServiceGroupDescription.
-func (ssgd StatefulServiceGroupDescription) AsServiceGroupDescription() (*ServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsBasicServiceGroupDescription is the BasicServiceGroupDescription implementation for StatefulServiceGroupDescription.
-func (ssgd StatefulServiceGroupDescription) AsBasicServiceGroupDescription() (BasicServiceGroupDescription, bool) {
-	return &ssgd, true
-}
-
-// StatefulUpdateServiceDescription the description of the stateful update service
+// StatefulUpdateServiceDescription is the description of the stateful update service
 type StatefulUpdateServiceDescription struct {
-	Flags *int32 `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicUpdateServiceDescriptionServiceKindUpdateServiceDescription', 'ServiceKindBasicUpdateServiceDescriptionServiceKindStateless', 'ServiceKindBasicUpdateServiceDescriptionServiceKindStateful'
-	ServiceKind                              ServiceKindBasicUpdateServiceDescription `json:"ServiceKind,omitempty"`
-	TargetReplicaSetSize                     *int32                                   `json:"TargetReplicaSetSize,omitempty"`
-	MinReplicaSetSize                        *int32                                   `json:"MinReplicaSetSize,omitempty"`
-	ReplicaRestartWaitDurationInMilliseconds *int32                                   `json:"ReplicaRestartWaitDurationInMilliseconds,omitempty"`
-	QuorumLossWaitDurationInMilliseconds     *int32                                   `json:"QuorumLossWaitDurationInMilliseconds,omitempty"`
-	StandByReplicaKeepDurationInMilliseconds *int32                                   `json:"StandByReplicaKeepDurationInMilliseconds,omitempty"`
+	Flags                                    *int32      `json:"Flags,omitempty"`
+	ServiceKind                              ServiceKind `json:"ServiceKind,omitempty"`
+	TargetReplicaSetSize                     *int32      `json:"TargetReplicaSetSize,omitempty"`
+	MinReplicaSetSize                        *int32      `json:"MinReplicaSetSize,omitempty"`
+	ReplicaRestartWaitDurationInMilliseconds *int32      `json:"ReplicaRestartWaitDurationInMilliseconds,omitempty"`
+	QuorumLossWaitDurationInMilliseconds     *int32      `json:"QuorumLossWaitDurationInMilliseconds,omitempty"`
+	StandByReplicaKeepDurationInMilliseconds *int32      `json:"StandByReplicaKeepDurationInMilliseconds,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatefulUpdateServiceDescription.
 func (susd StatefulUpdateServiceDescription) MarshalJSON() ([]byte, error) {
-	susd.ServiceKind = ServiceKindBasicUpdateServiceDescriptionServiceKindStateful
+	susd.ServiceKind = ServiceKindStateful
 	type Alias StatefulUpdateServiceDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5344,41 +4616,30 @@ func (susd StatefulUpdateServiceDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatefulUpdateServiceDescription.
+// AsStatelessUpdateServiceDescription is the UpdateServiceDescription implementation for StatefulUpdateServiceDescription.
 func (susd StatefulUpdateServiceDescription) AsStatelessUpdateServiceDescription() (*StatelessUpdateServiceDescription, bool) {
 	return nil, false
 }
 
-// AsStatefulUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatefulUpdateServiceDescription.
+// AsStatefulUpdateServiceDescription is the UpdateServiceDescription implementation for StatefulUpdateServiceDescription.
 func (susd StatefulUpdateServiceDescription) AsStatefulUpdateServiceDescription() (*StatefulUpdateServiceDescription, bool) {
 	return &susd, true
 }
 
-// AsUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatefulUpdateServiceDescription.
-func (susd StatefulUpdateServiceDescription) AsUpdateServiceDescription() (*UpdateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsBasicUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatefulUpdateServiceDescription.
-func (susd StatefulUpdateServiceDescription) AsBasicUpdateServiceDescription() (BasicUpdateServiceDescription, bool) {
-	return &susd, true
-}
-
-// StatefulUpdateServiceGroupDescription the description of the stateful update service group
+// StatefulUpdateServiceGroupDescription is the description of the stateful update service group
 type StatefulUpdateServiceGroupDescription struct {
-	Flags *int32 `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindUpdateServiceGroupDescription', 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateful'
-	ServiceKind                              ServiceKindBasicUpdateServiceGroupDescription `json:"ServiceKind,omitempty"`
-	TargetReplicaSetSize                     *int32                                        `json:"TargetReplicaSetSize,omitempty"`
-	MinReplicaSetSize                        *int32                                        `json:"MinReplicaSetSize,omitempty"`
-	ReplicaRestartWaitDurationInMilliseconds *int32                                        `json:"ReplicaRestartWaitDurationInMilliseconds,omitempty"`
-	QuorumLossWaitDurationInMilliseconds     *int32                                        `json:"QuorumLossWaitDurationInMilliseconds,omitempty"`
-	StandByReplicaKeepDurationInMilliseconds *int32                                        `json:"StandByReplicaKeepDurationInMilliseconds,omitempty"`
+	Flags                                    *int32      `json:"Flags,omitempty"`
+	ServiceKind                              ServiceKind `json:"ServiceKind,omitempty"`
+	TargetReplicaSetSize                     *int32      `json:"TargetReplicaSetSize,omitempty"`
+	MinReplicaSetSize                        *int32      `json:"MinReplicaSetSize,omitempty"`
+	ReplicaRestartWaitDurationInMilliseconds *int32      `json:"ReplicaRestartWaitDurationInMilliseconds,omitempty"`
+	QuorumLossWaitDurationInMilliseconds     *int32      `json:"QuorumLossWaitDurationInMilliseconds,omitempty"`
+	StandByReplicaKeepDurationInMilliseconds *int32      `json:"StandByReplicaKeepDurationInMilliseconds,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatefulUpdateServiceGroupDescription.
 func (susgd StatefulUpdateServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	susgd.ServiceKind = ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateful
+	susgd.ServiceKind = ServiceKindStateful
 	type Alias StatefulUpdateServiceGroupDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5387,27 +4648,17 @@ func (susgd StatefulUpdateServiceGroupDescription) MarshalJSON() ([]byte, error)
 	})
 }
 
-// AsStatelessUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatefulUpdateServiceGroupDescription.
+// AsStatelessUpdateServiceGroupDescription is the UpdateServiceGroupDescription implementation for StatefulUpdateServiceGroupDescription.
 func (susgd StatefulUpdateServiceGroupDescription) AsStatelessUpdateServiceGroupDescription() (*StatelessUpdateServiceGroupDescription, bool) {
 	return nil, false
 }
 
-// AsStatefulUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatefulUpdateServiceGroupDescription.
+// AsStatefulUpdateServiceGroupDescription is the UpdateServiceGroupDescription implementation for StatefulUpdateServiceGroupDescription.
 func (susgd StatefulUpdateServiceGroupDescription) AsStatefulUpdateServiceGroupDescription() (*StatefulUpdateServiceGroupDescription, bool) {
 	return &susgd, true
 }
 
-// AsUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatefulUpdateServiceGroupDescription.
-func (susgd StatefulUpdateServiceGroupDescription) AsUpdateServiceGroupDescription() (*UpdateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsBasicUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatefulUpdateServiceGroupDescription.
-func (susgd StatefulUpdateServiceGroupDescription) AsBasicUpdateServiceGroupDescription() (BasicUpdateServiceGroupDescription, bool) {
-	return &susgd, true
-}
-
-// StatelessCreateServiceDescription the description of the stateless create service
+// StatelessCreateServiceDescription is the description of the stateless create service
 type StatelessCreateServiceDescription struct {
 	ApplicationName          *string                        `json:"ApplicationName,omitempty"`
 	ServiceName              *string                        `json:"ServiceName,omitempty"`
@@ -5418,14 +4669,13 @@ type StatelessCreateServiceDescription struct {
 	ServiceLoadMetrics       *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
 	ServicePlacementPolicies *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
 	Flags                    *int32                         `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindCreateServiceDescription', 'ServiceKindStateless1', 'ServiceKindStateful1'
-	ServiceKind   ServiceKindBasicCreateServiceDescription `json:"ServiceKind,omitempty"`
-	InstanceCount *int32                                   `json:"InstanceCount,omitempty"`
+	ServiceKind              ServiceKind                    `json:"ServiceKind,omitempty"`
+	InstanceCount            *int32                         `json:"InstanceCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatelessCreateServiceDescription.
 func (scsd StatelessCreateServiceDescription) MarshalJSON() ([]byte, error) {
-	scsd.ServiceKind = ServiceKindStateless1
+	scsd.ServiceKind = ServiceKindStateless
 	type Alias StatelessCreateServiceDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5434,27 +4684,17 @@ func (scsd StatelessCreateServiceDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessCreateServiceDescription is the BasicCreateServiceDescription implementation for StatelessCreateServiceDescription.
+// AsStatelessCreateServiceDescription is the CreateServiceDescription implementation for StatelessCreateServiceDescription.
 func (scsd StatelessCreateServiceDescription) AsStatelessCreateServiceDescription() (*StatelessCreateServiceDescription, bool) {
 	return &scsd, true
 }
 
-// AsStatefulCreateServiceDescription is the BasicCreateServiceDescription implementation for StatelessCreateServiceDescription.
+// AsStatefulCreateServiceDescription is the CreateServiceDescription implementation for StatelessCreateServiceDescription.
 func (scsd StatelessCreateServiceDescription) AsStatefulCreateServiceDescription() (*StatefulCreateServiceDescription, bool) {
 	return nil, false
 }
 
-// AsCreateServiceDescription is the BasicCreateServiceDescription implementation for StatelessCreateServiceDescription.
-func (scsd StatelessCreateServiceDescription) AsCreateServiceDescription() (*CreateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsBasicCreateServiceDescription is the BasicCreateServiceDescription implementation for StatelessCreateServiceDescription.
-func (scsd StatelessCreateServiceDescription) AsBasicCreateServiceDescription() (BasicCreateServiceDescription, bool) {
-	return &scsd, true
-}
-
-// StatelessCreateServiceGroupDescription the description of the stateless create service group
+// StatelessCreateServiceGroupDescription is the description of the stateless create service group
 type StatelessCreateServiceGroupDescription struct {
 	ApplicationName               *string                          `json:"ApplicationName,omitempty"`
 	ServiceName                   *string                          `json:"ServiceName,omitempty"`
@@ -5466,14 +4706,13 @@ type StatelessCreateServiceGroupDescription struct {
 	ServicePlacementPolicies      *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
 	Flags                         *int32                           `json:"Flags,omitempty"`
 	ServiceGroupMemberDescription *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindCreateServiceGroupDescription', 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateful'
-	ServiceKind   ServiceKindBasicCreateServiceGroupDescription `json:"ServiceKind,omitempty"`
-	InstanceCount *int32                                        `json:"InstanceCount,omitempty"`
+	ServiceKind                   ServiceKind                      `json:"ServiceKind,omitempty"`
+	InstanceCount                 *int32                           `json:"InstanceCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatelessCreateServiceGroupDescription.
 func (scsgd StatelessCreateServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	scsgd.ServiceKind = ServiceKindBasicCreateServiceGroupDescriptionServiceKindStateless
+	scsgd.ServiceKind = ServiceKindStateless
 	type Alias StatelessCreateServiceGroupDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5482,27 +4721,17 @@ func (scsgd StatelessCreateServiceGroupDescription) MarshalJSON() ([]byte, error
 	})
 }
 
-// AsStatelessCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatelessCreateServiceGroupDescription.
+// AsStatelessCreateServiceGroupDescription is the CreateServiceGroupDescription implementation for StatelessCreateServiceGroupDescription.
 func (scsgd StatelessCreateServiceGroupDescription) AsStatelessCreateServiceGroupDescription() (*StatelessCreateServiceGroupDescription, bool) {
 	return &scsgd, true
 }
 
-// AsStatefulCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatelessCreateServiceGroupDescription.
+// AsStatefulCreateServiceGroupDescription is the CreateServiceGroupDescription implementation for StatelessCreateServiceGroupDescription.
 func (scsgd StatelessCreateServiceGroupDescription) AsStatefulCreateServiceGroupDescription() (*StatefulCreateServiceGroupDescription, bool) {
 	return nil, false
 }
 
-// AsCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatelessCreateServiceGroupDescription.
-func (scsgd StatelessCreateServiceGroupDescription) AsCreateServiceGroupDescription() (*CreateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsBasicCreateServiceGroupDescription is the BasicCreateServiceGroupDescription implementation for StatelessCreateServiceGroupDescription.
-func (scsgd StatelessCreateServiceGroupDescription) AsBasicCreateServiceGroupDescription() (BasicCreateServiceGroupDescription, bool) {
-	return &scsgd, true
-}
-
-// StatelessServiceDescription the description of the stateless service
+// StatelessServiceDescription is the description of the stateless service
 type StatelessServiceDescription struct {
 	ApplicationName          *string                        `json:"ApplicationName,omitempty"`
 	ServiceName              *string                        `json:"ServiceName,omitempty"`
@@ -5513,14 +4742,13 @@ type StatelessServiceDescription struct {
 	ServiceLoadMetrics       *ServiceCorrelationDescription `json:"ServiceLoadMetrics,omitempty"`
 	ServicePlacementPolicies *ServiceCorrelationDescription `json:"ServicePlacementPolicies,omitempty"`
 	Flags                    *int32                         `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceDescriptionServiceKindServiceDescription', 'ServiceKindBasicServiceDescriptionServiceKindStateless', 'ServiceKindBasicServiceDescriptionServiceKindStateful'
-	ServiceKind   ServiceKindBasicServiceDescription `json:"ServiceKind,omitempty"`
-	InstanceCount *int32                             `json:"InstanceCount,omitempty"`
+	ServiceKind              ServiceKind                    `json:"ServiceKind,omitempty"`
+	InstanceCount            *int32                         `json:"InstanceCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatelessServiceDescription.
 func (ssd StatelessServiceDescription) MarshalJSON() ([]byte, error) {
-	ssd.ServiceKind = ServiceKindBasicServiceDescriptionServiceKindStateless
+	ssd.ServiceKind = ServiceKindStateless
 	type Alias StatelessServiceDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5529,27 +4757,17 @@ func (ssd StatelessServiceDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessServiceDescription is the BasicServiceDescription implementation for StatelessServiceDescription.
+// AsStatelessServiceDescription is the ServiceDescription implementation for StatelessServiceDescription.
 func (ssd StatelessServiceDescription) AsStatelessServiceDescription() (*StatelessServiceDescription, bool) {
 	return &ssd, true
 }
 
-// AsStatefulServiceDescription is the BasicServiceDescription implementation for StatelessServiceDescription.
+// AsStatefulServiceDescription is the ServiceDescription implementation for StatelessServiceDescription.
 func (ssd StatelessServiceDescription) AsStatefulServiceDescription() (*StatefulServiceDescription, bool) {
 	return nil, false
 }
 
-// AsServiceDescription is the BasicServiceDescription implementation for StatelessServiceDescription.
-func (ssd StatelessServiceDescription) AsServiceDescription() (*ServiceDescription, bool) {
-	return nil, false
-}
-
-// AsBasicServiceDescription is the BasicServiceDescription implementation for StatelessServiceDescription.
-func (ssd StatelessServiceDescription) AsBasicServiceDescription() (BasicServiceDescription, bool) {
-	return &ssd, true
-}
-
-// StatelessServiceGroupDescription the description of the stateless service group
+// StatelessServiceGroupDescription is the description of the stateless service group
 type StatelessServiceGroupDescription struct {
 	ApplicationName               *string                          `json:"ApplicationName,omitempty"`
 	ServiceName                   *string                          `json:"ServiceName,omitempty"`
@@ -5561,14 +4779,13 @@ type StatelessServiceGroupDescription struct {
 	ServicePlacementPolicies      *ServiceCorrelationDescription   `json:"ServicePlacementPolicies,omitempty"`
 	Flags                         *int32                           `json:"Flags,omitempty"`
 	ServiceGroupMemberDescription *[]ServiceGroupMemberDescription `json:"ServiceGroupMemberDescription,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicServiceGroupDescriptionServiceKindServiceGroupDescription', 'ServiceKindBasicServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicServiceGroupDescriptionServiceKindStateful'
-	ServiceKind   ServiceKindBasicServiceGroupDescription `json:"ServiceKind,omitempty"`
-	InstanceCount *int32                                  `json:"InstanceCount,omitempty"`
+	ServiceKind                   ServiceKind                      `json:"ServiceKind,omitempty"`
+	InstanceCount                 *int32                           `json:"InstanceCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatelessServiceGroupDescription.
 func (ssgd StatelessServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	ssgd.ServiceKind = ServiceKindBasicServiceGroupDescriptionServiceKindStateless
+	ssgd.ServiceKind = ServiceKindStateless
 	type Alias StatelessServiceGroupDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5577,37 +4794,26 @@ func (ssgd StatelessServiceGroupDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessServiceGroupDescription is the BasicServiceGroupDescription implementation for StatelessServiceGroupDescription.
+// AsStatelessServiceGroupDescription is the ServiceGroupDescription implementation for StatelessServiceGroupDescription.
 func (ssgd StatelessServiceGroupDescription) AsStatelessServiceGroupDescription() (*StatelessServiceGroupDescription, bool) {
 	return &ssgd, true
 }
 
-// AsStatefulServiceGroupDescription is the BasicServiceGroupDescription implementation for StatelessServiceGroupDescription.
+// AsStatefulServiceGroupDescription is the ServiceGroupDescription implementation for StatelessServiceGroupDescription.
 func (ssgd StatelessServiceGroupDescription) AsStatefulServiceGroupDescription() (*StatefulServiceGroupDescription, bool) {
 	return nil, false
 }
 
-// AsServiceGroupDescription is the BasicServiceGroupDescription implementation for StatelessServiceGroupDescription.
-func (ssgd StatelessServiceGroupDescription) AsServiceGroupDescription() (*ServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsBasicServiceGroupDescription is the BasicServiceGroupDescription implementation for StatelessServiceGroupDescription.
-func (ssgd StatelessServiceGroupDescription) AsBasicServiceGroupDescription() (BasicServiceGroupDescription, bool) {
-	return &ssgd, true
-}
-
-// StatelessUpdateServiceDescription the description of the stateless update service
+// StatelessUpdateServiceDescription is the description of the stateless update service
 type StatelessUpdateServiceDescription struct {
-	Flags *int32 `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicUpdateServiceDescriptionServiceKindUpdateServiceDescription', 'ServiceKindBasicUpdateServiceDescriptionServiceKindStateless', 'ServiceKindBasicUpdateServiceDescriptionServiceKindStateful'
-	ServiceKind   ServiceKindBasicUpdateServiceDescription `json:"ServiceKind,omitempty"`
-	InstanceCount *int32                                   `json:"InstanceCount,omitempty"`
+	Flags         *int32      `json:"Flags,omitempty"`
+	ServiceKind   ServiceKind `json:"ServiceKind,omitempty"`
+	InstanceCount *int32      `json:"InstanceCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatelessUpdateServiceDescription.
 func (susd StatelessUpdateServiceDescription) MarshalJSON() ([]byte, error) {
-	susd.ServiceKind = ServiceKindBasicUpdateServiceDescriptionServiceKindStateless
+	susd.ServiceKind = ServiceKindStateless
 	type Alias StatelessUpdateServiceDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5616,37 +4822,26 @@ func (susd StatelessUpdateServiceDescription) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsStatelessUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatelessUpdateServiceDescription.
+// AsStatelessUpdateServiceDescription is the UpdateServiceDescription implementation for StatelessUpdateServiceDescription.
 func (susd StatelessUpdateServiceDescription) AsStatelessUpdateServiceDescription() (*StatelessUpdateServiceDescription, bool) {
 	return &susd, true
 }
 
-// AsStatefulUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatelessUpdateServiceDescription.
+// AsStatefulUpdateServiceDescription is the UpdateServiceDescription implementation for StatelessUpdateServiceDescription.
 func (susd StatelessUpdateServiceDescription) AsStatefulUpdateServiceDescription() (*StatefulUpdateServiceDescription, bool) {
 	return nil, false
 }
 
-// AsUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatelessUpdateServiceDescription.
-func (susd StatelessUpdateServiceDescription) AsUpdateServiceDescription() (*UpdateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsBasicUpdateServiceDescription is the BasicUpdateServiceDescription implementation for StatelessUpdateServiceDescription.
-func (susd StatelessUpdateServiceDescription) AsBasicUpdateServiceDescription() (BasicUpdateServiceDescription, bool) {
-	return &susd, true
-}
-
-// StatelessUpdateServiceGroupDescription the description of the stateless update service group
+// StatelessUpdateServiceGroupDescription is the description of the stateless update service group
 type StatelessUpdateServiceGroupDescription struct {
-	Flags *int32 `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindUpdateServiceGroupDescription', 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateful'
-	ServiceKind   ServiceKindBasicUpdateServiceGroupDescription `json:"ServiceKind,omitempty"`
-	InstanceCount *int32                                        `json:"InstanceCount,omitempty"`
+	Flags         *int32      `json:"Flags,omitempty"`
+	ServiceKind   ServiceKind `json:"ServiceKind,omitempty"`
+	InstanceCount *int32      `json:"InstanceCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for StatelessUpdateServiceGroupDescription.
 func (susgd StatelessUpdateServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	susgd.ServiceKind = ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateless
+	susgd.ServiceKind = ServiceKindStateless
 	type Alias StatelessUpdateServiceGroupDescription
 	return json.Marshal(&struct {
 		Alias
@@ -5655,40 +4850,28 @@ func (susgd StatelessUpdateServiceGroupDescription) MarshalJSON() ([]byte, error
 	})
 }
 
-// AsStatelessUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatelessUpdateServiceGroupDescription.
+// AsStatelessUpdateServiceGroupDescription is the UpdateServiceGroupDescription implementation for StatelessUpdateServiceGroupDescription.
 func (susgd StatelessUpdateServiceGroupDescription) AsStatelessUpdateServiceGroupDescription() (*StatelessUpdateServiceGroupDescription, bool) {
 	return &susgd, true
 }
 
-// AsStatefulUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatelessUpdateServiceGroupDescription.
+// AsStatefulUpdateServiceGroupDescription is the UpdateServiceGroupDescription implementation for StatelessUpdateServiceGroupDescription.
 func (susgd StatelessUpdateServiceGroupDescription) AsStatefulUpdateServiceGroupDescription() (*StatefulUpdateServiceGroupDescription, bool) {
 	return nil, false
 }
 
-// AsUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatelessUpdateServiceGroupDescription.
-func (susgd StatelessUpdateServiceGroupDescription) AsUpdateServiceGroupDescription() (*UpdateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsBasicUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for StatelessUpdateServiceGroupDescription.
-func (susgd StatelessUpdateServiceGroupDescription) AsBasicUpdateServiceGroupDescription() (BasicUpdateServiceGroupDescription, bool) {
-	return &susgd, true
-}
-
-// String ...
+// String is
 type String struct {
 	autorest.Response `json:"-"`
 	Value             *string `json:"value,omitempty"`
 }
 
-// SystemApplicationHealthEvaluation the evaluation of the system application health
+// SystemApplicationHealthEvaluation is the evaluation of the system application health
 type SystemApplicationHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
-	Kind                 Kind                   `json:"Kind,omitempty"`
-	UnhealthyEvaluations *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
+	Description           *string                `json:"Description,omitempty"`
+	AggregatedHealthState AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
+	Kind                  Kind                   `json:"Kind,omitempty"`
+	UnhealthyEvaluations  *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for SystemApplicationHealthEvaluation.
@@ -5702,124 +4885,114 @@ func (sahe SystemApplicationHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return &sahe, true
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for SystemApplicationHealthEvaluation.
 func (sahe SystemApplicationHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
-func (sahe SystemApplicationHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for SystemApplicationHealthEvaluation.
-func (sahe SystemApplicationHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &sahe, true
-}
-
-// UnhealthyEvaluation the evaluation of the unhealthy
+// UnhealthyEvaluation is the evaluation of the unhealthy
 type UnhealthyEvaluation struct {
-	HealthEvaluation BasicHealthEvaluation `json:"HealthEvaluation,omitempty"`
+	HealthEvaluation HealthEvaluation `json:"HealthEvaluation,omitempty"`
 }
 
 // UnmarshalJSON is the custom unmarshaler for UnhealthyEvaluation struct.
@@ -5833,7 +5006,7 @@ func (ue *UnhealthyEvaluation) UnmarshalJSON(body []byte) error {
 
 	v = m["HealthEvaluation"]
 	if v != nil {
-		healthEvaluation, err := unmarshalBasicHealthEvaluation(*m["HealthEvaluation"])
+		healthEvaluation, err := unmarshalHealthEvaluation(*m["HealthEvaluation"])
 		if err != nil {
 			return err
 		}
@@ -5843,20 +5016,18 @@ func (ue *UnhealthyEvaluation) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
-// UnregisterApplicationType the type of the unregister application
+// UnregisterApplicationType is the type of the unregister application
 type UnregisterApplicationType struct {
 	ApplicationTypeVersion *string `json:"ApplicationTypeVersion,omitempty"`
 }
 
-// UnregisterClusterPackage the package of the unregister cluster
+// UnregisterClusterPackage is the package of the unregister cluster
 type UnregisterClusterPackage struct {
-	// CodeVersion - The version of the code
-	CodeVersion *string `json:"CodeVersion,omitempty"`
-	// ConfigVersion - The version of the config
+	CodeVersion   *string `json:"CodeVersion,omitempty"`
 	ConfigVersion *string `json:"ConfigVersion,omitempty"`
 }
 
-// UpdateApplicationUpgrade the description of the update application upgrade
+// UpdateApplicationUpgrade is the description of the update application upgrade
 type UpdateApplicationUpgrade struct {
 	Name                    *string                  `json:"Name,omitempty"`
 	UpgradeKind             *string                  `json:"UpgradeKind,omitempty"`
@@ -5864,55 +5035,34 @@ type UpdateApplicationUpgrade struct {
 	ApplicationHealthPolicy *ApplicationHealthPolicy `json:"ApplicationHealthPolicy,omitempty"`
 }
 
-// UpdateClusterUpgrade the description of the update cluster upgrade
+// UpdateClusterUpgrade is the description of the update cluster upgrade
 type UpdateClusterUpgrade struct {
-	// UpgradeKind - The kind of the upgrade
-	UpgradeKind *string `json:"UpgradeKind,omitempty"`
-	// UpdateDescription - The description of the update
-	UpdateDescription *UpdateDescription `json:"UpdateDescription,omitempty"`
-	// ClusterHealthPolicy - The policy of the cluster health
-	ClusterHealthPolicy *ClusterHealthPolicy `json:"ClusterHealthPolicy,omitempty"`
-	// EnableDeltaHealthEvaluations - The evaluations of the enable delta health
-	EnableDeltaHealthEvaluations *bool `json:"EnableDeltaHealthEvaluations,omitempty"`
+	UpgradeKind                  *string              `json:"UpgradeKind,omitempty"`
+	UpdateDescription            *UpdateDescription   `json:"UpdateDescription,omitempty"`
+	ClusterHealthPolicy          *ClusterHealthPolicy `json:"ClusterHealthPolicy,omitempty"`
+	EnableDeltaHealthEvaluations *bool                `json:"EnableDeltaHealthEvaluations,omitempty"`
 }
 
-// UpdateDescription the description of the update
+// UpdateDescription is the description of the update
 type UpdateDescription struct {
-	// RollingUpgradeMode - The mode of the rolling upgrade. Possible values include: 'RollingUpgradeMode3Invalid', 'RollingUpgradeMode3UnmonitoredAuto', 'RollingUpgradeMode3UnmonitoredManual', 'RollingUpgradeMode3Monitored'
-	RollingUpgradeMode RollingUpgradeMode `json:"RollingUpgradeMode,omitempty"`
-	// ForceRestart - The flag of the force restart
-	ForceRestart *bool `json:"ForceRestart,omitempty"`
-	// FailureAction - The action of the failure
-	FailureAction *string `json:"FailureAction,omitempty"`
-	// UpgradeReplicaSetCheckTimeoutInSeconds - The seconds of the upgrade replica set check timeout
-	UpgradeReplicaSetCheckTimeoutInSeconds *int32 `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
-	// HealthCheckWaitDurationInMilliseconds - The seconds of the health check wait duration
-	HealthCheckWaitDurationInMilliseconds *string `json:"HealthCheckWaitDurationInMilliseconds,omitempty"`
-	// HealthCheckStableDurationInMilliseconds - The seconds of the health check stable duration
-	HealthCheckStableDurationInMilliseconds *string `json:"HealthCheckStableDurationInMilliseconds,omitempty"`
-	// HealthCheckRetryTimeoutInMilliseconds - The milliseconds of the health check retry timeout
-	HealthCheckRetryTimeoutInMilliseconds *string `json:"HealthCheckRetryTimeoutInMilliseconds,omitempty"`
-	// UpgradeTimeoutInMilliseconds - The milliseconds of the upgrade timeout
-	UpgradeTimeoutInMilliseconds *string `json:"UpgradeTimeoutInMilliseconds,omitempty"`
-	// UpgradeDomainTimeoutInMilliseconds - The milliseconds of the upgrade domain timeout
-	UpgradeDomainTimeoutInMilliseconds *string `json:"UpgradeDomainTimeoutInMilliseconds,omitempty"`
+	RollingUpgradeMode                      RollingUpgradeMode `json:"RollingUpgradeMode,omitempty"`
+	ForceRestart                            *bool              `json:"ForceRestart,omitempty"`
+	FailureAction                           *string            `json:"FailureAction,omitempty"`
+	UpgradeReplicaSetCheckTimeoutInSeconds  *int32             `json:"UpgradeReplicaSetCheckTimeoutInSeconds,omitempty"`
+	HealthCheckWaitDurationInMilliseconds   *string            `json:"HealthCheckWaitDurationInMilliseconds,omitempty"`
+	HealthCheckStableDurationInMilliseconds *string            `json:"HealthCheckStableDurationInMilliseconds,omitempty"`
+	HealthCheckRetryTimeoutInMilliseconds   *string            `json:"HealthCheckRetryTimeoutInMilliseconds,omitempty"`
+	UpgradeTimeoutInMilliseconds            *string            `json:"UpgradeTimeoutInMilliseconds,omitempty"`
+	UpgradeDomainTimeoutInMilliseconds      *string            `json:"UpgradeDomainTimeoutInMilliseconds,omitempty"`
 }
 
-// BasicUpdateServiceDescription the description of the update service
-type BasicUpdateServiceDescription interface {
+// UpdateServiceDescription is the description of the update service
+type UpdateServiceDescription interface {
 	AsStatelessUpdateServiceDescription() (*StatelessUpdateServiceDescription, bool)
 	AsStatefulUpdateServiceDescription() (*StatefulUpdateServiceDescription, bool)
-	AsUpdateServiceDescription() (*UpdateServiceDescription, bool)
 }
 
-// UpdateServiceDescription the description of the update service
-type UpdateServiceDescription struct {
-	Flags *int32 `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicUpdateServiceDescriptionServiceKindUpdateServiceDescription', 'ServiceKindBasicUpdateServiceDescriptionServiceKindStateless', 'ServiceKindBasicUpdateServiceDescriptionServiceKindStateful'
-	ServiceKind ServiceKindBasicUpdateServiceDescription `json:"ServiceKind,omitempty"`
-}
-
-func unmarshalBasicUpdateServiceDescription(body []byte) (BasicUpdateServiceDescription, error) {
+func unmarshalUpdateServiceDescription(body []byte) (UpdateServiceDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -5920,31 +5070,29 @@ func unmarshalBasicUpdateServiceDescription(body []byte) (BasicUpdateServiceDesc
 	}
 
 	switch m["ServiceKind"] {
-	case string(ServiceKindBasicUpdateServiceDescriptionServiceKindStateless):
+	case string(ServiceKindStateless):
 		var susd StatelessUpdateServiceDescription
 		err := json.Unmarshal(body, &susd)
 		return susd, err
-	case string(ServiceKindBasicUpdateServiceDescriptionServiceKindStateful):
+	case string(ServiceKindStateful):
 		var susd StatefulUpdateServiceDescription
 		err := json.Unmarshal(body, &susd)
 		return susd, err
 	default:
-		var usd UpdateServiceDescription
-		err := json.Unmarshal(body, &usd)
-		return usd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicUpdateServiceDescriptionArray(body []byte) ([]BasicUpdateServiceDescription, error) {
+func unmarshalUpdateServiceDescriptionArray(body []byte) ([]UpdateServiceDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	usdArray := make([]BasicUpdateServiceDescription, len(rawMessages))
+	usdArray := make([]UpdateServiceDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		usd, err := unmarshalBasicUpdateServiceDescription(*rawMessage)
+		usd, err := unmarshalUpdateServiceDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -5953,52 +5101,13 @@ func unmarshalBasicUpdateServiceDescriptionArray(body []byte) ([]BasicUpdateServ
 	return usdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for UpdateServiceDescription.
-func (usd UpdateServiceDescription) MarshalJSON() ([]byte, error) {
-	usd.ServiceKind = ServiceKindBasicUpdateServiceDescriptionServiceKindUpdateServiceDescription
-	type Alias UpdateServiceDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(usd),
-	})
-}
-
-// AsStatelessUpdateServiceDescription is the BasicUpdateServiceDescription implementation for UpdateServiceDescription.
-func (usd UpdateServiceDescription) AsStatelessUpdateServiceDescription() (*StatelessUpdateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsStatefulUpdateServiceDescription is the BasicUpdateServiceDescription implementation for UpdateServiceDescription.
-func (usd UpdateServiceDescription) AsStatefulUpdateServiceDescription() (*StatefulUpdateServiceDescription, bool) {
-	return nil, false
-}
-
-// AsUpdateServiceDescription is the BasicUpdateServiceDescription implementation for UpdateServiceDescription.
-func (usd UpdateServiceDescription) AsUpdateServiceDescription() (*UpdateServiceDescription, bool) {
-	return &usd, true
-}
-
-// AsBasicUpdateServiceDescription is the BasicUpdateServiceDescription implementation for UpdateServiceDescription.
-func (usd UpdateServiceDescription) AsBasicUpdateServiceDescription() (BasicUpdateServiceDescription, bool) {
-	return &usd, true
-}
-
-// BasicUpdateServiceGroupDescription the description of the update service group
-type BasicUpdateServiceGroupDescription interface {
+// UpdateServiceGroupDescription is the description of the update service group
+type UpdateServiceGroupDescription interface {
 	AsStatelessUpdateServiceGroupDescription() (*StatelessUpdateServiceGroupDescription, bool)
 	AsStatefulUpdateServiceGroupDescription() (*StatefulUpdateServiceGroupDescription, bool)
-	AsUpdateServiceGroupDescription() (*UpdateServiceGroupDescription, bool)
 }
 
-// UpdateServiceGroupDescription the description of the update service group
-type UpdateServiceGroupDescription struct {
-	Flags *int32 `json:"Flags,omitempty"`
-	// ServiceKind - Possible values include: 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindUpdateServiceGroupDescription', 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateless', 'ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateful'
-	ServiceKind ServiceKindBasicUpdateServiceGroupDescription `json:"ServiceKind,omitempty"`
-}
-
-func unmarshalBasicUpdateServiceGroupDescription(body []byte) (BasicUpdateServiceGroupDescription, error) {
+func unmarshalUpdateServiceGroupDescription(body []byte) (UpdateServiceGroupDescription, error) {
 	var m map[string]interface{}
 	err := json.Unmarshal(body, &m)
 	if err != nil {
@@ -6006,31 +5115,29 @@ func unmarshalBasicUpdateServiceGroupDescription(body []byte) (BasicUpdateServic
 	}
 
 	switch m["ServiceKind"] {
-	case string(ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateless):
+	case string(ServiceKindStateless):
 		var susgd StatelessUpdateServiceGroupDescription
 		err := json.Unmarshal(body, &susgd)
 		return susgd, err
-	case string(ServiceKindBasicUpdateServiceGroupDescriptionServiceKindStateful):
+	case string(ServiceKindStateful):
 		var susgd StatefulUpdateServiceGroupDescription
 		err := json.Unmarshal(body, &susgd)
 		return susgd, err
 	default:
-		var usgd UpdateServiceGroupDescription
-		err := json.Unmarshal(body, &usgd)
-		return usgd, err
+		return nil, errors.New("Unsupported type")
 	}
 }
-func unmarshalBasicUpdateServiceGroupDescriptionArray(body []byte) ([]BasicUpdateServiceGroupDescription, error) {
+func unmarshalUpdateServiceGroupDescriptionArray(body []byte) ([]UpdateServiceGroupDescription, error) {
 	var rawMessages []*json.RawMessage
 	err := json.Unmarshal(body, &rawMessages)
 	if err != nil {
 		return nil, err
 	}
 
-	usgdArray := make([]BasicUpdateServiceGroupDescription, len(rawMessages))
+	usgdArray := make([]UpdateServiceGroupDescription, len(rawMessages))
 
 	for index, rawMessage := range rawMessages {
-		usgd, err := unmarshalBasicUpdateServiceGroupDescription(*rawMessage)
+		usgd, err := unmarshalUpdateServiceGroupDescription(*rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -6039,43 +5146,10 @@ func unmarshalBasicUpdateServiceGroupDescriptionArray(body []byte) ([]BasicUpdat
 	return usgdArray, nil
 }
 
-// MarshalJSON is the custom marshaler for UpdateServiceGroupDescription.
-func (usgd UpdateServiceGroupDescription) MarshalJSON() ([]byte, error) {
-	usgd.ServiceKind = ServiceKindBasicUpdateServiceGroupDescriptionServiceKindUpdateServiceGroupDescription
-	type Alias UpdateServiceGroupDescription
-	return json.Marshal(&struct {
-		Alias
-	}{
-		Alias: (Alias)(usgd),
-	})
-}
-
-// AsStatelessUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for UpdateServiceGroupDescription.
-func (usgd UpdateServiceGroupDescription) AsStatelessUpdateServiceGroupDescription() (*StatelessUpdateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsStatefulUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for UpdateServiceGroupDescription.
-func (usgd UpdateServiceGroupDescription) AsStatefulUpdateServiceGroupDescription() (*StatefulUpdateServiceGroupDescription, bool) {
-	return nil, false
-}
-
-// AsUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for UpdateServiceGroupDescription.
-func (usgd UpdateServiceGroupDescription) AsUpdateServiceGroupDescription() (*UpdateServiceGroupDescription, bool) {
-	return &usgd, true
-}
-
-// AsBasicUpdateServiceGroupDescription is the BasicUpdateServiceGroupDescription implementation for UpdateServiceGroupDescription.
-func (usgd UpdateServiceGroupDescription) AsBasicUpdateServiceGroupDescription() (BasicUpdateServiceGroupDescription, bool) {
-	return &usgd, true
-}
-
-// UpgradeDomainDeltaNodesCheckHealthEvaluation the evaluation of the upgrade domain delta nodes check health
+// UpgradeDomainDeltaNodesCheckHealthEvaluation is the evaluation of the upgrade domain delta nodes check health
 type UpgradeDomainDeltaNodesCheckHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                                *string                `json:"Description,omitempty"`
+	AggregatedHealthState                      AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                                       Kind                   `json:"Kind,omitempty"`
 	UpgradeDomainName                          *string                `json:"UpgradeDomainName,omitempty"`
 	UnhealthyEvaluations                       *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
@@ -6096,127 +5170,116 @@ func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) MarshalJSON() ([]byt
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return &uddnche, true
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
 func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
-func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeltaNodesCheckHealthEvaluation.
-func (uddnche UpgradeDomainDeltaNodesCheckHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &uddnche, true
-}
-
-// UpgradeDomainDeployedApplicationsHealthEvaluation the evaluation of the upgrade domain deployed applications health
+// UpgradeDomainDeployedApplicationsHealthEvaluation is the evaluation of the upgrade domain deployed applications
+// health
 type UpgradeDomainDeployedApplicationsHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description                             *string                `json:"Description,omitempty"`
+	AggregatedHealthState                   AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                                    Kind                   `json:"Kind,omitempty"`
 	UpgradeDomainName                       *string                `json:"UpgradeDomainName,omitempty"`
 	UnhealthyEvaluations                    *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
@@ -6235,127 +5298,115 @@ func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) MarshalJSON() ([
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return &uddahe, true
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
 func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
-func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainDeployedApplicationsHealthEvaluation.
-func (uddahe UpgradeDomainDeployedApplicationsHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &uddahe, true
-}
-
-// UpgradeDomainNodesHealthEvaluation the evaluation of the upgrade domain nodes health
+// UpgradeDomainNodesHealthEvaluation is the evaluation of the upgrade domain nodes health
 type UpgradeDomainNodesHealthEvaluation struct {
-	Description *string `json:"Description,omitempty"`
-	// AggregatedHealthState - Possible values include: 'Invalid', 'Ok', 'Warning', 'Error', 'Unknown'
-	AggregatedHealthState AggregatedHealthState `json:"AggregatedHealthState,omitempty"`
-	// Kind - Possible values include: 'KindHealthEvaluation', 'KindEvent', 'KindPartitions', 'KindReplicas', 'KindDeployedServicePackages', 'KindDeployedApplications', 'KindServices', 'KindNodes', 'KindApplications', 'KindUpgradeDomainNodes', 'KindUpgradeDomainDeployedApplications', 'KindSystemApplication', 'KindPartition', 'KindReplica', 'KindDeployedServicePackage', 'KindDeployedApplication', 'KindService', 'KindNode', 'KindApplication', 'KindDeltaNodesCheck', 'KindUpgradeDomainDeltaNodesCheck', 'KindApplicationType'
+	Description              *string                `json:"Description,omitempty"`
+	AggregatedHealthState    AggregatedHealthState  `json:"AggregatedHealthState,omitempty"`
 	Kind                     Kind                   `json:"Kind,omitempty"`
 	UpgradeDomainName        *string                `json:"UpgradeDomainName,omitempty"`
 	UnhealthyEvaluations     *[]UnhealthyEvaluation `json:"UnhealthyEvaluations,omitempty"`
@@ -6374,117 +5425,107 @@ func (udnhe UpgradeDomainNodesHealthEvaluation) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// AsEventHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsEventHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsEventHealthEvaluation() (*EventHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsPartitionsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsPartitionsHealthEvaluation() (*PartitionsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicasHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsReplicasHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsReplicasHealthEvaluation() (*ReplicasHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackagesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsDeployedServicePackagesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsDeployedServicePackagesHealthEvaluation() (*DeployedServicePackagesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsDeployedApplicationsHealthEvaluation() (*DeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServicesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsServicesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsServicesHealthEvaluation() (*ServicesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsNodesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsNodesHealthEvaluation() (*NodesHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsApplicationsHealthEvaluation() (*ApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainNodesHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsUpgradeDomainNodesHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsUpgradeDomainNodesHealthEvaluation() (*UpgradeDomainNodesHealthEvaluation, bool) {
 	return &udnhe, true
 }
 
-// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsUpgradeDomainDeployedApplicationsHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsUpgradeDomainDeployedApplicationsHealthEvaluation() (*UpgradeDomainDeployedApplicationsHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsSystemApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsSystemApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsSystemApplicationHealthEvaluation() (*SystemApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsPartitionHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsPartitionHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsPartitionHealthEvaluation() (*PartitionHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsReplicaHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsReplicaHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsReplicaHealthEvaluation() (*ReplicaHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedServicePackageHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsDeployedServicePackageHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsDeployedServicePackageHealthEvaluation() (*DeployedServicePackageHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeployedApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsDeployedApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsDeployedApplicationHealthEvaluation() (*DeployedApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsServiceHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsServiceHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsServiceHealthEvaluation() (*ServiceHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsNodeHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsNodeHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsNodeHealthEvaluation() (*NodeHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsApplicationHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsApplicationHealthEvaluation() (*ApplicationHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsDeltaNodesCheckHealthEvaluation() (*DeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsUpgradeDomainDeltaNodesCheckHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsUpgradeDomainDeltaNodesCheckHealthEvaluation() (*UpgradeDomainDeltaNodesCheckHealthEvaluation, bool) {
 	return nil, false
 }
 
-// AsApplicationTypeHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
+// AsApplicationTypeHealthEvaluation is the HealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
 func (udnhe UpgradeDomainNodesHealthEvaluation) AsApplicationTypeHealthEvaluation() (*ApplicationTypeHealthEvaluation, bool) {
 	return nil, false
-}
-
-// AsHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
-func (udnhe UpgradeDomainNodesHealthEvaluation) AsHealthEvaluation() (*HealthEvaluation, bool) {
-	return nil, false
-}
-
-// AsBasicHealthEvaluation is the BasicHealthEvaluation implementation for UpgradeDomainNodesHealthEvaluation.
-func (udnhe UpgradeDomainNodesHealthEvaluation) AsBasicHealthEvaluation() (BasicHealthEvaluation, bool) {
-	return &udnhe, true
 }

@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
+	"strings"
 	"time"
 
 	"cloud.google.com/go/civil"
@@ -36,24 +37,17 @@ var (
 	validFieldName = regexp.MustCompile("^[a-zA-Z_][a-zA-Z0-9_]{0,127}$")
 )
 
-const nullableTagOption = "nullable"
-
 func bqTagParser(t reflect.StructTag) (name string, keep bool, other interface{}, err error) {
-	name, keep, opts, err := fields.ParseStandardTag("bigquery", t)
-	if err != nil {
-		return "", false, nil, err
-	}
-	if name != "" && !validFieldName.MatchString(name) {
-		return "", false, nil, errInvalidFieldName
-	}
-	for _, opt := range opts {
-		if opt != nullableTagOption {
-			return "", false, nil, fmt.Errorf(
-				"bigquery: invalid tag option %q. The only valid option is %q",
-				opt, nullableTagOption)
+	if s := t.Get("bigquery"); s != "" {
+		if s == "-" {
+			return "", false, nil, nil
 		}
+		if !validFieldName.MatchString(s) {
+			return "", false, nil, errInvalidFieldName
+		}
+		return s, true, nil, nil
 	}
-	return name, keep, opts, nil
+	return "", true, nil, nil
 }
 
 var fieldCache = fields.NewCache(bqTagParser, nil, nil)
@@ -204,8 +198,6 @@ func paramValue(v reflect.Value) (bq.QueryParameterValue, error) {
 
 	case typeOfTime:
 		// civil.Time has nanosecond resolution, but BigQuery TIME only microsecond.
-		// (If we send nanoseconds, then when we try to read the result we get "query job
-		// missing destination table").
 		res.Value = CivilTimeString(v.Interface().(civil.Time))
 		return res, nil
 
@@ -307,7 +299,11 @@ func convertParamValue(qval *bq.QueryParameterValue, qtype *bq.QueryParameterTyp
 	case "TIMESTAMP":
 		return time.Parse(timestampFormat, qval.Value)
 	case "DATETIME":
-		return parseCivilDateTime(qval.Value)
+		parts := strings.Fields(qval.Value)
+		if len(parts) != 2 {
+			return nil, fmt.Errorf("bigquery: bad DATETIME value %q", qval.Value)
+		}
+		return civil.ParseDateTime(parts[0] + "T" + parts[1])
 	default:
 		return convertBasicType(qval.Value, paramTypeToFieldType[qtype.Type])
 	}

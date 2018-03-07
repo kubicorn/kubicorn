@@ -1481,19 +1481,12 @@ type ProductPurchase struct {
 	// PurchaseState: The purchase state of the order. Possible values are:
 	//
 	// - Purchased
-	// - Canceled
+	// - Cancelled
 	PurchaseState int64 `json:"purchaseState,omitempty"`
 
 	// PurchaseTimeMillis: The time the product was purchased, in
 	// milliseconds since the epoch (Jan 1, 1970).
 	PurchaseTimeMillis int64 `json:"purchaseTimeMillis,omitempty,string"`
-
-	// PurchaseType: The type of purchase of the inapp product. This field
-	// is only set if this purchase was not made using the standard in-app
-	// billing flow. Possible values are:
-	// - Test (i.e. purchased from a license testing account)
-	// - Promo (i.e. purchased using a promo code)
-	PurchaseType int64 `json:"purchaseType,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -1798,13 +1791,12 @@ type SubscriptionPurchase struct {
 	// when it reaches its current expiry time.
 	AutoRenewing bool `json:"autoRenewing,omitempty"`
 
-	// CancelReason: The reason why a subscription was canceled or is not
+	// CancelReason: The reason why a subscription was cancelled or is not
 	// auto-renewing. Possible values are:
-	// - User canceled the subscription
-	// - Subscription was canceled by the system, for example because of a
+	// - User cancelled the subscription
+	// - Subscription was cancelled by the system, for example because of a
 	// billing problem
 	// - Subscription was replaced with a new subscription
-	// - Subscription was canceled by the developer
 	CancelReason *int64 `json:"cancelReason,omitempty"`
 
 	// CountryCode: ISO 3166-1 alpha-2 billing country/region code of the
@@ -1822,20 +1814,6 @@ type SubscriptionPurchase struct {
 	// Kind: This kind represents a subscriptionPurchase object in the
 	// androidpublisher service.
 	Kind string `json:"kind,omitempty"`
-
-	// LinkedPurchaseToken: The purchase token of the originating purchase
-	// if this subscription is one of the following:
-	// - Re-signup of a canceled but non-lapsed subscription
-	// - Upgrade/downgrade from a previous subscription  For example,
-	// suppose a user originally signs up and you receive purchase token X,
-	// then the user cancels and goes through the resignup flow (before
-	// their subscription lapses) and you receive purchase token Y, and
-	// finally the user upgrades their subscription and you receive purchase
-	// token Z. If you call this API with purchase token Z, this field will
-	// be set to Y. If you call this API with purchase token Y, this field
-	// will be set to X. If you call this API with purchase token X, this
-	// field will not be set.
-	LinkedPurchaseToken string `json:"linkedPurchaseToken,omitempty"`
 
 	// OrderId: The order id of the latest recurring order associated with
 	// the purchase of the subscription.
@@ -1858,12 +1836,6 @@ type SubscriptionPurchase struct {
 	// For example, if the price is specified in British pounds sterling,
 	// price_currency_code is "GBP".
 	PriceCurrencyCode string `json:"priceCurrencyCode,omitempty"`
-
-	// PurchaseType: The type of purchase of the subscription. This field is
-	// only set if this purchase was not made using the standard in-app
-	// billing flow. Possible values are:
-	// - Test (i.e. purchased from a license testing account)
-	PurchaseType int64 `json:"purchaseType,omitempty"`
 
 	// StartTimeMillis: Time at which the subscription was granted, in
 	// milliseconds since the Epoch.
@@ -2051,8 +2023,6 @@ func (s *TokenPagination) MarshalJSON() ([]byte, error) {
 }
 
 type Track struct {
-	// Track: Identifier for this track. One of "alpha", "beta",
-	// "production" or "rollout".
 	Track string `json:"track,omitempty"`
 
 	UserFraction float64 `json:"userFraction,omitempty"`
@@ -2210,7 +2180,7 @@ func (s *UserComment) MarshalJSON() ([]byte, error) {
 }
 
 // VoidedPurchase: A VoidedPurchase resource indicates a purchase that
-// was either canceled/refunded/charged-back.
+// was either cancelled/refunded/charged-back.
 type VoidedPurchase struct {
 	// Kind: This kind represents a voided purchase object in the
 	// androidpublisher service.
@@ -2225,7 +2195,7 @@ type VoidedPurchase struct {
 	PurchaseToken string `json:"purchaseToken,omitempty"`
 
 	// VoidedTimeMillis: The time at which the purchase was
-	// canceled/refunded/charged-back, in milliseconds since the epoch (Jan
+	// cancelled/refunded/charged-back, in milliseconds since the epoch (Jan
 	// 1, 1970).
 	VoidedTimeMillis int64 `json:"voidedTimeMillis,omitempty,string"`
 
@@ -4241,12 +4211,11 @@ func (c *EditsApksUploadCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
-	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"packageName": c.packageNameid,
 		"editId":      c.editId,
@@ -4464,12 +4433,11 @@ func (c *EditsDeobfuscationfilesUploadCall) doRequest(alt string) (*http.Respons
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
-	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"packageName":           c.packageNameid,
 		"editId":                c.editId,
@@ -5665,12 +5633,11 @@ func (c *EditsExpansionfilesUploadCall) doRequest(alt string) (*http.Response, e
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
-	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"packageName":       c.packageNameid,
 		"editId":            c.editId,
@@ -6431,12 +6398,11 @@ func (c *EditsImagesUploadCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
-	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"packageName": c.packageNameid,
 		"editId":      c.editId,
@@ -7556,9 +7522,19 @@ func (c *EditsTestersGetCall) Do(opts ...googleapi.CallOption) (*Testers, error)
 	//       "type": "string"
 	//     },
 	//     "track": {
-	//       "description": "The track to read or modify. Acceptable values are: \"alpha\", \"beta\", \"production\" or \"rollout\".",
+	//       "enum": [
+	//         "alpha",
+	//         "beta",
+	//         "production",
+	//         "rollout"
+	//       ],
+	//       "enumDescriptions": [
+	//         "",
+	//         "",
+	//         "",
+	//         ""
+	//       ],
 	//       "location": "path",
-	//       "pattern": "(alpha|beta|production|rollout)",
 	//       "required": true,
 	//       "type": "string"
 	//     }
@@ -7706,9 +7682,19 @@ func (c *EditsTestersPatchCall) Do(opts ...googleapi.CallOption) (*Testers, erro
 	//       "type": "string"
 	//     },
 	//     "track": {
-	//       "description": "The track to read or modify. Acceptable values are: \"alpha\", \"beta\", \"production\" or \"rollout\".",
+	//       "enum": [
+	//         "alpha",
+	//         "beta",
+	//         "production",
+	//         "rollout"
+	//       ],
+	//       "enumDescriptions": [
+	//         "",
+	//         "",
+	//         "",
+	//         ""
+	//       ],
 	//       "location": "path",
-	//       "pattern": "(alpha|beta|production|rollout)",
 	//       "required": true,
 	//       "type": "string"
 	//     }
@@ -7859,9 +7845,19 @@ func (c *EditsTestersUpdateCall) Do(opts ...googleapi.CallOption) (*Testers, err
 	//       "type": "string"
 	//     },
 	//     "track": {
-	//       "description": "The track to read or modify. Acceptable values are: \"alpha\", \"beta\", \"production\" or \"rollout\".",
+	//       "enum": [
+	//         "alpha",
+	//         "beta",
+	//         "production",
+	//         "rollout"
+	//       ],
+	//       "enumDescriptions": [
+	//         "",
+	//         "",
+	//         "",
+	//         ""
+	//       ],
 	//       "location": "path",
-	//       "pattern": "(alpha|beta|production|rollout)",
 	//       "required": true,
 	//       "type": "string"
 	//     }
@@ -8021,9 +8017,20 @@ func (c *EditsTracksGetCall) Do(opts ...googleapi.CallOption) (*Track, error) {
 	//       "type": "string"
 	//     },
 	//     "track": {
-	//       "description": "The track to read or modify. Acceptable values are: \"alpha\", \"beta\", \"production\" or \"rollout\".",
+	//       "description": "The track type to read or modify.",
+	//       "enum": [
+	//         "alpha",
+	//         "beta",
+	//         "production",
+	//         "rollout"
+	//       ],
+	//       "enumDescriptions": [
+	//         "",
+	//         "",
+	//         "",
+	//         ""
+	//       ],
 	//       "location": "path",
-	//       "pattern": "(alpha|beta|production|rollout)",
 	//       "required": true,
 	//       "type": "string"
 	//     }
@@ -8322,9 +8329,20 @@ func (c *EditsTracksPatchCall) Do(opts ...googleapi.CallOption) (*Track, error) 
 	//       "type": "string"
 	//     },
 	//     "track": {
-	//       "description": "The track to read or modify. Acceptable values are: \"alpha\", \"beta\", \"production\" or \"rollout\".",
+	//       "description": "The track type to read or modify.",
+	//       "enum": [
+	//         "alpha",
+	//         "beta",
+	//         "production",
+	//         "rollout"
+	//       ],
+	//       "enumDescriptions": [
+	//         "",
+	//         "",
+	//         "",
+	//         ""
+	//       ],
 	//       "location": "path",
-	//       "pattern": "(alpha|beta|production|rollout)",
 	//       "required": true,
 	//       "type": "string"
 	//     }
@@ -8478,9 +8496,20 @@ func (c *EditsTracksUpdateCall) Do(opts ...googleapi.CallOption) (*Track, error)
 	//       "type": "string"
 	//     },
 	//     "track": {
-	//       "description": "The track to read or modify. Acceptable values are: \"alpha\", \"beta\", \"production\" or \"rollout\".",
+	//       "description": "The track type to read or modify.",
+	//       "enum": [
+	//         "alpha",
+	//         "beta",
+	//         "production",
+	//         "rollout"
+	//       ],
+	//       "enumDescriptions": [
+	//         "",
+	//         "",
+	//         "",
+	//         ""
+	//       ],
 	//       "location": "path",
-	//       "pattern": "(alpha|beta|production|rollout)",
 	//       "required": true,
 	//       "type": "string"
 	//     }
@@ -10396,7 +10425,7 @@ type PurchasesVoidedpurchasesListCall struct {
 	header_      http.Header
 }
 
-// List: Lists the purchases that were canceled, refunded or
+// List: Lists the purchases that were cancelled, refunded or
 // charged-back.
 func (r *PurchasesVoidedpurchasesService) List(packageName string) *PurchasesVoidedpurchasesListCall {
 	c := &PurchasesVoidedpurchasesListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
@@ -10542,7 +10571,7 @@ func (c *PurchasesVoidedpurchasesListCall) Do(opts ...googleapi.CallOption) (*Vo
 	}
 	return ret, nil
 	// {
-	//   "description": "Lists the purchases that were canceled, refunded or charged-back.",
+	//   "description": "Lists the purchases that were cancelled, refunded or charged-back.",
 	//   "httpMethod": "GET",
 	//   "id": "androidpublisher.purchases.voidedpurchases.list",
 	//   "parameterOrder": [

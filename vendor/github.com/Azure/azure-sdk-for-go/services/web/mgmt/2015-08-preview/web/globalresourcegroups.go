@@ -18,7 +18,6 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // GlobalResourceGroupsClient is the webSite Management Client
 type GlobalResourceGroupsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewGlobalResourceGroupsClient creates an instance of the GlobalResourceGroupsClient client.
@@ -41,8 +40,8 @@ func NewGlobalResourceGroupsClientWithBaseURI(baseURI string, subscriptionID str
 
 // MoveResources sends the move resources request.
 //
-func (client GlobalResourceGroupsClient) MoveResources(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (result autorest.Response, err error) {
-	req, err := client.MoveResourcesPreparer(ctx, resourceGroupName, moveResourceEnvelope)
+func (client GlobalResourceGroupsClient) MoveResources(resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (result autorest.Response, err error) {
+	req, err := client.MoveResourcesPreparer(resourceGroupName, moveResourceEnvelope)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalResourceGroupsClient", "MoveResources", nil, "Failure preparing request")
 		return
@@ -64,7 +63,7 @@ func (client GlobalResourceGroupsClient) MoveResources(ctx context.Context, reso
 }
 
 // MoveResourcesPreparer prepares the MoveResources request.
-func (client GlobalResourceGroupsClient) MoveResourcesPreparer(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (*http.Request, error) {
+func (client GlobalResourceGroupsClient) MoveResourcesPreparer(resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -82,13 +81,14 @@ func (client GlobalResourceGroupsClient) MoveResourcesPreparer(ctx context.Conte
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources", pathParameters),
 		autorest.WithJSON(moveResourceEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // MoveResourcesSender sends the MoveResources request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalResourceGroupsClient) MoveResourcesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

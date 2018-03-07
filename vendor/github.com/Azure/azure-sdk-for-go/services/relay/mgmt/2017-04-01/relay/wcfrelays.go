@@ -18,7 +18,6 @@ package relay
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // WCFRelaysClient is the use these API to manage Azure Relay resources through Azure Resource Manager.
 type WCFRelaysClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewWCFRelaysClient creates an instance of the WCFRelaysClient client.
@@ -44,7 +43,7 @@ func NewWCFRelaysClientWithBaseURI(baseURI string, subscriptionID string) WCFRel
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name. parameters is parameters supplied to create a WCF relay.
-func (client WCFRelaysClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, parameters WcfRelay) (result WcfRelay, err error) {
+func (client WCFRelaysClient) CreateOrUpdate(resourceGroupName string, namespaceName string, relayName string, parameters WcfRelay) (result WcfRelay, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -64,7 +63,7 @@ func (client WCFRelaysClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, namespaceName, relayName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, namespaceName, relayName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -86,7 +85,7 @@ func (client WCFRelaysClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client WCFRelaysClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, parameters WcfRelay) (*http.Request, error) {
+func (client WCFRelaysClient) CreateOrUpdatePreparer(resourceGroupName string, namespaceName string, relayName string, parameters WcfRelay) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"namespaceName":     autorest.Encode("path", namespaceName),
 		"relayName":         autorest.Encode("path", relayName),
@@ -106,13 +105,14 @@ func (client WCFRelaysClient) CreateOrUpdatePreparer(ctx context.Context, resour
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -134,7 +134,7 @@ func (client WCFRelaysClient) CreateOrUpdateResponder(resp *http.Response) (resu
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name. authorizationRuleName is the authorization rule name. parameters is the authorization
 // rule parameters.
-func (client WCFRelaysClient) CreateOrUpdateAuthorizationRule(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters AuthorizationRule) (result AuthorizationRule, err error) {
+func (client WCFRelaysClient) CreateOrUpdateAuthorizationRule(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters AuthorizationRule) (result AuthorizationRule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -148,13 +148,13 @@ func (client WCFRelaysClient) CreateOrUpdateAuthorizationRule(ctx context.Contex
 			Constraints: []validation.Constraint{{Target: "authorizationRuleName", Name: validation.MinLength, Rule: 1, Chain: nil}}},
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.AuthorizationRuleProperties", Name: validation.Null, Rule: true,
-				Chain: []validation.Constraint{{Target: "parameters.AuthorizationRuleProperties.Rights", Name: validation.Null, Rule: true,
+				Chain: []validation.Constraint{{Target: "parameters.AuthorizationRuleProperties.Rights", Name: validation.Null, Rule: false,
 					Chain: []validation.Constraint{{Target: "parameters.AuthorizationRuleProperties.Rights", Name: validation.UniqueItems, Rule: true, Chain: nil}}},
 				}}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "CreateOrUpdateAuthorizationRule")
 	}
 
-	req, err := client.CreateOrUpdateAuthorizationRulePreparer(ctx, resourceGroupName, namespaceName, relayName, authorizationRuleName, parameters)
+	req, err := client.CreateOrUpdateAuthorizationRulePreparer(resourceGroupName, namespaceName, relayName, authorizationRuleName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "CreateOrUpdateAuthorizationRule", nil, "Failure preparing request")
 		return
@@ -176,7 +176,7 @@ func (client WCFRelaysClient) CreateOrUpdateAuthorizationRule(ctx context.Contex
 }
 
 // CreateOrUpdateAuthorizationRulePreparer prepares the CreateOrUpdateAuthorizationRule request.
-func (client WCFRelaysClient) CreateOrUpdateAuthorizationRulePreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters AuthorizationRule) (*http.Request, error) {
+func (client WCFRelaysClient) CreateOrUpdateAuthorizationRulePreparer(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters AuthorizationRule) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"namespaceName":         autorest.Encode("path", namespaceName),
@@ -197,13 +197,14 @@ func (client WCFRelaysClient) CreateOrUpdateAuthorizationRulePreparer(ctx contex
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}/authorizationRules/{authorizationRuleName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateAuthorizationRuleSender sends the CreateOrUpdateAuthorizationRule request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) CreateOrUpdateAuthorizationRuleSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -224,7 +225,7 @@ func (client WCFRelaysClient) CreateOrUpdateAuthorizationRuleResponder(resp *htt
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name.
-func (client WCFRelaysClient) Delete(ctx context.Context, resourceGroupName string, namespaceName string, relayName string) (result autorest.Response, err error) {
+func (client WCFRelaysClient) Delete(resourceGroupName string, namespaceName string, relayName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -237,7 +238,7 @@ func (client WCFRelaysClient) Delete(ctx context.Context, resourceGroupName stri
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, namespaceName, relayName)
+	req, err := client.DeletePreparer(resourceGroupName, namespaceName, relayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "Delete", nil, "Failure preparing request")
 		return
@@ -259,7 +260,7 @@ func (client WCFRelaysClient) Delete(ctx context.Context, resourceGroupName stri
 }
 
 // DeletePreparer prepares the Delete request.
-func (client WCFRelaysClient) DeletePreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string) (*http.Request, error) {
+func (client WCFRelaysClient) DeletePreparer(resourceGroupName string, namespaceName string, relayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"namespaceName":     autorest.Encode("path", namespaceName),
 		"relayName":         autorest.Encode("path", relayName),
@@ -277,13 +278,14 @@ func (client WCFRelaysClient) DeletePreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -303,7 +305,7 @@ func (client WCFRelaysClient) DeleteResponder(resp *http.Response) (result autor
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name. authorizationRuleName is the authorization rule name.
-func (client WCFRelaysClient) DeleteAuthorizationRule(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (result autorest.Response, err error) {
+func (client WCFRelaysClient) DeleteAuthorizationRule(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -318,7 +320,7 @@ func (client WCFRelaysClient) DeleteAuthorizationRule(ctx context.Context, resou
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "DeleteAuthorizationRule")
 	}
 
-	req, err := client.DeleteAuthorizationRulePreparer(ctx, resourceGroupName, namespaceName, relayName, authorizationRuleName)
+	req, err := client.DeleteAuthorizationRulePreparer(resourceGroupName, namespaceName, relayName, authorizationRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "DeleteAuthorizationRule", nil, "Failure preparing request")
 		return
@@ -340,7 +342,7 @@ func (client WCFRelaysClient) DeleteAuthorizationRule(ctx context.Context, resou
 }
 
 // DeleteAuthorizationRulePreparer prepares the DeleteAuthorizationRule request.
-func (client WCFRelaysClient) DeleteAuthorizationRulePreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (*http.Request, error) {
+func (client WCFRelaysClient) DeleteAuthorizationRulePreparer(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"namespaceName":         autorest.Encode("path", namespaceName),
@@ -359,13 +361,14 @@ func (client WCFRelaysClient) DeleteAuthorizationRulePreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}/authorizationRules/{authorizationRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteAuthorizationRuleSender sends the DeleteAuthorizationRule request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) DeleteAuthorizationRuleSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -385,7 +388,7 @@ func (client WCFRelaysClient) DeleteAuthorizationRuleResponder(resp *http.Respon
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name.
-func (client WCFRelaysClient) Get(ctx context.Context, resourceGroupName string, namespaceName string, relayName string) (result WcfRelay, err error) {
+func (client WCFRelaysClient) Get(resourceGroupName string, namespaceName string, relayName string) (result WcfRelay, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -398,7 +401,7 @@ func (client WCFRelaysClient) Get(ctx context.Context, resourceGroupName string,
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, namespaceName, relayName)
+	req, err := client.GetPreparer(resourceGroupName, namespaceName, relayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "Get", nil, "Failure preparing request")
 		return
@@ -420,7 +423,7 @@ func (client WCFRelaysClient) Get(ctx context.Context, resourceGroupName string,
 }
 
 // GetPreparer prepares the Get request.
-func (client WCFRelaysClient) GetPreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string) (*http.Request, error) {
+func (client WCFRelaysClient) GetPreparer(resourceGroupName string, namespaceName string, relayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"namespaceName":     autorest.Encode("path", namespaceName),
 		"relayName":         autorest.Encode("path", relayName),
@@ -438,13 +441,14 @@ func (client WCFRelaysClient) GetPreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -465,7 +469,7 @@ func (client WCFRelaysClient) GetResponder(resp *http.Response) (result WcfRelay
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name. authorizationRuleName is the authorization rule name.
-func (client WCFRelaysClient) GetAuthorizationRule(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (result AuthorizationRule, err error) {
+func (client WCFRelaysClient) GetAuthorizationRule(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (result AuthorizationRule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -480,7 +484,7 @@ func (client WCFRelaysClient) GetAuthorizationRule(ctx context.Context, resource
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "GetAuthorizationRule")
 	}
 
-	req, err := client.GetAuthorizationRulePreparer(ctx, resourceGroupName, namespaceName, relayName, authorizationRuleName)
+	req, err := client.GetAuthorizationRulePreparer(resourceGroupName, namespaceName, relayName, authorizationRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "GetAuthorizationRule", nil, "Failure preparing request")
 		return
@@ -502,7 +506,7 @@ func (client WCFRelaysClient) GetAuthorizationRule(ctx context.Context, resource
 }
 
 // GetAuthorizationRulePreparer prepares the GetAuthorizationRule request.
-func (client WCFRelaysClient) GetAuthorizationRulePreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (*http.Request, error) {
+func (client WCFRelaysClient) GetAuthorizationRulePreparer(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"namespaceName":         autorest.Encode("path", namespaceName),
@@ -521,13 +525,14 @@ func (client WCFRelaysClient) GetAuthorizationRulePreparer(ctx context.Context, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}/authorizationRules/{authorizationRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAuthorizationRuleSender sends the GetAuthorizationRule request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) GetAuthorizationRuleSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -548,7 +553,7 @@ func (client WCFRelaysClient) GetAuthorizationRuleResponder(resp *http.Response)
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name.
-func (client WCFRelaysClient) ListAuthorizationRules(ctx context.Context, resourceGroupName string, namespaceName string, relayName string) (result AuthorizationRuleListResultPage, err error) {
+func (client WCFRelaysClient) ListAuthorizationRules(resourceGroupName string, namespaceName string, relayName string) (result AuthorizationRuleListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -561,8 +566,7 @@ func (client WCFRelaysClient) ListAuthorizationRules(ctx context.Context, resour
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "ListAuthorizationRules")
 	}
 
-	result.fn = client.listAuthorizationRulesNextResults
-	req, err := client.ListAuthorizationRulesPreparer(ctx, resourceGroupName, namespaceName, relayName)
+	req, err := client.ListAuthorizationRulesPreparer(resourceGroupName, namespaceName, relayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListAuthorizationRules", nil, "Failure preparing request")
 		return
@@ -570,12 +574,12 @@ func (client WCFRelaysClient) ListAuthorizationRules(ctx context.Context, resour
 
 	resp, err := client.ListAuthorizationRulesSender(req)
 	if err != nil {
-		result.arlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListAuthorizationRules", resp, "Failure sending request")
 		return
 	}
 
-	result.arlr, err = client.ListAuthorizationRulesResponder(resp)
+	result, err = client.ListAuthorizationRulesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListAuthorizationRules", resp, "Failure responding to request")
 	}
@@ -584,7 +588,7 @@ func (client WCFRelaysClient) ListAuthorizationRules(ctx context.Context, resour
 }
 
 // ListAuthorizationRulesPreparer prepares the ListAuthorizationRules request.
-func (client WCFRelaysClient) ListAuthorizationRulesPreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string) (*http.Request, error) {
+func (client WCFRelaysClient) ListAuthorizationRulesPreparer(resourceGroupName string, namespaceName string, relayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"namespaceName":     autorest.Encode("path", namespaceName),
 		"relayName":         autorest.Encode("path", relayName),
@@ -602,13 +606,14 @@ func (client WCFRelaysClient) ListAuthorizationRulesPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}/authorizationRules", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAuthorizationRulesSender sends the ListAuthorizationRules request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) ListAuthorizationRulesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -625,37 +630,79 @@ func (client WCFRelaysClient) ListAuthorizationRulesResponder(resp *http.Respons
 	return
 }
 
-// listAuthorizationRulesNextResults retrieves the next set of results, if any.
-func (client WCFRelaysClient) listAuthorizationRulesNextResults(lastResults AuthorizationRuleListResult) (result AuthorizationRuleListResult, err error) {
-	req, err := lastResults.authorizationRuleListResultPreparer()
+// ListAuthorizationRulesNextResults retrieves the next set of results, if any.
+func (client WCFRelaysClient) ListAuthorizationRulesNextResults(lastResults AuthorizationRuleListResult) (result AuthorizationRuleListResult, err error) {
+	req, err := lastResults.AuthorizationRuleListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "listAuthorizationRulesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListAuthorizationRules", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAuthorizationRulesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "listAuthorizationRulesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListAuthorizationRules", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAuthorizationRulesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "listAuthorizationRulesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListAuthorizationRules", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAuthorizationRulesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client WCFRelaysClient) ListAuthorizationRulesComplete(ctx context.Context, resourceGroupName string, namespaceName string, relayName string) (result AuthorizationRuleListResultIterator, err error) {
-	result.page, err = client.ListAuthorizationRules(ctx, resourceGroupName, namespaceName, relayName)
-	return
+// ListAuthorizationRulesComplete gets all elements from the list without paging.
+func (client WCFRelaysClient) ListAuthorizationRulesComplete(resourceGroupName string, namespaceName string, relayName string, cancel <-chan struct{}) (<-chan AuthorizationRule, <-chan error) {
+	resultChan := make(chan AuthorizationRule)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAuthorizationRules(resourceGroupName, namespaceName, relayName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAuthorizationRulesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListByNamespace lists the WCF relays within the namespace.
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
-func (client WCFRelaysClient) ListByNamespace(ctx context.Context, resourceGroupName string, namespaceName string) (result WcfRelaysListResultPage, err error) {
+func (client WCFRelaysClient) ListByNamespace(resourceGroupName string, namespaceName string) (result WcfRelaysListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -666,8 +713,7 @@ func (client WCFRelaysClient) ListByNamespace(ctx context.Context, resourceGroup
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "ListByNamespace")
 	}
 
-	result.fn = client.listByNamespaceNextResults
-	req, err := client.ListByNamespacePreparer(ctx, resourceGroupName, namespaceName)
+	req, err := client.ListByNamespacePreparer(resourceGroupName, namespaceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListByNamespace", nil, "Failure preparing request")
 		return
@@ -675,12 +721,12 @@ func (client WCFRelaysClient) ListByNamespace(ctx context.Context, resourceGroup
 
 	resp, err := client.ListByNamespaceSender(req)
 	if err != nil {
-		result.wrlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListByNamespace", resp, "Failure sending request")
 		return
 	}
 
-	result.wrlr, err = client.ListByNamespaceResponder(resp)
+	result, err = client.ListByNamespaceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListByNamespace", resp, "Failure responding to request")
 	}
@@ -689,7 +735,7 @@ func (client WCFRelaysClient) ListByNamespace(ctx context.Context, resourceGroup
 }
 
 // ListByNamespacePreparer prepares the ListByNamespace request.
-func (client WCFRelaysClient) ListByNamespacePreparer(ctx context.Context, resourceGroupName string, namespaceName string) (*http.Request, error) {
+func (client WCFRelaysClient) ListByNamespacePreparer(resourceGroupName string, namespaceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"namespaceName":     autorest.Encode("path", namespaceName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -706,13 +752,14 @@ func (client WCFRelaysClient) ListByNamespacePreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByNamespaceSender sends the ListByNamespace request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) ListByNamespaceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -729,38 +776,80 @@ func (client WCFRelaysClient) ListByNamespaceResponder(resp *http.Response) (res
 	return
 }
 
-// listByNamespaceNextResults retrieves the next set of results, if any.
-func (client WCFRelaysClient) listByNamespaceNextResults(lastResults WcfRelaysListResult) (result WcfRelaysListResult, err error) {
-	req, err := lastResults.wcfRelaysListResultPreparer()
+// ListByNamespaceNextResults retrieves the next set of results, if any.
+func (client WCFRelaysClient) ListByNamespaceNextResults(lastResults WcfRelaysListResult) (result WcfRelaysListResult, err error) {
+	req, err := lastResults.WcfRelaysListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "listByNamespaceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListByNamespace", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByNamespaceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "listByNamespaceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListByNamespace", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByNamespaceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "listByNamespaceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListByNamespace", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByNamespaceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client WCFRelaysClient) ListByNamespaceComplete(ctx context.Context, resourceGroupName string, namespaceName string) (result WcfRelaysListResultIterator, err error) {
-	result.page, err = client.ListByNamespace(ctx, resourceGroupName, namespaceName)
-	return
+// ListByNamespaceComplete gets all elements from the list without paging.
+func (client WCFRelaysClient) ListByNamespaceComplete(resourceGroupName string, namespaceName string, cancel <-chan struct{}) (<-chan WcfRelay, <-chan error) {
+	resultChan := make(chan WcfRelay)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByNamespace(resourceGroupName, namespaceName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByNamespaceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListKeys primary and secondary connection strings to the WCF relay.
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name. authorizationRuleName is the authorization rule name.
-func (client WCFRelaysClient) ListKeys(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (result AccessKeys, err error) {
+func (client WCFRelaysClient) ListKeys(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (result AccessKeys, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -775,7 +864,7 @@ func (client WCFRelaysClient) ListKeys(ctx context.Context, resourceGroupName st
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "ListKeys")
 	}
 
-	req, err := client.ListKeysPreparer(ctx, resourceGroupName, namespaceName, relayName, authorizationRuleName)
+	req, err := client.ListKeysPreparer(resourceGroupName, namespaceName, relayName, authorizationRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "ListKeys", nil, "Failure preparing request")
 		return
@@ -797,7 +886,7 @@ func (client WCFRelaysClient) ListKeys(ctx context.Context, resourceGroupName st
 }
 
 // ListKeysPreparer prepares the ListKeys request.
-func (client WCFRelaysClient) ListKeysPreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (*http.Request, error) {
+func (client WCFRelaysClient) ListKeysPreparer(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"namespaceName":         autorest.Encode("path", namespaceName),
@@ -816,13 +905,14 @@ func (client WCFRelaysClient) ListKeysPreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}/authorizationRules/{authorizationRuleName}/listKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListKeysSender sends the ListKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) ListKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -844,7 +934,7 @@ func (client WCFRelaysClient) ListKeysResponder(resp *http.Response) (result Acc
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the namespace name
 // relayName is the relay name. authorizationRuleName is the authorization rule name. parameters is parameters supplied
 // to regenerate authorization rule.
-func (client WCFRelaysClient) RegenerateKeys(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters RegenerateAccessKeyParameters) (result AccessKeys, err error) {
+func (client WCFRelaysClient) RegenerateKeys(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters RegenerateAccessKeyParameters) (result AccessKeys, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -859,7 +949,7 @@ func (client WCFRelaysClient) RegenerateKeys(ctx context.Context, resourceGroupN
 		return result, validation.NewErrorWithValidationError(err, "relay.WCFRelaysClient", "RegenerateKeys")
 	}
 
-	req, err := client.RegenerateKeysPreparer(ctx, resourceGroupName, namespaceName, relayName, authorizationRuleName, parameters)
+	req, err := client.RegenerateKeysPreparer(resourceGroupName, namespaceName, relayName, authorizationRuleName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.WCFRelaysClient", "RegenerateKeys", nil, "Failure preparing request")
 		return
@@ -881,7 +971,7 @@ func (client WCFRelaysClient) RegenerateKeys(ctx context.Context, resourceGroupN
 }
 
 // RegenerateKeysPreparer prepares the RegenerateKeys request.
-func (client WCFRelaysClient) RegenerateKeysPreparer(ctx context.Context, resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters RegenerateAccessKeyParameters) (*http.Request, error) {
+func (client WCFRelaysClient) RegenerateKeysPreparer(resourceGroupName string, namespaceName string, relayName string, authorizationRuleName string, parameters RegenerateAccessKeyParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"namespaceName":         autorest.Encode("path", namespaceName),
@@ -902,13 +992,14 @@ func (client WCFRelaysClient) RegenerateKeysPreparer(ctx context.Context, resour
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/wcfRelays/{relayName}/authorizationRules/{authorizationRuleName}/regenerateKeys", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegenerateKeysSender sends the RegenerateKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client WCFRelaysClient) RegenerateKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -18,7 +18,6 @@ package customerinsights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // with Azure Customer Insights service to manage your resources. The API has entities that capture the relationship
 // between an end user and the Azure Customer Insights service.
 type LinksClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewLinksClient creates an instance of the LinksClient client.
@@ -42,11 +41,15 @@ func NewLinksClientWithBaseURI(baseURI string, subscriptionID string) LinksClien
 	return LinksClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates a link or updates an existing link in the hub.
+// CreateOrUpdate creates a link or updates an existing link in the hub. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. linkName is the name of the
 // link. parameters is parameters supplied to the CreateOrUpdate Link operation.
-func (client LinksClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, hubName string, linkName string, parameters LinkResourceFormat) (result LinksCreateOrUpdateFuture, err error) {
+func (client LinksClient) CreateOrUpdate(resourceGroupName string, hubName string, linkName string, parameters LinkResourceFormat, cancel <-chan struct{}) (<-chan LinkResourceFormat, <-chan error) {
+	resultChan := make(chan LinkResourceFormat, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: linkName,
 			Constraints: []validation.Constraint{{Target: "linkName", Name: validation.MaxLength, Rule: 512, Chain: nil},
@@ -58,26 +61,46 @@ func (client LinksClient) CreateOrUpdate(ctx context.Context, resourceGroupName 
 					{Target: "parameters.LinkDefinition.TargetProfileType", Name: validation.Null, Rule: true, Chain: nil},
 					{Target: "parameters.LinkDefinition.ParticipantPropertyReferences", Name: validation.Null, Rule: true, Chain: nil},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "customerinsights.LinksClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "customerinsights.LinksClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, hubName, linkName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result LinkResourceFormat
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, hubName, linkName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client LinksClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, hubName string, linkName string, parameters LinkResourceFormat) (*http.Request, error) {
+func (client LinksClient) CreateOrUpdatePreparer(resourceGroupName string, hubName string, linkName string, parameters LinkResourceFormat, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"linkName":          autorest.Encode("path", linkName),
@@ -97,22 +120,16 @@ func (client LinksClient) CreateOrUpdatePreparer(ctx context.Context, resourceGr
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/links/{linkName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client LinksClient) CreateOrUpdateSender(req *http.Request) (future LinksCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client LinksClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -132,8 +149,8 @@ func (client LinksClient) CreateOrUpdateResponder(resp *http.Response) (result L
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. linkName is the name of the
 // link.
-func (client LinksClient) Delete(ctx context.Context, resourceGroupName string, hubName string, linkName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, hubName, linkName)
+func (client LinksClient) Delete(resourceGroupName string, hubName string, linkName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, hubName, linkName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "Delete", nil, "Failure preparing request")
 		return
@@ -155,7 +172,7 @@ func (client LinksClient) Delete(ctx context.Context, resourceGroupName string, 
 }
 
 // DeletePreparer prepares the Delete request.
-func (client LinksClient) DeletePreparer(ctx context.Context, resourceGroupName string, hubName string, linkName string) (*http.Request, error) {
+func (client LinksClient) DeletePreparer(resourceGroupName string, hubName string, linkName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"linkName":          autorest.Encode("path", linkName),
@@ -173,13 +190,14 @@ func (client LinksClient) DeletePreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/links/{linkName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client LinksClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -199,8 +217,8 @@ func (client LinksClient) DeleteResponder(resp *http.Response) (result autorest.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. linkName is the name of the
 // link.
-func (client LinksClient) Get(ctx context.Context, resourceGroupName string, hubName string, linkName string) (result LinkResourceFormat, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, hubName, linkName)
+func (client LinksClient) Get(resourceGroupName string, hubName string, linkName string) (result LinkResourceFormat, err error) {
+	req, err := client.GetPreparer(resourceGroupName, hubName, linkName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "Get", nil, "Failure preparing request")
 		return
@@ -222,7 +240,7 @@ func (client LinksClient) Get(ctx context.Context, resourceGroupName string, hub
 }
 
 // GetPreparer prepares the Get request.
-func (client LinksClient) GetPreparer(ctx context.Context, resourceGroupName string, hubName string, linkName string) (*http.Request, error) {
+func (client LinksClient) GetPreparer(resourceGroupName string, hubName string, linkName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"linkName":          autorest.Encode("path", linkName),
@@ -240,13 +258,14 @@ func (client LinksClient) GetPreparer(ctx context.Context, resourceGroupName str
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/links/{linkName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client LinksClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -266,9 +285,8 @@ func (client LinksClient) GetResponder(resp *http.Response) (result LinkResource
 // ListByHub gets all the links in the specified hub.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub.
-func (client LinksClient) ListByHub(ctx context.Context, resourceGroupName string, hubName string) (result LinkListResultPage, err error) {
-	result.fn = client.listByHubNextResults
-	req, err := client.ListByHubPreparer(ctx, resourceGroupName, hubName)
+func (client LinksClient) ListByHub(resourceGroupName string, hubName string) (result LinkListResult, err error) {
+	req, err := client.ListByHubPreparer(resourceGroupName, hubName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "ListByHub", nil, "Failure preparing request")
 		return
@@ -276,12 +294,12 @@ func (client LinksClient) ListByHub(ctx context.Context, resourceGroupName strin
 
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
-		result.llr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "ListByHub", resp, "Failure sending request")
 		return
 	}
 
-	result.llr, err = client.ListByHubResponder(resp)
+	result, err = client.ListByHubResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "ListByHub", resp, "Failure responding to request")
 	}
@@ -290,7 +308,7 @@ func (client LinksClient) ListByHub(ctx context.Context, resourceGroupName strin
 }
 
 // ListByHubPreparer prepares the ListByHub request.
-func (client LinksClient) ListByHubPreparer(ctx context.Context, resourceGroupName string, hubName string) (*http.Request, error) {
+func (client LinksClient) ListByHubPreparer(resourceGroupName string, hubName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -307,13 +325,14 @@ func (client LinksClient) ListByHubPreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/links", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByHubSender sends the ListByHub request. The method will close the
 // http.Response Body if it receives an error.
 func (client LinksClient) ListByHubSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -330,29 +349,71 @@ func (client LinksClient) ListByHubResponder(resp *http.Response) (result LinkLi
 	return
 }
 
-// listByHubNextResults retrieves the next set of results, if any.
-func (client LinksClient) listByHubNextResults(lastResults LinkListResult) (result LinkListResult, err error) {
-	req, err := lastResults.linkListResultPreparer()
+// ListByHubNextResults retrieves the next set of results, if any.
+func (client LinksClient) ListByHubNextResults(lastResults LinkListResult) (result LinkListResult, err error) {
+	req, err := lastResults.LinkListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "customerinsights.LinksClient", "listByHubNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.LinksClient", "ListByHub", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "customerinsights.LinksClient", "listByHubNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.LinksClient", "ListByHub", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByHubResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "listByHubNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "customerinsights.LinksClient", "ListByHub", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByHubComplete enumerates all values, automatically crossing page boundaries as required.
-func (client LinksClient) ListByHubComplete(ctx context.Context, resourceGroupName string, hubName string) (result LinkListResultIterator, err error) {
-	result.page, err = client.ListByHub(ctx, resourceGroupName, hubName)
-	return
+// ListByHubComplete gets all elements from the list without paging.
+func (client LinksClient) ListByHubComplete(resourceGroupName string, hubName string, cancel <-chan struct{}) (<-chan LinkResourceFormat, <-chan error) {
+	resultChan := make(chan LinkResourceFormat)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByHub(resourceGroupName, hubName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByHubNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

@@ -1436,11 +1436,7 @@ func (c *MTurk) GetFileUploadURLRequest(input *GetFileUploadURLInput) (req *requ
 // the instant the GetFileUploadURL operation is called, and is valid for 60
 // seconds. You can get a temporary file upload URL any time until the HIT is
 // disposed. After the HIT is disposed, any uploaded files are deleted, and
-// cannot be retrieved. Pending Deprecation on December 12, 2017. The Answer
-// Specification structure will no longer support the FileUploadAnswer element
-// to be used for the QuestionForm data structure. Instead, we recommend that
-// Requesters who want to create HITs asking Workers to upload files to use
-// Amazon S3.
+// cannot be retrieved.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -4071,6 +4067,7 @@ func (c *MTurk) UpdateQualificationTypeWithContext(ctx aws.Context, input *Updat
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/AcceptQualificationRequestRequest
 type AcceptQualificationRequestInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4120,6 +4117,7 @@ func (s *AcceptQualificationRequestInput) SetQualificationRequestId(v string) *A
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/AcceptQualificationRequestResponse
 type AcceptQualificationRequestOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4134,6 +4132,7 @@ func (s AcceptQualificationRequestOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ApproveAssignmentRequest
 type ApproveAssignmentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4196,6 +4195,7 @@ func (s *ApproveAssignmentInput) SetRequesterFeedback(v string) *ApproveAssignme
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ApproveAssignmentResponse
 type ApproveAssignmentOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4213,6 +4213,7 @@ func (s ApproveAssignmentOutput) GoString() string {
 // The Assignment data structure represents a single assignment of a HIT to
 // a Worker. The assignment tracks the Worker's efforts to complete the HIT,
 // and contains the results for later retrieval.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/Assignment
 type Assignment struct {
 	_ struct{} `type:"structure"`
 
@@ -4353,6 +4354,7 @@ func (s *Assignment) SetWorkerId(v string) *Assignment {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/AssociateQualificationWithWorkerRequest
 type AssociateQualificationWithWorkerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4432,6 +4434,7 @@ func (s *AssociateQualificationWithWorkerInput) SetWorkerId(v string) *Associate
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/AssociateQualificationWithWorkerResponse
 type AssociateQualificationWithWorkerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4447,6 +4450,7 @@ func (s AssociateQualificationWithWorkerOutput) GoString() string {
 }
 
 // An object representing a Bonus payment paid to a Worker.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/BonusPayment
 type BonusPayment struct {
 	_ struct{} `type:"structure"`
 
@@ -4506,6 +4510,7 @@ func (s *BonusPayment) SetWorkerId(v string) *BonusPayment {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateAdditionalAssignmentsForHITRequest
 type CreateAdditionalAssignmentsForHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4578,6 +4583,7 @@ func (s *CreateAdditionalAssignmentsForHITInput) SetUniqueRequestToken(v string)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateAdditionalAssignmentsForHITResponse
 type CreateAdditionalAssignmentsForHITOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4592,6 +4598,7 @@ func (s CreateAdditionalAssignmentsForHITOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateHITRequest
 type CreateHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4873,6 +4880,7 @@ func (s *CreateHITInput) SetUniqueRequestToken(v string) *CreateHITInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateHITResponse
 type CreateHITOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4897,6 +4905,7 @@ func (s *CreateHITOutput) SetHIT(v *HIT) *CreateHITOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateHITTypeRequest
 type CreateHITTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5029,6 +5038,7 @@ func (s *CreateHITTypeInput) SetTitle(v string) *CreateHITTypeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateHITTypeResponse
 type CreateHITTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5052,6 +5062,7 @@ func (s *CreateHITTypeOutput) SetHITTypeId(v string) *CreateHITTypeOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateHITWithHITTypeRequest
 type CreateHITWithHITTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5242,6 +5253,7 @@ func (s *CreateHITWithHITTypeInput) SetUniqueRequestToken(v string) *CreateHITWi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateHITWithHITTypeResponse
 type CreateHITWithHITTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5266,6 +5278,7 @@ func (s *CreateHITWithHITTypeOutput) SetHIT(v *HIT) *CreateHITWithHITTypeOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateQualificationTypeRequest
 type CreateQualificationTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5430,6 +5443,7 @@ func (s *CreateQualificationTypeInput) SetTestDurationInSeconds(v int64) *Create
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateQualificationTypeResponse
 type CreateQualificationTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5453,6 +5467,7 @@ func (s *CreateQualificationTypeOutput) SetQualificationType(v *QualificationTyp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateWorkerBlockRequest
 type CreateWorkerBlockInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5509,6 +5524,7 @@ func (s *CreateWorkerBlockInput) SetWorkerId(v string) *CreateWorkerBlockInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/CreateWorkerBlockResponse
 type CreateWorkerBlockOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5523,6 +5539,7 @@ func (s CreateWorkerBlockOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DeleteHITRequest
 type DeleteHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5564,6 +5581,7 @@ func (s *DeleteHITInput) SetHITId(v string) *DeleteHITInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DeleteHITResponse
 type DeleteHITOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5578,6 +5596,7 @@ func (s DeleteHITOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DeleteQualificationTypeRequest
 type DeleteQualificationTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5619,6 +5638,7 @@ func (s *DeleteQualificationTypeInput) SetQualificationTypeId(v string) *DeleteQ
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DeleteQualificationTypeResponse
 type DeleteQualificationTypeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5633,6 +5653,7 @@ func (s DeleteQualificationTypeOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DeleteWorkerBlockRequest
 type DeleteWorkerBlockInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5684,6 +5705,7 @@ func (s *DeleteWorkerBlockInput) SetWorkerId(v string) *DeleteWorkerBlockInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DeleteWorkerBlockResponse
 type DeleteWorkerBlockOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5698,6 +5720,7 @@ func (s DeleteWorkerBlockOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DisassociateQualificationFromWorkerRequest
 type DisassociateQualificationFromWorkerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5766,6 +5789,7 @@ func (s *DisassociateQualificationFromWorkerInput) SetWorkerId(v string) *Disass
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/DisassociateQualificationFromWorkerResponse
 type DisassociateQualificationFromWorkerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5780,6 +5804,7 @@ func (s DisassociateQualificationFromWorkerOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetAccountBalanceRequest
 type GetAccountBalanceInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5794,6 +5819,7 @@ func (s GetAccountBalanceInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetAccountBalanceResponse
 type GetAccountBalanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5826,6 +5852,7 @@ func (s *GetAccountBalanceOutput) SetOnHoldBalance(v string) *GetAccountBalanceO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetAssignmentRequest
 type GetAssignmentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5867,6 +5894,7 @@ func (s *GetAssignmentInput) SetAssignmentId(v string) *GetAssignmentInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetAssignmentResponse
 type GetAssignmentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5899,6 +5927,7 @@ func (s *GetAssignmentOutput) SetHIT(v *HIT) *GetAssignmentOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetFileUploadURLRequest
 type GetFileUploadURLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5955,6 +5984,7 @@ func (s *GetFileUploadURLInput) SetQuestionIdentifier(v string) *GetFileUploadUR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetFileUploadURLResponse
 type GetFileUploadURLOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5978,6 +6008,7 @@ func (s *GetFileUploadURLOutput) SetFileUploadURL(v string) *GetFileUploadURLOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetHITRequest
 type GetHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6019,6 +6050,7 @@ func (s *GetHITInput) SetHITId(v string) *GetHITInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetHITResponse
 type GetHITOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6042,6 +6074,7 @@ func (s *GetHITOutput) SetHIT(v *HIT) *GetHITOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetQualificationScoreRequest
 type GetQualificationScoreInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6100,6 +6133,7 @@ func (s *GetQualificationScoreInput) SetWorkerId(v string) *GetQualificationScor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetQualificationScoreResponse
 type GetQualificationScoreOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6124,6 +6158,7 @@ func (s *GetQualificationScoreOutput) SetQualification(v *Qualification) *GetQua
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetQualificationTypeRequest
 type GetQualificationTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6165,6 +6200,7 @@ func (s *GetQualificationTypeInput) SetQualificationTypeId(v string) *GetQualifi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/GetQualificationTypeResponse
 type GetQualificationTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6190,6 +6226,7 @@ func (s *GetQualificationTypeOutput) SetQualificationType(v *QualificationType) 
 
 // The HIT data structure represents a single HIT, including all the information
 // necessary for a Worker to accept and complete the HIT.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/HIT
 type HIT struct {
 	_ struct{} `type:"structure"`
 
@@ -6413,6 +6450,7 @@ func (s *HIT) SetTitle(v string) *HIT {
 // The HITLayoutParameter data structure defines parameter values used with
 // a HITLayout. A HITLayout is a reusable Amazon Mechanical Turk project template
 // used to provide Human Intelligence Task (HIT) question data for CreateHIT.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/HITLayoutParameter
 type HITLayoutParameter struct {
 	_ struct{} `type:"structure"`
 
@@ -6465,6 +6503,7 @@ func (s *HITLayoutParameter) SetValue(v string) *HITLayoutParameter {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListAssignmentsForHITRequest
 type ListAssignmentsForHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6538,6 +6577,7 @@ func (s *ListAssignmentsForHITInput) SetNextToken(v string) *ListAssignmentsForH
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListAssignmentsForHITResponse
 type ListAssignmentsForHITOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6582,6 +6622,7 @@ func (s *ListAssignmentsForHITOutput) SetNumResults(v int64) *ListAssignmentsFor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListBonusPaymentsRequest
 type ListBonusPaymentsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6657,6 +6698,7 @@ func (s *ListBonusPaymentsInput) SetNextToken(v string) *ListBonusPaymentsInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListBonusPaymentsResponse
 type ListBonusPaymentsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6702,6 +6744,7 @@ func (s *ListBonusPaymentsOutput) SetNumResults(v int64) *ListBonusPaymentsOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListHITsForQualificationTypeRequest
 type ListHITsForQualificationTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6767,6 +6810,7 @@ func (s *ListHITsForQualificationTypeInput) SetQualificationTypeId(v string) *Li
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListHITsForQualificationTypeResponse
 type ListHITsForQualificationTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6811,6 +6855,7 @@ func (s *ListHITsForQualificationTypeOutput) SetNumResults(v int64) *ListHITsFor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListHITsRequest
 type ListHITsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6858,6 +6903,7 @@ func (s *ListHITsInput) SetNextToken(v string) *ListHITsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListHITsResponse
 type ListHITsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6902,6 +6948,7 @@ func (s *ListHITsOutput) SetNumResults(v int64) *ListHITsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListQualificationRequestsRequest
 type ListQualificationRequestsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6964,6 +7011,7 @@ func (s *ListQualificationRequestsInput) SetQualificationTypeId(v string) *ListQ
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListQualificationRequestsResponse
 type ListQualificationRequestsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7010,6 +7058,7 @@ func (s *ListQualificationRequestsOutput) SetQualificationRequests(v []*Qualific
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListQualificationTypesRequest
 type ListQualificationTypesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7098,6 +7147,7 @@ func (s *ListQualificationTypesInput) SetQuery(v string) *ListQualificationTypes
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListQualificationTypesResponse
 type ListQualificationTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7142,6 +7192,7 @@ func (s *ListQualificationTypesOutput) SetQualificationTypes(v []*QualificationT
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListReviewPolicyResultsForHITRequest
 type ListReviewPolicyResultsForHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7238,6 +7289,7 @@ func (s *ListReviewPolicyResultsForHITInput) SetRetrieveResults(v bool) *ListRev
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListReviewPolicyResultsForHITResponse
 type ListReviewPolicyResultsForHITOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7310,6 +7362,7 @@ func (s *ListReviewPolicyResultsForHITOutput) SetNextToken(v string) *ListReview
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListReviewableHITsRequest
 type ListReviewableHITsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7380,6 +7433,7 @@ func (s *ListReviewableHITsInput) SetStatus(v string) *ListReviewableHITsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListReviewableHITsResponse
 type ListReviewableHITsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7424,6 +7478,7 @@ func (s *ListReviewableHITsOutput) SetNumResults(v int64) *ListReviewableHITsOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListWorkerBlocksRequest
 type ListWorkerBlocksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7471,6 +7526,7 @@ func (s *ListWorkerBlocksInput) SetNextToken(v string) *ListWorkerBlocksInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListWorkerBlocksResponse
 type ListWorkerBlocksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7516,6 +7572,7 @@ func (s *ListWorkerBlocksOutput) SetWorkerBlocks(v []*WorkerBlock) *ListWorkerBl
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListWorkersWithQualificationTypeRequest
 type ListWorkersWithQualificationTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7590,6 +7647,7 @@ func (s *ListWorkersWithQualificationTypeInput) SetStatus(v string) *ListWorkers
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ListWorkersWithQualificationTypeResponse
 type ListWorkersWithQualificationTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7635,6 +7693,7 @@ func (s *ListWorkersWithQualificationTypeOutput) SetQualifications(v []*Qualific
 }
 
 // The Locale data structure represents a geographical region or location.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/Locale
 type Locale struct {
 	_ struct{} `type:"structure"`
 
@@ -7692,6 +7751,7 @@ func (s *Locale) SetSubdivision(v string) *Locale {
 
 // The NotificationSpecification data structure describes a HIT event notification
 // for a HIT type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/NotificationSpecification
 type NotificationSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -7786,6 +7846,7 @@ func (s *NotificationSpecification) SetVersion(v string) *NotificationSpecificat
 
 // When MTurk encounters an issue with notifying the Workers you specified,
 // it returns back this object with failure details.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/NotifyWorkersFailureStatus
 type NotifyWorkersFailureStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -7827,6 +7888,7 @@ func (s *NotifyWorkersFailureStatus) SetWorkerId(v string) *NotifyWorkersFailure
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/NotifyWorkersRequest
 type NotifyWorkersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7894,6 +7956,7 @@ func (s *NotifyWorkersInput) SetWorkerIds(v []*string) *NotifyWorkersInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/NotifyWorkersResponse
 type NotifyWorkersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7920,6 +7983,7 @@ func (s *NotifyWorkersOutput) SetNotifyWorkersFailureStatuses(v []*NotifyWorkers
 
 // This data structure is the data type for the AnswerKey parameter of the ScoreMyKnownAnswers/2011-09-01
 // Review Policy.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ParameterMapEntry
 type ParameterMapEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -7956,6 +8020,7 @@ func (s *ParameterMapEntry) SetValues(v []*string) *ParameterMapEntry {
 }
 
 // Name of the parameter from the Review policy.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/PolicyParameter
 type PolicyParameter struct {
 	_ struct{} `type:"structure"`
 
@@ -7999,6 +8064,7 @@ func (s *PolicyParameter) SetValues(v []*string) *PolicyParameter {
 
 // The Qualification data structure represents a Qualification assigned to a
 // user, including the Qualification type and the value (score).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/Qualification
 type Qualification struct {
 	_ struct{} `type:"structure"`
 
@@ -8073,6 +8139,7 @@ func (s *Qualification) SetWorkerId(v string) *Qualification {
 
 // The QualificationRequest data structure represents a request a Worker has
 // made for a Qualification.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/QualificationRequest
 type QualificationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -8155,6 +8222,7 @@ func (s *QualificationRequest) SetWorkerId(v string) *QualificationRequest {
 // a Worker must have before the Worker is allowed to accept a HIT. A requirement
 // may optionally state that a Worker must have the Qualification in order to
 // preview the HIT.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/QualificationRequirement
 type QualificationRequirement struct {
 	_ struct{} `type:"structure"`
 
@@ -8275,6 +8343,7 @@ func (s *QualificationRequirement) SetRequiredToPreview(v bool) *QualificationRe
 // Worker to be able to accept the HIT. The type also describes how a Worker
 // can obtain a Qualification of that type, such as through a Qualification
 // test.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/QualificationType
 type QualificationType struct {
 	_ struct{} `type:"structure"`
 
@@ -8427,6 +8496,7 @@ func (s *QualificationType) SetTestDurationInSeconds(v int64) *QualificationType
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/RejectAssignmentRequest
 type RejectAssignmentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8484,6 +8554,7 @@ func (s *RejectAssignmentInput) SetRequesterFeedback(v string) *RejectAssignment
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/RejectAssignmentResponse
 type RejectAssignmentOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8498,6 +8569,7 @@ func (s RejectAssignmentOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/RejectQualificationRequestRequest
 type RejectQualificationRequestInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8547,6 +8619,7 @@ func (s *RejectQualificationRequestInput) SetReason(v string) *RejectQualificati
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/RejectQualificationRequestResponse
 type RejectQualificationRequestOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8564,6 +8637,7 @@ func (s RejectQualificationRequestOutput) GoString() string {
 // Both the AssignmentReviewReport and the HITReviewReport elements contains
 // the ReviewActionDetail data structure. This structure is returned multiple
 // times for each action specified in the Review Policy.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ReviewActionDetail
 type ReviewActionDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -8654,6 +8728,7 @@ func (s *ReviewActionDetail) SetTargetType(v string) *ReviewActionDetail {
 
 // HIT Review Policy data structures represent HIT review policies, which you
 // specify when you create a HIT.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ReviewPolicy
 type ReviewPolicy struct {
 	_ struct{} `type:"structure"`
 
@@ -8702,6 +8777,7 @@ func (s *ReviewPolicy) SetPolicyName(v string) *ReviewPolicy {
 }
 
 // Contains both ReviewResult and ReviewAction elements for a particular HIT.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ReviewReport
 type ReviewReport struct {
 	_ struct{} `type:"structure"`
 
@@ -8736,6 +8812,7 @@ func (s *ReviewReport) SetReviewResults(v []*ReviewResultDetail) *ReviewReport {
 
 // This data structure is returned multiple times for each result specified
 // in the Review Policy.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/ReviewResultDetail
 type ReviewResultDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -8812,6 +8889,7 @@ func (s *ReviewResultDetail) SetValue(v string) *ReviewResultDetail {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/SendBonusRequest
 type SendBonusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8918,6 +8996,7 @@ func (s *SendBonusInput) SetWorkerId(v string) *SendBonusInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/SendBonusResponse
 type SendBonusOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8932,6 +9011,7 @@ func (s SendBonusOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/SendTestEventNotificationRequest
 type SendTestEventNotificationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8994,6 +9074,7 @@ func (s *SendTestEventNotificationInput) SetTestEventType(v string) *SendTestEve
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/SendTestEventNotificationResponse
 type SendTestEventNotificationOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9008,6 +9089,7 @@ func (s SendTestEventNotificationOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateExpirationForHITRequest
 type UpdateExpirationForHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9063,6 +9145,7 @@ func (s *UpdateExpirationForHITInput) SetHITId(v string) *UpdateExpirationForHIT
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateExpirationForHITResponse
 type UpdateExpirationForHITOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9077,6 +9160,7 @@ func (s UpdateExpirationForHITOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateHITReviewStatusRequest
 type UpdateHITReviewStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9132,6 +9216,7 @@ func (s *UpdateHITReviewStatusInput) SetRevert(v bool) *UpdateHITReviewStatusInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateHITReviewStatusResponse
 type UpdateHITReviewStatusOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9146,6 +9231,7 @@ func (s UpdateHITReviewStatusOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateHITTypeOfHITRequest
 type UpdateHITTypeOfHITInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9204,6 +9290,7 @@ func (s *UpdateHITTypeOfHITInput) SetHITTypeId(v string) *UpdateHITTypeOfHITInpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateHITTypeOfHITResponse
 type UpdateHITTypeOfHITOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9218,6 +9305,7 @@ func (s UpdateHITTypeOfHITOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateNotificationSettingsRequest
 type UpdateNotificationSettingsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9285,6 +9373,7 @@ func (s *UpdateNotificationSettingsInput) SetNotification(v *NotificationSpecifi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateNotificationSettingsResponse
 type UpdateNotificationSettingsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9299,6 +9388,7 @@ func (s UpdateNotificationSettingsOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateQualificationTypeRequest
 type UpdateQualificationTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9433,6 +9523,7 @@ func (s *UpdateQualificationTypeInput) SetTestDurationInSeconds(v int64) *Update
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/UpdateQualificationTypeResponse
 type UpdateQualificationTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9458,6 +9549,7 @@ func (s *UpdateQualificationTypeOutput) SetQualificationType(v *QualificationTyp
 
 // The WorkerBlock data structure represents a Worker who has been blocked.
 // It has two elements: the WorkerId and the Reason for the block.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mturk-requester-2017-01-17/WorkerBlock
 type WorkerBlock struct {
 	_ struct{} `type:"structure"`
 

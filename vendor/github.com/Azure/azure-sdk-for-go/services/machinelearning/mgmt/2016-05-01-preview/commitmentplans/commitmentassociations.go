@@ -18,7 +18,6 @@ package commitmentplans
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -29,7 +28,7 @@ import (
 // and list operations for commitment associations, moving commitment associations between commitment plans, and
 // retrieving commitment plan usage history.
 type CommitmentAssociationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCommitmentAssociationsClient creates an instance of the CommitmentAssociationsClient client.
@@ -46,8 +45,8 @@ func NewCommitmentAssociationsClientWithBaseURI(baseURI string, subscriptionID s
 //
 // resourceGroupName is the resource group name. commitmentPlanName is the Azure ML commitment plan name.
 // commitmentAssociationName is the commitment association name.
-func (client CommitmentAssociationsClient) Get(ctx context.Context, resourceGroupName string, commitmentPlanName string, commitmentAssociationName string) (result CommitmentAssociation, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, commitmentPlanName, commitmentAssociationName)
+func (client CommitmentAssociationsClient) Get(resourceGroupName string, commitmentPlanName string, commitmentAssociationName string) (result CommitmentAssociation, err error) {
+	req, err := client.GetPreparer(resourceGroupName, commitmentPlanName, commitmentAssociationName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "Get", nil, "Failure preparing request")
 		return
@@ -69,7 +68,7 @@ func (client CommitmentAssociationsClient) Get(ctx context.Context, resourceGrou
 }
 
 // GetPreparer prepares the Get request.
-func (client CommitmentAssociationsClient) GetPreparer(ctx context.Context, resourceGroupName string, commitmentPlanName string, commitmentAssociationName string) (*http.Request, error) {
+func (client CommitmentAssociationsClient) GetPreparer(resourceGroupName string, commitmentPlanName string, commitmentAssociationName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"commitmentAssociationName": autorest.Encode("path", commitmentAssociationName),
 		"commitmentPlanName":        autorest.Encode("path", commitmentPlanName),
@@ -87,13 +86,14 @@ func (client CommitmentAssociationsClient) GetPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/commitmentAssociations/{commitmentAssociationName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client CommitmentAssociationsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -114,9 +114,8 @@ func (client CommitmentAssociationsClient) GetResponder(resp *http.Response) (re
 //
 // resourceGroupName is the resource group name. commitmentPlanName is the Azure ML commitment plan name. skipToken is
 // continuation token for pagination.
-func (client CommitmentAssociationsClient) List(ctx context.Context, resourceGroupName string, commitmentPlanName string, skipToken string) (result CommitmentAssociationListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, commitmentPlanName, skipToken)
+func (client CommitmentAssociationsClient) List(resourceGroupName string, commitmentPlanName string, skipToken string) (result CommitmentAssociationListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName, commitmentPlanName, skipToken)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "List", nil, "Failure preparing request")
 		return
@@ -124,12 +123,12 @@ func (client CommitmentAssociationsClient) List(ctx context.Context, resourceGro
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.calr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.calr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "List", resp, "Failure responding to request")
 	}
@@ -138,7 +137,7 @@ func (client CommitmentAssociationsClient) List(ctx context.Context, resourceGro
 }
 
 // ListPreparer prepares the List request.
-func (client CommitmentAssociationsClient) ListPreparer(ctx context.Context, resourceGroupName string, commitmentPlanName string, skipToken string) (*http.Request, error) {
+func (client CommitmentAssociationsClient) ListPreparer(resourceGroupName string, commitmentPlanName string, skipToken string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"commitmentPlanName": autorest.Encode("path", commitmentPlanName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -158,13 +157,14 @@ func (client CommitmentAssociationsClient) ListPreparer(ctx context.Context, res
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/commitmentAssociations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client CommitmentAssociationsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -181,39 +181,81 @@ func (client CommitmentAssociationsClient) ListResponder(resp *http.Response) (r
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client CommitmentAssociationsClient) listNextResults(lastResults CommitmentAssociationListResult) (result CommitmentAssociationListResult, err error) {
-	req, err := lastResults.commitmentAssociationListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client CommitmentAssociationsClient) ListNextResults(lastResults CommitmentAssociationListResult) (result CommitmentAssociationListResult, err error) {
+	req, err := lastResults.CommitmentAssociationListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client CommitmentAssociationsClient) ListComplete(ctx context.Context, resourceGroupName string, commitmentPlanName string, skipToken string) (result CommitmentAssociationListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, commitmentPlanName, skipToken)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client CommitmentAssociationsClient) ListComplete(resourceGroupName string, commitmentPlanName string, skipToken string, cancel <-chan struct{}) (<-chan CommitmentAssociation, <-chan error) {
+	resultChan := make(chan CommitmentAssociation)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, commitmentPlanName, skipToken)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Move re-parent a commitment association from one commitment plan to another.
 //
 // resourceGroupName is the resource group name. commitmentPlanName is the Azure ML commitment plan name.
 // commitmentAssociationName is the commitment association name. movePayload is the move request payload.
-func (client CommitmentAssociationsClient) Move(ctx context.Context, resourceGroupName string, commitmentPlanName string, commitmentAssociationName string, movePayload MoveCommitmentAssociationRequest) (result CommitmentAssociation, err error) {
-	req, err := client.MovePreparer(ctx, resourceGroupName, commitmentPlanName, commitmentAssociationName, movePayload)
+func (client CommitmentAssociationsClient) Move(resourceGroupName string, commitmentPlanName string, commitmentAssociationName string, movePayload MoveCommitmentAssociationRequest) (result CommitmentAssociation, err error) {
+	req, err := client.MovePreparer(resourceGroupName, commitmentPlanName, commitmentAssociationName, movePayload)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "commitmentplans.CommitmentAssociationsClient", "Move", nil, "Failure preparing request")
 		return
@@ -235,7 +277,7 @@ func (client CommitmentAssociationsClient) Move(ctx context.Context, resourceGro
 }
 
 // MovePreparer prepares the Move request.
-func (client CommitmentAssociationsClient) MovePreparer(ctx context.Context, resourceGroupName string, commitmentPlanName string, commitmentAssociationName string, movePayload MoveCommitmentAssociationRequest) (*http.Request, error) {
+func (client CommitmentAssociationsClient) MovePreparer(resourceGroupName string, commitmentPlanName string, commitmentAssociationName string, movePayload MoveCommitmentAssociationRequest) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"commitmentAssociationName": autorest.Encode("path", commitmentAssociationName),
 		"commitmentPlanName":        autorest.Encode("path", commitmentPlanName),
@@ -255,13 +297,14 @@ func (client CommitmentAssociationsClient) MovePreparer(ctx context.Context, res
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearning/commitmentPlans/{commitmentPlanName}/commitmentAssociations/{commitmentAssociationName}/move", pathParameters),
 		autorest.WithJSON(movePayload),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // MoveSender sends the Move request. The method will close the
 // http.Response Body if it receives an error.
 func (client CommitmentAssociationsClient) MoveSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

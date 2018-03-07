@@ -19,14 +19,14 @@ package spanner
 import (
 	"bytes"
 	"io"
-	"log"
 	"sync/atomic"
 	"time"
 
-	"cloud.google.com/go/internal/protostruct"
+	log "github.com/golang/glog"
 	proto "github.com/golang/protobuf/proto"
 	proto3 "github.com/golang/protobuf/ptypes/struct"
 	"golang.org/x/net/context"
+
 	"google.golang.org/api/iterator"
 	sppb "google.golang.org/genproto/googleapis/spanner/v1"
 	"google.golang.org/grpc/codes"
@@ -47,7 +47,6 @@ func errEarlyReadEnd() error {
 // Cloud Spanner.
 func stream(ctx context.Context, rpc func(ct context.Context, resumeToken []byte) (streamingReceiver, error), setTimestamp func(time.Time), release func(error)) *RowIterator {
 	ctx, cancel := context.WithCancel(ctx)
-	ctx = traceStartSpan(ctx, "cloud.google.com/go/spanner.RowIterator")
 	return &RowIterator{
 		streamd:      newResumableStreamDecoder(ctx, rpc),
 		rowd:         &partialResultSetDecoder{},
@@ -59,14 +58,6 @@ func stream(ctx context.Context, rpc func(ct context.Context, resumeToken []byte
 
 // RowIterator is an iterator over Rows.
 type RowIterator struct {
-	// The plan for the query. Available after RowIterator.Next returns iterator.Done
-	// if QueryWithStats was called.
-	QueryPlan *sppb.QueryPlan
-
-	// Execution statistics for the query. Available after RowIterator.Next returns iterator.Done
-	// if QueryWithStats was called.
-	QueryStats map[string]interface{}
-
 	streamd      *resumableStreamDecoder
 	rowd         *partialResultSetDecoder
 	setTimestamp func(time.Time)
@@ -84,12 +75,7 @@ func (r *RowIterator) Next() (*Row, error) {
 		return nil, r.err
 	}
 	for len(r.rows) == 0 && r.streamd.next() {
-		prs := r.streamd.get()
-		if prs.Stats != nil {
-			r.QueryPlan = prs.Stats.QueryPlan
-			r.QueryStats = protostruct.DecodeToMap(prs.Stats.QueryStats)
-		}
-		r.rows, r.err = r.rowd.add(prs)
+		r.rows, r.err = r.rowd.add(r.streamd.get())
 		if r.err != nil {
 			return nil, r.err
 		}
@@ -139,9 +125,6 @@ func (r *RowIterator) Do(f func(r *Row) error) error {
 
 // Stop terminates the iteration. It should be called after every iteration.
 func (r *RowIterator) Stop() {
-	if r.streamd != nil {
-		defer traceEndSpan(r.streamd.ctx, r.err)
-	}
 	if r.cancel != nil {
 		r.cancel()
 	}
@@ -458,7 +441,7 @@ func (d *resumableStreamDecoder) next() bool {
 			return true
 
 		default:
-			log.Printf("Unexpected resumableStreamDecoder.state: %v", d.state)
+			log.Errorf("Unexpected resumableStreamDecoder.state: %v", d.state)
 			return false
 		}
 	}
@@ -503,9 +486,7 @@ func (d *resumableStreamDecoder) resetBackOff() {
 
 // doBackoff does an exponential backoff sleep.
 func (d *resumableStreamDecoder) doBackOff() {
-	delay := d.backoff.delay(d.retryCount)
-	tracePrintf(d.ctx, nil, "Backing off stream read for %s", delay)
-	ticker := time.NewTicker(delay)
+	ticker := time.NewTicker(d.backoff.delay(d.retryCount))
 	defer ticker.Stop()
 	d.retryCount++
 	select {

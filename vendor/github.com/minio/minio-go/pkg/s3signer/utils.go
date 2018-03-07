@@ -20,7 +20,6 @@ package s3signer
 import (
 	"crypto/hmac"
 	"crypto/sha256"
-	"net/http"
 )
 
 // unsignedPayload - value to be set to X-Amz-Content-Sha256 header when
@@ -38,12 +37,4 @@ func sumHMAC(key []byte, data []byte) []byte {
 	hash := hmac.New(sha256.New, key)
 	hash.Write(data)
 	return hash.Sum(nil)
-}
-
-// getHostAddr returns host header if available, otherwise returns host from URL
-func getHostAddr(req *http.Request) string {
-	if req.Host != "" {
-		return req.Host
-	}
-	return req.URL.Host
 }

@@ -18,7 +18,6 @@ package automation
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -28,27 +27,27 @@ import (
 
 // JobScheduleClient is the automation Client
 type JobScheduleClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewJobScheduleClient creates an instance of the JobScheduleClient client.
-func NewJobScheduleClient(subscriptionID string, resourceGroupName string) JobScheduleClient {
-	return NewJobScheduleClientWithBaseURI(DefaultBaseURI, subscriptionID, resourceGroupName)
+func NewJobScheduleClient(subscriptionID string) JobScheduleClient {
+	return NewJobScheduleClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewJobScheduleClientWithBaseURI creates an instance of the JobScheduleClient client.
-func NewJobScheduleClientWithBaseURI(baseURI string, subscriptionID string, resourceGroupName string) JobScheduleClient {
-	return JobScheduleClient{NewWithBaseURI(baseURI, subscriptionID, resourceGroupName)}
+func NewJobScheduleClientWithBaseURI(baseURI string, subscriptionID string) JobScheduleClient {
+	return JobScheduleClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
 // Create create a job schedule.
 //
-// automationAccountName is the automation account name. jobScheduleID is the job schedule name. parameters is the
-// parameters supplied to the create job schedule operation.
-func (client JobScheduleClient) Create(ctx context.Context, automationAccountName string, jobScheduleID uuid.UUID, parameters JobScheduleCreateParameters) (result JobSchedule, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. jobScheduleID is
+// the job schedule name. parameters is the parameters supplied to the create job schedule operation.
+func (client JobScheduleClient) Create(resourceGroupName string, automationAccountName string, jobScheduleID uuid.UUID, parameters JobScheduleCreateParameters) (result JobSchedule, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}},
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}},
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.JobScheduleCreateProperties", Name: validation.Null, Rule: true,
 				Chain: []validation.Constraint{{Target: "parameters.JobScheduleCreateProperties.Schedule", Name: validation.Null, Rule: true, Chain: nil},
@@ -57,7 +56,7 @@ func (client JobScheduleClient) Create(ctx context.Context, automationAccountNam
 		return result, validation.NewErrorWithValidationError(err, "automation.JobScheduleClient", "Create")
 	}
 
-	req, err := client.CreatePreparer(ctx, automationAccountName, jobScheduleID, parameters)
+	req, err := client.CreatePreparer(resourceGroupName, automationAccountName, jobScheduleID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "Create", nil, "Failure preparing request")
 		return
@@ -79,11 +78,11 @@ func (client JobScheduleClient) Create(ctx context.Context, automationAccountNam
 }
 
 // CreatePreparer prepares the Create request.
-func (client JobScheduleClient) CreatePreparer(ctx context.Context, automationAccountName string, jobScheduleID uuid.UUID, parameters JobScheduleCreateParameters) (*http.Request, error) {
+func (client JobScheduleClient) CreatePreparer(resourceGroupName string, automationAccountName string, jobScheduleID uuid.UUID, parameters JobScheduleCreateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"jobScheduleId":         autorest.Encode("path", jobScheduleID),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -99,13 +98,14 @@ func (client JobScheduleClient) CreatePreparer(ctx context.Context, automationAc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/jobSchedules/{jobScheduleId}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
 func (client JobScheduleClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -124,15 +124,16 @@ func (client JobScheduleClient) CreateResponder(resp *http.Response) (result Job
 
 // Delete delete the job schedule identified by job schedule name.
 //
-// automationAccountName is the automation account name. jobScheduleID is the job schedule name.
-func (client JobScheduleClient) Delete(ctx context.Context, automationAccountName string, jobScheduleID uuid.UUID) (result autorest.Response, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. jobScheduleID is
+// the job schedule name.
+func (client JobScheduleClient) Delete(resourceGroupName string, automationAccountName string, jobScheduleID uuid.UUID) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.JobScheduleClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, automationAccountName, jobScheduleID)
+	req, err := client.DeletePreparer(resourceGroupName, automationAccountName, jobScheduleID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "Delete", nil, "Failure preparing request")
 		return
@@ -154,11 +155,11 @@ func (client JobScheduleClient) Delete(ctx context.Context, automationAccountNam
 }
 
 // DeletePreparer prepares the Delete request.
-func (client JobScheduleClient) DeletePreparer(ctx context.Context, automationAccountName string, jobScheduleID uuid.UUID) (*http.Request, error) {
+func (client JobScheduleClient) DeletePreparer(resourceGroupName string, automationAccountName string, jobScheduleID uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"jobScheduleId":         autorest.Encode("path", jobScheduleID),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -172,13 +173,14 @@ func (client JobScheduleClient) DeletePreparer(ctx context.Context, automationAc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/jobSchedules/{jobScheduleId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client JobScheduleClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -196,15 +198,16 @@ func (client JobScheduleClient) DeleteResponder(resp *http.Response) (result aut
 
 // Get retrieve the job schedule identified by job schedule name.
 //
-// automationAccountName is the automation account name. jobScheduleID is the job schedule name.
-func (client JobScheduleClient) Get(ctx context.Context, automationAccountName string, jobScheduleID uuid.UUID) (result JobSchedule, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. jobScheduleID is
+// the job schedule name.
+func (client JobScheduleClient) Get(resourceGroupName string, automationAccountName string, jobScheduleID uuid.UUID) (result JobSchedule, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.JobScheduleClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, automationAccountName, jobScheduleID)
+	req, err := client.GetPreparer(resourceGroupName, automationAccountName, jobScheduleID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "Get", nil, "Failure preparing request")
 		return
@@ -226,11 +229,11 @@ func (client JobScheduleClient) Get(ctx context.Context, automationAccountName s
 }
 
 // GetPreparer prepares the Get request.
-func (client JobScheduleClient) GetPreparer(ctx context.Context, automationAccountName string, jobScheduleID uuid.UUID) (*http.Request, error) {
+func (client JobScheduleClient) GetPreparer(resourceGroupName string, automationAccountName string, jobScheduleID uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"jobScheduleId":         autorest.Encode("path", jobScheduleID),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -244,13 +247,14 @@ func (client JobScheduleClient) GetPreparer(ctx context.Context, automationAccou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/jobSchedules/{jobScheduleId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client JobScheduleClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -269,16 +273,15 @@ func (client JobScheduleClient) GetResponder(resp *http.Response) (result JobSch
 
 // ListByAutomationAccount retrieve a list of job schedules.
 //
-// automationAccountName is the automation account name.
-func (client JobScheduleClient) ListByAutomationAccount(ctx context.Context, automationAccountName string) (result JobScheduleListResultPage, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name.
+func (client JobScheduleClient) ListByAutomationAccount(resourceGroupName string, automationAccountName string) (result JobScheduleListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.JobScheduleClient", "ListByAutomationAccount")
 	}
 
-	result.fn = client.listByAutomationAccountNextResults
-	req, err := client.ListByAutomationAccountPreparer(ctx, automationAccountName)
+	req, err := client.ListByAutomationAccountPreparer(resourceGroupName, automationAccountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "ListByAutomationAccount", nil, "Failure preparing request")
 		return
@@ -286,12 +289,12 @@ func (client JobScheduleClient) ListByAutomationAccount(ctx context.Context, aut
 
 	resp, err := client.ListByAutomationAccountSender(req)
 	if err != nil {
-		result.jslr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "ListByAutomationAccount", resp, "Failure sending request")
 		return
 	}
 
-	result.jslr, err = client.ListByAutomationAccountResponder(resp)
+	result, err = client.ListByAutomationAccountResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "ListByAutomationAccount", resp, "Failure responding to request")
 	}
@@ -300,10 +303,10 @@ func (client JobScheduleClient) ListByAutomationAccount(ctx context.Context, aut
 }
 
 // ListByAutomationAccountPreparer prepares the ListByAutomationAccount request.
-func (client JobScheduleClient) ListByAutomationAccountPreparer(ctx context.Context, automationAccountName string) (*http.Request, error) {
+func (client JobScheduleClient) ListByAutomationAccountPreparer(resourceGroupName string, automationAccountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -317,13 +320,14 @@ func (client JobScheduleClient) ListByAutomationAccountPreparer(ctx context.Cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/jobSchedules", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByAutomationAccountSender sends the ListByAutomationAccount request. The method will close the
 // http.Response Body if it receives an error.
 func (client JobScheduleClient) ListByAutomationAccountSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -340,29 +344,71 @@ func (client JobScheduleClient) ListByAutomationAccountResponder(resp *http.Resp
 	return
 }
 
-// listByAutomationAccountNextResults retrieves the next set of results, if any.
-func (client JobScheduleClient) listByAutomationAccountNextResults(lastResults JobScheduleListResult) (result JobScheduleListResult, err error) {
-	req, err := lastResults.jobScheduleListResultPreparer()
+// ListByAutomationAccountNextResults retrieves the next set of results, if any.
+func (client JobScheduleClient) ListByAutomationAccountNextResults(lastResults JobScheduleListResult) (result JobScheduleListResult, err error) {
+	req, err := lastResults.JobScheduleListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "automation.JobScheduleClient", "listByAutomationAccountNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "automation.JobScheduleClient", "ListByAutomationAccount", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByAutomationAccountSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "automation.JobScheduleClient", "listByAutomationAccountNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "automation.JobScheduleClient", "ListByAutomationAccount", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByAutomationAccountResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "listByAutomationAccountNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "automation.JobScheduleClient", "ListByAutomationAccount", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByAutomationAccountComplete enumerates all values, automatically crossing page boundaries as required.
-func (client JobScheduleClient) ListByAutomationAccountComplete(ctx context.Context, automationAccountName string) (result JobScheduleListResultIterator, err error) {
-	result.page, err = client.ListByAutomationAccount(ctx, automationAccountName)
-	return
+// ListByAutomationAccountComplete gets all elements from the list without paging.
+func (client JobScheduleClient) ListByAutomationAccountComplete(resourceGroupName string, automationAccountName string, cancel <-chan struct{}) (<-chan JobSchedule, <-chan error) {
+	resultChan := make(chan JobSchedule)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByAutomationAccount(resourceGroupName, automationAccountName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByAutomationAccountNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

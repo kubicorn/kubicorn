@@ -18,9 +18,7 @@ package sql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"encoding/json"
 	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/Azure/go-autorest/autorest/to"
 	"github.com/satori/go.uuid"
@@ -31,9 +29,9 @@ import (
 type AuthenticationType string
 
 const (
-	// ADPassword ...
+	// ADPassword specifies the ad password state for authentication type.
 	ADPassword AuthenticationType = "ADPassword"
-	// SQL ...
+	// SQL specifies the sql state for authentication type.
 	SQL AuthenticationType = "SQL"
 )
 
@@ -41,9 +39,9 @@ const (
 type BackupLongTermRetentionPolicyState string
 
 const (
-	// Disabled ...
+	// Disabled specifies the disabled state for backup long term retention policy state.
 	Disabled BackupLongTermRetentionPolicyState = "Disabled"
-	// Enabled ...
+	// Enabled specifies the enabled state for backup long term retention policy state.
 	Enabled BackupLongTermRetentionPolicyState = "Enabled"
 )
 
@@ -51,9 +49,11 @@ const (
 type BlobAuditingPolicyState string
 
 const (
-	// BlobAuditingPolicyStateDisabled ...
+	// BlobAuditingPolicyStateDisabled specifies the blob auditing policy state disabled state for blob auditing policy
+	// state.
 	BlobAuditingPolicyStateDisabled BlobAuditingPolicyState = "Disabled"
-	// BlobAuditingPolicyStateEnabled ...
+	// BlobAuditingPolicyStateEnabled specifies the blob auditing policy state enabled state for blob auditing policy
+	// state.
 	BlobAuditingPolicyStateEnabled BlobAuditingPolicyState = "Enabled"
 )
 
@@ -61,13 +61,13 @@ const (
 type CapabilityStatus string
 
 const (
-	// CapabilityStatusAvailable ...
+	// CapabilityStatusAvailable specifies the capability status available state for capability status.
 	CapabilityStatusAvailable CapabilityStatus = "Available"
-	// CapabilityStatusDefault ...
+	// CapabilityStatusDefault specifies the capability status default state for capability status.
 	CapabilityStatusDefault CapabilityStatus = "Default"
-	// CapabilityStatusDisabled ...
+	// CapabilityStatusDisabled specifies the capability status disabled state for capability status.
 	CapabilityStatusDisabled CapabilityStatus = "Disabled"
-	// CapabilityStatusVisible ...
+	// CapabilityStatusVisible specifies the capability status visible state for capability status.
 	CapabilityStatusVisible CapabilityStatus = "Visible"
 )
 
@@ -75,9 +75,9 @@ const (
 type CheckNameAvailabilityReason string
 
 const (
-	// AlreadyExists ...
+	// AlreadyExists specifies the already exists state for check name availability reason.
 	AlreadyExists CheckNameAvailabilityReason = "AlreadyExists"
-	// Invalid ...
+	// Invalid specifies the invalid state for check name availability reason.
 	Invalid CheckNameAvailabilityReason = "Invalid"
 )
 
@@ -85,21 +85,21 @@ const (
 type CreateMode string
 
 const (
-	// Copy ...
+	// Copy specifies the copy state for create mode.
 	Copy CreateMode = "Copy"
-	// Default ...
+	// Default specifies the default state for create mode.
 	Default CreateMode = "Default"
-	// NonReadableSecondary ...
+	// NonReadableSecondary specifies the non readable secondary state for create mode.
 	NonReadableSecondary CreateMode = "NonReadableSecondary"
-	// OnlineSecondary ...
+	// OnlineSecondary specifies the online secondary state for create mode.
 	OnlineSecondary CreateMode = "OnlineSecondary"
-	// PointInTimeRestore ...
+	// PointInTimeRestore specifies the point in time restore state for create mode.
 	PointInTimeRestore CreateMode = "PointInTimeRestore"
-	// Recovery ...
+	// Recovery specifies the recovery state for create mode.
 	Recovery CreateMode = "Recovery"
-	// Restore ...
+	// Restore specifies the restore state for create mode.
 	Restore CreateMode = "Restore"
-	// RestoreLongTermRetentionBackup ...
+	// RestoreLongTermRetentionBackup specifies the restore long term retention backup state for create mode.
 	RestoreLongTermRetentionBackup CreateMode = "RestoreLongTermRetentionBackup"
 )
 
@@ -107,27 +107,25 @@ const (
 type DatabaseEdition string
 
 const (
-	// Basic ...
+	// Basic specifies the basic state for database edition.
 	Basic DatabaseEdition = "Basic"
-	// Business ...
+	// Business specifies the business state for database edition.
 	Business DatabaseEdition = "Business"
-	// DataWarehouse ...
+	// DataWarehouse specifies the data warehouse state for database edition.
 	DataWarehouse DatabaseEdition = "DataWarehouse"
-	// Free ...
+	// Free specifies the free state for database edition.
 	Free DatabaseEdition = "Free"
-	// Premium ...
+	// Premium specifies the premium state for database edition.
 	Premium DatabaseEdition = "Premium"
-	// PremiumRS ...
-	PremiumRS DatabaseEdition = "PremiumRS"
-	// Standard ...
+	// Standard specifies the standard state for database edition.
 	Standard DatabaseEdition = "Standard"
-	// Stretch ...
+	// Stretch specifies the stretch state for database edition.
 	Stretch DatabaseEdition = "Stretch"
-	// System ...
+	// System specifies the system state for database edition.
 	System DatabaseEdition = "System"
-	// System2 ...
+	// System2 specifies the system 2 state for database edition.
 	System2 DatabaseEdition = "System2"
-	// Web ...
+	// Web specifies the web state for database edition.
 	Web DatabaseEdition = "Web"
 )
 
@@ -135,17 +133,17 @@ const (
 type DataMaskingFunction string
 
 const (
-	// DataMaskingFunctionCCN ...
+	// DataMaskingFunctionCCN specifies the data masking function ccn state for data masking function.
 	DataMaskingFunctionCCN DataMaskingFunction = "CCN"
-	// DataMaskingFunctionDefault ...
+	// DataMaskingFunctionDefault specifies the data masking function default state for data masking function.
 	DataMaskingFunctionDefault DataMaskingFunction = "Default"
-	// DataMaskingFunctionEmail ...
+	// DataMaskingFunctionEmail specifies the data masking function email state for data masking function.
 	DataMaskingFunctionEmail DataMaskingFunction = "Email"
-	// DataMaskingFunctionNumber ...
+	// DataMaskingFunctionNumber specifies the data masking function number state for data masking function.
 	DataMaskingFunctionNumber DataMaskingFunction = "Number"
-	// DataMaskingFunctionSSN ...
+	// DataMaskingFunctionSSN specifies the data masking function ssn state for data masking function.
 	DataMaskingFunctionSSN DataMaskingFunction = "SSN"
-	// DataMaskingFunctionText ...
+	// DataMaskingFunctionText specifies the data masking function text state for data masking function.
 	DataMaskingFunctionText DataMaskingFunction = "Text"
 )
 
@@ -153,9 +151,9 @@ const (
 type DataMaskingRuleState string
 
 const (
-	// DataMaskingRuleStateDisabled ...
+	// DataMaskingRuleStateDisabled specifies the data masking rule state disabled state for data masking rule state.
 	DataMaskingRuleStateDisabled DataMaskingRuleState = "Disabled"
-	// DataMaskingRuleStateEnabled ...
+	// DataMaskingRuleStateEnabled specifies the data masking rule state enabled state for data masking rule state.
 	DataMaskingRuleStateEnabled DataMaskingRuleState = "Enabled"
 )
 
@@ -163,9 +161,9 @@ const (
 type DataMaskingState string
 
 const (
-	// DataMaskingStateDisabled ...
+	// DataMaskingStateDisabled specifies the data masking state disabled state for data masking state.
 	DataMaskingStateDisabled DataMaskingState = "Disabled"
-	// DataMaskingStateEnabled ...
+	// DataMaskingStateEnabled specifies the data masking state enabled state for data masking state.
 	DataMaskingStateEnabled DataMaskingState = "Enabled"
 )
 
@@ -173,11 +171,11 @@ const (
 type ElasticPoolEdition string
 
 const (
-	// ElasticPoolEditionBasic ...
+	// ElasticPoolEditionBasic specifies the elastic pool edition basic state for elastic pool edition.
 	ElasticPoolEditionBasic ElasticPoolEdition = "Basic"
-	// ElasticPoolEditionPremium ...
+	// ElasticPoolEditionPremium specifies the elastic pool edition premium state for elastic pool edition.
 	ElasticPoolEditionPremium ElasticPoolEdition = "Premium"
-	// ElasticPoolEditionStandard ...
+	// ElasticPoolEditionStandard specifies the elastic pool edition standard state for elastic pool edition.
 	ElasticPoolEditionStandard ElasticPoolEdition = "Standard"
 )
 
@@ -185,11 +183,11 @@ const (
 type ElasticPoolState string
 
 const (
-	// ElasticPoolStateCreating ...
+	// ElasticPoolStateCreating specifies the elastic pool state creating state for elastic pool state.
 	ElasticPoolStateCreating ElasticPoolState = "Creating"
-	// ElasticPoolStateDisabled ...
+	// ElasticPoolStateDisabled specifies the elastic pool state disabled state for elastic pool state.
 	ElasticPoolStateDisabled ElasticPoolState = "Disabled"
-	// ElasticPoolStateReady ...
+	// ElasticPoolStateReady specifies the elastic pool state ready state for elastic pool state.
 	ElasticPoolStateReady ElasticPoolState = "Ready"
 )
 
@@ -197,9 +195,9 @@ const (
 type FailoverGroupReplicationRole string
 
 const (
-	// Primary ...
+	// Primary specifies the primary state for failover group replication role.
 	Primary FailoverGroupReplicationRole = "Primary"
-	// Secondary ...
+	// Secondary specifies the secondary state for failover group replication role.
 	Secondary FailoverGroupReplicationRole = "Secondary"
 )
 
@@ -207,9 +205,9 @@ const (
 type GeoBackupPolicyState string
 
 const (
-	// GeoBackupPolicyStateDisabled ...
+	// GeoBackupPolicyStateDisabled specifies the geo backup policy state disabled state for geo backup policy state.
 	GeoBackupPolicyStateDisabled GeoBackupPolicyState = "Disabled"
-	// GeoBackupPolicyStateEnabled ...
+	// GeoBackupPolicyStateEnabled specifies the geo backup policy state enabled state for geo backup policy state.
 	GeoBackupPolicyStateEnabled GeoBackupPolicyState = "Enabled"
 )
 
@@ -217,7 +215,7 @@ const (
 type IdentityType string
 
 const (
-	// SystemAssigned ...
+	// SystemAssigned specifies the system assigned state for identity type.
 	SystemAssigned IdentityType = "SystemAssigned"
 )
 
@@ -225,13 +223,13 @@ const (
 type MaxSizeUnits string
 
 const (
-	// Gigabytes ...
+	// Gigabytes specifies the gigabytes state for max size units.
 	Gigabytes MaxSizeUnits = "Gigabytes"
-	// Megabytes ...
+	// Megabytes specifies the megabytes state for max size units.
 	Megabytes MaxSizeUnits = "Megabytes"
-	// Petabytes ...
+	// Petabytes specifies the petabytes state for max size units.
 	Petabytes MaxSizeUnits = "Petabytes"
-	// Terabytes ...
+	// Terabytes specifies the terabytes state for max size units.
 	Terabytes MaxSizeUnits = "Terabytes"
 )
 
@@ -239,9 +237,9 @@ const (
 type OperationOrigin string
 
 const (
-	// OperationOriginSystem ...
+	// OperationOriginSystem specifies the operation origin system state for operation origin.
 	OperationOriginSystem OperationOrigin = "system"
-	// OperationOriginUser ...
+	// OperationOriginUser specifies the operation origin user state for operation origin.
 	OperationOriginUser OperationOrigin = "user"
 )
 
@@ -249,7 +247,7 @@ const (
 type PerformanceLevelUnit string
 
 const (
-	// DTU ...
+	// DTU specifies the dtu state for performance level unit.
 	DTU PerformanceLevelUnit = "DTU"
 )
 
@@ -257,17 +255,17 @@ const (
 type PrimaryAggregationType string
 
 const (
-	// Average ...
+	// Average specifies the average state for primary aggregation type.
 	Average PrimaryAggregationType = "Average"
-	// Count ...
+	// Count specifies the count state for primary aggregation type.
 	Count PrimaryAggregationType = "Count"
-	// Maximum ...
+	// Maximum specifies the maximum state for primary aggregation type.
 	Maximum PrimaryAggregationType = "Maximum"
-	// Minimum ...
+	// Minimum specifies the minimum state for primary aggregation type.
 	Minimum PrimaryAggregationType = "Minimum"
-	// None ...
+	// None specifies the none state for primary aggregation type.
 	None PrimaryAggregationType = "None"
-	// Total ...
+	// Total specifies the total state for primary aggregation type.
 	Total PrimaryAggregationType = "Total"
 )
 
@@ -275,9 +273,11 @@ const (
 type ReadOnlyEndpointFailoverPolicy string
 
 const (
-	// ReadOnlyEndpointFailoverPolicyDisabled ...
+	// ReadOnlyEndpointFailoverPolicyDisabled specifies the read only endpoint failover policy disabled state for read only
+	// endpoint failover policy.
 	ReadOnlyEndpointFailoverPolicyDisabled ReadOnlyEndpointFailoverPolicy = "Disabled"
-	// ReadOnlyEndpointFailoverPolicyEnabled ...
+	// ReadOnlyEndpointFailoverPolicyEnabled specifies the read only endpoint failover policy enabled state for read only
+	// endpoint failover policy.
 	ReadOnlyEndpointFailoverPolicyEnabled ReadOnlyEndpointFailoverPolicy = "Enabled"
 )
 
@@ -285,9 +285,9 @@ const (
 type ReadScale string
 
 const (
-	// ReadScaleDisabled ...
+	// ReadScaleDisabled specifies the read scale disabled state for read scale.
 	ReadScaleDisabled ReadScale = "Disabled"
-	// ReadScaleEnabled ...
+	// ReadScaleEnabled specifies the read scale enabled state for read scale.
 	ReadScaleEnabled ReadScale = "Enabled"
 )
 
@@ -295,9 +295,9 @@ const (
 type ReadWriteEndpointFailoverPolicy string
 
 const (
-	// Automatic ...
+	// Automatic specifies the automatic state for read write endpoint failover policy.
 	Automatic ReadWriteEndpointFailoverPolicy = "Automatic"
-	// Manual ...
+	// Manual specifies the manual state for read write endpoint failover policy.
 	Manual ReadWriteEndpointFailoverPolicy = "Manual"
 )
 
@@ -305,11 +305,11 @@ const (
 type RecommendedIndexAction string
 
 const (
-	// Create ...
+	// Create specifies the create state for recommended index action.
 	Create RecommendedIndexAction = "Create"
-	// Drop ...
+	// Drop specifies the drop state for recommended index action.
 	Drop RecommendedIndexAction = "Drop"
-	// Rebuild ...
+	// Rebuild specifies the rebuild state for recommended index action.
 	Rebuild RecommendedIndexAction = "Rebuild"
 )
 
@@ -317,27 +317,27 @@ const (
 type RecommendedIndexState string
 
 const (
-	// Active ...
+	// Active specifies the active state for recommended index state.
 	Active RecommendedIndexState = "Active"
-	// Blocked ...
+	// Blocked specifies the blocked state for recommended index state.
 	Blocked RecommendedIndexState = "Blocked"
-	// Executing ...
+	// Executing specifies the executing state for recommended index state.
 	Executing RecommendedIndexState = "Executing"
-	// Expired ...
+	// Expired specifies the expired state for recommended index state.
 	Expired RecommendedIndexState = "Expired"
-	// Ignored ...
+	// Ignored specifies the ignored state for recommended index state.
 	Ignored RecommendedIndexState = "Ignored"
-	// Pending ...
+	// Pending specifies the pending state for recommended index state.
 	Pending RecommendedIndexState = "Pending"
-	// PendingRevert ...
+	// PendingRevert specifies the pending revert state for recommended index state.
 	PendingRevert RecommendedIndexState = "Pending Revert"
-	// Reverted ...
+	// Reverted specifies the reverted state for recommended index state.
 	Reverted RecommendedIndexState = "Reverted"
-	// Reverting ...
+	// Reverting specifies the reverting state for recommended index state.
 	Reverting RecommendedIndexState = "Reverting"
-	// Success ...
+	// Success specifies the success state for recommended index state.
 	Success RecommendedIndexState = "Success"
-	// Verifying ...
+	// Verifying specifies the verifying state for recommended index state.
 	Verifying RecommendedIndexState = "Verifying"
 )
 
@@ -345,13 +345,13 @@ const (
 type RecommendedIndexType string
 
 const (
-	// CLUSTERED ...
+	// CLUSTERED specifies the clustered state for recommended index type.
 	CLUSTERED RecommendedIndexType = "CLUSTERED"
-	// CLUSTEREDCOLUMNSTORE ...
+	// CLUSTEREDCOLUMNSTORE specifies the clusteredcolumnstore state for recommended index type.
 	CLUSTEREDCOLUMNSTORE RecommendedIndexType = "CLUSTERED COLUMNSTORE"
-	// COLUMNSTORE ...
+	// COLUMNSTORE specifies the columnstore state for recommended index type.
 	COLUMNSTORE RecommendedIndexType = "COLUMNSTORE"
-	// NONCLUSTERED ...
+	// NONCLUSTERED specifies the nonclustered state for recommended index type.
 	NONCLUSTERED RecommendedIndexType = "NONCLUSTERED"
 )
 
@@ -359,15 +359,16 @@ const (
 type ReplicationRole string
 
 const (
-	// ReplicationRoleCopy ...
+	// ReplicationRoleCopy specifies the replication role copy state for replication role.
 	ReplicationRoleCopy ReplicationRole = "Copy"
-	// ReplicationRoleNonReadableSecondary ...
+	// ReplicationRoleNonReadableSecondary specifies the replication role non readable secondary state for replication
+	// role.
 	ReplicationRoleNonReadableSecondary ReplicationRole = "NonReadableSecondary"
-	// ReplicationRolePrimary ...
+	// ReplicationRolePrimary specifies the replication role primary state for replication role.
 	ReplicationRolePrimary ReplicationRole = "Primary"
-	// ReplicationRoleSecondary ...
+	// ReplicationRoleSecondary specifies the replication role secondary state for replication role.
 	ReplicationRoleSecondary ReplicationRole = "Secondary"
-	// ReplicationRoleSource ...
+	// ReplicationRoleSource specifies the replication role source state for replication role.
 	ReplicationRoleSource ReplicationRole = "Source"
 )
 
@@ -375,13 +376,13 @@ const (
 type ReplicationState string
 
 const (
-	// CATCHUP ...
+	// CATCHUP specifies the catchup state for replication state.
 	CATCHUP ReplicationState = "CATCH_UP"
-	// PENDING ...
+	// PENDING specifies the pending state for replication state.
 	PENDING ReplicationState = "PENDING"
-	// SEEDING ...
+	// SEEDING specifies the seeding state for replication state.
 	SEEDING ReplicationState = "SEEDING"
-	// SUSPENDED ...
+	// SUSPENDED specifies the suspended state for replication state.
 	SUSPENDED ReplicationState = "SUSPENDED"
 )
 
@@ -389,9 +390,9 @@ const (
 type RestorePointType string
 
 const (
-	// CONTINUOUS ...
+	// CONTINUOUS specifies the continuous state for restore point type.
 	CONTINUOUS RestorePointType = "CONTINUOUS"
-	// DISCRETE ...
+	// DISCRETE specifies the discrete state for restore point type.
 	DISCRETE RestorePointType = "DISCRETE"
 )
 
@@ -399,7 +400,7 @@ const (
 type SampleName string
 
 const (
-	// AdventureWorksLT ...
+	// AdventureWorksLT specifies the adventure works lt state for sample name.
 	AdventureWorksLT SampleName = "AdventureWorksLT"
 )
 
@@ -407,9 +408,11 @@ const (
 type SecurityAlertPolicyEmailAccountAdmins string
 
 const (
-	// SecurityAlertPolicyEmailAccountAdminsDisabled ...
+	// SecurityAlertPolicyEmailAccountAdminsDisabled specifies the security alert policy email account admins disabled
+	// state for security alert policy email account admins.
 	SecurityAlertPolicyEmailAccountAdminsDisabled SecurityAlertPolicyEmailAccountAdmins = "Disabled"
-	// SecurityAlertPolicyEmailAccountAdminsEnabled ...
+	// SecurityAlertPolicyEmailAccountAdminsEnabled specifies the security alert policy email account admins enabled state
+	// for security alert policy email account admins.
 	SecurityAlertPolicyEmailAccountAdminsEnabled SecurityAlertPolicyEmailAccountAdmins = "Enabled"
 )
 
@@ -417,11 +420,13 @@ const (
 type SecurityAlertPolicyState string
 
 const (
-	// SecurityAlertPolicyStateDisabled ...
+	// SecurityAlertPolicyStateDisabled specifies the security alert policy state disabled state for security alert policy
+	// state.
 	SecurityAlertPolicyStateDisabled SecurityAlertPolicyState = "Disabled"
-	// SecurityAlertPolicyStateEnabled ...
+	// SecurityAlertPolicyStateEnabled specifies the security alert policy state enabled state for security alert policy
+	// state.
 	SecurityAlertPolicyStateEnabled SecurityAlertPolicyState = "Enabled"
-	// SecurityAlertPolicyStateNew ...
+	// SecurityAlertPolicyStateNew specifies the security alert policy state new state for security alert policy state.
 	SecurityAlertPolicyStateNew SecurityAlertPolicyState = "New"
 )
 
@@ -429,9 +434,11 @@ const (
 type SecurityAlertPolicyUseServerDefault string
 
 const (
-	// SecurityAlertPolicyUseServerDefaultDisabled ...
+	// SecurityAlertPolicyUseServerDefaultDisabled specifies the security alert policy use server default disabled state
+	// for security alert policy use server default.
 	SecurityAlertPolicyUseServerDefaultDisabled SecurityAlertPolicyUseServerDefault = "Disabled"
-	// SecurityAlertPolicyUseServerDefaultEnabled ...
+	// SecurityAlertPolicyUseServerDefaultEnabled specifies the security alert policy use server default enabled state for
+	// security alert policy use server default.
 	SecurityAlertPolicyUseServerDefaultEnabled SecurityAlertPolicyUseServerDefault = "Enabled"
 )
 
@@ -439,11 +446,11 @@ const (
 type ServerConnectionType string
 
 const (
-	// ServerConnectionTypeDefault ...
+	// ServerConnectionTypeDefault specifies the server connection type default state for server connection type.
 	ServerConnectionTypeDefault ServerConnectionType = "Default"
-	// ServerConnectionTypeProxy ...
+	// ServerConnectionTypeProxy specifies the server connection type proxy state for server connection type.
 	ServerConnectionTypeProxy ServerConnectionType = "Proxy"
-	// ServerConnectionTypeRedirect ...
+	// ServerConnectionTypeRedirect specifies the server connection type redirect state for server connection type.
 	ServerConnectionTypeRedirect ServerConnectionType = "Redirect"
 )
 
@@ -451,9 +458,9 @@ const (
 type ServerKeyType string
 
 const (
-	// AzureKeyVault ...
+	// AzureKeyVault specifies the azure key vault state for server key type.
 	AzureKeyVault ServerKeyType = "AzureKeyVault"
-	// ServiceManaged ...
+	// ServiceManaged specifies the service managed state for server key type.
 	ServiceManaged ServerKeyType = "ServiceManaged"
 )
 
@@ -461,145 +468,45 @@ const (
 type ServiceObjectiveName string
 
 const (
-	// ServiceObjectiveNameBasic ...
+	// ServiceObjectiveNameBasic specifies the service objective name basic state for service objective name.
 	ServiceObjectiveNameBasic ServiceObjectiveName = "Basic"
-	// ServiceObjectiveNameDS100 ...
-	ServiceObjectiveNameDS100 ServiceObjectiveName = "DS100"
-	// ServiceObjectiveNameDS1000 ...
-	ServiceObjectiveNameDS1000 ServiceObjectiveName = "DS1000"
-	// ServiceObjectiveNameDS1200 ...
-	ServiceObjectiveNameDS1200 ServiceObjectiveName = "DS1200"
-	// ServiceObjectiveNameDS1500 ...
-	ServiceObjectiveNameDS1500 ServiceObjectiveName = "DS1500"
-	// ServiceObjectiveNameDS200 ...
-	ServiceObjectiveNameDS200 ServiceObjectiveName = "DS200"
-	// ServiceObjectiveNameDS2000 ...
-	ServiceObjectiveNameDS2000 ServiceObjectiveName = "DS2000"
-	// ServiceObjectiveNameDS300 ...
-	ServiceObjectiveNameDS300 ServiceObjectiveName = "DS300"
-	// ServiceObjectiveNameDS400 ...
-	ServiceObjectiveNameDS400 ServiceObjectiveName = "DS400"
-	// ServiceObjectiveNameDS500 ...
-	ServiceObjectiveNameDS500 ServiceObjectiveName = "DS500"
-	// ServiceObjectiveNameDS600 ...
-	ServiceObjectiveNameDS600 ServiceObjectiveName = "DS600"
-	// ServiceObjectiveNameDW100 ...
-	ServiceObjectiveNameDW100 ServiceObjectiveName = "DW100"
-	// ServiceObjectiveNameDW1000 ...
-	ServiceObjectiveNameDW1000 ServiceObjectiveName = "DW1000"
-	// ServiceObjectiveNameDW10000c ...
-	ServiceObjectiveNameDW10000c ServiceObjectiveName = "DW10000c"
-	// ServiceObjectiveNameDW1000c ...
-	ServiceObjectiveNameDW1000c ServiceObjectiveName = "DW1000c"
-	// ServiceObjectiveNameDW1200 ...
-	ServiceObjectiveNameDW1200 ServiceObjectiveName = "DW1200"
-	// ServiceObjectiveNameDW1500 ...
-	ServiceObjectiveNameDW1500 ServiceObjectiveName = "DW1500"
-	// ServiceObjectiveNameDW15000c ...
-	ServiceObjectiveNameDW15000c ServiceObjectiveName = "DW15000c"
-	// ServiceObjectiveNameDW1500c ...
-	ServiceObjectiveNameDW1500c ServiceObjectiveName = "DW1500c"
-	// ServiceObjectiveNameDW200 ...
-	ServiceObjectiveNameDW200 ServiceObjectiveName = "DW200"
-	// ServiceObjectiveNameDW2000 ...
-	ServiceObjectiveNameDW2000 ServiceObjectiveName = "DW2000"
-	// ServiceObjectiveNameDW2000c ...
-	ServiceObjectiveNameDW2000c ServiceObjectiveName = "DW2000c"
-	// ServiceObjectiveNameDW2500c ...
-	ServiceObjectiveNameDW2500c ServiceObjectiveName = "DW2500c"
-	// ServiceObjectiveNameDW300 ...
-	ServiceObjectiveNameDW300 ServiceObjectiveName = "DW300"
-	// ServiceObjectiveNameDW3000 ...
-	ServiceObjectiveNameDW3000 ServiceObjectiveName = "DW3000"
-	// ServiceObjectiveNameDW30000c ...
-	ServiceObjectiveNameDW30000c ServiceObjectiveName = "DW30000c"
-	// ServiceObjectiveNameDW3000c ...
-	ServiceObjectiveNameDW3000c ServiceObjectiveName = "DW3000c"
-	// ServiceObjectiveNameDW400 ...
-	ServiceObjectiveNameDW400 ServiceObjectiveName = "DW400"
-	// ServiceObjectiveNameDW500 ...
-	ServiceObjectiveNameDW500 ServiceObjectiveName = "DW500"
-	// ServiceObjectiveNameDW5000c ...
-	ServiceObjectiveNameDW5000c ServiceObjectiveName = "DW5000c"
-	// ServiceObjectiveNameDW600 ...
-	ServiceObjectiveNameDW600 ServiceObjectiveName = "DW600"
-	// ServiceObjectiveNameDW6000 ...
-	ServiceObjectiveNameDW6000 ServiceObjectiveName = "DW6000"
-	// ServiceObjectiveNameDW6000c ...
-	ServiceObjectiveNameDW6000c ServiceObjectiveName = "DW6000c"
-	// ServiceObjectiveNameDW7500c ...
-	ServiceObjectiveNameDW7500c ServiceObjectiveName = "DW7500c"
-	// ServiceObjectiveNameElasticPool ...
+	// ServiceObjectiveNameElasticPool specifies the service objective name elastic pool state for service objective name.
 	ServiceObjectiveNameElasticPool ServiceObjectiveName = "ElasticPool"
-	// ServiceObjectiveNameFree ...
-	ServiceObjectiveNameFree ServiceObjectiveName = "Free"
-	// ServiceObjectiveNameP1 ...
+	// ServiceObjectiveNameP1 specifies the service objective name p1 state for service objective name.
 	ServiceObjectiveNameP1 ServiceObjectiveName = "P1"
-	// ServiceObjectiveNameP11 ...
+	// ServiceObjectiveNameP11 specifies the service objective name p11 state for service objective name.
 	ServiceObjectiveNameP11 ServiceObjectiveName = "P11"
-	// ServiceObjectiveNameP15 ...
+	// ServiceObjectiveNameP15 specifies the service objective name p15 state for service objective name.
 	ServiceObjectiveNameP15 ServiceObjectiveName = "P15"
-	// ServiceObjectiveNameP2 ...
+	// ServiceObjectiveNameP2 specifies the service objective name p2 state for service objective name.
 	ServiceObjectiveNameP2 ServiceObjectiveName = "P2"
-	// ServiceObjectiveNameP3 ...
+	// ServiceObjectiveNameP3 specifies the service objective name p3 state for service objective name.
 	ServiceObjectiveNameP3 ServiceObjectiveName = "P3"
-	// ServiceObjectiveNameP4 ...
+	// ServiceObjectiveNameP4 specifies the service objective name p4 state for service objective name.
 	ServiceObjectiveNameP4 ServiceObjectiveName = "P4"
-	// ServiceObjectiveNameP6 ...
+	// ServiceObjectiveNameP6 specifies the service objective name p6 state for service objective name.
 	ServiceObjectiveNameP6 ServiceObjectiveName = "P6"
-	// ServiceObjectiveNamePRS1 ...
-	ServiceObjectiveNamePRS1 ServiceObjectiveName = "PRS1"
-	// ServiceObjectiveNamePRS2 ...
-	ServiceObjectiveNamePRS2 ServiceObjectiveName = "PRS2"
-	// ServiceObjectiveNamePRS4 ...
-	ServiceObjectiveNamePRS4 ServiceObjectiveName = "PRS4"
-	// ServiceObjectiveNamePRS6 ...
-	ServiceObjectiveNamePRS6 ServiceObjectiveName = "PRS6"
-	// ServiceObjectiveNameS0 ...
+	// ServiceObjectiveNameS0 specifies the service objective name s0 state for service objective name.
 	ServiceObjectiveNameS0 ServiceObjectiveName = "S0"
-	// ServiceObjectiveNameS1 ...
+	// ServiceObjectiveNameS1 specifies the service objective name s1 state for service objective name.
 	ServiceObjectiveNameS1 ServiceObjectiveName = "S1"
-	// ServiceObjectiveNameS12 ...
-	ServiceObjectiveNameS12 ServiceObjectiveName = "S12"
-	// ServiceObjectiveNameS2 ...
+	// ServiceObjectiveNameS2 specifies the service objective name s2 state for service objective name.
 	ServiceObjectiveNameS2 ServiceObjectiveName = "S2"
-	// ServiceObjectiveNameS3 ...
+	// ServiceObjectiveNameS3 specifies the service objective name s3 state for service objective name.
 	ServiceObjectiveNameS3 ServiceObjectiveName = "S3"
-	// ServiceObjectiveNameS4 ...
-	ServiceObjectiveNameS4 ServiceObjectiveName = "S4"
-	// ServiceObjectiveNameS6 ...
-	ServiceObjectiveNameS6 ServiceObjectiveName = "S6"
-	// ServiceObjectiveNameS7 ...
-	ServiceObjectiveNameS7 ServiceObjectiveName = "S7"
-	// ServiceObjectiveNameS9 ...
-	ServiceObjectiveNameS9 ServiceObjectiveName = "S9"
-	// ServiceObjectiveNameSystem ...
+	// ServiceObjectiveNameSystem specifies the service objective name system state for service objective name.
 	ServiceObjectiveNameSystem ServiceObjectiveName = "System"
-	// ServiceObjectiveNameSystem0 ...
-	ServiceObjectiveNameSystem0 ServiceObjectiveName = "System0"
-	// ServiceObjectiveNameSystem1 ...
-	ServiceObjectiveNameSystem1 ServiceObjectiveName = "System1"
-	// ServiceObjectiveNameSystem2 ...
+	// ServiceObjectiveNameSystem2 specifies the service objective name system 2 state for service objective name.
 	ServiceObjectiveNameSystem2 ServiceObjectiveName = "System2"
-	// ServiceObjectiveNameSystem2L ...
-	ServiceObjectiveNameSystem2L ServiceObjectiveName = "System2L"
-	// ServiceObjectiveNameSystem3 ...
-	ServiceObjectiveNameSystem3 ServiceObjectiveName = "System3"
-	// ServiceObjectiveNameSystem3L ...
-	ServiceObjectiveNameSystem3L ServiceObjectiveName = "System3L"
-	// ServiceObjectiveNameSystem4 ...
-	ServiceObjectiveNameSystem4 ServiceObjectiveName = "System4"
-	// ServiceObjectiveNameSystem4L ...
-	ServiceObjectiveNameSystem4L ServiceObjectiveName = "System4L"
 )
 
 // StorageKeyType enumerates the values for storage key type.
 type StorageKeyType string
 
 const (
-	// SharedAccessKey ...
+	// SharedAccessKey specifies the shared access key state for storage key type.
 	SharedAccessKey StorageKeyType = "SharedAccessKey"
-	// StorageAccessKey ...
+	// StorageAccessKey specifies the storage access key state for storage key type.
 	StorageAccessKey StorageKeyType = "StorageAccessKey"
 )
 
@@ -607,11 +514,11 @@ const (
 type SyncAgentState string
 
 const (
-	// NeverConnected ...
+	// NeverConnected specifies the never connected state for sync agent state.
 	NeverConnected SyncAgentState = "NeverConnected"
-	// Offline ...
+	// Offline specifies the offline state for sync agent state.
 	Offline SyncAgentState = "Offline"
-	// Online ...
+	// Online specifies the online state for sync agent state.
 	Online SyncAgentState = "Online"
 )
 
@@ -619,9 +526,9 @@ const (
 type SyncConflictResolutionPolicy string
 
 const (
-	// HubWin ...
+	// HubWin specifies the hub win state for sync conflict resolution policy.
 	HubWin SyncConflictResolutionPolicy = "HubWin"
-	// MemberWin ...
+	// MemberWin specifies the member win state for sync conflict resolution policy.
 	MemberWin SyncConflictResolutionPolicy = "MemberWin"
 )
 
@@ -629,11 +536,11 @@ const (
 type SyncDirection string
 
 const (
-	// Bidirectional ...
+	// Bidirectional specifies the bidirectional state for sync direction.
 	Bidirectional SyncDirection = "Bidirectional"
-	// OneWayHubToMember ...
+	// OneWayHubToMember specifies the one way hub to member state for sync direction.
 	OneWayHubToMember SyncDirection = "OneWayHubToMember"
-	// OneWayMemberToHub ...
+	// OneWayMemberToHub specifies the one way member to hub state for sync direction.
 	OneWayMemberToHub SyncDirection = "OneWayMemberToHub"
 )
 
@@ -641,13 +548,13 @@ const (
 type SyncGroupLogType string
 
 const (
-	// SyncGroupLogTypeAll ...
+	// SyncGroupLogTypeAll specifies the sync group log type all state for sync group log type.
 	SyncGroupLogTypeAll SyncGroupLogType = "All"
-	// SyncGroupLogTypeError ...
+	// SyncGroupLogTypeError specifies the sync group log type error state for sync group log type.
 	SyncGroupLogTypeError SyncGroupLogType = "Error"
-	// SyncGroupLogTypeSuccess ...
+	// SyncGroupLogTypeSuccess specifies the sync group log type success state for sync group log type.
 	SyncGroupLogTypeSuccess SyncGroupLogType = "Success"
-	// SyncGroupLogTypeWarning ...
+	// SyncGroupLogTypeWarning specifies the sync group log type warning state for sync group log type.
 	SyncGroupLogTypeWarning SyncGroupLogType = "Warning"
 )
 
@@ -655,15 +562,15 @@ const (
 type SyncGroupState string
 
 const (
-	// Error ...
+	// Error specifies the error state for sync group state.
 	Error SyncGroupState = "Error"
-	// Good ...
+	// Good specifies the good state for sync group state.
 	Good SyncGroupState = "Good"
-	// NotReady ...
+	// NotReady specifies the not ready state for sync group state.
 	NotReady SyncGroupState = "NotReady"
-	// Progressing ...
+	// Progressing specifies the progressing state for sync group state.
 	Progressing SyncGroupState = "Progressing"
-	// Warning ...
+	// Warning specifies the warning state for sync group state.
 	Warning SyncGroupState = "Warning"
 )
 
@@ -671,9 +578,9 @@ const (
 type SyncMemberDbType string
 
 const (
-	// AzureSQLDatabase ...
+	// AzureSQLDatabase specifies the azure sql database state for sync member db type.
 	AzureSQLDatabase SyncMemberDbType = "AzureSqlDatabase"
-	// SQLServerDatabase ...
+	// SQLServerDatabase specifies the sql server database state for sync member db type.
 	SQLServerDatabase SyncMemberDbType = "SqlServerDatabase"
 )
 
@@ -681,41 +588,41 @@ const (
 type SyncMemberState string
 
 const (
-	// DeProvisioned ...
+	// DeProvisioned specifies the de provisioned state for sync member state.
 	DeProvisioned SyncMemberState = "DeProvisioned"
-	// DeProvisionFailed ...
+	// DeProvisionFailed specifies the de provision failed state for sync member state.
 	DeProvisionFailed SyncMemberState = "DeProvisionFailed"
-	// DeProvisioning ...
+	// DeProvisioning specifies the de provisioning state for sync member state.
 	DeProvisioning SyncMemberState = "DeProvisioning"
-	// DisabledBackupRestore ...
+	// DisabledBackupRestore specifies the disabled backup restore state for sync member state.
 	DisabledBackupRestore SyncMemberState = "DisabledBackupRestore"
-	// DisabledTombstoneCleanup ...
+	// DisabledTombstoneCleanup specifies the disabled tombstone cleanup state for sync member state.
 	DisabledTombstoneCleanup SyncMemberState = "DisabledTombstoneCleanup"
-	// Provisioned ...
+	// Provisioned specifies the provisioned state for sync member state.
 	Provisioned SyncMemberState = "Provisioned"
-	// ProvisionFailed ...
+	// ProvisionFailed specifies the provision failed state for sync member state.
 	ProvisionFailed SyncMemberState = "ProvisionFailed"
-	// Provisioning ...
+	// Provisioning specifies the provisioning state for sync member state.
 	Provisioning SyncMemberState = "Provisioning"
-	// ReprovisionFailed ...
+	// ReprovisionFailed specifies the reprovision failed state for sync member state.
 	ReprovisionFailed SyncMemberState = "ReprovisionFailed"
-	// Reprovisioning ...
+	// Reprovisioning specifies the reprovisioning state for sync member state.
 	Reprovisioning SyncMemberState = "Reprovisioning"
-	// SyncCancelled ...
+	// SyncCancelled specifies the sync cancelled state for sync member state.
 	SyncCancelled SyncMemberState = "SyncCancelled"
-	// SyncCancelling ...
+	// SyncCancelling specifies the sync cancelling state for sync member state.
 	SyncCancelling SyncMemberState = "SyncCancelling"
-	// SyncFailed ...
+	// SyncFailed specifies the sync failed state for sync member state.
 	SyncFailed SyncMemberState = "SyncFailed"
-	// SyncInProgress ...
+	// SyncInProgress specifies the sync in progress state for sync member state.
 	SyncInProgress SyncMemberState = "SyncInProgress"
-	// SyncSucceeded ...
+	// SyncSucceeded specifies the sync succeeded state for sync member state.
 	SyncSucceeded SyncMemberState = "SyncSucceeded"
-	// SyncSucceededWithWarnings ...
+	// SyncSucceededWithWarnings specifies the sync succeeded with warnings state for sync member state.
 	SyncSucceededWithWarnings SyncMemberState = "SyncSucceededWithWarnings"
-	// UnProvisioned ...
+	// UnProvisioned specifies the un provisioned state for sync member state.
 	UnProvisioned SyncMemberState = "UnProvisioned"
-	// UnReprovisioned ...
+	// UnReprovisioned specifies the un reprovisioned state for sync member state.
 	UnReprovisioned SyncMemberState = "UnReprovisioned"
 )
 
@@ -723,9 +630,9 @@ const (
 type TransparentDataEncryptionActivityStatus string
 
 const (
-	// Decrypting ...
+	// Decrypting specifies the decrypting state for transparent data encryption activity status.
 	Decrypting TransparentDataEncryptionActivityStatus = "Decrypting"
-	// Encrypting ...
+	// Encrypting specifies the encrypting state for transparent data encryption activity status.
 	Encrypting TransparentDataEncryptionActivityStatus = "Encrypting"
 )
 
@@ -733,9 +640,11 @@ const (
 type TransparentDataEncryptionStatus string
 
 const (
-	// TransparentDataEncryptionStatusDisabled ...
+	// TransparentDataEncryptionStatusDisabled specifies the transparent data encryption status disabled state for
+	// transparent data encryption status.
 	TransparentDataEncryptionStatusDisabled TransparentDataEncryptionStatus = "Disabled"
-	// TransparentDataEncryptionStatusEnabled ...
+	// TransparentDataEncryptionStatusEnabled specifies the transparent data encryption status enabled state for
+	// transparent data encryption status.
 	TransparentDataEncryptionStatusEnabled TransparentDataEncryptionStatus = "Enabled"
 )
 
@@ -743,17 +652,17 @@ const (
 type UnitDefinitionType string
 
 const (
-	// UnitDefinitionTypeBytes ...
+	// UnitDefinitionTypeBytes specifies the unit definition type bytes state for unit definition type.
 	UnitDefinitionTypeBytes UnitDefinitionType = "Bytes"
-	// UnitDefinitionTypeBytesPerSecond ...
+	// UnitDefinitionTypeBytesPerSecond specifies the unit definition type bytes per second state for unit definition type.
 	UnitDefinitionTypeBytesPerSecond UnitDefinitionType = "BytesPerSecond"
-	// UnitDefinitionTypeCount ...
+	// UnitDefinitionTypeCount specifies the unit definition type count state for unit definition type.
 	UnitDefinitionTypeCount UnitDefinitionType = "Count"
-	// UnitDefinitionTypeCountPerSecond ...
+	// UnitDefinitionTypeCountPerSecond specifies the unit definition type count per second state for unit definition type.
 	UnitDefinitionTypeCountPerSecond UnitDefinitionType = "CountPerSecond"
-	// UnitDefinitionTypePercent ...
+	// UnitDefinitionTypePercent specifies the unit definition type percent state for unit definition type.
 	UnitDefinitionTypePercent UnitDefinitionType = "Percent"
-	// UnitDefinitionTypeSeconds ...
+	// UnitDefinitionTypeSeconds specifies the unit definition type seconds state for unit definition type.
 	UnitDefinitionTypeSeconds UnitDefinitionType = "Seconds"
 )
 
@@ -761,17 +670,17 @@ const (
 type UnitType string
 
 const (
-	// UnitTypeBytes ...
+	// UnitTypeBytes specifies the unit type bytes state for unit type.
 	UnitTypeBytes UnitType = "bytes"
-	// UnitTypeBytesPerSecond ...
+	// UnitTypeBytesPerSecond specifies the unit type bytes per second state for unit type.
 	UnitTypeBytesPerSecond UnitType = "bytesPerSecond"
-	// UnitTypeCount ...
+	// UnitTypeCount specifies the unit type count state for unit type.
 	UnitTypeCount UnitType = "count"
-	// UnitTypeCountPerSecond ...
+	// UnitTypeCountPerSecond specifies the unit type count per second state for unit type.
 	UnitTypeCountPerSecond UnitType = "countPerSecond"
-	// UnitTypePercent ...
+	// UnitTypePercent specifies the unit type percent state for unit type.
 	UnitTypePercent UnitType = "percent"
-	// UnitTypeSeconds ...
+	// UnitTypeSeconds specifies the unit type seconds state for unit type.
 	UnitTypeSeconds UnitType = "seconds"
 )
 
@@ -779,7124 +688,1531 @@ const (
 type VirtualNetworkRuleState string
 
 const (
-	// Deleting ...
+	// Deleting specifies the deleting state for virtual network rule state.
 	Deleting VirtualNetworkRuleState = "Deleting"
-	// Initializing ...
+	// Initializing specifies the initializing state for virtual network rule state.
 	Initializing VirtualNetworkRuleState = "Initializing"
-	// InProgress ...
+	// InProgress specifies the in progress state for virtual network rule state.
 	InProgress VirtualNetworkRuleState = "InProgress"
-	// Ready ...
+	// Ready specifies the ready state for virtual network rule state.
 	Ready VirtualNetworkRuleState = "Ready"
-	// Unknown ...
+	// Unknown specifies the unknown state for virtual network rule state.
 	Unknown VirtualNetworkRuleState = "Unknown"
 )
 
-// BackupLongTermRetentionPoliciesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type BackupLongTermRetentionPoliciesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future BackupLongTermRetentionPoliciesCreateOrUpdateFuture) Result(client BackupLongTermRetentionPoliciesClient) (bltrp BackupLongTermRetentionPolicy, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return bltrp, autorest.NewError("sql.BackupLongTermRetentionPoliciesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		bltrp, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	bltrp, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// BackupLongTermRetentionPolicy a backup long term retention policy
+// BackupLongTermRetentionPolicy is a backup long term retention policy
 type BackupLongTermRetentionPolicy struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-	// BackupLongTermRetentionPolicyProperties - The properties of the backup long term retention policy
+	autorest.Response                        `json:"-"`
+	ID                                       *string `json:"id,omitempty"`
+	Name                                     *string `json:"name,omitempty"`
+	Type                                     *string `json:"type,omitempty"`
+	Location                                 *string `json:"location,omitempty"`
 	*BackupLongTermRetentionPolicyProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for BackupLongTermRetentionPolicy struct.
-func (bltrp *BackupLongTermRetentionPolicy) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		bltrp.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties BackupLongTermRetentionPolicyProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		bltrp.BackupLongTermRetentionPolicyProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		bltrp.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		bltrp.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		bltrp.Type = &typeVar
-	}
-
-	return nil
-}
-
-// BackupLongTermRetentionPolicyListResult represents the response to a list long-term retention policies request.
-type BackupLongTermRetentionPolicyListResult struct {
-	autorest.Response `json:"-"`
-	// Value - The list of long-term retention policies in the database.
-	Value *[]BackupLongTermRetentionPolicy `json:"value,omitempty"`
-}
-
-// BackupLongTermRetentionPolicyProperties the properties of a backup long term retention policy
+// BackupLongTermRetentionPolicyProperties is the properties of a backup long term retention policy
 type BackupLongTermRetentionPolicyProperties struct {
-	// State - The status of the backup long term retention policy. Possible values include: 'Disabled', 'Enabled'
-	State BackupLongTermRetentionPolicyState `json:"state,omitempty"`
-	// RecoveryServicesBackupPolicyResourceID - The azure recovery services backup protection policy resource id
-	RecoveryServicesBackupPolicyResourceID *string `json:"recoveryServicesBackupPolicyResourceId,omitempty"`
+	State                                  BackupLongTermRetentionPolicyState `json:"state,omitempty"`
+	RecoveryServicesBackupPolicyResourceID *string                            `json:"recoveryServicesBackupPolicyResourceId,omitempty"`
 }
 
-// BackupLongTermRetentionVault a backup long term retention vault
+// BackupLongTermRetentionVault is a backup long term retention vault
 type BackupLongTermRetentionVault struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-	// BackupLongTermRetentionVaultProperties - The properties of the backup long term retention vault
+	autorest.Response                       `json:"-"`
+	ID                                      *string `json:"id,omitempty"`
+	Name                                    *string `json:"name,omitempty"`
+	Type                                    *string `json:"type,omitempty"`
+	Location                                *string `json:"location,omitempty"`
 	*BackupLongTermRetentionVaultProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for BackupLongTermRetentionVault struct.
-func (bltrv *BackupLongTermRetentionVault) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		bltrv.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties BackupLongTermRetentionVaultProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		bltrv.BackupLongTermRetentionVaultProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		bltrv.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		bltrv.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		bltrv.Type = &typeVar
-	}
-
-	return nil
-}
-
-// BackupLongTermRetentionVaultListResult represents the response to a list vaults request.
-type BackupLongTermRetentionVaultListResult struct {
-	autorest.Response `json:"-"`
-	// Value - The list of vaults in the server.
-	Value *[]BackupLongTermRetentionVault `json:"value,omitempty"`
-}
-
-// BackupLongTermRetentionVaultProperties the properties of a backup long term retention vault.
+// BackupLongTermRetentionVaultProperties is the properties of a backup long term retention vault.
 type BackupLongTermRetentionVaultProperties struct {
-	// RecoveryServicesVaultResourceID - The azure recovery services vault resource id
 	RecoveryServicesVaultResourceID *string `json:"recoveryServicesVaultResourceId,omitempty"`
 }
 
-// BackupLongTermRetentionVaultsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type BackupLongTermRetentionVaultsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future BackupLongTermRetentionVaultsCreateOrUpdateFuture) Result(client BackupLongTermRetentionVaultsClient) (bltrv BackupLongTermRetentionVault, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return bltrv, autorest.NewError("sql.BackupLongTermRetentionVaultsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		bltrv, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	bltrv, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// CheckNameAvailabilityRequest a request to check whether the specified name for a resource is available.
+// CheckNameAvailabilityRequest is a request to check whether the specified name for a resource is available.
 type CheckNameAvailabilityRequest struct {
-	// Name - The name whose availability is to be checked.
 	Name *string `json:"name,omitempty"`
-	// Type - The type of resource that is used as the scope of the availability check.
 	Type *string `json:"type,omitempty"`
 }
 
-// CheckNameAvailabilityResponse a response indicating whether the specified name for a resource is available.
+// CheckNameAvailabilityResponse is a response indicating whether the specified name for a resource is available.
 type CheckNameAvailabilityResponse struct {
 	autorest.Response `json:"-"`
-	// Available - True if the name is available, otherwise false.
-	Available *bool `json:"available,omitempty"`
-	// Message - A message explaining why the name is unavailable. Will be null if the name is available.
-	Message *string `json:"message,omitempty"`
-	// Name - The name whose availability was checked.
-	Name *string `json:"name,omitempty"`
-	// Reason - The reason code explaining why the name is unavailable. Will be null if the name is available. Possible values include: 'Invalid', 'AlreadyExists'
-	Reason CheckNameAvailabilityReason `json:"reason,omitempty"`
+	Available         *bool                       `json:"available,omitempty"`
+	Message           *string                     `json:"message,omitempty"`
+	Name              *string                     `json:"name,omitempty"`
+	Reason            CheckNameAvailabilityReason `json:"reason,omitempty"`
 }
 
-// Database represents a database.
+// Database is represents a database.
 type Database struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// Kind - Kind of database.  This is metadata used for the Azure portal experience.
-	Kind *string `json:"kind,omitempty"`
-	// DatabaseProperties - The properties representing the resource.
+	autorest.Response   `json:"-"`
+	ID                  *string             `json:"id,omitempty"`
+	Name                *string             `json:"name,omitempty"`
+	Type                *string             `json:"type,omitempty"`
+	Tags                *map[string]*string `json:"tags,omitempty"`
+	Location            *string             `json:"location,omitempty"`
+	Kind                *string             `json:"kind,omitempty"`
 	*DatabaseProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Database struct.
-func (d *Database) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		d.Kind = &kind
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties DatabaseProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		d.DatabaseProperties = &properties
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		d.Tags = &tags
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		d.Location = &location
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		d.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		d.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		d.Type = &typeVar
-	}
-
-	return nil
-}
-
-// DatabaseBlobAuditingPolicy a database blob auditing policy.
+// DatabaseBlobAuditingPolicy is a database blob auditing policy.
 type DatabaseBlobAuditingPolicy struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Kind - Resource kind.
-	Kind *string `json:"kind,omitempty"`
-	// DatabaseBlobAuditingPolicyProperties - Resource properties.
+	autorest.Response                     `json:"-"`
+	ID                                    *string `json:"id,omitempty"`
+	Name                                  *string `json:"name,omitempty"`
+	Type                                  *string `json:"type,omitempty"`
+	Kind                                  *string `json:"kind,omitempty"`
 	*DatabaseBlobAuditingPolicyProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for DatabaseBlobAuditingPolicy struct.
-func (dbap *DatabaseBlobAuditingPolicy) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		dbap.Kind = &kind
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties DatabaseBlobAuditingPolicyProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		dbap.DatabaseBlobAuditingPolicyProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		dbap.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		dbap.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		dbap.Type = &typeVar
-	}
-
-	return nil
-}
-
-// DatabaseBlobAuditingPolicyProperties properties of a database blob auditing policy.
+// DatabaseBlobAuditingPolicyProperties is properties of a database blob auditing policy.
 type DatabaseBlobAuditingPolicyProperties struct {
-	// State - Specifies the state of the policy. If state is Enabled, storageEndpoint and storageAccountAccessKey are required. Possible values include: 'BlobAuditingPolicyStateEnabled', 'BlobAuditingPolicyStateDisabled'
-	State BlobAuditingPolicyState `json:"state,omitempty"`
-	// StorageEndpoint - Specifies the blob storage endpoint (e.g. https://MyAccount.blob.core.windows.net). If state is Enabled, storageEndpoint is required.
-	StorageEndpoint *string `json:"storageEndpoint,omitempty"`
-	// StorageAccountAccessKey - Specifies the identifier key of the auditing storage account. If state is Enabled, storageAccountAccessKey is required.
-	StorageAccountAccessKey *string `json:"storageAccountAccessKey,omitempty"`
-	// RetentionDays - Specifies the number of days to keep in the audit logs.
-	RetentionDays *int32 `json:"retentionDays,omitempty"`
-	// AuditActionsAndGroups - Specifies the Actions and Actions-Groups to audit.
-	AuditActionsAndGroups *[]string `json:"auditActionsAndGroups,omitempty"`
-	// StorageAccountSubscriptionID - Specifies the blob storage subscription Id.
-	StorageAccountSubscriptionID *uuid.UUID `json:"storageAccountSubscriptionId,omitempty"`
-	// IsStorageSecondaryKeyInUse - Specifies whether storageAccountAccessKey value is the storage’s secondary key.
-	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
+	State                        BlobAuditingPolicyState `json:"state,omitempty"`
+	StorageEndpoint              *string                 `json:"storageEndpoint,omitempty"`
+	StorageAccountAccessKey      *string                 `json:"storageAccountAccessKey,omitempty"`
+	RetentionDays                *int32                  `json:"retentionDays,omitempty"`
+	AuditActionsAndGroups        *[]string               `json:"auditActionsAndGroups,omitempty"`
+	StorageAccountSubscriptionID *uuid.UUID              `json:"storageAccountSubscriptionId,omitempty"`
+	IsStorageSecondaryKeyInUse   *bool                   `json:"isStorageSecondaryKeyInUse,omitempty"`
 }
 
-// DatabaseListResult represents the response to a list database request.
+// DatabaseListResult is represents the response to a list database request.
 type DatabaseListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of databases housed in the server.
-	Value *[]Database `json:"value,omitempty"`
+	Value             *[]Database `json:"value,omitempty"`
 }
 
-// DatabaseProperties represents the properties of a database.
+// DatabaseProperties is represents the properties of a database.
 type DatabaseProperties struct {
-	// Collation - The collation of the database. If createMode is not Default, this value is ignored.
-	Collation *string `json:"collation,omitempty"`
-	// CreationDate - The creation date of the database (ISO8601 format).
-	CreationDate *date.Time `json:"creationDate,omitempty"`
-	// ContainmentState - The containment state of the database.
-	ContainmentState *int64 `json:"containmentState,omitempty"`
-	// CurrentServiceObjectiveID - The current service level objective ID of the database. This is the ID of the service level objective that is currently active.
-	CurrentServiceObjectiveID *uuid.UUID `json:"currentServiceObjectiveId,omitempty"`
-	// DatabaseID - The ID of the database.
-	DatabaseID *uuid.UUID `json:"databaseId,omitempty"`
-	// EarliestRestoreDate - This records the earliest start date and time that restore is available for this database (ISO8601 format).
-	EarliestRestoreDate *date.Time `json:"earliestRestoreDate,omitempty"`
-	// CreateMode - Specifies the mode of database creation.
-	// Default: regular database creation.
-	// Copy: creates a database as a copy of an existing database. sourceDatabaseId must be specified as the resource ID of the source database.
-	// OnlineSecondary/NonReadableSecondary: creates a database as a (readable or nonreadable) secondary replica of an existing database. sourceDatabaseId must be specified as the resource ID of the existing primary database.
-	// PointInTimeRestore: Creates a database by restoring a point in time backup of an existing database. sourceDatabaseId must be specified as the resource ID of the existing database, and restorePointInTime must be specified.
-	// Recovery: Creates a database by restoring a geo-replicated backup. sourceDatabaseId must be specified as the recoverable database resource ID to restore.
-	// Restore: Creates a database by restoring a backup of a deleted database. sourceDatabaseId must be specified. If sourceDatabaseId is the database's original resource ID, then sourceDatabaseDeletionDate must be specified. Otherwise sourceDatabaseId must be the restorable dropped database resource ID and sourceDatabaseDeletionDate is ignored. restorePointInTime may also be specified to restore from an earlier point in time.
-	// RestoreLongTermRetentionBackup: Creates a database by restoring from a long term retention vault. recoveryServicesRecoveryPointResourceId must be specified as the recovery point resource ID.
-	// Copy, NonReadableSecondary, OnlineSecondary and RestoreLongTermRetentionBackup are not supported for DataWarehouse edition. Possible values include: 'Copy', 'Default', 'NonReadableSecondary', 'OnlineSecondary', 'PointInTimeRestore', 'Recovery', 'Restore', 'RestoreLongTermRetentionBackup'
-	CreateMode CreateMode `json:"createMode,omitempty"`
-	// SourceDatabaseID - Conditional. If createMode is Copy, NonReadableSecondary, OnlineSecondary, PointInTimeRestore, Recovery, or Restore, then this value is required. Specifies the resource ID of the source database. If createMode is NonReadableSecondary or OnlineSecondary, the name of the source database must be the same as the new database being created.
-	SourceDatabaseID *string `json:"sourceDatabaseId,omitempty"`
-	// SourceDatabaseDeletionDate - Conditional. If createMode is Restore and sourceDatabaseId is the deleted database's original resource id when it existed (as opposed to its current restorable dropped database id), then this value is required. Specifies the time that the database was deleted.
-	SourceDatabaseDeletionDate *date.Time `json:"sourceDatabaseDeletionDate,omitempty"`
-	// RestorePointInTime - Conditional. If createMode is PointInTimeRestore, this value is required. If createMode is Restore, this value is optional. Specifies the point in time (ISO8601 format) of the source database that will be restored to create the new database. Must be greater than or equal to the source database's earliestRestoreDate value.
-	RestorePointInTime *date.Time `json:"restorePointInTime,omitempty"`
-	// RecoveryServicesRecoveryPointResourceID - Conditional. If createMode is RestoreLongTermRetentionBackup, then this value is required. Specifies the resource ID of the recovery point to restore from.
-	RecoveryServicesRecoveryPointResourceID *string `json:"recoveryServicesRecoveryPointResourceId,omitempty"`
-	// Edition - The edition of the database. The DatabaseEditions enumeration contains all the valid editions. If createMode is NonReadableSecondary or OnlineSecondary, this value is ignored. To see possible values, query the capabilities API (/subscriptions/{subscriptionId}/providers/Microsoft.Sql/locations/{locationID}/capabilities) referred to by operationId: "Capabilities_ListByLocation." or use the Azure CLI command `az sql db list-editions -l westus --query [].name`. Possible values include: 'Web', 'Business', 'Basic', 'Standard', 'Premium', 'PremiumRS', 'Free', 'Stretch', 'DataWarehouse', 'System', 'System2'
-	Edition DatabaseEdition `json:"edition,omitempty"`
-	// MaxSizeBytes - The max size of the database expressed in bytes. If createMode is not Default, this value is ignored. To see possible values, query the capabilities API (/subscriptions/{subscriptionId}/providers/Microsoft.Sql/locations/{locationID}/capabilities) referred to by operationId: "Capabilities_ListByLocation."
-	MaxSizeBytes *string `json:"maxSizeBytes,omitempty"`
-	// RequestedServiceObjectiveID - The configured service level objective ID of the database. This is the service level objective that is in the process of being applied to the database. Once successfully updated, it will match the value of currentServiceObjectiveId property. If requestedServiceObjectiveId and requestedServiceObjectiveName are both updated, the value of requestedServiceObjectiveId overrides the value of requestedServiceObjectiveName. To see possible values, query the capabilities API (/subscriptions/{subscriptionId}/providers/Microsoft.Sql/locations/{locationID}/capabilities) referred to by operationId: "Capabilities_ListByLocation." or use the Azure CLI command `az sql db list-editions --location <location> --query [].supportedServiceLevelObjectives[].name` .
-	RequestedServiceObjectiveID *uuid.UUID `json:"requestedServiceObjectiveId,omitempty"`
-	// RequestedServiceObjectiveName - The name of the configured service level objective of the database. This is the service level objective that is in the process of being applied to the database. Once successfully updated, it will match the value of serviceLevelObjective property. To see possible values, query the capabilities API (/subscriptions/{subscriptionId}/providers/Microsoft.Sql/locations/{locationID}/capabilities) referred to by operationId: "Capabilities_ListByLocation." or use the Azure CLI command `az sql db list-editions --location <location> --query [].supportedServiceLevelObjectives[].name`. Possible values include: 'ServiceObjectiveNameSystem', 'ServiceObjectiveNameSystem0', 'ServiceObjectiveNameSystem1', 'ServiceObjectiveNameSystem2', 'ServiceObjectiveNameSystem3', 'ServiceObjectiveNameSystem4', 'ServiceObjectiveNameSystem2L', 'ServiceObjectiveNameSystem3L', 'ServiceObjectiveNameSystem4L', 'ServiceObjectiveNameFree', 'ServiceObjectiveNameBasic', 'ServiceObjectiveNameS0', 'ServiceObjectiveNameS1', 'ServiceObjectiveNameS2', 'ServiceObjectiveNameS3', 'ServiceObjectiveNameS4', 'ServiceObjectiveNameS6', 'ServiceObjectiveNameS7', 'ServiceObjectiveNameS9', 'ServiceObjectiveNameS12', 'ServiceObjectiveNameP1', 'ServiceObjectiveNameP2', 'ServiceObjectiveNameP3', 'ServiceObjectiveNameP4', 'ServiceObjectiveNameP6', 'ServiceObjectiveNameP11', 'ServiceObjectiveNameP15', 'ServiceObjectiveNamePRS1', 'ServiceObjectiveNamePRS2', 'ServiceObjectiveNamePRS4', 'ServiceObjectiveNamePRS6', 'ServiceObjectiveNameDW100', 'ServiceObjectiveNameDW200', 'ServiceObjectiveNameDW300', 'ServiceObjectiveNameDW400', 'ServiceObjectiveNameDW500', 'ServiceObjectiveNameDW600', 'ServiceObjectiveNameDW1000', 'ServiceObjectiveNameDW1200', 'ServiceObjectiveNameDW1000c', 'ServiceObjectiveNameDW1500', 'ServiceObjectiveNameDW1500c', 'ServiceObjectiveNameDW2000', 'ServiceObjectiveNameDW2000c', 'ServiceObjectiveNameDW3000', 'ServiceObjectiveNameDW2500c', 'ServiceObjectiveNameDW3000c', 'ServiceObjectiveNameDW6000', 'ServiceObjectiveNameDW5000c', 'ServiceObjectiveNameDW6000c', 'ServiceObjectiveNameDW7500c', 'ServiceObjectiveNameDW10000c', 'ServiceObjectiveNameDW15000c', 'ServiceObjectiveNameDW30000c', 'ServiceObjectiveNameDS100', 'ServiceObjectiveNameDS200', 'ServiceObjectiveNameDS300', 'ServiceObjectiveNameDS400', 'ServiceObjectiveNameDS500', 'ServiceObjectiveNameDS600', 'ServiceObjectiveNameDS1000', 'ServiceObjectiveNameDS1200', 'ServiceObjectiveNameDS1500', 'ServiceObjectiveNameDS2000', 'ServiceObjectiveNameElasticPool'
-	RequestedServiceObjectiveName ServiceObjectiveName `json:"requestedServiceObjectiveName,omitempty"`
-	// ServiceLevelObjective - The current service level objective of the database. Possible values include: 'ServiceObjectiveNameSystem', 'ServiceObjectiveNameSystem0', 'ServiceObjectiveNameSystem1', 'ServiceObjectiveNameSystem2', 'ServiceObjectiveNameSystem3', 'ServiceObjectiveNameSystem4', 'ServiceObjectiveNameSystem2L', 'ServiceObjectiveNameSystem3L', 'ServiceObjectiveNameSystem4L', 'ServiceObjectiveNameFree', 'ServiceObjectiveNameBasic', 'ServiceObjectiveNameS0', 'ServiceObjectiveNameS1', 'ServiceObjectiveNameS2', 'ServiceObjectiveNameS3', 'ServiceObjectiveNameS4', 'ServiceObjectiveNameS6', 'ServiceObjectiveNameS7', 'ServiceObjectiveNameS9', 'ServiceObjectiveNameS12', 'ServiceObjectiveNameP1', 'ServiceObjectiveNameP2', 'ServiceObjectiveNameP3', 'ServiceObjectiveNameP4', 'ServiceObjectiveNameP6', 'ServiceObjectiveNameP11', 'ServiceObjectiveNameP15', 'ServiceObjectiveNamePRS1', 'ServiceObjectiveNamePRS2', 'ServiceObjectiveNamePRS4', 'ServiceObjectiveNamePRS6', 'ServiceObjectiveNameDW100', 'ServiceObjectiveNameDW200', 'ServiceObjectiveNameDW300', 'ServiceObjectiveNameDW400', 'ServiceObjectiveNameDW500', 'ServiceObjectiveNameDW600', 'ServiceObjectiveNameDW1000', 'ServiceObjectiveNameDW1200', 'ServiceObjectiveNameDW1000c', 'ServiceObjectiveNameDW1500', 'ServiceObjectiveNameDW1500c', 'ServiceObjectiveNameDW2000', 'ServiceObjectiveNameDW2000c', 'ServiceObjectiveNameDW3000', 'ServiceObjectiveNameDW2500c', 'ServiceObjectiveNameDW3000c', 'ServiceObjectiveNameDW6000', 'ServiceObjectiveNameDW5000c', 'ServiceObjectiveNameDW6000c', 'ServiceObjectiveNameDW7500c', 'ServiceObjectiveNameDW10000c', 'ServiceObjectiveNameDW15000c', 'ServiceObjectiveNameDW30000c', 'ServiceObjectiveNameDS100', 'ServiceObjectiveNameDS200', 'ServiceObjectiveNameDS300', 'ServiceObjectiveNameDS400', 'ServiceObjectiveNameDS500', 'ServiceObjectiveNameDS600', 'ServiceObjectiveNameDS1000', 'ServiceObjectiveNameDS1200', 'ServiceObjectiveNameDS1500', 'ServiceObjectiveNameDS2000', 'ServiceObjectiveNameElasticPool'
-	ServiceLevelObjective ServiceObjectiveName `json:"serviceLevelObjective,omitempty"`
-	// Status - The status of the database.
-	Status *string `json:"status,omitempty"`
-	// ElasticPoolName - The name of the elastic pool the database is in. If elasticPoolName and requestedServiceObjectiveName are both updated, the value of requestedServiceObjectiveName is ignored. Not supported for DataWarehouse edition.
-	ElasticPoolName *string `json:"elasticPoolName,omitempty"`
-	// DefaultSecondaryLocation - The default secondary region for this database.
-	DefaultSecondaryLocation *string `json:"defaultSecondaryLocation,omitempty"`
-	// ServiceTierAdvisors - The list of service tier advisors for this database. Expanded property
-	ServiceTierAdvisors *[]ServiceTierAdvisor `json:"serviceTierAdvisors,omitempty"`
-	// TransparentDataEncryption - The transparent data encryption info for this database.
-	TransparentDataEncryption *[]TransparentDataEncryption `json:"transparentDataEncryption,omitempty"`
-	// RecommendedIndex - The recommended indices for this database.
-	RecommendedIndex *[]RecommendedIndex `json:"recommendedIndex,omitempty"`
-	// FailoverGroupID - The resource identifier of the failover group containing this database.
-	FailoverGroupID *string `json:"failoverGroupId,omitempty"`
-	// ReadScale - Conditional. If the database is a geo-secondary, readScale indicates whether read-only connections are allowed to this database or not. Not supported for DataWarehouse edition. Possible values include: 'ReadScaleEnabled', 'ReadScaleDisabled'
-	ReadScale ReadScale `json:"readScale,omitempty"`
-	// SampleName - Indicates the name of the sample schema to apply when creating this database. If createMode is not Default, this value is ignored. Not supported for DataWarehouse edition. Possible values include: 'AdventureWorksLT'
-	SampleName SampleName `json:"sampleName,omitempty"`
-	// ZoneRedundant - Whether or not this database is zone redundant, which means the replicas of this database will be spread across multiple availability zones.
-	ZoneRedundant *bool `json:"zoneRedundant,omitempty"`
+	Collation                               *string                      `json:"collation,omitempty"`
+	CreationDate                            *date.Time                   `json:"creationDate,omitempty"`
+	ContainmentState                        *int64                       `json:"containmentState,omitempty"`
+	CurrentServiceObjectiveID               *uuid.UUID                   `json:"currentServiceObjectiveId,omitempty"`
+	DatabaseID                              *uuid.UUID                   `json:"databaseId,omitempty"`
+	EarliestRestoreDate                     *date.Time                   `json:"earliestRestoreDate,omitempty"`
+	CreateMode                              CreateMode                   `json:"createMode,omitempty"`
+	SourceDatabaseID                        *string                      `json:"sourceDatabaseId,omitempty"`
+	SourceDatabaseDeletionDate              *date.Time                   `json:"sourceDatabaseDeletionDate,omitempty"`
+	RestorePointInTime                      *date.Time                   `json:"restorePointInTime,omitempty"`
+	RecoveryServicesRecoveryPointResourceID *string                      `json:"recoveryServicesRecoveryPointResourceId,omitempty"`
+	Edition                                 DatabaseEdition              `json:"edition,omitempty"`
+	MaxSizeBytes                            *string                      `json:"maxSizeBytes,omitempty"`
+	RequestedServiceObjectiveID             *uuid.UUID                   `json:"requestedServiceObjectiveId,omitempty"`
+	RequestedServiceObjectiveName           ServiceObjectiveName         `json:"requestedServiceObjectiveName,omitempty"`
+	ServiceLevelObjective                   ServiceObjectiveName         `json:"serviceLevelObjective,omitempty"`
+	Status                                  *string                      `json:"status,omitempty"`
+	ElasticPoolName                         *string                      `json:"elasticPoolName,omitempty"`
+	DefaultSecondaryLocation                *string                      `json:"defaultSecondaryLocation,omitempty"`
+	ServiceTierAdvisors                     *[]ServiceTierAdvisor        `json:"serviceTierAdvisors,omitempty"`
+	TransparentDataEncryption               *[]TransparentDataEncryption `json:"transparentDataEncryption,omitempty"`
+	RecommendedIndex                        *[]RecommendedIndex          `json:"recommendedIndex,omitempty"`
+	FailoverGroupID                         *string                      `json:"failoverGroupId,omitempty"`
+	ReadScale                               ReadScale                    `json:"readScale,omitempty"`
+	SampleName                              SampleName                   `json:"sampleName,omitempty"`
+	ZoneRedundant                           *bool                        `json:"zoneRedundant,omitempty"`
 }
 
-// DatabasesCreateImportOperationFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type DatabasesCreateImportOperationFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future DatabasesCreateImportOperationFuture) Result(client DatabasesClient) (ier ImportExportResponse, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ier, autorest.NewError("sql.DatabasesCreateImportOperationFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ier, err = client.CreateImportOperationResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ier, err = client.CreateImportOperationResponder(resp)
-	return
-}
-
-// DatabasesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type DatabasesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future DatabasesCreateOrUpdateFuture) Result(client DatabasesClient) (d Database, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return d, autorest.NewError("sql.DatabasesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		d, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	d, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// DatabaseSecurityAlertPolicy contains information about a database Threat Detection policy.
+// DatabaseSecurityAlertPolicy is contains information about a database Threat Detection policy.
 type DatabaseSecurityAlertPolicy struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-	// Kind - Resource kind.
-	Kind *string `json:"kind,omitempty"`
-	// DatabaseSecurityAlertPolicyProperties - Properties of the security alert policy.
+	autorest.Response                      `json:"-"`
+	ID                                     *string `json:"id,omitempty"`
+	Name                                   *string `json:"name,omitempty"`
+	Type                                   *string `json:"type,omitempty"`
+	Location                               *string `json:"location,omitempty"`
+	Kind                                   *string `json:"kind,omitempty"`
 	*DatabaseSecurityAlertPolicyProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for DatabaseSecurityAlertPolicy struct.
-func (dsap *DatabaseSecurityAlertPolicy) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		dsap.Location = &location
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		dsap.Kind = &kind
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties DatabaseSecurityAlertPolicyProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		dsap.DatabaseSecurityAlertPolicyProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		dsap.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		dsap.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		dsap.Type = &typeVar
-	}
-
-	return nil
-}
-
-// DatabaseSecurityAlertPolicyProperties properties for a database Threat Detection policy.
+// DatabaseSecurityAlertPolicyProperties is properties for a database Threat Detection policy.
 type DatabaseSecurityAlertPolicyProperties struct {
-	// State - Specifies the state of the policy. If state is Enabled, storageEndpoint and storageAccountAccessKey are required. Possible values include: 'SecurityAlertPolicyStateNew', 'SecurityAlertPolicyStateEnabled', 'SecurityAlertPolicyStateDisabled'
-	State SecurityAlertPolicyState `json:"state,omitempty"`
-	// DisabledAlerts - Specifies the semicolon-separated list of alerts that are disabled, or empty string to disable no alerts. Possible values: Sql_Injection; Sql_Injection_Vulnerability; Access_Anomaly; Usage_Anomaly.
-	DisabledAlerts *string `json:"disabledAlerts,omitempty"`
-	// EmailAddresses - Specifies the semicolon-separated list of e-mail addresses to which the alert is sent.
-	EmailAddresses *string `json:"emailAddresses,omitempty"`
-	// EmailAccountAdmins - Specifies that the alert is sent to the account administrators. Possible values include: 'SecurityAlertPolicyEmailAccountAdminsEnabled', 'SecurityAlertPolicyEmailAccountAdminsDisabled'
-	EmailAccountAdmins SecurityAlertPolicyEmailAccountAdmins `json:"emailAccountAdmins,omitempty"`
-	// StorageEndpoint - Specifies the blob storage endpoint (e.g. https://MyAccount.blob.core.windows.net). This blob storage will hold all Threat Detection audit logs. If state is Enabled, storageEndpoint is required.
-	StorageEndpoint *string `json:"storageEndpoint,omitempty"`
-	// StorageAccountAccessKey - Specifies the identifier key of the Threat Detection audit storage account. If state is Enabled, storageAccountAccessKey is required.
-	StorageAccountAccessKey *string `json:"storageAccountAccessKey,omitempty"`
-	// RetentionDays - Specifies the number of days to keep in the Threat Detection audit logs.
-	RetentionDays *int32 `json:"retentionDays,omitempty"`
-	// UseServerDefault - Specifies whether to use the default server policy. Possible values include: 'SecurityAlertPolicyUseServerDefaultEnabled', 'SecurityAlertPolicyUseServerDefaultDisabled'
-	UseServerDefault SecurityAlertPolicyUseServerDefault `json:"useServerDefault,omitempty"`
+	State                   SecurityAlertPolicyState              `json:"state,omitempty"`
+	DisabledAlerts          *string                               `json:"disabledAlerts,omitempty"`
+	EmailAddresses          *string                               `json:"emailAddresses,omitempty"`
+	EmailAccountAdmins      SecurityAlertPolicyEmailAccountAdmins `json:"emailAccountAdmins,omitempty"`
+	StorageEndpoint         *string                               `json:"storageEndpoint,omitempty"`
+	StorageAccountAccessKey *string                               `json:"storageAccountAccessKey,omitempty"`
+	RetentionDays           *int32                                `json:"retentionDays,omitempty"`
+	UseServerDefault        SecurityAlertPolicyUseServerDefault   `json:"useServerDefault,omitempty"`
 }
 
-// DatabasesExportFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type DatabasesExportFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future DatabasesExportFuture) Result(client DatabasesClient) (ier ImportExportResponse, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ier, autorest.NewError("sql.DatabasesExportFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ier, err = client.ExportResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ier, err = client.ExportResponder(resp)
-	return
-}
-
-// DatabasesImportFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type DatabasesImportFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future DatabasesImportFuture) Result(client DatabasesClient) (ier ImportExportResponse, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ier, autorest.NewError("sql.DatabasesImportFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ier, err = client.ImportResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ier, err = client.ImportResponder(resp)
-	return
-}
-
-// DatabasesPauseFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type DatabasesPauseFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future DatabasesPauseFuture) Result(client DatabasesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.DatabasesPauseFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.PauseResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.PauseResponder(resp)
-	return
-}
-
-// DatabasesResumeFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type DatabasesResumeFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future DatabasesResumeFuture) Result(client DatabasesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.DatabasesResumeFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.ResumeResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.ResumeResponder(resp)
-	return
-}
-
-// DatabasesUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type DatabasesUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future DatabasesUpdateFuture) Result(client DatabasesClient) (d Database, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return d, autorest.NewError("sql.DatabasesUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		d, err = client.UpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	d, err = client.UpdateResponder(resp)
-	return
-}
-
-// DatabaseUpdate represents a database update.
+// DatabaseUpdate is represents a database update.
 type DatabaseUpdate struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// DatabaseProperties - The properties representing the resource.
+	ID                  *string             `json:"id,omitempty"`
+	Name                *string             `json:"name,omitempty"`
+	Type                *string             `json:"type,omitempty"`
+	Tags                *map[string]*string `json:"tags,omitempty"`
 	*DatabaseProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for DatabaseUpdate struct.
-func (du *DatabaseUpdate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		du.Tags = &tags
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties DatabaseProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		du.DatabaseProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		du.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		du.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		du.Type = &typeVar
-	}
-
-	return nil
-}
-
-// DatabaseUsage the database usages.
+// DatabaseUsage is the database usages.
 type DatabaseUsage struct {
-	// Name - The name of the usage metric.
-	Name *string `json:"name,omitempty"`
-	// ResourceName - The name of the resource.
-	ResourceName *string `json:"resourceName,omitempty"`
-	// DisplayName - The usage metric display name.
-	DisplayName *string `json:"displayName,omitempty"`
-	// CurrentValue - The current value of the usage metric.
-	CurrentValue *float64 `json:"currentValue,omitempty"`
-	// Limit - The current limit of the usage metric.
-	Limit *float64 `json:"limit,omitempty"`
-	// Unit - The units of the usage metric.
-	Unit *string `json:"unit,omitempty"`
-	// NextResetTime - The next reset time for the usage metric (ISO8601 format).
+	Name          *string    `json:"name,omitempty"`
+	ResourceName  *string    `json:"resourceName,omitempty"`
+	DisplayName   *string    `json:"displayName,omitempty"`
+	CurrentValue  *float64   `json:"currentValue,omitempty"`
+	Limit         *float64   `json:"limit,omitempty"`
+	Unit          *string    `json:"unit,omitempty"`
 	NextResetTime *date.Time `json:"nextResetTime,omitempty"`
 }
 
-// DatabaseUsageListResult the response to a list database metrics request.
+// DatabaseUsageListResult is the response to a list database metrics request.
 type DatabaseUsageListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of database usages for the database.
-	Value *[]DatabaseUsage `json:"value,omitempty"`
+	Value             *[]DatabaseUsage `json:"value,omitempty"`
 }
 
-// DataMaskingPolicy represents a database data masking policy.
+// DataMaskingPolicy is represents a database data masking policy.
 type DataMaskingPolicy struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// DataMaskingPolicyProperties - The properties of the data masking policy.
+	autorest.Response            `json:"-"`
+	ID                           *string `json:"id,omitempty"`
+	Name                         *string `json:"name,omitempty"`
+	Type                         *string `json:"type,omitempty"`
 	*DataMaskingPolicyProperties `json:"properties,omitempty"`
-	// Location - The location of the data masking policy.
-	Location *string `json:"location,omitempty"`
-	// Kind - The kind of data masking policy. Metadata, used for Azure portal.
-	Kind *string `json:"kind,omitempty"`
+	Location                     *string `json:"location,omitempty"`
+	Kind                         *string `json:"kind,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for DataMaskingPolicy struct.
-func (dmp *DataMaskingPolicy) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties DataMaskingPolicyProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		dmp.DataMaskingPolicyProperties = &properties
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		dmp.Location = &location
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		dmp.Kind = &kind
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		dmp.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		dmp.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		dmp.Type = &typeVar
-	}
-
-	return nil
-}
-
-// DataMaskingPolicyProperties the properties of a database data masking policy.
+// DataMaskingPolicyProperties is the properties of a database data masking policy.
 type DataMaskingPolicyProperties struct {
-	// DataMaskingState - The state of the data masking policy. Possible values include: 'DataMaskingStateDisabled', 'DataMaskingStateEnabled'
-	DataMaskingState DataMaskingState `json:"dataMaskingState,omitempty"`
-	// ExemptPrincipals - The list of the exempt principals. Specifies the semicolon-separated list of database users for which the data masking policy does not apply. The specified users receive data results without masking for all of the database queries.
-	ExemptPrincipals *string `json:"exemptPrincipals,omitempty"`
-	// ApplicationPrincipals - The list of the application principals. This is a legacy parameter and is no longer used.
-	ApplicationPrincipals *string `json:"applicationPrincipals,omitempty"`
-	// MaskingLevel - The masking level. This is a legacy parameter and is no longer used.
-	MaskingLevel *string `json:"maskingLevel,omitempty"`
+	DataMaskingState      DataMaskingState `json:"dataMaskingState,omitempty"`
+	ExemptPrincipals      *string          `json:"exemptPrincipals,omitempty"`
+	ApplicationPrincipals *string          `json:"applicationPrincipals,omitempty"`
+	MaskingLevel          *string          `json:"maskingLevel,omitempty"`
 }
 
-// DataMaskingRule represents a database data masking rule.
+// DataMaskingRule is represents a database data masking rule.
 type DataMaskingRule struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// DataMaskingRuleProperties - The properties of the resource.
+	autorest.Response          `json:"-"`
+	ID                         *string `json:"id,omitempty"`
+	Name                       *string `json:"name,omitempty"`
+	Type                       *string `json:"type,omitempty"`
 	*DataMaskingRuleProperties `json:"properties,omitempty"`
-	// Location - The location of the data masking rule.
-	Location *string `json:"location,omitempty"`
-	// Kind - The kind of Data Masking Rule. Metadata, used for Azure portal.
-	Kind *string `json:"kind,omitempty"`
+	Location                   *string `json:"location,omitempty"`
+	Kind                       *string `json:"kind,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for DataMaskingRule struct.
-func (dmr *DataMaskingRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties DataMaskingRuleProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		dmr.DataMaskingRuleProperties = &properties
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		dmr.Location = &location
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		dmr.Kind = &kind
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		dmr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		dmr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		dmr.Type = &typeVar
-	}
-
-	return nil
-}
-
-// DataMaskingRuleListResult the response to a list data masking rules request.
+// DataMaskingRuleListResult is the response to a list data masking rules request.
 type DataMaskingRuleListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of database data masking rules.
-	Value *[]DataMaskingRule `json:"value,omitempty"`
+	Value             *[]DataMaskingRule `json:"value,omitempty"`
 }
 
-// DataMaskingRuleProperties the properties of a database data masking rule.
+// DataMaskingRuleProperties is the properties of a database data masking rule.
 type DataMaskingRuleProperties struct {
-	// ID - The rule Id.
-	ID *string `json:"id,omitempty"`
-	// AliasName - The alias name. This is a legacy parameter and is no longer used.
-	AliasName *string `json:"aliasName,omitempty"`
-	// RuleState - The rule state. Used to delete a rule. To delete an existing rule, specify the schemaName, tableName, columnName, maskingFunction, and specify ruleState as disabled. However, if the rule doesn't already exist, the rule will be created with ruleState set to enabled, regardless of the provided value of ruleState. Possible values include: 'DataMaskingRuleStateDisabled', 'DataMaskingRuleStateEnabled'
-	RuleState DataMaskingRuleState `json:"ruleState,omitempty"`
-	// SchemaName - The schema name on which the data masking rule is applied.
-	SchemaName *string `json:"schemaName,omitempty"`
-	// TableName - The table name on which the data masking rule is applied.
-	TableName *string `json:"tableName,omitempty"`
-	// ColumnName - The column name on which the data masking rule is applied.
-	ColumnName *string `json:"columnName,omitempty"`
-	// MaskingFunction - The masking function that is used for the data masking rule. Possible values include: 'DataMaskingFunctionDefault', 'DataMaskingFunctionCCN', 'DataMaskingFunctionEmail', 'DataMaskingFunctionNumber', 'DataMaskingFunctionSSN', 'DataMaskingFunctionText'
-	MaskingFunction DataMaskingFunction `json:"maskingFunction,omitempty"`
-	// NumberFrom - The numberFrom property of the masking rule. Required if maskingFunction is set to Number, otherwise this parameter will be ignored.
-	NumberFrom *string `json:"numberFrom,omitempty"`
-	// NumberTo - The numberTo property of the data masking rule. Required if maskingFunction is set to Number, otherwise this parameter will be ignored.
-	NumberTo *string `json:"numberTo,omitempty"`
-	// PrefixSize - If maskingFunction is set to Text, the number of characters to show unmasked in the beginning of the string. Otherwise, this parameter will be ignored.
-	PrefixSize *string `json:"prefixSize,omitempty"`
-	// SuffixSize - If maskingFunction is set to Text, the number of characters to show unmasked at the end of the string. Otherwise, this parameter will be ignored.
-	SuffixSize *string `json:"suffixSize,omitempty"`
-	// ReplacementString - If maskingFunction is set to Text, the character to use for masking the unexposed part of the string. Otherwise, this parameter will be ignored.
-	ReplacementString *string `json:"replacementString,omitempty"`
+	ID                *string              `json:"id,omitempty"`
+	AliasName         *string              `json:"aliasName,omitempty"`
+	RuleState         DataMaskingRuleState `json:"ruleState,omitempty"`
+	SchemaName        *string              `json:"schemaName,omitempty"`
+	TableName         *string              `json:"tableName,omitempty"`
+	ColumnName        *string              `json:"columnName,omitempty"`
+	MaskingFunction   DataMaskingFunction  `json:"maskingFunction,omitempty"`
+	NumberFrom        *string              `json:"numberFrom,omitempty"`
+	NumberTo          *string              `json:"numberTo,omitempty"`
+	PrefixSize        *string              `json:"prefixSize,omitempty"`
+	SuffixSize        *string              `json:"suffixSize,omitempty"`
+	ReplacementString *string              `json:"replacementString,omitempty"`
 }
 
-// EditionCapability the edition capability.
+// EditionCapability is the edition capability.
 type EditionCapability struct {
-	// Name - The database edition name.
-	Name *string `json:"name,omitempty"`
-	// SupportedServiceLevelObjectives - The list of supported service objectives for the edition.
+	Name                            *string                            `json:"name,omitempty"`
 	SupportedServiceLevelObjectives *[]ServiceLevelObjectiveCapability `json:"supportedServiceLevelObjectives,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
-	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Status                          CapabilityStatus                   `json:"status,omitempty"`
+	Reason                          *string                            `json:"reason,omitempty"`
 }
 
-// ElasticPool represents a database elastic pool.
+// ElasticPool is represents a database elastic pool.
 type ElasticPool struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// ElasticPoolProperties - The properties representing the resource.
+	autorest.Response      `json:"-"`
+	ID                     *string             `json:"id,omitempty"`
+	Name                   *string             `json:"name,omitempty"`
+	Type                   *string             `json:"type,omitempty"`
+	Tags                   *map[string]*string `json:"tags,omitempty"`
+	Location               *string             `json:"location,omitempty"`
 	*ElasticPoolProperties `json:"properties,omitempty"`
-	// Kind - Kind of elastic pool.  This is metadata used for the Azure portal experience.
-	Kind *string `json:"kind,omitempty"`
+	Kind                   *string `json:"kind,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ElasticPool struct.
-func (ep *ElasticPool) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ElasticPoolProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ep.ElasticPoolProperties = &properties
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		ep.Kind = &kind
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		ep.Tags = &tags
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		ep.Location = &location
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ep.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ep.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ep.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ElasticPoolActivity represents the activity on an elastic pool.
+// ElasticPoolActivity is represents the activity on an elastic pool.
 type ElasticPoolActivity struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-	// ElasticPoolActivityProperties - The properties representing the resource.
+	ID                             *string `json:"id,omitempty"`
+	Name                           *string `json:"name,omitempty"`
+	Type                           *string `json:"type,omitempty"`
+	Location                       *string `json:"location,omitempty"`
 	*ElasticPoolActivityProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ElasticPoolActivity struct.
-func (epa *ElasticPoolActivity) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		epa.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ElasticPoolActivityProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		epa.ElasticPoolActivityProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		epa.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		epa.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		epa.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ElasticPoolActivityListResult represents the response to a list elastic pool activity request.
+// ElasticPoolActivityListResult is represents the response to a list elastic pool activity request.
 type ElasticPoolActivityListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of elastic pool activities.
-	Value *[]ElasticPoolActivity `json:"value,omitempty"`
+	Value             *[]ElasticPoolActivity `json:"value,omitempty"`
 }
 
-// ElasticPoolActivityProperties represents the properties of an elastic pool.
+// ElasticPoolActivityProperties is represents the properties of an elastic pool.
 type ElasticPoolActivityProperties struct {
-	// EndTime - The time the operation finished (ISO8601 format).
-	EndTime *date.Time `json:"endTime,omitempty"`
-	// ErrorCode - The error code if available.
-	ErrorCode *int32 `json:"errorCode,omitempty"`
-	// ErrorMessage - The error message if available.
-	ErrorMessage *string `json:"errorMessage,omitempty"`
-	// ErrorSeverity - The error severity if available.
-	ErrorSeverity *int32 `json:"errorSeverity,omitempty"`
-	// Operation - The operation name.
-	Operation *string `json:"operation,omitempty"`
-	// OperationID - The unique operation ID.
-	OperationID *uuid.UUID `json:"operationId,omitempty"`
-	// PercentComplete - The percentage complete if available.
-	PercentComplete *int32 `json:"percentComplete,omitempty"`
-	// RequestedDatabaseDtuMax - The requested max DTU per database if available.
-	RequestedDatabaseDtuMax *int32 `json:"requestedDatabaseDtuMax,omitempty"`
-	// RequestedDatabaseDtuMin - The requested min DTU per database if available.
-	RequestedDatabaseDtuMin *int32 `json:"requestedDatabaseDtuMin,omitempty"`
-	// RequestedDtu - The requested DTU for the pool if available.
-	RequestedDtu *int32 `json:"requestedDtu,omitempty"`
-	// RequestedElasticPoolName - The requested name for the elastic pool if available.
-	RequestedElasticPoolName *string `json:"requestedElasticPoolName,omitempty"`
-	// RequestedStorageLimitInGB - The requested storage limit for the pool in GB if available.
-	RequestedStorageLimitInGB *int64 `json:"requestedStorageLimitInGB,omitempty"`
-	// ElasticPoolName - The name of the elastic pool.
-	ElasticPoolName *string `json:"elasticPoolName,omitempty"`
-	// ServerName - The name of the server the elastic pool is in.
-	ServerName *string `json:"serverName,omitempty"`
-	// StartTime - The time the operation started (ISO8601 format).
-	StartTime *date.Time `json:"startTime,omitempty"`
-	// State - The current state of the operation.
-	State *string `json:"state,omitempty"`
-	// RequestedStorageLimitInMB - The requested storage limit in MB.
-	RequestedStorageLimitInMB *int32 `json:"requestedStorageLimitInMB,omitempty"`
-	// RequestedDatabaseDtuGuarantee - The requested per database DTU guarantee.
-	RequestedDatabaseDtuGuarantee *int32 `json:"requestedDatabaseDtuGuarantee,omitempty"`
-	// RequestedDatabaseDtuCap - The requested per database DTU cap.
-	RequestedDatabaseDtuCap *int32 `json:"requestedDatabaseDtuCap,omitempty"`
-	// RequestedDtuGuarantee - The requested DTU guarantee.
-	RequestedDtuGuarantee *int32 `json:"requestedDtuGuarantee,omitempty"`
+	EndTime                       *date.Time `json:"endTime,omitempty"`
+	ErrorCode                     *int32     `json:"errorCode,omitempty"`
+	ErrorMessage                  *string    `json:"errorMessage,omitempty"`
+	ErrorSeverity                 *int32     `json:"errorSeverity,omitempty"`
+	Operation                     *string    `json:"operation,omitempty"`
+	OperationID                   *uuid.UUID `json:"operationId,omitempty"`
+	PercentComplete               *int32     `json:"percentComplete,omitempty"`
+	RequestedDatabaseDtuMax       *int32     `json:"requestedDatabaseDtuMax,omitempty"`
+	RequestedDatabaseDtuMin       *int32     `json:"requestedDatabaseDtuMin,omitempty"`
+	RequestedDtu                  *int32     `json:"requestedDtu,omitempty"`
+	RequestedElasticPoolName      *string    `json:"requestedElasticPoolName,omitempty"`
+	RequestedStorageLimitInGB     *int64     `json:"requestedStorageLimitInGB,omitempty"`
+	ElasticPoolName               *string    `json:"elasticPoolName,omitempty"`
+	ServerName                    *string    `json:"serverName,omitempty"`
+	StartTime                     *date.Time `json:"startTime,omitempty"`
+	State                         *string    `json:"state,omitempty"`
+	RequestedStorageLimitInMB     *int32     `json:"requestedStorageLimitInMB,omitempty"`
+	RequestedDatabaseDtuGuarantee *int32     `json:"requestedDatabaseDtuGuarantee,omitempty"`
+	RequestedDatabaseDtuCap       *int32     `json:"requestedDatabaseDtuCap,omitempty"`
+	RequestedDtuGuarantee         *int32     `json:"requestedDtuGuarantee,omitempty"`
 }
 
-// ElasticPoolDatabaseActivity represents the activity on an elastic pool.
+// ElasticPoolDatabaseActivity is represents the activity on an elastic pool.
 type ElasticPoolDatabaseActivity struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-	// ElasticPoolDatabaseActivityProperties - The properties representing the resource.
+	ID                                     *string `json:"id,omitempty"`
+	Name                                   *string `json:"name,omitempty"`
+	Type                                   *string `json:"type,omitempty"`
+	Location                               *string `json:"location,omitempty"`
 	*ElasticPoolDatabaseActivityProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ElasticPoolDatabaseActivity struct.
-func (epda *ElasticPoolDatabaseActivity) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		epda.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ElasticPoolDatabaseActivityProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		epda.ElasticPoolDatabaseActivityProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		epda.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		epda.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		epda.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ElasticPoolDatabaseActivityListResult represents the response to a list elastic pool database activity request.
+// ElasticPoolDatabaseActivityListResult is represents the response to a list elastic pool database activity request.
 type ElasticPoolDatabaseActivityListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of elastic pool database activities.
-	Value *[]ElasticPoolDatabaseActivity `json:"value,omitempty"`
+	Value             *[]ElasticPoolDatabaseActivity `json:"value,omitempty"`
 }
 
-// ElasticPoolDatabaseActivityProperties represents the properties of an elastic pool database activity.
+// ElasticPoolDatabaseActivityProperties is represents the properties of an elastic pool database activity.
 type ElasticPoolDatabaseActivityProperties struct {
-	// DatabaseName - The database name.
-	DatabaseName *string `json:"databaseName,omitempty"`
-	// EndTime - The time the operation finished (ISO8601 format).
-	EndTime *date.Time `json:"endTime,omitempty"`
-	// ErrorCode - The error code if available.
-	ErrorCode *int32 `json:"errorCode,omitempty"`
-	// ErrorMessage - The error message if available.
-	ErrorMessage *string `json:"errorMessage,omitempty"`
-	// ErrorSeverity - The error severity if available.
-	ErrorSeverity *int32 `json:"errorSeverity,omitempty"`
-	// Operation - The operation name.
-	Operation *string `json:"operation,omitempty"`
-	// OperationID - The unique operation ID.
-	OperationID *uuid.UUID `json:"operationId,omitempty"`
-	// PercentComplete - The percentage complete if available.
-	PercentComplete *int32 `json:"percentComplete,omitempty"`
-	// RequestedElasticPoolName - The name for the elastic pool the database is moving into if available.
-	RequestedElasticPoolName *string `json:"requestedElasticPoolName,omitempty"`
-	// CurrentElasticPoolName - The name of the current elastic pool the database is in if available.
-	CurrentElasticPoolName *string `json:"currentElasticPoolName,omitempty"`
-	// CurrentServiceObjective - The name of the current service objective if available.
-	CurrentServiceObjective *string `json:"currentServiceObjective,omitempty"`
-	// RequestedServiceObjective - The name of the requested service objective if available.
-	RequestedServiceObjective *string `json:"requestedServiceObjective,omitempty"`
-	// ServerName - The name of the server the elastic pool is in.
-	ServerName *string `json:"serverName,omitempty"`
-	// StartTime - The time the operation started (ISO8601 format).
-	StartTime *date.Time `json:"startTime,omitempty"`
-	// State - The current state of the operation.
-	State *string `json:"state,omitempty"`
+	DatabaseName              *string    `json:"databaseName,omitempty"`
+	EndTime                   *date.Time `json:"endTime,omitempty"`
+	ErrorCode                 *int32     `json:"errorCode,omitempty"`
+	ErrorMessage              *string    `json:"errorMessage,omitempty"`
+	ErrorSeverity             *int32     `json:"errorSeverity,omitempty"`
+	Operation                 *string    `json:"operation,omitempty"`
+	OperationID               *uuid.UUID `json:"operationId,omitempty"`
+	PercentComplete           *int32     `json:"percentComplete,omitempty"`
+	RequestedElasticPoolName  *string    `json:"requestedElasticPoolName,omitempty"`
+	CurrentElasticPoolName    *string    `json:"currentElasticPoolName,omitempty"`
+	CurrentServiceObjective   *string    `json:"currentServiceObjective,omitempty"`
+	RequestedServiceObjective *string    `json:"requestedServiceObjective,omitempty"`
+	ServerName                *string    `json:"serverName,omitempty"`
+	StartTime                 *date.Time `json:"startTime,omitempty"`
+	State                     *string    `json:"state,omitempty"`
 }
 
-// ElasticPoolDtuCapability the Elastic Pool DTU capability.
+// ElasticPoolDtuCapability is the Elastic Pool DTU capability.
 type ElasticPoolDtuCapability struct {
-	// Limit - The DTU limit for the pool.
-	Limit *int32 `json:"limit,omitempty"`
-	// MaxDatabaseCount - The maximum number of databases supported.
-	MaxDatabaseCount *int32 `json:"maxDatabaseCount,omitempty"`
-	// IncludedMaxSize - The included (free) max size for this DTU.
-	IncludedMaxSize *MaxSizeCapability `json:"includedMaxSize,omitempty"`
-	// SupportedMaxSizes - The list of supported max sizes.
-	SupportedMaxSizes *[]MaxSizeCapability `json:"supportedMaxSizes,omitempty"`
-	// SupportedPerDatabaseMaxSizes - The list of supported per database max sizes.
-	SupportedPerDatabaseMaxSizes *[]MaxSizeCapability `json:"supportedPerDatabaseMaxSizes,omitempty"`
-	// SupportedPerDatabaseMaxDtus - The list of supported per database max DTUs.
-	SupportedPerDatabaseMaxDtus *[]ElasticPoolPerDatabaseMaxDtuCapability `json:"supportedPerDatabaseMaxDtus,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
-	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Limit                        *int32                                    `json:"limit,omitempty"`
+	MaxDatabaseCount             *int32                                    `json:"maxDatabaseCount,omitempty"`
+	IncludedMaxSize              *MaxSizeCapability                        `json:"includedMaxSize,omitempty"`
+	SupportedMaxSizes            *[]MaxSizeCapability                      `json:"supportedMaxSizes,omitempty"`
+	SupportedPerDatabaseMaxSizes *[]MaxSizeCapability                      `json:"supportedPerDatabaseMaxSizes,omitempty"`
+	SupportedPerDatabaseMaxDtus  *[]ElasticPoolPerDatabaseMaxDtuCapability `json:"supportedPerDatabaseMaxDtus,omitempty"`
+	Status                       CapabilityStatus                          `json:"status,omitempty"`
+	Reason                       *string                                   `json:"reason,omitempty"`
 }
 
-// ElasticPoolEditionCapability the elastic pool edition capability.
+// ElasticPoolEditionCapability is the elastic pool edition capability.
 type ElasticPoolEditionCapability struct {
-	// Name - The elastic pool edition name.
-	Name *string `json:"name,omitempty"`
-	// SupportedElasticPoolDtus - The list of supported elastic pool DTU levels for the edition.
+	Name                     *string                     `json:"name,omitempty"`
 	SupportedElasticPoolDtus *[]ElasticPoolDtuCapability `json:"supportedElasticPoolDtus,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
-	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Status                   CapabilityStatus            `json:"status,omitempty"`
+	Reason                   *string                     `json:"reason,omitempty"`
 }
 
-// ElasticPoolListResult represents the response to a list elastic pool request.
+// ElasticPoolListResult is represents the response to a list elastic pool request.
 type ElasticPoolListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of elastic pools hosted in the server.
-	Value *[]ElasticPool `json:"value,omitempty"`
+	Value             *[]ElasticPool `json:"value,omitempty"`
 }
 
-// ElasticPoolPerDatabaseMaxDtuCapability the max per-database DTU capability.
+// ElasticPoolPerDatabaseMaxDtuCapability is the max per-database DTU capability.
 type ElasticPoolPerDatabaseMaxDtuCapability struct {
-	// Limit - The maximum DTUs per database.
-	Limit *int32 `json:"limit,omitempty"`
-	// SupportedPerDatabaseMinDtus - The list of supported min database DTUs.
+	Limit                       *int32                                    `json:"limit,omitempty"`
 	SupportedPerDatabaseMinDtus *[]ElasticPoolPerDatabaseMinDtuCapability `json:"supportedPerDatabaseMinDtus,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
-	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Status                      CapabilityStatus                          `json:"status,omitempty"`
+	Reason                      *string                                   `json:"reason,omitempty"`
 }
 
-// ElasticPoolPerDatabaseMinDtuCapability the minimum per-database DTU capability.
+// ElasticPoolPerDatabaseMinDtuCapability is the minimum per-database DTU capability.
 type ElasticPoolPerDatabaseMinDtuCapability struct {
-	// Limit - The minimum DTUs per database.
-	Limit *int32 `json:"limit,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
+	Limit  *int32           `json:"limit,omitempty"`
 	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Reason *string          `json:"reason,omitempty"`
 }
 
-// ElasticPoolProperties represents the properties of an elastic pool.
+// ElasticPoolProperties is represents the properties of an elastic pool.
 type ElasticPoolProperties struct {
-	// CreationDate - The creation date of the elastic pool (ISO8601 format).
-	CreationDate *date.Time `json:"creationDate,omitempty"`
-	// State - The state of the elastic pool. Possible values include: 'ElasticPoolStateCreating', 'ElasticPoolStateReady', 'ElasticPoolStateDisabled'
-	State ElasticPoolState `json:"state,omitempty"`
-	// Edition - The edition of the elastic pool. Possible values include: 'ElasticPoolEditionBasic', 'ElasticPoolEditionStandard', 'ElasticPoolEditionPremium'
-	Edition ElasticPoolEdition `json:"edition,omitempty"`
-	// Dtu - The total shared DTU for the database elastic pool.
-	Dtu *int32 `json:"dtu,omitempty"`
-	// DatabaseDtuMax - The maximum DTU any one database can consume.
-	DatabaseDtuMax *int32 `json:"databaseDtuMax,omitempty"`
-	// DatabaseDtuMin - The minimum DTU all databases are guaranteed.
-	DatabaseDtuMin *int32 `json:"databaseDtuMin,omitempty"`
-	// StorageMB - Gets storage limit for the database elastic pool in MB.
-	StorageMB *int32 `json:"storageMB,omitempty"`
-	// ZoneRedundant - Whether or not this database elastic pool is zone redundant, which means the replicas of this database will be spread across multiple availability zones.
-	ZoneRedundant *bool `json:"zoneRedundant,omitempty"`
+	CreationDate   *date.Time         `json:"creationDate,omitempty"`
+	State          ElasticPoolState   `json:"state,omitempty"`
+	Edition        ElasticPoolEdition `json:"edition,omitempty"`
+	Dtu            *int32             `json:"dtu,omitempty"`
+	DatabaseDtuMax *int32             `json:"databaseDtuMax,omitempty"`
+	DatabaseDtuMin *int32             `json:"databaseDtuMin,omitempty"`
+	StorageMB      *int32             `json:"storageMB,omitempty"`
+	ZoneRedundant  *bool              `json:"zoneRedundant,omitempty"`
 }
 
-// ElasticPoolsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ElasticPoolsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ElasticPoolsCreateOrUpdateFuture) Result(client ElasticPoolsClient) (ep ElasticPool, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ep, autorest.NewError("sql.ElasticPoolsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ep, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ep, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ElasticPoolsUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ElasticPoolsUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ElasticPoolsUpdateFuture) Result(client ElasticPoolsClient) (ep ElasticPool, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ep, autorest.NewError("sql.ElasticPoolsUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ep, err = client.UpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ep, err = client.UpdateResponder(resp)
-	return
-}
-
-// ElasticPoolUpdate represents an elastic pool update.
+// ElasticPoolUpdate is represents an elastic pool update.
 type ElasticPoolUpdate struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// ElasticPoolProperties - The properties representing the resource.
+	ID                     *string             `json:"id,omitempty"`
+	Name                   *string             `json:"name,omitempty"`
+	Type                   *string             `json:"type,omitempty"`
+	Tags                   *map[string]*string `json:"tags,omitempty"`
 	*ElasticPoolProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ElasticPoolUpdate struct.
-func (epu *ElasticPoolUpdate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		epu.Tags = &tags
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ElasticPoolProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		epu.ElasticPoolProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		epu.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		epu.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		epu.Type = &typeVar
-	}
-
-	return nil
-}
-
-// EncryptionProtector the server encryption protector.
+// EncryptionProtector is the server encryption protector.
 type EncryptionProtector struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Kind - Kind of encryption protector. This is metadata used for the Azure portal experience.
-	Kind *string `json:"kind,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// EncryptionProtectorProperties - Resource properties.
+	autorest.Response              `json:"-"`
+	ID                             *string `json:"id,omitempty"`
+	Name                           *string `json:"name,omitempty"`
+	Type                           *string `json:"type,omitempty"`
+	Kind                           *string `json:"kind,omitempty"`
+	Location                       *string `json:"location,omitempty"`
 	*EncryptionProtectorProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for EncryptionProtector struct.
-func (ep *EncryptionProtector) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		ep.Kind = &kind
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		ep.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties EncryptionProtectorProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ep.EncryptionProtectorProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ep.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ep.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ep.Type = &typeVar
-	}
-
-	return nil
-}
-
-// EncryptionProtectorListResult a list of server encryption protectors.
+// EncryptionProtectorListResult is a list of server encryption protectors.
 type EncryptionProtectorListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]EncryptionProtector `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]EncryptionProtector `json:"value,omitempty"`
+	NextLink          *string                `json:"nextLink,omitempty"`
 }
 
-// EncryptionProtectorListResultIterator provides access to a complete listing of EncryptionProtector values.
-type EncryptionProtectorListResultIterator struct {
-	i    int
-	page EncryptionProtectorListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *EncryptionProtectorListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter EncryptionProtectorListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter EncryptionProtectorListResultIterator) Response() EncryptionProtectorListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter EncryptionProtectorListResultIterator) Value() EncryptionProtector {
-	if !iter.page.NotDone() {
-		return EncryptionProtector{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (eplr EncryptionProtectorListResult) IsEmpty() bool {
-	return eplr.Value == nil || len(*eplr.Value) == 0
-}
-
-// encryptionProtectorListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (eplr EncryptionProtectorListResult) encryptionProtectorListResultPreparer() (*http.Request, error) {
-	if eplr.NextLink == nil || len(to.String(eplr.NextLink)) < 1 {
+// EncryptionProtectorListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client EncryptionProtectorListResult) EncryptionProtectorListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(eplr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// EncryptionProtectorListResultPage contains a page of EncryptionProtector values.
-type EncryptionProtectorListResultPage struct {
-	fn   func(EncryptionProtectorListResult) (EncryptionProtectorListResult, error)
-	eplr EncryptionProtectorListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *EncryptionProtectorListResultPage) Next() error {
-	next, err := page.fn(page.eplr)
-	if err != nil {
-		return err
-	}
-	page.eplr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page EncryptionProtectorListResultPage) NotDone() bool {
-	return !page.eplr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page EncryptionProtectorListResultPage) Response() EncryptionProtectorListResult {
-	return page.eplr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page EncryptionProtectorListResultPage) Values() []EncryptionProtector {
-	if page.eplr.IsEmpty() {
-		return nil
-	}
-	return *page.eplr.Value
-}
-
-// EncryptionProtectorProperties properties for an encryption protector execution.
+// EncryptionProtectorProperties is properties for an encryption protector execution.
 type EncryptionProtectorProperties struct {
-	// Subregion - Subregion of the encryption protector.
-	Subregion *string `json:"subregion,omitempty"`
-	// ServerKeyName - The name of the server key.
-	ServerKeyName *string `json:"serverKeyName,omitempty"`
-	// ServerKeyType - The encryption protector type like 'ServiceManaged', 'AzureKeyVault'. Possible values include: 'ServiceManaged', 'AzureKeyVault'
+	Subregion     *string       `json:"subregion,omitempty"`
+	ServerKeyName *string       `json:"serverKeyName,omitempty"`
 	ServerKeyType ServerKeyType `json:"serverKeyType,omitempty"`
-	// URI - The URI of the server key.
-	URI *string `json:"uri,omitempty"`
-	// Thumbprint - Thumbprint of the server key.
-	Thumbprint *string `json:"thumbprint,omitempty"`
+	URI           *string       `json:"uri,omitempty"`
+	Thumbprint    *string       `json:"thumbprint,omitempty"`
 }
 
-// EncryptionProtectorsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type EncryptionProtectorsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future EncryptionProtectorsCreateOrUpdateFuture) Result(client EncryptionProtectorsClient) (ep EncryptionProtector, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ep, autorest.NewError("sql.EncryptionProtectorsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ep, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ep, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ExportRequest export database parameters.
+// ExportRequest is export database parameters.
 type ExportRequest struct {
-	// StorageKeyType - The type of the storage key to use. Possible values include: 'StorageAccessKey', 'SharedAccessKey'
-	StorageKeyType StorageKeyType `json:"storageKeyType,omitempty"`
-	// StorageKey - The storage key to use.  If storage key type is SharedAccessKey, it must be preceded with a "?."
-	StorageKey *string `json:"storageKey,omitempty"`
-	// StorageURI - The storage uri to use.
-	StorageURI *string `json:"storageUri,omitempty"`
-	// AdministratorLogin - The name of the SQL administrator.
-	AdministratorLogin *string `json:"administratorLogin,omitempty"`
-	// AdministratorLoginPassword - The password of the SQL administrator.
-	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
-	// AuthenticationType - The authentication type. Possible values include: 'SQL', 'ADPassword'
-	AuthenticationType AuthenticationType `json:"authenticationType,omitempty"`
+	StorageKeyType             StorageKeyType     `json:"storageKeyType,omitempty"`
+	StorageKey                 *string            `json:"storageKey,omitempty"`
+	StorageURI                 *string            `json:"storageUri,omitempty"`
+	AdministratorLogin         *string            `json:"administratorLogin,omitempty"`
+	AdministratorLoginPassword *string            `json:"administratorLoginPassword,omitempty"`
+	AuthenticationType         AuthenticationType `json:"authenticationType,omitempty"`
 }
 
-// FailoverGroup a failover group.
+// FailoverGroup is a failover group.
 type FailoverGroup struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// FailoverGroupProperties - Resource properties.
+	autorest.Response        `json:"-"`
+	ID                       *string             `json:"id,omitempty"`
+	Name                     *string             `json:"name,omitempty"`
+	Type                     *string             `json:"type,omitempty"`
+	Location                 *string             `json:"location,omitempty"`
+	Tags                     *map[string]*string `json:"tags,omitempty"`
 	*FailoverGroupProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for FailoverGroup struct.
-func (fg *FailoverGroup) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		fg.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		fg.Tags = &tags
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties FailoverGroupProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		fg.FailoverGroupProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		fg.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		fg.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		fg.Type = &typeVar
-	}
-
-	return nil
-}
-
-// FailoverGroupListResult a list of failover groups.
+// FailoverGroupListResult is a list of failover groups.
 type FailoverGroupListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]FailoverGroup `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]FailoverGroup `json:"value,omitempty"`
+	NextLink          *string          `json:"nextLink,omitempty"`
 }
 
-// FailoverGroupListResultIterator provides access to a complete listing of FailoverGroup values.
-type FailoverGroupListResultIterator struct {
-	i    int
-	page FailoverGroupListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *FailoverGroupListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter FailoverGroupListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter FailoverGroupListResultIterator) Response() FailoverGroupListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter FailoverGroupListResultIterator) Value() FailoverGroup {
-	if !iter.page.NotDone() {
-		return FailoverGroup{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (fglr FailoverGroupListResult) IsEmpty() bool {
-	return fglr.Value == nil || len(*fglr.Value) == 0
-}
-
-// failoverGroupListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (fglr FailoverGroupListResult) failoverGroupListResultPreparer() (*http.Request, error) {
-	if fglr.NextLink == nil || len(to.String(fglr.NextLink)) < 1 {
+// FailoverGroupListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client FailoverGroupListResult) FailoverGroupListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(fglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// FailoverGroupListResultPage contains a page of FailoverGroup values.
-type FailoverGroupListResultPage struct {
-	fn   func(FailoverGroupListResult) (FailoverGroupListResult, error)
-	fglr FailoverGroupListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *FailoverGroupListResultPage) Next() error {
-	next, err := page.fn(page.fglr)
-	if err != nil {
-		return err
-	}
-	page.fglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page FailoverGroupListResultPage) NotDone() bool {
-	return !page.fglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page FailoverGroupListResultPage) Response() FailoverGroupListResult {
-	return page.fglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page FailoverGroupListResultPage) Values() []FailoverGroup {
-	if page.fglr.IsEmpty() {
-		return nil
-	}
-	return *page.fglr.Value
-}
-
-// FailoverGroupProperties properties of a failover group.
+// FailoverGroupProperties is properties of a failover group.
 type FailoverGroupProperties struct {
-	// ReadWriteEndpoint - Read-write endpoint of the failover group instance.
 	ReadWriteEndpoint *FailoverGroupReadWriteEndpoint `json:"readWriteEndpoint,omitempty"`
-	// ReadOnlyEndpoint - Read-only endpoint of the failover group instance.
-	ReadOnlyEndpoint *FailoverGroupReadOnlyEndpoint `json:"readOnlyEndpoint,omitempty"`
-	// ReplicationRole - Local replication role of the failover group instance. Possible values include: 'Primary', 'Secondary'
-	ReplicationRole FailoverGroupReplicationRole `json:"replicationRole,omitempty"`
-	// ReplicationState - Replication state of the failover group instance.
-	ReplicationState *string `json:"replicationState,omitempty"`
-	// PartnerServers - List of partner server information for the failover group.
-	PartnerServers *[]PartnerInfo `json:"partnerServers,omitempty"`
-	// Databases - List of databases in the failover group.
-	Databases *[]string `json:"databases,omitempty"`
+	ReadOnlyEndpoint  *FailoverGroupReadOnlyEndpoint  `json:"readOnlyEndpoint,omitempty"`
+	ReplicationRole   FailoverGroupReplicationRole    `json:"replicationRole,omitempty"`
+	ReplicationState  *string                         `json:"replicationState,omitempty"`
+	PartnerServers    *[]PartnerInfo                  `json:"partnerServers,omitempty"`
+	Databases         *[]string                       `json:"databases,omitempty"`
 }
 
-// FailoverGroupReadOnlyEndpoint read-only endpoint of the failover group instance.
+// FailoverGroupReadOnlyEndpoint is read-only endpoint of the failover group instance.
 type FailoverGroupReadOnlyEndpoint struct {
-	// FailoverPolicy - Failover policy of the read-only endpoint for the failover group. Possible values include: 'ReadOnlyEndpointFailoverPolicyDisabled', 'ReadOnlyEndpointFailoverPolicyEnabled'
 	FailoverPolicy ReadOnlyEndpointFailoverPolicy `json:"failoverPolicy,omitempty"`
 }
 
-// FailoverGroupReadWriteEndpoint read-write endpoint of the failover group instance.
+// FailoverGroupReadWriteEndpoint is read-write endpoint of the failover group instance.
 type FailoverGroupReadWriteEndpoint struct {
-	// FailoverPolicy - Failover policy of the read-write endpoint for the failover group. If failoverPolicy is Automatic then failoverWithDataLossGracePeriodMinutes is required. Possible values include: 'Manual', 'Automatic'
-	FailoverPolicy ReadWriteEndpointFailoverPolicy `json:"failoverPolicy,omitempty"`
-	// FailoverWithDataLossGracePeriodMinutes - Grace period before failover with data loss is attempted for the read-write endpoint. If failoverPolicy is Automatic then failoverWithDataLossGracePeriodMinutes is required.
-	FailoverWithDataLossGracePeriodMinutes *int32 `json:"failoverWithDataLossGracePeriodMinutes,omitempty"`
+	FailoverPolicy                         ReadWriteEndpointFailoverPolicy `json:"failoverPolicy,omitempty"`
+	FailoverWithDataLossGracePeriodMinutes *int32                          `json:"failoverWithDataLossGracePeriodMinutes,omitempty"`
 }
 
-// FailoverGroupsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type FailoverGroupsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future FailoverGroupsCreateOrUpdateFuture) Result(client FailoverGroupsClient) (fg FailoverGroup, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return fg, autorest.NewError("sql.FailoverGroupsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		fg, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	fg, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// FailoverGroupsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type FailoverGroupsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future FailoverGroupsDeleteFuture) Result(client FailoverGroupsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.FailoverGroupsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// FailoverGroupsFailoverFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type FailoverGroupsFailoverFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future FailoverGroupsFailoverFuture) Result(client FailoverGroupsClient) (fg FailoverGroup, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return fg, autorest.NewError("sql.FailoverGroupsFailoverFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		fg, err = client.FailoverResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	fg, err = client.FailoverResponder(resp)
-	return
-}
-
-// FailoverGroupsForceFailoverAllowDataLossFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type FailoverGroupsForceFailoverAllowDataLossFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future FailoverGroupsForceFailoverAllowDataLossFuture) Result(client FailoverGroupsClient) (fg FailoverGroup, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return fg, autorest.NewError("sql.FailoverGroupsForceFailoverAllowDataLossFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		fg, err = client.ForceFailoverAllowDataLossResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	fg, err = client.ForceFailoverAllowDataLossResponder(resp)
-	return
-}
-
-// FailoverGroupsUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type FailoverGroupsUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future FailoverGroupsUpdateFuture) Result(client FailoverGroupsClient) (fg FailoverGroup, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return fg, autorest.NewError("sql.FailoverGroupsUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		fg, err = client.UpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	fg, err = client.UpdateResponder(resp)
-	return
-}
-
-// FailoverGroupUpdate a failover group update request.
+// FailoverGroupUpdate is a failover group update request.
 type FailoverGroupUpdate struct {
-	// FailoverGroupUpdateProperties - Resource properties.
 	*FailoverGroupUpdateProperties `json:"properties,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
+	Tags                           *map[string]*string `json:"tags,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for FailoverGroupUpdate struct.
-func (fgu *FailoverGroupUpdate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties FailoverGroupUpdateProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		fgu.FailoverGroupUpdateProperties = &properties
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		fgu.Tags = &tags
-	}
-
-	return nil
-}
-
-// FailoverGroupUpdateProperties properties of a failover group update.
+// FailoverGroupUpdateProperties is properties of a failover group update.
 type FailoverGroupUpdateProperties struct {
-	// ReadWriteEndpoint - Read-write endpoint of the failover group instance.
 	ReadWriteEndpoint *FailoverGroupReadWriteEndpoint `json:"readWriteEndpoint,omitempty"`
-	// ReadOnlyEndpoint - Read-only endpoint of the failover group instance.
-	ReadOnlyEndpoint *FailoverGroupReadOnlyEndpoint `json:"readOnlyEndpoint,omitempty"`
-	// Databases - List of databases in the failover group.
-	Databases *[]string `json:"databases,omitempty"`
+	ReadOnlyEndpoint  *FailoverGroupReadOnlyEndpoint  `json:"readOnlyEndpoint,omitempty"`
+	Databases         *[]string                       `json:"databases,omitempty"`
 }
 
-// FirewallRule represents a server firewall rule.
+// FirewallRule is represents a server firewall rule.
 type FirewallRule struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Kind - Kind of server that contains this firewall rule.
-	Kind *string `json:"kind,omitempty"`
-	// Location - Location of the server that contains this firewall rule.
-	Location *string `json:"location,omitempty"`
-	// FirewallRuleProperties - The properties representing the resource.
+	autorest.Response       `json:"-"`
+	ID                      *string `json:"id,omitempty"`
+	Name                    *string `json:"name,omitempty"`
+	Type                    *string `json:"type,omitempty"`
+	Kind                    *string `json:"kind,omitempty"`
+	Location                *string `json:"location,omitempty"`
 	*FirewallRuleProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for FirewallRule struct.
-func (fr *FirewallRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		fr.Kind = &kind
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		fr.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties FirewallRuleProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		fr.FirewallRuleProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		fr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		fr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		fr.Type = &typeVar
-	}
-
-	return nil
-}
-
-// FirewallRuleListResult represents the response to a List Firewall Rules request.
+// FirewallRuleListResult is represents the response to a List Firewall Rules request.
 type FirewallRuleListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of server firewall rules.
-	Value *[]FirewallRule `json:"value,omitempty"`
+	Value             *[]FirewallRule `json:"value,omitempty"`
 }
 
-// FirewallRuleProperties represents the properties of a server firewall rule.
+// FirewallRuleProperties is represents the properties of a server firewall rule.
 type FirewallRuleProperties struct {
-	// StartIPAddress - The start IP address of the firewall rule. Must be IPv4 format. Use value '0.0.0.0' to represent all Azure-internal IP addresses.
 	StartIPAddress *string `json:"startIpAddress,omitempty"`
-	// EndIPAddress - The end IP address of the firewall rule. Must be IPv4 format. Must be greater than or equal to startIpAddress. Use value '0.0.0.0' to represent all Azure-internal IP addresses.
-	EndIPAddress *string `json:"endIpAddress,omitempty"`
+	EndIPAddress   *string `json:"endIpAddress,omitempty"`
 }
 
-// GeoBackupPolicy a database geo backup policy.
+// GeoBackupPolicy is a database geo backup policy.
 type GeoBackupPolicy struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// GeoBackupPolicyProperties - The properties of the geo backup policy.
+	autorest.Response          `json:"-"`
+	ID                         *string `json:"id,omitempty"`
+	Name                       *string `json:"name,omitempty"`
+	Type                       *string `json:"type,omitempty"`
 	*GeoBackupPolicyProperties `json:"properties,omitempty"`
-	// Kind - Kind of geo backup policy.  This is metadata used for the Azure portal experience.
-	Kind *string `json:"kind,omitempty"`
-	// Location - Backup policy location.
-	Location *string `json:"location,omitempty"`
+	Kind                       *string `json:"kind,omitempty"`
+	Location                   *string `json:"location,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for GeoBackupPolicy struct.
-func (gbp *GeoBackupPolicy) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties GeoBackupPolicyProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		gbp.GeoBackupPolicyProperties = &properties
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		gbp.Kind = &kind
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		gbp.Location = &location
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		gbp.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		gbp.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		gbp.Type = &typeVar
-	}
-
-	return nil
-}
-
-// GeoBackupPolicyListResult the response to a list geo backup policies request.
+// GeoBackupPolicyListResult is the response to a list geo backup policies request.
 type GeoBackupPolicyListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of geo backup policies.
-	Value *[]GeoBackupPolicy `json:"value,omitempty"`
+	Value             *[]GeoBackupPolicy `json:"value,omitempty"`
 }
 
-// GeoBackupPolicyProperties the properties of the geo backup policy.
+// GeoBackupPolicyProperties is the properties of the geo backup policy.
 type GeoBackupPolicyProperties struct {
-	// State - The state of the geo backup policy. Possible values include: 'GeoBackupPolicyStateDisabled', 'GeoBackupPolicyStateEnabled'
-	State GeoBackupPolicyState `json:"state,omitempty"`
-	// StorageType - The storage type of the geo backup policy.
-	StorageType *string `json:"storageType,omitempty"`
+	State       GeoBackupPolicyState `json:"state,omitempty"`
+	StorageType *string              `json:"storageType,omitempty"`
 }
 
-// ImportExportResponse response for Import/Export Get operation.
+// ImportExportResponse is response for Import/Export Get operation.
 type ImportExportResponse struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// ImportExportResponseProperties - The import/export operation properties.
+	autorest.Response               `json:"-"`
+	ID                              *string `json:"id,omitempty"`
+	Name                            *string `json:"name,omitempty"`
+	Type                            *string `json:"type,omitempty"`
 	*ImportExportResponseProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ImportExportResponse struct.
-func (ier *ImportExportResponse) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ImportExportResponseProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ier.ImportExportResponseProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ier.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ier.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ier.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ImportExportResponseProperties response for Import/Export Status operation.
+// ImportExportResponseProperties is response for Import/Export Status operation.
 type ImportExportResponseProperties struct {
-	// RequestType - The request type of the operation.
-	RequestType *string `json:"requestType,omitempty"`
-	// RequestID - The request type of the operation.
-	RequestID *uuid.UUID `json:"requestId,omitempty"`
-	// ServerName - The name of the server.
-	ServerName *string `json:"serverName,omitempty"`
-	// DatabaseName - The name of the database.
-	DatabaseName *string `json:"databaseName,omitempty"`
-	// Status - The status message returned from the server.
-	Status *string `json:"status,omitempty"`
-	// LastModifiedTime - The operation status last modified time.
-	LastModifiedTime *string `json:"lastModifiedTime,omitempty"`
-	// QueuedTime - The operation queued time.
-	QueuedTime *string `json:"queuedTime,omitempty"`
-	// BlobURI - The blob uri.
-	BlobURI *string `json:"blobUri,omitempty"`
-	// ErrorMessage - The error message returned from the server.
-	ErrorMessage *string `json:"errorMessage,omitempty"`
+	RequestType      *string    `json:"requestType,omitempty"`
+	RequestID        *uuid.UUID `json:"requestId,omitempty"`
+	ServerName       *string    `json:"serverName,omitempty"`
+	DatabaseName     *string    `json:"databaseName,omitempty"`
+	Status           *string    `json:"status,omitempty"`
+	LastModifiedTime *string    `json:"lastModifiedTime,omitempty"`
+	QueuedTime       *string    `json:"queuedTime,omitempty"`
+	BlobURI          *string    `json:"blobUri,omitempty"`
+	ErrorMessage     *string    `json:"errorMessage,omitempty"`
 }
 
-// ImportExtensionProperties represents the properties for an import operation
+// ImportExtensionProperties is represents the properties for an import operation
 type ImportExtensionProperties struct {
-	// StorageKeyType - The type of the storage key to use. Possible values include: 'StorageAccessKey', 'SharedAccessKey'
-	StorageKeyType StorageKeyType `json:"storageKeyType,omitempty"`
-	// StorageKey - The storage key to use.  If storage key type is SharedAccessKey, it must be preceded with a "?."
-	StorageKey *string `json:"storageKey,omitempty"`
-	// StorageURI - The storage uri to use.
-	StorageURI *string `json:"storageUri,omitempty"`
-	// AdministratorLogin - The name of the SQL administrator.
-	AdministratorLogin *string `json:"administratorLogin,omitempty"`
-	// AdministratorLoginPassword - The password of the SQL administrator.
-	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
-	// AuthenticationType - The authentication type. Possible values include: 'SQL', 'ADPassword'
-	AuthenticationType AuthenticationType `json:"authenticationType,omitempty"`
-	// OperationMode - The type of import operation being performed. This is always Import.
-	OperationMode *string `json:"operationMode,omitempty"`
+	StorageKeyType             StorageKeyType     `json:"storageKeyType,omitempty"`
+	StorageKey                 *string            `json:"storageKey,omitempty"`
+	StorageURI                 *string            `json:"storageUri,omitempty"`
+	AdministratorLogin         *string            `json:"administratorLogin,omitempty"`
+	AdministratorLoginPassword *string            `json:"administratorLoginPassword,omitempty"`
+	AuthenticationType         AuthenticationType `json:"authenticationType,omitempty"`
+	OperationMode              *string            `json:"operationMode,omitempty"`
 }
 
-// ImportExtensionRequest import database parameters.
+// ImportExtensionRequest is import database parameters.
 type ImportExtensionRequest struct {
-	// Name - The name of the extension.
-	Name *string `json:"name,omitempty"`
-	// Type - The type of the extension.
-	Type *string `json:"type,omitempty"`
-	// ImportExtensionProperties - Represents the properties of the resource.
+	Name                       *string `json:"name,omitempty"`
+	Type                       *string `json:"type,omitempty"`
 	*ImportExtensionProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ImportExtensionRequest struct.
-func (ier *ImportExtensionRequest) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ier.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ier.Type = &typeVar
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ImportExtensionProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ier.ImportExtensionProperties = &properties
-	}
-
-	return nil
-}
-
-// ImportRequest import database parameters.
+// ImportRequest is import database parameters.
 type ImportRequest struct {
-	// StorageKeyType - The type of the storage key to use. Possible values include: 'StorageAccessKey', 'SharedAccessKey'
-	StorageKeyType StorageKeyType `json:"storageKeyType,omitempty"`
-	// StorageKey - The storage key to use.  If storage key type is SharedAccessKey, it must be preceded with a "?."
-	StorageKey *string `json:"storageKey,omitempty"`
-	// StorageURI - The storage uri to use.
-	StorageURI *string `json:"storageUri,omitempty"`
-	// AdministratorLogin - The name of the SQL administrator.
-	AdministratorLogin *string `json:"administratorLogin,omitempty"`
-	// AdministratorLoginPassword - The password of the SQL administrator.
-	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
-	// AuthenticationType - The authentication type. Possible values include: 'SQL', 'ADPassword'
-	AuthenticationType AuthenticationType `json:"authenticationType,omitempty"`
-	// DatabaseName - The name of the database to import.
-	DatabaseName *string `json:"databaseName,omitempty"`
-	// Edition - The edition for the database being created. Possible values include: 'Web', 'Business', 'Basic', 'Standard', 'Premium', 'PremiumRS', 'Free', 'Stretch', 'DataWarehouse', 'System', 'System2'
-	Edition DatabaseEdition `json:"edition,omitempty"`
-	// ServiceObjectiveName - The name of the service objective to assign to the database. Possible values include: 'ServiceObjectiveNameSystem', 'ServiceObjectiveNameSystem0', 'ServiceObjectiveNameSystem1', 'ServiceObjectiveNameSystem2', 'ServiceObjectiveNameSystem3', 'ServiceObjectiveNameSystem4', 'ServiceObjectiveNameSystem2L', 'ServiceObjectiveNameSystem3L', 'ServiceObjectiveNameSystem4L', 'ServiceObjectiveNameFree', 'ServiceObjectiveNameBasic', 'ServiceObjectiveNameS0', 'ServiceObjectiveNameS1', 'ServiceObjectiveNameS2', 'ServiceObjectiveNameS3', 'ServiceObjectiveNameS4', 'ServiceObjectiveNameS6', 'ServiceObjectiveNameS7', 'ServiceObjectiveNameS9', 'ServiceObjectiveNameS12', 'ServiceObjectiveNameP1', 'ServiceObjectiveNameP2', 'ServiceObjectiveNameP3', 'ServiceObjectiveNameP4', 'ServiceObjectiveNameP6', 'ServiceObjectiveNameP11', 'ServiceObjectiveNameP15', 'ServiceObjectiveNamePRS1', 'ServiceObjectiveNamePRS2', 'ServiceObjectiveNamePRS4', 'ServiceObjectiveNamePRS6', 'ServiceObjectiveNameDW100', 'ServiceObjectiveNameDW200', 'ServiceObjectiveNameDW300', 'ServiceObjectiveNameDW400', 'ServiceObjectiveNameDW500', 'ServiceObjectiveNameDW600', 'ServiceObjectiveNameDW1000', 'ServiceObjectiveNameDW1200', 'ServiceObjectiveNameDW1000c', 'ServiceObjectiveNameDW1500', 'ServiceObjectiveNameDW1500c', 'ServiceObjectiveNameDW2000', 'ServiceObjectiveNameDW2000c', 'ServiceObjectiveNameDW3000', 'ServiceObjectiveNameDW2500c', 'ServiceObjectiveNameDW3000c', 'ServiceObjectiveNameDW6000', 'ServiceObjectiveNameDW5000c', 'ServiceObjectiveNameDW6000c', 'ServiceObjectiveNameDW7500c', 'ServiceObjectiveNameDW10000c', 'ServiceObjectiveNameDW15000c', 'ServiceObjectiveNameDW30000c', 'ServiceObjectiveNameDS100', 'ServiceObjectiveNameDS200', 'ServiceObjectiveNameDS300', 'ServiceObjectiveNameDS400', 'ServiceObjectiveNameDS500', 'ServiceObjectiveNameDS600', 'ServiceObjectiveNameDS1000', 'ServiceObjectiveNameDS1200', 'ServiceObjectiveNameDS1500', 'ServiceObjectiveNameDS2000', 'ServiceObjectiveNameElasticPool'
-	ServiceObjectiveName ServiceObjectiveName `json:"serviceObjectiveName,omitempty"`
-	// MaxSizeBytes - The maximum size for the newly imported database.
-	MaxSizeBytes *string `json:"maxSizeBytes,omitempty"`
+	StorageKeyType             StorageKeyType       `json:"storageKeyType,omitempty"`
+	StorageKey                 *string              `json:"storageKey,omitempty"`
+	StorageURI                 *string              `json:"storageUri,omitempty"`
+	AdministratorLogin         *string              `json:"administratorLogin,omitempty"`
+	AdministratorLoginPassword *string              `json:"administratorLoginPassword,omitempty"`
+	AuthenticationType         AuthenticationType   `json:"authenticationType,omitempty"`
+	DatabaseName               *string              `json:"databaseName,omitempty"`
+	Edition                    DatabaseEdition      `json:"edition,omitempty"`
+	ServiceObjectiveName       ServiceObjectiveName `json:"serviceObjectiveName,omitempty"`
+	MaxSizeBytes               *string              `json:"maxSizeBytes,omitempty"`
 }
 
-// LocationCapabilities the location capability.
+// LocationCapabilities is the location capability.
 type LocationCapabilities struct {
-	autorest.Response `json:"-"`
-	// Name - The location name.
-	Name *string `json:"name,omitempty"`
-	// SupportedServerVersions - The list of supported server versions.
+	autorest.Response       `json:"-"`
+	Name                    *string                    `json:"name,omitempty"`
 	SupportedServerVersions *[]ServerVersionCapability `json:"supportedServerVersions,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
-	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Status                  CapabilityStatus           `json:"status,omitempty"`
+	Reason                  *string                    `json:"reason,omitempty"`
 }
 
-// MaxSizeCapability the maximum size capability.
+// MaxSizeCapability is the maximum size capability.
 type MaxSizeCapability struct {
-	// Limit - The maximum size limit (see 'unit' for the units).
-	Limit *int32 `json:"limit,omitempty"`
-	// Unit - The units that the limit is expressed in. Possible values include: 'Megabytes', 'Gigabytes', 'Terabytes', 'Petabytes'
-	Unit MaxSizeUnits `json:"unit,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
+	Limit  *int32           `json:"limit,omitempty"`
+	Unit   MaxSizeUnits     `json:"unit,omitempty"`
 	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Reason *string          `json:"reason,omitempty"`
 }
 
-// Metric database metrics.
+// Metric is database metrics.
 type Metric struct {
-	// StartTime - The start time for the metric (ISO-8601 format).
-	StartTime *date.Time `json:"startTime,omitempty"`
-	// EndTime - The end time for the metric (ISO-8601 format).
-	EndTime *date.Time `json:"endTime,omitempty"`
-	// TimeGrain - The time step to be used to summarize the metric values.
-	TimeGrain *string `json:"timeGrain,omitempty"`
-	// Unit - The unit of the metric. Possible values include: 'UnitTypeCount', 'UnitTypeBytes', 'UnitTypeSeconds', 'UnitTypePercent', 'UnitTypeCountPerSecond', 'UnitTypeBytesPerSecond'
-	Unit UnitType `json:"unit,omitempty"`
-	// Name - The name information for the metric.
-	Name *MetricName `json:"name,omitempty"`
-	// MetricValues - The metric values for the specified time window and timestep.
+	StartTime    *date.Time     `json:"startTime,omitempty"`
+	EndTime      *date.Time     `json:"endTime,omitempty"`
+	TimeGrain    *string        `json:"timeGrain,omitempty"`
+	Unit         UnitType       `json:"unit,omitempty"`
+	Name         *MetricName    `json:"name,omitempty"`
 	MetricValues *[]MetricValue `json:"metricValues,omitempty"`
 }
 
-// MetricAvailability a metric availability value.
+// MetricAvailability is a metric availability value.
 type MetricAvailability struct {
-	// Retention - The length of retention for the database metric.
 	Retention *string `json:"retention,omitempty"`
-	// TimeGrain - The granularity of the database metric.
 	TimeGrain *string `json:"timeGrain,omitempty"`
 }
 
-// MetricDefinition a database metric definition.
+// MetricDefinition is a database metric definition.
 type MetricDefinition struct {
-	// Name - The name information for the metric.
-	Name *MetricName `json:"name,omitempty"`
-	// PrimaryAggregationType - The primary aggregation type defining how metric values are displayed. Possible values include: 'None', 'Average', 'Count', 'Minimum', 'Maximum', 'Total'
+	Name                   *MetricName            `json:"name,omitempty"`
 	PrimaryAggregationType PrimaryAggregationType `json:"primaryAggregationType,omitempty"`
-	// ResourceURI - The resource uri of the database.
-	ResourceURI *string `json:"resourceUri,omitempty"`
-	// Unit - The unit of the metric. Possible values include: 'UnitDefinitionTypeCount', 'UnitDefinitionTypeBytes', 'UnitDefinitionTypeSeconds', 'UnitDefinitionTypePercent', 'UnitDefinitionTypeCountPerSecond', 'UnitDefinitionTypeBytesPerSecond'
-	Unit UnitDefinitionType `json:"unit,omitempty"`
-	// MetricAvailabilities - The list of database metric availabities for the metric.
-	MetricAvailabilities *[]MetricAvailability `json:"metricAvailabilities,omitempty"`
+	ResourceURI            *string                `json:"resourceUri,omitempty"`
+	Unit                   UnitDefinitionType     `json:"unit,omitempty"`
+	MetricAvailabilities   *[]MetricAvailability  `json:"metricAvailabilities,omitempty"`
 }
 
-// MetricDefinitionListResult the response to a list database metric definitions request.
+// MetricDefinitionListResult is the response to a list database metric definitions request.
 type MetricDefinitionListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of metric definitions for the database.
-	Value *[]MetricDefinition `json:"value,omitempty"`
+	Value             *[]MetricDefinition `json:"value,omitempty"`
 }
 
-// MetricListResult the response to a list database metrics request.
+// MetricListResult is the response to a list database metrics request.
 type MetricListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of metrics for the database.
-	Value *[]Metric `json:"value,omitempty"`
+	Value             *[]Metric `json:"value,omitempty"`
 }
 
-// MetricName a database metric name.
+// MetricName is a database metric name.
 type MetricName struct {
-	// Value - The name of the database metric.
-	Value *string `json:"value,omitempty"`
-	// LocalizedValue - The friendly name of the database metric.
+	Value          *string `json:"value,omitempty"`
 	LocalizedValue *string `json:"localizedValue,omitempty"`
 }
 
-// MetricValue represents database metrics.
+// MetricValue is represents database metrics.
 type MetricValue struct {
-	// Count - The number of values for the metric.
-	Count *float64 `json:"count,omitempty"`
-	// Average - The average value of the metric.
-	Average *float64 `json:"average,omitempty"`
-	// Maximum - The max value of the metric.
-	Maximum *float64 `json:"maximum,omitempty"`
-	// Minimum - The min value of the metric.
-	Minimum *float64 `json:"minimum,omitempty"`
-	// Timestamp - The metric timestamp (ISO-8601 format).
+	Count     *float64   `json:"count,omitempty"`
+	Average   *float64   `json:"average,omitempty"`
+	Maximum   *float64   `json:"maximum,omitempty"`
+	Minimum   *float64   `json:"minimum,omitempty"`
 	Timestamp *date.Time `json:"timestamp,omitempty"`
-	// Total - The total value of the metric.
-	Total *float64 `json:"total,omitempty"`
+	Total     *float64   `json:"total,omitempty"`
 }
 
-// Operation SQL REST API operation definition.
+// Operation is SQL REST API operation definition.
 type Operation struct {
-	// Name - The name of the operation being performed on this particular object.
-	Name *string `json:"name,omitempty"`
-	// Display - The localized display information for this particular operation / action.
-	Display *OperationDisplay `json:"display,omitempty"`
-	// Origin - The intended executor of the operation. Possible values include: 'OperationOriginUser', 'OperationOriginSystem'
-	Origin OperationOrigin `json:"origin,omitempty"`
-	// Properties - Additional descriptions for the operation.
+	Name       *string                             `json:"name,omitempty"`
+	Display    *OperationDisplay                   `json:"display,omitempty"`
+	Origin     OperationOrigin                     `json:"origin,omitempty"`
 	Properties *map[string]*map[string]interface{} `json:"properties,omitempty"`
 }
 
-// OperationDisplay display metadata associated with the operation.
+// OperationDisplay is display metadata associated with the operation.
 type OperationDisplay struct {
-	// Provider - The localized friendly form of the resource provider name.
-	Provider *string `json:"provider,omitempty"`
-	// Resource - The localized friendly form of the resource type related to this action/operation.
-	Resource *string `json:"resource,omitempty"`
-	// Operation - The localized friendly name for the operation.
-	Operation *string `json:"operation,omitempty"`
-	// Description - The localized friendly description for the operation.
+	Provider    *string `json:"provider,omitempty"`
+	Resource    *string `json:"resource,omitempty"`
+	Operation   *string `json:"operation,omitempty"`
 	Description *string `json:"description,omitempty"`
 }
 
-// OperationImpact the impact of an operation, both in absolute and relative terms.
+// OperationImpact is the impact of an operation, both in absolute and relative terms.
 type OperationImpact struct {
-	// Name - The name of the impact dimension.
-	Name *string `json:"name,omitempty"`
-	// Unit - The unit in which estimated impact to dimension is measured.
-	Unit *string `json:"unit,omitempty"`
-	// ChangeValueAbsolute - The absolute impact to dimension.
+	Name                *string  `json:"name,omitempty"`
+	Unit                *string  `json:"unit,omitempty"`
 	ChangeValueAbsolute *float64 `json:"changeValueAbsolute,omitempty"`
-	// ChangeValueRelative - The relative impact to dimension (null if not applicable)
 	ChangeValueRelative *float64 `json:"changeValueRelative,omitempty"`
 }
 
-// OperationListResult result of the request to list SQL operations.
+// OperationListResult is result of the request to list SQL operations.
 type OperationListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]Operation `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Operation `json:"value,omitempty"`
+	NextLink          *string      `json:"nextLink,omitempty"`
 }
 
-// OperationListResultIterator provides access to a complete listing of Operation values.
-type OperationListResultIterator struct {
-	i    int
-	page OperationListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *OperationListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter OperationListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter OperationListResultIterator) Response() OperationListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter OperationListResultIterator) Value() Operation {
-	if !iter.page.NotDone() {
-		return Operation{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (olr OperationListResult) IsEmpty() bool {
-	return olr.Value == nil || len(*olr.Value) == 0
-}
-
-// operationListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (olr OperationListResult) operationListResultPreparer() (*http.Request, error) {
-	if olr.NextLink == nil || len(to.String(olr.NextLink)) < 1 {
+// OperationListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client OperationListResult) OperationListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(olr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// OperationListResultPage contains a page of Operation values.
-type OperationListResultPage struct {
-	fn  func(OperationListResult) (OperationListResult, error)
-	olr OperationListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *OperationListResultPage) Next() error {
-	next, err := page.fn(page.olr)
-	if err != nil {
-		return err
-	}
-	page.olr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page OperationListResultPage) NotDone() bool {
-	return !page.olr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page OperationListResultPage) Response() OperationListResult {
-	return page.olr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page OperationListResultPage) Values() []Operation {
-	if page.olr.IsEmpty() {
-		return nil
-	}
-	return *page.olr.Value
-}
-
-// PartnerInfo partner server information for the failover group.
+// PartnerInfo is partner server information for the failover group.
 type PartnerInfo struct {
-	// ID - Resource identifier of the partner server.
-	ID *string `json:"id,omitempty"`
-	// Location - Geo location of the partner server.
-	Location *string `json:"location,omitempty"`
-	// ReplicationRole - Replication role of the partner server. Possible values include: 'Primary', 'Secondary'
+	ID              *string                      `json:"id,omitempty"`
+	Location        *string                      `json:"location,omitempty"`
 	ReplicationRole FailoverGroupReplicationRole `json:"replicationRole,omitempty"`
 }
 
-// PerformanceLevelCapability the performance level capability.
+// PerformanceLevelCapability is the performance level capability.
 type PerformanceLevelCapability struct {
-	// Value - Performance level value.
-	Value *int32 `json:"value,omitempty"`
-	// Unit - Unit type used to measure service objective performance level. Possible values include: 'DTU'
-	Unit PerformanceLevelUnit `json:"unit,omitempty"`
+	Value *int32               `json:"value,omitempty"`
+	Unit  PerformanceLevelUnit `json:"unit,omitempty"`
 }
 
-// ProxyResource ARM proxy resource.
+// ProxyResource is ARM proxy resource.
 type ProxyResource struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
+	ID   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
 	Type *string `json:"type,omitempty"`
 }
 
-// RecommendedElasticPool represents a recommented elastic pool.
+// RecommendedElasticPool is represents a recommented elastic pool.
 type RecommendedElasticPool struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// RecommendedElasticPoolProperties - The properites representing the resource.
+	autorest.Response                 `json:"-"`
+	ID                                *string `json:"id,omitempty"`
+	Name                              *string `json:"name,omitempty"`
+	Type                              *string `json:"type,omitempty"`
 	*RecommendedElasticPoolProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for RecommendedElasticPool struct.
-func (rep *RecommendedElasticPool) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties RecommendedElasticPoolProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rep.RecommendedElasticPoolProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rep.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rep.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rep.Type = &typeVar
-	}
-
-	return nil
-}
-
-// RecommendedElasticPoolListMetricsResult represents the response to a list recommended elastic pool metrics request.
+// RecommendedElasticPoolListMetricsResult is represents the response to a list recommended elastic pool metrics
+// request.
 type RecommendedElasticPoolListMetricsResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of recommended elastic pools metrics.
-	Value *[]RecommendedElasticPoolMetric `json:"value,omitempty"`
+	Value             *[]RecommendedElasticPoolMetric `json:"value,omitempty"`
 }
 
-// RecommendedElasticPoolListResult represents the response to a list recommended elastic pool request.
+// RecommendedElasticPoolListResult is represents the response to a list recommended elastic pool request.
 type RecommendedElasticPoolListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of recommended elastic pools hosted in the server.
-	Value *[]RecommendedElasticPool `json:"value,omitempty"`
+	Value             *[]RecommendedElasticPool `json:"value,omitempty"`
 }
 
-// RecommendedElasticPoolMetric represents recommended elastic pool metric.
+// RecommendedElasticPoolMetric is represents recommended elastic pool metric.
 type RecommendedElasticPoolMetric struct {
-	// DateTime - The time of metric (ISO8601 format).
 	DateTime *date.Time `json:"dateTime,omitempty"`
-	// Dtu - Gets or sets the DTUs (Database Transaction Units). See https://azure.microsoft.com/documentation/articles/sql-database-what-is-a-dtu/
-	Dtu *float64 `json:"dtu,omitempty"`
-	// SizeGB - Gets or sets size in gigabytes.
-	SizeGB *float64 `json:"sizeGB,omitempty"`
+	Dtu      *float64   `json:"dtu,omitempty"`
+	SizeGB   *float64   `json:"sizeGB,omitempty"`
 }
 
-// RecommendedElasticPoolProperties represents the properties of a recommented elastic pool.
+// RecommendedElasticPoolProperties is represents the properties of a recommented elastic pool.
 type RecommendedElasticPoolProperties struct {
-	// DatabaseEdition - The edition of the recommended elastic pool. The ElasticPoolEdition enumeration contains all the valid editions. Possible values include: 'ElasticPoolEditionBasic', 'ElasticPoolEditionStandard', 'ElasticPoolEditionPremium'
-	DatabaseEdition ElasticPoolEdition `json:"databaseEdition,omitempty"`
-	// Dtu - The DTU for the recommended elastic pool.
-	Dtu *float64 `json:"dtu,omitempty"`
-	// DatabaseDtuMin - The minimum DTU for the database.
-	DatabaseDtuMin *float64 `json:"databaseDtuMin,omitempty"`
-	// DatabaseDtuMax - The maximum DTU for the database.
-	DatabaseDtuMax *float64 `json:"databaseDtuMax,omitempty"`
-	// StorageMB - Gets storage size in megabytes.
-	StorageMB *float64 `json:"storageMB,omitempty"`
-	// ObservationPeriodStart - The observation period start (ISO8601 format).
-	ObservationPeriodStart *date.Time `json:"observationPeriodStart,omitempty"`
-	// ObservationPeriodEnd - The observation period start (ISO8601 format).
-	ObservationPeriodEnd *date.Time `json:"observationPeriodEnd,omitempty"`
-	// MaxObservedDtu - Gets maximum observed DTU.
-	MaxObservedDtu *float64 `json:"maxObservedDtu,omitempty"`
-	// MaxObservedStorageMB - Gets maximum observed storage in megabytes.
-	MaxObservedStorageMB *float64 `json:"maxObservedStorageMB,omitempty"`
-	// Databases - The list of databases in this pool. Expanded property
-	Databases *[]Database `json:"databases,omitempty"`
-	// Metrics - The list of databases housed in the server. Expanded property
-	Metrics *[]RecommendedElasticPoolMetric `json:"metrics,omitempty"`
+	DatabaseEdition        ElasticPoolEdition              `json:"databaseEdition,omitempty"`
+	Dtu                    *float64                        `json:"dtu,omitempty"`
+	DatabaseDtuMin         *float64                        `json:"databaseDtuMin,omitempty"`
+	DatabaseDtuMax         *float64                        `json:"databaseDtuMax,omitempty"`
+	StorageMB              *float64                        `json:"storageMB,omitempty"`
+	ObservationPeriodStart *date.Time                      `json:"observationPeriodStart,omitempty"`
+	ObservationPeriodEnd   *date.Time                      `json:"observationPeriodEnd,omitempty"`
+	MaxObservedDtu         *float64                        `json:"maxObservedDtu,omitempty"`
+	MaxObservedStorageMB   *float64                        `json:"maxObservedStorageMB,omitempty"`
+	Databases              *[]Database                     `json:"databases,omitempty"`
+	Metrics                *[]RecommendedElasticPoolMetric `json:"metrics,omitempty"`
 }
 
-// RecommendedIndex represents a database recommended index.
+// RecommendedIndex is represents a database recommended index.
 type RecommendedIndex struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// RecommendedIndexProperties - The properties representing the resource.
+	ID                          *string `json:"id,omitempty"`
+	Name                        *string `json:"name,omitempty"`
+	Type                        *string `json:"type,omitempty"`
 	*RecommendedIndexProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for RecommendedIndex struct.
-func (ri *RecommendedIndex) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties RecommendedIndexProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ri.RecommendedIndexProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ri.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ri.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ri.Type = &typeVar
-	}
-
-	return nil
-}
-
-// RecommendedIndexProperties represents the properties of a database recommended index.
+// RecommendedIndexProperties is represents the properties of a database recommended index.
 type RecommendedIndexProperties struct {
-	// Action - The proposed index action. You can create a missing index, drop an unused index, or rebuild an existing index to improve its performance. Possible values include: 'Create', 'Drop', 'Rebuild'
-	Action RecommendedIndexAction `json:"action,omitempty"`
-	// State - The current recommendation state. Possible values include: 'Active', 'Pending', 'Executing', 'Verifying', 'PendingRevert', 'Reverting', 'Reverted', 'Ignored', 'Expired', 'Blocked', 'Success'
-	State RecommendedIndexState `json:"state,omitempty"`
-	// Created - The UTC datetime showing when this resource was created (ISO8601 format).
-	Created *date.Time `json:"created,omitempty"`
-	// LastModified - The UTC datetime of when was this resource last changed (ISO8601 format).
-	LastModified *date.Time `json:"lastModified,omitempty"`
-	// IndexType - The type of index (CLUSTERED, NONCLUSTERED, COLUMNSTORE, CLUSTERED COLUMNSTORE). Possible values include: 'CLUSTERED', 'NONCLUSTERED', 'COLUMNSTORE', 'CLUSTEREDCOLUMNSTORE'
-	IndexType RecommendedIndexType `json:"indexType,omitempty"`
-	// Schema - The schema where table to build index over resides
-	Schema *string `json:"schema,omitempty"`
-	// Table - The table on which to build index.
-	Table *string `json:"table,omitempty"`
-	// Columns - Columns over which to build index
-	Columns *[]string `json:"columns,omitempty"`
-	// IncludedColumns - The list of column names to be included in the index
-	IncludedColumns *[]string `json:"includedColumns,omitempty"`
-	// IndexScript - The full build index script
-	IndexScript *string `json:"indexScript,omitempty"`
-	// EstimatedImpact - The estimated impact of doing recommended index action.
-	EstimatedImpact *[]OperationImpact `json:"estimatedImpact,omitempty"`
-	// ReportedImpact - The values reported after index action is complete.
-	ReportedImpact *[]OperationImpact `json:"reportedImpact,omitempty"`
+	Action          RecommendedIndexAction `json:"action,omitempty"`
+	State           RecommendedIndexState  `json:"state,omitempty"`
+	Created         *date.Time             `json:"created,omitempty"`
+	LastModified    *date.Time             `json:"lastModified,omitempty"`
+	IndexType       RecommendedIndexType   `json:"indexType,omitempty"`
+	Schema          *string                `json:"schema,omitempty"`
+	Table           *string                `json:"table,omitempty"`
+	Columns         *[]string              `json:"columns,omitempty"`
+	IncludedColumns *[]string              `json:"includedColumns,omitempty"`
+	IndexScript     *string                `json:"indexScript,omitempty"`
+	EstimatedImpact *[]OperationImpact     `json:"estimatedImpact,omitempty"`
+	ReportedImpact  *[]OperationImpact     `json:"reportedImpact,omitempty"`
 }
 
-// RecoverableDatabase a recoverable database
+// RecoverableDatabase is a recoverable database
 type RecoverableDatabase struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// RecoverableDatabaseProperties - The properties of a recoverable database
+	autorest.Response              `json:"-"`
+	ID                             *string `json:"id,omitempty"`
+	Name                           *string `json:"name,omitempty"`
+	Type                           *string `json:"type,omitempty"`
 	*RecoverableDatabaseProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for RecoverableDatabase struct.
-func (rd *RecoverableDatabase) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties RecoverableDatabaseProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rd.RecoverableDatabaseProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rd.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rd.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rd.Type = &typeVar
-	}
-
-	return nil
-}
-
-// RecoverableDatabaseListResult the response to a list recoverable databases request
+// RecoverableDatabaseListResult is the response to a list recoverable databases request
 type RecoverableDatabaseListResult struct {
 	autorest.Response `json:"-"`
-	// Value - A list of recoverable databases
-	Value *[]RecoverableDatabase `json:"value,omitempty"`
+	Value             *[]RecoverableDatabase `json:"value,omitempty"`
 }
 
-// RecoverableDatabaseProperties the properties of a recoverable database
+// RecoverableDatabaseProperties is the properties of a recoverable database
 type RecoverableDatabaseProperties struct {
-	// Edition - The edition of the database
-	Edition *string `json:"edition,omitempty"`
-	// ServiceLevelObjective - The service level objective name of the database
-	ServiceLevelObjective *string `json:"serviceLevelObjective,omitempty"`
-	// ElasticPoolName - The elastic pool name of the database
-	ElasticPoolName *string `json:"elasticPoolName,omitempty"`
-	// LastAvailableBackupDate - The last available backup date of the database (ISO8601 format)
+	Edition                 *string    `json:"edition,omitempty"`
+	ServiceLevelObjective   *string    `json:"serviceLevelObjective,omitempty"`
+	ElasticPoolName         *string    `json:"elasticPoolName,omitempty"`
 	LastAvailableBackupDate *date.Time `json:"lastAvailableBackupDate,omitempty"`
 }
 
-// ReplicationLink represents a database replication link.
+// ReplicationLink is represents a database replication link.
 type ReplicationLink struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Location of the server that contains this firewall rule.
-	Location *string `json:"location,omitempty"`
-	// ReplicationLinkProperties - The properties representing the resource.
+	autorest.Response          `json:"-"`
+	ID                         *string `json:"id,omitempty"`
+	Name                       *string `json:"name,omitempty"`
+	Type                       *string `json:"type,omitempty"`
+	Location                   *string `json:"location,omitempty"`
 	*ReplicationLinkProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ReplicationLink struct.
-func (rl *ReplicationLink) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		rl.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ReplicationLinkProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rl.ReplicationLinkProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rl.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rl.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rl.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ReplicationLinkListResult represents the response to a List database replication link request.
+// ReplicationLinkListResult is represents the response to a List database replication link request.
 type ReplicationLinkListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of database replication links housed in the database.
-	Value *[]ReplicationLink `json:"value,omitempty"`
+	Value             *[]ReplicationLink `json:"value,omitempty"`
 }
 
-// ReplicationLinkProperties represents the properties of a database replication link.
+// ReplicationLinkProperties is represents the properties of a database replication link.
 type ReplicationLinkProperties struct {
-	// IsTerminationAllowed - Legacy value indicating whether termination is allowed.  Currently always returns true.
-	IsTerminationAllowed *bool `json:"isTerminationAllowed,omitempty"`
-	// ReplicationMode - Replication mode of this replication link.
-	ReplicationMode *string `json:"replicationMode,omitempty"`
-	// PartnerServer - The name of the server hosting the partner database.
-	PartnerServer *string `json:"partnerServer,omitempty"`
-	// PartnerDatabase - The name of the partner database.
-	PartnerDatabase *string `json:"partnerDatabase,omitempty"`
-	// PartnerLocation - The Azure Region of the partner database.
-	PartnerLocation *string `json:"partnerLocation,omitempty"`
-	// Role - The role of the database in the replication link. Possible values include: 'ReplicationRolePrimary', 'ReplicationRoleSecondary', 'ReplicationRoleNonReadableSecondary', 'ReplicationRoleSource', 'ReplicationRoleCopy'
-	Role ReplicationRole `json:"role,omitempty"`
-	// PartnerRole - The role of the partner database in the replication link. Possible values include: 'ReplicationRolePrimary', 'ReplicationRoleSecondary', 'ReplicationRoleNonReadableSecondary', 'ReplicationRoleSource', 'ReplicationRoleCopy'
-	PartnerRole ReplicationRole `json:"partnerRole,omitempty"`
-	// StartTime - The start time for the replication link.
-	StartTime *date.Time `json:"startTime,omitempty"`
-	// PercentComplete - The percentage of seeding complete for the replication link.
-	PercentComplete *int32 `json:"percentComplete,omitempty"`
-	// ReplicationState - The replication state for the replication link. Possible values include: 'PENDING', 'SEEDING', 'CATCHUP', 'SUSPENDED'
-	ReplicationState ReplicationState `json:"replicationState,omitempty"`
+	IsTerminationAllowed *bool            `json:"isTerminationAllowed,omitempty"`
+	ReplicationMode      *string          `json:"replicationMode,omitempty"`
+	PartnerServer        *string          `json:"partnerServer,omitempty"`
+	PartnerDatabase      *string          `json:"partnerDatabase,omitempty"`
+	PartnerLocation      *string          `json:"partnerLocation,omitempty"`
+	Role                 ReplicationRole  `json:"role,omitempty"`
+	PartnerRole          ReplicationRole  `json:"partnerRole,omitempty"`
+	StartTime            *date.Time       `json:"startTime,omitempty"`
+	PercentComplete      *int32           `json:"percentComplete,omitempty"`
+	ReplicationState     ReplicationState `json:"replicationState,omitempty"`
 }
 
-// ReplicationLinksFailoverAllowDataLossFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type ReplicationLinksFailoverAllowDataLossFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ReplicationLinksFailoverAllowDataLossFuture) Result(client ReplicationLinksClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.ReplicationLinksFailoverAllowDataLossFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.FailoverAllowDataLossResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.FailoverAllowDataLossResponder(resp)
-	return
-}
-
-// ReplicationLinksFailoverFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ReplicationLinksFailoverFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ReplicationLinksFailoverFuture) Result(client ReplicationLinksClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.ReplicationLinksFailoverFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.FailoverResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.FailoverResponder(resp)
-	return
-}
-
-// Resource ARM resource.
+// Resource is ARM resource.
 type Resource struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
+	ID   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
 	Type *string `json:"type,omitempty"`
 }
 
-// ResourceIdentity azure Active Directory identity configuration for a resource.
+// ResourceIdentity is azure Active Directory identity configuration for a resource.
 type ResourceIdentity struct {
-	// PrincipalID - The Azure Active Directory principal id.
-	PrincipalID *uuid.UUID `json:"principalId,omitempty"`
-	// Type - The identity type. Set this to 'SystemAssigned' in order to automatically create and assign an Azure Active Directory principal for the resource. Possible values include: 'SystemAssigned'
-	Type IdentityType `json:"type,omitempty"`
-	// TenantID - The Azure Active Directory tenant id.
-	TenantID *uuid.UUID `json:"tenantId,omitempty"`
+	PrincipalID *uuid.UUID   `json:"principalId,omitempty"`
+	Type        IdentityType `json:"type,omitempty"`
+	TenantID    *uuid.UUID   `json:"tenantId,omitempty"`
 }
 
-// RestorableDroppedDatabase a restorable dropped database
+// RestorableDroppedDatabase is a restorable dropped database
 type RestorableDroppedDatabase struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-	// RestorableDroppedDatabaseProperties - The properties of a restorable dropped database
+	autorest.Response                    `json:"-"`
+	ID                                   *string `json:"id,omitempty"`
+	Name                                 *string `json:"name,omitempty"`
+	Type                                 *string `json:"type,omitempty"`
+	Location                             *string `json:"location,omitempty"`
 	*RestorableDroppedDatabaseProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for RestorableDroppedDatabase struct.
-func (rdd *RestorableDroppedDatabase) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		rdd.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties RestorableDroppedDatabaseProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rdd.RestorableDroppedDatabaseProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rdd.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rdd.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rdd.Type = &typeVar
-	}
-
-	return nil
-}
-
-// RestorableDroppedDatabaseListResult the response to a list restorable dropped databases request
+// RestorableDroppedDatabaseListResult is the response to a list restorable dropped databases request
 type RestorableDroppedDatabaseListResult struct {
 	autorest.Response `json:"-"`
-	// Value - A list of restorable dropped databases
-	Value *[]RestorableDroppedDatabase `json:"value,omitempty"`
+	Value             *[]RestorableDroppedDatabase `json:"value,omitempty"`
 }
 
-// RestorableDroppedDatabaseProperties the properties of a restorable dropped database
+// RestorableDroppedDatabaseProperties is the properties of a restorable dropped database
 type RestorableDroppedDatabaseProperties struct {
-	// DatabaseName - The name of the database
-	DatabaseName *string `json:"databaseName,omitempty"`
-	// Edition - The edition of the database
-	Edition *string `json:"edition,omitempty"`
-	// MaxSizeBytes - The max size in bytes of the database
-	MaxSizeBytes *string `json:"maxSizeBytes,omitempty"`
-	// ServiceLevelObjective - The service level objective name of the database
-	ServiceLevelObjective *string `json:"serviceLevelObjective,omitempty"`
-	// ElasticPoolName - The elastic pool name of the database
-	ElasticPoolName *string `json:"elasticPoolName,omitempty"`
-	// CreationDate - The creation date of the database (ISO8601 format)
-	CreationDate *date.Time `json:"creationDate,omitempty"`
-	// DeletionDate - The deletion date of the database (ISO8601 format)
-	DeletionDate *date.Time `json:"deletionDate,omitempty"`
-	// EarliestRestoreDate - The earliest restore date of the database (ISO8601 format)
-	EarliestRestoreDate *date.Time `json:"earliestRestoreDate,omitempty"`
+	DatabaseName          *string    `json:"databaseName,omitempty"`
+	Edition               *string    `json:"edition,omitempty"`
+	MaxSizeBytes          *string    `json:"maxSizeBytes,omitempty"`
+	ServiceLevelObjective *string    `json:"serviceLevelObjective,omitempty"`
+	ElasticPoolName       *string    `json:"elasticPoolName,omitempty"`
+	CreationDate          *date.Time `json:"creationDate,omitempty"`
+	DeletionDate          *date.Time `json:"deletionDate,omitempty"`
+	EarliestRestoreDate   *date.Time `json:"earliestRestoreDate,omitempty"`
 }
 
-// RestorePoint a database restore point.
+// RestorePoint is a database restore point.
 type RestorePoint struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// RestorePointProperties - The properties of the restore point.
+	ID                      *string `json:"id,omitempty"`
+	Name                    *string `json:"name,omitempty"`
+	Type                    *string `json:"type,omitempty"`
 	*RestorePointProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for RestorePoint struct.
-func (rp *RestorePoint) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties RestorePointProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rp.RestorePointProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rp.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rp.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rp.Type = &typeVar
-	}
-
-	return nil
-}
-
-// RestorePointListResult the response to a list database restore points request.
+// RestorePointListResult is the response to a list database restore points request.
 type RestorePointListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of database restore points.
-	Value *[]RestorePoint `json:"value,omitempty"`
+	Value             *[]RestorePoint `json:"value,omitempty"`
 }
 
-// RestorePointProperties represents the properties of a database restore point.
+// RestorePointProperties is represents the properties of a database restore point.
 type RestorePointProperties struct {
-	// RestorePointType - The restore point type of the database restore point. Possible values include: 'DISCRETE', 'CONTINUOUS'
-	RestorePointType RestorePointType `json:"restorePointType,omitempty"`
-	// RestorePointCreationDate - Restore point creation time (ISO8601 format). Populated when restorePointType = CONTINUOUS. Null otherwise.
-	RestorePointCreationDate *date.Time `json:"restorePointCreationDate,omitempty"`
-	// EarliestRestoreDate - Earliest restore time (ISO8601 format). Populated when restorePointType = DISCRETE. Null otherwise.
-	EarliestRestoreDate *date.Time `json:"earliestRestoreDate,omitempty"`
+	RestorePointType         RestorePointType `json:"restorePointType,omitempty"`
+	RestorePointCreationDate *date.Time       `json:"restorePointCreationDate,omitempty"`
+	EarliestRestoreDate      *date.Time       `json:"earliestRestoreDate,omitempty"`
 }
 
-// Server an Azure SQL Database server.
+// Server is an Azure SQL Database server.
 type Server struct {
 	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// Identity - The Azure Active Directory identity of the server.
-	Identity *ResourceIdentity `json:"identity,omitempty"`
-	// Kind - Kind of sql server. This is metadata used for the Azure portal experience.
-	Kind *string `json:"kind,omitempty"`
-	// ServerProperties - Resource properties.
+	ID                *string             `json:"id,omitempty"`
+	Name              *string             `json:"name,omitempty"`
+	Type              *string             `json:"type,omitempty"`
+	Tags              *map[string]*string `json:"tags,omitempty"`
+	Location          *string             `json:"location,omitempty"`
+	Identity          *ResourceIdentity   `json:"identity,omitempty"`
+	Kind              *string             `json:"kind,omitempty"`
 	*ServerProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Server struct.
-func (s *Server) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["identity"]
-	if v != nil {
-		var identity ResourceIdentity
-		err = json.Unmarshal(*m["identity"], &identity)
-		if err != nil {
-			return err
-		}
-		s.Identity = &identity
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		s.Kind = &kind
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServerProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		s.ServerProperties = &properties
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		s.Tags = &tags
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		s.Location = &location
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		s.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		s.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		s.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ServerAdministratorListResult the response to a list Active Directory Administrators request.
+// ServerAdministratorListResult is the response to a list Active Directory Administrators request.
 type ServerAdministratorListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of server Active Directory Administrators for the server.
-	Value *[]ServerAzureADAdministrator `json:"value,omitempty"`
+	Value             *[]ServerAzureADAdministrator `json:"value,omitempty"`
 }
 
-// ServerAdministratorProperties the properties of an server Administrator.
+// ServerAdministratorProperties is the properties of an server Administrator.
 type ServerAdministratorProperties struct {
-	// AdministratorType - The type of administrator.
-	AdministratorType *string `json:"administratorType,omitempty"`
-	// Login - The server administrator login value.
-	Login *string `json:"login,omitempty"`
-	// Sid - The server administrator Sid (Secure ID).
-	Sid *uuid.UUID `json:"sid,omitempty"`
-	// TenantID - The server Active Directory Administrator tenant id.
-	TenantID *uuid.UUID `json:"tenantId,omitempty"`
+	AdministratorType *string    `json:"administratorType,omitempty"`
+	Login             *string    `json:"login,omitempty"`
+	Sid               *uuid.UUID `json:"sid,omitempty"`
+	TenantID          *uuid.UUID `json:"tenantId,omitempty"`
 }
 
-// ServerAzureADAdministrator an server Active Directory Administrator.
+// ServerAzureADAdministrator is an server Active Directory Administrator.
 type ServerAzureADAdministrator struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// ServerAdministratorProperties - The properties of the resource.
+	autorest.Response              `json:"-"`
+	ID                             *string `json:"id,omitempty"`
+	Name                           *string `json:"name,omitempty"`
+	Type                           *string `json:"type,omitempty"`
 	*ServerAdministratorProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ServerAzureADAdministrator struct.
-func (saaa *ServerAzureADAdministrator) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServerAdministratorProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		saaa.ServerAdministratorProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		saaa.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		saaa.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		saaa.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ServerAzureADAdministratorsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type ServerAzureADAdministratorsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServerAzureADAdministratorsCreateOrUpdateFuture) Result(client ServerAzureADAdministratorsClient) (saaa ServerAzureADAdministrator, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return saaa, autorest.NewError("sql.ServerAzureADAdministratorsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		saaa, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	saaa, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ServerAzureADAdministratorsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ServerAzureADAdministratorsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServerAzureADAdministratorsDeleteFuture) Result(client ServerAzureADAdministratorsClient) (saaa ServerAzureADAdministrator, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return saaa, autorest.NewError("sql.ServerAzureADAdministratorsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		saaa, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	saaa, err = client.DeleteResponder(resp)
-	return
-}
-
-// ServerCommunicationLink server communication link.
+// ServerCommunicationLink is server communication link.
 type ServerCommunicationLink struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// ServerCommunicationLinkProperties - The properties of resource.
+	autorest.Response                  `json:"-"`
+	ID                                 *string `json:"id,omitempty"`
+	Name                               *string `json:"name,omitempty"`
+	Type                               *string `json:"type,omitempty"`
 	*ServerCommunicationLinkProperties `json:"properties,omitempty"`
-	// Location - Communication link location.
-	Location *string `json:"location,omitempty"`
-	// Kind - Communication link kind.  This property is used for Azure Portal metadata.
-	Kind *string `json:"kind,omitempty"`
+	Location                           *string `json:"location,omitempty"`
+	Kind                               *string `json:"kind,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ServerCommunicationLink struct.
-func (scl *ServerCommunicationLink) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServerCommunicationLinkProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		scl.ServerCommunicationLinkProperties = &properties
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		scl.Location = &location
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		scl.Kind = &kind
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		scl.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		scl.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		scl.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ServerCommunicationLinkListResult a list of server communication links.
+// ServerCommunicationLinkListResult is a list of server communication links.
 type ServerCommunicationLinkListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of server communication links.
-	Value *[]ServerCommunicationLink `json:"value,omitempty"`
+	Value             *[]ServerCommunicationLink `json:"value,omitempty"`
 }
 
-// ServerCommunicationLinkProperties the properties of a server communication link.
+// ServerCommunicationLinkProperties is the properties of a server communication link.
 type ServerCommunicationLinkProperties struct {
-	// State - The state.
-	State *string `json:"state,omitempty"`
-	// PartnerServer - The name of the partner server.
+	State         *string `json:"state,omitempty"`
 	PartnerServer *string `json:"partnerServer,omitempty"`
 }
 
-// ServerCommunicationLinksCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type ServerCommunicationLinksCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServerCommunicationLinksCreateOrUpdateFuture) Result(client ServerCommunicationLinksClient) (scl ServerCommunicationLink, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return scl, autorest.NewError("sql.ServerCommunicationLinksCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		scl, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	scl, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ServerConnectionPolicy a server secure connection policy.
+// ServerConnectionPolicy is a server secure connection policy.
 type ServerConnectionPolicy struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Kind - Metadata used for the Azure portal experience.
-	Kind *string `json:"kind,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// ServerConnectionPolicyProperties - The properties of the server secure connection policy.
+	autorest.Response                 `json:"-"`
+	ID                                *string `json:"id,omitempty"`
+	Name                              *string `json:"name,omitempty"`
+	Type                              *string `json:"type,omitempty"`
+	Kind                              *string `json:"kind,omitempty"`
+	Location                          *string `json:"location,omitempty"`
 	*ServerConnectionPolicyProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ServerConnectionPolicy struct.
-func (scp *ServerConnectionPolicy) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		scp.Kind = &kind
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		scp.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServerConnectionPolicyProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		scp.ServerConnectionPolicyProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		scp.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		scp.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		scp.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ServerConnectionPolicyProperties the properties of a server secure connection policy.
+// ServerConnectionPolicyProperties is the properties of a server secure connection policy.
 type ServerConnectionPolicyProperties struct {
-	// ConnectionType - The server connection type. Possible values include: 'ServerConnectionTypeDefault', 'ServerConnectionTypeProxy', 'ServerConnectionTypeRedirect'
 	ConnectionType ServerConnectionType `json:"connectionType,omitempty"`
 }
 
-// ServerKey a server key.
+// ServerKey is a server key.
 type ServerKey struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Kind - Kind of encryption protector. This is metadata used for the Azure portal experience.
-	Kind *string `json:"kind,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// ServerKeyProperties - Resource properties.
+	autorest.Response    `json:"-"`
+	ID                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Kind                 *string `json:"kind,omitempty"`
+	Location             *string `json:"location,omitempty"`
 	*ServerKeyProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ServerKey struct.
-func (sk *ServerKey) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		sk.Kind = &kind
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		sk.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServerKeyProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sk.ServerKeyProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sk.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sk.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		sk.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ServerKeyListResult a list of server keys.
+// ServerKeyListResult is a list of server keys.
 type ServerKeyListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]ServerKey `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ServerKey `json:"value,omitempty"`
+	NextLink          *string      `json:"nextLink,omitempty"`
 }
 
-// ServerKeyListResultIterator provides access to a complete listing of ServerKey values.
-type ServerKeyListResultIterator struct {
-	i    int
-	page ServerKeyListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ServerKeyListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ServerKeyListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ServerKeyListResultIterator) Response() ServerKeyListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ServerKeyListResultIterator) Value() ServerKey {
-	if !iter.page.NotDone() {
-		return ServerKey{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sklr ServerKeyListResult) IsEmpty() bool {
-	return sklr.Value == nil || len(*sklr.Value) == 0
-}
-
-// serverKeyListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sklr ServerKeyListResult) serverKeyListResultPreparer() (*http.Request, error) {
-	if sklr.NextLink == nil || len(to.String(sklr.NextLink)) < 1 {
+// ServerKeyListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ServerKeyListResult) ServerKeyListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sklr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ServerKeyListResultPage contains a page of ServerKey values.
-type ServerKeyListResultPage struct {
-	fn   func(ServerKeyListResult) (ServerKeyListResult, error)
-	sklr ServerKeyListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ServerKeyListResultPage) Next() error {
-	next, err := page.fn(page.sklr)
-	if err != nil {
-		return err
-	}
-	page.sklr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ServerKeyListResultPage) NotDone() bool {
-	return !page.sklr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ServerKeyListResultPage) Response() ServerKeyListResult {
-	return page.sklr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ServerKeyListResultPage) Values() []ServerKey {
-	if page.sklr.IsEmpty() {
-		return nil
-	}
-	return *page.sklr.Value
-}
-
-// ServerKeyProperties properties for a server key execution.
+// ServerKeyProperties is properties for a server key execution.
 type ServerKeyProperties struct {
-	// Subregion - Subregion of the server key.
-	Subregion *string `json:"subregion,omitempty"`
-	// ServerKeyType - The server key type like 'ServiceManaged', 'AzureKeyVault'. Possible values include: 'ServiceManaged', 'AzureKeyVault'
+	Subregion     *string       `json:"subregion,omitempty"`
 	ServerKeyType ServerKeyType `json:"serverKeyType,omitempty"`
-	// URI - The URI of the server key.
-	URI *string `json:"uri,omitempty"`
-	// Thumbprint - Thumbprint of the server key.
-	Thumbprint *string `json:"thumbprint,omitempty"`
-	// CreationDate - The server key creation date.
-	CreationDate *date.Time `json:"creationDate,omitempty"`
+	URI           *string       `json:"uri,omitempty"`
+	Thumbprint    *string       `json:"thumbprint,omitempty"`
+	CreationDate  *date.Time    `json:"creationDate,omitempty"`
 }
 
-// ServerKeysCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServerKeysCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServerKeysCreateOrUpdateFuture) Result(client ServerKeysClient) (sk ServerKey, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sk, autorest.NewError("sql.ServerKeysCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sk, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sk, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ServerKeysDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServerKeysDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServerKeysDeleteFuture) Result(client ServerKeysClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.ServerKeysDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ServerListResult a list of servers.
+// ServerListResult is a list of servers.
 type ServerListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]Server `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Server `json:"value,omitempty"`
+	NextLink          *string   `json:"nextLink,omitempty"`
 }
 
-// ServerListResultIterator provides access to a complete listing of Server values.
-type ServerListResultIterator struct {
-	i    int
-	page ServerListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ServerListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ServerListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ServerListResultIterator) Response() ServerListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ServerListResultIterator) Value() Server {
-	if !iter.page.NotDone() {
-		return Server{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (slr ServerListResult) IsEmpty() bool {
-	return slr.Value == nil || len(*slr.Value) == 0
-}
-
-// serverListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (slr ServerListResult) serverListResultPreparer() (*http.Request, error) {
-	if slr.NextLink == nil || len(to.String(slr.NextLink)) < 1 {
+// ServerListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ServerListResult) ServerListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(slr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ServerListResultPage contains a page of Server values.
-type ServerListResultPage struct {
-	fn  func(ServerListResult) (ServerListResult, error)
-	slr ServerListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ServerListResultPage) Next() error {
-	next, err := page.fn(page.slr)
-	if err != nil {
-		return err
-	}
-	page.slr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ServerListResultPage) NotDone() bool {
-	return !page.slr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ServerListResultPage) Response() ServerListResult {
-	return page.slr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ServerListResultPage) Values() []Server {
-	if page.slr.IsEmpty() {
-		return nil
-	}
-	return *page.slr.Value
-}
-
-// ServerProperties the properties of a server.
+// ServerProperties is the properties of a server.
 type ServerProperties struct {
-	// AdministratorLogin - Administrator username for the server. Once created it cannot be changed.
-	AdministratorLogin *string `json:"administratorLogin,omitempty"`
-	// AdministratorLoginPassword - The administrator login password (required for server creation).
+	AdministratorLogin         *string `json:"administratorLogin,omitempty"`
 	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
-	// Version - The version of the server.
-	Version *string `json:"version,omitempty"`
-	// State - The state of the server.
-	State *string `json:"state,omitempty"`
-	// FullyQualifiedDomainName - The fully qualified domain name of the server.
-	FullyQualifiedDomainName *string `json:"fullyQualifiedDomainName,omitempty"`
+	Version                    *string `json:"version,omitempty"`
+	State                      *string `json:"state,omitempty"`
+	FullyQualifiedDomainName   *string `json:"fullyQualifiedDomainName,omitempty"`
 }
 
-// ServersCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServersCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServersCreateOrUpdateFuture) Result(client ServersClient) (s Server, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return s, autorest.NewError("sql.ServersCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		s, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	s, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ServersDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServersDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServersDeleteFuture) Result(client ServersClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.ServersDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ServersUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ServersUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ServersUpdateFuture) Result(client ServersClient) (s Server, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return s, autorest.NewError("sql.ServersUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		s, err = client.UpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	s, err = client.UpdateResponder(resp)
-	return
-}
-
-// ServerUpdate an update request for an Azure SQL Database server.
+// ServerUpdate is an update request for an Azure SQL Database server.
 type ServerUpdate struct {
-	// ServerProperties - Resource properties.
 	*ServerProperties `json:"properties,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
+	Tags              *map[string]*string `json:"tags,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ServerUpdate struct.
-func (su *ServerUpdate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServerProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		su.ServerProperties = &properties
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		su.Tags = &tags
-	}
-
-	return nil
-}
-
-// ServerUsage represents server metrics.
+// ServerUsage is represents server metrics.
 type ServerUsage struct {
-	// Name - Name of the server usage metric.
-	Name *string `json:"name,omitempty"`
-	// ResourceName - The name of the resource.
-	ResourceName *string `json:"resourceName,omitempty"`
-	// DisplayName - The metric display name.
-	DisplayName *string `json:"displayName,omitempty"`
-	// CurrentValue - The current value of the metric.
-	CurrentValue *float64 `json:"currentValue,omitempty"`
-	// Limit - The current limit of the metric.
-	Limit *float64 `json:"limit,omitempty"`
-	// Unit - The units of the metric.
-	Unit *string `json:"unit,omitempty"`
-	// NextResetTime - The next reset time for the metric (ISO8601 format).
+	Name          *string    `json:"name,omitempty"`
+	ResourceName  *string    `json:"resourceName,omitempty"`
+	DisplayName   *string    `json:"displayName,omitempty"`
+	CurrentValue  *float64   `json:"currentValue,omitempty"`
+	Limit         *float64   `json:"limit,omitempty"`
+	Unit          *string    `json:"unit,omitempty"`
 	NextResetTime *date.Time `json:"nextResetTime,omitempty"`
 }
 
-// ServerUsageListResult represents the response to a list server metrics request.
+// ServerUsageListResult is represents the response to a list server metrics request.
 type ServerUsageListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of server metrics for the server.
-	Value *[]ServerUsage `json:"value,omitempty"`
+	Value             *[]ServerUsage `json:"value,omitempty"`
 }
 
-// ServerVersionCapability the server capability
+// ServerVersionCapability is the server capability
 type ServerVersionCapability struct {
-	// Name - The server version name.
-	Name *string `json:"name,omitempty"`
-	// SupportedEditions - The list of supported database editions.
-	SupportedEditions *[]EditionCapability `json:"supportedEditions,omitempty"`
-	// SupportedElasticPoolEditions - The list of supported elastic pool editions.
+	Name                         *string                         `json:"name,omitempty"`
+	SupportedEditions            *[]EditionCapability            `json:"supportedEditions,omitempty"`
 	SupportedElasticPoolEditions *[]ElasticPoolEditionCapability `json:"supportedElasticPoolEditions,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
-	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	Status                       CapabilityStatus                `json:"status,omitempty"`
+	Reason                       *string                         `json:"reason,omitempty"`
 }
 
-// ServiceLevelObjectiveCapability the service objectives capability.
+// ServiceLevelObjectiveCapability is the service objectives capability.
 type ServiceLevelObjectiveCapability struct {
-	// ID - The unique ID of the service objective.
-	ID *uuid.UUID `json:"id,omitempty"`
-	// Name - The service objective name.
-	Name *string `json:"name,omitempty"`
-	// SupportedMaxSizes - The list of supported maximum database sizes for this service objective.
-	SupportedMaxSizes *[]MaxSizeCapability `json:"supportedMaxSizes,omitempty"`
-	// PerformanceLevel - The performance level of the service objective capability.
-	PerformanceLevel *PerformanceLevelCapability `json:"performanceLevel,omitempty"`
-	// IncludedMaxSize - The included (free) max size for this service level objective.
-	IncludedMaxSize *MaxSizeCapability `json:"includedMaxSize,omitempty"`
-	// Status - The status of the capability. Possible values include: 'CapabilityStatusVisible', 'CapabilityStatusAvailable', 'CapabilityStatusDefault', 'CapabilityStatusDisabled'
-	Status CapabilityStatus `json:"status,omitempty"`
-	// Reason - The reason for the capability not being available.
-	Reason *string `json:"reason,omitempty"`
+	ID                *uuid.UUID                  `json:"id,omitempty"`
+	Name              *string                     `json:"name,omitempty"`
+	SupportedMaxSizes *[]MaxSizeCapability        `json:"supportedMaxSizes,omitempty"`
+	PerformanceLevel  *PerformanceLevelCapability `json:"performanceLevel,omitempty"`
+	IncludedMaxSize   *MaxSizeCapability          `json:"includedMaxSize,omitempty"`
+	Status            CapabilityStatus            `json:"status,omitempty"`
+	Reason            *string                     `json:"reason,omitempty"`
 }
 
-// ServiceObjective represents a database service objective.
+// ServiceObjective is represents a database service objective.
 type ServiceObjective struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// ServiceObjectiveProperties - Represents the properties of the resource.
+	autorest.Response           `json:"-"`
+	ID                          *string `json:"id,omitempty"`
+	Name                        *string `json:"name,omitempty"`
+	Type                        *string `json:"type,omitempty"`
 	*ServiceObjectiveProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ServiceObjective struct.
-func (so *ServiceObjective) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServiceObjectiveProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		so.ServiceObjectiveProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		so.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		so.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		so.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ServiceObjectiveListResult represents the response to a get database service objectives request.
+// ServiceObjectiveListResult is represents the response to a get database service objectives request.
 type ServiceObjectiveListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of database service objectives.
-	Value *[]ServiceObjective `json:"value,omitempty"`
+	Value             *[]ServiceObjective `json:"value,omitempty"`
 }
 
-// ServiceObjectiveProperties represents the properties of a database service objective.
+// ServiceObjectiveProperties is represents the properties of a database service objective.
 type ServiceObjectiveProperties struct {
-	// ServiceObjectiveName - The name for the service objective.
 	ServiceObjectiveName *string `json:"serviceObjectiveName,omitempty"`
-	// IsDefault - Gets whether the service level objective is the default service objective.
-	IsDefault *bool `json:"isDefault,omitempty"`
-	// IsSystem - Gets whether the service level objective is a system service objective.
-	IsSystem *bool `json:"isSystem,omitempty"`
-	// Description - The description for the service level objective.
-	Description *string `json:"description,omitempty"`
-	// Enabled - Gets whether the service level objective is enabled.
-	Enabled *bool `json:"enabled,omitempty"`
+	IsDefault            *bool   `json:"isDefault,omitempty"`
+	IsSystem             *bool   `json:"isSystem,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	Enabled              *bool   `json:"enabled,omitempty"`
 }
 
-// ServiceTierAdvisor represents a Service Tier Advisor.
+// ServiceTierAdvisor is represents a Service Tier Advisor.
 type ServiceTierAdvisor struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// ServiceTierAdvisorProperties - The properites representing the resource.
+	autorest.Response             `json:"-"`
+	ID                            *string `json:"id,omitempty"`
+	Name                          *string `json:"name,omitempty"`
+	Type                          *string `json:"type,omitempty"`
 	*ServiceTierAdvisorProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ServiceTierAdvisor struct.
-func (sta *ServiceTierAdvisor) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServiceTierAdvisorProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sta.ServiceTierAdvisorProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sta.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sta.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		sta.Type = &typeVar
-	}
-
-	return nil
-}
-
-// ServiceTierAdvisorListResult represents the response to a list service tier advisor request.
+// ServiceTierAdvisorListResult is represents the response to a list service tier advisor request.
 type ServiceTierAdvisorListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of service tier advisors for specified database.
-	Value *[]ServiceTierAdvisor `json:"value,omitempty"`
+	Value             *[]ServiceTierAdvisor `json:"value,omitempty"`
 }
 
-// ServiceTierAdvisorProperties represents the properties of a Service Tier Advisor.
+// ServiceTierAdvisorProperties is represents the properties of a Service Tier Advisor.
 type ServiceTierAdvisorProperties struct {
-	// ObservationPeriodStart - The observation period start (ISO8601 format).
-	ObservationPeriodStart *date.Time `json:"observationPeriodStart,omitempty"`
-	// ObservationPeriodEnd - The observation period start (ISO8601 format).
-	ObservationPeriodEnd *date.Time `json:"observationPeriodEnd,omitempty"`
-	// ActiveTimeRatio - The activeTimeRatio for service tier advisor.
-	ActiveTimeRatio *float64 `json:"activeTimeRatio,omitempty"`
-	// MinDtu - Gets or sets minDtu for service tier advisor.
-	MinDtu *float64 `json:"minDtu,omitempty"`
-	// AvgDtu - Gets or sets avgDtu for service tier advisor.
-	AvgDtu *float64 `json:"avgDtu,omitempty"`
-	// MaxDtu - Gets or sets maxDtu for service tier advisor.
-	MaxDtu *float64 `json:"maxDtu,omitempty"`
-	// MaxSizeInGB - Gets or sets maxSizeInGB for service tier advisor.
-	MaxSizeInGB *float64 `json:"maxSizeInGB,omitempty"`
-	// ServiceLevelObjectiveUsageMetrics - Gets or sets serviceLevelObjectiveUsageMetrics for the service tier advisor.
-	ServiceLevelObjectiveUsageMetrics *[]SloUsageMetric `json:"serviceLevelObjectiveUsageMetrics,omitempty"`
-	// CurrentServiceLevelObjective - Gets or sets currentServiceLevelObjective for service tier advisor.
-	CurrentServiceLevelObjective *string `json:"currentServiceLevelObjective,omitempty"`
-	// CurrentServiceLevelObjectiveID - Gets or sets currentServiceLevelObjectiveId for service tier advisor.
-	CurrentServiceLevelObjectiveID *uuid.UUID `json:"currentServiceLevelObjectiveId,omitempty"`
-	// UsageBasedRecommendationServiceLevelObjective - Gets or sets usageBasedRecommendationServiceLevelObjective for service tier advisor.
-	UsageBasedRecommendationServiceLevelObjective *string `json:"usageBasedRecommendationServiceLevelObjective,omitempty"`
-	// UsageBasedRecommendationServiceLevelObjectiveID - Gets or sets usageBasedRecommendationServiceLevelObjectiveId for service tier advisor.
-	UsageBasedRecommendationServiceLevelObjectiveID *uuid.UUID `json:"usageBasedRecommendationServiceLevelObjectiveId,omitempty"`
-	// DatabaseSizeBasedRecommendationServiceLevelObjective - Gets or sets databaseSizeBasedRecommendationServiceLevelObjective for service tier advisor.
-	DatabaseSizeBasedRecommendationServiceLevelObjective *string `json:"databaseSizeBasedRecommendationServiceLevelObjective,omitempty"`
-	// DatabaseSizeBasedRecommendationServiceLevelObjectiveID - Gets or sets databaseSizeBasedRecommendationServiceLevelObjectiveId for service tier advisor.
-	DatabaseSizeBasedRecommendationServiceLevelObjectiveID *uuid.UUID `json:"databaseSizeBasedRecommendationServiceLevelObjectiveId,omitempty"`
-	// DisasterPlanBasedRecommendationServiceLevelObjective - Gets or sets disasterPlanBasedRecommendationServiceLevelObjective for service tier advisor.
-	DisasterPlanBasedRecommendationServiceLevelObjective *string `json:"disasterPlanBasedRecommendationServiceLevelObjective,omitempty"`
-	// DisasterPlanBasedRecommendationServiceLevelObjectiveID - Gets or sets disasterPlanBasedRecommendationServiceLevelObjectiveId for service tier advisor.
-	DisasterPlanBasedRecommendationServiceLevelObjectiveID *uuid.UUID `json:"disasterPlanBasedRecommendationServiceLevelObjectiveId,omitempty"`
-	// OverallRecommendationServiceLevelObjective - Gets or sets overallRecommendationServiceLevelObjective for service tier advisor.
-	OverallRecommendationServiceLevelObjective *string `json:"overallRecommendationServiceLevelObjective,omitempty"`
-	// OverallRecommendationServiceLevelObjectiveID - Gets or sets overallRecommendationServiceLevelObjectiveId for service tier advisor.
-	OverallRecommendationServiceLevelObjectiveID *uuid.UUID `json:"overallRecommendationServiceLevelObjectiveId,omitempty"`
-	// Confidence - Gets or sets confidence for service tier advisor.
-	Confidence *float64 `json:"confidence,omitempty"`
+	ObservationPeriodStart                                 *date.Time        `json:"observationPeriodStart,omitempty"`
+	ObservationPeriodEnd                                   *date.Time        `json:"observationPeriodEnd,omitempty"`
+	ActiveTimeRatio                                        *float64          `json:"activeTimeRatio,omitempty"`
+	MinDtu                                                 *float64          `json:"minDtu,omitempty"`
+	AvgDtu                                                 *float64          `json:"avgDtu,omitempty"`
+	MaxDtu                                                 *float64          `json:"maxDtu,omitempty"`
+	MaxSizeInGB                                            *float64          `json:"maxSizeInGB,omitempty"`
+	ServiceLevelObjectiveUsageMetrics                      *[]SloUsageMetric `json:"serviceLevelObjectiveUsageMetrics,omitempty"`
+	CurrentServiceLevelObjective                           *string           `json:"currentServiceLevelObjective,omitempty"`
+	CurrentServiceLevelObjectiveID                         *uuid.UUID        `json:"currentServiceLevelObjectiveId,omitempty"`
+	UsageBasedRecommendationServiceLevelObjective          *string           `json:"usageBasedRecommendationServiceLevelObjective,omitempty"`
+	UsageBasedRecommendationServiceLevelObjectiveID        *uuid.UUID        `json:"usageBasedRecommendationServiceLevelObjectiveId,omitempty"`
+	DatabaseSizeBasedRecommendationServiceLevelObjective   *string           `json:"databaseSizeBasedRecommendationServiceLevelObjective,omitempty"`
+	DatabaseSizeBasedRecommendationServiceLevelObjectiveID *uuid.UUID        `json:"databaseSizeBasedRecommendationServiceLevelObjectiveId,omitempty"`
+	DisasterPlanBasedRecommendationServiceLevelObjective   *string           `json:"disasterPlanBasedRecommendationServiceLevelObjective,omitempty"`
+	DisasterPlanBasedRecommendationServiceLevelObjectiveID *uuid.UUID        `json:"disasterPlanBasedRecommendationServiceLevelObjectiveId,omitempty"`
+	OverallRecommendationServiceLevelObjective             *string           `json:"overallRecommendationServiceLevelObjective,omitempty"`
+	OverallRecommendationServiceLevelObjectiveID           *uuid.UUID        `json:"overallRecommendationServiceLevelObjectiveId,omitempty"`
+	Confidence                                             *float64          `json:"confidence,omitempty"`
 }
 
-// SloUsageMetric a Slo Usage Metric.
+// SloUsageMetric is a Slo Usage Metric.
 type SloUsageMetric struct {
-	// ServiceLevelObjective - The serviceLevelObjective for SLO usage metric. Possible values include: 'ServiceObjectiveNameSystem', 'ServiceObjectiveNameSystem0', 'ServiceObjectiveNameSystem1', 'ServiceObjectiveNameSystem2', 'ServiceObjectiveNameSystem3', 'ServiceObjectiveNameSystem4', 'ServiceObjectiveNameSystem2L', 'ServiceObjectiveNameSystem3L', 'ServiceObjectiveNameSystem4L', 'ServiceObjectiveNameFree', 'ServiceObjectiveNameBasic', 'ServiceObjectiveNameS0', 'ServiceObjectiveNameS1', 'ServiceObjectiveNameS2', 'ServiceObjectiveNameS3', 'ServiceObjectiveNameS4', 'ServiceObjectiveNameS6', 'ServiceObjectiveNameS7', 'ServiceObjectiveNameS9', 'ServiceObjectiveNameS12', 'ServiceObjectiveNameP1', 'ServiceObjectiveNameP2', 'ServiceObjectiveNameP3', 'ServiceObjectiveNameP4', 'ServiceObjectiveNameP6', 'ServiceObjectiveNameP11', 'ServiceObjectiveNameP15', 'ServiceObjectiveNamePRS1', 'ServiceObjectiveNamePRS2', 'ServiceObjectiveNamePRS4', 'ServiceObjectiveNamePRS6', 'ServiceObjectiveNameDW100', 'ServiceObjectiveNameDW200', 'ServiceObjectiveNameDW300', 'ServiceObjectiveNameDW400', 'ServiceObjectiveNameDW500', 'ServiceObjectiveNameDW600', 'ServiceObjectiveNameDW1000', 'ServiceObjectiveNameDW1200', 'ServiceObjectiveNameDW1000c', 'ServiceObjectiveNameDW1500', 'ServiceObjectiveNameDW1500c', 'ServiceObjectiveNameDW2000', 'ServiceObjectiveNameDW2000c', 'ServiceObjectiveNameDW3000', 'ServiceObjectiveNameDW2500c', 'ServiceObjectiveNameDW3000c', 'ServiceObjectiveNameDW6000', 'ServiceObjectiveNameDW5000c', 'ServiceObjectiveNameDW6000c', 'ServiceObjectiveNameDW7500c', 'ServiceObjectiveNameDW10000c', 'ServiceObjectiveNameDW15000c', 'ServiceObjectiveNameDW30000c', 'ServiceObjectiveNameDS100', 'ServiceObjectiveNameDS200', 'ServiceObjectiveNameDS300', 'ServiceObjectiveNameDS400', 'ServiceObjectiveNameDS500', 'ServiceObjectiveNameDS600', 'ServiceObjectiveNameDS1000', 'ServiceObjectiveNameDS1200', 'ServiceObjectiveNameDS1500', 'ServiceObjectiveNameDS2000', 'ServiceObjectiveNameElasticPool'
-	ServiceLevelObjective ServiceObjectiveName `json:"serviceLevelObjective,omitempty"`
-	// ServiceLevelObjectiveID - The serviceLevelObjectiveId for SLO usage metric.
-	ServiceLevelObjectiveID *uuid.UUID `json:"serviceLevelObjectiveId,omitempty"`
-	// InRangeTimeRatio - Gets or sets inRangeTimeRatio for SLO usage metric.
-	InRangeTimeRatio *float64 `json:"inRangeTimeRatio,omitempty"`
+	ServiceLevelObjective   ServiceObjectiveName `json:"serviceLevelObjective,omitempty"`
+	ServiceLevelObjectiveID *uuid.UUID           `json:"serviceLevelObjectiveId,omitempty"`
+	InRangeTimeRatio        *float64             `json:"inRangeTimeRatio,omitempty"`
 }
 
-// SubscriptionUsage usage Metric of a Subscription in a Location.
-type SubscriptionUsage struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// SubscriptionUsageProperties - Resource properties.
-	*SubscriptionUsageProperties `json:"properties,omitempty"`
-}
-
-// UnmarshalJSON is the custom unmarshaler for SubscriptionUsage struct.
-func (su *SubscriptionUsage) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SubscriptionUsageProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		su.SubscriptionUsageProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		su.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		su.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		su.Type = &typeVar
-	}
-
-	return nil
-}
-
-// SubscriptionUsageListResult a list of subscription usage metrics in a location.
-type SubscriptionUsageListResult struct {
-	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SubscriptionUsage `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
-}
-
-// SubscriptionUsageListResultIterator provides access to a complete listing of SubscriptionUsage values.
-type SubscriptionUsageListResultIterator struct {
-	i    int
-	page SubscriptionUsageListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SubscriptionUsageListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SubscriptionUsageListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SubscriptionUsageListResultIterator) Response() SubscriptionUsageListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SubscriptionUsageListResultIterator) Value() SubscriptionUsage {
-	if !iter.page.NotDone() {
-		return SubscriptionUsage{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sulr SubscriptionUsageListResult) IsEmpty() bool {
-	return sulr.Value == nil || len(*sulr.Value) == 0
-}
-
-// subscriptionUsageListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sulr SubscriptionUsageListResult) subscriptionUsageListResultPreparer() (*http.Request, error) {
-	if sulr.NextLink == nil || len(to.String(sulr.NextLink)) < 1 {
-		return nil, nil
-	}
-	return autorest.Prepare(&http.Request{},
-		autorest.AsJSON(),
-		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sulr.NextLink)))
-}
-
-// SubscriptionUsageListResultPage contains a page of SubscriptionUsage values.
-type SubscriptionUsageListResultPage struct {
-	fn   func(SubscriptionUsageListResult) (SubscriptionUsageListResult, error)
-	sulr SubscriptionUsageListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SubscriptionUsageListResultPage) Next() error {
-	next, err := page.fn(page.sulr)
-	if err != nil {
-		return err
-	}
-	page.sulr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SubscriptionUsageListResultPage) NotDone() bool {
-	return !page.sulr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SubscriptionUsageListResultPage) Response() SubscriptionUsageListResult {
-	return page.sulr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SubscriptionUsageListResultPage) Values() []SubscriptionUsage {
-	if page.sulr.IsEmpty() {
-		return nil
-	}
-	return *page.sulr.Value
-}
-
-// SubscriptionUsageProperties properties of a subscription usage.
-type SubscriptionUsageProperties struct {
-	// DisplayName - User-readable name of the metric.
-	DisplayName *string `json:"displayName,omitempty"`
-	// CurrentValue - Current value of the metric.
-	CurrentValue *float64 `json:"currentValue,omitempty"`
-	// Limit - Boundary value of the metric.
-	Limit *float64 `json:"limit,omitempty"`
-	// Unit - Unit of the metric.
-	Unit *string `json:"unit,omitempty"`
-}
-
-// SyncAgent an Azure SQL Database sync agent.
+// SyncAgent is an Azure SQL Database sync agent.
 type SyncAgent struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// SyncAgentProperties - Resource properties.
+	autorest.Response    `json:"-"`
+	ID                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	*SyncAgentProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SyncAgent struct.
-func (sa *SyncAgent) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SyncAgentProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sa.SyncAgentProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sa.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sa.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		sa.Type = &typeVar
-	}
-
-	return nil
-}
-
-// SyncAgentKeyProperties properties of an Azure SQL Database sync agent key.
+// SyncAgentKeyProperties is properties of an Azure SQL Database sync agent key.
 type SyncAgentKeyProperties struct {
 	autorest.Response `json:"-"`
-	// SyncAgentKey - Key of sync agent.
-	SyncAgentKey *string `json:"syncAgentKey,omitempty"`
+	SyncAgentKey      *string `json:"syncAgentKey,omitempty"`
 }
 
-// SyncAgentLinkedDatabase an Azure SQL Database sync agent linked database.
+// SyncAgentLinkedDatabase is an Azure SQL Database sync agent linked database.
 type SyncAgentLinkedDatabase struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// SyncAgentLinkedDatabaseProperties - Resource properties.
+	ID                                 *string `json:"id,omitempty"`
+	Name                               *string `json:"name,omitempty"`
+	Type                               *string `json:"type,omitempty"`
 	*SyncAgentLinkedDatabaseProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SyncAgentLinkedDatabase struct.
-func (sald *SyncAgentLinkedDatabase) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SyncAgentLinkedDatabaseProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sald.SyncAgentLinkedDatabaseProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sald.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sald.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		sald.Type = &typeVar
-	}
-
-	return nil
-}
-
-// SyncAgentLinkedDatabaseListResult a list of sync agent linked databases.
+// SyncAgentLinkedDatabaseListResult is a list of sync agent linked databases.
 type SyncAgentLinkedDatabaseListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SyncAgentLinkedDatabase `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SyncAgentLinkedDatabase `json:"value,omitempty"`
+	NextLink          *string                    `json:"nextLink,omitempty"`
 }
 
-// SyncAgentLinkedDatabaseListResultIterator provides access to a complete listing of SyncAgentLinkedDatabase values.
-type SyncAgentLinkedDatabaseListResultIterator struct {
-	i    int
-	page SyncAgentLinkedDatabaseListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SyncAgentLinkedDatabaseListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SyncAgentLinkedDatabaseListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SyncAgentLinkedDatabaseListResultIterator) Response() SyncAgentLinkedDatabaseListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SyncAgentLinkedDatabaseListResultIterator) Value() SyncAgentLinkedDatabase {
-	if !iter.page.NotDone() {
-		return SyncAgentLinkedDatabase{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (saldlr SyncAgentLinkedDatabaseListResult) IsEmpty() bool {
-	return saldlr.Value == nil || len(*saldlr.Value) == 0
-}
-
-// syncAgentLinkedDatabaseListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (saldlr SyncAgentLinkedDatabaseListResult) syncAgentLinkedDatabaseListResultPreparer() (*http.Request, error) {
-	if saldlr.NextLink == nil || len(to.String(saldlr.NextLink)) < 1 {
+// SyncAgentLinkedDatabaseListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SyncAgentLinkedDatabaseListResult) SyncAgentLinkedDatabaseListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(saldlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SyncAgentLinkedDatabaseListResultPage contains a page of SyncAgentLinkedDatabase values.
-type SyncAgentLinkedDatabaseListResultPage struct {
-	fn     func(SyncAgentLinkedDatabaseListResult) (SyncAgentLinkedDatabaseListResult, error)
-	saldlr SyncAgentLinkedDatabaseListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SyncAgentLinkedDatabaseListResultPage) Next() error {
-	next, err := page.fn(page.saldlr)
-	if err != nil {
-		return err
-	}
-	page.saldlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SyncAgentLinkedDatabaseListResultPage) NotDone() bool {
-	return !page.saldlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SyncAgentLinkedDatabaseListResultPage) Response() SyncAgentLinkedDatabaseListResult {
-	return page.saldlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SyncAgentLinkedDatabaseListResultPage) Values() []SyncAgentLinkedDatabase {
-	if page.saldlr.IsEmpty() {
-		return nil
-	}
-	return *page.saldlr.Value
-}
-
-// SyncAgentLinkedDatabaseProperties properties of an Azure SQL Database sync agent linked database.
+// SyncAgentLinkedDatabaseProperties is properties of an Azure SQL Database sync agent linked database.
 type SyncAgentLinkedDatabaseProperties struct {
-	// DatabaseType - Type of the sync agent linked database. Possible values include: 'AzureSQLDatabase', 'SQLServerDatabase'
 	DatabaseType SyncMemberDbType `json:"databaseType,omitempty"`
-	// DatabaseID - Id of the sync agent linked database.
-	DatabaseID *string `json:"databaseId,omitempty"`
-	// Description - Description of the sync agent linked database.
-	Description *string `json:"description,omitempty"`
-	// ServerName - Server name of the sync agent linked database.
-	ServerName *string `json:"serverName,omitempty"`
-	// DatabaseName - Database name of the sync agent linked database.
-	DatabaseName *string `json:"databaseName,omitempty"`
-	// UserName - User name of the sync agent linked database.
-	UserName *string `json:"userName,omitempty"`
+	DatabaseID   *string          `json:"databaseId,omitempty"`
+	Description  *string          `json:"description,omitempty"`
+	ServerName   *string          `json:"serverName,omitempty"`
+	DatabaseName *string          `json:"databaseName,omitempty"`
+	UserName     *string          `json:"userName,omitempty"`
 }
 
-// SyncAgentListResult a list of sync agents.
+// SyncAgentListResult is a list of sync agents.
 type SyncAgentListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SyncAgent `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SyncAgent `json:"value,omitempty"`
+	NextLink          *string      `json:"nextLink,omitempty"`
 }
 
-// SyncAgentListResultIterator provides access to a complete listing of SyncAgent values.
-type SyncAgentListResultIterator struct {
-	i    int
-	page SyncAgentListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SyncAgentListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SyncAgentListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SyncAgentListResultIterator) Response() SyncAgentListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SyncAgentListResultIterator) Value() SyncAgent {
-	if !iter.page.NotDone() {
-		return SyncAgent{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (salr SyncAgentListResult) IsEmpty() bool {
-	return salr.Value == nil || len(*salr.Value) == 0
-}
-
-// syncAgentListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (salr SyncAgentListResult) syncAgentListResultPreparer() (*http.Request, error) {
-	if salr.NextLink == nil || len(to.String(salr.NextLink)) < 1 {
+// SyncAgentListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SyncAgentListResult) SyncAgentListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(salr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SyncAgentListResultPage contains a page of SyncAgent values.
-type SyncAgentListResultPage struct {
-	fn   func(SyncAgentListResult) (SyncAgentListResult, error)
-	salr SyncAgentListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SyncAgentListResultPage) Next() error {
-	next, err := page.fn(page.salr)
-	if err != nil {
-		return err
-	}
-	page.salr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SyncAgentListResultPage) NotDone() bool {
-	return !page.salr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SyncAgentListResultPage) Response() SyncAgentListResult {
-	return page.salr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SyncAgentListResultPage) Values() []SyncAgent {
-	if page.salr.IsEmpty() {
-		return nil
-	}
-	return *page.salr.Value
-}
-
-// SyncAgentProperties properties of an Azure SQL Database sync agent.
+// SyncAgentProperties is properties of an Azure SQL Database sync agent.
 type SyncAgentProperties struct {
-	// Name - Name of the sync agent.
-	Name *string `json:"name,omitempty"`
-	// SyncDatabaseID - ARM resource id of the sync database in the sync agent.
-	SyncDatabaseID *string `json:"syncDatabaseId,omitempty"`
-	// LastAliveTime - Last alive time of the sync agent.
-	LastAliveTime *date.Time `json:"lastAliveTime,omitempty"`
-	// State - State of the sync agent. Possible values include: 'Online', 'Offline', 'NeverConnected'
-	State SyncAgentState `json:"state,omitempty"`
-	// IsUpToDate - If the sync agent version is up to date.
-	IsUpToDate *bool `json:"isUpToDate,omitempty"`
-	// ExpiryTime - Expiration time of the sync agent version.
-	ExpiryTime *date.Time `json:"expiryTime,omitempty"`
-	// Version - Version of the sync agent.
-	Version *string `json:"version,omitempty"`
+	Name           *string        `json:"name,omitempty"`
+	SyncDatabaseID *string        `json:"syncDatabaseId,omitempty"`
+	LastAliveTime  *date.Time     `json:"lastAliveTime,omitempty"`
+	State          SyncAgentState `json:"state,omitempty"`
+	IsUpToDate     *bool          `json:"isUpToDate,omitempty"`
+	ExpiryTime     *date.Time     `json:"expiryTime,omitempty"`
+	Version        *string        `json:"version,omitempty"`
 }
 
-// SyncAgentsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SyncAgentsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncAgentsCreateOrUpdateFuture) Result(client SyncAgentsClient) (sa SyncAgent, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sa, autorest.NewError("sql.SyncAgentsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sa, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sa, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// SyncAgentsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SyncAgentsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncAgentsDeleteFuture) Result(client SyncAgentsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.SyncAgentsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// SyncDatabaseIDListResult a list of sync database ID properties.
+// SyncDatabaseIDListResult is a list of sync database ID properties.
 type SyncDatabaseIDListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SyncDatabaseIDProperties `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SyncDatabaseIDProperties `json:"value,omitempty"`
+	NextLink          *string                     `json:"nextLink,omitempty"`
 }
 
-// SyncDatabaseIDListResultIterator provides access to a complete listing of SyncDatabaseIDProperties values.
-type SyncDatabaseIDListResultIterator struct {
-	i    int
-	page SyncDatabaseIDListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SyncDatabaseIDListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SyncDatabaseIDListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SyncDatabaseIDListResultIterator) Response() SyncDatabaseIDListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SyncDatabaseIDListResultIterator) Value() SyncDatabaseIDProperties {
-	if !iter.page.NotDone() {
-		return SyncDatabaseIDProperties{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sdilr SyncDatabaseIDListResult) IsEmpty() bool {
-	return sdilr.Value == nil || len(*sdilr.Value) == 0
-}
-
-// syncDatabaseIDListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sdilr SyncDatabaseIDListResult) syncDatabaseIDListResultPreparer() (*http.Request, error) {
-	if sdilr.NextLink == nil || len(to.String(sdilr.NextLink)) < 1 {
+// SyncDatabaseIDListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SyncDatabaseIDListResult) SyncDatabaseIDListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sdilr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SyncDatabaseIDListResultPage contains a page of SyncDatabaseIDProperties values.
-type SyncDatabaseIDListResultPage struct {
-	fn    func(SyncDatabaseIDListResult) (SyncDatabaseIDListResult, error)
-	sdilr SyncDatabaseIDListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SyncDatabaseIDListResultPage) Next() error {
-	next, err := page.fn(page.sdilr)
-	if err != nil {
-		return err
-	}
-	page.sdilr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SyncDatabaseIDListResultPage) NotDone() bool {
-	return !page.sdilr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SyncDatabaseIDListResultPage) Response() SyncDatabaseIDListResult {
-	return page.sdilr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SyncDatabaseIDListResultPage) Values() []SyncDatabaseIDProperties {
-	if page.sdilr.IsEmpty() {
-		return nil
-	}
-	return *page.sdilr.Value
-}
-
-// SyncDatabaseIDProperties properties of the sync database id.
+// SyncDatabaseIDProperties is properties of the sync database id.
 type SyncDatabaseIDProperties struct {
-	// ID - ARM resource id of sync database.
 	ID *string `json:"id,omitempty"`
 }
 
-// SyncFullSchemaProperties properties of the database full schema.
+// SyncFullSchemaProperties is properties of the database full schema.
 type SyncFullSchemaProperties struct {
-	// Tables - List of tables in the database full schema.
-	Tables *[]SyncFullSchemaTable `json:"tables,omitempty"`
-	// LastUpdateTime - Last update time of the database schema.
-	LastUpdateTime *date.Time `json:"lastUpdateTime,omitempty"`
+	Tables         *[]SyncFullSchemaTable `json:"tables,omitempty"`
+	LastUpdateTime *date.Time             `json:"lastUpdateTime,omitempty"`
 }
 
-// SyncFullSchemaPropertiesListResult a list of sync schema properties.
+// SyncFullSchemaPropertiesListResult is a list of sync schema properties.
 type SyncFullSchemaPropertiesListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SyncFullSchemaProperties `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SyncFullSchemaProperties `json:"value,omitempty"`
+	NextLink          *string                     `json:"nextLink,omitempty"`
 }
 
-// SyncFullSchemaPropertiesListResultIterator provides access to a complete listing of SyncFullSchemaProperties values.
-type SyncFullSchemaPropertiesListResultIterator struct {
-	i    int
-	page SyncFullSchemaPropertiesListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SyncFullSchemaPropertiesListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SyncFullSchemaPropertiesListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SyncFullSchemaPropertiesListResultIterator) Response() SyncFullSchemaPropertiesListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SyncFullSchemaPropertiesListResultIterator) Value() SyncFullSchemaProperties {
-	if !iter.page.NotDone() {
-		return SyncFullSchemaProperties{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sfsplr SyncFullSchemaPropertiesListResult) IsEmpty() bool {
-	return sfsplr.Value == nil || len(*sfsplr.Value) == 0
-}
-
-// syncFullSchemaPropertiesListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sfsplr SyncFullSchemaPropertiesListResult) syncFullSchemaPropertiesListResultPreparer() (*http.Request, error) {
-	if sfsplr.NextLink == nil || len(to.String(sfsplr.NextLink)) < 1 {
+// SyncFullSchemaPropertiesListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SyncFullSchemaPropertiesListResult) SyncFullSchemaPropertiesListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sfsplr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SyncFullSchemaPropertiesListResultPage contains a page of SyncFullSchemaProperties values.
-type SyncFullSchemaPropertiesListResultPage struct {
-	fn     func(SyncFullSchemaPropertiesListResult) (SyncFullSchemaPropertiesListResult, error)
-	sfsplr SyncFullSchemaPropertiesListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SyncFullSchemaPropertiesListResultPage) Next() error {
-	next, err := page.fn(page.sfsplr)
-	if err != nil {
-		return err
-	}
-	page.sfsplr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SyncFullSchemaPropertiesListResultPage) NotDone() bool {
-	return !page.sfsplr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SyncFullSchemaPropertiesListResultPage) Response() SyncFullSchemaPropertiesListResult {
-	return page.sfsplr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SyncFullSchemaPropertiesListResultPage) Values() []SyncFullSchemaProperties {
-	if page.sfsplr.IsEmpty() {
-		return nil
-	}
-	return *page.sfsplr.Value
-}
-
-// SyncFullSchemaTable properties of the table in the database full schema.
+// SyncFullSchemaTable is properties of the table in the database full schema.
 type SyncFullSchemaTable struct {
-	// Columns - List of columns in the table of database full schema.
-	Columns *[]SyncFullSchemaTableColumn `json:"columns,omitempty"`
-	// ErrorID - Error id of the table.
-	ErrorID *string `json:"errorId,omitempty"`
-	// HasError - If there is error in the table.
-	HasError *bool `json:"hasError,omitempty"`
-	// Name - Name of the table.
-	Name *string `json:"name,omitempty"`
-	// QuotedName - Quoted name of the table.
-	QuotedName *string `json:"quotedName,omitempty"`
+	Columns    *[]SyncFullSchemaTableColumn `json:"columns,omitempty"`
+	ErrorID    *string                      `json:"errorId,omitempty"`
+	HasError   *bool                        `json:"hasError,omitempty"`
+	Name       *string                      `json:"name,omitempty"`
+	QuotedName *string                      `json:"quotedName,omitempty"`
 }
 
-// SyncFullSchemaTableColumn properties of the column in the table of database full schema.
+// SyncFullSchemaTableColumn is properties of the column in the table of database full schema.
 type SyncFullSchemaTableColumn struct {
-	// DataSize - Data size of the column.
-	DataSize *string `json:"dataSize,omitempty"`
-	// DataType - Data type of the column.
-	DataType *string `json:"dataType,omitempty"`
-	// ErrorID - Error id of the column.
-	ErrorID *string `json:"errorId,omitempty"`
-	// HasError - If there is error in the table.
-	HasError *bool `json:"hasError,omitempty"`
-	// IsPrimaryKey - If it is the primary key of the table.
-	IsPrimaryKey *bool `json:"isPrimaryKey,omitempty"`
-	// Name - Name of the column.
-	Name *string `json:"name,omitempty"`
-	// QuotedName - Quoted name of the column.
-	QuotedName *string `json:"quotedName,omitempty"`
+	DataSize     *string `json:"dataSize,omitempty"`
+	DataType     *string `json:"dataType,omitempty"`
+	ErrorID      *string `json:"errorId,omitempty"`
+	HasError     *bool   `json:"hasError,omitempty"`
+	IsPrimaryKey *bool   `json:"isPrimaryKey,omitempty"`
+	Name         *string `json:"name,omitempty"`
+	QuotedName   *string `json:"quotedName,omitempty"`
 }
 
-// SyncGroup an Azure SQL Database sync group.
+// SyncGroup is an Azure SQL Database sync group.
 type SyncGroup struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// SyncGroupProperties - Resource properties.
+	autorest.Response    `json:"-"`
+	ID                   *string `json:"id,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	*SyncGroupProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SyncGroup struct.
-func (sg *SyncGroup) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SyncGroupProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sg.SyncGroupProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sg.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sg.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		sg.Type = &typeVar
-	}
-
-	return nil
-}
-
-// SyncGroupListResult a list of sync groups.
+// SyncGroupListResult is a list of sync groups.
 type SyncGroupListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SyncGroup `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SyncGroup `json:"value,omitempty"`
+	NextLink          *string      `json:"nextLink,omitempty"`
 }
 
-// SyncGroupListResultIterator provides access to a complete listing of SyncGroup values.
-type SyncGroupListResultIterator struct {
-	i    int
-	page SyncGroupListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SyncGroupListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SyncGroupListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SyncGroupListResultIterator) Response() SyncGroupListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SyncGroupListResultIterator) Value() SyncGroup {
-	if !iter.page.NotDone() {
-		return SyncGroup{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sglr SyncGroupListResult) IsEmpty() bool {
-	return sglr.Value == nil || len(*sglr.Value) == 0
-}
-
-// syncGroupListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sglr SyncGroupListResult) syncGroupListResultPreparer() (*http.Request, error) {
-	if sglr.NextLink == nil || len(to.String(sglr.NextLink)) < 1 {
+// SyncGroupListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SyncGroupListResult) SyncGroupListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SyncGroupListResultPage contains a page of SyncGroup values.
-type SyncGroupListResultPage struct {
-	fn   func(SyncGroupListResult) (SyncGroupListResult, error)
-	sglr SyncGroupListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SyncGroupListResultPage) Next() error {
-	next, err := page.fn(page.sglr)
-	if err != nil {
-		return err
-	}
-	page.sglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SyncGroupListResultPage) NotDone() bool {
-	return !page.sglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SyncGroupListResultPage) Response() SyncGroupListResult {
-	return page.sglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SyncGroupListResultPage) Values() []SyncGroup {
-	if page.sglr.IsEmpty() {
-		return nil
-	}
-	return *page.sglr.Value
-}
-
-// SyncGroupLogListResult a list of sync group log properties.
+// SyncGroupLogListResult is a list of sync group log properties.
 type SyncGroupLogListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SyncGroupLogProperties `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SyncGroupLogProperties `json:"value,omitempty"`
+	NextLink          *string                   `json:"nextLink,omitempty"`
 }
 
-// SyncGroupLogListResultIterator provides access to a complete listing of SyncGroupLogProperties values.
-type SyncGroupLogListResultIterator struct {
-	i    int
-	page SyncGroupLogListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SyncGroupLogListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SyncGroupLogListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SyncGroupLogListResultIterator) Response() SyncGroupLogListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SyncGroupLogListResultIterator) Value() SyncGroupLogProperties {
-	if !iter.page.NotDone() {
-		return SyncGroupLogProperties{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sgllr SyncGroupLogListResult) IsEmpty() bool {
-	return sgllr.Value == nil || len(*sgllr.Value) == 0
-}
-
-// syncGroupLogListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sgllr SyncGroupLogListResult) syncGroupLogListResultPreparer() (*http.Request, error) {
-	if sgllr.NextLink == nil || len(to.String(sgllr.NextLink)) < 1 {
+// SyncGroupLogListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SyncGroupLogListResult) SyncGroupLogListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sgllr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SyncGroupLogListResultPage contains a page of SyncGroupLogProperties values.
-type SyncGroupLogListResultPage struct {
-	fn    func(SyncGroupLogListResult) (SyncGroupLogListResult, error)
-	sgllr SyncGroupLogListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SyncGroupLogListResultPage) Next() error {
-	next, err := page.fn(page.sgllr)
-	if err != nil {
-		return err
-	}
-	page.sgllr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SyncGroupLogListResultPage) NotDone() bool {
-	return !page.sgllr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SyncGroupLogListResultPage) Response() SyncGroupLogListResult {
-	return page.sgllr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SyncGroupLogListResultPage) Values() []SyncGroupLogProperties {
-	if page.sgllr.IsEmpty() {
-		return nil
-	}
-	return *page.sgllr.Value
-}
-
-// SyncGroupLogProperties properties of an Azure SQL Database sync group log.
+// SyncGroupLogProperties is properties of an Azure SQL Database sync group log.
 type SyncGroupLogProperties struct {
-	// Timestamp - Timestamp of the sync group log.
-	Timestamp *date.Time `json:"timestamp,omitempty"`
-	// Type - Type of the sync group log. Possible values include: 'SyncGroupLogTypeAll', 'SyncGroupLogTypeError', 'SyncGroupLogTypeWarning', 'SyncGroupLogTypeSuccess'
-	Type SyncGroupLogType `json:"type,omitempty"`
-	// Source - Source of the sync group log.
-	Source *string `json:"source,omitempty"`
-	// Details - Details of the sync group log.
-	Details *string `json:"details,omitempty"`
-	// TracingID - TracingId of the sync group log.
-	TracingID *uuid.UUID `json:"tracingId,omitempty"`
-	// OperationStatus - OperationStatus of the sync group log.
-	OperationStatus *string `json:"operationStatus,omitempty"`
+	Timestamp       *date.Time       `json:"timestamp,omitempty"`
+	Type            SyncGroupLogType `json:"type,omitempty"`
+	Source          *string          `json:"source,omitempty"`
+	Details         *string          `json:"details,omitempty"`
+	TracingID       *uuid.UUID       `json:"tracingId,omitempty"`
+	OperationStatus *string          `json:"operationStatus,omitempty"`
 }
 
-// SyncGroupProperties properties of a sync group.
+// SyncGroupProperties is properties of a sync group.
 type SyncGroupProperties struct {
-	// Interval - Sync interval of the sync group.
-	Interval *int32 `json:"interval,omitempty"`
-	// LastSyncTime - Last sync time of the sync group.
-	LastSyncTime *date.Time `json:"lastSyncTime,omitempty"`
-	// ConflictResolutionPolicy - Conflict resolution policy of the sync group. Possible values include: 'HubWin', 'MemberWin'
+	Interval                 *int32                       `json:"interval,omitempty"`
+	LastSyncTime             *date.Time                   `json:"lastSyncTime,omitempty"`
 	ConflictResolutionPolicy SyncConflictResolutionPolicy `json:"conflictResolutionPolicy,omitempty"`
-	// SyncDatabaseID - ARM resource id of the sync database in the sync group.
-	SyncDatabaseID *string `json:"syncDatabaseId,omitempty"`
-	// HubDatabaseUserName - User name for the sync group hub database credential.
-	HubDatabaseUserName *string `json:"hubDatabaseUserName,omitempty"`
-	// HubDatabasePassword - Password for the sync group hub database credential.
-	HubDatabasePassword *string `json:"hubDatabasePassword,omitempty"`
-	// SyncState - Sync state of the sync group. Possible values include: 'NotReady', 'Error', 'Warning', 'Progressing', 'Good'
-	SyncState SyncGroupState `json:"syncState,omitempty"`
-	// Schema - Sync schema of the sync group.
-	Schema *SyncGroupSchema `json:"schema,omitempty"`
+	SyncDatabaseID           *string                      `json:"syncDatabaseId,omitempty"`
+	HubDatabaseUserName      *string                      `json:"hubDatabaseUserName,omitempty"`
+	HubDatabasePassword      *string                      `json:"hubDatabasePassword,omitempty"`
+	SyncState                SyncGroupState               `json:"syncState,omitempty"`
+	Schema                   *SyncGroupSchema             `json:"schema,omitempty"`
 }
 
-// SyncGroupSchema properties of sync group schema.
+// SyncGroupSchema is properties of sync group schema.
 type SyncGroupSchema struct {
-	// Tables - List of tables in sync group schema.
-	Tables *[]SyncGroupSchemaTable `json:"tables,omitempty"`
-	// MasterSyncMemberName - Name of master sync member where the schema is from.
-	MasterSyncMemberName *string `json:"masterSyncMemberName,omitempty"`
+	Tables               *[]SyncGroupSchemaTable `json:"tables,omitempty"`
+	MasterSyncMemberName *string                 `json:"masterSyncMemberName,omitempty"`
 }
 
-// SyncGroupSchemaTable properties of table in sync group schema.
+// SyncGroupSchemaTable is properties of table in sync group schema.
 type SyncGroupSchemaTable struct {
-	// Columns - List of columns in sync group schema.
-	Columns *[]SyncGroupSchemaTableColumn `json:"columns,omitempty"`
-	// QuotedName - Quoted name of sync group schema table.
-	QuotedName *string `json:"quotedName,omitempty"`
+	Columns    *[]SyncGroupSchemaTableColumn `json:"columns,omitempty"`
+	QuotedName *string                       `json:"quotedName,omitempty"`
 }
 
-// SyncGroupSchemaTableColumn properties of column in sync group table.
+// SyncGroupSchemaTableColumn is properties of column in sync group table.
 type SyncGroupSchemaTableColumn struct {
-	// QuotedName - Quoted name of sync group table column.
 	QuotedName *string `json:"quotedName,omitempty"`
-	// DataSize - Data size of the column.
-	DataSize *string `json:"dataSize,omitempty"`
-	// DataType - Data type of the column.
-	DataType *string `json:"dataType,omitempty"`
+	DataSize   *string `json:"dataSize,omitempty"`
+	DataType   *string `json:"dataType,omitempty"`
 }
 
-// SyncGroupsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SyncGroupsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncGroupsCreateOrUpdateFuture) Result(client SyncGroupsClient) (sg SyncGroup, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sg, autorest.NewError("sql.SyncGroupsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sg, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sg, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// SyncGroupsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SyncGroupsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncGroupsDeleteFuture) Result(client SyncGroupsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.SyncGroupsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// SyncGroupsRefreshHubSchemaFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type SyncGroupsRefreshHubSchemaFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncGroupsRefreshHubSchemaFuture) Result(client SyncGroupsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.SyncGroupsRefreshHubSchemaFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.RefreshHubSchemaResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.RefreshHubSchemaResponder(resp)
-	return
-}
-
-// SyncGroupsUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SyncGroupsUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncGroupsUpdateFuture) Result(client SyncGroupsClient) (sg SyncGroup, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sg, autorest.NewError("sql.SyncGroupsUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sg, err = client.UpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sg, err = client.UpdateResponder(resp)
-	return
-}
-
-// SyncMember an Azure SQL Database sync member.
+// SyncMember is an Azure SQL Database sync member.
 type SyncMember struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// SyncMemberProperties - Resource properties.
+	autorest.Response     `json:"-"`
+	ID                    *string `json:"id,omitempty"`
+	Name                  *string `json:"name,omitempty"`
+	Type                  *string `json:"type,omitempty"`
 	*SyncMemberProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SyncMember struct.
-func (sm *SyncMember) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SyncMemberProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sm.SyncMemberProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sm.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sm.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		sm.Type = &typeVar
-	}
-
-	return nil
-}
-
-// SyncMemberListResult a list of Azure SQL Database sync members.
+// SyncMemberListResult is a list of Azure SQL Database sync members.
 type SyncMemberListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]SyncMember `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SyncMember `json:"value,omitempty"`
+	NextLink          *string       `json:"nextLink,omitempty"`
 }
 
-// SyncMemberListResultIterator provides access to a complete listing of SyncMember values.
-type SyncMemberListResultIterator struct {
-	i    int
-	page SyncMemberListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SyncMemberListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SyncMemberListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SyncMemberListResultIterator) Response() SyncMemberListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SyncMemberListResultIterator) Value() SyncMember {
-	if !iter.page.NotDone() {
-		return SyncMember{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (smlr SyncMemberListResult) IsEmpty() bool {
-	return smlr.Value == nil || len(*smlr.Value) == 0
-}
-
-// syncMemberListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (smlr SyncMemberListResult) syncMemberListResultPreparer() (*http.Request, error) {
-	if smlr.NextLink == nil || len(to.String(smlr.NextLink)) < 1 {
+// SyncMemberListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SyncMemberListResult) SyncMemberListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(smlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SyncMemberListResultPage contains a page of SyncMember values.
-type SyncMemberListResultPage struct {
-	fn   func(SyncMemberListResult) (SyncMemberListResult, error)
-	smlr SyncMemberListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SyncMemberListResultPage) Next() error {
-	next, err := page.fn(page.smlr)
-	if err != nil {
-		return err
-	}
-	page.smlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SyncMemberListResultPage) NotDone() bool {
-	return !page.smlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SyncMemberListResultPage) Response() SyncMemberListResult {
-	return page.smlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SyncMemberListResultPage) Values() []SyncMember {
-	if page.smlr.IsEmpty() {
-		return nil
-	}
-	return *page.smlr.Value
-}
-
-// SyncMemberProperties properties of a sync member.
+// SyncMemberProperties is properties of a sync member.
 type SyncMemberProperties struct {
-	// DatabaseType - Database type of the sync member. Possible values include: 'AzureSQLDatabase', 'SQLServerDatabase'
-	DatabaseType SyncMemberDbType `json:"databaseType,omitempty"`
-	// SyncAgentID - ARM resource id of the sync agent in the sync member.
-	SyncAgentID *string `json:"syncAgentId,omitempty"`
-	// SQLServerDatabaseID - SQL Server database id of the sync member.
-	SQLServerDatabaseID *uuid.UUID `json:"sqlServerDatabaseId,omitempty"`
-	// ServerName - Server name of the member database in the sync member
-	ServerName *string `json:"serverName,omitempty"`
-	// DatabaseName - Database name of the member database in the sync member.
-	DatabaseName *string `json:"databaseName,omitempty"`
-	// UserName - User name of the member database in the sync member.
-	UserName *string `json:"userName,omitempty"`
-	// Password - Password of the member database in the sync member.
-	Password *string `json:"password,omitempty"`
-	// SyncDirection - Sync direction of the sync member. Possible values include: 'Bidirectional', 'OneWayMemberToHub', 'OneWayHubToMember'
-	SyncDirection SyncDirection `json:"syncDirection,omitempty"`
-	// SyncState - Sync state of the sync member. Possible values include: 'SyncInProgress', 'SyncSucceeded', 'SyncFailed', 'DisabledTombstoneCleanup', 'DisabledBackupRestore', 'SyncSucceededWithWarnings', 'SyncCancelling', 'SyncCancelled', 'UnProvisioned', 'Provisioning', 'Provisioned', 'ProvisionFailed', 'DeProvisioning', 'DeProvisioned', 'DeProvisionFailed', 'Reprovisioning', 'ReprovisionFailed', 'UnReprovisioned'
-	SyncState SyncMemberState `json:"syncState,omitempty"`
+	DatabaseType        SyncMemberDbType `json:"databaseType,omitempty"`
+	SyncAgentID         *string          `json:"syncAgentId,omitempty"`
+	SQLServerDatabaseID *uuid.UUID       `json:"sqlServerDatabaseId,omitempty"`
+	ServerName          *string          `json:"serverName,omitempty"`
+	DatabaseName        *string          `json:"databaseName,omitempty"`
+	UserName            *string          `json:"userName,omitempty"`
+	Password            *string          `json:"password,omitempty"`
+	SyncDirection       SyncDirection    `json:"syncDirection,omitempty"`
+	SyncState           SyncMemberState  `json:"syncState,omitempty"`
 }
 
-// SyncMembersCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type SyncMembersCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncMembersCreateOrUpdateFuture) Result(client SyncMembersClient) (sm SyncMember, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sm, autorest.NewError("sql.SyncMembersCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sm, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sm, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// SyncMembersDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SyncMembersDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncMembersDeleteFuture) Result(client SyncMembersClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.SyncMembersDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// SyncMembersRefreshMemberSchemaFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type SyncMembersRefreshMemberSchemaFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncMembersRefreshMemberSchemaFuture) Result(client SyncMembersClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.SyncMembersRefreshMemberSchemaFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.RefreshMemberSchemaResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.RefreshMemberSchemaResponder(resp)
-	return
-}
-
-// SyncMembersUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SyncMembersUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SyncMembersUpdateFuture) Result(client SyncMembersClient) (sm SyncMember, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sm, autorest.NewError("sql.SyncMembersUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sm, err = client.UpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sm, err = client.UpdateResponder(resp)
-	return
-}
-
-// TrackedResource ARM tracked top level resource.
+// TrackedResource is ARM tracked top level resource.
 type TrackedResource struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Tags - Resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
+	Location *string             `json:"location,omitempty"`
 }
 
-// TransparentDataEncryption represents a database transparent data encryption configuration.
+// TransparentDataEncryption is represents a database transparent data encryption configuration.
 type TransparentDataEncryption struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// TransparentDataEncryptionProperties - Represents the properties of the resource.
+	autorest.Response                    `json:"-"`
+	ID                                   *string `json:"id,omitempty"`
+	Name                                 *string `json:"name,omitempty"`
+	Type                                 *string `json:"type,omitempty"`
+	Location                             *string `json:"location,omitempty"`
 	*TransparentDataEncryptionProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for TransparentDataEncryption struct.
-func (tde *TransparentDataEncryption) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		tde.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties TransparentDataEncryptionProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		tde.TransparentDataEncryptionProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		tde.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		tde.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		tde.Type = &typeVar
-	}
-
-	return nil
-}
-
-// TransparentDataEncryptionActivity represents a database transparent data encryption Scan.
+// TransparentDataEncryptionActivity is represents a database transparent data encryption Scan.
 type TransparentDataEncryptionActivity struct {
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location.
-	Location *string `json:"location,omitempty"`
-	// TransparentDataEncryptionActivityProperties - Represents the properties of the resource.
+	ID                                           *string `json:"id,omitempty"`
+	Name                                         *string `json:"name,omitempty"`
+	Type                                         *string `json:"type,omitempty"`
+	Location                                     *string `json:"location,omitempty"`
 	*TransparentDataEncryptionActivityProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for TransparentDataEncryptionActivity struct.
-func (tdea *TransparentDataEncryptionActivity) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		tdea.Location = &location
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties TransparentDataEncryptionActivityProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		tdea.TransparentDataEncryptionActivityProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		tdea.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		tdea.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		tdea.Type = &typeVar
-	}
-
-	return nil
-}
-
-// TransparentDataEncryptionActivityListResult represents the response to a list database transparent data encryption
-// activity request.
+// TransparentDataEncryptionActivityListResult is represents the response to a list database transparent data
+// encryption activity request.
 type TransparentDataEncryptionActivityListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of database transparent data encryption activities.
-	Value *[]TransparentDataEncryptionActivity `json:"value,omitempty"`
+	Value             *[]TransparentDataEncryptionActivity `json:"value,omitempty"`
 }
 
-// TransparentDataEncryptionActivityProperties represents the properties of a database transparent data encryption
+// TransparentDataEncryptionActivityProperties is represents the properties of a database transparent data encryption
 // Scan.
 type TransparentDataEncryptionActivityProperties struct {
-	// Status - The status of the database. Possible values include: 'Encrypting', 'Decrypting'
-	Status TransparentDataEncryptionActivityStatus `json:"status,omitempty"`
-	// PercentComplete - The percent complete of the transparent data encryption scan for a database.
-	PercentComplete *float64 `json:"percentComplete,omitempty"`
+	Status          TransparentDataEncryptionActivityStatus `json:"status,omitempty"`
+	PercentComplete *float64                                `json:"percentComplete,omitempty"`
 }
 
-// TransparentDataEncryptionProperties represents the properties of a database transparent data encryption.
+// TransparentDataEncryptionProperties is represents the properties of a database transparent data encryption.
 type TransparentDataEncryptionProperties struct {
-	// Status - The status of the database transparent data encryption. Possible values include: 'TransparentDataEncryptionStatusEnabled', 'TransparentDataEncryptionStatusDisabled'
 	Status TransparentDataEncryptionStatus `json:"status,omitempty"`
 }
 
-// VirtualNetworkRule a virtual network rule.
+// VirtualNetworkRule is a virtual network rule.
 type VirtualNetworkRule struct {
-	autorest.Response `json:"-"`
-	// ID - Resource ID.
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type.
-	Type *string `json:"type,omitempty"`
-	// VirtualNetworkRuleProperties - Resource properties.
+	autorest.Response             `json:"-"`
+	ID                            *string `json:"id,omitempty"`
+	Name                          *string `json:"name,omitempty"`
+	Type                          *string `json:"type,omitempty"`
 	*VirtualNetworkRuleProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VirtualNetworkRule struct.
-func (vnr *VirtualNetworkRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VirtualNetworkRuleProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vnr.VirtualNetworkRuleProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vnr.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vnr.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		vnr.Type = &typeVar
-	}
-
-	return nil
-}
-
-// VirtualNetworkRuleListResult a list of virtual network rules.
+// VirtualNetworkRuleListResult is a list of virtual network rules.
 type VirtualNetworkRuleListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Array of results.
-	Value *[]VirtualNetworkRule `json:"value,omitempty"`
-	// NextLink - Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]VirtualNetworkRule `json:"value,omitempty"`
+	NextLink          *string               `json:"nextLink,omitempty"`
 }
 
-// VirtualNetworkRuleListResultIterator provides access to a complete listing of VirtualNetworkRule values.
-type VirtualNetworkRuleListResultIterator struct {
-	i    int
-	page VirtualNetworkRuleListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *VirtualNetworkRuleListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter VirtualNetworkRuleListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter VirtualNetworkRuleListResultIterator) Response() VirtualNetworkRuleListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter VirtualNetworkRuleListResultIterator) Value() VirtualNetworkRule {
-	if !iter.page.NotDone() {
-		return VirtualNetworkRule{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (vnrlr VirtualNetworkRuleListResult) IsEmpty() bool {
-	return vnrlr.Value == nil || len(*vnrlr.Value) == 0
-}
-
-// virtualNetworkRuleListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (vnrlr VirtualNetworkRuleListResult) virtualNetworkRuleListResultPreparer() (*http.Request, error) {
-	if vnrlr.NextLink == nil || len(to.String(vnrlr.NextLink)) < 1 {
+// VirtualNetworkRuleListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client VirtualNetworkRuleListResult) VirtualNetworkRuleListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(vnrlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// VirtualNetworkRuleListResultPage contains a page of VirtualNetworkRule values.
-type VirtualNetworkRuleListResultPage struct {
-	fn    func(VirtualNetworkRuleListResult) (VirtualNetworkRuleListResult, error)
-	vnrlr VirtualNetworkRuleListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *VirtualNetworkRuleListResultPage) Next() error {
-	next, err := page.fn(page.vnrlr)
-	if err != nil {
-		return err
-	}
-	page.vnrlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page VirtualNetworkRuleListResultPage) NotDone() bool {
-	return !page.vnrlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page VirtualNetworkRuleListResultPage) Response() VirtualNetworkRuleListResult {
-	return page.vnrlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page VirtualNetworkRuleListResultPage) Values() []VirtualNetworkRule {
-	if page.vnrlr.IsEmpty() {
-		return nil
-	}
-	return *page.vnrlr.Value
-}
-
-// VirtualNetworkRuleProperties properties of a virtual network rule.
+// VirtualNetworkRuleProperties is properties of a virtual network rule.
 type VirtualNetworkRuleProperties struct {
-	// VirtualNetworkSubnetID - The ARM resource id of the virtual network subnet.
-	VirtualNetworkSubnetID *string `json:"virtualNetworkSubnetId,omitempty"`
-	// IgnoreMissingVnetServiceEndpoint - Create firewall rule before the virtual network has vnet service endpoint enabled.
-	IgnoreMissingVnetServiceEndpoint *bool `json:"ignoreMissingVnetServiceEndpoint,omitempty"`
-	// State - Virtual Network Rule State. Possible values include: 'Initializing', 'InProgress', 'Ready', 'Deleting', 'Unknown'
-	State VirtualNetworkRuleState `json:"state,omitempty"`
-}
-
-// VirtualNetworkRulesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type VirtualNetworkRulesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkRulesCreateOrUpdateFuture) Result(client VirtualNetworkRulesClient) (vnr VirtualNetworkRule, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return vnr, autorest.NewError("sql.VirtualNetworkRulesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		vnr, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	vnr, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// VirtualNetworkRulesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type VirtualNetworkRulesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkRulesDeleteFuture) Result(client VirtualNetworkRulesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("sql.VirtualNetworkRulesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
+	VirtualNetworkSubnetID           *string                 `json:"virtualNetworkSubnetId,omitempty"`
+	IgnoreMissingVnetServiceEndpoint *bool                   `json:"ignoreMissingVnetServiceEndpoint,omitempty"`
+	State                            VirtualNetworkRuleState `json:"state,omitempty"`
 }

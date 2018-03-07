@@ -27,7 +27,6 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/Azure/go-autorest/autorest/date"
@@ -245,14 +244,13 @@ func (secret *ServicePrincipalCertificateSecret) SetAuthenticationValues(spt *Se
 type ServicePrincipalToken struct {
 	Token
 
-	secret          ServicePrincipalSecret
-	oauthConfig     OAuthConfig
-	clientID        string
-	resource        string
-	autoRefresh     bool
-	autoRefreshLock *sync.Mutex
-	refreshWithin   time.Duration
-	sender          Sender
+	secret        ServicePrincipalSecret
+	oauthConfig   OAuthConfig
+	clientID      string
+	resource      string
+	autoRefresh   bool
+	refreshWithin time.Duration
+	sender        Sender
 
 	refreshCallbacks []TokenRefreshCallback
 }
@@ -284,7 +282,6 @@ func NewServicePrincipalTokenWithSecret(oauthConfig OAuthConfig, id string, reso
 		clientID:         id,
 		resource:         resource,
 		autoRefresh:      true,
-		autoRefreshLock:  &sync.Mutex{},
 		refreshWithin:    defaultRefresh,
 		sender:           &http.Client{},
 		refreshCallbacks: callbacks,
@@ -463,29 +460,7 @@ func getMSIVMEndpoint(path string) (string, error) {
 }
 
 // NewServicePrincipalTokenFromMSI creates a ServicePrincipalToken via the MSI VM Extension.
-// It will use the system assigned identity when creating the token.
 func NewServicePrincipalTokenFromMSI(msiEndpoint, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
-	return newServicePrincipalTokenFromMSI(msiEndpoint, resource, nil, callbacks...)
-}
-
-// NewServicePrincipalTokenFromMSIWithUserAssignedID creates a ServicePrincipalToken via the MSI VM Extension.
-// It will use the specified user assigned identity when creating the token.
-func NewServicePrincipalTokenFromMSIWithUserAssignedID(msiEndpoint, resource string, userAssignedID string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
-	return newServicePrincipalTokenFromMSI(msiEndpoint, resource, &userAssignedID, callbacks...)
-}
-
-func newServicePrincipalTokenFromMSI(msiEndpoint, resource string, userAssignedID *string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
-	if err := validateStringParam(msiEndpoint, "msiEndpoint"); err != nil {
-		return nil, err
-	}
-	if err := validateStringParam(resource, "resource"); err != nil {
-		return nil, err
-	}
-	if userAssignedID != nil {
-		if err := validateStringParam(*userAssignedID, "userAssignedID"); err != nil {
-			return nil, err
-		}
-	}
 	// We set the oauth config token endpoint to be MSI's endpoint
 	msiEndpointURL, err := url.Parse(msiEndpoint)
 	if err != nil {
@@ -502,14 +477,9 @@ func newServicePrincipalTokenFromMSI(msiEndpoint, resource string, userAssignedI
 		secret:           &ServicePrincipalMSISecret{},
 		resource:         resource,
 		autoRefresh:      true,
-		autoRefreshLock:  &sync.Mutex{},
 		refreshWithin:    defaultRefresh,
 		sender:           &http.Client{},
 		refreshCallbacks: callbacks,
-	}
-
-	if userAssignedID != nil {
-		spt.clientID = *userAssignedID
 	}
 
 	return spt, nil
@@ -536,15 +506,10 @@ func newTokenRefreshError(message string, resp *http.Response) TokenRefreshError
 }
 
 // EnsureFresh will refresh the token if it will expire within the refresh window (as set by
-// RefreshWithin) and autoRefresh flag is on.  This method is safe for concurrent use.
+// RefreshWithin) and autoRefresh flag is on.
 func (spt *ServicePrincipalToken) EnsureFresh() error {
 	if spt.autoRefresh && spt.WillExpireIn(spt.refreshWithin) {
-		// take the lock then check to see if the token was already refreshed
-		spt.autoRefreshLock.Lock()
-		defer spt.autoRefreshLock.Unlock()
-		if spt.WillExpireIn(spt.refreshWithin) {
-			return spt.Refresh()
-		}
+		return spt.Refresh()
 	}
 	return nil
 }
@@ -563,13 +528,11 @@ func (spt *ServicePrincipalToken) InvokeRefreshCallbacks(token Token) error {
 }
 
 // Refresh obtains a fresh token for the Service Principal.
-// This method is not safe for concurrent use and should be syncrhonized.
 func (spt *ServicePrincipalToken) Refresh() error {
 	return spt.refreshInternal(spt.resource)
 }
 
 // RefreshExchange refreshes the token, but for a different resource.
-// This method is not safe for concurrent use and should be syncrhonized.
 func (spt *ServicePrincipalToken) RefreshExchange(resource string) error {
 	return spt.refreshInternal(resource)
 }

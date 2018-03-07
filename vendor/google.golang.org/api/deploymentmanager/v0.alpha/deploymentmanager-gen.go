@@ -209,7 +209,7 @@ func (s *AsyncOptions) MarshalJSON() ([]byte, error) {
 // If there are AuditConfigs for both `allServices` and a specific
 // service, the union of the two AuditConfigs is used for that service:
 // the log_types specified in each AuditConfig are enabled, and the
-// exempted_members in each AuditLogConfig are exempted.
+// exempted_members in each AuditConfig are exempted.
 //
 // Example Policy with multiple AuditConfigs:
 //
@@ -366,8 +366,7 @@ type Binding struct {
 	// Condition: The condition that is associated with this binding. NOTE:
 	// an unsatisfied condition will not allow user access via current
 	// binding. Different bindings, including their conditions, are examined
-	// independently. This field is only visible as GOOGLE_INTERNAL or
-	// CONDITION_TRUSTED_TESTER.
+	// independently. This field is GOOGLE_INTERNAL.
 	Condition *Expr `json:"condition,omitempty"`
 
 	// Members: Specifies the identities requesting access for a Cloud
@@ -432,10 +431,6 @@ type CollectionOverride struct {
 	// Collection: The collection that identifies this resource within its
 	// service.
 	Collection string `json:"collection,omitempty"`
-
-	// MethodMap: Custom verb method mappings to support unordered list API
-	// mappings.
-	MethodMap *MethodMap `json:"methodMap,omitempty"`
 
 	// Options: The options to apply to this resource-level override
 	Options *Options `json:"options,omitempty"`
@@ -1473,52 +1468,6 @@ func (s *ManifestsListResponse) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// MethodMap: Deployment Manager will call these methods during the
-// events of creation/deletion/update/get/setIamPolicy
-type MethodMap struct {
-	// Create: The action identifier for the create method to be used for
-	// this collection
-	Create string `json:"create,omitempty"`
-
-	// Delete: The action identifier for the delete method to be used for
-	// this collection
-	Delete string `json:"delete,omitempty"`
-
-	// Get: The action identifier for the get method to be used for this
-	// collection
-	Get string `json:"get,omitempty"`
-
-	// SetIamPolicy: The action identifier for the setIamPolicy method to be
-	// used for this collection
-	SetIamPolicy string `json:"setIamPolicy,omitempty"`
-
-	// Update: The action identifier for the update method to be used for
-	// this collection
-	Update string `json:"update,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Create") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Create") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *MethodMap) MarshalJSON() ([]byte, error) {
-	type NoMethod MethodMap
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
 // Operation: An Operation resource, used to manage asynchronous API
 // requests. (== resource_for v1.globalOperations ==) (== resource_for
 // beta.globalOperations ==) (== resource_for v1.regionOperations ==)
@@ -1579,9 +1528,7 @@ type Operation struct {
 	Progress int64 `json:"progress,omitempty"`
 
 	// Region: [Output Only] The URL of the region where the operation
-	// resides. Only available when performing regional operations. You must
-	// specify this field as part of the HTTP request URL. It is not
-	// settable as a field in the request body.
+	// resides. Only available when performing regional operations.
 	Region string `json:"region,omitempty"`
 
 	// SelfLink: [Output Only] Server-defined URL for the resource.
@@ -1617,9 +1564,7 @@ type Operation struct {
 	Warnings []*OperationWarnings `json:"warnings,omitempty"`
 
 	// Zone: [Output Only] The URL of the zone where the operation resides.
-	// Only available when performing per-zone operations. You must specify
-	// this field as part of the HTTP request URL. It is not settable as a
-	// field in the request body.
+	// Only available when performing per-zone operations.
 	Zone string `json:"zone,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
@@ -1889,7 +1834,7 @@ func (s *Options) MarshalJSON() ([]byte, error) {
 // }
 //
 // For a description of IAM and its features, see the [IAM developer's
-// guide](https://cloud.google.com/iam/docs).
+// guide](https://cloud.google.com/iam).
 type Policy struct {
 	// AuditConfigs: Specifies cloud audit logging configuration for this
 	// policy.
@@ -1924,7 +1869,7 @@ type Policy struct {
 	// denied.
 	Rules []*Rule `json:"rules,omitempty"`
 
-	// Version: Deprecated.
+	// Version: Version of the `Policy`. The default version is 0.
 	Version int64 `json:"version,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
@@ -2855,13 +2800,7 @@ type TypeProvider struct {
 	// ([a-z]([-a-z0-9]*[a-z0-9])?)?
 	Labels []*TypeProviderLabelEntry `json:"labels,omitempty"`
 
-	// Name: Name of the resource; provided by the client when the resource
-	// is created. The name must be 1-63 characters long, and comply with
-	// RFC1035. Specifically, the name must be 1-63 characters long and
-	// match the regular expression [a-z]([-a-z0-9]*[a-z0-9])? which means
-	// the first character must be a lowercase letter, and all following
-	// characters must be a dash, lowercase letter, or digit, except the
-	// last character, which cannot be a dash.
+	// Name: Name of the type provider.
 	Name string `json:"name,omitempty"`
 
 	// Operation: Output only. The Operation that most recently ran, or is
@@ -3515,28 +3454,32 @@ func (r *CompositeTypesService) List(project string) *CompositeTypesListCall {
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *CompositeTypesListCall) Filter(filter string) *CompositeTypesListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -3680,7 +3623,7 @@ func (c *CompositeTypesListCall) Do(opts ...googleapi.CallOption) (*CompositeTyp
 	//   ],
 	//   "parameters": {
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -4670,17 +4613,6 @@ func (r *DeploymentsService) Insert(project string, deployment *Deployment) *Dep
 	return c
 }
 
-// CreatePolicy sets the optional parameter "createPolicy":
-//
-// Possible values:
-//   "ACQUIRE"
-//   "CREATE"
-//   "CREATE_OR_ACQUIRE" (default)
-func (c *DeploymentsInsertCall) CreatePolicy(createPolicy string) *DeploymentsInsertCall {
-	c.urlParams_.Set("createPolicy", createPolicy)
-	return c
-}
-
 // Preview sets the optional parameter "preview": If set to true,
 // creates a deployment and creates "shell" resources but does not
 // actually instantiate these resources. This allows you to preview what
@@ -4788,22 +4720,6 @@ func (c *DeploymentsInsertCall) Do(opts ...googleapi.CallOption) (*Operation, er
 	//     "project"
 	//   ],
 	//   "parameters": {
-	//     "createPolicy": {
-	//       "default": "CREATE_OR_ACQUIRE",
-	//       "description": "",
-	//       "enum": [
-	//         "ACQUIRE",
-	//         "CREATE",
-	//         "CREATE_OR_ACQUIRE"
-	//       ],
-	//       "enumDescriptions": [
-	//         "",
-	//         "",
-	//         ""
-	//       ],
-	//       "location": "query",
-	//       "type": "string"
-	//     },
 	//     "preview": {
 	//       "description": "If set to true, creates a deployment and creates \"shell\" resources but does not actually instantiate these resources. This allows you to preview what your deployment looks like. After previewing a deployment, you can deploy your resources by making a request with the update() method or you can use the cancelPreview() method to cancel the preview altogether. Note that the deployment will still exist after you cancel the preview and you must separately delete this deployment if you want to remove it.",
 	//       "location": "query",
@@ -4850,28 +4766,32 @@ func (r *DeploymentsService) List(project string) *DeploymentsListCall {
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *DeploymentsListCall) Filter(filter string) *DeploymentsListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -5015,7 +4935,7 @@ func (c *DeploymentsListCall) Do(opts ...googleapi.CallOption) (*DeploymentsList
 	//   ],
 	//   "parameters": {
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -5107,7 +5027,6 @@ func (r *DeploymentsService) Patch(project string, deployment string, deployment
 //
 // Possible values:
 //   "ACQUIRE"
-//   "CREATE"
 //   "CREATE_OR_ACQUIRE" (default)
 func (c *DeploymentsPatchCall) CreatePolicy(createPolicy string) *DeploymentsPatchCall {
 	c.urlParams_.Set("createPolicy", createPolicy)
@@ -5241,11 +5160,9 @@ func (c *DeploymentsPatchCall) Do(opts ...googleapi.CallOption) (*Operation, err
 	//       "description": "Sets the policy to use for creating new resources.",
 	//       "enum": [
 	//         "ACQUIRE",
-	//         "CREATE",
 	//         "CREATE_OR_ACQUIRE"
 	//       ],
 	//       "enumDescriptions": [
-	//         "",
 	//         "",
 	//         ""
 	//       ],
@@ -5771,7 +5688,6 @@ func (r *DeploymentsService) Update(project string, deployment string, deploymen
 //
 // Possible values:
 //   "ACQUIRE"
-//   "CREATE"
 //   "CREATE_OR_ACQUIRE" (default)
 func (c *DeploymentsUpdateCall) CreatePolicy(createPolicy string) *DeploymentsUpdateCall {
 	c.urlParams_.Set("createPolicy", createPolicy)
@@ -5905,11 +5821,9 @@ func (c *DeploymentsUpdateCall) Do(opts ...googleapi.CallOption) (*Operation, er
 	//       "description": "Sets the policy to use for creating new resources.",
 	//       "enum": [
 	//         "ACQUIRE",
-	//         "CREATE",
 	//         "CREATE_OR_ACQUIRE"
 	//       ],
 	//       "enumDescriptions": [
-	//         "",
 	//         "",
 	//         ""
 	//       ],
@@ -6149,28 +6063,32 @@ func (r *ManifestsService) List(project string, deployment string) *ManifestsLis
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *ManifestsListCall) Filter(filter string) *ManifestsListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -6323,7 +6241,7 @@ func (c *ManifestsListCall) Do(opts ...googleapi.CallOption) (*ManifestsListResp
 	//       "type": "string"
 	//     },
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -6557,28 +6475,32 @@ func (r *OperationsService) List(project string) *OperationsListCall {
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *OperationsListCall) Filter(filter string) *OperationsListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -6722,7 +6644,7 @@ func (c *OperationsListCall) Do(opts ...googleapi.CallOption) (*OperationsListRe
 	//   ],
 	//   "parameters": {
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -6969,28 +6891,32 @@ func (r *ResourcesService) List(project string, deployment string) *ResourcesLis
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *ResourcesListCall) Filter(filter string) *ResourcesListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -7143,7 +7069,7 @@ func (c *ResourcesListCall) Do(opts ...googleapi.CallOption) (*ResourcesListResp
 	//       "type": "string"
 	//     },
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -7811,28 +7737,32 @@ func (r *TypeProvidersService) List(project string) *TypeProvidersListCall {
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *TypeProvidersListCall) Filter(filter string) *TypeProvidersListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -7976,7 +7906,7 @@ func (c *TypeProvidersListCall) Do(opts ...googleapi.CallOption) (*TypeProviders
 	//   ],
 	//   "parameters": {
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -8061,28 +7991,32 @@ func (r *TypeProvidersService) ListTypes(project string, typeProvider string) *T
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *TypeProvidersListTypesCall) Filter(filter string) *TypeProvidersListTypesCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -8228,7 +8162,7 @@ func (c *TypeProvidersListTypesCall) Do(opts ...googleapi.CallOption) (*TypeProv
 	//   ],
 	//   "parameters": {
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -9033,28 +8967,32 @@ func (r *TypesService) List(project string) *TypesListCall {
 	return c
 }
 
-// Filter sets the optional parameter "filter": A filter expression that
-// filters resources listed in the response. The expression must specify
-// the field name, a comparison operator, and the value that you want to
-// use for filtering. The value must be a string, a number, or a
-// boolean. The comparison operator must be either =, !=, >, or <.
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
 //
-// For example, if you are filtering Compute Engine instances, you can
-// exclude instances named example-instance by specifying name !=
-// example-instance.
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
 //
-// You can also filter nested fields. For example, you could specify
-// scheduling.automaticRestart = false to include instances only if they
-// are not scheduled for automatic restarts. You can use filtering on
-// nested fields to filter based on resource labels.
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
 //
 // To filter on multiple expressions, provide each separate expression
-// within parentheses. For example, (scheduling.automaticRestart = true)
-// (cpuPlatform = "Intel Skylake"). By default, each expression is an
-// AND expression. However, you can include AND and OR expressions
-// explicitly. For example, (cpuPlatform = "Intel Skylake") OR
-// (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart =
-// true).
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
 func (c *TypesListCall) Filter(filter string) *TypesListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -9198,7 +9136,7 @@ func (c *TypesListCall) Do(opts ...googleapi.CallOption) (*TypesListResponse, er
 	//   ],
 	//   "parameters": {
 	//     "filter": {
-	//       "description": "A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, \u003e, or \u003c.\n\nFor example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.\n\nYou can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true).",
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },

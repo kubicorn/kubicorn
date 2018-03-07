@@ -112,10 +112,9 @@ type Client struct {
 	nextid    uint32
 }
 
-// Create creates the named file mode 0666 (before umask), truncating it if it
-// already exists. If successful, methods on the returned File can be used for
-// I/O; the associated file descriptor has mode O_RDWR. If you need more
-// control over the flags/mode used to open the file see client.OpenFile.
+// Create creates the named file mode 0666 (before umask), truncating it if
+// it already exists. If successful, methods on the returned File can be
+// used for I/O; the associated file descriptor has mode O_RDWR.
 func (c *Client) Create(path string) (*File, error) {
 	return c.open(path, flags(os.O_RDWR|os.O_CREATE|os.O_TRUNC))
 }
@@ -563,26 +562,6 @@ func (c *Client) RemoveDirectory(path string) error {
 func (c *Client) Rename(oldname, newname string) error {
 	id := c.nextID()
 	typ, data, err := c.sendPacket(sshFxpRenamePacket{
-		ID:      id,
-		Oldpath: oldname,
-		Newpath: newname,
-	})
-	if err != nil {
-		return err
-	}
-	switch typ {
-	case ssh_FXP_STATUS:
-		return normaliseError(unmarshalStatus(id, data))
-	default:
-		return unimplementedPacketErr(typ)
-	}
-}
-
-// PosixRename renames a file using the posix-rename@openssh.com extension
-// which will replace newname if it already exists.
-func (c *Client) PosixRename(oldname, newname string) error {
-	id := c.nextID()
-	typ, data, err := c.sendPacket(sshFxpPosixRenamePacket{
 		ID:      id,
 		Oldpath: oldname,
 		Newpath: newname,

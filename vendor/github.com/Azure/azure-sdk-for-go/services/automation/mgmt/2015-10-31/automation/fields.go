@@ -18,7 +18,6 @@ package automation
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,31 +26,31 @@ import (
 
 // FieldsClient is the automation Client
 type FieldsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewFieldsClient creates an instance of the FieldsClient client.
-func NewFieldsClient(subscriptionID string, resourceGroupName string) FieldsClient {
-	return NewFieldsClientWithBaseURI(DefaultBaseURI, subscriptionID, resourceGroupName)
+func NewFieldsClient(subscriptionID string) FieldsClient {
+	return NewFieldsClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewFieldsClientWithBaseURI creates an instance of the FieldsClient client.
-func NewFieldsClientWithBaseURI(baseURI string, subscriptionID string, resourceGroupName string) FieldsClient {
-	return FieldsClient{NewWithBaseURI(baseURI, subscriptionID, resourceGroupName)}
+func NewFieldsClientWithBaseURI(baseURI string, subscriptionID string) FieldsClient {
+	return FieldsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
 // ListByType retrieve a list of fields of a given type identified by module name.
 //
-// automationAccountName is the automation account name. moduleName is the name of module. typeName is the name of
-// type.
-func (client FieldsClient) ListByType(ctx context.Context, automationAccountName string, moduleName string, typeName string) (result TypeFieldListResult, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. moduleName is
+// the name of module. typeName is the name of type.
+func (client FieldsClient) ListByType(resourceGroupName string, automationAccountName string, moduleName string, typeName string) (result TypeFieldListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.FieldsClient", "ListByType")
 	}
 
-	req, err := client.ListByTypePreparer(ctx, automationAccountName, moduleName, typeName)
+	req, err := client.ListByTypePreparer(resourceGroupName, automationAccountName, moduleName, typeName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.FieldsClient", "ListByType", nil, "Failure preparing request")
 		return
@@ -73,11 +72,11 @@ func (client FieldsClient) ListByType(ctx context.Context, automationAccountName
 }
 
 // ListByTypePreparer prepares the ListByType request.
-func (client FieldsClient) ListByTypePreparer(ctx context.Context, automationAccountName string, moduleName string, typeName string) (*http.Request, error) {
+func (client FieldsClient) ListByTypePreparer(resourceGroupName string, automationAccountName string, moduleName string, typeName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"moduleName":            autorest.Encode("path", moduleName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 		"typeName":              autorest.Encode("path", typeName),
 	}
@@ -92,13 +91,14 @@ func (client FieldsClient) ListByTypePreparer(ctx context.Context, automationAcc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/modules/{moduleName}/types/{typeName}/fields", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByTypeSender sends the ListByType request. The method will close the
 // http.Response Body if it receives an error.
 func (client FieldsClient) ListByTypeSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

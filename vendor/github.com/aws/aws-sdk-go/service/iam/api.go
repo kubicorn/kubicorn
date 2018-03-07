@@ -13331,6 +13331,7 @@ func (c *IAM) UploadSigningCertificateWithContext(ctx aws.Context, input *Upload
 // You can get a secret access key only when you first create an access key;
 // you cannot recover the secret access key later. If you lose a secret access
 // key, you must create a new access key.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AccessKey
 type AccessKey struct {
 	_ struct{} `type:"structure"`
 
@@ -13403,6 +13404,7 @@ func (s *AccessKey) SetUserName(v string) *AccessKey {
 //
 // This data type is used as a response element in the GetAccessKeyLastUsed
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AccessKeyLastUsed
 type AccessKeyLastUsed struct {
 	_ struct{} `type:"structure"`
 
@@ -13480,6 +13482,7 @@ func (s *AccessKeyLastUsed) SetServiceName(v string) *AccessKeyLastUsed {
 // Contains information about an AWS access key, without its secret key.
 //
 // This data type is used as a response element in the ListAccessKeys action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AccessKeyMetadata
 type AccessKeyMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -13531,6 +13534,7 @@ func (s *AccessKeyMetadata) SetUserName(v string) *AccessKeyMetadata {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AddClientIDToOpenIDConnectProviderRequest
 type AddClientIDToOpenIDConnectProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13592,6 +13596,7 @@ func (s *AddClientIDToOpenIDConnectProviderInput) SetOpenIDConnectProviderArn(v 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AddClientIDToOpenIDConnectProviderOutput
 type AddClientIDToOpenIDConnectProviderOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13606,6 +13611,7 @@ func (s AddClientIDToOpenIDConnectProviderOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AddRoleToInstanceProfileRequest
 type AddRoleToInstanceProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13672,6 +13678,7 @@ func (s *AddRoleToInstanceProfileInput) SetRoleName(v string) *AddRoleToInstance
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AddRoleToInstanceProfileOutput
 type AddRoleToInstanceProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13686,6 +13693,7 @@ func (s AddRoleToInstanceProfileOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AddUserToGroupRequest
 type AddUserToGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13752,6 +13760,7 @@ func (s *AddUserToGroupInput) SetUserName(v string) *AddUserToGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AddUserToGroupOutput
 type AddUserToGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13766,6 +13775,7 @@ func (s AddUserToGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AttachGroupPolicyRequest
 type AttachGroupPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13832,6 +13842,7 @@ func (s *AttachGroupPolicyInput) SetPolicyArn(v string) *AttachGroupPolicyInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AttachGroupPolicyOutput
 type AttachGroupPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13846,6 +13857,7 @@ func (s AttachGroupPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AttachRolePolicyRequest
 type AttachRolePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13912,6 +13924,7 @@ func (s *AttachRolePolicyInput) SetRoleName(v string) *AttachRolePolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AttachRolePolicyOutput
 type AttachRolePolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13926,6 +13939,7 @@ func (s AttachRolePolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AttachUserPolicyRequest
 type AttachUserPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13992,6 +14006,7 @@ func (s *AttachUserPolicyInput) SetUserName(v string) *AttachUserPolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AttachUserPolicyOutput
 type AttachUserPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14016,6 +14031,7 @@ func (s AttachUserPolicyOutput) GoString() string {
 // For more information about managed policies, refer to Managed Policies and
 // Inline Policies (http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
 // in the Using IAM guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/AttachedPolicy
 type AttachedPolicy struct {
 	_ struct{} `type:"structure"`
 
@@ -14052,6 +14068,7 @@ func (s *AttachedPolicy) SetPolicyName(v string) *AttachedPolicy {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ChangePasswordRequest
 type ChangePasswordInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14120,6 +14137,7 @@ func (s *ChangePasswordInput) SetOldPassword(v string) *ChangePasswordInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ChangePasswordOutput
 type ChangePasswordOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14141,6 +14159,7 @@ func (s ChangePasswordOutput) GoString() string {
 //
 // This data type is used as an input parameter to SimulateCustomPolicy and
 // SimulateCustomPolicy.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ContextEntry
 type ContextEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -14199,6 +14218,7 @@ func (s *ContextEntry) SetContextKeyValues(v []*string) *ContextEntry {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateAccessKeyRequest
 type CreateAccessKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14240,6 +14260,7 @@ func (s *CreateAccessKeyInput) SetUserName(v string) *CreateAccessKeyInput {
 }
 
 // Contains the response to a successful CreateAccessKey request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateAccessKeyResponse
 type CreateAccessKeyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14265,6 +14286,7 @@ func (s *CreateAccessKeyOutput) SetAccessKey(v *AccessKey) *CreateAccessKeyOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateAccountAliasRequest
 type CreateAccountAliasInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14311,6 +14333,7 @@ func (s *CreateAccountAliasInput) SetAccountAlias(v string) *CreateAccountAliasI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateAccountAliasOutput
 type CreateAccountAliasOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14325,6 +14348,7 @@ func (s CreateAccountAliasOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateGroupRequest
 type CreateGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14396,6 +14420,7 @@ func (s *CreateGroupInput) SetPath(v string) *CreateGroupInput {
 }
 
 // Contains the response to a successful CreateGroup request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateGroupResponse
 type CreateGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14421,6 +14446,7 @@ func (s *CreateGroupOutput) SetGroup(v *Group) *CreateGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateInstanceProfileRequest
 type CreateInstanceProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14490,6 +14516,7 @@ func (s *CreateInstanceProfileInput) SetPath(v string) *CreateInstanceProfileInp
 }
 
 // Contains the response to a successful CreateInstanceProfile request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateInstanceProfileResponse
 type CreateInstanceProfileOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14515,6 +14542,7 @@ func (s *CreateInstanceProfileOutput) SetInstanceProfile(v *InstanceProfile) *Cr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateLoginProfileRequest
 type CreateLoginProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14597,6 +14625,7 @@ func (s *CreateLoginProfileInput) SetUserName(v string) *CreateLoginProfileInput
 }
 
 // Contains the response to a successful CreateLoginProfile request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateLoginProfileResponse
 type CreateLoginProfileOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14622,6 +14651,7 @@ func (s *CreateLoginProfileOutput) SetLoginProfile(v *LoginProfile) *CreateLogin
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateOpenIDConnectProviderRequest
 type CreateOpenIDConnectProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14723,6 +14753,7 @@ func (s *CreateOpenIDConnectProviderInput) SetUrl(v string) *CreateOpenIDConnect
 }
 
 // Contains the response to a successful CreateOpenIDConnectProvider request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateOpenIDConnectProviderResponse
 type CreateOpenIDConnectProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14747,6 +14778,7 @@ func (s *CreateOpenIDConnectProviderOutput) SetOpenIDConnectProviderArn(v string
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreatePolicyRequest
 type CreatePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14854,6 +14886,7 @@ func (s *CreatePolicyInput) SetPolicyName(v string) *CreatePolicyInput {
 }
 
 // Contains the response to a successful CreatePolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreatePolicyResponse
 type CreatePolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14877,6 +14910,7 @@ func (s *CreatePolicyOutput) SetPolicy(v *Policy) *CreatePolicyOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreatePolicyVersionRequest
 type CreatePolicyVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14966,6 +15000,7 @@ func (s *CreatePolicyVersionInput) SetSetAsDefault(v bool) *CreatePolicyVersionI
 }
 
 // Contains the response to a successful CreatePolicyVersion request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreatePolicyVersionResponse
 type CreatePolicyVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14989,6 +15024,7 @@ func (s *CreatePolicyVersionOutput) SetPolicyVersion(v *PolicyVersion) *CreatePo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateRoleRequest
 type CreateRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15095,6 +15131,7 @@ func (s *CreateRoleInput) SetRoleName(v string) *CreateRoleInput {
 }
 
 // Contains the response to a successful CreateRole request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateRoleResponse
 type CreateRoleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15120,6 +15157,7 @@ func (s *CreateRoleOutput) SetRole(v *Role) *CreateRoleOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateSAMLProviderRequest
 type CreateSAMLProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15190,6 +15228,7 @@ func (s *CreateSAMLProviderInput) SetSAMLMetadataDocument(v string) *CreateSAMLP
 }
 
 // Contains the response to a successful CreateSAMLProvider request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateSAMLProviderResponse
 type CreateSAMLProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15213,6 +15252,7 @@ func (s *CreateSAMLProviderOutput) SetSAMLProviderArn(v string) *CreateSAMLProvi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateServiceLinkedRoleRequest
 type CreateServiceLinkedRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15280,6 +15320,7 @@ func (s *CreateServiceLinkedRoleInput) SetDescription(v string) *CreateServiceLi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateServiceLinkedRoleResponse
 type CreateServiceLinkedRoleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15303,6 +15344,7 @@ func (s *CreateServiceLinkedRoleOutput) SetRole(v *Role) *CreateServiceLinkedRol
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateServiceSpecificCredentialRequest
 type CreateServiceSpecificCredentialInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15366,6 +15408,7 @@ func (s *CreateServiceSpecificCredentialInput) SetUserName(v string) *CreateServ
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateServiceSpecificCredentialResponse
 type CreateServiceSpecificCredentialOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15394,6 +15437,7 @@ func (s *CreateServiceSpecificCredentialOutput) SetServiceSpecificCredential(v *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateUserRequest
 type CreateUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15465,6 +15509,7 @@ func (s *CreateUserInput) SetUserName(v string) *CreateUserInput {
 }
 
 // Contains the response to a successful CreateUser request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateUserResponse
 type CreateUserOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15488,6 +15533,7 @@ func (s *CreateUserOutput) SetUser(v *User) *CreateUserOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateVirtualMFADeviceRequest
 type CreateVirtualMFADeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15558,6 +15604,7 @@ func (s *CreateVirtualMFADeviceInput) SetVirtualMFADeviceName(v string) *CreateV
 }
 
 // Contains the response to a successful CreateVirtualMFADevice request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateVirtualMFADeviceResponse
 type CreateVirtualMFADeviceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15583,6 +15630,7 @@ func (s *CreateVirtualMFADeviceOutput) SetVirtualMFADevice(v *VirtualMFADevice) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeactivateMFADeviceRequest
 type DeactivateMFADeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15650,6 +15698,7 @@ func (s *DeactivateMFADeviceInput) SetUserName(v string) *DeactivateMFADeviceInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeactivateMFADeviceOutput
 type DeactivateMFADeviceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15664,6 +15713,7 @@ func (s DeactivateMFADeviceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteAccessKeyRequest
 type DeleteAccessKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15726,6 +15776,7 @@ func (s *DeleteAccessKeyInput) SetUserName(v string) *DeleteAccessKeyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteAccessKeyOutput
 type DeleteAccessKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15740,6 +15791,7 @@ func (s DeleteAccessKeyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteAccountAliasRequest
 type DeleteAccountAliasInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15786,6 +15838,7 @@ func (s *DeleteAccountAliasInput) SetAccountAlias(v string) *DeleteAccountAliasI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteAccountAliasOutput
 type DeleteAccountAliasOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15800,6 +15853,7 @@ func (s DeleteAccountAliasOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteAccountPasswordPolicyInput
 type DeleteAccountPasswordPolicyInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15814,6 +15868,7 @@ func (s DeleteAccountPasswordPolicyInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteAccountPasswordPolicyOutput
 type DeleteAccountPasswordPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15828,6 +15883,7 @@ func (s DeleteAccountPasswordPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteGroupRequest
 type DeleteGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15873,6 +15929,7 @@ func (s *DeleteGroupInput) SetGroupName(v string) *DeleteGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteGroupOutput
 type DeleteGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15887,6 +15944,7 @@ func (s DeleteGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteGroupPolicyRequest
 type DeleteGroupPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15954,6 +16012,7 @@ func (s *DeleteGroupPolicyInput) SetPolicyName(v string) *DeleteGroupPolicyInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteGroupPolicyOutput
 type DeleteGroupPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15968,6 +16027,7 @@ func (s DeleteGroupPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteInstanceProfileRequest
 type DeleteInstanceProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16013,6 +16073,7 @@ func (s *DeleteInstanceProfileInput) SetInstanceProfileName(v string) *DeleteIns
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteInstanceProfileOutput
 type DeleteInstanceProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16027,6 +16088,7 @@ func (s DeleteInstanceProfileOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteLoginProfileRequest
 type DeleteLoginProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16072,6 +16134,7 @@ func (s *DeleteLoginProfileInput) SetUserName(v string) *DeleteLoginProfileInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteLoginProfileOutput
 type DeleteLoginProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16086,6 +16149,7 @@ func (s DeleteLoginProfileOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteOpenIDConnectProviderRequest
 type DeleteOpenIDConnectProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16129,6 +16193,7 @@ func (s *DeleteOpenIDConnectProviderInput) SetOpenIDConnectProviderArn(v string)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteOpenIDConnectProviderOutput
 type DeleteOpenIDConnectProviderOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16143,6 +16208,7 @@ func (s DeleteOpenIDConnectProviderOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeletePolicyRequest
 type DeletePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16188,6 +16254,7 @@ func (s *DeletePolicyInput) SetPolicyArn(v string) *DeletePolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeletePolicyOutput
 type DeletePolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16202,6 +16269,7 @@ func (s DeletePolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeletePolicyVersionRequest
 type DeletePolicyVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16271,6 +16339,7 @@ func (s *DeletePolicyVersionInput) SetVersionId(v string) *DeletePolicyVersionIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeletePolicyVersionOutput
 type DeletePolicyVersionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16285,6 +16354,7 @@ func (s DeletePolicyVersionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteRoleRequest
 type DeleteRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16330,6 +16400,7 @@ func (s *DeleteRoleInput) SetRoleName(v string) *DeleteRoleInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteRoleOutput
 type DeleteRoleOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16344,6 +16415,7 @@ func (s DeleteRoleOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteRolePolicyRequest
 type DeleteRolePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16411,6 +16483,7 @@ func (s *DeleteRolePolicyInput) SetRoleName(v string) *DeleteRolePolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteRolePolicyOutput
 type DeleteRolePolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16425,6 +16498,7 @@ func (s DeleteRolePolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteSAMLProviderRequest
 type DeleteSAMLProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16466,6 +16540,7 @@ func (s *DeleteSAMLProviderInput) SetSAMLProviderArn(v string) *DeleteSAMLProvid
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteSAMLProviderOutput
 type DeleteSAMLProviderOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16480,6 +16555,7 @@ func (s DeleteSAMLProviderOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteSSHPublicKeyRequest
 type DeleteSSHPublicKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16546,6 +16622,7 @@ func (s *DeleteSSHPublicKeyInput) SetUserName(v string) *DeleteSSHPublicKeyInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteSSHPublicKeyOutput
 type DeleteSSHPublicKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16560,6 +16637,7 @@ func (s DeleteSSHPublicKeyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServerCertificateRequest
 type DeleteServerCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16605,6 +16683,7 @@ func (s *DeleteServerCertificateInput) SetServerCertificateName(v string) *Delet
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServerCertificateOutput
 type DeleteServerCertificateOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16619,6 +16698,7 @@ func (s DeleteServerCertificateOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRoleRequest
 type DeleteServiceLinkedRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16660,6 +16740,7 @@ func (s *DeleteServiceLinkedRoleInput) SetRoleName(v string) *DeleteServiceLinke
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRoleResponse
 type DeleteServiceLinkedRoleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16686,6 +16767,7 @@ func (s *DeleteServiceLinkedRoleOutput) SetDeletionTaskId(v string) *DeleteServi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceSpecificCredentialRequest
 type DeleteServiceSpecificCredentialInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16750,6 +16832,7 @@ func (s *DeleteServiceSpecificCredentialInput) SetUserName(v string) *DeleteServ
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceSpecificCredentialOutput
 type DeleteServiceSpecificCredentialOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16764,6 +16847,7 @@ func (s DeleteServiceSpecificCredentialOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteSigningCertificateRequest
 type DeleteSigningCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16825,6 +16909,7 @@ func (s *DeleteSigningCertificateInput) SetUserName(v string) *DeleteSigningCert
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteSigningCertificateOutput
 type DeleteSigningCertificateOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16839,6 +16924,7 @@ func (s DeleteSigningCertificateOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteUserRequest
 type DeleteUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16884,6 +16970,7 @@ func (s *DeleteUserInput) SetUserName(v string) *DeleteUserInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteUserOutput
 type DeleteUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16898,6 +16985,7 @@ func (s DeleteUserOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteUserPolicyRequest
 type DeleteUserPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16965,6 +17053,7 @@ func (s *DeleteUserPolicyInput) SetUserName(v string) *DeleteUserPolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteUserPolicyOutput
 type DeleteUserPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16979,6 +17068,7 @@ func (s DeleteUserPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteVirtualMFADeviceRequest
 type DeleteVirtualMFADeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17025,6 +17115,7 @@ func (s *DeleteVirtualMFADeviceInput) SetSerialNumber(v string) *DeleteVirtualMF
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteVirtualMFADeviceOutput
 type DeleteVirtualMFADeviceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17043,6 +17134,7 @@ func (s DeleteVirtualMFADeviceOutput) GoString() string {
 //
 // This data type is used as a response element in the GetServiceLinkedRoleDeletionStatus
 // operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeletionTaskFailureReasonType
 type DeletionTaskFailureReasonType struct {
 	_ struct{} `type:"structure"`
 
@@ -17080,6 +17172,7 @@ func (s *DeletionTaskFailureReasonType) SetRoleUsageList(v []*RoleUsageType) *De
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachGroupPolicyRequest
 type DetachGroupPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17146,6 +17239,7 @@ func (s *DetachGroupPolicyInput) SetPolicyArn(v string) *DetachGroupPolicyInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachGroupPolicyOutput
 type DetachGroupPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17160,6 +17254,7 @@ func (s DetachGroupPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachRolePolicyRequest
 type DetachRolePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17226,6 +17321,7 @@ func (s *DetachRolePolicyInput) SetRoleName(v string) *DetachRolePolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachRolePolicyOutput
 type DetachRolePolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17240,6 +17336,7 @@ func (s DetachRolePolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachUserPolicyRequest
 type DetachUserPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17306,6 +17403,7 @@ func (s *DetachUserPolicyInput) SetUserName(v string) *DetachUserPolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachUserPolicyOutput
 type DetachUserPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17320,6 +17418,7 @@ func (s DetachUserPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/EnableMFADeviceRequest
 type EnableMFADeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17439,6 +17538,7 @@ func (s *EnableMFADeviceInput) SetUserName(v string) *EnableMFADeviceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/EnableMFADeviceOutput
 type EnableMFADeviceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17457,6 +17557,7 @@ func (s EnableMFADeviceOutput) GoString() string {
 //
 // This data type is used by the return parameter of SimulateCustomPolicy and
 // SimulatePrincipalPolicy.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/EvaluationResult
 type EvaluationResult struct {
 	_ struct{} `type:"structure"`
 
@@ -17565,6 +17666,7 @@ func (s *EvaluationResult) SetResourceSpecificResults(v []*ResourceSpecificResul
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GenerateCredentialReportInput
 type GenerateCredentialReportInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17580,6 +17682,7 @@ func (s GenerateCredentialReportInput) GoString() string {
 }
 
 // Contains the response to a successful GenerateCredentialReport request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GenerateCredentialReportResponse
 type GenerateCredentialReportOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17612,6 +17715,7 @@ func (s *GenerateCredentialReportOutput) SetState(v string) *GenerateCredentialR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccessKeyLastUsedRequest
 type GetAccessKeyLastUsedInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17660,6 +17764,7 @@ func (s *GetAccessKeyLastUsedInput) SetAccessKeyId(v string) *GetAccessKeyLastUs
 // Contains the response to a successful GetAccessKeyLastUsed request. It is
 // also returned as a member of the AccessKeyMetaData structure returned by
 // the ListAccessKeys action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccessKeyLastUsedResponse
 type GetAccessKeyLastUsedOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17692,6 +17797,7 @@ func (s *GetAccessKeyLastUsedOutput) SetUserName(v string) *GetAccessKeyLastUsed
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccountAuthorizationDetailsRequest
 type GetAccountAuthorizationDetailsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17767,6 +17873,7 @@ func (s *GetAccountAuthorizationDetailsInput) SetMaxItems(v int64) *GetAccountAu
 }
 
 // Contains the response to a successful GetAccountAuthorizationDetails request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccountAuthorizationDetailsResponse
 type GetAccountAuthorizationDetailsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17841,6 +17948,7 @@ func (s *GetAccountAuthorizationDetailsOutput) SetUserDetailList(v []*UserDetail
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccountPasswordPolicyInput
 type GetAccountPasswordPolicyInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17856,6 +17964,7 @@ func (s GetAccountPasswordPolicyInput) GoString() string {
 }
 
 // Contains the response to a successful GetAccountPasswordPolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccountPasswordPolicyResponse
 type GetAccountPasswordPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17881,6 +17990,7 @@ func (s *GetAccountPasswordPolicyOutput) SetPasswordPolicy(v *PasswordPolicy) *G
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccountSummaryInput
 type GetAccountSummaryInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17896,6 +18006,7 @@ func (s GetAccountSummaryInput) GoString() string {
 }
 
 // Contains the response to a successful GetAccountSummary request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetAccountSummaryResponse
 type GetAccountSummaryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17920,6 +18031,7 @@ func (s *GetAccountSummaryOutput) SetSummaryMap(v map[string]*int64) *GetAccount
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetContextKeysForCustomPolicyRequest
 type GetContextKeysForCustomPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17969,6 +18081,7 @@ func (s *GetContextKeysForCustomPolicyInput) SetPolicyInputList(v []*string) *Ge
 
 // Contains the response to a successful GetContextKeysForPrincipalPolicy or
 // GetContextKeysForCustomPolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetContextKeysForPolicyResponse
 type GetContextKeysForPolicyResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -17992,6 +18105,7 @@ func (s *GetContextKeysForPolicyResponse) SetContextKeyNames(v []*string) *GetCo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetContextKeysForPrincipalPolicyRequest
 type GetContextKeysForPrincipalPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18060,6 +18174,7 @@ func (s *GetContextKeysForPrincipalPolicyInput) SetPolicySourceArn(v string) *Ge
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetCredentialReportInput
 type GetCredentialReportInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -18075,6 +18190,7 @@ func (s GetCredentialReportInput) GoString() string {
 }
 
 // Contains the response to a successful GetCredentialReport request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetCredentialReportResponse
 type GetCredentialReportOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18119,6 +18235,7 @@ func (s *GetCredentialReportOutput) SetReportFormat(v string) *GetCredentialRepo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetGroupRequest
 type GetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18200,6 +18317,7 @@ func (s *GetGroupInput) SetMaxItems(v int64) *GetGroupInput {
 }
 
 // Contains the response to a successful GetGroup request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetGroupResponse
 type GetGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18260,6 +18378,7 @@ func (s *GetGroupOutput) SetUsers(v []*User) *GetGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetGroupPolicyRequest
 type GetGroupPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18327,6 +18446,7 @@ func (s *GetGroupPolicyInput) SetPolicyName(v string) *GetGroupPolicyInput {
 }
 
 // Contains the response to a successful GetGroupPolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetGroupPolicyResponse
 type GetGroupPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18374,6 +18494,7 @@ func (s *GetGroupPolicyOutput) SetPolicyName(v string) *GetGroupPolicyOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetInstanceProfileRequest
 type GetInstanceProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18420,6 +18541,7 @@ func (s *GetInstanceProfileInput) SetInstanceProfileName(v string) *GetInstanceP
 }
 
 // Contains the response to a successful GetInstanceProfile request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetInstanceProfileResponse
 type GetInstanceProfileOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18445,6 +18567,7 @@ func (s *GetInstanceProfileOutput) SetInstanceProfile(v *InstanceProfile) *GetIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetLoginProfileRequest
 type GetLoginProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18491,6 +18614,7 @@ func (s *GetLoginProfileInput) SetUserName(v string) *GetLoginProfileInput {
 }
 
 // Contains the response to a successful GetLoginProfile request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetLoginProfileResponse
 type GetLoginProfileOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18516,6 +18640,7 @@ func (s *GetLoginProfileOutput) SetLoginProfile(v *LoginProfile) *GetLoginProfil
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetOpenIDConnectProviderRequest
 type GetOpenIDConnectProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18564,6 +18689,7 @@ func (s *GetOpenIDConnectProviderInput) SetOpenIDConnectProviderArn(v string) *G
 }
 
 // Contains the response to a successful GetOpenIDConnectProvider request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetOpenIDConnectProviderResponse
 type GetOpenIDConnectProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18618,6 +18744,7 @@ func (s *GetOpenIDConnectProviderOutput) SetUrl(v string) *GetOpenIDConnectProvi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetPolicyRequest
 type GetPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18665,6 +18792,7 @@ func (s *GetPolicyInput) SetPolicyArn(v string) *GetPolicyInput {
 }
 
 // Contains the response to a successful GetPolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetPolicyResponse
 type GetPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18688,6 +18816,7 @@ func (s *GetPolicyOutput) SetPolicy(v *Policy) *GetPolicyOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetPolicyVersionRequest
 type GetPolicyVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18754,6 +18883,7 @@ func (s *GetPolicyVersionInput) SetVersionId(v string) *GetPolicyVersionInput {
 }
 
 // Contains the response to a successful GetPolicyVersion request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetPolicyVersionResponse
 type GetPolicyVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18777,6 +18907,7 @@ func (s *GetPolicyVersionOutput) SetPolicyVersion(v *PolicyVersion) *GetPolicyVe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetRoleRequest
 type GetRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18823,6 +18954,7 @@ func (s *GetRoleInput) SetRoleName(v string) *GetRoleInput {
 }
 
 // Contains the response to a successful GetRole request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetRoleResponse
 type GetRoleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18848,6 +18980,7 @@ func (s *GetRoleOutput) SetRole(v *Role) *GetRoleOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetRolePolicyRequest
 type GetRolePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18915,6 +19048,7 @@ func (s *GetRolePolicyInput) SetRoleName(v string) *GetRolePolicyInput {
 }
 
 // Contains the response to a successful GetRolePolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetRolePolicyResponse
 type GetRolePolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18962,6 +19096,7 @@ func (s *GetRolePolicyOutput) SetRoleName(v string) *GetRolePolicyOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetSAMLProviderRequest
 type GetSAMLProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19009,6 +19144,7 @@ func (s *GetSAMLProviderInput) SetSAMLProviderArn(v string) *GetSAMLProviderInpu
 }
 
 // Contains the response to a successful GetSAMLProvider request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetSAMLProviderResponse
 type GetSAMLProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19050,6 +19186,7 @@ func (s *GetSAMLProviderOutput) SetValidUntil(v time.Time) *GetSAMLProviderOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetSSHPublicKeyRequest
 type GetSSHPublicKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19133,6 +19270,7 @@ func (s *GetSSHPublicKeyInput) SetUserName(v string) *GetSSHPublicKeyInput {
 }
 
 // Contains the response to a successful GetSSHPublicKey request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetSSHPublicKeyResponse
 type GetSSHPublicKeyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19156,6 +19294,7 @@ func (s *GetSSHPublicKeyOutput) SetSSHPublicKey(v *SSHPublicKey) *GetSSHPublicKe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServerCertificateRequest
 type GetServerCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19202,6 +19341,7 @@ func (s *GetServerCertificateInput) SetServerCertificateName(v string) *GetServe
 }
 
 // Contains the response to a successful GetServerCertificate request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServerCertificateResponse
 type GetServerCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19227,6 +19367,7 @@ func (s *GetServerCertificateOutput) SetServerCertificate(v *ServerCertificate) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatusRequest
 type GetServiceLinkedRoleDeletionStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19269,6 +19410,7 @@ func (s *GetServiceLinkedRoleDeletionStatusInput) SetDeletionTaskId(v string) *G
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatusResponse
 type GetServiceLinkedRoleDeletionStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19303,6 +19445,7 @@ func (s *GetServiceLinkedRoleDeletionStatusOutput) SetStatus(v string) *GetServi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetUserRequest
 type GetUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19345,6 +19488,7 @@ func (s *GetUserInput) SetUserName(v string) *GetUserInput {
 }
 
 // Contains the response to a successful GetUser request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetUserResponse
 type GetUserOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19370,6 +19514,7 @@ func (s *GetUserOutput) SetUser(v *User) *GetUserOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetUserPolicyRequest
 type GetUserPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19437,6 +19582,7 @@ func (s *GetUserPolicyInput) SetUserName(v string) *GetUserPolicyInput {
 }
 
 // Contains the response to a successful GetUserPolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetUserPolicyResponse
 type GetUserPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19493,6 +19639,7 @@ func (s *GetUserPolicyOutput) SetUserName(v string) *GetUserPolicyOutput {
 //    * GetGroup
 //
 //    * ListGroups
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/Group
 type Group struct {
 	_ struct{} `type:"structure"`
 
@@ -19573,6 +19720,7 @@ func (s *Group) SetPath(v string) *Group {
 //
 // This data type is used as a response element in the GetAccountAuthorizationDetails
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GroupDetail
 type GroupDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -19670,6 +19818,7 @@ func (s *GroupDetail) SetPath(v string) *GroupDetail {
 //    * ListInstanceProfiles
 //
 //    * ListInstanceProfilesForRole
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/InstanceProfile
 type InstanceProfile struct {
 	_ struct{} `type:"structure"`
 
@@ -19757,6 +19906,7 @@ func (s *InstanceProfile) SetRoles(v []*Role) *InstanceProfile {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAccessKeysRequest
 type ListAccessKeysInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19833,6 +19983,7 @@ func (s *ListAccessKeysInput) SetUserName(v string) *ListAccessKeysInput {
 }
 
 // Contains the response to a successful ListAccessKeys request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAccessKeysResponse
 type ListAccessKeysOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19882,6 +20033,7 @@ func (s *ListAccessKeysOutput) SetMarker(v string) *ListAccessKeysOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAccountAliasesRequest
 type ListAccountAliasesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19942,6 +20094,7 @@ func (s *ListAccountAliasesInput) SetMaxItems(v int64) *ListAccountAliasesInput 
 }
 
 // Contains the response to a successful ListAccountAliases request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAccountAliasesResponse
 type ListAccountAliasesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19992,6 +20145,7 @@ func (s *ListAccountAliasesOutput) SetMarker(v string) *ListAccountAliasesOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAttachedGroupPoliciesRequest
 type ListAttachedGroupPoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20090,6 +20244,7 @@ func (s *ListAttachedGroupPoliciesInput) SetPathPrefix(v string) *ListAttachedGr
 }
 
 // Contains the response to a successful ListAttachedGroupPolicies request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAttachedGroupPoliciesResponse
 type ListAttachedGroupPoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20137,6 +20292,7 @@ func (s *ListAttachedGroupPoliciesOutput) SetMarker(v string) *ListAttachedGroup
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAttachedRolePoliciesRequest
 type ListAttachedRolePoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20234,6 +20390,7 @@ func (s *ListAttachedRolePoliciesInput) SetRoleName(v string) *ListAttachedRoleP
 }
 
 // Contains the response to a successful ListAttachedRolePolicies request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAttachedRolePoliciesResponse
 type ListAttachedRolePoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20281,6 +20438,7 @@ func (s *ListAttachedRolePoliciesOutput) SetMarker(v string) *ListAttachedRolePo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAttachedUserPoliciesRequest
 type ListAttachedUserPoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20378,6 +20536,7 @@ func (s *ListAttachedUserPoliciesInput) SetUserName(v string) *ListAttachedUserP
 }
 
 // Contains the response to a successful ListAttachedUserPolicies request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListAttachedUserPoliciesResponse
 type ListAttachedUserPoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20425,6 +20584,7 @@ func (s *ListAttachedUserPoliciesOutput) SetMarker(v string) *ListAttachedUserPo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListEntitiesForPolicyRequest
 type ListEntitiesForPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20539,6 +20699,7 @@ func (s *ListEntitiesForPolicyInput) SetPolicyArn(v string) *ListEntitiesForPoli
 }
 
 // Contains the response to a successful ListEntitiesForPolicy request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListEntitiesForPolicyResponse
 type ListEntitiesForPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20604,6 +20765,7 @@ func (s *ListEntitiesForPolicyOutput) SetPolicyUsers(v []*PolicyUser) *ListEntit
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListGroupPoliciesRequest
 type ListGroupPoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20685,6 +20847,7 @@ func (s *ListGroupPoliciesInput) SetMaxItems(v int64) *ListGroupPoliciesInput {
 }
 
 // Contains the response to a successful ListGroupPolicies request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListGroupPoliciesResponse
 type ListGroupPoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20738,6 +20901,7 @@ func (s *ListGroupPoliciesOutput) SetPolicyNames(v []*string) *ListGroupPolicies
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListGroupsForUserRequest
 type ListGroupsForUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20819,6 +20983,7 @@ func (s *ListGroupsForUserInput) SetUserName(v string) *ListGroupsForUserInput {
 }
 
 // Contains the response to a successful ListGroupsForUser request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListGroupsForUserResponse
 type ListGroupsForUserOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20868,6 +21033,7 @@ func (s *ListGroupsForUserOutput) SetMarker(v string) *ListGroupsForUserOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListGroupsRequest
 type ListGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20948,6 +21114,7 @@ func (s *ListGroupsInput) SetPathPrefix(v string) *ListGroupsInput {
 }
 
 // Contains the response to a successful ListGroups request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListGroupsResponse
 type ListGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20997,6 +21164,7 @@ func (s *ListGroupsOutput) SetMarker(v string) *ListGroupsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListInstanceProfilesForRoleRequest
 type ListInstanceProfilesForRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21078,6 +21246,7 @@ func (s *ListInstanceProfilesForRoleInput) SetRoleName(v string) *ListInstancePr
 }
 
 // Contains the response to a successful ListInstanceProfilesForRole request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListInstanceProfilesForRoleResponse
 type ListInstanceProfilesForRoleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21127,6 +21296,7 @@ func (s *ListInstanceProfilesForRoleOutput) SetMarker(v string) *ListInstancePro
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListInstanceProfilesRequest
 type ListInstanceProfilesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21208,6 +21378,7 @@ func (s *ListInstanceProfilesInput) SetPathPrefix(v string) *ListInstanceProfile
 }
 
 // Contains the response to a successful ListInstanceProfiles request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListInstanceProfilesResponse
 type ListInstanceProfilesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21257,6 +21428,7 @@ func (s *ListInstanceProfilesOutput) SetMarker(v string) *ListInstanceProfilesOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListMFADevicesRequest
 type ListMFADevicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21333,6 +21505,7 @@ func (s *ListMFADevicesInput) SetUserName(v string) *ListMFADevicesInput {
 }
 
 // Contains the response to a successful ListMFADevices request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListMFADevicesResponse
 type ListMFADevicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21382,6 +21555,7 @@ func (s *ListMFADevicesOutput) SetMarker(v string) *ListMFADevicesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListOpenIDConnectProvidersRequest
 type ListOpenIDConnectProvidersInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -21397,6 +21571,7 @@ func (s ListOpenIDConnectProvidersInput) GoString() string {
 }
 
 // Contains the response to a successful ListOpenIDConnectProviders request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListOpenIDConnectProvidersResponse
 type ListOpenIDConnectProvidersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21420,6 +21595,7 @@ func (s *ListOpenIDConnectProvidersOutput) SetOpenIDConnectProviderList(v []*Ope
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListPoliciesRequest
 type ListPoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21523,6 +21699,7 @@ func (s *ListPoliciesInput) SetScope(v string) *ListPoliciesInput {
 }
 
 // Contains the response to a successful ListPolicies request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListPoliciesResponse
 type ListPoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21570,6 +21747,7 @@ func (s *ListPoliciesOutput) SetPolicies(v []*Policy) *ListPoliciesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListPolicyVersionsRequest
 type ListPolicyVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21651,6 +21829,7 @@ func (s *ListPolicyVersionsInput) SetPolicyArn(v string) *ListPolicyVersionsInpu
 }
 
 // Contains the response to a successful ListPolicyVersions request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListPolicyVersionsResponse
 type ListPolicyVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21702,6 +21881,7 @@ func (s *ListPolicyVersionsOutput) SetVersions(v []*PolicyVersion) *ListPolicyVe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListRolePoliciesRequest
 type ListRolePoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21783,6 +21963,7 @@ func (s *ListRolePoliciesInput) SetRoleName(v string) *ListRolePoliciesInput {
 }
 
 // Contains the response to a successful ListRolePolicies request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListRolePoliciesResponse
 type ListRolePoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21832,6 +22013,7 @@ func (s *ListRolePoliciesOutput) SetPolicyNames(v []*string) *ListRolePoliciesOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListRolesRequest
 type ListRolesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21912,6 +22094,7 @@ func (s *ListRolesInput) SetPathPrefix(v string) *ListRolesInput {
 }
 
 // Contains the response to a successful ListRoles request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListRolesResponse
 type ListRolesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21961,6 +22144,7 @@ func (s *ListRolesOutput) SetRoles(v []*Role) *ListRolesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListSAMLProvidersRequest
 type ListSAMLProvidersInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -21976,6 +22160,7 @@ func (s ListSAMLProvidersInput) GoString() string {
 }
 
 // Contains the response to a successful ListSAMLProviders request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListSAMLProvidersResponse
 type ListSAMLProvidersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21999,6 +22184,7 @@ func (s *ListSAMLProvidersOutput) SetSAMLProviderList(v []*SAMLProviderListEntry
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListSSHPublicKeysRequest
 type ListSSHPublicKeysInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22077,6 +22263,7 @@ func (s *ListSSHPublicKeysInput) SetUserName(v string) *ListSSHPublicKeysInput {
 }
 
 // Contains the response to a successful ListSSHPublicKeys request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListSSHPublicKeysResponse
 type ListSSHPublicKeysOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22124,6 +22311,7 @@ func (s *ListSSHPublicKeysOutput) SetSSHPublicKeys(v []*SSHPublicKeyMetadata) *L
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListServerCertificatesRequest
 type ListServerCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22205,6 +22393,7 @@ func (s *ListServerCertificatesInput) SetPathPrefix(v string) *ListServerCertifi
 }
 
 // Contains the response to a successful ListServerCertificates request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListServerCertificatesResponse
 type ListServerCertificatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22254,6 +22443,7 @@ func (s *ListServerCertificatesOutput) SetServerCertificateMetadataList(v []*Ser
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListServiceSpecificCredentialsRequest
 type ListServiceSpecificCredentialsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22306,6 +22496,7 @@ func (s *ListServiceSpecificCredentialsInput) SetUserName(v string) *ListService
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListServiceSpecificCredentialsResponse
 type ListServiceSpecificCredentialsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22329,6 +22520,7 @@ func (s *ListServiceSpecificCredentialsOutput) SetServiceSpecificCredentials(v [
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListSigningCertificatesRequest
 type ListSigningCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22405,6 +22597,7 @@ func (s *ListSigningCertificatesInput) SetUserName(v string) *ListSigningCertifi
 }
 
 // Contains the response to a successful ListSigningCertificates request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListSigningCertificatesResponse
 type ListSigningCertificatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22454,6 +22647,7 @@ func (s *ListSigningCertificatesOutput) SetMarker(v string) *ListSigningCertific
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListUserPoliciesRequest
 type ListUserPoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22535,6 +22729,7 @@ func (s *ListUserPoliciesInput) SetUserName(v string) *ListUserPoliciesInput {
 }
 
 // Contains the response to a successful ListUserPolicies request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListUserPoliciesResponse
 type ListUserPoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22584,6 +22779,7 @@ func (s *ListUserPoliciesOutput) SetPolicyNames(v []*string) *ListUserPoliciesOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListUsersRequest
 type ListUsersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22665,6 +22861,7 @@ func (s *ListUsersInput) SetPathPrefix(v string) *ListUsersInput {
 }
 
 // Contains the response to a successful ListUsers request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListUsersResponse
 type ListUsersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22714,6 +22911,7 @@ func (s *ListUsersOutput) SetUsers(v []*User) *ListUsersOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListVirtualMFADevicesRequest
 type ListVirtualMFADevicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22785,6 +22983,7 @@ func (s *ListVirtualMFADevicesInput) SetMaxItems(v int64) *ListVirtualMFADevices
 }
 
 // Contains the response to a successful ListVirtualMFADevices request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ListVirtualMFADevicesResponse
 type ListVirtualMFADevicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22839,6 +23038,7 @@ func (s *ListVirtualMFADevicesOutput) SetVirtualMFADevices(v []*VirtualMFADevice
 //
 // This data type is used as a response element in the CreateLoginProfile and
 // GetLoginProfile actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/LoginProfile
 type LoginProfile struct {
 	_ struct{} `type:"structure"`
 
@@ -22888,6 +23088,7 @@ func (s *LoginProfile) SetUserName(v string) *LoginProfile {
 // Contains information about an MFA device.
 //
 // This data type is used as a response element in the ListMFADevices action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/MFADevice
 type MFADevice struct {
 	_ struct{} `type:"structure"`
 
@@ -22946,6 +23147,7 @@ func (s *MFADevice) SetUserName(v string) *MFADevice {
 // For more information about managed policies, see Managed Policies and Inline
 // Policies (http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
 // in the Using IAM guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ManagedPolicyDetail
 type ManagedPolicyDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -23083,6 +23285,7 @@ func (s *ManagedPolicyDetail) SetUpdateDate(v time.Time) *ManagedPolicyDetail {
 }
 
 // Contains the Amazon Resource Name (ARN) for an IAM OpenID Connect provider.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/OpenIDConnectProviderListEntry
 type OpenIDConnectProviderListEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -23111,6 +23314,7 @@ func (s *OpenIDConnectProviderListEntry) SetArn(v string) *OpenIDConnectProvider
 }
 
 // Contains information about AWS Organizations's affect on a policy simulation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/OrganizationsDecisionDetail
 type OrganizationsDecisionDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -23139,6 +23343,7 @@ func (s *OrganizationsDecisionDetail) SetAllowedByOrganizations(v bool) *Organiz
 //
 // This data type is used as a response element in the GetAccountPasswordPolicy
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PasswordPolicy
 type PasswordPolicy struct {
 	_ struct{} `type:"structure"`
 
@@ -23255,6 +23460,7 @@ func (s *PasswordPolicy) SetRequireUppercaseCharacters(v bool) *PasswordPolicy {
 // For more information about managed policies, refer to Managed Policies and
 // Inline Policies (http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
 // in the Using IAM guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/Policy
 type Policy struct {
 	_ struct{} `type:"structure"`
 
@@ -23384,6 +23590,7 @@ func (s *Policy) SetUpdateDate(v time.Time) *Policy {
 //
 // This data type is used as a response element in the GetAccountAuthorizationDetails
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PolicyDetail
 type PolicyDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -23424,6 +23631,7 @@ func (s *PolicyDetail) SetPolicyName(v string) *PolicyDetail {
 // For more information about managed policies, refer to Managed Policies and
 // Inline Policies (http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
 // in the Using IAM guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PolicyGroup
 type PolicyGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -23466,6 +23674,7 @@ func (s *PolicyGroup) SetGroupName(v string) *PolicyGroup {
 // For more information about managed policies, refer to Managed Policies and
 // Inline Policies (http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
 // in the Using IAM guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PolicyRole
 type PolicyRole struct {
 	_ struct{} `type:"structure"`
 
@@ -23508,6 +23717,7 @@ func (s *PolicyRole) SetRoleName(v string) *PolicyRole {
 // For more information about managed policies, refer to Managed Policies and
 // Inline Policies (http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
 // in the Using IAM guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PolicyUser
 type PolicyUser struct {
 	_ struct{} `type:"structure"`
 
@@ -23551,6 +23761,7 @@ func (s *PolicyUser) SetUserName(v string) *PolicyUser {
 // For more information about managed policies, refer to Managed Policies and
 // Inline Policies (http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
 // in the Using IAM guide.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PolicyVersion
 type PolicyVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -23613,6 +23824,7 @@ func (s *PolicyVersion) SetVersionId(v string) *PolicyVersion {
 // document.
 //
 // This data type is used as a member of the Statement type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/Position
 type Position struct {
 	_ struct{} `type:"structure"`
 
@@ -23645,6 +23857,7 @@ func (s *Position) SetLine(v int64) *Position {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PutGroupPolicyRequest
 type PutGroupPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23735,6 +23948,7 @@ func (s *PutGroupPolicyInput) SetPolicyName(v string) *PutGroupPolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PutGroupPolicyOutput
 type PutGroupPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -23749,6 +23963,7 @@ func (s PutGroupPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PutRolePolicyRequest
 type PutRolePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23839,6 +24054,7 @@ func (s *PutRolePolicyInput) SetRoleName(v string) *PutRolePolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PutRolePolicyOutput
 type PutRolePolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -23853,6 +24069,7 @@ func (s PutRolePolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PutUserPolicyRequest
 type PutUserPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23943,6 +24160,7 @@ func (s *PutUserPolicyInput) SetUserName(v string) *PutUserPolicyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PutUserPolicyOutput
 type PutUserPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -23957,6 +24175,7 @@ func (s PutUserPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RemoveClientIDFromOpenIDConnectProviderRequest
 type RemoveClientIDFromOpenIDConnectProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24022,6 +24241,7 @@ func (s *RemoveClientIDFromOpenIDConnectProviderInput) SetOpenIDConnectProviderA
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RemoveClientIDFromOpenIDConnectProviderOutput
 type RemoveClientIDFromOpenIDConnectProviderOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -24036,6 +24256,7 @@ func (s RemoveClientIDFromOpenIDConnectProviderOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RemoveRoleFromInstanceProfileRequest
 type RemoveRoleFromInstanceProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24102,6 +24323,7 @@ func (s *RemoveRoleFromInstanceProfileInput) SetRoleName(v string) *RemoveRoleFr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RemoveRoleFromInstanceProfileOutput
 type RemoveRoleFromInstanceProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -24116,6 +24338,7 @@ func (s RemoveRoleFromInstanceProfileOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RemoveUserFromGroupRequest
 type RemoveUserFromGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24182,6 +24405,7 @@ func (s *RemoveUserFromGroupInput) SetUserName(v string) *RemoveUserFromGroupInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RemoveUserFromGroupOutput
 type RemoveUserFromGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -24196,6 +24420,7 @@ func (s RemoveUserFromGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ResetServiceSpecificCredentialRequest
 type ResetServiceSpecificCredentialInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24259,6 +24484,7 @@ func (s *ResetServiceSpecificCredentialInput) SetUserName(v string) *ResetServic
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ResetServiceSpecificCredentialResponse
 type ResetServiceSpecificCredentialOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -24290,6 +24516,7 @@ func (s *ResetServiceSpecificCredentialOutput) SetServiceSpecificCredential(v *S
 // resource.
 //
 // This data type is used by a member of the EvaluationResult data type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ResourceSpecificResult
 type ResourceSpecificResult struct {
 	_ struct{} `type:"structure"`
 
@@ -24369,6 +24596,7 @@ func (s *ResourceSpecificResult) SetMissingContextValues(v []*string) *ResourceS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ResyncMFADeviceRequest
 type ResyncMFADeviceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24473,6 +24701,7 @@ func (s *ResyncMFADeviceInput) SetUserName(v string) *ResyncMFADeviceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ResyncMFADeviceOutput
 type ResyncMFADeviceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -24489,6 +24718,7 @@ func (s ResyncMFADeviceOutput) GoString() string {
 
 // Contains information about an IAM role. This structure is returned as a response
 // element in several APIs that interact with roles.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/Role
 type Role struct {
 	_ struct{} `type:"structure"`
 
@@ -24587,6 +24817,7 @@ func (s *Role) SetRoleName(v string) *Role {
 //
 // This data type is used as a response element in the GetAccountAuthorizationDetails
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RoleDetail
 type RoleDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -24697,6 +24928,7 @@ func (s *RoleDetail) SetRolePolicyList(v []*PolicyDetail) *RoleDetail {
 //
 // This data type is used as a response element in the GetServiceLinkedRoleDeletionStatus
 // operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RoleUsageType
 type RoleUsageType struct {
 	_ struct{} `type:"structure"`
 
@@ -24730,6 +24962,7 @@ func (s *RoleUsageType) SetResources(v []*string) *RoleUsageType {
 }
 
 // Contains the list of SAML providers for this account.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SAMLProviderListEntry
 type SAMLProviderListEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -24775,6 +25008,7 @@ func (s *SAMLProviderListEntry) SetValidUntil(v time.Time) *SAMLProviderListEntr
 //
 // This data type is used as a response element in the GetSSHPublicKey and UploadSSHPublicKey
 // actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SSHPublicKey
 type SSHPublicKey struct {
 	_ struct{} `type:"structure"`
 
@@ -24858,6 +25092,7 @@ func (s *SSHPublicKey) SetUserName(v string) *SSHPublicKey {
 // Contains information about an SSH public key, without the key's body or fingerprint.
 //
 // This data type is used as a response element in the ListSSHPublicKeys action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SSHPublicKeyMetadata
 type SSHPublicKeyMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -24922,6 +25157,7 @@ func (s *SSHPublicKeyMetadata) SetUserName(v string) *SSHPublicKeyMetadata {
 //
 // This data type is used as a response element in the GetServerCertificate
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ServerCertificate
 type ServerCertificate struct {
 	_ struct{} `type:"structure"`
 
@@ -24973,6 +25209,7 @@ func (s *ServerCertificate) SetServerCertificateMetadata(v *ServerCertificateMet
 //
 // This data type is used as a response element in the UploadServerCertificate
 // and ListServerCertificates actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ServerCertificateMetadata
 type ServerCertificateMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -25057,6 +25294,7 @@ func (s *ServerCertificateMetadata) SetUploadDate(v time.Time) *ServerCertificat
 }
 
 // Contains the details of a service specific credential.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ServiceSpecificCredential
 type ServiceSpecificCredential struct {
 	_ struct{} `type:"structure"`
 
@@ -25154,6 +25392,7 @@ func (s *ServiceSpecificCredential) SetUserName(v string) *ServiceSpecificCreden
 }
 
 // Contains additional details about a service-specific credential.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/ServiceSpecificCredentialMetadata
 type ServiceSpecificCredentialMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -25236,6 +25475,7 @@ func (s *ServiceSpecificCredentialMetadata) SetUserName(v string) *ServiceSpecif
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SetDefaultPolicyVersionRequest
 type SetDefaultPolicyVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25300,6 +25540,7 @@ func (s *SetDefaultPolicyVersionInput) SetVersionId(v string) *SetDefaultPolicyV
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SetDefaultPolicyVersionOutput
 type SetDefaultPolicyVersionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -25318,6 +25559,7 @@ func (s SetDefaultPolicyVersionOutput) GoString() string {
 //
 // This data type is used as a response element in the UploadSigningCertificate
 // and ListSigningCertificates actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SigningCertificate
 type SigningCertificate struct {
 	_ struct{} `type:"structure"`
 
@@ -25386,6 +25628,7 @@ func (s *SigningCertificate) SetUserName(v string) *SigningCertificate {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SimulateCustomPolicyRequest
 type SimulateCustomPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25644,6 +25887,7 @@ func (s *SimulateCustomPolicyInput) SetResourcePolicy(v string) *SimulateCustomP
 
 // Contains the response to a successful SimulatePrincipalPolicy or SimulateCustomPolicy
 // request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SimulatePolicyResponse
 type SimulatePolicyResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -25691,6 +25935,7 @@ func (s *SimulatePolicyResponse) SetMarker(v string) *SimulatePolicyResponse {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SimulatePrincipalPolicyRequest
 type SimulatePrincipalPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25975,6 +26220,7 @@ func (s *SimulatePrincipalPolicyInput) SetResourcePolicy(v string) *SimulatePrin
 //
 // This data type is used by the MatchedStatements member of the EvaluationResult
 // type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/Statement
 type Statement struct {
 	_ struct{} `type:"structure"`
 
@@ -26025,6 +26271,7 @@ func (s *Statement) SetStartPosition(v *Position) *Statement {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateAccessKeyRequest
 type UpdateAccessKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26102,6 +26349,7 @@ func (s *UpdateAccessKeyInput) SetUserName(v string) *UpdateAccessKeyInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateAccessKeyOutput
 type UpdateAccessKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26116,6 +26364,7 @@ func (s UpdateAccessKeyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateAccountPasswordPolicyRequest
 type UpdateAccountPasswordPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26260,6 +26509,7 @@ func (s *UpdateAccountPasswordPolicyInput) SetRequireUppercaseCharacters(v bool)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateAccountPasswordPolicyOutput
 type UpdateAccountPasswordPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26274,6 +26524,7 @@ func (s UpdateAccountPasswordPolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateAssumeRolePolicyRequest
 type UpdateAssumeRolePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26343,6 +26594,7 @@ func (s *UpdateAssumeRolePolicyInput) SetRoleName(v string) *UpdateAssumeRolePol
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateAssumeRolePolicyOutput
 type UpdateAssumeRolePolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26357,6 +26609,7 @@ func (s UpdateAssumeRolePolicyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateGroupRequest
 type UpdateGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26437,6 +26690,7 @@ func (s *UpdateGroupInput) SetNewPath(v string) *UpdateGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateGroupOutput
 type UpdateGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26451,6 +26705,7 @@ func (s UpdateGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateLoginProfileRequest
 type UpdateLoginProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26527,6 +26782,7 @@ func (s *UpdateLoginProfileInput) SetUserName(v string) *UpdateLoginProfileInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateLoginProfileOutput
 type UpdateLoginProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26541,6 +26797,7 @@ func (s UpdateLoginProfileOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateOpenIDConnectProviderThumbprintRequest
 type UpdateOpenIDConnectProviderThumbprintInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26603,6 +26860,7 @@ func (s *UpdateOpenIDConnectProviderThumbprintInput) SetThumbprintList(v []*stri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateOpenIDConnectProviderThumbprintOutput
 type UpdateOpenIDConnectProviderThumbprintOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26617,6 +26875,7 @@ func (s UpdateOpenIDConnectProviderThumbprintOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateRoleDescriptionRequest
 type UpdateRoleDescriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26672,6 +26931,7 @@ func (s *UpdateRoleDescriptionInput) SetRoleName(v string) *UpdateRoleDescriptio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateRoleDescriptionResponse
 type UpdateRoleDescriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -26695,6 +26955,7 @@ func (s *UpdateRoleDescriptionOutput) SetRole(v *Role) *UpdateRoleDescriptionOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateSAMLProviderRequest
 type UpdateSAMLProviderInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26762,6 +27023,7 @@ func (s *UpdateSAMLProviderInput) SetSAMLProviderArn(v string) *UpdateSAMLProvid
 }
 
 // Contains the response to a successful UpdateSAMLProvider request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateSAMLProviderResponse
 type UpdateSAMLProviderOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -26785,6 +27047,7 @@ func (s *UpdateSAMLProviderOutput) SetSAMLProviderArn(v string) *UpdateSAMLProvi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateSSHPublicKeyRequest
 type UpdateSSHPublicKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26867,6 +27130,7 @@ func (s *UpdateSSHPublicKeyInput) SetUserName(v string) *UpdateSSHPublicKeyInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateSSHPublicKeyOutput
 type UpdateSSHPublicKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26881,6 +27145,7 @@ func (s UpdateSSHPublicKeyOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateServerCertificateRequest
 type UpdateServerCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26963,6 +27228,7 @@ func (s *UpdateServerCertificateInput) SetServerCertificateName(v string) *Updat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateServerCertificateOutput
 type UpdateServerCertificateOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -26977,6 +27243,7 @@ func (s UpdateServerCertificateOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateServiceSpecificCredentialRequest
 type UpdateServiceSpecificCredentialInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27054,6 +27321,7 @@ func (s *UpdateServiceSpecificCredentialInput) SetUserName(v string) *UpdateServ
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateServiceSpecificCredentialOutput
 type UpdateServiceSpecificCredentialOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -27068,6 +27336,7 @@ func (s UpdateServiceSpecificCredentialOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateSigningCertificateRequest
 type UpdateSigningCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27145,6 +27414,7 @@ func (s *UpdateSigningCertificateInput) SetUserName(v string) *UpdateSigningCert
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateSigningCertificateOutput
 type UpdateSigningCertificateOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -27159,6 +27429,7 @@ func (s UpdateSigningCertificateOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateUserRequest
 type UpdateUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27241,6 +27512,7 @@ func (s *UpdateUserInput) SetUserName(v string) *UpdateUserInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UpdateUserOutput
 type UpdateUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -27255,6 +27527,7 @@ func (s UpdateUserOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UploadSSHPublicKeyRequest
 type UploadSSHPublicKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27326,6 +27599,7 @@ func (s *UploadSSHPublicKeyInput) SetUserName(v string) *UploadSSHPublicKeyInput
 }
 
 // Contains the response to a successful UploadSSHPublicKey request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UploadSSHPublicKeyResponse
 type UploadSSHPublicKeyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -27349,6 +27623,7 @@ func (s *UploadSSHPublicKeyOutput) SetSSHPublicKey(v *SSHPublicKey) *UploadSSHPu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UploadServerCertificateRequest
 type UploadServerCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27490,6 +27765,7 @@ func (s *UploadServerCertificateInput) SetServerCertificateName(v string) *Uploa
 }
 
 // Contains the response to a successful UploadServerCertificate request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UploadServerCertificateResponse
 type UploadServerCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -27514,6 +27790,7 @@ func (s *UploadServerCertificateOutput) SetServerCertificateMetadata(v *ServerCe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UploadSigningCertificateRequest
 type UploadSigningCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27579,6 +27856,7 @@ func (s *UploadSigningCertificateInput) SetUserName(v string) *UploadSigningCert
 }
 
 // Contains the response to a successful UploadSigningCertificate request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UploadSigningCertificateResponse
 type UploadSigningCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -27613,6 +27891,7 @@ func (s *UploadSigningCertificateOutput) SetCertificate(v *SigningCertificate) *
 //    * GetUser
 //
 //    * ListUsers
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/User
 type User struct {
 	_ struct{} `type:"structure"`
 
@@ -27721,6 +28000,7 @@ func (s *User) SetUserName(v string) *User {
 //
 // This data type is used as a response element in the GetAccountAuthorizationDetails
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/UserDetail
 type UserDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -27817,6 +28097,7 @@ func (s *UserDetail) SetUserPolicyList(v []*PolicyDetail) *UserDetail {
 }
 
 // Contains information about a virtual MFA device.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/VirtualMFADevice
 type VirtualMFADevice struct {
 	_ struct{} `type:"structure"`
 

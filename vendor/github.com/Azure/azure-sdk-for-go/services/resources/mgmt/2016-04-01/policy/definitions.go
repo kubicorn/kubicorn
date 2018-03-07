@@ -18,7 +18,6 @@ package policy
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -27,7 +26,7 @@ import (
 // DefinitionsClient is the to manage and control access to your resources, you can define customized policies and
 // assign them at a scope.
 type DefinitionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDefinitionsClient creates an instance of the DefinitionsClient client.
@@ -43,8 +42,8 @@ func NewDefinitionsClientWithBaseURI(baseURI string, subscriptionID string) Defi
 // CreateOrUpdate creates or updates a policy definition.
 //
 // policyDefinitionName is the name of the policy definition to create. parameters is the policy definition properties.
-func (client DefinitionsClient) CreateOrUpdate(ctx context.Context, policyDefinitionName string, parameters Definition) (result Definition, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, policyDefinitionName, parameters)
+func (client DefinitionsClient) CreateOrUpdate(policyDefinitionName string, parameters Definition) (result Definition, err error) {
+	req, err := client.CreateOrUpdatePreparer(policyDefinitionName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client DefinitionsClient) CreateOrUpdate(ctx context.Context, policyDefini
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client DefinitionsClient) CreateOrUpdatePreparer(ctx context.Context, policyDefinitionName string, parameters Definition) (*http.Request, error) {
+func (client DefinitionsClient) CreateOrUpdatePreparer(policyDefinitionName string, parameters Definition) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"policyDefinitionName": autorest.Encode("path", policyDefinitionName),
 		"subscriptionId":       autorest.Encode("path", client.SubscriptionID),
@@ -84,13 +83,14 @@ func (client DefinitionsClient) CreateOrUpdatePreparer(ctx context.Context, poli
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policydefinitions/{policyDefinitionName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client DefinitionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -110,8 +110,8 @@ func (client DefinitionsClient) CreateOrUpdateResponder(resp *http.Response) (re
 // Delete deletes a policy definition.
 //
 // policyDefinitionName is the name of the policy definition to delete.
-func (client DefinitionsClient) Delete(ctx context.Context, policyDefinitionName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, policyDefinitionName)
+func (client DefinitionsClient) Delete(policyDefinitionName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(policyDefinitionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -133,7 +133,7 @@ func (client DefinitionsClient) Delete(ctx context.Context, policyDefinitionName
 }
 
 // DeletePreparer prepares the Delete request.
-func (client DefinitionsClient) DeletePreparer(ctx context.Context, policyDefinitionName string) (*http.Request, error) {
+func (client DefinitionsClient) DeletePreparer(policyDefinitionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"policyDefinitionName": autorest.Encode("path", policyDefinitionName),
 		"subscriptionId":       autorest.Encode("path", client.SubscriptionID),
@@ -149,13 +149,14 @@ func (client DefinitionsClient) DeletePreparer(ctx context.Context, policyDefini
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policydefinitions/{policyDefinitionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client DefinitionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -165,7 +166,7 @@ func (client DefinitionsClient) DeleteResponder(resp *http.Response) (result aut
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusNoContent),
+		azure.WithErrorUnlessStatusCode(http.StatusNoContent, http.StatusOK),
 		autorest.ByClosing())
 	result.Response = resp
 	return
@@ -174,8 +175,8 @@ func (client DefinitionsClient) DeleteResponder(resp *http.Response) (result aut
 // Get gets the policy definition.
 //
 // policyDefinitionName is the name of the policy definition to get.
-func (client DefinitionsClient) Get(ctx context.Context, policyDefinitionName string) (result Definition, err error) {
-	req, err := client.GetPreparer(ctx, policyDefinitionName)
+func (client DefinitionsClient) Get(policyDefinitionName string) (result Definition, err error) {
+	req, err := client.GetPreparer(policyDefinitionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -197,7 +198,7 @@ func (client DefinitionsClient) Get(ctx context.Context, policyDefinitionName st
 }
 
 // GetPreparer prepares the Get request.
-func (client DefinitionsClient) GetPreparer(ctx context.Context, policyDefinitionName string) (*http.Request, error) {
+func (client DefinitionsClient) GetPreparer(policyDefinitionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"policyDefinitionName": autorest.Encode("path", policyDefinitionName),
 		"subscriptionId":       autorest.Encode("path", client.SubscriptionID),
@@ -213,13 +214,14 @@ func (client DefinitionsClient) GetPreparer(ctx context.Context, policyDefinitio
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policydefinitions/{policyDefinitionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DefinitionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -239,9 +241,8 @@ func (client DefinitionsClient) GetResponder(resp *http.Response) (result Defini
 // List gets all the policy definitions for a subscription.
 //
 // filter is the filter to apply on the operation.
-func (client DefinitionsClient) List(ctx context.Context, filter string) (result DefinitionListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, filter)
+func (client DefinitionsClient) List(filter string) (result DefinitionListResult, err error) {
+	req, err := client.ListPreparer(filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "List", nil, "Failure preparing request")
 		return
@@ -249,12 +250,12 @@ func (client DefinitionsClient) List(ctx context.Context, filter string) (result
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.dlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.dlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "List", resp, "Failure responding to request")
 	}
@@ -263,7 +264,7 @@ func (client DefinitionsClient) List(ctx context.Context, filter string) (result
 }
 
 // ListPreparer prepares the List request.
-func (client DefinitionsClient) ListPreparer(ctx context.Context, filter string) (*http.Request, error) {
+func (client DefinitionsClient) ListPreparer(filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -281,13 +282,14 @@ func (client DefinitionsClient) ListPreparer(ctx context.Context, filter string)
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policydefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client DefinitionsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -304,29 +306,71 @@ func (client DefinitionsClient) ListResponder(resp *http.Response) (result Defin
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client DefinitionsClient) listNextResults(lastResults DefinitionListResult) (result DefinitionListResult, err error) {
-	req, err := lastResults.definitionListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client DefinitionsClient) ListNextResults(lastResults DefinitionListResult) (result DefinitionListResult, err error) {
+	req, err := lastResults.DefinitionListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "policy.DefinitionsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "policy.DefinitionsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "policy.DefinitionsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "policy.DefinitionsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "policy.DefinitionsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client DefinitionsClient) ListComplete(ctx context.Context, filter string) (result DefinitionListResultIterator, err error) {
-	result.page, err = client.List(ctx, filter)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client DefinitionsClient) ListComplete(filter string, cancel <-chan struct{}) (<-chan Definition, <-chan error) {
+	resultChan := make(chan Definition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

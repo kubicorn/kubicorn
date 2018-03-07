@@ -22,13 +22,9 @@
 package iam
 
 import (
-	"time"
-
-	gax "github.com/googleapis/gax-go"
 	"golang.org/x/net/context"
 	pb "google.golang.org/genproto/googleapis/iam/v1"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
 )
 
 // client abstracts the IAMPolicy API to allow multiple implementations.
@@ -43,50 +39,26 @@ type grpcClient struct {
 	c pb.IAMPolicyClient
 }
 
-var withRetry = gax.WithRetry(func() gax.Retryer {
-	return gax.OnCodes([]codes.Code{
-		codes.DeadlineExceeded,
-		codes.Unavailable,
-	}, gax.Backoff{
-		Initial:    100 * time.Millisecond,
-		Max:        60 * time.Second,
-		Multiplier: 1.3,
-	})
-})
-
 func (g *grpcClient) Get(ctx context.Context, resource string) (*pb.Policy, error) {
-	var proto *pb.Policy
-	err := gax.Invoke(ctx, func(ctx context.Context, _ gax.CallSettings) error {
-		var err error
-		proto, err = g.c.GetIamPolicy(ctx, &pb.GetIamPolicyRequest{Resource: resource})
-		return err
-	}, withRetry)
+	proto, err := g.c.GetIamPolicy(ctx, &pb.GetIamPolicyRequest{Resource: resource})
 	if err != nil {
 		return nil, err
 	}
 	return proto, nil
 }
-
 func (g *grpcClient) Set(ctx context.Context, resource string, p *pb.Policy) error {
-	return gax.Invoke(ctx, func(ctx context.Context, _ gax.CallSettings) error {
-		_, err := g.c.SetIamPolicy(ctx, &pb.SetIamPolicyRequest{
-			Resource: resource,
-			Policy:   p,
-		})
-		return err
-	}, withRetry)
+	_, err := g.c.SetIamPolicy(ctx, &pb.SetIamPolicyRequest{
+		Resource: resource,
+		Policy:   p,
+	})
+	return err
 }
 
 func (g *grpcClient) Test(ctx context.Context, resource string, perms []string) ([]string, error) {
-	var res *pb.TestIamPermissionsResponse
-	err := gax.Invoke(ctx, func(ctx context.Context, _ gax.CallSettings) error {
-		var err error
-		res, err = g.c.TestIamPermissions(ctx, &pb.TestIamPermissionsRequest{
-			Resource:    resource,
-			Permissions: perms,
-		})
-		return err
-	}, withRetry)
+	res, err := g.c.TestIamPermissions(ctx, &pb.TestIamPermissionsRequest{
+		Resource:    resource,
+		Permissions: perms,
+	})
 	if err != nil {
 		return nil, err
 	}

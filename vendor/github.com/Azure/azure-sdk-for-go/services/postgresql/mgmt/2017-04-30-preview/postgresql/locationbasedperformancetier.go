@@ -18,7 +18,6 @@ package postgresql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -28,7 +27,7 @@ import (
 // delete functionality for Azure PostgreSQL resources including servers, databases, firewall rules, VNET rules, log
 // files and configurations.
 type LocationBasedPerformanceTierClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewLocationBasedPerformanceTierClient creates an instance of the LocationBasedPerformanceTierClient client.
@@ -45,8 +44,8 @@ func NewLocationBasedPerformanceTierClientWithBaseURI(baseURI string, subscripti
 // List list all the performance tiers at specified location in a given subscription.
 //
 // locationName is the name of the location.
-func (client LocationBasedPerformanceTierClient) List(ctx context.Context, locationName string) (result PerformanceTierListResult, err error) {
-	req, err := client.ListPreparer(ctx, locationName)
+func (client LocationBasedPerformanceTierClient) List(locationName string) (result PerformanceTierListResult, err error) {
+	req, err := client.ListPreparer(locationName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "postgresql.LocationBasedPerformanceTierClient", "List", nil, "Failure preparing request")
 		return
@@ -68,7 +67,7 @@ func (client LocationBasedPerformanceTierClient) List(ctx context.Context, locat
 }
 
 // ListPreparer prepares the List request.
-func (client LocationBasedPerformanceTierClient) ListPreparer(ctx context.Context, locationName string) (*http.Request, error) {
+func (client LocationBasedPerformanceTierClient) ListPreparer(locationName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"locationName":   autorest.Encode("path", locationName),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -84,13 +83,14 @@ func (client LocationBasedPerformanceTierClient) ListPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.DBforPostgreSQL/locations/{locationName}/performanceTiers", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client LocationBasedPerformanceTierClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

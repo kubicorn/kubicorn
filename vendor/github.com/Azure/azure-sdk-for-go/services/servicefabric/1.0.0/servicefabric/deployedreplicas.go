@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // DeployedReplicasClient is the client for the DeployedReplicas methods of the Servicefabric service.
 type DeployedReplicasClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDeployedReplicasClient creates an instance of the DeployedReplicasClient client.
@@ -42,8 +41,8 @@ func NewDeployedReplicasClientWithBaseURI(baseURI string, timeout *int32) Deploy
 // Get get deployed replicas
 //
 // nodeName is the name of the node applicationName is the name of the application
-func (client DeployedReplicasClient) Get(ctx context.Context, nodeName string, applicationName string) (result ListDeployedReplica, err error) {
-	req, err := client.GetPreparer(ctx, nodeName, applicationName)
+func (client DeployedReplicasClient) Get(nodeName string, applicationName string) (result ListDeployedReplica, err error) {
+	req, err := client.GetPreparer(nodeName, applicationName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.DeployedReplicasClient", "Get", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client DeployedReplicasClient) Get(ctx context.Context, nodeName string, a
 }
 
 // GetPreparer prepares the Get request.
-func (client DeployedReplicasClient) GetPreparer(ctx context.Context, nodeName string, applicationName string) (*http.Request, error) {
+func (client DeployedReplicasClient) GetPreparer(nodeName string, applicationName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 		"nodeName":        autorest.Encode("path", nodeName),
@@ -84,13 +83,14 @@ func (client DeployedReplicasClient) GetPreparer(ctx context.Context, nodeName s
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/Nodes/{nodeName}/$/GetApplications/{applicationName}/$/GetReplicas", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DeployedReplicasClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

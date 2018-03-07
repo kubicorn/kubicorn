@@ -18,7 +18,6 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // GlobalClient is the webSite Management Client
 type GlobalClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewGlobalClient creates an instance of the GlobalClient client.
@@ -42,8 +41,8 @@ func NewGlobalClientWithBaseURI(baseURI string, subscriptionID string) GlobalCli
 // CheckNameAvailability sends the check name availability request.
 //
 // request is name availability request
-func (client GlobalClient) CheckNameAvailability(ctx context.Context, request ResourceNameAvailabilityRequest) (result ResourceNameAvailability, err error) {
-	req, err := client.CheckNameAvailabilityPreparer(ctx, request)
+func (client GlobalClient) CheckNameAvailability(request ResourceNameAvailabilityRequest) (result ResourceNameAvailability, err error) {
+	req, err := client.CheckNameAvailabilityPreparer(request)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "CheckNameAvailability", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client GlobalClient) CheckNameAvailability(ctx context.Context, request Re
 }
 
 // CheckNameAvailabilityPreparer prepares the CheckNameAvailability request.
-func (client GlobalClient) CheckNameAvailabilityPreparer(ctx context.Context, request ResourceNameAvailabilityRequest) (*http.Request, error) {
+func (client GlobalClient) CheckNameAvailabilityPreparer(request ResourceNameAvailabilityRequest) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -82,13 +81,14 @@ func (client GlobalClient) CheckNameAvailabilityPreparer(ctx context.Context, re
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/checknameavailability", pathParameters),
 		autorest.WithJSON(request),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CheckNameAvailabilitySender sends the CheckNameAvailability request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) CheckNameAvailabilitySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -106,9 +106,8 @@ func (client GlobalClient) CheckNameAvailabilityResponder(resp *http.Response) (
 }
 
 // GetAllCertificates sends the get all certificates request.
-func (client GlobalClient) GetAllCertificates(ctx context.Context) (result CertificateCollectionPage, err error) {
-	result.fn = client.getAllCertificatesNextResults
-	req, err := client.GetAllCertificatesPreparer(ctx)
+func (client GlobalClient) GetAllCertificates() (result CertificateCollection, err error) {
+	req, err := client.GetAllCertificatesPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllCertificates", nil, "Failure preparing request")
 		return
@@ -116,12 +115,12 @@ func (client GlobalClient) GetAllCertificates(ctx context.Context) (result Certi
 
 	resp, err := client.GetAllCertificatesSender(req)
 	if err != nil {
-		result.cc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllCertificates", resp, "Failure sending request")
 		return
 	}
 
-	result.cc, err = client.GetAllCertificatesResponder(resp)
+	result, err = client.GetAllCertificatesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllCertificates", resp, "Failure responding to request")
 	}
@@ -130,7 +129,7 @@ func (client GlobalClient) GetAllCertificates(ctx context.Context) (result Certi
 }
 
 // GetAllCertificatesPreparer prepares the GetAllCertificates request.
-func (client GlobalClient) GetAllCertificatesPreparer(ctx context.Context) (*http.Request, error) {
+func (client GlobalClient) GetAllCertificatesPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -145,13 +144,14 @@ func (client GlobalClient) GetAllCertificatesPreparer(ctx context.Context) (*htt
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/certificates", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAllCertificatesSender sends the GetAllCertificates request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetAllCertificatesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -168,37 +168,78 @@ func (client GlobalClient) GetAllCertificatesResponder(resp *http.Response) (res
 	return
 }
 
-// getAllCertificatesNextResults retrieves the next set of results, if any.
-func (client GlobalClient) getAllCertificatesNextResults(lastResults CertificateCollection) (result CertificateCollection, err error) {
-	req, err := lastResults.certificateCollectionPreparer()
+// GetAllCertificatesNextResults retrieves the next set of results, if any.
+func (client GlobalClient) GetAllCertificatesNextResults(lastResults CertificateCollection) (result CertificateCollection, err error) {
+	req, err := lastResults.CertificateCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllCertificatesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllCertificates", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetAllCertificatesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllCertificatesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllCertificates", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetAllCertificatesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.GlobalClient", "getAllCertificatesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllCertificates", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetAllCertificatesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GlobalClient) GetAllCertificatesComplete(ctx context.Context) (result CertificateCollectionIterator, err error) {
-	result.page, err = client.GetAllCertificates(ctx)
-	return
+// GetAllCertificatesComplete gets all elements from the list without paging.
+func (client GlobalClient) GetAllCertificatesComplete(cancel <-chan struct{}) (<-chan Certificate, <-chan error) {
+	resultChan := make(chan Certificate)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetAllCertificates()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetAllCertificatesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetAllClassicMobileServices sends the get all classic mobile services request.
-func (client GlobalClient) GetAllClassicMobileServices(ctx context.Context) (result ClassicMobileServiceCollectionPage, err error) {
-	result.fn = client.getAllClassicMobileServicesNextResults
-	req, err := client.GetAllClassicMobileServicesPreparer(ctx)
+func (client GlobalClient) GetAllClassicMobileServices() (result ClassicMobileServiceCollection, err error) {
+	req, err := client.GetAllClassicMobileServicesPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllClassicMobileServices", nil, "Failure preparing request")
 		return
@@ -206,12 +247,12 @@ func (client GlobalClient) GetAllClassicMobileServices(ctx context.Context) (res
 
 	resp, err := client.GetAllClassicMobileServicesSender(req)
 	if err != nil {
-		result.cmsc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllClassicMobileServices", resp, "Failure sending request")
 		return
 	}
 
-	result.cmsc, err = client.GetAllClassicMobileServicesResponder(resp)
+	result, err = client.GetAllClassicMobileServicesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllClassicMobileServices", resp, "Failure responding to request")
 	}
@@ -220,7 +261,7 @@ func (client GlobalClient) GetAllClassicMobileServices(ctx context.Context) (res
 }
 
 // GetAllClassicMobileServicesPreparer prepares the GetAllClassicMobileServices request.
-func (client GlobalClient) GetAllClassicMobileServicesPreparer(ctx context.Context) (*http.Request, error) {
+func (client GlobalClient) GetAllClassicMobileServicesPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -235,13 +276,14 @@ func (client GlobalClient) GetAllClassicMobileServicesPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/classicMobileServices", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAllClassicMobileServicesSender sends the GetAllClassicMobileServices request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetAllClassicMobileServicesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -258,37 +300,78 @@ func (client GlobalClient) GetAllClassicMobileServicesResponder(resp *http.Respo
 	return
 }
 
-// getAllClassicMobileServicesNextResults retrieves the next set of results, if any.
-func (client GlobalClient) getAllClassicMobileServicesNextResults(lastResults ClassicMobileServiceCollection) (result ClassicMobileServiceCollection, err error) {
-	req, err := lastResults.classicMobileServiceCollectionPreparer()
+// GetAllClassicMobileServicesNextResults retrieves the next set of results, if any.
+func (client GlobalClient) GetAllClassicMobileServicesNextResults(lastResults ClassicMobileServiceCollection) (result ClassicMobileServiceCollection, err error) {
+	req, err := lastResults.ClassicMobileServiceCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllClassicMobileServicesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllClassicMobileServices", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetAllClassicMobileServicesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllClassicMobileServicesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllClassicMobileServices", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetAllClassicMobileServicesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.GlobalClient", "getAllClassicMobileServicesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllClassicMobileServices", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetAllClassicMobileServicesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GlobalClient) GetAllClassicMobileServicesComplete(ctx context.Context) (result ClassicMobileServiceCollectionIterator, err error) {
-	result.page, err = client.GetAllClassicMobileServices(ctx)
-	return
+// GetAllClassicMobileServicesComplete gets all elements from the list without paging.
+func (client GlobalClient) GetAllClassicMobileServicesComplete(cancel <-chan struct{}) (<-chan ClassicMobileService, <-chan error) {
+	resultChan := make(chan ClassicMobileService)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetAllClassicMobileServices()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetAllClassicMobileServicesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetAllHostingEnvironments sends the get all hosting environments request.
-func (client GlobalClient) GetAllHostingEnvironments(ctx context.Context) (result HostingEnvironmentCollectionPage, err error) {
-	result.fn = client.getAllHostingEnvironmentsNextResults
-	req, err := client.GetAllHostingEnvironmentsPreparer(ctx)
+func (client GlobalClient) GetAllHostingEnvironments() (result HostingEnvironmentCollection, err error) {
+	req, err := client.GetAllHostingEnvironmentsPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllHostingEnvironments", nil, "Failure preparing request")
 		return
@@ -296,12 +379,12 @@ func (client GlobalClient) GetAllHostingEnvironments(ctx context.Context) (resul
 
 	resp, err := client.GetAllHostingEnvironmentsSender(req)
 	if err != nil {
-		result.hec.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllHostingEnvironments", resp, "Failure sending request")
 		return
 	}
 
-	result.hec, err = client.GetAllHostingEnvironmentsResponder(resp)
+	result, err = client.GetAllHostingEnvironmentsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllHostingEnvironments", resp, "Failure responding to request")
 	}
@@ -310,7 +393,7 @@ func (client GlobalClient) GetAllHostingEnvironments(ctx context.Context) (resul
 }
 
 // GetAllHostingEnvironmentsPreparer prepares the GetAllHostingEnvironments request.
-func (client GlobalClient) GetAllHostingEnvironmentsPreparer(ctx context.Context) (*http.Request, error) {
+func (client GlobalClient) GetAllHostingEnvironmentsPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -325,13 +408,14 @@ func (client GlobalClient) GetAllHostingEnvironmentsPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/hostingEnvironments", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAllHostingEnvironmentsSender sends the GetAllHostingEnvironments request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetAllHostingEnvironmentsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -348,37 +432,78 @@ func (client GlobalClient) GetAllHostingEnvironmentsResponder(resp *http.Respons
 	return
 }
 
-// getAllHostingEnvironmentsNextResults retrieves the next set of results, if any.
-func (client GlobalClient) getAllHostingEnvironmentsNextResults(lastResults HostingEnvironmentCollection) (result HostingEnvironmentCollection, err error) {
-	req, err := lastResults.hostingEnvironmentCollectionPreparer()
+// GetAllHostingEnvironmentsNextResults retrieves the next set of results, if any.
+func (client GlobalClient) GetAllHostingEnvironmentsNextResults(lastResults HostingEnvironmentCollection) (result HostingEnvironmentCollection, err error) {
+	req, err := lastResults.HostingEnvironmentCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllHostingEnvironmentsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllHostingEnvironments", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetAllHostingEnvironmentsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllHostingEnvironmentsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllHostingEnvironments", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetAllHostingEnvironmentsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.GlobalClient", "getAllHostingEnvironmentsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllHostingEnvironments", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetAllHostingEnvironmentsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GlobalClient) GetAllHostingEnvironmentsComplete(ctx context.Context) (result HostingEnvironmentCollectionIterator, err error) {
-	result.page, err = client.GetAllHostingEnvironments(ctx)
-	return
+// GetAllHostingEnvironmentsComplete gets all elements from the list without paging.
+func (client GlobalClient) GetAllHostingEnvironmentsComplete(cancel <-chan struct{}) (<-chan HostingEnvironment, <-chan error) {
+	resultChan := make(chan HostingEnvironment)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetAllHostingEnvironments()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetAllHostingEnvironmentsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetAllManagedHostingEnvironments sends the get all managed hosting environments request.
-func (client GlobalClient) GetAllManagedHostingEnvironments(ctx context.Context) (result ManagedHostingEnvironmentCollectionPage, err error) {
-	result.fn = client.getAllManagedHostingEnvironmentsNextResults
-	req, err := client.GetAllManagedHostingEnvironmentsPreparer(ctx)
+func (client GlobalClient) GetAllManagedHostingEnvironments() (result ManagedHostingEnvironmentCollection, err error) {
+	req, err := client.GetAllManagedHostingEnvironmentsPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllManagedHostingEnvironments", nil, "Failure preparing request")
 		return
@@ -386,12 +511,12 @@ func (client GlobalClient) GetAllManagedHostingEnvironments(ctx context.Context)
 
 	resp, err := client.GetAllManagedHostingEnvironmentsSender(req)
 	if err != nil {
-		result.mhec.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllManagedHostingEnvironments", resp, "Failure sending request")
 		return
 	}
 
-	result.mhec, err = client.GetAllManagedHostingEnvironmentsResponder(resp)
+	result, err = client.GetAllManagedHostingEnvironmentsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllManagedHostingEnvironments", resp, "Failure responding to request")
 	}
@@ -400,7 +525,7 @@ func (client GlobalClient) GetAllManagedHostingEnvironments(ctx context.Context)
 }
 
 // GetAllManagedHostingEnvironmentsPreparer prepares the GetAllManagedHostingEnvironments request.
-func (client GlobalClient) GetAllManagedHostingEnvironmentsPreparer(ctx context.Context) (*http.Request, error) {
+func (client GlobalClient) GetAllManagedHostingEnvironmentsPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -415,13 +540,14 @@ func (client GlobalClient) GetAllManagedHostingEnvironmentsPreparer(ctx context.
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/managedHostingEnvironments", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAllManagedHostingEnvironmentsSender sends the GetAllManagedHostingEnvironments request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetAllManagedHostingEnvironmentsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -438,40 +564,81 @@ func (client GlobalClient) GetAllManagedHostingEnvironmentsResponder(resp *http.
 	return
 }
 
-// getAllManagedHostingEnvironmentsNextResults retrieves the next set of results, if any.
-func (client GlobalClient) getAllManagedHostingEnvironmentsNextResults(lastResults ManagedHostingEnvironmentCollection) (result ManagedHostingEnvironmentCollection, err error) {
-	req, err := lastResults.managedHostingEnvironmentCollectionPreparer()
+// GetAllManagedHostingEnvironmentsNextResults retrieves the next set of results, if any.
+func (client GlobalClient) GetAllManagedHostingEnvironmentsNextResults(lastResults ManagedHostingEnvironmentCollection) (result ManagedHostingEnvironmentCollection, err error) {
+	req, err := lastResults.ManagedHostingEnvironmentCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllManagedHostingEnvironmentsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllManagedHostingEnvironments", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetAllManagedHostingEnvironmentsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllManagedHostingEnvironmentsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllManagedHostingEnvironments", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetAllManagedHostingEnvironmentsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.GlobalClient", "getAllManagedHostingEnvironmentsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllManagedHostingEnvironments", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetAllManagedHostingEnvironmentsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GlobalClient) GetAllManagedHostingEnvironmentsComplete(ctx context.Context) (result ManagedHostingEnvironmentCollectionIterator, err error) {
-	result.page, err = client.GetAllManagedHostingEnvironments(ctx)
-	return
+// GetAllManagedHostingEnvironmentsComplete gets all elements from the list without paging.
+func (client GlobalClient) GetAllManagedHostingEnvironmentsComplete(cancel <-chan struct{}) (<-chan ManagedHostingEnvironment, <-chan error) {
+	resultChan := make(chan ManagedHostingEnvironment)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetAllManagedHostingEnvironments()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetAllManagedHostingEnvironmentsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetAllServerFarms sends the get all server farms request.
 //
 // detailed is false to return a subset of App Service Plan properties, true to return all of the properties.
 // Retrieval of all properties may increase the API latency.
-func (client GlobalClient) GetAllServerFarms(ctx context.Context, detailed *bool) (result ServerFarmCollectionPage, err error) {
-	result.fn = client.getAllServerFarmsNextResults
-	req, err := client.GetAllServerFarmsPreparer(ctx, detailed)
+func (client GlobalClient) GetAllServerFarms(detailed *bool) (result ServerFarmCollection, err error) {
+	req, err := client.GetAllServerFarmsPreparer(detailed)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllServerFarms", nil, "Failure preparing request")
 		return
@@ -479,12 +646,12 @@ func (client GlobalClient) GetAllServerFarms(ctx context.Context, detailed *bool
 
 	resp, err := client.GetAllServerFarmsSender(req)
 	if err != nil {
-		result.sfc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllServerFarms", resp, "Failure sending request")
 		return
 	}
 
-	result.sfc, err = client.GetAllServerFarmsResponder(resp)
+	result, err = client.GetAllServerFarmsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllServerFarms", resp, "Failure responding to request")
 	}
@@ -493,7 +660,7 @@ func (client GlobalClient) GetAllServerFarms(ctx context.Context, detailed *bool
 }
 
 // GetAllServerFarmsPreparer prepares the GetAllServerFarms request.
-func (client GlobalClient) GetAllServerFarmsPreparer(ctx context.Context, detailed *bool) (*http.Request, error) {
+func (client GlobalClient) GetAllServerFarmsPreparer(detailed *bool) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -511,13 +678,14 @@ func (client GlobalClient) GetAllServerFarmsPreparer(ctx context.Context, detail
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/serverfarms", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAllServerFarmsSender sends the GetAllServerFarms request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetAllServerFarmsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -534,37 +702,78 @@ func (client GlobalClient) GetAllServerFarmsResponder(resp *http.Response) (resu
 	return
 }
 
-// getAllServerFarmsNextResults retrieves the next set of results, if any.
-func (client GlobalClient) getAllServerFarmsNextResults(lastResults ServerFarmCollection) (result ServerFarmCollection, err error) {
-	req, err := lastResults.serverFarmCollectionPreparer()
+// GetAllServerFarmsNextResults retrieves the next set of results, if any.
+func (client GlobalClient) GetAllServerFarmsNextResults(lastResults ServerFarmCollection) (result ServerFarmCollection, err error) {
+	req, err := lastResults.ServerFarmCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllServerFarmsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllServerFarms", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetAllServerFarmsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllServerFarmsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllServerFarms", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetAllServerFarmsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.GlobalClient", "getAllServerFarmsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllServerFarms", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetAllServerFarmsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GlobalClient) GetAllServerFarmsComplete(ctx context.Context, detailed *bool) (result ServerFarmCollectionIterator, err error) {
-	result.page, err = client.GetAllServerFarms(ctx, detailed)
-	return
+// GetAllServerFarmsComplete gets all elements from the list without paging.
+func (client GlobalClient) GetAllServerFarmsComplete(detailed *bool, cancel <-chan struct{}) (<-chan ServerFarmWithRichSku, <-chan error) {
+	resultChan := make(chan ServerFarmWithRichSku)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetAllServerFarms(detailed)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetAllServerFarmsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetAllSites sends the get all sites request.
-func (client GlobalClient) GetAllSites(ctx context.Context) (result SiteCollectionPage, err error) {
-	result.fn = client.getAllSitesNextResults
-	req, err := client.GetAllSitesPreparer(ctx)
+func (client GlobalClient) GetAllSites() (result SiteCollection, err error) {
+	req, err := client.GetAllSitesPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllSites", nil, "Failure preparing request")
 		return
@@ -572,12 +781,12 @@ func (client GlobalClient) GetAllSites(ctx context.Context) (result SiteCollecti
 
 	resp, err := client.GetAllSitesSender(req)
 	if err != nil {
-		result.sc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllSites", resp, "Failure sending request")
 		return
 	}
 
-	result.sc, err = client.GetAllSitesResponder(resp)
+	result, err = client.GetAllSitesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllSites", resp, "Failure responding to request")
 	}
@@ -586,7 +795,7 @@ func (client GlobalClient) GetAllSites(ctx context.Context) (result SiteCollecti
 }
 
 // GetAllSitesPreparer prepares the GetAllSites request.
-func (client GlobalClient) GetAllSitesPreparer(ctx context.Context) (*http.Request, error) {
+func (client GlobalClient) GetAllSitesPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -601,13 +810,14 @@ func (client GlobalClient) GetAllSitesPreparer(ctx context.Context) (*http.Reque
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/sites", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAllSitesSender sends the GetAllSites request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetAllSitesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -624,40 +834,81 @@ func (client GlobalClient) GetAllSitesResponder(resp *http.Response) (result Sit
 	return
 }
 
-// getAllSitesNextResults retrieves the next set of results, if any.
-func (client GlobalClient) getAllSitesNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
-	req, err := lastResults.siteCollectionPreparer()
+// GetAllSitesNextResults retrieves the next set of results, if any.
+func (client GlobalClient) GetAllSitesNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
+	req, err := lastResults.SiteCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllSitesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllSites", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetAllSitesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getAllSitesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllSites", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetAllSitesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.GlobalClient", "getAllSitesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetAllSites", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetAllSitesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GlobalClient) GetAllSitesComplete(ctx context.Context) (result SiteCollectionIterator, err error) {
-	result.page, err = client.GetAllSites(ctx)
-	return
+// GetAllSitesComplete gets all elements from the list without paging.
+func (client GlobalClient) GetAllSitesComplete(cancel <-chan struct{}) (<-chan Site, <-chan error) {
+	resultChan := make(chan Site)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetAllSites()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetAllSitesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetSubscriptionGeoRegions sends the get subscription geo regions request.
 //
 // sku is filter only to regions that support this sku linuxWorkersEnabled is filter only to regions that support linux
 // workers
-func (client GlobalClient) GetSubscriptionGeoRegions(ctx context.Context, sku string, linuxWorkersEnabled *bool) (result GeoRegionCollectionPage, err error) {
-	result.fn = client.getSubscriptionGeoRegionsNextResults
-	req, err := client.GetSubscriptionGeoRegionsPreparer(ctx, sku, linuxWorkersEnabled)
+func (client GlobalClient) GetSubscriptionGeoRegions(sku string, linuxWorkersEnabled *bool) (result GeoRegionCollection, err error) {
+	req, err := client.GetSubscriptionGeoRegionsPreparer(sku, linuxWorkersEnabled)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetSubscriptionGeoRegions", nil, "Failure preparing request")
 		return
@@ -665,12 +916,12 @@ func (client GlobalClient) GetSubscriptionGeoRegions(ctx context.Context, sku st
 
 	resp, err := client.GetSubscriptionGeoRegionsSender(req)
 	if err != nil {
-		result.grc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetSubscriptionGeoRegions", resp, "Failure sending request")
 		return
 	}
 
-	result.grc, err = client.GetSubscriptionGeoRegionsResponder(resp)
+	result, err = client.GetSubscriptionGeoRegionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetSubscriptionGeoRegions", resp, "Failure responding to request")
 	}
@@ -679,7 +930,7 @@ func (client GlobalClient) GetSubscriptionGeoRegions(ctx context.Context, sku st
 }
 
 // GetSubscriptionGeoRegionsPreparer prepares the GetSubscriptionGeoRegions request.
-func (client GlobalClient) GetSubscriptionGeoRegionsPreparer(ctx context.Context, sku string, linuxWorkersEnabled *bool) (*http.Request, error) {
+func (client GlobalClient) GetSubscriptionGeoRegionsPreparer(sku string, linuxWorkersEnabled *bool) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -700,13 +951,14 @@ func (client GlobalClient) GetSubscriptionGeoRegionsPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/geoRegions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSubscriptionGeoRegionsSender sends the GetSubscriptionGeoRegions request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetSubscriptionGeoRegionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -723,36 +975,78 @@ func (client GlobalClient) GetSubscriptionGeoRegionsResponder(resp *http.Respons
 	return
 }
 
-// getSubscriptionGeoRegionsNextResults retrieves the next set of results, if any.
-func (client GlobalClient) getSubscriptionGeoRegionsNextResults(lastResults GeoRegionCollection) (result GeoRegionCollection, err error) {
-	req, err := lastResults.geoRegionCollectionPreparer()
+// GetSubscriptionGeoRegionsNextResults retrieves the next set of results, if any.
+func (client GlobalClient) GetSubscriptionGeoRegionsNextResults(lastResults GeoRegionCollection) (result GeoRegionCollection, err error) {
+	req, err := lastResults.GeoRegionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getSubscriptionGeoRegionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetSubscriptionGeoRegions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetSubscriptionGeoRegionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "getSubscriptionGeoRegionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.GlobalClient", "GetSubscriptionGeoRegions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetSubscriptionGeoRegionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.GlobalClient", "getSubscriptionGeoRegionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetSubscriptionGeoRegions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetSubscriptionGeoRegionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GlobalClient) GetSubscriptionGeoRegionsComplete(ctx context.Context, sku string, linuxWorkersEnabled *bool) (result GeoRegionCollectionIterator, err error) {
-	result.page, err = client.GetSubscriptionGeoRegions(ctx, sku, linuxWorkersEnabled)
-	return
+// GetSubscriptionGeoRegionsComplete gets all elements from the list without paging.
+func (client GlobalClient) GetSubscriptionGeoRegionsComplete(sku string, linuxWorkersEnabled *bool, cancel <-chan struct{}) (<-chan GeoRegion, <-chan error) {
+	resultChan := make(chan GeoRegion)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetSubscriptionGeoRegions(sku, linuxWorkersEnabled)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetSubscriptionGeoRegionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetSubscriptionPublishingCredentials sends the get subscription publishing credentials request.
-func (client GlobalClient) GetSubscriptionPublishingCredentials(ctx context.Context) (result User, err error) {
-	req, err := client.GetSubscriptionPublishingCredentialsPreparer(ctx)
+func (client GlobalClient) GetSubscriptionPublishingCredentials() (result User, err error) {
+	req, err := client.GetSubscriptionPublishingCredentialsPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "GetSubscriptionPublishingCredentials", nil, "Failure preparing request")
 		return
@@ -774,7 +1068,7 @@ func (client GlobalClient) GetSubscriptionPublishingCredentials(ctx context.Cont
 }
 
 // GetSubscriptionPublishingCredentialsPreparer prepares the GetSubscriptionPublishingCredentials request.
-func (client GlobalClient) GetSubscriptionPublishingCredentialsPreparer(ctx context.Context) (*http.Request, error) {
+func (client GlobalClient) GetSubscriptionPublishingCredentialsPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -789,13 +1083,14 @@ func (client GlobalClient) GetSubscriptionPublishingCredentialsPreparer(ctx cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/publishingCredentials", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSubscriptionPublishingCredentialsSender sends the GetSubscriptionPublishingCredentials request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) GetSubscriptionPublishingCredentialsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -815,8 +1110,8 @@ func (client GlobalClient) GetSubscriptionPublishingCredentialsResponder(resp *h
 // IsHostingEnvironmentNameAvailable sends the is hosting environment name available request.
 //
 // name is hosting environment name
-func (client GlobalClient) IsHostingEnvironmentNameAvailable(ctx context.Context, name string) (result SetObject, err error) {
-	req, err := client.IsHostingEnvironmentNameAvailablePreparer(ctx, name)
+func (client GlobalClient) IsHostingEnvironmentNameAvailable(name string) (result SetObject, err error) {
+	req, err := client.IsHostingEnvironmentNameAvailablePreparer(name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "IsHostingEnvironmentNameAvailable", nil, "Failure preparing request")
 		return
@@ -838,7 +1133,7 @@ func (client GlobalClient) IsHostingEnvironmentNameAvailable(ctx context.Context
 }
 
 // IsHostingEnvironmentNameAvailablePreparer prepares the IsHostingEnvironmentNameAvailable request.
-func (client GlobalClient) IsHostingEnvironmentNameAvailablePreparer(ctx context.Context, name string) (*http.Request, error) {
+func (client GlobalClient) IsHostingEnvironmentNameAvailablePreparer(name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -854,13 +1149,14 @@ func (client GlobalClient) IsHostingEnvironmentNameAvailablePreparer(ctx context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/ishostingenvironmentnameavailable", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // IsHostingEnvironmentNameAvailableSender sends the IsHostingEnvironmentNameAvailable request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) IsHostingEnvironmentNameAvailableSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -880,8 +1176,8 @@ func (client GlobalClient) IsHostingEnvironmentNameAvailableResponder(resp *http
 // IsHostingEnvironmentWithLegacyNameAvailable sends the is hosting environment with legacy name available request.
 //
 // name is hosting environment name
-func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailable(ctx context.Context, name string) (result SetObject, err error) {
-	req, err := client.IsHostingEnvironmentWithLegacyNameAvailablePreparer(ctx, name)
+func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailable(name string) (result SetObject, err error) {
+	req, err := client.IsHostingEnvironmentWithLegacyNameAvailablePreparer(name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "IsHostingEnvironmentWithLegacyNameAvailable", nil, "Failure preparing request")
 		return
@@ -903,7 +1199,7 @@ func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailable(ctx conte
 }
 
 // IsHostingEnvironmentWithLegacyNameAvailablePreparer prepares the IsHostingEnvironmentWithLegacyNameAvailable request.
-func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailablePreparer(ctx context.Context, name string) (*http.Request, error) {
+func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailablePreparer(name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":           autorest.Encode("path", name),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -919,13 +1215,14 @@ func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailablePreparer(c
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/ishostingenvironmentnameavailable/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // IsHostingEnvironmentWithLegacyNameAvailableSender sends the IsHostingEnvironmentWithLegacyNameAvailable request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailableSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -943,8 +1240,8 @@ func (client GlobalClient) IsHostingEnvironmentWithLegacyNameAvailableResponder(
 }
 
 // ListPremierAddOnOffers sends the list premier add on offers request.
-func (client GlobalClient) ListPremierAddOnOffers(ctx context.Context) (result SetObject, err error) {
-	req, err := client.ListPremierAddOnOffersPreparer(ctx)
+func (client GlobalClient) ListPremierAddOnOffers() (result SetObject, err error) {
+	req, err := client.ListPremierAddOnOffersPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "ListPremierAddOnOffers", nil, "Failure preparing request")
 		return
@@ -966,7 +1263,7 @@ func (client GlobalClient) ListPremierAddOnOffers(ctx context.Context) (result S
 }
 
 // ListPremierAddOnOffersPreparer prepares the ListPremierAddOnOffers request.
-func (client GlobalClient) ListPremierAddOnOffersPreparer(ctx context.Context) (*http.Request, error) {
+func (client GlobalClient) ListPremierAddOnOffersPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -981,13 +1278,14 @@ func (client GlobalClient) ListPremierAddOnOffersPreparer(ctx context.Context) (
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/premieraddonoffers", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListPremierAddOnOffersSender sends the ListPremierAddOnOffers request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) ListPremierAddOnOffersSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1007,8 +1305,8 @@ func (client GlobalClient) ListPremierAddOnOffersResponder(resp *http.Response) 
 // UpdateSubscriptionPublishingCredentials sends the update subscription publishing credentials request.
 //
 // requestMessage is requestMessage with new publishing credentials
-func (client GlobalClient) UpdateSubscriptionPublishingCredentials(ctx context.Context, requestMessage User) (result User, err error) {
-	req, err := client.UpdateSubscriptionPublishingCredentialsPreparer(ctx, requestMessage)
+func (client GlobalClient) UpdateSubscriptionPublishingCredentials(requestMessage User) (result User, err error) {
+	req, err := client.UpdateSubscriptionPublishingCredentialsPreparer(requestMessage)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.GlobalClient", "UpdateSubscriptionPublishingCredentials", nil, "Failure preparing request")
 		return
@@ -1030,7 +1328,7 @@ func (client GlobalClient) UpdateSubscriptionPublishingCredentials(ctx context.C
 }
 
 // UpdateSubscriptionPublishingCredentialsPreparer prepares the UpdateSubscriptionPublishingCredentials request.
-func (client GlobalClient) UpdateSubscriptionPublishingCredentialsPreparer(ctx context.Context, requestMessage User) (*http.Request, error) {
+func (client GlobalClient) UpdateSubscriptionPublishingCredentialsPreparer(requestMessage User) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -1047,13 +1345,14 @@ func (client GlobalClient) UpdateSubscriptionPublishingCredentialsPreparer(ctx c
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/publishingCredentials", pathParameters),
 		autorest.WithJSON(requestMessage),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSubscriptionPublishingCredentialsSender sends the UpdateSubscriptionPublishingCredentials request. The method will close the
 // http.Response Body if it receives an error.
 func (client GlobalClient) UpdateSubscriptionPublishingCredentialsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

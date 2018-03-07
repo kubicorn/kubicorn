@@ -18,7 +18,6 @@ package dtl
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // FormulasClient is the the DevTest Labs Client.
 type FormulasClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewFormulasClient creates an instance of the FormulasClient client.
@@ -40,11 +39,15 @@ func NewFormulasClientWithBaseURI(baseURI string, subscriptionID string) Formula
 	return FormulasClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate create or replace an existing Formula. This operation can take a while to complete.
+// CreateOrUpdate create or replace an existing Formula. This operation can take a while to complete. This method may
+// poll for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to
+// cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the
 // formula. formula is a formula for creating a VM, specifying an image base and other parameters
-func (client FormulasClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, formula Formula) (result FormulasCreateOrUpdateFuture, err error) {
+func (client FormulasClient) CreateOrUpdate(resourceGroupName string, labName string, name string, formula Formula, cancel <-chan struct{}) (<-chan Formula, <-chan error) {
+	resultChan := make(chan Formula, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: formula,
 			Constraints: []validation.Constraint{{Target: "formula.FormulaProperties", Name: validation.Null, Rule: true,
@@ -61,26 +64,46 @@ func (client FormulasClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 						}},
 					}},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "dtl.FormulasClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "dtl.FormulasClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, labName, name, formula)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result Formula
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, labName, name, formula, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client FormulasClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, labName string, name string, formula Formula) (*http.Request, error) {
+func (client FormulasClient) CreateOrUpdatePreparer(resourceGroupName string, labName string, name string, formula Formula, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -100,22 +123,16 @@ func (client FormulasClient) CreateOrUpdatePreparer(ctx context.Context, resourc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/formulas/{name}", pathParameters),
 		autorest.WithJSON(formula),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client FormulasClient) CreateOrUpdateSender(req *http.Request) (future FormulasCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client FormulasClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -135,8 +152,8 @@ func (client FormulasClient) CreateOrUpdateResponder(resp *http.Response) (resul
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the
 // formula.
-func (client FormulasClient) Delete(ctx context.Context, resourceGroupName string, labName string, name string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, labName, name)
+func (client FormulasClient) Delete(resourceGroupName string, labName string, name string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, labName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "Delete", nil, "Failure preparing request")
 		return
@@ -158,7 +175,7 @@ func (client FormulasClient) Delete(ctx context.Context, resourceGroupName strin
 }
 
 // DeletePreparer prepares the Delete request.
-func (client FormulasClient) DeletePreparer(ctx context.Context, resourceGroupName string, labName string, name string) (*http.Request, error) {
+func (client FormulasClient) DeletePreparer(resourceGroupName string, labName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -176,13 +193,14 @@ func (client FormulasClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/formulas/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client FormulasClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -202,8 +220,8 @@ func (client FormulasClient) DeleteResponder(resp *http.Response) (result autore
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the
 // formula. expand is specify the $expand query. Example: 'properties($select=description)'
-func (client FormulasClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, expand string) (result Formula, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, labName, name, expand)
+func (client FormulasClient) Get(resourceGroupName string, labName string, name string, expand string) (result Formula, err error) {
+	req, err := client.GetPreparer(resourceGroupName, labName, name, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "Get", nil, "Failure preparing request")
 		return
@@ -225,7 +243,7 @@ func (client FormulasClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client FormulasClient) GetPreparer(ctx context.Context, resourceGroupName string, labName string, name string, expand string) (*http.Request, error) {
+func (client FormulasClient) GetPreparer(resourceGroupName string, labName string, name string, expand string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -246,13 +264,14 @@ func (client FormulasClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/formulas/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client FormulasClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -275,9 +294,8 @@ func (client FormulasClient) GetResponder(resp *http.Response) (result Formula, 
 // query. Example: 'properties($select=description)' filter is the filter to apply to the operation. top is the maximum
 // number of resources to return from the operation. orderby is the ordering expression for the results, using OData
 // notation.
-func (client FormulasClient) List(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationFormulaPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, labName, expand, filter, top, orderby)
+func (client FormulasClient) List(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationFormula, err error) {
+	req, err := client.ListPreparer(resourceGroupName, labName, expand, filter, top, orderby)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "List", nil, "Failure preparing request")
 		return
@@ -285,12 +303,12 @@ func (client FormulasClient) List(ctx context.Context, resourceGroupName string,
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rwcf.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rwcf, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "List", resp, "Failure responding to request")
 	}
@@ -299,7 +317,7 @@ func (client FormulasClient) List(ctx context.Context, resourceGroupName string,
 }
 
 // ListPreparer prepares the List request.
-func (client FormulasClient) ListPreparer(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
+func (client FormulasClient) ListPreparer(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -328,13 +346,14 @@ func (client FormulasClient) ListPreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/formulas", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client FormulasClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -351,29 +370,71 @@ func (client FormulasClient) ListResponder(resp *http.Response) (result Response
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client FormulasClient) listNextResults(lastResults ResponseWithContinuationFormula) (result ResponseWithContinuationFormula, err error) {
-	req, err := lastResults.responseWithContinuationFormulaPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client FormulasClient) ListNextResults(lastResults ResponseWithContinuationFormula) (result ResponseWithContinuationFormula, err error) {
+	req, err := lastResults.ResponseWithContinuationFormulaPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "dtl.FormulasClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.FormulasClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "dtl.FormulasClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.FormulasClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "dtl.FormulasClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client FormulasClient) ListComplete(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationFormulaIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, labName, expand, filter, top, orderby)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client FormulasClient) ListComplete(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string, cancel <-chan struct{}) (<-chan Formula, <-chan error) {
+	resultChan := make(chan Formula)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, labName, expand, filter, top, orderby)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

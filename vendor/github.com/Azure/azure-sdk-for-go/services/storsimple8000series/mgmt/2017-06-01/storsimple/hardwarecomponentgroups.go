@@ -18,7 +18,6 @@ package storsimple
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // HardwareComponentGroupsClient is the client for the HardwareComponentGroups methods of the Storsimple service.
 type HardwareComponentGroupsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewHardwareComponentGroupsClient creates an instance of the HardwareComponentGroupsClient client.
@@ -40,37 +39,61 @@ func NewHardwareComponentGroupsClientWithBaseURI(baseURI string, subscriptionID 
 	return HardwareComponentGroupsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// ChangeControllerPowerState changes the power state of the controller.
+// ChangeControllerPowerState changes the power state of the controller. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // deviceName is the device name hardwareComponentGroupName is the hardware component group name. parameters is the
 // controller power state change request. resourceGroupName is the resource group name managerName is the manager name
-func (client HardwareComponentGroupsClient) ChangeControllerPowerState(ctx context.Context, deviceName string, hardwareComponentGroupName string, parameters ControllerPowerStateChangeRequest, resourceGroupName string, managerName string) (result HardwareComponentGroupsChangeControllerPowerStateFuture, err error) {
+func (client HardwareComponentGroupsClient) ChangeControllerPowerState(deviceName string, hardwareComponentGroupName string, parameters ControllerPowerStateChangeRequest, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.ControllerPowerStateChangeRequestProperties", Name: validation.Null, Rule: true, Chain: nil}}},
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.HardwareComponentGroupsClient", "ChangeControllerPowerState")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.HardwareComponentGroupsClient", "ChangeControllerPowerState")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.ChangeControllerPowerStatePreparer(ctx, deviceName, hardwareComponentGroupName, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.HardwareComponentGroupsClient", "ChangeControllerPowerState", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.ChangeControllerPowerStatePreparer(deviceName, hardwareComponentGroupName, parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.HardwareComponentGroupsClient", "ChangeControllerPowerState", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.ChangeControllerPowerStateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.HardwareComponentGroupsClient", "ChangeControllerPowerState", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.ChangeControllerPowerStateSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.HardwareComponentGroupsClient", "ChangeControllerPowerState", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.ChangeControllerPowerStateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.HardwareComponentGroupsClient", "ChangeControllerPowerState", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ChangeControllerPowerStatePreparer prepares the ChangeControllerPowerState request.
-func (client HardwareComponentGroupsClient) ChangeControllerPowerStatePreparer(ctx context.Context, deviceName string, hardwareComponentGroupName string, parameters ControllerPowerStateChangeRequest, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client HardwareComponentGroupsClient) ChangeControllerPowerStatePreparer(deviceName string, hardwareComponentGroupName string, parameters ControllerPowerStateChangeRequest, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":                 deviceName,
 		"hardwareComponentGroupName": hardwareComponentGroupName,
@@ -91,22 +114,16 @@ func (client HardwareComponentGroupsClient) ChangeControllerPowerStatePreparer(c
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/hardwareComponentGroups/{hardwareComponentGroupName}/changeControllerPowerState", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // ChangeControllerPowerStateSender sends the ChangeControllerPowerState request. The method will close the
 // http.Response Body if it receives an error.
-func (client HardwareComponentGroupsClient) ChangeControllerPowerStateSender(req *http.Request) (future HardwareComponentGroupsChangeControllerPowerStateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client HardwareComponentGroupsClient) ChangeControllerPowerStateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // ChangeControllerPowerStateResponder handles the response to the ChangeControllerPowerState request. The method always
@@ -124,7 +141,7 @@ func (client HardwareComponentGroupsClient) ChangeControllerPowerStateResponder(
 // ListByDevice lists the hardware component groups at device-level.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client HardwareComponentGroupsClient) ListByDevice(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result HardwareComponentGroupList, err error) {
+func (client HardwareComponentGroupsClient) ListByDevice(deviceName string, resourceGroupName string, managerName string) (result HardwareComponentGroupList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -132,7 +149,7 @@ func (client HardwareComponentGroupsClient) ListByDevice(ctx context.Context, de
 		return result, validation.NewErrorWithValidationError(err, "storsimple.HardwareComponentGroupsClient", "ListByDevice")
 	}
 
-	req, err := client.ListByDevicePreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.ListByDevicePreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.HardwareComponentGroupsClient", "ListByDevice", nil, "Failure preparing request")
 		return
@@ -154,7 +171,7 @@ func (client HardwareComponentGroupsClient) ListByDevice(ctx context.Context, de
 }
 
 // ListByDevicePreparer prepares the ListByDevice request.
-func (client HardwareComponentGroupsClient) ListByDevicePreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client HardwareComponentGroupsClient) ListByDevicePreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -172,13 +189,14 @@ func (client HardwareComponentGroupsClient) ListByDevicePreparer(ctx context.Con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/hardwareComponentGroups", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByDeviceSender sends the ListByDevice request. The method will close the
 // http.Response Body if it receives an error.
 func (client HardwareComponentGroupsClient) ListByDeviceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

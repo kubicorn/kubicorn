@@ -450,7 +450,7 @@ func (s *CollectdValueError) MarshalJSON() ([]byte, error) {
 // matches on the exact content. In the future, it can be expanded to
 // allow for regular expressions and more complex matching.
 type ContentMatcher struct {
-	// Content: String content to match (max 1024 bytes)
+	// Content: String content to match
 	Content string `json:"content,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Content") to
@@ -955,8 +955,7 @@ type HttpCheck struct {
 	// comma-separated list of all the desired values as described at
 	// https://www.w3.org/Protocols/rfc2616/rfc2616.txt (page 31). Entering
 	// two separate headers with the same key in a Create call will cause
-	// the first to be overwritten by the second. The maximum number of
-	// headers allowed is 100.
+	// the first to be overwritten by the second.
 	Headers map[string]string `json:"headers,omitempty"`
 
 	// MaskHeaders: Boolean specifiying whether to encrypt the header
@@ -1345,10 +1344,6 @@ type ListUptimeCheckConfigsResponse struct {
 	// call (in the request message's page_token field).
 	NextPageToken string `json:"nextPageToken,omitempty"`
 
-	// TotalSize: The total number of uptime check configurations for the
-	// project, irrespective of any pagination.
-	TotalSize int64 `json:"totalSize,omitempty"`
-
 	// UptimeCheckConfigs: The returned uptime check configurations.
 	UptimeCheckConfigs []*UptimeCheckConfig `json:"uptimeCheckConfigs,omitempty"`
 
@@ -1671,52 +1666,6 @@ func (s *MonitoredResourceDescriptor) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// MonitoredResourceMetadata: Auxiliary metadata for a MonitoredResource
-// object. MonitoredResource objects contain the minimum set of
-// information to uniquely identify a monitored resource instance. There
-// is some other useful auxiliary metadata. Google Stackdriver
-// Monitoring & Logging uses an ingestion pipeline to extract metadata
-// for cloud resources of all types , and stores the metadata in this
-// message.
-type MonitoredResourceMetadata struct {
-	// SystemLabels: Output only. Values for predefined system metadata
-	// labels. System labels are a kind of metadata extracted by Google
-	// Stackdriver. Stackdriver determines what system labels are useful and
-	// how to obtain their values. Some examples: "machine_image", "vpc",
-	// "subnet_id", "security_group", "name", etc. System label values can
-	// be only strings, Boolean values, or a list of strings. For example:
-	// { "name": "my-test-instance",
-	//   "security_group": ["a", "b", "c"],
-	//   "spot_instance": false }
-	//
-	SystemLabels googleapi.RawMessage `json:"systemLabels,omitempty"`
-
-	// UserLabels: Output only. A map of user-defined metadata labels.
-	UserLabels map[string]string `json:"userLabels,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "SystemLabels") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "SystemLabels") to include
-	// in API requests with the JSON null value. By default, fields with
-	// empty values are omitted from API requests. However, any field with
-	// an empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *MonitoredResourceMetadata) MarshalJSON() ([]byte, error) {
-	type NoMethod MonitoredResourceMetadata
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
 // Option: A protocol buffer option, which can be attached to a message,
 // field, enumeration, etc.
 type Option struct {
@@ -1854,9 +1803,8 @@ type ResourceGroup struct {
 	//
 	// Possible values:
 	//   "RESOURCE_TYPE_UNSPECIFIED" - Default value (not valid).
-	//   "INSTANCE" - A group of instances from Google Cloud Platform (GCP)
-	// or Amazon Web Services (AWS).
-	//   "AWS_ELB_LOAD_BALANCER" - A group of Amazon ELB load balancers.
+	//   "INSTANCE" - A group of instances (could be either GCE or AWS_EC2).
+	//   "AWS_ELB_LOAD_BALANCER" - A group of AWS load balancers.
 	ResourceType string `json:"resourceType,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "GroupId") to
@@ -2060,12 +2008,6 @@ func (s *TimeInterval) MarshalJSON() ([]byte, error) {
 // fully-specified metric. This type is used for both listing and
 // creating time series.
 type TimeSeries struct {
-	// Metadata: Output only. The associated monitored resource metadata.
-	// When reading a a timeseries, this field will include metadata labels
-	// that are explicitly named in the reduction. When creating a
-	// timeseries, this field is ignored.
-	Metadata *MonitoredResourceMetadata `json:"metadata,omitempty"`
-
 	// Metric: The associated metric. A fully-specified metric used to
 	// identify the time series.
 	Metric *Metric `json:"metric,omitempty"`
@@ -2090,9 +2032,9 @@ type TimeSeries struct {
 	MetricKind string `json:"metricKind,omitempty"`
 
 	// Points: The data points of this time series. When listing time
-	// series, points are returned in reverse time order.When creating a
-	// time series, this field must contain exactly one point and the
-	// point's type must be the same as the value type of the associated
+	// series, the order of the points is specified by the list method.When
+	// creating a time series, this field must contain exactly one point and
+	// the point's type must be the same as the value type of the associated
 	// metric. If the associated metric's descriptor must be auto-created,
 	// then the value type of the descriptor is determined by the point's
 	// type, which must be BOOL, INT64, DOUBLE, or DISTRIBUTION.
@@ -2121,7 +2063,7 @@ type TimeSeries struct {
 	//   "MONEY" - The value is money.
 	ValueType string `json:"valueType,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g. "Metadata") to
+	// ForceSendFields is a list of field names (e.g. "Metric") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -2129,8 +2071,8 @@ type TimeSeries struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "Metadata") to include in
-	// API requests with the JSON null value. By default, fields with empty
+	// NullFields is a list of field names (e.g. "Metric") to include in API
+	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
 	// null. It is an error if a field in this list has a non-empty value.
@@ -2277,15 +2219,12 @@ type UptimeCheckConfig struct {
 	// this CheckConfig.
 	InternalCheckers []*InternalChecker `json:"internalCheckers,omitempty"`
 
-	// IsInternal: Denotes whether this is a check that egresses from
+	// IsInternal: Denotes whether this check is a check that egresses from
 	// InternalCheckers.
 	IsInternal bool `json:"isInternal,omitempty"`
 
-	// MonitoredResource: The monitored resource
-	// (https://cloud.google.com/monitoring/api/resources) associated with
-	// the configuration. The following monitored resource types are
-	// supported for uptime checks:  uptime_url  gce_instance  gae_app
-	// aws_ec2_instance  aws_elb_load_balancer
+	// MonitoredResource: The monitored resource associated with the
+	// configuration.
 	MonitoredResource *MonitoredResource `json:"monitoredResource,omitempty"`
 
 	// Name: A unique resource name for this UptimeCheckConfig. The format
@@ -2295,9 +2234,8 @@ type UptimeCheckConfig struct {
 	// in the response.
 	Name string `json:"name,omitempty"`
 
-	// Period: How often, in seconds, the uptime check is performed.
-	// Currently, the only supported values are 60s (1 minute), 300s (5
-	// minutes), 600s (10 minutes), and 900s (15 minutes). Required.
+	// Period: How often the uptime check is performed. Currently, only 1,
+	// 5, 10, and 15 minutes are supported. Required.
 	Period string `json:"period,omitempty"`
 
 	// ResourceGroup: The group resource associated with the configuration.
@@ -4743,7 +4681,6 @@ func (c *ProjectsTimeSeriesListCall) AggregationAlignmentPeriod(aggregationAlign
 //   "REDUCE_STDDEV"
 //   "REDUCE_COUNT"
 //   "REDUCE_COUNT_TRUE"
-//   "REDUCE_COUNT_FALSE"
 //   "REDUCE_FRACTION_TRUE"
 //   "REDUCE_PERCENTILE_99"
 //   "REDUCE_PERCENTILE_95"
@@ -4797,13 +4734,11 @@ func (c *ProjectsTimeSeriesListCall) AggregationGroupByFields(aggregationGroupBy
 //   "ALIGN_SUM"
 //   "ALIGN_STDDEV"
 //   "ALIGN_COUNT_TRUE"
-//   "ALIGN_COUNT_FALSE"
 //   "ALIGN_FRACTION_TRUE"
 //   "ALIGN_PERCENTILE_99"
 //   "ALIGN_PERCENTILE_95"
 //   "ALIGN_PERCENTILE_50"
 //   "ALIGN_PERCENTILE_05"
-//   "ALIGN_PERCENT_CHANGE"
 func (c *ProjectsTimeSeriesListCall) AggregationPerSeriesAligner(aggregationPerSeriesAligner string) *ProjectsTimeSeriesListCall {
 	c.urlParams_.Set("aggregation.perSeriesAligner", aggregationPerSeriesAligner)
 	return c
@@ -4836,9 +4771,9 @@ func (c *ProjectsTimeSeriesListCall) IntervalStartTime(intervalStartTime string)
 	return c
 }
 
-// OrderBy sets the optional parameter "orderBy": Unsupported: must be
-// left blank. The points in each time series are returned in reverse
-// time order.
+// OrderBy sets the optional parameter "orderBy": Specifies the order in
+// which the points of the time series should be returned. By default,
+// results are not ordered. Currently, this field must be left blank.
 func (c *ProjectsTimeSeriesListCall) OrderBy(orderBy string) *ProjectsTimeSeriesListCall {
 	c.urlParams_.Set("orderBy", orderBy)
 	return c
@@ -4993,7 +4928,6 @@ func (c *ProjectsTimeSeriesListCall) Do(opts ...googleapi.CallOption) (*ListTime
 	//         "REDUCE_STDDEV",
 	//         "REDUCE_COUNT",
 	//         "REDUCE_COUNT_TRUE",
-	//         "REDUCE_COUNT_FALSE",
 	//         "REDUCE_FRACTION_TRUE",
 	//         "REDUCE_PERCENTILE_99",
 	//         "REDUCE_PERCENTILE_95",
@@ -5024,13 +4958,11 @@ func (c *ProjectsTimeSeriesListCall) Do(opts ...googleapi.CallOption) (*ListTime
 	//         "ALIGN_SUM",
 	//         "ALIGN_STDDEV",
 	//         "ALIGN_COUNT_TRUE",
-	//         "ALIGN_COUNT_FALSE",
 	//         "ALIGN_FRACTION_TRUE",
 	//         "ALIGN_PERCENTILE_99",
 	//         "ALIGN_PERCENTILE_95",
 	//         "ALIGN_PERCENTILE_50",
-	//         "ALIGN_PERCENTILE_05",
-	//         "ALIGN_PERCENT_CHANGE"
+	//         "ALIGN_PERCENTILE_05"
 	//       ],
 	//       "location": "query",
 	//       "type": "string"
@@ -5060,7 +4992,7 @@ func (c *ProjectsTimeSeriesListCall) Do(opts ...googleapi.CallOption) (*ListTime
 	//       "type": "string"
 	//     },
 	//     "orderBy": {
-	//       "description": "Unsupported: must be left blank. The points in each time series are returned in reverse time order.",
+	//       "description": "Specifies the order in which the points of the time series should be returned. By default, results are not ordered. Currently, this field must be left blank.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -5233,7 +5165,7 @@ func (c *ProjectsUptimeCheckConfigsCreateCall) Do(opts ...googleapi.CallOption) 
 	//   ],
 	//   "parameters": {
 	//     "parent": {
-	//       "description": "The project in which to create the uptime check. The format  is projects/[PROJECT_ID].",
+	//       "description": "The project in which to create the uptime check. The format is:projects/[PROJECT_ID].",
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+$",
 	//       "required": true,
@@ -5365,7 +5297,7 @@ func (c *ProjectsUptimeCheckConfigsDeleteCall) Do(opts ...googleapi.CallOption) 
 	//   ],
 	//   "parameters": {
 	//     "name": {
-	//       "description": "The uptime check configuration to delete. The format  is projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].",
+	//       "description": "The uptime check configuration to delete. The format isprojects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].",
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+/uptimeCheckConfigs/[^/]+$",
 	//       "required": true,
@@ -5505,7 +5437,7 @@ func (c *ProjectsUptimeCheckConfigsGetCall) Do(opts ...googleapi.CallOption) (*U
 	//   ],
 	//   "parameters": {
 	//     "name": {
-	//       "description": "The uptime check configuration to retrieve. The format  is projects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].",
+	//       "description": "The uptime check configuration to retrieve. The format isprojects/[PROJECT_ID]/uptimeCheckConfigs/[UPTIME_CHECK_ID].",
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+/uptimeCheckConfigs/[^/]+$",
 	//       "required": true,
@@ -5677,7 +5609,7 @@ func (c *ProjectsUptimeCheckConfigsListCall) Do(opts ...googleapi.CallOption) (*
 	//       "type": "string"
 	//     },
 	//     "parent": {
-	//       "description": "The project whose uptime check configurations are listed. The format  is projects/[PROJECT_ID].",
+	//       "description": "The project whose uptime check configurations are listed. The format isprojects/[PROJECT_ID].",
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+$",
 	//       "required": true,

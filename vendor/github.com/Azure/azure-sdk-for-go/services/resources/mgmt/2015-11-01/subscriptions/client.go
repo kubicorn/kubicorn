@@ -29,20 +29,20 @@ const (
 	DefaultBaseURI = "https://management.azure.com"
 )
 
-// BaseClient is the base client for Subscriptions.
-type BaseClient struct {
+// ManagementClient is the base client for Subscriptions.
+type ManagementClient struct {
 	autorest.Client
 	BaseURI string
 }
 
-// New creates an instance of the BaseClient client.
-func New() BaseClient {
+// New creates an instance of the ManagementClient client.
+func New() ManagementClient {
 	return NewWithBaseURI(DefaultBaseURI)
 }
 
-// NewWithBaseURI creates an instance of the BaseClient client.
-func NewWithBaseURI(baseURI string) BaseClient {
-	return BaseClient{
+// NewWithBaseURI creates an instance of the ManagementClient client.
+func NewWithBaseURI(baseURI string) ManagementClient {
+	return ManagementClient{
 		Client:  autorest.NewClientWithUserAgent(UserAgent()),
 		BaseURI: baseURI,
 	}

@@ -18,7 +18,6 @@ package sql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -28,7 +27,7 @@ import (
 // interact with Azure SQL Database services to manage your databases. The API enables you to create, retrieve, update,
 // and delete databases.
 type EncryptionProtectorsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewEncryptionProtectorsClient creates an instance of the EncryptionProtectorsClient client.
@@ -41,29 +40,50 @@ func NewEncryptionProtectorsClientWithBaseURI(baseURI string, subscriptionID str
 	return EncryptionProtectorsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate updates an existing encryption protector.
+// CreateOrUpdate updates an existing encryption protector. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. encryptionProtectorName is the name
 // of the encryption protector to be updated. parameters is the requested encryption protector resource state.
-func (client EncryptionProtectorsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, encryptionProtectorName string, parameters EncryptionProtector) (result EncryptionProtectorsCreateOrUpdateFuture, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serverName, encryptionProtectorName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+func (client EncryptionProtectorsClient) CreateOrUpdate(resourceGroupName string, serverName string, encryptionProtectorName string, parameters EncryptionProtector, cancel <-chan struct{}) (<-chan EncryptionProtector, <-chan error) {
+	resultChan := make(chan EncryptionProtector, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result EncryptionProtector
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, serverName, encryptionProtectorName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client EncryptionProtectorsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serverName string, encryptionProtectorName string, parameters EncryptionProtector) (*http.Request, error) {
+func (client EncryptionProtectorsClient) CreateOrUpdatePreparer(resourceGroupName string, serverName string, encryptionProtectorName string, parameters EncryptionProtector, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"encryptionProtectorName": autorest.Encode("path", encryptionProtectorName),
 		"resourceGroupName":       autorest.Encode("path", resourceGroupName),
@@ -83,22 +103,16 @@ func (client EncryptionProtectorsClient) CreateOrUpdatePreparer(ctx context.Cont
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/encryptionProtector/{encryptionProtectorName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client EncryptionProtectorsClient) CreateOrUpdateSender(req *http.Request) (future EncryptionProtectorsCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client EncryptionProtectorsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -119,8 +133,8 @@ func (client EncryptionProtectorsClient) CreateOrUpdateResponder(resp *http.Resp
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. encryptionProtectorName is the name
 // of the encryption protector to be retrieved.
-func (client EncryptionProtectorsClient) Get(ctx context.Context, resourceGroupName string, serverName string, encryptionProtectorName string) (result EncryptionProtector, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, serverName, encryptionProtectorName)
+func (client EncryptionProtectorsClient) Get(resourceGroupName string, serverName string, encryptionProtectorName string) (result EncryptionProtector, err error) {
+	req, err := client.GetPreparer(resourceGroupName, serverName, encryptionProtectorName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "Get", nil, "Failure preparing request")
 		return
@@ -142,7 +156,7 @@ func (client EncryptionProtectorsClient) Get(ctx context.Context, resourceGroupN
 }
 
 // GetPreparer prepares the Get request.
-func (client EncryptionProtectorsClient) GetPreparer(ctx context.Context, resourceGroupName string, serverName string, encryptionProtectorName string) (*http.Request, error) {
+func (client EncryptionProtectorsClient) GetPreparer(resourceGroupName string, serverName string, encryptionProtectorName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"encryptionProtectorName": autorest.Encode("path", encryptionProtectorName),
 		"resourceGroupName":       autorest.Encode("path", resourceGroupName),
@@ -160,13 +174,14 @@ func (client EncryptionProtectorsClient) GetPreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/encryptionProtector/{encryptionProtectorName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client EncryptionProtectorsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -187,9 +202,8 @@ func (client EncryptionProtectorsClient) GetResponder(resp *http.Response) (resu
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server.
-func (client EncryptionProtectorsClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result EncryptionProtectorListResultPage, err error) {
-	result.fn = client.listByServerNextResults
-	req, err := client.ListByServerPreparer(ctx, resourceGroupName, serverName)
+func (client EncryptionProtectorsClient) ListByServer(resourceGroupName string, serverName string) (result EncryptionProtectorListResult, err error) {
+	req, err := client.ListByServerPreparer(resourceGroupName, serverName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "ListByServer", nil, "Failure preparing request")
 		return
@@ -197,12 +211,12 @@ func (client EncryptionProtectorsClient) ListByServer(ctx context.Context, resou
 
 	resp, err := client.ListByServerSender(req)
 	if err != nil {
-		result.eplr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "ListByServer", resp, "Failure sending request")
 		return
 	}
 
-	result.eplr, err = client.ListByServerResponder(resp)
+	result, err = client.ListByServerResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "ListByServer", resp, "Failure responding to request")
 	}
@@ -211,7 +225,7 @@ func (client EncryptionProtectorsClient) ListByServer(ctx context.Context, resou
 }
 
 // ListByServerPreparer prepares the ListByServer request.
-func (client EncryptionProtectorsClient) ListByServerPreparer(ctx context.Context, resourceGroupName string, serverName string) (*http.Request, error) {
+func (client EncryptionProtectorsClient) ListByServerPreparer(resourceGroupName string, serverName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serverName":        autorest.Encode("path", serverName),
@@ -228,13 +242,14 @@ func (client EncryptionProtectorsClient) ListByServerPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/encryptionProtector", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServerSender sends the ListByServer request. The method will close the
 // http.Response Body if it receives an error.
 func (client EncryptionProtectorsClient) ListByServerSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -251,29 +266,71 @@ func (client EncryptionProtectorsClient) ListByServerResponder(resp *http.Respon
 	return
 }
 
-// listByServerNextResults retrieves the next set of results, if any.
-func (client EncryptionProtectorsClient) listByServerNextResults(lastResults EncryptionProtectorListResult) (result EncryptionProtectorListResult, err error) {
-	req, err := lastResults.encryptionProtectorListResultPreparer()
+// ListByServerNextResults retrieves the next set of results, if any.
+func (client EncryptionProtectorsClient) ListByServerNextResults(lastResults EncryptionProtectorListResult) (result EncryptionProtectorListResult, err error) {
+	req, err := lastResults.EncryptionProtectorListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "listByServerNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "ListByServer", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByServerSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "listByServerNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "ListByServer", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByServerResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "listByServerNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "sql.EncryptionProtectorsClient", "ListByServer", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByServerComplete enumerates all values, automatically crossing page boundaries as required.
-func (client EncryptionProtectorsClient) ListByServerComplete(ctx context.Context, resourceGroupName string, serverName string) (result EncryptionProtectorListResultIterator, err error) {
-	result.page, err = client.ListByServer(ctx, resourceGroupName, serverName)
-	return
+// ListByServerComplete gets all elements from the list without paging.
+func (client EncryptionProtectorsClient) ListByServerComplete(resourceGroupName string, serverName string, cancel <-chan struct{}) (<-chan EncryptionProtector, <-chan error) {
+	resultChan := make(chan EncryptionProtector)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByServer(resourceGroupName, serverName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByServerNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

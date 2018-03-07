@@ -18,7 +18,6 @@ package dtl
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // GalleryImagesClient is the the DevTest Labs Client.
 type GalleryImagesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewGalleryImagesClient creates an instance of the GalleryImagesClient client.
@@ -45,9 +44,8 @@ func NewGalleryImagesClientWithBaseURI(baseURI string, subscriptionID string) Ga
 // query. Example: 'properties($select=author)' filter is the filter to apply to the operation. top is the maximum
 // number of resources to return from the operation. orderby is the ordering expression for the results, using OData
 // notation.
-func (client GalleryImagesClient) List(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationGalleryImagePage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, labName, expand, filter, top, orderby)
+func (client GalleryImagesClient) List(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationGalleryImage, err error) {
+	req, err := client.ListPreparer(resourceGroupName, labName, expand, filter, top, orderby)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "List", nil, "Failure preparing request")
 		return
@@ -55,12 +53,12 @@ func (client GalleryImagesClient) List(ctx context.Context, resourceGroupName st
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rwcgi.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rwcgi, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "List", resp, "Failure responding to request")
 	}
@@ -69,7 +67,7 @@ func (client GalleryImagesClient) List(ctx context.Context, resourceGroupName st
 }
 
 // ListPreparer prepares the List request.
-func (client GalleryImagesClient) ListPreparer(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
+func (client GalleryImagesClient) ListPreparer(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -98,13 +96,14 @@ func (client GalleryImagesClient) ListPreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/galleryimages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client GalleryImagesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -121,29 +120,71 @@ func (client GalleryImagesClient) ListResponder(resp *http.Response) (result Res
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client GalleryImagesClient) listNextResults(lastResults ResponseWithContinuationGalleryImage) (result ResponseWithContinuationGalleryImage, err error) {
-	req, err := lastResults.responseWithContinuationGalleryImagePreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client GalleryImagesClient) ListNextResults(lastResults ResponseWithContinuationGalleryImage) (result ResponseWithContinuationGalleryImage, err error) {
+	req, err := lastResults.ResponseWithContinuationGalleryImagePreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "dtl.GalleryImagesClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GalleryImagesClient) ListComplete(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationGalleryImageIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, labName, expand, filter, top, orderby)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client GalleryImagesClient) ListComplete(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string, cancel <-chan struct{}) (<-chan GalleryImage, <-chan error) {
+	resultChan := make(chan GalleryImage)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, labName, expand, filter, top, orderby)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

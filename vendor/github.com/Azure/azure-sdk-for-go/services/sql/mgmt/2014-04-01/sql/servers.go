@@ -18,7 +18,6 @@ package sql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // Azure SQL Database services to manage your databases. The API enables you to create, retrieve, update, and delete
 // databases.
 type ServersClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewServersClient creates an instance of the ServersClient client.
@@ -45,7 +44,7 @@ func NewServersClientWithBaseURI(baseURI string, subscriptionID string) ServersC
 // CheckNameAvailability determines whether a resource can be created with the specified name.
 //
 // parameters is the parameters to request for name availability.
-func (client ServersClient) CheckNameAvailability(ctx context.Context, parameters CheckNameAvailabilityRequest) (result CheckNameAvailabilityResponse, err error) {
+func (client ServersClient) CheckNameAvailability(parameters CheckNameAvailabilityRequest) (result CheckNameAvailabilityResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Name", Name: validation.Null, Rule: true, Chain: nil},
@@ -53,7 +52,7 @@ func (client ServersClient) CheckNameAvailability(ctx context.Context, parameter
 		return result, validation.NewErrorWithValidationError(err, "sql.ServersClient", "CheckNameAvailability")
 	}
 
-	req, err := client.CheckNameAvailabilityPreparer(ctx, parameters)
+	req, err := client.CheckNameAvailabilityPreparer(parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.ServersClient", "CheckNameAvailability", nil, "Failure preparing request")
 		return
@@ -75,7 +74,7 @@ func (client ServersClient) CheckNameAvailability(ctx context.Context, parameter
 }
 
 // CheckNameAvailabilityPreparer prepares the CheckNameAvailability request.
-func (client ServersClient) CheckNameAvailabilityPreparer(ctx context.Context, parameters CheckNameAvailabilityRequest) (*http.Request, error) {
+func (client ServersClient) CheckNameAvailabilityPreparer(parameters CheckNameAvailabilityRequest) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -92,13 +91,14 @@ func (client ServersClient) CheckNameAvailabilityPreparer(ctx context.Context, p
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Sql/checkNameAvailability", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CheckNameAvailabilitySender sends the CheckNameAvailability request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServersClient) CheckNameAvailabilitySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

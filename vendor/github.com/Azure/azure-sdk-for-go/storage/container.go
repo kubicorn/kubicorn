@@ -301,6 +301,9 @@ func (c *Container) Exists() (bool, error) {
 		uri = newURI.String()
 
 	} else {
+		if c.bsc.client.isAccountSASClient() {
+			q = mergeParams(q, c.bsc.client.accountSASToken)
+		}
 		uri = c.bsc.client.getEndpoint(blobServiceName, c.buildPath(), q)
 	}
 	headers := c.bsc.client.getStandardHeaders()
@@ -486,6 +489,9 @@ func (c *Container) ListBlobs(params ListBlobsParameters) (BlobListResponse, err
 		newURI.RawQuery = q.Encode()
 		uri = newURI.String()
 	} else {
+		if c.bsc.client.isAccountSASClient() {
+			q = mergeParams(q, c.bsc.client.accountSASToken)
+		}
 		uri = c.bsc.client.getEndpoint(blobServiceName, c.buildPath(), q)
 	}
 

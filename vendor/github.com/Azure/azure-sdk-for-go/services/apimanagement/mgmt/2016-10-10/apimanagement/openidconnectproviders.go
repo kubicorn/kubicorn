@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // OpenIDConnectProvidersClient is the apiManagement Client
 type OpenIDConnectProvidersClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewOpenIDConnectProvidersClient creates an instance of the OpenIDConnectProvidersClient client.
@@ -44,7 +43,7 @@ func NewOpenIDConnectProvidersClientWithBaseURI(baseURI string, subscriptionID s
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. opid is
 // identifier of the OpenID Connect Provider. parameters is create parameters.
-func (client OpenIDConnectProvidersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderCreateContract) (result autorest.Response, err error) {
+func (client OpenIDConnectProvidersClient) CreateOrUpdate(resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderCreateContract) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -61,7 +60,7 @@ func (client OpenIDConnectProvidersClient) CreateOrUpdate(ctx context.Context, r
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.OpenIDConnectProvidersClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serviceName, opid, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serviceName, opid, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -83,7 +82,7 @@ func (client OpenIDConnectProvidersClient) CreateOrUpdate(ctx context.Context, r
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client OpenIDConnectProvidersClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderCreateContract) (*http.Request, error) {
+func (client OpenIDConnectProvidersClient) CreateOrUpdatePreparer(resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderCreateContract) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"opid":              autorest.Encode("path", opid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -103,13 +102,14 @@ func (client OpenIDConnectProvidersClient) CreateOrUpdatePreparer(ctx context.Co
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/openidConnectProviders/{opid}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client OpenIDConnectProvidersClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -130,7 +130,7 @@ func (client OpenIDConnectProvidersClient) CreateOrUpdateResponder(resp *http.Re
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. opid is
 // identifier of the OpenID Connect Provider. ifMatch is the entity state (Etag) version of the OpenID Connect Provider
 // to delete. A value of "*" can be used for If-Match to unconditionally apply the operation.
-func (client OpenIDConnectProvidersClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, opid string, ifMatch string) (result ErrorBodyContract, err error) {
+func (client OpenIDConnectProvidersClient) Delete(resourceGroupName string, serviceName string, opid string, ifMatch string) (result ErrorBodyContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -142,7 +142,7 @@ func (client OpenIDConnectProvidersClient) Delete(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.OpenIDConnectProvidersClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serviceName, opid, ifMatch)
+	req, err := client.DeletePreparer(resourceGroupName, serviceName, opid, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "Delete", nil, "Failure preparing request")
 		return
@@ -164,7 +164,7 @@ func (client OpenIDConnectProvidersClient) Delete(ctx context.Context, resourceG
 }
 
 // DeletePreparer prepares the Delete request.
-func (client OpenIDConnectProvidersClient) DeletePreparer(ctx context.Context, resourceGroupName string, serviceName string, opid string, ifMatch string) (*http.Request, error) {
+func (client OpenIDConnectProvidersClient) DeletePreparer(resourceGroupName string, serviceName string, opid string, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"opid":              autorest.Encode("path", opid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -183,13 +183,14 @@ func (client OpenIDConnectProvidersClient) DeletePreparer(ctx context.Context, r
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/openidConnectProviders/{opid}", pathParameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client OpenIDConnectProvidersClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -210,7 +211,7 @@ func (client OpenIDConnectProvidersClient) DeleteResponder(resp *http.Response) 
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. opid is
 // identifier of the OpenID Connect Provider.
-func (client OpenIDConnectProvidersClient) Get(ctx context.Context, resourceGroupName string, serviceName string, opid string) (result OpenidConnectProviderContract, err error) {
+func (client OpenIDConnectProvidersClient) Get(resourceGroupName string, serviceName string, opid string) (result OpenidConnectProviderContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -222,7 +223,7 @@ func (client OpenIDConnectProvidersClient) Get(ctx context.Context, resourceGrou
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.OpenIDConnectProvidersClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName, opid)
+	req, err := client.GetPreparer(resourceGroupName, serviceName, opid)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "Get", nil, "Failure preparing request")
 		return
@@ -244,7 +245,7 @@ func (client OpenIDConnectProvidersClient) Get(ctx context.Context, resourceGrou
 }
 
 // GetPreparer prepares the Get request.
-func (client OpenIDConnectProvidersClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string, opid string) (*http.Request, error) {
+func (client OpenIDConnectProvidersClient) GetPreparer(resourceGroupName string, serviceName string, opid string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"opid":              autorest.Encode("path", opid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -262,13 +263,14 @@ func (client OpenIDConnectProvidersClient) GetPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/openidConnectProviders/{opid}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client OpenIDConnectProvidersClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -293,7 +295,7 @@ func (client OpenIDConnectProvidersClient) GetResponder(resp *http.Response) (re
 // | id    | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 // | name  | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith | top is number of records to return.
 // skip is number of records to skip.
-func (client OpenIDConnectProvidersClient) ListByService(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result OpenIDConnectProviderCollectionPage, err error) {
+func (client OpenIDConnectProvidersClient) ListByService(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result OpenIDConnectProviderCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -308,8 +310,7 @@ func (client OpenIDConnectProvidersClient) ListByService(ctx context.Context, re
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.OpenIDConnectProvidersClient", "ListByService")
 	}
 
-	result.fn = client.listByServiceNextResults
-	req, err := client.ListByServicePreparer(ctx, resourceGroupName, serviceName, filter, top, skip)
+	req, err := client.ListByServicePreparer(resourceGroupName, serviceName, filter, top, skip)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "ListByService", nil, "Failure preparing request")
 		return
@@ -317,12 +318,12 @@ func (client OpenIDConnectProvidersClient) ListByService(ctx context.Context, re
 
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
-		result.oicpc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "ListByService", resp, "Failure sending request")
 		return
 	}
 
-	result.oicpc, err = client.ListByServiceResponder(resp)
+	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "ListByService", resp, "Failure responding to request")
 	}
@@ -331,7 +332,7 @@ func (client OpenIDConnectProvidersClient) ListByService(ctx context.Context, re
 }
 
 // ListByServicePreparer prepares the ListByService request.
-func (client OpenIDConnectProvidersClient) ListByServicePreparer(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
+func (client OpenIDConnectProvidersClient) ListByServicePreparer(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -357,13 +358,14 @@ func (client OpenIDConnectProvidersClient) ListByServicePreparer(ctx context.Con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/openidConnectProviders", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServiceSender sends the ListByService request. The method will close the
 // http.Response Body if it receives an error.
 func (client OpenIDConnectProvidersClient) ListByServiceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -380,31 +382,73 @@ func (client OpenIDConnectProvidersClient) ListByServiceResponder(resp *http.Res
 	return
 }
 
-// listByServiceNextResults retrieves the next set of results, if any.
-func (client OpenIDConnectProvidersClient) listByServiceNextResults(lastResults OpenIDConnectProviderCollection) (result OpenIDConnectProviderCollection, err error) {
-	req, err := lastResults.openIDConnectProviderCollectionPreparer()
+// ListByServiceNextResults retrieves the next set of results, if any.
+func (client OpenIDConnectProvidersClient) ListByServiceNextResults(lastResults OpenIDConnectProviderCollection) (result OpenIDConnectProviderCollection, err error) {
+	req, err := lastResults.OpenIDConnectProviderCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "listByServiceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "ListByService", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "listByServiceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "ListByService", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "listByServiceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "ListByService", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByServiceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client OpenIDConnectProvidersClient) ListByServiceComplete(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result OpenIDConnectProviderCollectionIterator, err error) {
-	result.page, err = client.ListByService(ctx, resourceGroupName, serviceName, filter, top, skip)
-	return
+// ListByServiceComplete gets all elements from the list without paging.
+func (client OpenIDConnectProvidersClient) ListByServiceComplete(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32, cancel <-chan struct{}) (<-chan OpenidConnectProviderContract, <-chan error) {
+	resultChan := make(chan OpenidConnectProviderContract)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByService(resourceGroupName, serviceName, filter, top, skip)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByServiceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update updates the specific OpenID Connect Provider.
@@ -413,7 +457,7 @@ func (client OpenIDConnectProvidersClient) ListByServiceComplete(ctx context.Con
 // identifier of the OpenID Connect Provider. parameters is update parameters. ifMatch is the entity state (Etag)
 // version of the OpenID Connect Provider to update. A value of "*" can be used for If-Match to unconditionally apply
 // the operation.
-func (client OpenIDConnectProvidersClient) Update(ctx context.Context, resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderUpdateContract, ifMatch string) (result autorest.Response, err error) {
+func (client OpenIDConnectProvidersClient) Update(resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderUpdateContract, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -425,7 +469,7 @@ func (client OpenIDConnectProvidersClient) Update(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.OpenIDConnectProvidersClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, serviceName, opid, parameters, ifMatch)
+	req, err := client.UpdatePreparer(resourceGroupName, serviceName, opid, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.OpenIDConnectProvidersClient", "Update", nil, "Failure preparing request")
 		return
@@ -447,7 +491,7 @@ func (client OpenIDConnectProvidersClient) Update(ctx context.Context, resourceG
 }
 
 // UpdatePreparer prepares the Update request.
-func (client OpenIDConnectProvidersClient) UpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderUpdateContract, ifMatch string) (*http.Request, error) {
+func (client OpenIDConnectProvidersClient) UpdatePreparer(resourceGroupName string, serviceName string, opid string, parameters OpenidConnectProviderUpdateContract, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"opid":              autorest.Encode("path", opid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -468,13 +512,14 @@ func (client OpenIDConnectProvidersClient) UpdatePreparer(ctx context.Context, r
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client OpenIDConnectProvidersClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

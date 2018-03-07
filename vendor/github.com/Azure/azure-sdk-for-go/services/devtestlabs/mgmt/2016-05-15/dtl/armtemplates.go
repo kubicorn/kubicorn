@@ -18,7 +18,6 @@ package dtl
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ArmTemplatesClient is the the DevTest Labs Client.
 type ArmTemplatesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewArmTemplatesClient creates an instance of the ArmTemplatesClient client.
@@ -44,8 +43,8 @@ func NewArmTemplatesClientWithBaseURI(baseURI string, subscriptionID string) Arm
 // resourceGroupName is the name of the resource group. labName is the name of the lab. artifactSourceName is the name
 // of the artifact source. name is the name of the azure Resource Manager template. expand is specify the $expand
 // query. Example: 'properties($select=displayName)'
-func (client ArmTemplatesClient) Get(ctx context.Context, resourceGroupName string, labName string, artifactSourceName string, name string, expand string) (result ArmTemplate, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, labName, artifactSourceName, name, expand)
+func (client ArmTemplatesClient) Get(resourceGroupName string, labName string, artifactSourceName string, name string, expand string) (result ArmTemplate, err error) {
+	req, err := client.GetPreparer(resourceGroupName, labName, artifactSourceName, name, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "Get", nil, "Failure preparing request")
 		return
@@ -67,7 +66,7 @@ func (client ArmTemplatesClient) Get(ctx context.Context, resourceGroupName stri
 }
 
 // GetPreparer prepares the Get request.
-func (client ArmTemplatesClient) GetPreparer(ctx context.Context, resourceGroupName string, labName string, artifactSourceName string, name string, expand string) (*http.Request, error) {
+func (client ArmTemplatesClient) GetPreparer(resourceGroupName string, labName string, artifactSourceName string, name string, expand string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"artifactSourceName": autorest.Encode("path", artifactSourceName),
 		"labName":            autorest.Encode("path", labName),
@@ -89,13 +88,14 @@ func (client ArmTemplatesClient) GetPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{artifactSourceName}/armtemplates/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ArmTemplatesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -118,9 +118,8 @@ func (client ArmTemplatesClient) GetResponder(resp *http.Response) (result ArmTe
 // of the artifact source. expand is specify the $expand query. Example: 'properties($select=displayName)' filter is
 // the filter to apply to the operation. top is the maximum number of resources to return from the operation. orderby
 // is the ordering expression for the results, using OData notation.
-func (client ArmTemplatesClient) List(ctx context.Context, resourceGroupName string, labName string, artifactSourceName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationArmTemplatePage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, labName, artifactSourceName, expand, filter, top, orderby)
+func (client ArmTemplatesClient) List(resourceGroupName string, labName string, artifactSourceName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationArmTemplate, err error) {
+	req, err := client.ListPreparer(resourceGroupName, labName, artifactSourceName, expand, filter, top, orderby)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "List", nil, "Failure preparing request")
 		return
@@ -128,12 +127,12 @@ func (client ArmTemplatesClient) List(ctx context.Context, resourceGroupName str
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rwcat.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rwcat, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "List", resp, "Failure responding to request")
 	}
@@ -142,7 +141,7 @@ func (client ArmTemplatesClient) List(ctx context.Context, resourceGroupName str
 }
 
 // ListPreparer prepares the List request.
-func (client ArmTemplatesClient) ListPreparer(ctx context.Context, resourceGroupName string, labName string, artifactSourceName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
+func (client ArmTemplatesClient) ListPreparer(resourceGroupName string, labName string, artifactSourceName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"artifactSourceName": autorest.Encode("path", artifactSourceName),
 		"labName":            autorest.Encode("path", labName),
@@ -172,13 +171,14 @@ func (client ArmTemplatesClient) ListPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{artifactSourceName}/armtemplates", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ArmTemplatesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -195,29 +195,71 @@ func (client ArmTemplatesClient) ListResponder(resp *http.Response) (result Resp
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ArmTemplatesClient) listNextResults(lastResults ResponseWithContinuationArmTemplate) (result ResponseWithContinuationArmTemplate, err error) {
-	req, err := lastResults.responseWithContinuationArmTemplatePreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ArmTemplatesClient) ListNextResults(lastResults ResponseWithContinuationArmTemplate) (result ResponseWithContinuationArmTemplate, err error) {
+	req, err := lastResults.ResponseWithContinuationArmTemplatePreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "dtl.ArmTemplatesClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ArmTemplatesClient) ListComplete(ctx context.Context, resourceGroupName string, labName string, artifactSourceName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationArmTemplateIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, labName, artifactSourceName, expand, filter, top, orderby)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ArmTemplatesClient) ListComplete(resourceGroupName string, labName string, artifactSourceName string, expand string, filter string, top *int32, orderby string, cancel <-chan struct{}) (<-chan ArmTemplate, <-chan error) {
+	resultChan := make(chan ArmTemplate)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, labName, artifactSourceName, expand, filter, top, orderby)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

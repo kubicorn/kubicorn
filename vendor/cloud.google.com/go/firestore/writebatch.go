@@ -47,13 +47,13 @@ func (b *WriteBatch) add(ws []*pb.Write, err error) *WriteBatch {
 // Create adds a Create operation to the batch.
 // See DocumentRef.Create for details.
 func (b *WriteBatch) Create(dr *DocumentRef, data interface{}) *WriteBatch {
-	return b.add(dr.newCreateWrites(data))
+	return b.add(dr.newReplaceWrites(data, nil, Exists(false)))
 }
 
 // Set adds a Set operation to the batch.
 // See DocumentRef.Set for details.
 func (b *WriteBatch) Set(dr *DocumentRef, data interface{}, opts ...SetOption) *WriteBatch {
-	return b.add(dr.newSetWrites(data, opts))
+	return b.add(dr.newReplaceWrites(data, opts, nil))
 }
 
 // Delete adds a Delete operation to the batch.
@@ -62,9 +62,21 @@ func (b *WriteBatch) Delete(dr *DocumentRef, opts ...Precondition) *WriteBatch {
 	return b.add(dr.newDeleteWrites(opts))
 }
 
-// Update adds an Update operation to the batch.
-// See DocumentRef.Update for details.
-func (b *WriteBatch) Update(dr *DocumentRef, data []Update, opts ...Precondition) *WriteBatch {
+// UpdateMap adds an UpdateMap operation to the batch.
+// See DocumentRef.UpdateMap for details.
+func (b *WriteBatch) UpdateMap(dr *DocumentRef, data map[string]interface{}, opts ...Precondition) *WriteBatch {
+	return b.add(dr.newUpdateMapWrites(data, opts))
+}
+
+// UpdateStruct adds an UpdateStruct operation to the batch.
+// See DocumentRef.UpdateStruct for details.
+func (b *WriteBatch) UpdateStruct(dr *DocumentRef, fieldPaths []string, data interface{}, opts ...Precondition) *WriteBatch {
+	return b.add(dr.newUpdateStructWrites(fieldPaths, data, opts))
+}
+
+// UpdatePaths adds an UpdatePaths operation to the batch.
+// See DocumentRef.UpdatePaths for details.
+func (b *WriteBatch) UpdatePaths(dr *DocumentRef, data []FieldPathUpdate, opts ...Precondition) *WriteBatch {
 	return b.add(dr.newUpdatePathWrites(data, opts))
 }
 
@@ -72,11 +84,30 @@ func (b *WriteBatch) Update(dr *DocumentRef, data []Update, opts ...Precondition
 // returns an error if there are no writes in the batch, if any errors occurred in
 // constructing the writes, or if the Commmit operation fails.
 func (b *WriteBatch) Commit(ctx context.Context) ([]*WriteResult, error) {
+	if err := checkTransaction(ctx); err != nil {
+		return nil, err
+	}
 	if b.err != nil {
 		return nil, b.err
 	}
 	if len(b.writes) == 0 {
 		return nil, errors.New("firestore: cannot commit empty WriteBatch")
 	}
-	return b.c.commit(ctx, b.writes)
+	db := b.c.path()
+	res, err := b.c.c.Commit(withResourceHeader(ctx, db), &pb.CommitRequest{
+		Database: db,
+		Writes:   b.writes,
+	})
+	if err != nil {
+		return nil, err
+	}
+	var wrs []*WriteResult
+	for _, pwr := range res.WriteResults {
+		wr, err := writeResultFromProto(pwr)
+		if err != nil {
+			return nil, err
+		}
+		wrs = append(wrs, wr)
+	}
+	return wrs, nil
 }

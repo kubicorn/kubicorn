@@ -18,7 +18,6 @@ package network
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // VirtualNetworkGatewaysClient is the network Client
 type VirtualNetworkGatewaysClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewVirtualNetworkGatewaysClient creates an instance of the VirtualNetworkGatewaysClient client.
@@ -40,34 +39,58 @@ func NewVirtualNetworkGatewaysClientWithBaseURI(baseURI string, subscriptionID s
 	return VirtualNetworkGatewaysClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates or updates a virtual network gateway in the specified resource group.
+// CreateOrUpdate creates or updates a virtual network gateway in the specified resource group. This method may poll
+// for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway. parameters is parameters supplied to create or update virtual network gateway operation.
-func (client VirtualNetworkGatewaysClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters VirtualNetworkGateway) (result VirtualNetworkGatewaysCreateOrUpdateFuture, err error) {
+func (client VirtualNetworkGatewaysClient) CreateOrUpdate(resourceGroupName string, virtualNetworkGatewayName string, parameters VirtualNetworkGateway, cancel <-chan struct{}) (<-chan VirtualNetworkGateway, <-chan error) {
+	resultChan := make(chan VirtualNetworkGateway, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.VirtualNetworkGatewayPropertiesFormat", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.VirtualNetworkGatewaysClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "network.VirtualNetworkGatewaysClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, virtualNetworkGatewayName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result VirtualNetworkGateway
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, virtualNetworkGatewayName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client VirtualNetworkGatewaysClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters VirtualNetworkGateway) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) CreateOrUpdatePreparer(resourceGroupName string, virtualNetworkGatewayName string, parameters VirtualNetworkGateway, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -86,22 +109,16 @@ func (client VirtualNetworkGatewaysClient) CreateOrUpdatePreparer(ctx context.Co
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) CreateOrUpdateSender(req *http.Request) (future VirtualNetworkGatewaysCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client VirtualNetworkGatewaysClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -117,28 +134,49 @@ func (client VirtualNetworkGatewaysClient) CreateOrUpdateResponder(resp *http.Re
 	return
 }
 
-// Delete deletes the specified virtual network gateway.
+// Delete deletes the specified virtual network gateway. This method may poll for completion. Polling can be canceled
+// by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway.
-func (client VirtualNetworkGatewaysClient) Delete(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGatewaysDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, virtualNetworkGatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) Delete(resourceGroupName string, virtualNetworkGatewayName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, virtualNetworkGatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client VirtualNetworkGatewaysClient) DeletePreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) DeletePreparer(resourceGroupName string, virtualNetworkGatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -155,22 +193,16 @@ func (client VirtualNetworkGatewaysClient) DeletePreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) DeleteSender(req *http.Request) (future VirtualNetworkGatewaysDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client VirtualNetworkGatewaysClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -179,35 +211,55 @@ func (client VirtualNetworkGatewaysClient) DeleteResponder(resp *http.Response) 
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent),
+		azure.WithErrorUnlessStatusCode(http.StatusNoContent, http.StatusAccepted, http.StatusOK),
 		autorest.ByClosing())
 	result.Response = resp
 	return
 }
 
 // Generatevpnclientpackage generates VPN client package for P2S client of the virtual network gateway in the specified
-// resource group.
+// resource group. This method may poll for completion. Polling can be canceled by passing the cancel channel argument.
+// The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway. parameters is parameters supplied to the generate virtual network gateway VPN client package operation.
-func (client VirtualNetworkGatewaysClient) Generatevpnclientpackage(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters) (result VirtualNetworkGatewaysGeneratevpnclientpackageFuture, err error) {
-	req, err := client.GeneratevpnclientpackagePreparer(ctx, resourceGroupName, virtualNetworkGatewayName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Generatevpnclientpackage", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) Generatevpnclientpackage(resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters, cancel <-chan struct{}) (<-chan String, <-chan error) {
+	resultChan := make(chan String, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result String
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GeneratevpnclientpackagePreparer(resourceGroupName, virtualNetworkGatewayName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Generatevpnclientpackage", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GeneratevpnclientpackageSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Generatevpnclientpackage", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GeneratevpnclientpackageSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Generatevpnclientpackage", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GeneratevpnclientpackageResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Generatevpnclientpackage", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GeneratevpnclientpackagePreparer prepares the Generatevpnclientpackage request.
-func (client VirtualNetworkGatewaysClient) GeneratevpnclientpackagePreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) GeneratevpnclientpackagePreparer(resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -226,22 +278,16 @@ func (client VirtualNetworkGatewaysClient) GeneratevpnclientpackagePreparer(ctx 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/generatevpnclientpackage", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GeneratevpnclientpackageSender sends the Generatevpnclientpackage request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) GeneratevpnclientpackageSender(req *http.Request) (future VirtualNetworkGatewaysGeneratevpnclientpackageFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK))
-	return
+func (client VirtualNetworkGatewaysClient) GeneratevpnclientpackageSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GeneratevpnclientpackageResponder handles the response to the Generatevpnclientpackage request. The method always
@@ -251,35 +297,56 @@ func (client VirtualNetworkGatewaysClient) GeneratevpnclientpackageResponder(res
 		resp,
 		client.ByInspecting(),
 		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByUnmarshallingJSON(&result.Value),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
 }
 
 // GenerateVpnProfile generates VPN profile for P2S client of the virtual network gateway in the specified resource
-// group. Used for IKEV2 and radius based authentication.
+// group. Used for IKEV2 and radius based authentication. This method may poll for completion. Polling can be canceled
+// by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway. parameters is parameters supplied to the generate virtual network gateway VPN client package operation.
-func (client VirtualNetworkGatewaysClient) GenerateVpnProfile(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters) (result VirtualNetworkGatewaysGenerateVpnProfileFuture, err error) {
-	req, err := client.GenerateVpnProfilePreparer(ctx, resourceGroupName, virtualNetworkGatewayName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GenerateVpnProfile", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) GenerateVpnProfile(resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters, cancel <-chan struct{}) (<-chan String, <-chan error) {
+	resultChan := make(chan String, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result String
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GenerateVpnProfilePreparer(resourceGroupName, virtualNetworkGatewayName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GenerateVpnProfile", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GenerateVpnProfileSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GenerateVpnProfile", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GenerateVpnProfileSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GenerateVpnProfile", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GenerateVpnProfileResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GenerateVpnProfile", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GenerateVpnProfilePreparer prepares the GenerateVpnProfile request.
-func (client VirtualNetworkGatewaysClient) GenerateVpnProfilePreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) GenerateVpnProfilePreparer(resourceGroupName string, virtualNetworkGatewayName string, parameters VpnClientParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -298,22 +365,16 @@ func (client VirtualNetworkGatewaysClient) GenerateVpnProfilePreparer(ctx contex
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/generatevpnprofile", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GenerateVpnProfileSender sends the GenerateVpnProfile request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) GenerateVpnProfileSender(req *http.Request) (future VirtualNetworkGatewaysGenerateVpnProfileFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client VirtualNetworkGatewaysClient) GenerateVpnProfileSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GenerateVpnProfileResponder handles the response to the GenerateVpnProfile request. The method always
@@ -323,7 +384,7 @@ func (client VirtualNetworkGatewaysClient) GenerateVpnProfileResponder(resp *htt
 		resp,
 		client.ByInspecting(),
 		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
-		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByUnmarshallingJSON(&result.Value),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
@@ -333,8 +394,8 @@ func (client VirtualNetworkGatewaysClient) GenerateVpnProfileResponder(resp *htt
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway.
-func (client VirtualNetworkGatewaysClient) Get(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGateway, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, virtualNetworkGatewayName)
+func (client VirtualNetworkGatewaysClient) Get(resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGateway, err error) {
+	req, err := client.GetPreparer(resourceGroupName, virtualNetworkGatewayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Get", nil, "Failure preparing request")
 		return
@@ -356,7 +417,7 @@ func (client VirtualNetworkGatewaysClient) Get(ctx context.Context, resourceGrou
 }
 
 // GetPreparer prepares the Get request.
-func (client VirtualNetworkGatewaysClient) GetPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) GetPreparer(resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -373,13 +434,14 @@ func (client VirtualNetworkGatewaysClient) GetPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualNetworkGatewaysClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -397,28 +459,48 @@ func (client VirtualNetworkGatewaysClient) GetResponder(resp *http.Response) (re
 }
 
 // GetAdvertisedRoutes this operation retrieves a list of routes the virtual network gateway is advertising to the
-// specified peer.
+// specified peer. This method may poll for completion. Polling can be canceled by passing the cancel channel argument.
+// The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway. peer is the IP address of the peer
-func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutes(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, peer string) (result VirtualNetworkGatewaysGetAdvertisedRoutesFuture, err error) {
-	req, err := client.GetAdvertisedRoutesPreparer(ctx, resourceGroupName, virtualNetworkGatewayName, peer)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetAdvertisedRoutes", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutes(resourceGroupName string, virtualNetworkGatewayName string, peer string, cancel <-chan struct{}) (<-chan GatewayRouteListResult, <-chan error) {
+	resultChan := make(chan GatewayRouteListResult, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result GatewayRouteListResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetAdvertisedRoutesPreparer(resourceGroupName, virtualNetworkGatewayName, peer, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetAdvertisedRoutes", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetAdvertisedRoutesSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetAdvertisedRoutes", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetAdvertisedRoutesSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetAdvertisedRoutes", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetAdvertisedRoutesResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetAdvertisedRoutes", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetAdvertisedRoutesPreparer prepares the GetAdvertisedRoutes request.
-func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutesPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, peer string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutesPreparer(resourceGroupName string, virtualNetworkGatewayName string, peer string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -436,22 +518,16 @@ func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutesPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getAdvertisedRoutes", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetAdvertisedRoutesSender sends the GetAdvertisedRoutes request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutesSender(req *http.Request) (future VirtualNetworkGatewaysGetAdvertisedRoutesFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutesSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetAdvertisedRoutesResponder handles the response to the GetAdvertisedRoutes request. The method always
@@ -467,28 +543,49 @@ func (client VirtualNetworkGatewaysClient) GetAdvertisedRoutesResponder(resp *ht
 	return
 }
 
-// GetBgpPeerStatus the GetBgpPeerStatus operation retrieves the status of all BGP peers.
+// GetBgpPeerStatus the GetBgpPeerStatus operation retrieves the status of all BGP peers. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway. peer is the IP address of the peer to retrieve the status of.
-func (client VirtualNetworkGatewaysClient) GetBgpPeerStatus(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, peer string) (result VirtualNetworkGatewaysGetBgpPeerStatusFuture, err error) {
-	req, err := client.GetBgpPeerStatusPreparer(ctx, resourceGroupName, virtualNetworkGatewayName, peer)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetBgpPeerStatus", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) GetBgpPeerStatus(resourceGroupName string, virtualNetworkGatewayName string, peer string, cancel <-chan struct{}) (<-chan BgpPeerStatusListResult, <-chan error) {
+	resultChan := make(chan BgpPeerStatusListResult, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result BgpPeerStatusListResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetBgpPeerStatusPreparer(resourceGroupName, virtualNetworkGatewayName, peer, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetBgpPeerStatus", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetBgpPeerStatusSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetBgpPeerStatus", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetBgpPeerStatusSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetBgpPeerStatus", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetBgpPeerStatusResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetBgpPeerStatus", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetBgpPeerStatusPreparer prepares the GetBgpPeerStatus request.
-func (client VirtualNetworkGatewaysClient) GetBgpPeerStatusPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, peer string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) GetBgpPeerStatusPreparer(resourceGroupName string, virtualNetworkGatewayName string, peer string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -508,22 +605,16 @@ func (client VirtualNetworkGatewaysClient) GetBgpPeerStatusPreparer(ctx context.
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getBgpPeerStatus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetBgpPeerStatusSender sends the GetBgpPeerStatus request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) GetBgpPeerStatusSender(req *http.Request) (future VirtualNetworkGatewaysGetBgpPeerStatusFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client VirtualNetworkGatewaysClient) GetBgpPeerStatusSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetBgpPeerStatusResponder handles the response to the GetBgpPeerStatus request. The method always
@@ -540,28 +631,48 @@ func (client VirtualNetworkGatewaysClient) GetBgpPeerStatusResponder(resp *http.
 }
 
 // GetLearnedRoutes this operation retrieves a list of routes the virtual network gateway has learned, including routes
-// learned from BGP peers.
+// learned from BGP peers. This method may poll for completion. Polling can be canceled by passing the cancel channel
+// argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway.
-func (client VirtualNetworkGatewaysClient) GetLearnedRoutes(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGatewaysGetLearnedRoutesFuture, err error) {
-	req, err := client.GetLearnedRoutesPreparer(ctx, resourceGroupName, virtualNetworkGatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetLearnedRoutes", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) GetLearnedRoutes(resourceGroupName string, virtualNetworkGatewayName string, cancel <-chan struct{}) (<-chan GatewayRouteListResult, <-chan error) {
+	resultChan := make(chan GatewayRouteListResult, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result GatewayRouteListResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetLearnedRoutesPreparer(resourceGroupName, virtualNetworkGatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetLearnedRoutes", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetLearnedRoutesSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetLearnedRoutes", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetLearnedRoutesSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetLearnedRoutes", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetLearnedRoutesResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetLearnedRoutes", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetLearnedRoutesPreparer prepares the GetLearnedRoutes request.
-func (client VirtualNetworkGatewaysClient) GetLearnedRoutesPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) GetLearnedRoutesPreparer(resourceGroupName string, virtualNetworkGatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -578,22 +689,16 @@ func (client VirtualNetworkGatewaysClient) GetLearnedRoutesPreparer(ctx context.
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getLearnedRoutes", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetLearnedRoutesSender sends the GetLearnedRoutes request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) GetLearnedRoutesSender(req *http.Request) (future VirtualNetworkGatewaysGetLearnedRoutesFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client VirtualNetworkGatewaysClient) GetLearnedRoutesSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetLearnedRoutesResponder handles the response to the GetLearnedRoutes request. The method always
@@ -610,28 +715,49 @@ func (client VirtualNetworkGatewaysClient) GetLearnedRoutesResponder(resp *http.
 }
 
 // GetVpnProfilePackageURL gets pre-generated VPN profile for P2S client of the virtual network gateway in the
-// specified resource group. The profile needs to be generated first using generateVpnProfile.
+// specified resource group. The profile needs to be generated first using generateVpnProfile. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway.
-func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURL(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGatewaysGetVpnProfilePackageURLFuture, err error) {
-	req, err := client.GetVpnProfilePackageURLPreparer(ctx, resourceGroupName, virtualNetworkGatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetVpnProfilePackageURL", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURL(resourceGroupName string, virtualNetworkGatewayName string, cancel <-chan struct{}) (<-chan String, <-chan error) {
+	resultChan := make(chan String, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result String
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetVpnProfilePackageURLPreparer(resourceGroupName, virtualNetworkGatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetVpnProfilePackageURL", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetVpnProfilePackageURLSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetVpnProfilePackageURL", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetVpnProfilePackageURLSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetVpnProfilePackageURL", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetVpnProfilePackageURLResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "GetVpnProfilePackageURL", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetVpnProfilePackageURLPreparer prepares the GetVpnProfilePackageURL request.
-func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURLPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURLPreparer(resourceGroupName string, virtualNetworkGatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -648,22 +774,16 @@ func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURLPreparer(ctx c
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getvpnprofilepackageurl", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetVpnProfilePackageURLSender sends the GetVpnProfilePackageURL request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURLSender(req *http.Request) (future VirtualNetworkGatewaysGetVpnProfilePackageURLFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURLSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetVpnProfilePackageURLResponder handles the response to the GetVpnProfilePackageURL request. The method always
@@ -673,7 +793,7 @@ func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURLResponder(resp
 		resp,
 		client.ByInspecting(),
 		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
-		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByUnmarshallingJSON(&result.Value),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
@@ -682,9 +802,8 @@ func (client VirtualNetworkGatewaysClient) GetVpnProfilePackageURLResponder(resp
 // List gets all virtual network gateways by resource group.
 //
 // resourceGroupName is the name of the resource group.
-func (client VirtualNetworkGatewaysClient) List(ctx context.Context, resourceGroupName string) (result VirtualNetworkGatewayListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName)
+func (client VirtualNetworkGatewaysClient) List(resourceGroupName string) (result VirtualNetworkGatewayListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "List", nil, "Failure preparing request")
 		return
@@ -692,12 +811,12 @@ func (client VirtualNetworkGatewaysClient) List(ctx context.Context, resourceGro
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.vnglr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.vnglr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "List", resp, "Failure responding to request")
 	}
@@ -706,7 +825,7 @@ func (client VirtualNetworkGatewaysClient) List(ctx context.Context, resourceGro
 }
 
 // ListPreparer prepares the List request.
-func (client VirtualNetworkGatewaysClient) ListPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) ListPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -722,13 +841,14 @@ func (client VirtualNetworkGatewaysClient) ListPreparer(ctx context.Context, res
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualNetworkGatewaysClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -745,40 +865,81 @@ func (client VirtualNetworkGatewaysClient) ListResponder(resp *http.Response) (r
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client VirtualNetworkGatewaysClient) listNextResults(lastResults VirtualNetworkGatewayListResult) (result VirtualNetworkGatewayListResult, err error) {
-	req, err := lastResults.virtualNetworkGatewayListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client VirtualNetworkGatewaysClient) ListNextResults(lastResults VirtualNetworkGatewayListResult) (result VirtualNetworkGatewayListResult, err error) {
+	req, err := lastResults.VirtualNetworkGatewayListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client VirtualNetworkGatewaysClient) ListComplete(ctx context.Context, resourceGroupName string) (result VirtualNetworkGatewayListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client VirtualNetworkGatewaysClient) ListComplete(resourceGroupName string, cancel <-chan struct{}) (<-chan VirtualNetworkGateway, <-chan error) {
+	resultChan := make(chan VirtualNetworkGateway)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListConnections gets all the connections in a virtual network gateway.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway.
-func (client VirtualNetworkGatewaysClient) ListConnections(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGatewayListConnectionsResultPage, err error) {
-	result.fn = client.listConnectionsNextResults
-	req, err := client.ListConnectionsPreparer(ctx, resourceGroupName, virtualNetworkGatewayName)
+func (client VirtualNetworkGatewaysClient) ListConnections(resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGatewayListConnectionsResult, err error) {
+	req, err := client.ListConnectionsPreparer(resourceGroupName, virtualNetworkGatewayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "ListConnections", nil, "Failure preparing request")
 		return
@@ -786,12 +947,12 @@ func (client VirtualNetworkGatewaysClient) ListConnections(ctx context.Context, 
 
 	resp, err := client.ListConnectionsSender(req)
 	if err != nil {
-		result.vnglcr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "ListConnections", resp, "Failure sending request")
 		return
 	}
 
-	result.vnglcr, err = client.ListConnectionsResponder(resp)
+	result, err = client.ListConnectionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "ListConnections", resp, "Failure responding to request")
 	}
@@ -800,7 +961,7 @@ func (client VirtualNetworkGatewaysClient) ListConnections(ctx context.Context, 
 }
 
 // ListConnectionsPreparer prepares the ListConnections request.
-func (client VirtualNetworkGatewaysClient) ListConnectionsPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) ListConnectionsPreparer(resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -817,13 +978,14 @@ func (client VirtualNetworkGatewaysClient) ListConnectionsPreparer(ctx context.C
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/connections", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListConnectionsSender sends the ListConnections request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualNetworkGatewaysClient) ListConnectionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -840,56 +1002,119 @@ func (client VirtualNetworkGatewaysClient) ListConnectionsResponder(resp *http.R
 	return
 }
 
-// listConnectionsNextResults retrieves the next set of results, if any.
-func (client VirtualNetworkGatewaysClient) listConnectionsNextResults(lastResults VirtualNetworkGatewayListConnectionsResult) (result VirtualNetworkGatewayListConnectionsResult, err error) {
-	req, err := lastResults.virtualNetworkGatewayListConnectionsResultPreparer()
+// ListConnectionsNextResults retrieves the next set of results, if any.
+func (client VirtualNetworkGatewaysClient) ListConnectionsNextResults(lastResults VirtualNetworkGatewayListConnectionsResult) (result VirtualNetworkGatewayListConnectionsResult, err error) {
+	req, err := lastResults.VirtualNetworkGatewayListConnectionsResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "listConnectionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "ListConnections", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListConnectionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "listConnectionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "ListConnections", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListConnectionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "listConnectionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "ListConnections", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListConnectionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client VirtualNetworkGatewaysClient) ListConnectionsComplete(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (result VirtualNetworkGatewayListConnectionsResultIterator, err error) {
-	result.page, err = client.ListConnections(ctx, resourceGroupName, virtualNetworkGatewayName)
-	return
+// ListConnectionsComplete gets all elements from the list without paging.
+func (client VirtualNetworkGatewaysClient) ListConnectionsComplete(resourceGroupName string, virtualNetworkGatewayName string, cancel <-chan struct{}) (<-chan VirtualNetworkGatewayConnectionListEntity, <-chan error) {
+	resultChan := make(chan VirtualNetworkGatewayConnectionListEntity)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListConnections(resourceGroupName, virtualNetworkGatewayName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListConnectionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
-// Reset resets the primary of the virtual network gateway in the specified resource group.
+// Reset resets the primary of the virtual network gateway in the specified resource group. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway. gatewayVip is virtual network gateway vip address supplied to the begin reset of the active-active feature
 // enabled gateway.
-func (client VirtualNetworkGatewaysClient) Reset(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, gatewayVip string) (result VirtualNetworkGatewaysResetFuture, err error) {
-	req, err := client.ResetPreparer(ctx, resourceGroupName, virtualNetworkGatewayName, gatewayVip)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Reset", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) Reset(resourceGroupName string, virtualNetworkGatewayName string, gatewayVip string, cancel <-chan struct{}) (<-chan VirtualNetworkGateway, <-chan error) {
+	resultChan := make(chan VirtualNetworkGateway, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result VirtualNetworkGateway
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.ResetPreparer(resourceGroupName, virtualNetworkGatewayName, gatewayVip, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Reset", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.ResetSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Reset", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.ResetSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Reset", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.ResetResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "Reset", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ResetPreparer prepares the Reset request.
-func (client VirtualNetworkGatewaysClient) ResetPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, gatewayVip string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) ResetPreparer(resourceGroupName string, virtualNetworkGatewayName string, gatewayVip string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -909,22 +1134,16 @@ func (client VirtualNetworkGatewaysClient) ResetPreparer(ctx context.Context, re
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/reset", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // ResetSender sends the Reset request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) ResetSender(req *http.Request) (future VirtualNetworkGatewaysResetFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client VirtualNetworkGatewaysClient) ResetSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // ResetResponder handles the response to the Reset request. The method always
@@ -933,7 +1152,7 @@ func (client VirtualNetworkGatewaysClient) ResetResponder(resp *http.Response) (
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
+		azure.WithErrorUnlessStatusCode(http.StatusAccepted, http.StatusOK),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
@@ -944,8 +1163,8 @@ func (client VirtualNetworkGatewaysClient) ResetResponder(resp *http.Response) (
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway.
-func (client VirtualNetworkGatewaysClient) SupportedVpnDevices(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (result String, err error) {
-	req, err := client.SupportedVpnDevicesPreparer(ctx, resourceGroupName, virtualNetworkGatewayName)
+func (client VirtualNetworkGatewaysClient) SupportedVpnDevices(resourceGroupName string, virtualNetworkGatewayName string) (result String, err error) {
+	req, err := client.SupportedVpnDevicesPreparer(resourceGroupName, virtualNetworkGatewayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "SupportedVpnDevices", nil, "Failure preparing request")
 		return
@@ -967,7 +1186,7 @@ func (client VirtualNetworkGatewaysClient) SupportedVpnDevices(ctx context.Conte
 }
 
 // SupportedVpnDevicesPreparer prepares the SupportedVpnDevices request.
-func (client VirtualNetworkGatewaysClient) SupportedVpnDevicesPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) SupportedVpnDevicesPreparer(resourceGroupName string, virtualNetworkGatewayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -984,13 +1203,14 @@ func (client VirtualNetworkGatewaysClient) SupportedVpnDevicesPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/supportedvpndevices", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // SupportedVpnDevicesSender sends the SupportedVpnDevices request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualNetworkGatewaysClient) SupportedVpnDevicesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1007,28 +1227,48 @@ func (client VirtualNetworkGatewaysClient) SupportedVpnDevicesResponder(resp *ht
 	return
 }
 
-// UpdateTags updates a virtual network gateway tags.
+// UpdateTags updates a virtual network gateway tags. This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayName is the name of the virtual network
 // gateway. parameters is parameters supplied to update virtual network gateway tags.
-func (client VirtualNetworkGatewaysClient) UpdateTags(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters TagsObject) (result VirtualNetworkGatewaysUpdateTagsFuture, err error) {
-	req, err := client.UpdateTagsPreparer(ctx, resourceGroupName, virtualNetworkGatewayName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "UpdateTags", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualNetworkGatewaysClient) UpdateTags(resourceGroupName string, virtualNetworkGatewayName string, parameters TagsObject, cancel <-chan struct{}) (<-chan VirtualNetworkGateway, <-chan error) {
+	resultChan := make(chan VirtualNetworkGateway, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result VirtualNetworkGateway
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdateTagsPreparer(resourceGroupName, virtualNetworkGatewayName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "UpdateTags", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateTagsSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "UpdateTags", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateTagsSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "UpdateTags", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateTagsResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "UpdateTags", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdateTagsPreparer prepares the UpdateTags request.
-func (client VirtualNetworkGatewaysClient) UpdateTagsPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayName string, parameters TagsObject) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) UpdateTagsPreparer(resourceGroupName string, virtualNetworkGatewayName string, parameters TagsObject, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -1047,22 +1287,16 @@ func (client VirtualNetworkGatewaysClient) UpdateTagsPreparer(ctx context.Contex
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateTagsSender sends the UpdateTags request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualNetworkGatewaysClient) UpdateTagsSender(req *http.Request) (future VirtualNetworkGatewaysUpdateTagsFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK))
-	return
+func (client VirtualNetworkGatewaysClient) UpdateTagsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateTagsResponder handles the response to the UpdateTags request. The method always
@@ -1083,8 +1317,8 @@ func (client VirtualNetworkGatewaysClient) UpdateTagsResponder(resp *http.Respon
 // resourceGroupName is the name of the resource group. virtualNetworkGatewayConnectionName is the name of the virtual
 // network gateway connection for which the configuration script is generated. parameters is parameters supplied to the
 // generate vpn device script operation.
-func (client VirtualNetworkGatewaysClient) VpnDeviceConfigurationScript(ctx context.Context, resourceGroupName string, virtualNetworkGatewayConnectionName string, parameters VpnDeviceScriptParameters) (result String, err error) {
-	req, err := client.VpnDeviceConfigurationScriptPreparer(ctx, resourceGroupName, virtualNetworkGatewayConnectionName, parameters)
+func (client VirtualNetworkGatewaysClient) VpnDeviceConfigurationScript(resourceGroupName string, virtualNetworkGatewayConnectionName string, parameters VpnDeviceScriptParameters) (result String, err error) {
+	req, err := client.VpnDeviceConfigurationScriptPreparer(resourceGroupName, virtualNetworkGatewayConnectionName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.VirtualNetworkGatewaysClient", "VpnDeviceConfigurationScript", nil, "Failure preparing request")
 		return
@@ -1106,7 +1340,7 @@ func (client VirtualNetworkGatewaysClient) VpnDeviceConfigurationScript(ctx cont
 }
 
 // VpnDeviceConfigurationScriptPreparer prepares the VpnDeviceConfigurationScript request.
-func (client VirtualNetworkGatewaysClient) VpnDeviceConfigurationScriptPreparer(ctx context.Context, resourceGroupName string, virtualNetworkGatewayConnectionName string, parameters VpnDeviceScriptParameters) (*http.Request, error) {
+func (client VirtualNetworkGatewaysClient) VpnDeviceConfigurationScriptPreparer(resourceGroupName string, virtualNetworkGatewayConnectionName string, parameters VpnDeviceScriptParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":                   autorest.Encode("path", resourceGroupName),
 		"subscriptionId":                      autorest.Encode("path", client.SubscriptionID),
@@ -1125,13 +1359,14 @@ func (client VirtualNetworkGatewaysClient) VpnDeviceConfigurationScriptPreparer(
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/connections/{virtualNetworkGatewayConnectionName}/vpndeviceconfigurationscript", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // VpnDeviceConfigurationScriptSender sends the VpnDeviceConfigurationScript request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualNetworkGatewaysClient) VpnDeviceConfigurationScriptSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

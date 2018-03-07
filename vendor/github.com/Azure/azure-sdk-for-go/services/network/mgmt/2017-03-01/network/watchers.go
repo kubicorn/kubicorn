@@ -18,7 +18,6 @@ package network
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // WatchersClient is the network Client
 type WatchersClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewWatchersClient creates an instance of the WatchersClient client.
@@ -41,36 +40,60 @@ func NewWatchersClientWithBaseURI(baseURI string, subscriptionID string) Watcher
 }
 
 // CheckConnectivity verifies the possibility of establishing a direct TCP connection from a virtual machine to a given
-// endpoint including another VM or an arbitrary remote server.
+// endpoint including another VM or an arbitrary remote server. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the network watcher resource group. networkWatcherName is the name of the network
 // watcher resource. parameters is parameters that determine how the connectivity check will be performed.
-func (client WatchersClient) CheckConnectivity(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters ConnectivityParameters) (result WatchersCheckConnectivityFuture, err error) {
+func (client WatchersClient) CheckConnectivity(resourceGroupName string, networkWatcherName string, parameters ConnectivityParameters, cancel <-chan struct{}) (<-chan ConnectivityInformation, <-chan error) {
+	resultChan := make(chan ConnectivityInformation, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Source", Name: validation.Null, Rule: true,
 				Chain: []validation.Constraint{{Target: "parameters.Source.ResourceID", Name: validation.Null, Rule: true, Chain: nil}}},
 				{Target: "parameters.Destination", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "CheckConnectivity")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "CheckConnectivity")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CheckConnectivityPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "CheckConnectivity", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result ConnectivityInformation
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CheckConnectivityPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "CheckConnectivity", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CheckConnectivitySender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "CheckConnectivity", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CheckConnectivitySender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "CheckConnectivity", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CheckConnectivityResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "CheckConnectivity", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CheckConnectivityPreparer prepares the CheckConnectivity request.
-func (client WatchersClient) CheckConnectivityPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters ConnectivityParameters) (*http.Request, error) {
+func (client WatchersClient) CheckConnectivityPreparer(resourceGroupName string, networkWatcherName string, parameters ConnectivityParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -89,22 +112,16 @@ func (client WatchersClient) CheckConnectivityPreparer(ctx context.Context, reso
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/connectivityCheck", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CheckConnectivitySender sends the CheckConnectivity request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) CheckConnectivitySender(req *http.Request) (future WatchersCheckConnectivityFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) CheckConnectivitySender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CheckConnectivityResponder handles the response to the CheckConnectivity request. The method always
@@ -124,8 +141,8 @@ func (client WatchersClient) CheckConnectivityResponder(resp *http.Response) (re
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher.
 // parameters is parameters that define the network watcher resource.
-func (client WatchersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters Watcher) (result Watcher, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, networkWatcherName, parameters)
+func (client WatchersClient) CreateOrUpdate(resourceGroupName string, networkWatcherName string, parameters Watcher) (result Watcher, err error) {
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, networkWatcherName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.WatchersClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -147,7 +164,7 @@ func (client WatchersClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client WatchersClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters Watcher) (*http.Request, error) {
+func (client WatchersClient) CreateOrUpdatePreparer(resourceGroupName string, networkWatcherName string, parameters Watcher) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -166,13 +183,14 @@ func (client WatchersClient) CreateOrUpdatePreparer(ctx context.Context, resourc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client WatchersClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -189,27 +207,48 @@ func (client WatchersClient) CreateOrUpdateResponder(resp *http.Response) (resul
 	return
 }
 
-// Delete deletes the specified network watcher resource.
+// Delete deletes the specified network watcher resource. This method may poll for completion. Polling can be canceled
+// by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher.
-func (client WatchersClient) Delete(ctx context.Context, resourceGroupName string, networkWatcherName string) (result WatchersDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, networkWatcherName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client WatchersClient) Delete(resourceGroupName string, networkWatcherName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, networkWatcherName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client WatchersClient) DeletePreparer(ctx context.Context, resourceGroupName string, networkWatcherName string) (*http.Request, error) {
+func (client WatchersClient) DeletePreparer(resourceGroupName string, networkWatcherName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -226,22 +265,16 @@ func (client WatchersClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) DeleteSender(req *http.Request) (future WatchersDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client WatchersClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -259,8 +292,8 @@ func (client WatchersClient) DeleteResponder(resp *http.Response) (result autore
 // Get gets the specified network watcher by resource group.
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher.
-func (client WatchersClient) Get(ctx context.Context, resourceGroupName string, networkWatcherName string) (result Watcher, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, networkWatcherName)
+func (client WatchersClient) Get(resourceGroupName string, networkWatcherName string) (result Watcher, err error) {
+	req, err := client.GetPreparer(resourceGroupName, networkWatcherName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.WatchersClient", "Get", nil, "Failure preparing request")
 		return
@@ -282,7 +315,7 @@ func (client WatchersClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client WatchersClient) GetPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string) (*http.Request, error) {
+func (client WatchersClient) GetPreparer(resourceGroupName string, networkWatcherName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -299,13 +332,14 @@ func (client WatchersClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client WatchersClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -322,34 +356,58 @@ func (client WatchersClient) GetResponder(resp *http.Response) (result Watcher, 
 	return
 }
 
-// GetFlowLogStatus queries status of flow log on a specified resource.
+// GetFlowLogStatus queries status of flow log on a specified resource. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the network watcher resource group. networkWatcherName is the name of the network
 // watcher resource. parameters is parameters that define a resource to query flow log status.
-func (client WatchersClient) GetFlowLogStatus(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters FlowLogStatusParameters) (result WatchersGetFlowLogStatusFuture, err error) {
+func (client WatchersClient) GetFlowLogStatus(resourceGroupName string, networkWatcherName string, parameters FlowLogStatusParameters, cancel <-chan struct{}) (<-chan FlowLogInformation, <-chan error) {
+	resultChan := make(chan FlowLogInformation, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceID", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetFlowLogStatus")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetFlowLogStatus")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.GetFlowLogStatusPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetFlowLogStatus", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result FlowLogInformation
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetFlowLogStatusPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetFlowLogStatus", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetFlowLogStatusSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetFlowLogStatus", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetFlowLogStatusSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetFlowLogStatus", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetFlowLogStatusResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetFlowLogStatus", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetFlowLogStatusPreparer prepares the GetFlowLogStatus request.
-func (client WatchersClient) GetFlowLogStatusPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters FlowLogStatusParameters) (*http.Request, error) {
+func (client WatchersClient) GetFlowLogStatusPreparer(resourceGroupName string, networkWatcherName string, parameters FlowLogStatusParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -368,22 +426,16 @@ func (client WatchersClient) GetFlowLogStatusPreparer(ctx context.Context, resou
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/queryFlowLogStatus", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetFlowLogStatusSender sends the GetFlowLogStatus request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) GetFlowLogStatusSender(req *http.Request) (future WatchersGetFlowLogStatusFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) GetFlowLogStatusSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetFlowLogStatusResponder handles the response to the GetFlowLogStatus request. The method always
@@ -399,36 +451,59 @@ func (client WatchersClient) GetFlowLogStatusResponder(resp *http.Response) (res
 	return
 }
 
-// GetNextHop gets the next hop from the specified VM.
+// GetNextHop gets the next hop from the specified VM. This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher.
 // parameters is parameters that define the source and destination endpoint.
-func (client WatchersClient) GetNextHop(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters NextHopParameters) (result WatchersGetNextHopFuture, err error) {
+func (client WatchersClient) GetNextHop(resourceGroupName string, networkWatcherName string, parameters NextHopParameters, cancel <-chan struct{}) (<-chan NextHopResult, <-chan error) {
+	resultChan := make(chan NextHopResult, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceID", Name: validation.Null, Rule: true, Chain: nil},
 				{Target: "parameters.SourceIPAddress", Name: validation.Null, Rule: true, Chain: nil},
 				{Target: "parameters.DestinationIPAddress", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetNextHop")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetNextHop")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.GetNextHopPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetNextHop", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result NextHopResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetNextHopPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetNextHop", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetNextHopSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetNextHop", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetNextHopSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetNextHop", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetNextHopResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetNextHop", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetNextHopPreparer prepares the GetNextHop request.
-func (client WatchersClient) GetNextHopPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters NextHopParameters) (*http.Request, error) {
+func (client WatchersClient) GetNextHopPreparer(resourceGroupName string, networkWatcherName string, parameters NextHopParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -447,22 +522,16 @@ func (client WatchersClient) GetNextHopPreparer(ctx context.Context, resourceGro
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/nextHop", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetNextHopSender sends the GetNextHop request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) GetNextHopSender(req *http.Request) (future WatchersGetNextHopFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) GetNextHopSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetNextHopResponder handles the response to the GetNextHop request. The method always
@@ -482,14 +551,14 @@ func (client WatchersClient) GetNextHopResponder(resp *http.Response) (result Ne
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher.
 // parameters is parameters that define the representation of topology.
-func (client WatchersClient) GetTopology(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters TopologyParameters) (result Topology, err error) {
+func (client WatchersClient) GetTopology(resourceGroupName string, networkWatcherName string, parameters TopologyParameters) (result Topology, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceGroupName", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetTopology")
 	}
 
-	req, err := client.GetTopologyPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
+	req, err := client.GetTopologyPreparer(resourceGroupName, networkWatcherName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTopology", nil, "Failure preparing request")
 		return
@@ -511,7 +580,7 @@ func (client WatchersClient) GetTopology(ctx context.Context, resourceGroupName 
 }
 
 // GetTopologyPreparer prepares the GetTopology request.
-func (client WatchersClient) GetTopologyPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters TopologyParameters) (*http.Request, error) {
+func (client WatchersClient) GetTopologyPreparer(resourceGroupName string, networkWatcherName string, parameters TopologyParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -530,13 +599,14 @@ func (client WatchersClient) GetTopologyPreparer(ctx context.Context, resourceGr
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/topology", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetTopologySender sends the GetTopology request. The method will close the
 // http.Response Body if it receives an error.
 func (client WatchersClient) GetTopologySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -553,11 +623,15 @@ func (client WatchersClient) GetTopologyResponder(resp *http.Response) (result T
 	return
 }
 
-// GetTroubleshooting initiate troubleshooting on a specified resource
+// GetTroubleshooting initiate troubleshooting on a specified resource This method may poll for completion. Polling can
+// be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding
+// HTTP requests.
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher resource.
 // parameters is parameters that define the resource to troubleshoot.
-func (client WatchersClient) GetTroubleshooting(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters TroubleshootingParameters) (result WatchersGetTroubleshootingFuture, err error) {
+func (client WatchersClient) GetTroubleshooting(resourceGroupName string, networkWatcherName string, parameters TroubleshootingParameters, cancel <-chan struct{}) (<-chan TroubleshootingResult, <-chan error) {
+	resultChan := make(chan TroubleshootingResult, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceID", Name: validation.Null, Rule: true, Chain: nil},
@@ -565,26 +639,46 @@ func (client WatchersClient) GetTroubleshooting(ctx context.Context, resourceGro
 					Chain: []validation.Constraint{{Target: "parameters.TroubleshootingProperties.StorageID", Name: validation.Null, Rule: true, Chain: nil},
 						{Target: "parameters.TroubleshootingProperties.StoragePath", Name: validation.Null, Rule: true, Chain: nil},
 					}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetTroubleshooting")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetTroubleshooting")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.GetTroubleshootingPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshooting", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result TroubleshootingResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetTroubleshootingPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshooting", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetTroubleshootingSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshooting", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetTroubleshootingSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshooting", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetTroubleshootingResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshooting", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetTroubleshootingPreparer prepares the GetTroubleshooting request.
-func (client WatchersClient) GetTroubleshootingPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters TroubleshootingParameters) (*http.Request, error) {
+func (client WatchersClient) GetTroubleshootingPreparer(resourceGroupName string, networkWatcherName string, parameters TroubleshootingParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -603,22 +697,16 @@ func (client WatchersClient) GetTroubleshootingPreparer(ctx context.Context, res
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/troubleshoot", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetTroubleshootingSender sends the GetTroubleshooting request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) GetTroubleshootingSender(req *http.Request) (future WatchersGetTroubleshootingFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) GetTroubleshootingSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetTroubleshootingResponder handles the response to the GetTroubleshooting request. The method always
@@ -634,34 +722,58 @@ func (client WatchersClient) GetTroubleshootingResponder(resp *http.Response) (r
 	return
 }
 
-// GetTroubleshootingResult get the last completed troubleshooting result on a specified resource
+// GetTroubleshootingResult get the last completed troubleshooting result on a specified resource This method may poll
+// for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher resource.
 // parameters is parameters that define the resource to query the troubleshooting result.
-func (client WatchersClient) GetTroubleshootingResult(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters QueryTroubleshootingParameters) (result WatchersGetTroubleshootingResultFuture, err error) {
+func (client WatchersClient) GetTroubleshootingResult(resourceGroupName string, networkWatcherName string, parameters QueryTroubleshootingParameters, cancel <-chan struct{}) (<-chan TroubleshootingResult, <-chan error) {
+	resultChan := make(chan TroubleshootingResult, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceID", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetTroubleshootingResult")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetTroubleshootingResult")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.GetTroubleshootingResultPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshootingResult", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result TroubleshootingResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetTroubleshootingResultPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshootingResult", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetTroubleshootingResultSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshootingResult", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetTroubleshootingResultSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshootingResult", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetTroubleshootingResultResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetTroubleshootingResult", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetTroubleshootingResultPreparer prepares the GetTroubleshootingResult request.
-func (client WatchersClient) GetTroubleshootingResultPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters QueryTroubleshootingParameters) (*http.Request, error) {
+func (client WatchersClient) GetTroubleshootingResultPreparer(resourceGroupName string, networkWatcherName string, parameters QueryTroubleshootingParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -680,22 +792,16 @@ func (client WatchersClient) GetTroubleshootingResultPreparer(ctx context.Contex
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/queryTroubleshootResult", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetTroubleshootingResultSender sends the GetTroubleshootingResult request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) GetTroubleshootingResultSender(req *http.Request) (future WatchersGetTroubleshootingResultFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) GetTroubleshootingResultSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetTroubleshootingResultResponder handles the response to the GetTroubleshootingResult request. The method always
@@ -711,34 +817,58 @@ func (client WatchersClient) GetTroubleshootingResultResponder(resp *http.Respon
 	return
 }
 
-// GetVMSecurityRules gets the configured and effective security group rules on the specified VM.
+// GetVMSecurityRules gets the configured and effective security group rules on the specified VM. This method may poll
+// for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher.
 // parameters is parameters that define the VM to check security groups for.
-func (client WatchersClient) GetVMSecurityRules(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters SecurityGroupViewParameters) (result WatchersGetVMSecurityRulesFuture, err error) {
+func (client WatchersClient) GetVMSecurityRules(resourceGroupName string, networkWatcherName string, parameters SecurityGroupViewParameters, cancel <-chan struct{}) (<-chan SecurityGroupViewResult, <-chan error) {
+	resultChan := make(chan SecurityGroupViewResult, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceID", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetVMSecurityRules")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "GetVMSecurityRules")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.GetVMSecurityRulesPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetVMSecurityRules", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result SecurityGroupViewResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetVMSecurityRulesPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetVMSecurityRules", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetVMSecurityRulesSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetVMSecurityRules", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetVMSecurityRulesSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetVMSecurityRules", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetVMSecurityRulesResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "GetVMSecurityRules", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetVMSecurityRulesPreparer prepares the GetVMSecurityRules request.
-func (client WatchersClient) GetVMSecurityRulesPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters SecurityGroupViewParameters) (*http.Request, error) {
+func (client WatchersClient) GetVMSecurityRulesPreparer(resourceGroupName string, networkWatcherName string, parameters SecurityGroupViewParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -757,22 +887,16 @@ func (client WatchersClient) GetVMSecurityRulesPreparer(ctx context.Context, res
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/securityGroupView", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetVMSecurityRulesSender sends the GetVMSecurityRules request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) GetVMSecurityRulesSender(req *http.Request) (future WatchersGetVMSecurityRulesFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) GetVMSecurityRulesSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetVMSecurityRulesResponder handles the response to the GetVMSecurityRules request. The method always
@@ -791,8 +915,8 @@ func (client WatchersClient) GetVMSecurityRulesResponder(resp *http.Response) (r
 // List gets all network watchers by resource group.
 //
 // resourceGroupName is the name of the resource group.
-func (client WatchersClient) List(ctx context.Context, resourceGroupName string) (result WatcherListResult, err error) {
-	req, err := client.ListPreparer(ctx, resourceGroupName)
+func (client WatchersClient) List(resourceGroupName string) (result WatcherListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.WatchersClient", "List", nil, "Failure preparing request")
 		return
@@ -814,7 +938,7 @@ func (client WatchersClient) List(ctx context.Context, resourceGroupName string)
 }
 
 // ListPreparer prepares the List request.
-func (client WatchersClient) ListPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client WatchersClient) ListPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -830,13 +954,14 @@ func (client WatchersClient) ListPreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client WatchersClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -854,8 +979,8 @@ func (client WatchersClient) ListResponder(resp *http.Response) (result WatcherL
 }
 
 // ListAll gets all network watchers by subscription.
-func (client WatchersClient) ListAll(ctx context.Context) (result WatcherListResult, err error) {
-	req, err := client.ListAllPreparer(ctx)
+func (client WatchersClient) ListAll() (result WatcherListResult, err error) {
+	req, err := client.ListAllPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.WatchersClient", "ListAll", nil, "Failure preparing request")
 		return
@@ -877,7 +1002,7 @@ func (client WatchersClient) ListAll(ctx context.Context) (result WatcherListRes
 }
 
 // ListAllPreparer prepares the ListAll request.
-func (client WatchersClient) ListAllPreparer(ctx context.Context) (*http.Request, error) {
+func (client WatchersClient) ListAllPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -892,13 +1017,14 @@ func (client WatchersClient) ListAllPreparer(ctx context.Context) (*http.Request
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/networkWatchers", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAllSender sends the ListAll request. The method will close the
 // http.Response Body if it receives an error.
 func (client WatchersClient) ListAllSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -915,11 +1041,15 @@ func (client WatchersClient) ListAllResponder(resp *http.Response) (result Watch
 	return
 }
 
-// SetFlowLogConfiguration configures flow log on a specified resource.
+// SetFlowLogConfiguration configures flow log on a specified resource. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the network watcher resource group. networkWatcherName is the name of the network
 // watcher resource. parameters is parameters that define the configuration of flow log.
-func (client WatchersClient) SetFlowLogConfiguration(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters FlowLogInformation) (result WatchersSetFlowLogConfigurationFuture, err error) {
+func (client WatchersClient) SetFlowLogConfiguration(resourceGroupName string, networkWatcherName string, parameters FlowLogInformation, cancel <-chan struct{}) (<-chan FlowLogInformation, <-chan error) {
+	resultChan := make(chan FlowLogInformation, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceID", Name: validation.Null, Rule: true, Chain: nil},
@@ -927,26 +1057,46 @@ func (client WatchersClient) SetFlowLogConfiguration(ctx context.Context, resour
 					Chain: []validation.Constraint{{Target: "parameters.FlowLogProperties.StorageID", Name: validation.Null, Rule: true, Chain: nil},
 						{Target: "parameters.FlowLogProperties.Enabled", Name: validation.Null, Rule: true, Chain: nil},
 					}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "SetFlowLogConfiguration")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "SetFlowLogConfiguration")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.SetFlowLogConfigurationPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "SetFlowLogConfiguration", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result FlowLogInformation
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.SetFlowLogConfigurationPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "SetFlowLogConfiguration", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.SetFlowLogConfigurationSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "SetFlowLogConfiguration", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.SetFlowLogConfigurationSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "SetFlowLogConfiguration", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.SetFlowLogConfigurationResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "SetFlowLogConfiguration", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // SetFlowLogConfigurationPreparer prepares the SetFlowLogConfiguration request.
-func (client WatchersClient) SetFlowLogConfigurationPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters FlowLogInformation) (*http.Request, error) {
+func (client WatchersClient) SetFlowLogConfigurationPreparer(resourceGroupName string, networkWatcherName string, parameters FlowLogInformation, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -965,22 +1115,16 @@ func (client WatchersClient) SetFlowLogConfigurationPreparer(ctx context.Context
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/configureFlowLog", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // SetFlowLogConfigurationSender sends the SetFlowLogConfiguration request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) SetFlowLogConfigurationSender(req *http.Request) (future WatchersSetFlowLogConfigurationFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) SetFlowLogConfigurationSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // SetFlowLogConfigurationResponder handles the response to the SetFlowLogConfiguration request. The method always
@@ -996,11 +1140,15 @@ func (client WatchersClient) SetFlowLogConfigurationResponder(resp *http.Respons
 	return
 }
 
-// VerifyIPFlow verify IP flow from the specified VM to a location given the currently configured NSG rules.
+// VerifyIPFlow verify IP flow from the specified VM to a location given the currently configured NSG rules. This
+// method may poll for completion. Polling can be canceled by passing the cancel channel argument. The channel will be
+// used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. networkWatcherName is the name of the network watcher.
 // parameters is parameters that define the IP flow to be verified.
-func (client WatchersClient) VerifyIPFlow(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters VerificationIPFlowParameters) (result WatchersVerifyIPFlowFuture, err error) {
+func (client WatchersClient) VerifyIPFlow(resourceGroupName string, networkWatcherName string, parameters VerificationIPFlowParameters, cancel <-chan struct{}) (<-chan VerificationIPFlowResult, <-chan error) {
+	resultChan := make(chan VerificationIPFlowResult, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TargetResourceID", Name: validation.Null, Rule: true, Chain: nil},
@@ -1008,26 +1156,46 @@ func (client WatchersClient) VerifyIPFlow(ctx context.Context, resourceGroupName
 				{Target: "parameters.RemotePort", Name: validation.Null, Rule: true, Chain: nil},
 				{Target: "parameters.LocalIPAddress", Name: validation.Null, Rule: true, Chain: nil},
 				{Target: "parameters.RemoteIPAddress", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.WatchersClient", "VerifyIPFlow")
+		errChan <- validation.NewErrorWithValidationError(err, "network.WatchersClient", "VerifyIPFlow")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.VerifyIPFlowPreparer(ctx, resourceGroupName, networkWatcherName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "VerifyIPFlow", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result VerificationIPFlowResult
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.VerifyIPFlowPreparer(resourceGroupName, networkWatcherName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "VerifyIPFlow", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.VerifyIPFlowSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.WatchersClient", "VerifyIPFlow", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.VerifyIPFlowSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "VerifyIPFlow", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.VerifyIPFlowResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.WatchersClient", "VerifyIPFlow", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // VerifyIPFlowPreparer prepares the VerifyIPFlow request.
-func (client WatchersClient) VerifyIPFlowPreparer(ctx context.Context, resourceGroupName string, networkWatcherName string, parameters VerificationIPFlowParameters) (*http.Request, error) {
+func (client WatchersClient) VerifyIPFlowPreparer(resourceGroupName string, networkWatcherName string, parameters VerificationIPFlowParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"networkWatcherName": autorest.Encode("path", networkWatcherName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -1046,22 +1214,16 @@ func (client WatchersClient) VerifyIPFlowPreparer(ctx context.Context, resourceG
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/ipFlowVerify", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // VerifyIPFlowSender sends the VerifyIPFlow request. The method will close the
 // http.Response Body if it receives an error.
-func (client WatchersClient) VerifyIPFlowSender(req *http.Request) (future WatchersVerifyIPFlowFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client WatchersClient) VerifyIPFlowSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // VerifyIPFlowResponder handles the response to the VerifyIPFlow request. The method always

@@ -29,22 +29,6 @@
         {"shape":"OperationNotPermittedException"}
       ]
     },
-    "CopyImage":{
-      "name":"CopyImage",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"CopyImageRequest"},
-      "output":{"shape":"CopyImageResponse"},
-      "errors":[
-        {"shape":"ResourceAlreadyExistsException"},
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"ResourceNotAvailableException"},
-        {"shape":"LimitExceededException"},
-        {"shape":"IncompatibleImageException"}
-      ]
-    },
     "CreateDirectoryConfig":{
       "name":"CreateDirectoryConfig",
       "http":{
@@ -324,18 +308,6 @@
       "input":{"shape":"ListAssociatedStacksRequest"},
       "output":{"shape":"ListAssociatedStacksResult"}
     },
-    "ListTagsForResource":{
-      "name":"ListTagsForResource",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"ListTagsForResourceRequest"},
-      "output":{"shape":"ListTagsForResourceResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"}
-      ]
-    },
     "StartFleet":{
       "name":"StartFleet",
       "http":{
@@ -391,31 +363,6 @@
         {"shape":"ResourceNotFoundException"},
         {"shape":"OperationNotPermittedException"},
         {"shape":"ConcurrentModificationException"}
-      ]
-    },
-    "TagResource":{
-      "name":"TagResource",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"TagResourceRequest"},
-      "output":{"shape":"TagResourceResponse"},
-      "errors":[
-        {"shape":"LimitExceededException"},
-        {"shape":"ResourceNotFoundException"}
-      ]
-    },
-    "UntagResource":{
-      "name":"UntagResource",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"UntagResourceRequest"},
-      "output":{"shape":"UntagResourceResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"}
       ]
     },
     "UpdateDirectoryConfig":{
@@ -557,26 +504,6 @@
       },
       "exception":true
     },
-    "CopyImageRequest":{
-      "type":"structure",
-      "required":[
-        "SourceImageName",
-        "DestinationImageName",
-        "DestinationRegion"
-      ],
-      "members":{
-        "SourceImageName":{"shape":"Name"},
-        "DestinationImageName":{"shape":"Name"},
-        "DestinationRegion":{"shape":"RegionName"},
-        "DestinationImageDescription":{"shape":"Description"}
-      }
-    },
-    "CopyImageResponse":{
-      "type":"structure",
-      "members":{
-        "DestinationImageName":{"shape":"Name"}
-      }
-    },
     "CreateDirectoryConfigRequest":{
       "type":"structure",
       "required":[
@@ -672,8 +599,7 @@
         "Name":{"shape":"String"},
         "Description":{"shape":"Description"},
         "DisplayName":{"shape":"DisplayName"},
-        "StorageConnectors":{"shape":"StorageConnectorList"},
-        "RedirectURL":{"shape":"RedirectURL"}
+        "StorageConnectors":{"shape":"StorageConnectorList"}
       }
     },
     "CreateStackResult":{
@@ -1108,7 +1034,6 @@
         "PENDING",
         "AVAILABLE",
         "FAILED",
-        "COPYING",
         "DELETING"
       ]
     },
@@ -1123,8 +1048,7 @@
       "type":"string",
       "enum":[
         "INTERNAL_ERROR",
-        "IMAGE_BUILDER_NOT_AVAILABLE",
-        "IMAGE_COPY_FAILURE"
+        "IMAGE_BUILDER_NOT_AVAILABLE"
       ]
     },
     "IncompatibleImageException":{
@@ -1186,19 +1110,6 @@
         "NextToken":{"shape":"String"}
       }
     },
-    "ListTagsForResourceRequest":{
-      "type":"structure",
-      "required":["ResourceArn"],
-      "members":{
-        "ResourceArn":{"shape":"Arn"}
-      }
-    },
-    "ListTagsForResourceResponse":{
-      "type":"structure",
-      "members":{
-        "Tags":{"shape":"Tags"}
-      }
-    },
     "Long":{"type":"long"},
     "Metadata":{
       "type":"map",
@@ -1227,15 +1138,6 @@
     "PlatformType":{
       "type":"string",
       "enum":["WINDOWS"]
-    },
-    "RedirectURL":{
-      "type":"string",
-      "max":1000
-    },
-    "RegionName":{
-      "type":"string",
-      "max":32,
-      "min":1
     },
     "ResourceAlreadyExistsException":{
       "type":"structure",
@@ -1337,20 +1239,8 @@
         "DisplayName":{"shape":"String"},
         "CreatedTime":{"shape":"Timestamp"},
         "StorageConnectors":{"shape":"StorageConnectorList"},
-        "RedirectURL":{"shape":"RedirectURL"},
         "StackErrors":{"shape":"StackErrors"}
       }
-    },
-    "StackAttribute":{
-      "type":"string",
-      "enum":[
-        "STORAGE_CONNECTORS",
-        "REDIRECT_URL"
-      ]
-    },
-    "StackAttributes":{
-      "type":"list",
-      "member":{"shape":"StackAttribute"}
     },
     "StackError":{
       "type":"structure",
@@ -1459,64 +1349,7 @@
       "type":"list",
       "member":{"shape":"String"}
     },
-    "TagKey":{
-      "type":"string",
-      "max":128,
-      "min":1,
-      "pattern":"^(^(?!aws:).[\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"
-    },
-    "TagKeyList":{
-      "type":"list",
-      "member":{"shape":"TagKey"},
-      "max":50,
-      "min":1
-    },
-    "TagResourceRequest":{
-      "type":"structure",
-      "required":[
-        "ResourceArn",
-        "Tags"
-      ],
-      "members":{
-        "ResourceArn":{"shape":"Arn"},
-        "Tags":{"shape":"Tags"}
-      }
-    },
-    "TagResourceResponse":{
-      "type":"structure",
-      "members":{
-      }
-    },
-    "TagValue":{
-      "type":"string",
-      "max":256,
-      "min":0,
-      "pattern":"^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$"
-    },
-    "Tags":{
-      "type":"map",
-      "key":{"shape":"TagKey"},
-      "value":{"shape":"TagValue"},
-      "max":50,
-      "min":1
-    },
     "Timestamp":{"type":"timestamp"},
-    "UntagResourceRequest":{
-      "type":"structure",
-      "required":[
-        "ResourceArn",
-        "TagKeys"
-      ],
-      "members":{
-        "ResourceArn":{"shape":"Arn"},
-        "TagKeys":{"shape":"TagKeyList"}
-      }
-    },
-    "UntagResourceResponse":{
-      "type":"structure",
-      "members":{
-      }
-    },
     "UpdateDirectoryConfigRequest":{
       "type":"structure",
       "required":["DirectoryName"],
@@ -1568,12 +1401,7 @@
         "Description":{"shape":"Description"},
         "Name":{"shape":"String"},
         "StorageConnectors":{"shape":"StorageConnectorList"},
-        "DeleteStorageConnectors":{
-          "shape":"Boolean",
-          "deprecated":true
-        },
-        "RedirectURL":{"shape":"RedirectURL"},
-        "AttributesToDelete":{"shape":"StackAttributes"}
+        "DeleteStorageConnectors":{"shape":"Boolean"}
       }
     },
     "UpdateStackResult":{

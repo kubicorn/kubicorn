@@ -76,9 +76,6 @@ type TableMetadata struct {
 	// Information about a table stored outside of BigQuery.
 	ExternalDataConfig *ExternalDataConfig
 
-	// Custom encryption configuration (e.g., Cloud KMS keys).
-	EncryptionConfig *EncryptionConfig
-
 	// All the fields below are read-only.
 
 	FullID           string // An opaque ID uniquely identifying the table.
@@ -150,11 +147,6 @@ type TimePartitioning struct {
 	// The amount of time to keep the storage for a partition.
 	// If the duration is empty (0), the data in the partitions do not expire.
 	Expiration time.Duration
-
-	// If empty, the table is partitioned by pseudo column '_PARTITIONTIME'; if set, the
-	// table is partitioned by this field. The field must be a top-level TIMESTAMP or
-	// DATE field. Its mode must be NULLABLE or REQUIRED.
-	Field string
 }
 
 func (p *TimePartitioning) toBQ() *bq.TimePartitioning {
@@ -164,7 +156,6 @@ func (p *TimePartitioning) toBQ() *bq.TimePartitioning {
 	return &bq.TimePartitioning{
 		Type:         "DAY",
 		ExpirationMs: int64(p.Expiration / time.Millisecond),
-		Field:        p.Field,
 	}
 }
 
@@ -174,33 +165,6 @@ func bqToTimePartitioning(q *bq.TimePartitioning) *TimePartitioning {
 	}
 	return &TimePartitioning{
 		Expiration: time.Duration(q.ExpirationMs) * time.Millisecond,
-		Field:      q.Field,
-	}
-}
-
-// EncryptionConfig configures customer-managed encryption on tables.
-type EncryptionConfig struct {
-	// Describes the Cloud KMS encryption key that will be used to protect
-	// destination BigQuery table. The BigQuery Service Account associated with your
-	// project requires access to this encryption key.
-	KMSKeyName string
-}
-
-func (e *EncryptionConfig) toBQ() *bq.EncryptionConfiguration {
-	if e == nil {
-		return nil
-	}
-	return &bq.EncryptionConfiguration{
-		KmsKeyName: e.KMSKeyName,
-	}
-}
-
-func bqToEncryptionConfig(q *bq.EncryptionConfiguration) *EncryptionConfig {
-	if q == nil {
-		return nil
-	}
-	return &EncryptionConfig{
-		KMSKeyName: q.KmsKeyName,
 	}
 }
 
@@ -294,7 +258,6 @@ func (tm *TableMetadata) toBQ() (*bq.Table, error) {
 		edc := tm.ExternalDataConfig.toBQ()
 		t.ExternalDataConfiguration = &edc
 	}
-	t.EncryptionConfiguration = tm.EncryptionConfig.toBQ()
 	if tm.FullID != "" {
 		return nil, errors.New("cannot set FullID on create")
 	}
@@ -350,7 +313,6 @@ func bqToTableMetadata(t *bq.Table) (*TableMetadata, error) {
 		CreationTime:     unixMillisToTime(t.CreationTime),
 		LastModifiedTime: unixMillisToTime(int64(t.LastModifiedTime)),
 		ETag:             t.Etag,
-		EncryptionConfig: bqToEncryptionConfig(t.EncryptionConfiguration),
 	}
 	if t.Schema != nil {
 		md.Schema = bqToSchema(t.Schema)

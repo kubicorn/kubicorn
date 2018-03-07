@@ -18,9 +18,7 @@ package network
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"encoding/json"
 	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/to"
 	"net/http"
 )
@@ -29,9 +27,9 @@ import (
 type ApplicationGatewayCookieBasedAffinity string
 
 const (
-	// Disabled ...
+	// Disabled specifies the disabled state for application gateway cookie based affinity.
 	Disabled ApplicationGatewayCookieBasedAffinity = "Disabled"
-	// Enabled ...
+	// Enabled specifies the enabled state for application gateway cookie based affinity.
 	Enabled ApplicationGatewayCookieBasedAffinity = "Enabled"
 )
 
@@ -39,13 +37,13 @@ const (
 type ApplicationGatewayOperationalState string
 
 const (
-	// Running ...
+	// Running specifies the running state for application gateway operational state.
 	Running ApplicationGatewayOperationalState = "Running"
-	// Starting ...
+	// Starting specifies the starting state for application gateway operational state.
 	Starting ApplicationGatewayOperationalState = "Starting"
-	// Stopped ...
+	// Stopped specifies the stopped state for application gateway operational state.
 	Stopped ApplicationGatewayOperationalState = "Stopped"
-	// Stopping ...
+	// Stopping specifies the stopping state for application gateway operational state.
 	Stopping ApplicationGatewayOperationalState = "Stopping"
 )
 
@@ -53,9 +51,9 @@ const (
 type ApplicationGatewayProtocol string
 
 const (
-	// HTTP ...
+	// HTTP specifies the http state for application gateway protocol.
 	HTTP ApplicationGatewayProtocol = "Http"
-	// HTTPS ...
+	// HTTPS specifies the https state for application gateway protocol.
 	HTTPS ApplicationGatewayProtocol = "Https"
 )
 
@@ -63,9 +61,9 @@ const (
 type ApplicationGatewayRequestRoutingRuleType string
 
 const (
-	// Basic ...
+	// Basic specifies the basic state for application gateway request routing rule type.
 	Basic ApplicationGatewayRequestRoutingRuleType = "Basic"
-	// PathBasedRouting ...
+	// PathBasedRouting specifies the path based routing state for application gateway request routing rule type.
 	PathBasedRouting ApplicationGatewayRequestRoutingRuleType = "PathBasedRouting"
 )
 
@@ -73,11 +71,11 @@ const (
 type ApplicationGatewaySkuName string
 
 const (
-	// StandardLarge ...
+	// StandardLarge specifies the standard large state for application gateway sku name.
 	StandardLarge ApplicationGatewaySkuName = "Standard_Large"
-	// StandardMedium ...
+	// StandardMedium specifies the standard medium state for application gateway sku name.
 	StandardMedium ApplicationGatewaySkuName = "Standard_Medium"
-	// StandardSmall ...
+	// StandardSmall specifies the standard small state for application gateway sku name.
 	StandardSmall ApplicationGatewaySkuName = "Standard_Small"
 )
 
@@ -85,11 +83,11 @@ const (
 type ApplicationGatewaySslProtocol string
 
 const (
-	// TLSv10 ...
+	// TLSv10 specifies the tl sv 10 state for application gateway ssl protocol.
 	TLSv10 ApplicationGatewaySslProtocol = "TLSv1_0"
-	// TLSv11 ...
+	// TLSv11 specifies the tl sv 11 state for application gateway ssl protocol.
 	TLSv11 ApplicationGatewaySslProtocol = "TLSv1_1"
-	// TLSv12 ...
+	// TLSv12 specifies the tl sv 12 state for application gateway ssl protocol.
 	TLSv12 ApplicationGatewaySslProtocol = "TLSv1_2"
 )
 
@@ -97,7 +95,7 @@ const (
 type ApplicationGatewayTier string
 
 const (
-	// Standard ...
+	// Standard specifies the standard state for application gateway tier.
 	Standard ApplicationGatewayTier = "Standard"
 )
 
@@ -105,9 +103,9 @@ const (
 type AuthorizationUseStatus string
 
 const (
-	// Available ...
+	// Available specifies the available state for authorization use status.
 	Available AuthorizationUseStatus = "Available"
-	// InUse ...
+	// InUse specifies the in use state for authorization use status.
 	InUse AuthorizationUseStatus = "InUse"
 )
 
@@ -115,13 +113,14 @@ const (
 type EffectiveRouteSource string
 
 const (
-	// EffectiveRouteSourceDefault ...
+	// EffectiveRouteSourceDefault specifies the effective route source default state for effective route source.
 	EffectiveRouteSourceDefault EffectiveRouteSource = "Default"
-	// EffectiveRouteSourceUnknown ...
+	// EffectiveRouteSourceUnknown specifies the effective route source unknown state for effective route source.
 	EffectiveRouteSourceUnknown EffectiveRouteSource = "Unknown"
-	// EffectiveRouteSourceUser ...
+	// EffectiveRouteSourceUser specifies the effective route source user state for effective route source.
 	EffectiveRouteSourceUser EffectiveRouteSource = "User"
-	// EffectiveRouteSourceVirtualNetworkGateway ...
+	// EffectiveRouteSourceVirtualNetworkGateway specifies the effective route source virtual network gateway state for
+	// effective route source.
 	EffectiveRouteSourceVirtualNetworkGateway EffectiveRouteSource = "VirtualNetworkGateway"
 )
 
@@ -129,9 +128,9 @@ const (
 type EffectiveRouteState string
 
 const (
-	// Active ...
+	// Active specifies the active state for effective route state.
 	Active EffectiveRouteState = "Active"
-	// Invalid ...
+	// Invalid specifies the invalid state for effective route state.
 	Invalid EffectiveRouteState = "Invalid"
 )
 
@@ -140,13 +139,14 @@ const (
 type ExpressRouteCircuitPeeringAdvertisedPublicPrefixState string
 
 const (
-	// Configured ...
+	// Configured specifies the configured state for express route circuit peering advertised public prefix state.
 	Configured ExpressRouteCircuitPeeringAdvertisedPublicPrefixState = "Configured"
-	// Configuring ...
+	// Configuring specifies the configuring state for express route circuit peering advertised public prefix state.
 	Configuring ExpressRouteCircuitPeeringAdvertisedPublicPrefixState = "Configuring"
-	// NotConfigured ...
+	// NotConfigured specifies the not configured state for express route circuit peering advertised public prefix state.
 	NotConfigured ExpressRouteCircuitPeeringAdvertisedPublicPrefixState = "NotConfigured"
-	// ValidationNeeded ...
+	// ValidationNeeded specifies the validation needed state for express route circuit peering advertised public prefix
+	// state.
 	ValidationNeeded ExpressRouteCircuitPeeringAdvertisedPublicPrefixState = "ValidationNeeded"
 )
 
@@ -154,9 +154,11 @@ const (
 type ExpressRouteCircuitPeeringState string
 
 const (
-	// ExpressRouteCircuitPeeringStateDisabled ...
+	// ExpressRouteCircuitPeeringStateDisabled specifies the express route circuit peering state disabled state for express
+	// route circuit peering state.
 	ExpressRouteCircuitPeeringStateDisabled ExpressRouteCircuitPeeringState = "Disabled"
-	// ExpressRouteCircuitPeeringStateEnabled ...
+	// ExpressRouteCircuitPeeringStateEnabled specifies the express route circuit peering state enabled state for express
+	// route circuit peering state.
 	ExpressRouteCircuitPeeringStateEnabled ExpressRouteCircuitPeeringState = "Enabled"
 )
 
@@ -164,11 +166,11 @@ const (
 type ExpressRouteCircuitPeeringType string
 
 const (
-	// AzurePrivatePeering ...
+	// AzurePrivatePeering specifies the azure private peering state for express route circuit peering type.
 	AzurePrivatePeering ExpressRouteCircuitPeeringType = "AzurePrivatePeering"
-	// AzurePublicPeering ...
+	// AzurePublicPeering specifies the azure public peering state for express route circuit peering type.
 	AzurePublicPeering ExpressRouteCircuitPeeringType = "AzurePublicPeering"
-	// MicrosoftPeering ...
+	// MicrosoftPeering specifies the microsoft peering state for express route circuit peering type.
 	MicrosoftPeering ExpressRouteCircuitPeeringType = "MicrosoftPeering"
 )
 
@@ -176,9 +178,9 @@ const (
 type ExpressRouteCircuitSkuFamily string
 
 const (
-	// MeteredData ...
+	// MeteredData specifies the metered data state for express route circuit sku family.
 	MeteredData ExpressRouteCircuitSkuFamily = "MeteredData"
-	// UnlimitedData ...
+	// UnlimitedData specifies the unlimited data state for express route circuit sku family.
 	UnlimitedData ExpressRouteCircuitSkuFamily = "UnlimitedData"
 )
 
@@ -186,9 +188,11 @@ const (
 type ExpressRouteCircuitSkuTier string
 
 const (
-	// ExpressRouteCircuitSkuTierPremium ...
+	// ExpressRouteCircuitSkuTierPremium specifies the express route circuit sku tier premium state for express route
+	// circuit sku tier.
 	ExpressRouteCircuitSkuTierPremium ExpressRouteCircuitSkuTier = "Premium"
-	// ExpressRouteCircuitSkuTierStandard ...
+	// ExpressRouteCircuitSkuTierStandard specifies the express route circuit sku tier standard state for express route
+	// circuit sku tier.
 	ExpressRouteCircuitSkuTierStandard ExpressRouteCircuitSkuTier = "Standard"
 )
 
@@ -196,9 +200,9 @@ const (
 type IPAllocationMethod string
 
 const (
-	// Dynamic ...
+	// Dynamic specifies the dynamic state for ip allocation method.
 	Dynamic IPAllocationMethod = "Dynamic"
-	// Static ...
+	// Static specifies the static state for ip allocation method.
 	Static IPAllocationMethod = "Static"
 )
 
@@ -206,9 +210,9 @@ const (
 type IPVersion string
 
 const (
-	// IPv4 ...
+	// IPv4 specifies the i pv 4 state for ip version.
 	IPv4 IPVersion = "IPv4"
-	// IPv6 ...
+	// IPv6 specifies the i pv 6 state for ip version.
 	IPv6 IPVersion = "IPv6"
 )
 
@@ -216,11 +220,11 @@ const (
 type LoadDistribution string
 
 const (
-	// Default ...
+	// Default specifies the default state for load distribution.
 	Default LoadDistribution = "Default"
-	// SourceIP ...
+	// SourceIP specifies the source ip state for load distribution.
 	SourceIP LoadDistribution = "SourceIP"
-	// SourceIPProtocol ...
+	// SourceIPProtocol specifies the source ip protocol state for load distribution.
 	SourceIPProtocol LoadDistribution = "SourceIPProtocol"
 )
 
@@ -228,11 +232,11 @@ const (
 type OperationStatus string
 
 const (
-	// Failed ...
+	// Failed specifies the failed state for operation status.
 	Failed OperationStatus = "Failed"
-	// InProgress ...
+	// InProgress specifies the in progress state for operation status.
 	InProgress OperationStatus = "InProgress"
-	// Succeeded ...
+	// Succeeded specifies the succeeded state for operation status.
 	Succeeded OperationStatus = "Succeeded"
 )
 
@@ -240,9 +244,9 @@ const (
 type ProbeProtocol string
 
 const (
-	// ProbeProtocolHTTP ...
+	// ProbeProtocolHTTP specifies the probe protocol http state for probe protocol.
 	ProbeProtocolHTTP ProbeProtocol = "Http"
-	// ProbeProtocolTCP ...
+	// ProbeProtocolTCP specifies the probe protocol tcp state for probe protocol.
 	ProbeProtocolTCP ProbeProtocol = "Tcp"
 )
 
@@ -250,9 +254,9 @@ const (
 type ProcessorArchitecture string
 
 const (
-	// Amd64 ...
+	// Amd64 specifies the amd 64 state for processor architecture.
 	Amd64 ProcessorArchitecture = "Amd64"
-	// X86 ...
+	// X86 specifies the x86 state for processor architecture.
 	X86 ProcessorArchitecture = "X86"
 )
 
@@ -260,15 +264,16 @@ const (
 type RouteNextHopType string
 
 const (
-	// RouteNextHopTypeInternet ...
+	// RouteNextHopTypeInternet specifies the route next hop type internet state for route next hop type.
 	RouteNextHopTypeInternet RouteNextHopType = "Internet"
-	// RouteNextHopTypeNone ...
+	// RouteNextHopTypeNone specifies the route next hop type none state for route next hop type.
 	RouteNextHopTypeNone RouteNextHopType = "None"
-	// RouteNextHopTypeVirtualAppliance ...
+	// RouteNextHopTypeVirtualAppliance specifies the route next hop type virtual appliance state for route next hop type.
 	RouteNextHopTypeVirtualAppliance RouteNextHopType = "VirtualAppliance"
-	// RouteNextHopTypeVirtualNetworkGateway ...
+	// RouteNextHopTypeVirtualNetworkGateway specifies the route next hop type virtual network gateway state for route next
+	// hop type.
 	RouteNextHopTypeVirtualNetworkGateway RouteNextHopType = "VirtualNetworkGateway"
-	// RouteNextHopTypeVnetLocal ...
+	// RouteNextHopTypeVnetLocal specifies the route next hop type vnet local state for route next hop type.
 	RouteNextHopTypeVnetLocal RouteNextHopType = "VnetLocal"
 )
 
@@ -276,9 +281,9 @@ const (
 type SecurityRuleAccess string
 
 const (
-	// Allow ...
+	// Allow specifies the allow state for security rule access.
 	Allow SecurityRuleAccess = "Allow"
-	// Deny ...
+	// Deny specifies the deny state for security rule access.
 	Deny SecurityRuleAccess = "Deny"
 )
 
@@ -286,9 +291,9 @@ const (
 type SecurityRuleDirection string
 
 const (
-	// Inbound ...
+	// Inbound specifies the inbound state for security rule direction.
 	Inbound SecurityRuleDirection = "Inbound"
-	// Outbound ...
+	// Outbound specifies the outbound state for security rule direction.
 	Outbound SecurityRuleDirection = "Outbound"
 )
 
@@ -296,11 +301,11 @@ const (
 type SecurityRuleProtocol string
 
 const (
-	// Asterisk ...
+	// Asterisk specifies the asterisk state for security rule protocol.
 	Asterisk SecurityRuleProtocol = "*"
-	// TCP ...
+	// TCP specifies the tcp state for security rule protocol.
 	TCP SecurityRuleProtocol = "Tcp"
-	// UDP ...
+	// UDP specifies the udp state for security rule protocol.
 	UDP SecurityRuleProtocol = "Udp"
 )
 
@@ -308,13 +313,13 @@ const (
 type ServiceProviderProvisioningState string
 
 const (
-	// Deprovisioning ...
+	// Deprovisioning specifies the deprovisioning state for service provider provisioning state.
 	Deprovisioning ServiceProviderProvisioningState = "Deprovisioning"
-	// NotProvisioned ...
+	// NotProvisioned specifies the not provisioned state for service provider provisioning state.
 	NotProvisioned ServiceProviderProvisioningState = "NotProvisioned"
-	// Provisioned ...
+	// Provisioned specifies the provisioned state for service provider provisioning state.
 	Provisioned ServiceProviderProvisioningState = "Provisioned"
-	// Provisioning ...
+	// Provisioning specifies the provisioning state for service provider provisioning state.
 	Provisioning ServiceProviderProvisioningState = "Provisioning"
 )
 
@@ -322,9 +327,9 @@ const (
 type TransportProtocol string
 
 const (
-	// TransportProtocolTCP ...
+	// TransportProtocolTCP specifies the transport protocol tcp state for transport protocol.
 	TransportProtocolTCP TransportProtocol = "Tcp"
-	// TransportProtocolUDP ...
+	// TransportProtocolUDP specifies the transport protocol udp state for transport protocol.
 	TransportProtocolUDP TransportProtocol = "Udp"
 )
 
@@ -332,13 +337,13 @@ const (
 type VirtualNetworkGatewayConnectionStatus string
 
 const (
-	// Connected ...
+	// Connected specifies the connected state for virtual network gateway connection status.
 	Connected VirtualNetworkGatewayConnectionStatus = "Connected"
-	// Connecting ...
+	// Connecting specifies the connecting state for virtual network gateway connection status.
 	Connecting VirtualNetworkGatewayConnectionStatus = "Connecting"
-	// NotConnected ...
+	// NotConnected specifies the not connected state for virtual network gateway connection status.
 	NotConnected VirtualNetworkGatewayConnectionStatus = "NotConnected"
-	// Unknown ...
+	// Unknown specifies the unknown state for virtual network gateway connection status.
 	Unknown VirtualNetworkGatewayConnectionStatus = "Unknown"
 )
 
@@ -346,13 +351,13 @@ const (
 type VirtualNetworkGatewayConnectionType string
 
 const (
-	// ExpressRoute ...
+	// ExpressRoute specifies the express route state for virtual network gateway connection type.
 	ExpressRoute VirtualNetworkGatewayConnectionType = "ExpressRoute"
-	// IPsec ...
+	// IPsec specifies the i psec state for virtual network gateway connection type.
 	IPsec VirtualNetworkGatewayConnectionType = "IPsec"
-	// Vnet2Vnet ...
+	// Vnet2Vnet specifies the vnet 2 vnet state for virtual network gateway connection type.
 	Vnet2Vnet VirtualNetworkGatewayConnectionType = "Vnet2Vnet"
-	// VPNClient ...
+	// VPNClient specifies the vpn client state for virtual network gateway connection type.
 	VPNClient VirtualNetworkGatewayConnectionType = "VPNClient"
 )
 
@@ -360,13 +365,17 @@ const (
 type VirtualNetworkGatewaySkuName string
 
 const (
-	// VirtualNetworkGatewaySkuNameBasic ...
+	// VirtualNetworkGatewaySkuNameBasic specifies the virtual network gateway sku name basic state for virtual network
+	// gateway sku name.
 	VirtualNetworkGatewaySkuNameBasic VirtualNetworkGatewaySkuName = "Basic"
-	// VirtualNetworkGatewaySkuNameHighPerformance ...
+	// VirtualNetworkGatewaySkuNameHighPerformance specifies the virtual network gateway sku name high performance state
+	// for virtual network gateway sku name.
 	VirtualNetworkGatewaySkuNameHighPerformance VirtualNetworkGatewaySkuName = "HighPerformance"
-	// VirtualNetworkGatewaySkuNameStandard ...
+	// VirtualNetworkGatewaySkuNameStandard specifies the virtual network gateway sku name standard state for virtual
+	// network gateway sku name.
 	VirtualNetworkGatewaySkuNameStandard VirtualNetworkGatewaySkuName = "Standard"
-	// VirtualNetworkGatewaySkuNameUltraPerformance ...
+	// VirtualNetworkGatewaySkuNameUltraPerformance specifies the virtual network gateway sku name ultra performance state
+	// for virtual network gateway sku name.
 	VirtualNetworkGatewaySkuNameUltraPerformance VirtualNetworkGatewaySkuName = "UltraPerformance"
 )
 
@@ -374,13 +383,17 @@ const (
 type VirtualNetworkGatewaySkuTier string
 
 const (
-	// VirtualNetworkGatewaySkuTierBasic ...
+	// VirtualNetworkGatewaySkuTierBasic specifies the virtual network gateway sku tier basic state for virtual network
+	// gateway sku tier.
 	VirtualNetworkGatewaySkuTierBasic VirtualNetworkGatewaySkuTier = "Basic"
-	// VirtualNetworkGatewaySkuTierHighPerformance ...
+	// VirtualNetworkGatewaySkuTierHighPerformance specifies the virtual network gateway sku tier high performance state
+	// for virtual network gateway sku tier.
 	VirtualNetworkGatewaySkuTierHighPerformance VirtualNetworkGatewaySkuTier = "HighPerformance"
-	// VirtualNetworkGatewaySkuTierStandard ...
+	// VirtualNetworkGatewaySkuTierStandard specifies the virtual network gateway sku tier standard state for virtual
+	// network gateway sku tier.
 	VirtualNetworkGatewaySkuTierStandard VirtualNetworkGatewaySkuTier = "Standard"
-	// VirtualNetworkGatewaySkuTierUltraPerformance ...
+	// VirtualNetworkGatewaySkuTierUltraPerformance specifies the virtual network gateway sku tier ultra performance state
+	// for virtual network gateway sku tier.
 	VirtualNetworkGatewaySkuTierUltraPerformance VirtualNetworkGatewaySkuTier = "UltraPerformance"
 )
 
@@ -388,9 +401,10 @@ const (
 type VirtualNetworkGatewayType string
 
 const (
-	// VirtualNetworkGatewayTypeExpressRoute ...
+	// VirtualNetworkGatewayTypeExpressRoute specifies the virtual network gateway type express route state for virtual
+	// network gateway type.
 	VirtualNetworkGatewayTypeExpressRoute VirtualNetworkGatewayType = "ExpressRoute"
-	// VirtualNetworkGatewayTypeVpn ...
+	// VirtualNetworkGatewayTypeVpn specifies the virtual network gateway type vpn state for virtual network gateway type.
 	VirtualNetworkGatewayTypeVpn VirtualNetworkGatewayType = "Vpn"
 )
 
@@ -398,11 +412,14 @@ const (
 type VirtualNetworkPeeringState string
 
 const (
-	// VirtualNetworkPeeringStateConnected ...
+	// VirtualNetworkPeeringStateConnected specifies the virtual network peering state connected state for virtual network
+	// peering state.
 	VirtualNetworkPeeringStateConnected VirtualNetworkPeeringState = "Connected"
-	// VirtualNetworkPeeringStateDisconnected ...
+	// VirtualNetworkPeeringStateDisconnected specifies the virtual network peering state disconnected state for virtual
+	// network peering state.
 	VirtualNetworkPeeringStateDisconnected VirtualNetworkPeeringState = "Disconnected"
-	// VirtualNetworkPeeringStateInitiated ...
+	// VirtualNetworkPeeringStateInitiated specifies the virtual network peering state initiated state for virtual network
+	// peering state.
 	VirtualNetworkPeeringStateInitiated VirtualNetworkPeeringState = "Initiated"
 )
 
@@ -410,1641 +427,429 @@ const (
 type VpnType string
 
 const (
-	// PolicyBased ...
+	// PolicyBased specifies the policy based state for vpn type.
 	PolicyBased VpnType = "PolicyBased"
-	// RouteBased ...
+	// RouteBased specifies the route based state for vpn type.
 	RouteBased VpnType = "RouteBased"
 )
 
-// AddressSpace addressSpace contains an array of IP address ranges that can be used by subnets
+// AddressSpace is addressSpace contains an array of IP address ranges that can be used by subnets
 type AddressSpace struct {
-	// AddressPrefixes - Gets or sets list of address blocks reserved for this virtual network in CIDR notation
 	AddressPrefixes *[]string `json:"addressPrefixes,omitempty"`
 }
 
-// ApplicationGateway applicationGateways resource
+// ApplicationGateway is applicationGateways resource
 type ApplicationGateway struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response                   `json:"-"`
+	ID                                  *string             `json:"id,omitempty"`
+	Name                                *string             `json:"name,omitempty"`
+	Type                                *string             `json:"type,omitempty"`
+	Location                            *string             `json:"location,omitempty"`
 	Tags                                *map[string]*string `json:"tags,omitempty"`
 	*ApplicationGatewayPropertiesFormat `json:"properties,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                                *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGateway struct.
-func (ag *ApplicationGateway) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ag.ApplicationGatewayPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		ag.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ag.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ag.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ag.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		ag.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		ag.Tags = &tags
-	}
-
-	return nil
-}
-
-// ApplicationGatewayAuthenticationCertificate authentication certificates of application gateway
+// ApplicationGatewayAuthenticationCertificate is authentication certificates of application gateway
 type ApplicationGatewayAuthenticationCertificate struct {
-	// ID - Resource Id
 	ID                                                           *string `json:"id,omitempty"`
 	*ApplicationGatewayAuthenticationCertificatePropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                                         *string `json:"name,omitempty"`
+	Etag                                                         *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayAuthenticationCertificate struct.
-func (agac *ApplicationGatewayAuthenticationCertificate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayAuthenticationCertificatePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agac.ApplicationGatewayAuthenticationCertificatePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agac.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agac.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agac.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayAuthenticationCertificatePropertiesFormat properties of Authentication certificates of application
-// gateway
+// ApplicationGatewayAuthenticationCertificatePropertiesFormat is properties of Authentication certificates of
+// application gateway
 type ApplicationGatewayAuthenticationCertificatePropertiesFormat struct {
-	// Data - Certificate public data
-	Data *string `json:"data,omitempty"`
-	// ProvisioningState - Provisioning state of the authentication certificate resource Updating/Deleting/Failed
+	Data              *string `json:"data,omitempty"`
 	ProvisioningState *string `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayBackendAddress backend Address of application gateway
+// ApplicationGatewayBackendAddress is backend Address of application gateway
 type ApplicationGatewayBackendAddress struct {
-	// Fqdn - Dns name
-	Fqdn *string `json:"fqdn,omitempty"`
-	// IPAddress - Ip address
+	Fqdn      *string `json:"fqdn,omitempty"`
 	IPAddress *string `json:"ipAddress,omitempty"`
 }
 
-// ApplicationGatewayBackendAddressPool backend Address Pool of application gateway
+// ApplicationGatewayBackendAddressPool is backend Address Pool of application gateway
 type ApplicationGatewayBackendAddressPool struct {
-	// ID - Resource Id
 	ID                                                    *string `json:"id,omitempty"`
 	*ApplicationGatewayBackendAddressPoolPropertiesFormat `json:"properties,omitempty"`
-	// Name - Resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                                  *string `json:"name,omitempty"`
+	Etag                                                  *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayBackendAddressPool struct.
-func (agbap *ApplicationGatewayBackendAddressPool) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayBackendAddressPoolPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agbap.ApplicationGatewayBackendAddressPoolPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agbap.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agbap.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agbap.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayBackendAddressPoolPropertiesFormat properties of Backend Address Pool of application gateway
+// ApplicationGatewayBackendAddressPoolPropertiesFormat is properties of Backend Address Pool of application gateway
 type ApplicationGatewayBackendAddressPoolPropertiesFormat struct {
-	// BackendIPConfigurations - Collection of references to IPs defined in NICs
-	BackendIPConfigurations *[]InterfaceIPConfiguration `json:"backendIPConfigurations,omitempty"`
-	// BackendAddresses - Backend addresses
-	BackendAddresses *[]ApplicationGatewayBackendAddress `json:"backendAddresses,omitempty"`
-	// ProvisioningState - Provisioning state of the backend address pool resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	BackendIPConfigurations *[]InterfaceIPConfiguration         `json:"backendIPConfigurations,omitempty"`
+	BackendAddresses        *[]ApplicationGatewayBackendAddress `json:"backendAddresses,omitempty"`
+	ProvisioningState       *string                             `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayBackendHTTPSettings backend address pool settings of application gateway
+// ApplicationGatewayBackendHTTPSettings is backend address pool settings of application gateway
 type ApplicationGatewayBackendHTTPSettings struct {
-	// ID - Resource Id
 	ID                                                     *string `json:"id,omitempty"`
 	*ApplicationGatewayBackendHTTPSettingsPropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                                   *string `json:"name,omitempty"`
+	Etag                                                   *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayBackendHTTPSettings struct.
-func (agbhs *ApplicationGatewayBackendHTTPSettings) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayBackendHTTPSettingsPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agbhs.ApplicationGatewayBackendHTTPSettingsPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agbhs.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agbhs.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agbhs.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayBackendHTTPSettingsPropertiesFormat properties of Backend address pool settings of application
+// ApplicationGatewayBackendHTTPSettingsPropertiesFormat is properties of Backend address pool settings of application
 // gateway
 type ApplicationGatewayBackendHTTPSettingsPropertiesFormat struct {
-	// Port - Port
-	Port *int32 `json:"port,omitempty"`
-	// Protocol - Protocol. Possible values include: 'HTTP', 'HTTPS'
-	Protocol ApplicationGatewayProtocol `json:"protocol,omitempty"`
-	// CookieBasedAffinity - Cookie affinity. Possible values include: 'Enabled', 'Disabled'
-	CookieBasedAffinity ApplicationGatewayCookieBasedAffinity `json:"cookieBasedAffinity,omitempty"`
-	// RequestTimeout - Request timeout
-	RequestTimeout *int32 `json:"requestTimeout,omitempty"`
-	// Probe - Probe resource of application gateway
-	Probe *SubResource `json:"probe,omitempty"`
-	// AuthenticationCertificates - Array of references to Application Gateway Authentication Certificates
-	AuthenticationCertificates *[]SubResource `json:"authenticationCertificates,omitempty"`
-	// ProvisioningState - Provisioning state of the backend http settings resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Port                       *int32                                `json:"port,omitempty"`
+	Protocol                   ApplicationGatewayProtocol            `json:"protocol,omitempty"`
+	CookieBasedAffinity        ApplicationGatewayCookieBasedAffinity `json:"cookieBasedAffinity,omitempty"`
+	RequestTimeout             *int32                                `json:"requestTimeout,omitempty"`
+	Probe                      *SubResource                          `json:"probe,omitempty"`
+	AuthenticationCertificates *[]SubResource                        `json:"authenticationCertificates,omitempty"`
+	ProvisioningState          *string                               `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayFrontendIPConfiguration frontend IP configuration of application gateway
+// ApplicationGatewayFrontendIPConfiguration is frontend IP configuration of application gateway
 type ApplicationGatewayFrontendIPConfiguration struct {
-	// ID - Resource Id
 	ID                                                         *string `json:"id,omitempty"`
 	*ApplicationGatewayFrontendIPConfigurationPropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                                       *string `json:"name,omitempty"`
+	Etag                                                       *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayFrontendIPConfiguration struct.
-func (agfic *ApplicationGatewayFrontendIPConfiguration) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayFrontendIPConfigurationPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agfic.ApplicationGatewayFrontendIPConfigurationPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agfic.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agfic.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agfic.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayFrontendIPConfigurationPropertiesFormat properties of Frontend IP configuration of application
+// ApplicationGatewayFrontendIPConfigurationPropertiesFormat is properties of Frontend IP configuration of application
 // gateway
 type ApplicationGatewayFrontendIPConfigurationPropertiesFormat struct {
-	// PrivateIPAddress - PrivateIPAddress of the Network Interface IP Configuration
-	PrivateIPAddress *string `json:"privateIPAddress,omitempty"`
-	// PrivateIPAllocationMethod - PrivateIP allocation method (Static/Dynamic). Possible values include: 'Static', 'Dynamic'
+	PrivateIPAddress          *string            `json:"privateIPAddress,omitempty"`
 	PrivateIPAllocationMethod IPAllocationMethod `json:"privateIPAllocationMethod,omitempty"`
-	// Subnet - Reference of the subnet resource
-	Subnet *SubResource `json:"subnet,omitempty"`
-	// PublicIPAddress - Reference of the PublicIP resource
-	PublicIPAddress *SubResource `json:"publicIPAddress,omitempty"`
-	// ProvisioningState - Provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Subnet                    *SubResource       `json:"subnet,omitempty"`
+	PublicIPAddress           *SubResource       `json:"publicIPAddress,omitempty"`
+	ProvisioningState         *string            `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayFrontendPort frontend Port of application gateway
+// ApplicationGatewayFrontendPort is frontend Port of application gateway
 type ApplicationGatewayFrontendPort struct {
-	// ID - Resource Id
 	ID                                              *string `json:"id,omitempty"`
 	*ApplicationGatewayFrontendPortPropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                            *string `json:"name,omitempty"`
+	Etag                                            *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayFrontendPort struct.
-func (agfp *ApplicationGatewayFrontendPort) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayFrontendPortPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agfp.ApplicationGatewayFrontendPortPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agfp.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agfp.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agfp.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayFrontendPortPropertiesFormat properties of Frontend Port of application gateway
+// ApplicationGatewayFrontendPortPropertiesFormat is properties of Frontend Port of application gateway
 type ApplicationGatewayFrontendPortPropertiesFormat struct {
-	// Port - Frontend port
-	Port *int32 `json:"port,omitempty"`
-	// ProvisioningState - Provisioning state of the frontend port resource Updating/Deleting/Failed
+	Port              *int32  `json:"port,omitempty"`
 	ProvisioningState *string `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayHTTPListener http listener of application gateway
+// ApplicationGatewayHTTPListener is http listener of application gateway
 type ApplicationGatewayHTTPListener struct {
-	// ID - Resource Id
 	ID                                              *string `json:"id,omitempty"`
 	*ApplicationGatewayHTTPListenerPropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                            *string `json:"name,omitempty"`
+	Etag                                            *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayHTTPListener struct.
-func (aghl *ApplicationGatewayHTTPListener) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayHTTPListenerPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		aghl.ApplicationGatewayHTTPListenerPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		aghl.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		aghl.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		aghl.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayHTTPListenerPropertiesFormat properties of Http listener of application gateway
+// ApplicationGatewayHTTPListenerPropertiesFormat is properties of Http listener of application gateway
 type ApplicationGatewayHTTPListenerPropertiesFormat struct {
-	// FrontendIPConfiguration - Frontend IP configuration resource of application gateway
-	FrontendIPConfiguration *SubResource `json:"frontendIPConfiguration,omitempty"`
-	// FrontendPort - Frontend port resource of application gateway
-	FrontendPort *SubResource `json:"frontendPort,omitempty"`
-	// Protocol - Protocol. Possible values include: 'HTTP', 'HTTPS'
-	Protocol ApplicationGatewayProtocol `json:"protocol,omitempty"`
-	// HostName - Host name of http listener
-	HostName *string `json:"hostName,omitempty"`
-	// SslCertificate - Ssl certificate resource of application gateway
-	SslCertificate *SubResource `json:"sslCertificate,omitempty"`
-	// RequireServerNameIndication - RequireServerNameIndication of http listener
-	RequireServerNameIndication *bool `json:"requireServerNameIndication,omitempty"`
-	// ProvisioningState - Provisioning state of the http listener resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	FrontendIPConfiguration     *SubResource               `json:"frontendIPConfiguration,omitempty"`
+	FrontendPort                *SubResource               `json:"frontendPort,omitempty"`
+	Protocol                    ApplicationGatewayProtocol `json:"protocol,omitempty"`
+	HostName                    *string                    `json:"hostName,omitempty"`
+	SslCertificate              *SubResource               `json:"sslCertificate,omitempty"`
+	RequireServerNameIndication *bool                      `json:"requireServerNameIndication,omitempty"`
+	ProvisioningState           *string                    `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayIPConfiguration IP configuration of application gateway
+// ApplicationGatewayIPConfiguration is IP configuration of application gateway
 type ApplicationGatewayIPConfiguration struct {
-	// ID - Resource Id
 	ID                                                 *string `json:"id,omitempty"`
 	*ApplicationGatewayIPConfigurationPropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                               *string `json:"name,omitempty"`
+	Etag                                               *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayIPConfiguration struct.
-func (agic *ApplicationGatewayIPConfiguration) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayIPConfigurationPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agic.ApplicationGatewayIPConfigurationPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agic.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agic.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agic.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayIPConfigurationPropertiesFormat properties of IP configuration of application gateway
+// ApplicationGatewayIPConfigurationPropertiesFormat is properties of IP configuration of application gateway
 type ApplicationGatewayIPConfigurationPropertiesFormat struct {
-	// Subnet - Reference of the subnet resource. A subnet from where application gateway gets its private address
-	Subnet *SubResource `json:"subnet,omitempty"`
-	// ProvisioningState - Provisioning state of the application gateway subnet resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Subnet            *SubResource `json:"subnet,omitempty"`
+	ProvisioningState *string      `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayListResult response for ListApplicationGateways Api service call
+// ApplicationGatewayListResult is response for ListApplicationGateways Api service call
 type ApplicationGatewayListResult struct {
 	autorest.Response `json:"-"`
-	// Value - List of ApplicationGateways in a resource group
-	Value *[]ApplicationGateway `json:"value,omitempty"`
-	// NextLink - URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ApplicationGateway `json:"value,omitempty"`
+	NextLink          *string               `json:"nextLink,omitempty"`
 }
 
-// ApplicationGatewayListResultIterator provides access to a complete listing of ApplicationGateway values.
-type ApplicationGatewayListResultIterator struct {
-	i    int
-	page ApplicationGatewayListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ApplicationGatewayListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ApplicationGatewayListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ApplicationGatewayListResultIterator) Response() ApplicationGatewayListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ApplicationGatewayListResultIterator) Value() ApplicationGateway {
-	if !iter.page.NotDone() {
-		return ApplicationGateway{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (aglr ApplicationGatewayListResult) IsEmpty() bool {
-	return aglr.Value == nil || len(*aglr.Value) == 0
-}
-
-// applicationGatewayListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (aglr ApplicationGatewayListResult) applicationGatewayListResultPreparer() (*http.Request, error) {
-	if aglr.NextLink == nil || len(to.String(aglr.NextLink)) < 1 {
+// ApplicationGatewayListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ApplicationGatewayListResult) ApplicationGatewayListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(aglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ApplicationGatewayListResultPage contains a page of ApplicationGateway values.
-type ApplicationGatewayListResultPage struct {
-	fn   func(ApplicationGatewayListResult) (ApplicationGatewayListResult, error)
-	aglr ApplicationGatewayListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ApplicationGatewayListResultPage) Next() error {
-	next, err := page.fn(page.aglr)
-	if err != nil {
-		return err
-	}
-	page.aglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ApplicationGatewayListResultPage) NotDone() bool {
-	return !page.aglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ApplicationGatewayListResultPage) Response() ApplicationGatewayListResult {
-	return page.aglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ApplicationGatewayListResultPage) Values() []ApplicationGateway {
-	if page.aglr.IsEmpty() {
-		return nil
-	}
-	return *page.aglr.Value
-}
-
-// ApplicationGatewayPathRule path rule of URL path map of application gateway
+// ApplicationGatewayPathRule is path rule of URL path map of application gateway
 type ApplicationGatewayPathRule struct {
-	// ID - Resource Id
 	ID                                          *string `json:"id,omitempty"`
 	*ApplicationGatewayPathRulePropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                        *string `json:"name,omitempty"`
+	Etag                                        *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayPathRule struct.
-func (agpr *ApplicationGatewayPathRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayPathRulePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agpr.ApplicationGatewayPathRulePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agpr.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agpr.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agpr.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayPathRulePropertiesFormat properties of probe of application gateway
+// ApplicationGatewayPathRulePropertiesFormat is properties of probe of application gateway
 type ApplicationGatewayPathRulePropertiesFormat struct {
-	// Paths - Path rules of URL path map
-	Paths *[]string `json:"paths,omitempty"`
-	// BackendAddressPool - Backend address pool resource of URL path map
-	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
-	// BackendHTTPSettings - Backend http settings resource of URL path map
+	Paths               *[]string    `json:"paths,omitempty"`
+	BackendAddressPool  *SubResource `json:"backendAddressPool,omitempty"`
 	BackendHTTPSettings *SubResource `json:"backendHttpSettings,omitempty"`
-	// ProvisioningState - Path rule of URL path map resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	ProvisioningState   *string      `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayProbe probe of application gateway
+// ApplicationGatewayProbe is probe of application gateway
 type ApplicationGatewayProbe struct {
-	// ID - Resource Id
 	ID                                       *string `json:"id,omitempty"`
 	*ApplicationGatewayProbePropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                     *string `json:"name,omitempty"`
+	Etag                                     *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayProbe struct.
-func (agp *ApplicationGatewayProbe) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayProbePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agp.ApplicationGatewayProbePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agp.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agp.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agp.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayProbePropertiesFormat properties of probe of application gateway
+// ApplicationGatewayProbePropertiesFormat is properties of probe of application gateway
 type ApplicationGatewayProbePropertiesFormat struct {
-	// Protocol - Protocol. Possible values include: 'HTTP', 'HTTPS'
-	Protocol ApplicationGatewayProtocol `json:"protocol,omitempty"`
-	// Host - Host to send probe to
-	Host *string `json:"host,omitempty"`
-	// Path - Relative path of probe
-	Path *string `json:"path,omitempty"`
-	// Interval - Probing interval in seconds
-	Interval *int32 `json:"interval,omitempty"`
-	// Timeout - Probing timeout in seconds
-	Timeout *int32 `json:"timeout,omitempty"`
-	// UnhealthyThreshold - Probing unhealthy threshold
-	UnhealthyThreshold *int32 `json:"unhealthyThreshold,omitempty"`
-	// ProvisioningState - Provisioning state of the backend http settings resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Protocol           ApplicationGatewayProtocol `json:"protocol,omitempty"`
+	Host               *string                    `json:"host,omitempty"`
+	Path               *string                    `json:"path,omitempty"`
+	Interval           *int32                     `json:"interval,omitempty"`
+	Timeout            *int32                     `json:"timeout,omitempty"`
+	UnhealthyThreshold *int32                     `json:"unhealthyThreshold,omitempty"`
+	ProvisioningState  *string                    `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayPropertiesFormat properties of Application Gateway
+// ApplicationGatewayPropertiesFormat is properties of Application Gateway
 type ApplicationGatewayPropertiesFormat struct {
-	// Sku - Sku of application gateway resource
-	Sku *ApplicationGatewaySku `json:"sku,omitempty"`
-	// SslPolicy - SSL policy of application gateway resource
-	SslPolicy *ApplicationGatewaySslPolicy `json:"sslPolicy,omitempty"`
-	// OperationalState - Operational state of application gateway resource. Possible values include: 'Stopped', 'Starting', 'Running', 'Stopping'
-	OperationalState ApplicationGatewayOperationalState `json:"operationalState,omitempty"`
-	// GatewayIPConfigurations - Subnets of application gateway resource
-	GatewayIPConfigurations *[]ApplicationGatewayIPConfiguration `json:"gatewayIPConfigurations,omitempty"`
-	// AuthenticationCertificates - Authentication certificates of application gateway resource
-	AuthenticationCertificates *[]ApplicationGatewayAuthenticationCertificate `json:"authenticationCertificates,omitempty"`
-	// SslCertificates - SSL certificates of application gateway resource
-	SslCertificates *[]ApplicationGatewaySslCertificate `json:"sslCertificates,omitempty"`
-	// FrontendIPConfigurations - Frontend IP addresses of application gateway resource
-	FrontendIPConfigurations *[]ApplicationGatewayFrontendIPConfiguration `json:"frontendIPConfigurations,omitempty"`
-	// FrontendPorts - Frontend ports of application gateway resource
-	FrontendPorts *[]ApplicationGatewayFrontendPort `json:"frontendPorts,omitempty"`
-	// Probes - Probes of application gateway resource
-	Probes *[]ApplicationGatewayProbe `json:"probes,omitempty"`
-	// BackendAddressPools - Backend address pool of application gateway resource
-	BackendAddressPools *[]ApplicationGatewayBackendAddressPool `json:"backendAddressPools,omitempty"`
-	// BackendHTTPSettingsCollection - Backend http settings of application gateway resource
-	BackendHTTPSettingsCollection *[]ApplicationGatewayBackendHTTPSettings `json:"backendHttpSettingsCollection,omitempty"`
-	// HTTPListeners - HTTP listeners of application gateway resource
-	HTTPListeners *[]ApplicationGatewayHTTPListener `json:"httpListeners,omitempty"`
-	// URLPathMaps - URL path map of application gateway resource
-	URLPathMaps *[]ApplicationGatewayURLPathMap `json:"urlPathMaps,omitempty"`
-	// RequestRoutingRules - Request routing rules of application gateway resource
-	RequestRoutingRules *[]ApplicationGatewayRequestRoutingRule `json:"requestRoutingRules,omitempty"`
-	// ResourceGUID - Resource guid property of the ApplicationGateway resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Provisioning state of the ApplicationGateway resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Sku                           *ApplicationGatewaySku                         `json:"sku,omitempty"`
+	SslPolicy                     *ApplicationGatewaySslPolicy                   `json:"sslPolicy,omitempty"`
+	OperationalState              ApplicationGatewayOperationalState             `json:"operationalState,omitempty"`
+	GatewayIPConfigurations       *[]ApplicationGatewayIPConfiguration           `json:"gatewayIPConfigurations,omitempty"`
+	AuthenticationCertificates    *[]ApplicationGatewayAuthenticationCertificate `json:"authenticationCertificates,omitempty"`
+	SslCertificates               *[]ApplicationGatewaySslCertificate            `json:"sslCertificates,omitempty"`
+	FrontendIPConfigurations      *[]ApplicationGatewayFrontendIPConfiguration   `json:"frontendIPConfigurations,omitempty"`
+	FrontendPorts                 *[]ApplicationGatewayFrontendPort              `json:"frontendPorts,omitempty"`
+	Probes                        *[]ApplicationGatewayProbe                     `json:"probes,omitempty"`
+	BackendAddressPools           *[]ApplicationGatewayBackendAddressPool        `json:"backendAddressPools,omitempty"`
+	BackendHTTPSettingsCollection *[]ApplicationGatewayBackendHTTPSettings       `json:"backendHttpSettingsCollection,omitempty"`
+	HTTPListeners                 *[]ApplicationGatewayHTTPListener              `json:"httpListeners,omitempty"`
+	URLPathMaps                   *[]ApplicationGatewayURLPathMap                `json:"urlPathMaps,omitempty"`
+	RequestRoutingRules           *[]ApplicationGatewayRequestRoutingRule        `json:"requestRoutingRules,omitempty"`
+	ResourceGUID                  *string                                        `json:"resourceGuid,omitempty"`
+	ProvisioningState             *string                                        `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewayRequestRoutingRule request routing rule of application gateway
+// ApplicationGatewayRequestRoutingRule is request routing rule of application gateway
 type ApplicationGatewayRequestRoutingRule struct {
-	// ID - Resource Id
 	ID                                                    *string `json:"id,omitempty"`
 	*ApplicationGatewayRequestRoutingRulePropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                                  *string `json:"name,omitempty"`
+	Etag                                                  *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayRequestRoutingRule struct.
-func (agrrr *ApplicationGatewayRequestRoutingRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayRequestRoutingRulePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agrrr.ApplicationGatewayRequestRoutingRulePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agrrr.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agrrr.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agrrr.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayRequestRoutingRulePropertiesFormat properties of Request routing rule of application gateway
+// ApplicationGatewayRequestRoutingRulePropertiesFormat is properties of Request routing rule of application gateway
 type ApplicationGatewayRequestRoutingRulePropertiesFormat struct {
-	// RuleType - Rule type. Possible values include: 'Basic', 'PathBasedRouting'
-	RuleType ApplicationGatewayRequestRoutingRuleType `json:"ruleType,omitempty"`
-	// BackendAddressPool - Backend address pool resource of application gateway
-	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
-	// BackendHTTPSettings - Frontend port resource of application gateway
-	BackendHTTPSettings *SubResource `json:"backendHttpSettings,omitempty"`
-	// HTTPListener - Http listener resource of application gateway
-	HTTPListener *SubResource `json:"httpListener,omitempty"`
-	// URLPathMap - Url path map resource of application gateway
-	URLPathMap *SubResource `json:"urlPathMap,omitempty"`
-	// ProvisioningState - Provisioning state of the request routing rule resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	RuleType            ApplicationGatewayRequestRoutingRuleType `json:"ruleType,omitempty"`
+	BackendAddressPool  *SubResource                             `json:"backendAddressPool,omitempty"`
+	BackendHTTPSettings *SubResource                             `json:"backendHttpSettings,omitempty"`
+	HTTPListener        *SubResource                             `json:"httpListener,omitempty"`
+	URLPathMap          *SubResource                             `json:"urlPathMap,omitempty"`
+	ProvisioningState   *string                                  `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewaysCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ApplicationGatewaysCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationGatewaysCreateOrUpdateFuture) Result(client ApplicationGatewaysClient) (ag ApplicationGateway, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ag, autorest.NewError("network.ApplicationGatewaysCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ag, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ag, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ApplicationGatewaysDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ApplicationGatewaysDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationGatewaysDeleteFuture) Result(client ApplicationGatewaysClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.ApplicationGatewaysDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ApplicationGatewaySku SKU of application gateway
+// ApplicationGatewaySku is SKU of application gateway
 type ApplicationGatewaySku struct {
-	// Name - Name of application gateway SKU. Possible values include: 'StandardSmall', 'StandardMedium', 'StandardLarge'
-	Name ApplicationGatewaySkuName `json:"name,omitempty"`
-	// Tier - Tier of application gateway. Possible values include: 'Standard'
-	Tier ApplicationGatewayTier `json:"tier,omitempty"`
-	// Capacity - Capacity (instance count) of application gateway
-	Capacity *int32 `json:"capacity,omitempty"`
+	Name     ApplicationGatewaySkuName `json:"name,omitempty"`
+	Tier     ApplicationGatewayTier    `json:"tier,omitempty"`
+	Capacity *int32                    `json:"capacity,omitempty"`
 }
 
-// ApplicationGatewaySslCertificate SSL certificates of application gateway
+// ApplicationGatewaySslCertificate is SSL certificates of application gateway
 type ApplicationGatewaySslCertificate struct {
-	// ID - Resource Id
 	ID                                                *string `json:"id,omitempty"`
 	*ApplicationGatewaySslCertificatePropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                              *string `json:"name,omitempty"`
+	Etag                                              *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewaySslCertificate struct.
-func (agsc *ApplicationGatewaySslCertificate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewaySslCertificatePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agsc.ApplicationGatewaySslCertificatePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agsc.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agsc.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agsc.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewaySslCertificatePropertiesFormat properties of SSL certificates of application gateway
+// ApplicationGatewaySslCertificatePropertiesFormat is properties of SSL certificates of application gateway
 type ApplicationGatewaySslCertificatePropertiesFormat struct {
-	// Data - SSL Certificate data
-	Data *string `json:"data,omitempty"`
-	// Password - SSL Certificate password
-	Password *string `json:"password,omitempty"`
-	// PublicCertData - SSL Certificate public data
-	PublicCertData *string `json:"publicCertData,omitempty"`
-	// ProvisioningState - Provisioning state of the ssl certificate resource Updating/Deleting/Failed
+	Data              *string `json:"data,omitempty"`
+	Password          *string `json:"password,omitempty"`
+	PublicCertData    *string `json:"publicCertData,omitempty"`
 	ProvisioningState *string `json:"provisioningState,omitempty"`
 }
 
-// ApplicationGatewaySslPolicy application gateway SSL policy
+// ApplicationGatewaySslPolicy is application gateway SSL policy
 type ApplicationGatewaySslPolicy struct {
-	// DisabledSslProtocols - SSL protocols to be disabled on Application Gateway
 	DisabledSslProtocols *[]ApplicationGatewaySslProtocol `json:"disabledSslProtocols,omitempty"`
 }
 
-// ApplicationGatewaysStartFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ApplicationGatewaysStartFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationGatewaysStartFuture) Result(client ApplicationGatewaysClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.ApplicationGatewaysStartFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.StartResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.StartResponder(resp)
-	return
-}
-
-// ApplicationGatewaysStopFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type ApplicationGatewaysStopFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ApplicationGatewaysStopFuture) Result(client ApplicationGatewaysClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.ApplicationGatewaysStopFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.StopResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.StopResponder(resp)
-	return
-}
-
-// ApplicationGatewayURLPathMap urlPathMap of application gateway
+// ApplicationGatewayURLPathMap is urlPathMap of application gateway
 type ApplicationGatewayURLPathMap struct {
-	// ID - Resource Id
 	ID                                            *string `json:"id,omitempty"`
 	*ApplicationGatewayURLPathMapPropertiesFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                          *string `json:"name,omitempty"`
+	Etag                                          *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ApplicationGatewayURLPathMap struct.
-func (agupm *ApplicationGatewayURLPathMap) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ApplicationGatewayURLPathMapPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		agupm.ApplicationGatewayURLPathMapPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		agupm.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		agupm.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		agupm.ID = &ID
-	}
-
-	return nil
-}
-
-// ApplicationGatewayURLPathMapPropertiesFormat properties of UrlPathMap of application gateway
+// ApplicationGatewayURLPathMapPropertiesFormat is properties of UrlPathMap of application gateway
 type ApplicationGatewayURLPathMapPropertiesFormat struct {
-	// DefaultBackendAddressPool - Default backend address pool resource of URL path map
-	DefaultBackendAddressPool *SubResource `json:"defaultBackendAddressPool,omitempty"`
-	// DefaultBackendHTTPSettings - Default backend http settings resource of URL path map
-	DefaultBackendHTTPSettings *SubResource `json:"defaultBackendHttpSettings,omitempty"`
-	// PathRules - Path rule of URL path map resource
-	PathRules *[]ApplicationGatewayPathRule `json:"pathRules,omitempty"`
-	// ProvisioningState - Provisioning state of the backend http settings resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	DefaultBackendAddressPool  *SubResource                  `json:"defaultBackendAddressPool,omitempty"`
+	DefaultBackendHTTPSettings *SubResource                  `json:"defaultBackendHttpSettings,omitempty"`
+	PathRules                  *[]ApplicationGatewayPathRule `json:"pathRules,omitempty"`
+	ProvisioningState          *string                       `json:"provisioningState,omitempty"`
 }
 
-// AuthorizationListResult response for ListAuthorizations Api service callRetrieves all authorizations that belongs to
-// an ExpressRouteCircuit
+// AuthorizationListResult is response for ListAuthorizations Api service callRetrieves all authorizations that belongs
+// to an ExpressRouteCircuit
 type AuthorizationListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets the authorizations in an ExpressRoute Circuit
-	Value *[]ExpressRouteCircuitAuthorization `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ExpressRouteCircuitAuthorization `json:"value,omitempty"`
+	NextLink          *string                             `json:"nextLink,omitempty"`
 }
 
-// AuthorizationListResultIterator provides access to a complete listing of ExpressRouteCircuitAuthorization values.
-type AuthorizationListResultIterator struct {
-	i    int
-	page AuthorizationListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *AuthorizationListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter AuthorizationListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter AuthorizationListResultIterator) Response() AuthorizationListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter AuthorizationListResultIterator) Value() ExpressRouteCircuitAuthorization {
-	if !iter.page.NotDone() {
-		return ExpressRouteCircuitAuthorization{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (alr AuthorizationListResult) IsEmpty() bool {
-	return alr.Value == nil || len(*alr.Value) == 0
-}
-
-// authorizationListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (alr AuthorizationListResult) authorizationListResultPreparer() (*http.Request, error) {
-	if alr.NextLink == nil || len(to.String(alr.NextLink)) < 1 {
+// AuthorizationListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client AuthorizationListResult) AuthorizationListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(alr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// AuthorizationListResultPage contains a page of ExpressRouteCircuitAuthorization values.
-type AuthorizationListResultPage struct {
-	fn  func(AuthorizationListResult) (AuthorizationListResult, error)
-	alr AuthorizationListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *AuthorizationListResultPage) Next() error {
-	next, err := page.fn(page.alr)
-	if err != nil {
-		return err
-	}
-	page.alr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page AuthorizationListResultPage) NotDone() bool {
-	return !page.alr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page AuthorizationListResultPage) Response() AuthorizationListResult {
-	return page.alr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page AuthorizationListResultPage) Values() []ExpressRouteCircuitAuthorization {
-	if page.alr.IsEmpty() {
-		return nil
-	}
-	return *page.alr.Value
-}
-
-// AuthorizationPropertiesFormat ...
+// AuthorizationPropertiesFormat is
 type AuthorizationPropertiesFormat struct {
-	// AuthorizationKey - Gets or sets the authorization key
-	AuthorizationKey *string `json:"authorizationKey,omitempty"`
-	// AuthorizationUseStatus - Gets or sets AuthorizationUseStatus. Possible values include: 'Available', 'InUse'
+	AuthorizationKey       *string                `json:"authorizationKey,omitempty"`
 	AuthorizationUseStatus AuthorizationUseStatus `json:"authorizationUseStatus,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	ProvisioningState      *string                `json:"provisioningState,omitempty"`
 }
 
-// AzureAsyncOperationResult the response body contains the status of the specified asynchronous operation, indicating
-// whether it has succeeded, is in progress, or has failed. Note that this status is distinct from the HTTP status code
-// returned for the Get Operation Status operation itself. If the asynchronous operation succeeded, the response body
-// includes the HTTP status code for the successful request. If the asynchronous operation failed, the response body
-// includes the HTTP status code for the failed request and error information regarding the failure.
+// AzureAsyncOperationResult is the response body contains the status of the specified asynchronous operation,
+// indicating whether it has succeeded, is in progress, or has failed. Note that this status is distinct from the HTTP
+// status code returned for the Get Operation Status operation itself. If the asynchronous operation succeeded, the
+// response body includes the HTTP status code for the successful request. If the asynchronous operation failed, the
+// response body includes the HTTP status code for the failed request and error information regarding the failure.
 type AzureAsyncOperationResult struct {
-	// Status - Status of the AzureAsuncOperation. Possible values include: 'InProgress', 'Succeeded', 'Failed'
 	Status OperationStatus `json:"status,omitempty"`
 	Error  *Error          `json:"error,omitempty"`
 }
 
-// BackendAddressPool pool of backend IP addresses
+// BackendAddressPool is pool of backend IP addresses
 type BackendAddressPool struct {
-	// ID - Resource Id
 	ID                                  *string `json:"id,omitempty"`
 	*BackendAddressPoolPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                *string `json:"name,omitempty"`
+	Etag                                *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for BackendAddressPool struct.
-func (bap *BackendAddressPool) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties BackendAddressPoolPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		bap.BackendAddressPoolPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		bap.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		bap.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		bap.ID = &ID
-	}
-
-	return nil
-}
-
-// BackendAddressPoolPropertiesFormat properties of BackendAddressPool
+// BackendAddressPoolPropertiesFormat is properties of BackendAddressPool
 type BackendAddressPoolPropertiesFormat struct {
-	// BackendIPConfigurations - Gets collection of references to IPs defined in NICs
 	BackendIPConfigurations *[]InterfaceIPConfiguration `json:"backendIPConfigurations,omitempty"`
-	// LoadBalancingRules - Gets Load Balancing rules that use this Backend Address Pool
-	LoadBalancingRules *[]SubResource `json:"loadBalancingRules,omitempty"`
-	// OutboundNatRule - Gets outbound rules that use this Backend Address Pool
-	OutboundNatRule *SubResource `json:"outboundNatRule,omitempty"`
-	// ProvisioningState - Get provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	LoadBalancingRules      *[]SubResource              `json:"loadBalancingRules,omitempty"`
+	OutboundNatRule         *SubResource                `json:"outboundNatRule,omitempty"`
+	ProvisioningState       *string                     `json:"provisioningState,omitempty"`
 }
 
-// BgpSettings ...
+// BgpSettings is
 type BgpSettings struct {
-	// Asn - Gets or sets this BGP speaker's ASN
-	Asn *int64 `json:"asn,omitempty"`
-	// BgpPeeringAddress - Gets or sets the BGP peering address and BGP identifier of this BGP speaker
+	Asn               *int64  `json:"asn,omitempty"`
 	BgpPeeringAddress *string `json:"bgpPeeringAddress,omitempty"`
-	// PeerWeight - Gets or sets the weight added to routes learned from this BGP speaker
-	PeerWeight *int32 `json:"peerWeight,omitempty"`
+	PeerWeight        *int32  `json:"peerWeight,omitempty"`
 }
 
-// ConnectionResetSharedKey ...
+// ConnectionResetSharedKey is
 type ConnectionResetSharedKey struct {
 	autorest.Response `json:"-"`
-	// KeyLength - The virtual network connection reset shared key length
-	KeyLength *int64 `json:"keyLength,omitempty"`
+	KeyLength         *int64 `json:"keyLength,omitempty"`
 }
 
-// ConnectionSharedKey response for GetConnectionSharedKey Api service call
+// ConnectionSharedKey is response for GetConnectionSharedKey Api service call
 type ConnectionSharedKey struct {
 	autorest.Response `json:"-"`
-	// Value - The virtual network connection shared key value
-	Value *string `json:"value,omitempty"`
+	Value             *string `json:"value,omitempty"`
 }
 
-// ConnectionSharedKeyResult response for CheckConnectionSharedKey Api service call
+// ConnectionSharedKeyResult is response for CheckConnectionSharedKey Api service call
 type ConnectionSharedKeyResult struct {
 	autorest.Response `json:"-"`
-	// Value - The virtual network connection shared key value
-	Value *string `json:"value,omitempty"`
+	Value             *string `json:"value,omitempty"`
 }
 
-// DhcpOptions dHCPOptions contains an array of DNS servers available to VMs deployed in the virtual networkStandard
+// DhcpOptions is dHCPOptions contains an array of DNS servers available to VMs deployed in the virtual networkStandard
 // DHCP option for a subnet overrides VNET DHCP options.
 type DhcpOptions struct {
-	// DNSServers - Gets or sets list of DNS servers IP addresses
 	DNSServers *[]string `json:"dnsServers,omitempty"`
 }
 
-// DNSNameAvailabilityResult response for CheckDnsNameAvailability Api service call
+// DNSNameAvailabilityResult is response for CheckDnsNameAvailability Api service call
 type DNSNameAvailabilityResult struct {
 	autorest.Response `json:"-"`
-	// Available - Domain availability (True/False)
-	Available *bool `json:"available,omitempty"`
+	Available         *bool `json:"available,omitempty"`
 }
 
-// EffectiveNetworkSecurityGroup effective NetworkSecurityGroup
+// EffectiveNetworkSecurityGroup is effective NetworkSecurityGroup
 type EffectiveNetworkSecurityGroup struct {
-	// NetworkSecurityGroup - Gets the id of network security group that is applied
-	NetworkSecurityGroup *SubResource                              `json:"networkSecurityGroup,omitempty"`
-	Association          *EffectiveNetworkSecurityGroupAssociation `json:"association,omitempty"`
-	// EffectiveSecurityRules - Gets collection of effective security rules
-	EffectiveSecurityRules *[]EffectiveNetworkSecurityRule `json:"effectiveSecurityRules,omitempty"`
+	NetworkSecurityGroup   *SubResource                              `json:"networkSecurityGroup,omitempty"`
+	Association            *EffectiveNetworkSecurityGroupAssociation `json:"association,omitempty"`
+	EffectiveSecurityRules *[]EffectiveNetworkSecurityRule           `json:"effectiveSecurityRules,omitempty"`
 }
 
-// EffectiveNetworkSecurityGroupAssociation effective NetworkSecurityGroup association
+// EffectiveNetworkSecurityGroupAssociation is effective NetworkSecurityGroup association
 type EffectiveNetworkSecurityGroupAssociation struct {
-	// Subnet - Gets the id of subnet if assigned
-	Subnet *SubResource `json:"subnet,omitempty"`
-	// NetworkInterface - Gets the id of network interface if assigned
+	Subnet           *SubResource `json:"subnet,omitempty"`
 	NetworkInterface *SubResource `json:"networkInterface,omitempty"`
 }
 
-// EffectiveNetworkSecurityGroupListResult response for list effective network security groups api service call
+// EffectiveNetworkSecurityGroupListResult is response for list effective network security groups api service call
 type EffectiveNetworkSecurityGroupListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets list of effective network security groups
-	Value *[]EffectiveNetworkSecurityGroup `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]EffectiveNetworkSecurityGroup `json:"value,omitempty"`
+	NextLink          *string                          `json:"nextLink,omitempty"`
 }
 
-// EffectiveNetworkSecurityRule effective NetworkSecurityRules
+// EffectiveNetworkSecurityRule is effective NetworkSecurityRules
 type EffectiveNetworkSecurityRule struct {
-	// Name - Gets the name of the security rule specified by the user (if created by the user)
-	Name *string `json:"name,omitempty"`
-	// Protocol - Gets Network protocol this rule applies to. Possible values include: 'TCP', 'UDP', 'Asterisk'
-	Protocol SecurityRuleProtocol `json:"protocol,omitempty"`
-	// SourcePortRange - Gets source port or range
-	SourcePortRange *string `json:"sourcePortRange,omitempty"`
-	// DestinationPortRange - Gets destination port or range
-	DestinationPortRange *string `json:"destinationPortRange,omitempty"`
-	// SourceAddressPrefix - Gets source address prefix
-	SourceAddressPrefix *string `json:"sourceAddressPrefix,omitempty"`
-	// DestinationAddressPrefix - Gets destination address prefix
-	DestinationAddressPrefix *string `json:"destinationAddressPrefix,omitempty"`
-	// ExpandedSourceAddressPrefix - Gets expanded source address prefix
-	ExpandedSourceAddressPrefix *[]string `json:"expandedSourceAddressPrefix,omitempty"`
-	// ExpandedDestinationAddressPrefix - Gets expanded destination address prefix
-	ExpandedDestinationAddressPrefix *[]string `json:"expandedDestinationAddressPrefix,omitempty"`
-	// Access - Gets network traffic is allowed or denied. Possible values include: 'Allow', 'Deny'
-	Access SecurityRuleAccess `json:"access,omitempty"`
-	// Priority - Gets the priority of the rule
-	Priority *int32 `json:"priority,omitempty"`
-	// Direction - Gets the direction of the rule. Possible values include: 'Inbound', 'Outbound'
-	Direction SecurityRuleDirection `json:"direction,omitempty"`
+	Name                             *string               `json:"name,omitempty"`
+	Protocol                         SecurityRuleProtocol  `json:"protocol,omitempty"`
+	SourcePortRange                  *string               `json:"sourcePortRange,omitempty"`
+	DestinationPortRange             *string               `json:"destinationPortRange,omitempty"`
+	SourceAddressPrefix              *string               `json:"sourceAddressPrefix,omitempty"`
+	DestinationAddressPrefix         *string               `json:"destinationAddressPrefix,omitempty"`
+	ExpandedSourceAddressPrefix      *[]string             `json:"expandedSourceAddressPrefix,omitempty"`
+	ExpandedDestinationAddressPrefix *[]string             `json:"expandedDestinationAddressPrefix,omitempty"`
+	Access                           SecurityRuleAccess    `json:"access,omitempty"`
+	Priority                         *int32                `json:"priority,omitempty"`
+	Direction                        SecurityRuleDirection `json:"direction,omitempty"`
 }
 
-// EffectiveRoute effective Route
+// EffectiveRoute is effective Route
 type EffectiveRoute struct {
-	// Name - Gets the name of the user defined route. This is optional.
-	Name *string `json:"name,omitempty"`
-	// Source - Gets who created the route. Possible values include: 'EffectiveRouteSourceUnknown', 'EffectiveRouteSourceUser', 'EffectiveRouteSourceVirtualNetworkGateway', 'EffectiveRouteSourceDefault'
-	Source EffectiveRouteSource `json:"source,omitempty"`
-	// State - Gets value of effective route. Possible values include: 'Active', 'Invalid'
-	State EffectiveRouteState `json:"state,omitempty"`
-	// AddressPrefix - Gets address prefixes of the effective routes in CIDR notation.
-	AddressPrefix *[]string `json:"addressPrefix,omitempty"`
-	// NextHopIPAddress - Gets the IP address of the next hop of the effective route
-	NextHopIPAddress *[]string `json:"nextHopIpAddress,omitempty"`
-	// NextHopType - Gets or sets the type of Azure hop the packet should be sent to. Possible values include: 'RouteNextHopTypeVirtualNetworkGateway', 'RouteNextHopTypeVnetLocal', 'RouteNextHopTypeInternet', 'RouteNextHopTypeVirtualAppliance', 'RouteNextHopTypeNone'
-	NextHopType RouteNextHopType `json:"nextHopType,omitempty"`
+	Name             *string              `json:"name,omitempty"`
+	Source           EffectiveRouteSource `json:"source,omitempty"`
+	State            EffectiveRouteState  `json:"state,omitempty"`
+	AddressPrefix    *[]string            `json:"addressPrefix,omitempty"`
+	NextHopIPAddress *[]string            `json:"nextHopIpAddress,omitempty"`
+	NextHopType      RouteNextHopType     `json:"nextHopType,omitempty"`
 }
 
-// EffectiveRouteListResult response for list effective route api service call
+// EffectiveRouteListResult is response for list effective route api service call
 type EffectiveRouteListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets list of effective routes
-	Value *[]EffectiveRoute `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]EffectiveRoute `json:"value,omitempty"`
+	NextLink          *string           `json:"nextLink,omitempty"`
 }
 
-// Error ...
+// Error is
 type Error struct {
 	Code       *string         `json:"code,omitempty"`
 	Message    *string         `json:"message,omitempty"`
@@ -2053,5979 +858,1087 @@ type Error struct {
 	InnerError *string         `json:"innerError,omitempty"`
 }
 
-// ErrorDetails ...
+// ErrorDetails is
 type ErrorDetails struct {
 	Code    *string `json:"code,omitempty"`
 	Target  *string `json:"target,omitempty"`
 	Message *string `json:"message,omitempty"`
 }
 
-// ExpressRouteCircuit expressRouteCircuit resource
+// ExpressRouteCircuit is expressRouteCircuit resource
 type ExpressRouteCircuit struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Sku - Gets or sets sku
+	autorest.Response                    `json:"-"`
+	ID                                   *string                 `json:"id,omitempty"`
+	Name                                 *string                 `json:"name,omitempty"`
+	Type                                 *string                 `json:"type,omitempty"`
+	Location                             *string                 `json:"location,omitempty"`
+	Tags                                 *map[string]*string     `json:"tags,omitempty"`
 	Sku                                  *ExpressRouteCircuitSku `json:"sku,omitempty"`
 	*ExpressRouteCircuitPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                                 *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ExpressRouteCircuit struct.
-func (erc *ExpressRouteCircuit) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["sku"]
-	if v != nil {
-		var sku ExpressRouteCircuitSku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		erc.Sku = &sku
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties ExpressRouteCircuitPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		erc.ExpressRouteCircuitPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		erc.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		erc.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		erc.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		erc.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		erc.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		erc.Tags = &tags
-	}
-
-	return nil
-}
-
-// ExpressRouteCircuitArpTable the arp table associated with the ExpressRouteCircuit
+// ExpressRouteCircuitArpTable is the arp table associated with the ExpressRouteCircuit
 type ExpressRouteCircuitArpTable struct {
-	// Age - Age.
-	Age *int32 `json:"age,omitempty"`
-	// Interface - Interface.
-	Interface *string `json:"interface,omitempty"`
-	// IPAddress - Gets ipAddress.
-	IPAddress *string `json:"ipAddress,omitempty"`
-	// MacAddress - Gets macAddress.
+	Age        *int32  `json:"age,omitempty"`
+	Interface  *string `json:"interface,omitempty"`
+	IPAddress  *string `json:"ipAddress,omitempty"`
 	MacAddress *string `json:"macAddress,omitempty"`
 }
 
-// ExpressRouteCircuitAuthorization authorization in a ExpressRouteCircuit resource
+// ExpressRouteCircuitAuthorization is authorization in a ExpressRouteCircuit resource
 type ExpressRouteCircuitAuthorization struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
+	autorest.Response              `json:"-"`
 	ID                             *string `json:"id,omitempty"`
 	*AuthorizationPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                           *string `json:"name,omitempty"`
+	Etag                           *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ExpressRouteCircuitAuthorization struct.
-func (erca *ExpressRouteCircuitAuthorization) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties AuthorizationPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		erca.AuthorizationPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		erca.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		erca.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		erca.ID = &ID
-	}
-
-	return nil
-}
-
-// ExpressRouteCircuitAuthorizationsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type ExpressRouteCircuitAuthorizationsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitAuthorizationsCreateOrUpdateFuture) Result(client ExpressRouteCircuitAuthorizationsClient) (erca ExpressRouteCircuitAuthorization, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return erca, autorest.NewError("network.ExpressRouteCircuitAuthorizationsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		erca, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	erca, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitAuthorizationsDeleteFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type ExpressRouteCircuitAuthorizationsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitAuthorizationsDeleteFuture) Result(client ExpressRouteCircuitAuthorizationsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.ExpressRouteCircuitAuthorizationsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitListResult response for ListExpressRouteCircuit Api service call
+// ExpressRouteCircuitListResult is response for ListExpressRouteCircuit Api service call
 type ExpressRouteCircuitListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets a list of ExpressRouteCircuits in a resource group
-	Value *[]ExpressRouteCircuit `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ExpressRouteCircuit `json:"value,omitempty"`
+	NextLink          *string                `json:"nextLink,omitempty"`
 }
 
-// ExpressRouteCircuitListResultIterator provides access to a complete listing of ExpressRouteCircuit values.
-type ExpressRouteCircuitListResultIterator struct {
-	i    int
-	page ExpressRouteCircuitListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ExpressRouteCircuitListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ExpressRouteCircuitListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ExpressRouteCircuitListResultIterator) Response() ExpressRouteCircuitListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ExpressRouteCircuitListResultIterator) Value() ExpressRouteCircuit {
-	if !iter.page.NotDone() {
-		return ExpressRouteCircuit{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (erclr ExpressRouteCircuitListResult) IsEmpty() bool {
-	return erclr.Value == nil || len(*erclr.Value) == 0
-}
-
-// expressRouteCircuitListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (erclr ExpressRouteCircuitListResult) expressRouteCircuitListResultPreparer() (*http.Request, error) {
-	if erclr.NextLink == nil || len(to.String(erclr.NextLink)) < 1 {
+// ExpressRouteCircuitListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ExpressRouteCircuitListResult) ExpressRouteCircuitListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(erclr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ExpressRouteCircuitListResultPage contains a page of ExpressRouteCircuit values.
-type ExpressRouteCircuitListResultPage struct {
-	fn    func(ExpressRouteCircuitListResult) (ExpressRouteCircuitListResult, error)
-	erclr ExpressRouteCircuitListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ExpressRouteCircuitListResultPage) Next() error {
-	next, err := page.fn(page.erclr)
-	if err != nil {
-		return err
-	}
-	page.erclr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ExpressRouteCircuitListResultPage) NotDone() bool {
-	return !page.erclr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ExpressRouteCircuitListResultPage) Response() ExpressRouteCircuitListResult {
-	return page.erclr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ExpressRouteCircuitListResultPage) Values() []ExpressRouteCircuit {
-	if page.erclr.IsEmpty() {
-		return nil
-	}
-	return *page.erclr.Value
-}
-
-// ExpressRouteCircuitPeering peering in a ExpressRouteCircuit resource
+// ExpressRouteCircuitPeering is peering in a ExpressRouteCircuit resource
 type ExpressRouteCircuitPeering struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
+	autorest.Response                           `json:"-"`
 	ID                                          *string `json:"id,omitempty"`
 	*ExpressRouteCircuitPeeringPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                        *string `json:"name,omitempty"`
+	Etag                                        *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ExpressRouteCircuitPeering struct.
-func (ercp *ExpressRouteCircuitPeering) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ExpressRouteCircuitPeeringPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ercp.ExpressRouteCircuitPeeringPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ercp.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		ercp.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ercp.ID = &ID
-	}
-
-	return nil
-}
-
-// ExpressRouteCircuitPeeringConfig specifies the peering config
+// ExpressRouteCircuitPeeringConfig is specifies the peering config
 type ExpressRouteCircuitPeeringConfig struct {
-	// AdvertisedPublicPrefixes - Gets or sets the reference of AdvertisedPublicPrefixes
-	AdvertisedPublicPrefixes *[]string `json:"advertisedPublicPrefixes,omitempty"`
-	// AdvertisedPublicPrefixesState - Gets or sets AdvertisedPublicPrefixState of the Peering resource. Possible values include: 'NotConfigured', 'Configuring', 'Configured', 'ValidationNeeded'
+	AdvertisedPublicPrefixes      *[]string                                             `json:"advertisedPublicPrefixes,omitempty"`
 	AdvertisedPublicPrefixesState ExpressRouteCircuitPeeringAdvertisedPublicPrefixState `json:"advertisedPublicPrefixesState,omitempty"`
-	// CustomerASN - Gets or Sets CustomerAsn of the peering.
-	CustomerASN *int32 `json:"customerASN,omitempty"`
-	// RoutingRegistryName - Gets or Sets RoutingRegistryName of the config.
-	RoutingRegistryName *string `json:"routingRegistryName,omitempty"`
+	CustomerASN                   *int32                                                `json:"customerASN,omitempty"`
+	RoutingRegistryName           *string                                               `json:"routingRegistryName,omitempty"`
 }
 
-// ExpressRouteCircuitPeeringListResult response for ListPeering Api service callRetrieves all Peerings that belongs to
-// an ExpressRouteCircuit
+// ExpressRouteCircuitPeeringListResult is response for ListPeering Api service callRetrieves all Peerings that belongs
+// to an ExpressRouteCircuit
 type ExpressRouteCircuitPeeringListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets the peerings in an express route circuit
-	Value *[]ExpressRouteCircuitPeering `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ExpressRouteCircuitPeering `json:"value,omitempty"`
+	NextLink          *string                       `json:"nextLink,omitempty"`
 }
 
-// ExpressRouteCircuitPeeringListResultIterator provides access to a complete listing of ExpressRouteCircuitPeering
-// values.
-type ExpressRouteCircuitPeeringListResultIterator struct {
-	i    int
-	page ExpressRouteCircuitPeeringListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ExpressRouteCircuitPeeringListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ExpressRouteCircuitPeeringListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ExpressRouteCircuitPeeringListResultIterator) Response() ExpressRouteCircuitPeeringListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ExpressRouteCircuitPeeringListResultIterator) Value() ExpressRouteCircuitPeering {
-	if !iter.page.NotDone() {
-		return ExpressRouteCircuitPeering{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ercplr ExpressRouteCircuitPeeringListResult) IsEmpty() bool {
-	return ercplr.Value == nil || len(*ercplr.Value) == 0
-}
-
-// expressRouteCircuitPeeringListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ercplr ExpressRouteCircuitPeeringListResult) expressRouteCircuitPeeringListResultPreparer() (*http.Request, error) {
-	if ercplr.NextLink == nil || len(to.String(ercplr.NextLink)) < 1 {
+// ExpressRouteCircuitPeeringListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ExpressRouteCircuitPeeringListResult) ExpressRouteCircuitPeeringListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ercplr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ExpressRouteCircuitPeeringListResultPage contains a page of ExpressRouteCircuitPeering values.
-type ExpressRouteCircuitPeeringListResultPage struct {
-	fn     func(ExpressRouteCircuitPeeringListResult) (ExpressRouteCircuitPeeringListResult, error)
-	ercplr ExpressRouteCircuitPeeringListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ExpressRouteCircuitPeeringListResultPage) Next() error {
-	next, err := page.fn(page.ercplr)
-	if err != nil {
-		return err
-	}
-	page.ercplr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ExpressRouteCircuitPeeringListResultPage) NotDone() bool {
-	return !page.ercplr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ExpressRouteCircuitPeeringListResultPage) Response() ExpressRouteCircuitPeeringListResult {
-	return page.ercplr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ExpressRouteCircuitPeeringListResultPage) Values() []ExpressRouteCircuitPeering {
-	if page.ercplr.IsEmpty() {
-		return nil
-	}
-	return *page.ercplr.Value
-}
-
-// ExpressRouteCircuitPeeringPropertiesFormat ...
+// ExpressRouteCircuitPeeringPropertiesFormat is
 type ExpressRouteCircuitPeeringPropertiesFormat struct {
-	// PeeringType - Gets or sets PeeringType. Possible values include: 'AzurePublicPeering', 'AzurePrivatePeering', 'MicrosoftPeering'
-	PeeringType ExpressRouteCircuitPeeringType `json:"peeringType,omitempty"`
-	// State - Gets or sets state of Peering. Possible values include: 'ExpressRouteCircuitPeeringStateDisabled', 'ExpressRouteCircuitPeeringStateEnabled'
-	State ExpressRouteCircuitPeeringState `json:"state,omitempty"`
-	// AzureASN - Gets or sets the azure ASN
-	AzureASN *int32 `json:"azureASN,omitempty"`
-	// PeerASN - Gets or sets the peer ASN
-	PeerASN *int32 `json:"peerASN,omitempty"`
-	// PrimaryPeerAddressPrefix - Gets or sets the primary address prefix
-	PrimaryPeerAddressPrefix *string `json:"primaryPeerAddressPrefix,omitempty"`
-	// SecondaryPeerAddressPrefix - Gets or sets the secondary address prefix
-	SecondaryPeerAddressPrefix *string `json:"secondaryPeerAddressPrefix,omitempty"`
-	// PrimaryAzurePort - Gets or sets the primary port
-	PrimaryAzurePort *string `json:"primaryAzurePort,omitempty"`
-	// SecondaryAzurePort - Gets or sets the secondary port
-	SecondaryAzurePort *string `json:"secondaryAzurePort,omitempty"`
-	// SharedKey - Gets or sets the shared key
-	SharedKey *string `json:"sharedKey,omitempty"`
-	// VlanID - Gets or sets the vlan id
-	VlanID *int32 `json:"vlanId,omitempty"`
-	// MicrosoftPeeringConfig - Gets or sets the mircosoft peering config
-	MicrosoftPeeringConfig *ExpressRouteCircuitPeeringConfig `json:"microsoftPeeringConfig,omitempty"`
-	// Stats - Gets or peering stats
-	Stats *ExpressRouteCircuitStats `json:"stats,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// GatewayManagerEtag - Gets or sets the GatewayManager Etag
-	GatewayManagerEtag *string `json:"gatewayManagerEtag,omitempty"`
-	// LastModifiedBy - Gets whether the provider or the customer last modified the peering
-	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+	PeeringType                ExpressRouteCircuitPeeringType    `json:"peeringType,omitempty"`
+	State                      ExpressRouteCircuitPeeringState   `json:"state,omitempty"`
+	AzureASN                   *int32                            `json:"azureASN,omitempty"`
+	PeerASN                    *int32                            `json:"peerASN,omitempty"`
+	PrimaryPeerAddressPrefix   *string                           `json:"primaryPeerAddressPrefix,omitempty"`
+	SecondaryPeerAddressPrefix *string                           `json:"secondaryPeerAddressPrefix,omitempty"`
+	PrimaryAzurePort           *string                           `json:"primaryAzurePort,omitempty"`
+	SecondaryAzurePort         *string                           `json:"secondaryAzurePort,omitempty"`
+	SharedKey                  *string                           `json:"sharedKey,omitempty"`
+	VlanID                     *int32                            `json:"vlanId,omitempty"`
+	MicrosoftPeeringConfig     *ExpressRouteCircuitPeeringConfig `json:"microsoftPeeringConfig,omitempty"`
+	Stats                      *ExpressRouteCircuitStats         `json:"stats,omitempty"`
+	ProvisioningState          *string                           `json:"provisioningState,omitempty"`
+	GatewayManagerEtag         *string                           `json:"gatewayManagerEtag,omitempty"`
+	LastModifiedBy             *string                           `json:"lastModifiedBy,omitempty"`
 }
 
-// ExpressRouteCircuitPeeringsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type ExpressRouteCircuitPeeringsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitPeeringsCreateOrUpdateFuture) Result(client ExpressRouteCircuitPeeringsClient) (ercp ExpressRouteCircuitPeering, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ercp, autorest.NewError("network.ExpressRouteCircuitPeeringsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ercp, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ercp, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitPeeringsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ExpressRouteCircuitPeeringsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitPeeringsDeleteFuture) Result(client ExpressRouteCircuitPeeringsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.ExpressRouteCircuitPeeringsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitPropertiesFormat properties of ExpressRouteCircuit
+// ExpressRouteCircuitPropertiesFormat is properties of ExpressRouteCircuit
 type ExpressRouteCircuitPropertiesFormat struct {
-	// AllowClassicOperations - allow classic operations
-	AllowClassicOperations *bool `json:"allowClassicOperations,omitempty"`
-	// CircuitProvisioningState - Gets or sets CircuitProvisioningState state of the resource
-	CircuitProvisioningState *string `json:"circuitProvisioningState,omitempty"`
-	// ServiceProviderProvisioningState - Gets or sets ServiceProviderProvisioningState state of the resource. Possible values include: 'NotProvisioned', 'Provisioning', 'Provisioned', 'Deprovisioning'
-	ServiceProviderProvisioningState ServiceProviderProvisioningState `json:"serviceProviderProvisioningState,omitempty"`
-	// Authorizations - Gets or sets list of authorizations
-	Authorizations *[]ExpressRouteCircuitAuthorization `json:"authorizations,omitempty"`
-	// Peerings - Gets or sets list of peerings
-	Peerings *[]ExpressRouteCircuitPeering `json:"peerings,omitempty"`
-	// ServiceKey - Gets or sets ServiceKey
-	ServiceKey *string `json:"serviceKey,omitempty"`
-	// ServiceProviderNotes - Gets or sets ServiceProviderNotes
-	ServiceProviderNotes *string `json:"serviceProviderNotes,omitempty"`
-	// ServiceProviderProperties - Gets or sets ServiceProviderProperties
-	ServiceProviderProperties *ExpressRouteCircuitServiceProviderProperties `json:"serviceProviderProperties,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// GatewayManagerEtag - Gets or sets the GatewayManager Etag
-	GatewayManagerEtag *string `json:"gatewayManagerEtag,omitempty"`
+	AllowClassicOperations           *bool                                         `json:"allowClassicOperations,omitempty"`
+	CircuitProvisioningState         *string                                       `json:"circuitProvisioningState,omitempty"`
+	ServiceProviderProvisioningState ServiceProviderProvisioningState              `json:"serviceProviderProvisioningState,omitempty"`
+	Authorizations                   *[]ExpressRouteCircuitAuthorization           `json:"authorizations,omitempty"`
+	Peerings                         *[]ExpressRouteCircuitPeering                 `json:"peerings,omitempty"`
+	ServiceKey                       *string                                       `json:"serviceKey,omitempty"`
+	ServiceProviderNotes             *string                                       `json:"serviceProviderNotes,omitempty"`
+	ServiceProviderProperties        *ExpressRouteCircuitServiceProviderProperties `json:"serviceProviderProperties,omitempty"`
+	ProvisioningState                *string                                       `json:"provisioningState,omitempty"`
+	GatewayManagerEtag               *string                                       `json:"gatewayManagerEtag,omitempty"`
 }
 
-// ExpressRouteCircuitRoutesTable the routes table associated with the ExpressRouteCircuit
+// ExpressRouteCircuitRoutesTable is the routes table associated with the ExpressRouteCircuit
 type ExpressRouteCircuitRoutesTable struct {
-	// NetworkProperty - network.
 	NetworkProperty *string `json:"network,omitempty"`
-	// NextHop - nextHop
-	NextHop *string `json:"nextHop,omitempty"`
-	// LocPrf - locPrf.
-	LocPrf *string `json:"locPrf,omitempty"`
-	// Weight - weight.
-	Weight *int32 `json:"weight,omitempty"`
-	// Path - path .
-	Path *string `json:"path,omitempty"`
+	NextHop         *string `json:"nextHop,omitempty"`
+	LocPrf          *string `json:"locPrf,omitempty"`
+	Weight          *int32  `json:"weight,omitempty"`
+	Path            *string `json:"path,omitempty"`
 }
 
-// ExpressRouteCircuitRoutesTableSummary the routes table associated with the ExpressRouteCircuit
+// ExpressRouteCircuitRoutesTableSummary is the routes table associated with the ExpressRouteCircuit
 type ExpressRouteCircuitRoutesTableSummary struct {
-	// Neighbor - Neighbor.
-	Neighbor *string `json:"neighbor,omitempty"`
-	// V - BGP version number spoken to the neighbor.
-	V *int32 `json:"v,omitempty"`
-	// As - Autonomous system number.
-	As *int32 `json:"as,omitempty"`
-	// UpDown - The length of time that the BGP session has been in the Established state, or the current status if not in the Established state.
-	UpDown *string `json:"upDown,omitempty"`
-	// StatePfxRcd - Current state of the BGP session, and the number of prefixes that have been received from a neighbor or peer group.
+	Neighbor    *string `json:"neighbor,omitempty"`
+	V           *int32  `json:"v,omitempty"`
+	As          *int32  `json:"as,omitempty"`
+	UpDown      *string `json:"upDown,omitempty"`
 	StatePfxRcd *string `json:"statePfxRcd,omitempty"`
 }
 
-// ExpressRouteCircuitsArpTableListResult response for ListArpTable associated with the Express Route Circuits Api
+// ExpressRouteCircuitsArpTableListResult is response for ListArpTable associated with the Express Route Circuits Api
 type ExpressRouteCircuitsArpTableListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of ArpTable
-	Value *[]ExpressRouteCircuitArpTable `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ExpressRouteCircuitArpTable `json:"value,omitempty"`
+	NextLink          *string                        `json:"nextLink,omitempty"`
 }
 
-// ExpressRouteCircuitsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ExpressRouteCircuitsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitsCreateOrUpdateFuture) Result(client ExpressRouteCircuitsClient) (erc ExpressRouteCircuit, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return erc, autorest.NewError("network.ExpressRouteCircuitsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		erc, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	erc, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ExpressRouteCircuitsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitsDeleteFuture) Result(client ExpressRouteCircuitsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.ExpressRouteCircuitsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitServiceProviderProperties contains ServiceProviderProperties in an ExpressRouteCircuit
+// ExpressRouteCircuitServiceProviderProperties is contains ServiceProviderProperties in an ExpressRouteCircuit
 type ExpressRouteCircuitServiceProviderProperties struct {
-	// ServiceProviderName - Gets or sets serviceProviderName.
 	ServiceProviderName *string `json:"serviceProviderName,omitempty"`
-	// PeeringLocation - Gets or sets peering location.
-	PeeringLocation *string `json:"peeringLocation,omitempty"`
-	// BandwidthInMbps - Gets or sets BandwidthInMbps.
-	BandwidthInMbps *int32 `json:"bandwidthInMbps,omitempty"`
+	PeeringLocation     *string `json:"peeringLocation,omitempty"`
+	BandwidthInMbps     *int32  `json:"bandwidthInMbps,omitempty"`
 }
 
-// ExpressRouteCircuitSku contains sku in an ExpressRouteCircuit
+// ExpressRouteCircuitSku is contains sku in an ExpressRouteCircuit
 type ExpressRouteCircuitSku struct {
-	// Name - Gets or sets name of the sku.
-	Name *string `json:"name,omitempty"`
-	// Tier - Gets or sets tier of the sku. Possible values include: 'ExpressRouteCircuitSkuTierStandard', 'ExpressRouteCircuitSkuTierPremium'
-	Tier ExpressRouteCircuitSkuTier `json:"tier,omitempty"`
-	// Family - Gets or sets family of the sku. Possible values include: 'UnlimitedData', 'MeteredData'
+	Name   *string                      `json:"name,omitempty"`
+	Tier   ExpressRouteCircuitSkuTier   `json:"tier,omitempty"`
 	Family ExpressRouteCircuitSkuFamily `json:"family,omitempty"`
 }
 
-// ExpressRouteCircuitsListArpTableFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ExpressRouteCircuitsListArpTableFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitsListArpTableFuture) Result(client ExpressRouteCircuitsClient) (ercatlr ExpressRouteCircuitsArpTableListResult, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ercatlr, autorest.NewError("network.ExpressRouteCircuitsListArpTableFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ercatlr, err = client.ListArpTableResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ercatlr, err = client.ListArpTableResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitsListRoutesTableFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type ExpressRouteCircuitsListRoutesTableFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitsListRoutesTableFuture) Result(client ExpressRouteCircuitsClient) (ercrtlr ExpressRouteCircuitsRoutesTableListResult, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ercrtlr, autorest.NewError("network.ExpressRouteCircuitsListRoutesTableFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ercrtlr, err = client.ListRoutesTableResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ercrtlr, err = client.ListRoutesTableResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitsListRoutesTableSummaryFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type ExpressRouteCircuitsListRoutesTableSummaryFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future ExpressRouteCircuitsListRoutesTableSummaryFuture) Result(client ExpressRouteCircuitsClient) (ercrtslr ExpressRouteCircuitsRoutesTableSummaryListResult, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ercrtslr, autorest.NewError("network.ExpressRouteCircuitsListRoutesTableSummaryFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ercrtslr, err = client.ListRoutesTableSummaryResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ercrtslr, err = client.ListRoutesTableSummaryResponder(resp)
-	return
-}
-
-// ExpressRouteCircuitsRoutesTableListResult response for ListRoutesTable associated with the Express Route Circuits
+// ExpressRouteCircuitsRoutesTableListResult is response for ListRoutesTable associated with the Express Route Circuits
 // Api
 type ExpressRouteCircuitsRoutesTableListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of RoutesTable
-	Value *[]ExpressRouteCircuitRoutesTable `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ExpressRouteCircuitRoutesTable `json:"value,omitempty"`
+	NextLink          *string                           `json:"nextLink,omitempty"`
 }
 
-// ExpressRouteCircuitsRoutesTableSummaryListResult response for ListRoutesTable associated with the Express Route
+// ExpressRouteCircuitsRoutesTableSummaryListResult is response for ListRoutesTable associated with the Express Route
 // Circuits Api
 type ExpressRouteCircuitsRoutesTableSummaryListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of RoutesTable
-	Value *[]ExpressRouteCircuitRoutesTableSummary `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ExpressRouteCircuitRoutesTableSummary `json:"value,omitempty"`
+	NextLink          *string                                  `json:"nextLink,omitempty"`
 }
 
-// ExpressRouteCircuitStats contains Stats associated with the peering
+// ExpressRouteCircuitStats is contains Stats associated with the peering
 type ExpressRouteCircuitStats struct {
 	autorest.Response `json:"-"`
-	// PrimarybytesIn - Gets BytesIn of the peering.
-	PrimarybytesIn *int64 `json:"primarybytesIn,omitempty"`
-	// PrimarybytesOut - Gets BytesOut of the peering.
-	PrimarybytesOut *int64 `json:"primarybytesOut,omitempty"`
-	// SecondarybytesIn - Gets BytesIn of the peering.
-	SecondarybytesIn *int64 `json:"secondarybytesIn,omitempty"`
-	// SecondarybytesOut - Gets BytesOut of the peering.
+	PrimarybytesIn    *int64 `json:"primarybytesIn,omitempty"`
+	PrimarybytesOut   *int64 `json:"primarybytesOut,omitempty"`
+	SecondarybytesIn  *int64 `json:"secondarybytesIn,omitempty"`
 	SecondarybytesOut *int64 `json:"secondarybytesOut,omitempty"`
 }
 
-// ExpressRouteServiceProvider expressRouteResourceProvider object
+// ExpressRouteServiceProvider is expressRouteResourceProvider object
 type ExpressRouteServiceProvider struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	ID                                           *string             `json:"id,omitempty"`
+	Name                                         *string             `json:"name,omitempty"`
+	Type                                         *string             `json:"type,omitempty"`
+	Location                                     *string             `json:"location,omitempty"`
 	Tags                                         *map[string]*string `json:"tags,omitempty"`
 	*ExpressRouteServiceProviderPropertiesFormat `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ExpressRouteServiceProvider struct.
-func (ersp *ExpressRouteServiceProvider) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ExpressRouteServiceProviderPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ersp.ExpressRouteServiceProviderPropertiesFormat = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ersp.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ersp.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		ersp.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		ersp.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		ersp.Tags = &tags
-	}
-
-	return nil
-}
-
-// ExpressRouteServiceProviderBandwidthsOffered contains Bandwidths offered in ExpressRouteServiceProviders
+// ExpressRouteServiceProviderBandwidthsOffered is contains Bandwidths offered in ExpressRouteServiceProviders
 type ExpressRouteServiceProviderBandwidthsOffered struct {
-	// OfferName - Gets the OfferName
-	OfferName *string `json:"offerName,omitempty"`
-	// ValueInMbps - Gets the ValueInMbps.
-	ValueInMbps *int32 `json:"valueInMbps,omitempty"`
+	OfferName   *string `json:"offerName,omitempty"`
+	ValueInMbps *int32  `json:"valueInMbps,omitempty"`
 }
 
-// ExpressRouteServiceProviderListResult response for ListExpressRouteServiceProvider Api service call
+// ExpressRouteServiceProviderListResult is response for ListExpressRouteServiceProvider Api service call
 type ExpressRouteServiceProviderListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of ExpressRouteResourceProvider
-	Value *[]ExpressRouteServiceProvider `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]ExpressRouteServiceProvider `json:"value,omitempty"`
+	NextLink          *string                        `json:"nextLink,omitempty"`
 }
 
-// ExpressRouteServiceProviderListResultIterator provides access to a complete listing of ExpressRouteServiceProvider
-// values.
-type ExpressRouteServiceProviderListResultIterator struct {
-	i    int
-	page ExpressRouteServiceProviderListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *ExpressRouteServiceProviderListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter ExpressRouteServiceProviderListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter ExpressRouteServiceProviderListResultIterator) Response() ExpressRouteServiceProviderListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter ExpressRouteServiceProviderListResultIterator) Value() ExpressRouteServiceProvider {
-	if !iter.page.NotDone() {
-		return ExpressRouteServiceProvider{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ersplr ExpressRouteServiceProviderListResult) IsEmpty() bool {
-	return ersplr.Value == nil || len(*ersplr.Value) == 0
-}
-
-// expressRouteServiceProviderListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ersplr ExpressRouteServiceProviderListResult) expressRouteServiceProviderListResultPreparer() (*http.Request, error) {
-	if ersplr.NextLink == nil || len(to.String(ersplr.NextLink)) < 1 {
+// ExpressRouteServiceProviderListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client ExpressRouteServiceProviderListResult) ExpressRouteServiceProviderListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ersplr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// ExpressRouteServiceProviderListResultPage contains a page of ExpressRouteServiceProvider values.
-type ExpressRouteServiceProviderListResultPage struct {
-	fn     func(ExpressRouteServiceProviderListResult) (ExpressRouteServiceProviderListResult, error)
-	ersplr ExpressRouteServiceProviderListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *ExpressRouteServiceProviderListResultPage) Next() error {
-	next, err := page.fn(page.ersplr)
-	if err != nil {
-		return err
-	}
-	page.ersplr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page ExpressRouteServiceProviderListResultPage) NotDone() bool {
-	return !page.ersplr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page ExpressRouteServiceProviderListResultPage) Response() ExpressRouteServiceProviderListResult {
-	return page.ersplr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page ExpressRouteServiceProviderListResultPage) Values() []ExpressRouteServiceProvider {
-	if page.ersplr.IsEmpty() {
-		return nil
-	}
-	return *page.ersplr.Value
-}
-
-// ExpressRouteServiceProviderPropertiesFormat properties of ExpressRouteServiceProvider
+// ExpressRouteServiceProviderPropertiesFormat is properties of ExpressRouteServiceProvider
 type ExpressRouteServiceProviderPropertiesFormat struct {
-	// PeeringLocations - Gets or list of peering locations
-	PeeringLocations *[]string `json:"peeringLocations,omitempty"`
-	// BandwidthsOffered - Gets or bandwidths offered
+	PeeringLocations  *[]string                                       `json:"peeringLocations,omitempty"`
 	BandwidthsOffered *[]ExpressRouteServiceProviderBandwidthsOffered `json:"bandwidthsOffered,omitempty"`
-	// ProvisioningState - Gets provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	ProvisioningState *string                                         `json:"provisioningState,omitempty"`
 }
 
-// FrontendIPConfiguration frontend IP address of the load balancer
+// FrontendIPConfiguration is frontend IP address of the load balancer
 type FrontendIPConfiguration struct {
-	// ID - Resource Id
 	ID                                       *string `json:"id,omitempty"`
 	*FrontendIPConfigurationPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                     *string `json:"name,omitempty"`
+	Etag                                     *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for FrontendIPConfiguration struct.
-func (fic *FrontendIPConfiguration) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties FrontendIPConfigurationPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		fic.FrontendIPConfigurationPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		fic.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		fic.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		fic.ID = &ID
-	}
-
-	return nil
-}
-
-// FrontendIPConfigurationPropertiesFormat properties of Frontend IP Configuration of the load balancer
+// FrontendIPConfigurationPropertiesFormat is properties of Frontend IP Configuration of the load balancer
 type FrontendIPConfigurationPropertiesFormat struct {
-	// InboundNatRules - Read only. Inbound rules URIs that use this frontend IP
-	InboundNatRules *[]SubResource `json:"inboundNatRules,omitempty"`
-	// InboundNatPools - Read only. Inbound pools URIs that use this frontend IP
-	InboundNatPools *[]SubResource `json:"inboundNatPools,omitempty"`
-	// OutboundNatRules - Read only. Outbound rules URIs that use this frontend IP
-	OutboundNatRules *[]SubResource `json:"outboundNatRules,omitempty"`
-	// LoadBalancingRules - Gets Load Balancing rules URIs that use this frontend IP
-	LoadBalancingRules *[]SubResource `json:"loadBalancingRules,omitempty"`
-	// PrivateIPAddress - Gets or sets the privateIPAddress of the IP Configuration
-	PrivateIPAddress *string `json:"privateIPAddress,omitempty"`
-	// PrivateIPAllocationMethod - Gets or sets PrivateIP allocation method. Possible values include: 'Static', 'Dynamic'
+	InboundNatRules           *[]SubResource     `json:"inboundNatRules,omitempty"`
+	InboundNatPools           *[]SubResource     `json:"inboundNatPools,omitempty"`
+	OutboundNatRules          *[]SubResource     `json:"outboundNatRules,omitempty"`
+	LoadBalancingRules        *[]SubResource     `json:"loadBalancingRules,omitempty"`
+	PrivateIPAddress          *string            `json:"privateIPAddress,omitempty"`
 	PrivateIPAllocationMethod IPAllocationMethod `json:"privateIPAllocationMethod,omitempty"`
-	// Subnet - Gets or sets the reference of the subnet resource
-	Subnet *Subnet `json:"subnet,omitempty"`
-	// PublicIPAddress - Gets or sets the reference of the PublicIP resource
-	PublicIPAddress *PublicIPAddress `json:"publicIPAddress,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Subnet                    *Subnet            `json:"subnet,omitempty"`
+	PublicIPAddress           *PublicIPAddress   `json:"publicIPAddress,omitempty"`
+	ProvisioningState         *string            `json:"provisioningState,omitempty"`
 }
 
-// InboundNatPool inbound NAT pool of the load balancer
+// InboundNatPool is inbound NAT pool of the load balancer
 type InboundNatPool struct {
-	// ID - Resource Id
 	ID                              *string `json:"id,omitempty"`
 	*InboundNatPoolPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                            *string `json:"name,omitempty"`
+	Etag                            *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for InboundNatPool struct.
-func (inp *InboundNatPool) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties InboundNatPoolPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		inp.InboundNatPoolPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		inp.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		inp.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		inp.ID = &ID
-	}
-
-	return nil
-}
-
-// InboundNatPoolPropertiesFormat properties of Inbound NAT pool
+// InboundNatPoolPropertiesFormat is properties of Inbound NAT pool
 type InboundNatPoolPropertiesFormat struct {
-	// FrontendIPConfiguration - Gets or sets a reference to frontend IP Addresses
-	FrontendIPConfiguration *SubResource `json:"frontendIPConfiguration,omitempty"`
-	// Protocol - Gets or sets the transport protocol for the endpoint. Possible values are Udp or Tcp. Possible values include: 'TransportProtocolUDP', 'TransportProtocolTCP'
-	Protocol TransportProtocol `json:"protocol,omitempty"`
-	// FrontendPortRangeStart - Gets or sets the starting port range for the NAT pool. You can specify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
-	FrontendPortRangeStart *int32 `json:"frontendPortRangeStart,omitempty"`
-	// FrontendPortRangeEnd - Gets or sets the ending port range for the NAT pool. You can specify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
-	FrontendPortRangeEnd *int32 `json:"frontendPortRangeEnd,omitempty"`
-	// BackendPort - Gets or sets a port used for internal connections on the endpoint. The localPort attribute maps the eternal port of the endpoint to an internal port on a role. This is useful in scenarios where a role must communicate to an internal component on a port that is different from the one that is exposed externally. If not specified, the value of localPort is the same as the port attribute. Set the value of localPort to '*' to automatically assign an unallocated port that is discoverable using the runtime API
-	BackendPort *int32 `json:"backendPort,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	FrontendIPConfiguration *SubResource      `json:"frontendIPConfiguration,omitempty"`
+	Protocol                TransportProtocol `json:"protocol,omitempty"`
+	FrontendPortRangeStart  *int32            `json:"frontendPortRangeStart,omitempty"`
+	FrontendPortRangeEnd    *int32            `json:"frontendPortRangeEnd,omitempty"`
+	BackendPort             *int32            `json:"backendPort,omitempty"`
+	ProvisioningState       *string           `json:"provisioningState,omitempty"`
 }
 
-// InboundNatRule inbound NAT rule of the loadbalancer
+// InboundNatRule is inbound NAT rule of the loadbalancer
 type InboundNatRule struct {
-	// ID - Resource Id
 	ID                              *string `json:"id,omitempty"`
 	*InboundNatRulePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                            *string `json:"name,omitempty"`
+	Etag                            *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for InboundNatRule struct.
-func (inr *InboundNatRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties InboundNatRulePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		inr.InboundNatRulePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		inr.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		inr.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		inr.ID = &ID
-	}
-
-	return nil
-}
-
-// InboundNatRulePropertiesFormat properties of Inbound NAT rule
+// InboundNatRulePropertiesFormat is properties of Inbound NAT rule
 type InboundNatRulePropertiesFormat struct {
-	// FrontendIPConfiguration - Gets or sets a reference to frontend IP Addresses
-	FrontendIPConfiguration *SubResource `json:"frontendIPConfiguration,omitempty"`
-	// BackendIPConfiguration - Gets or sets a reference to a private ip address defined on a NetworkInterface of a VM. Traffic sent to frontendPort of each of the frontendIPConfigurations is forwarded to the backed IP
-	BackendIPConfiguration *InterfaceIPConfiguration `json:"backendIPConfiguration,omitempty"`
-	// Protocol - Gets or sets the transport protocol for the endpoint. Possible values are Udp or Tcp. Possible values include: 'TransportProtocolUDP', 'TransportProtocolTCP'
-	Protocol TransportProtocol `json:"protocol,omitempty"`
-	// FrontendPort - Gets or sets the port for the external endpoint. You can specify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
-	FrontendPort *int32 `json:"frontendPort,omitempty"`
-	// BackendPort - Gets or sets a port used for internal connections on the endpoint. The localPort attribute maps the eternal port of the endpoint to an internal port on a role. This is useful in scenarios where a role must communicate to an internal component on a port that is different from the one that is exposed externally. If not specified, the value of localPort is the same as the port attribute. Set the value of localPort to '*' to automatically assign an unallocated port that is discoverable using the runtime API
-	BackendPort *int32 `json:"backendPort,omitempty"`
-	// IdleTimeoutInMinutes - Gets or sets the timeout for the Tcp idle connection. The value can be set between 4 and 30 minutes. The default value is 4 minutes. This element is only used when the protocol is set to Tcp
-	IdleTimeoutInMinutes *int32 `json:"idleTimeoutInMinutes,omitempty"`
-	// EnableFloatingIP - Configures a virtual machine's endpoint for the floating IP capability required to configure a SQL AlwaysOn availability Group. This setting is required when using the SQL Always ON availability Groups in SQL server. This setting can't be changed after you create the endpoint
-	EnableFloatingIP *bool `json:"enableFloatingIP,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	FrontendIPConfiguration *SubResource              `json:"frontendIPConfiguration,omitempty"`
+	BackendIPConfiguration  *InterfaceIPConfiguration `json:"backendIPConfiguration,omitempty"`
+	Protocol                TransportProtocol         `json:"protocol,omitempty"`
+	FrontendPort            *int32                    `json:"frontendPort,omitempty"`
+	BackendPort             *int32                    `json:"backendPort,omitempty"`
+	IdleTimeoutInMinutes    *int32                    `json:"idleTimeoutInMinutes,omitempty"`
+	EnableFloatingIP        *bool                     `json:"enableFloatingIP,omitempty"`
+	ProvisioningState       *string                   `json:"provisioningState,omitempty"`
 }
 
-// Interface a NetworkInterface in a resource group
+// Interface is a NetworkInterface in a resource group
 type Interface struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response          `json:"-"`
+	ID                         *string             `json:"id,omitempty"`
+	Name                       *string             `json:"name,omitempty"`
+	Type                       *string             `json:"type,omitempty"`
+	Location                   *string             `json:"location,omitempty"`
 	Tags                       *map[string]*string `json:"tags,omitempty"`
 	*InterfacePropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                       *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Interface struct.
-func (i *Interface) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties InterfacePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		i.InterfacePropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		i.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		i.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		i.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		i.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		i.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		i.Tags = &tags
-	}
-
-	return nil
-}
-
-// InterfaceDNSSettings dns settings of a network interface
+// InterfaceDNSSettings is dns settings of a network interface
 type InterfaceDNSSettings struct {
-	// DNSServers - Gets or sets list of DNS servers IP addresses
-	DNSServers *[]string `json:"dnsServers,omitempty"`
-	// AppliedDNSServers - Gets or sets list of Applied DNS servers IP addresses
-	AppliedDNSServers *[]string `json:"appliedDnsServers,omitempty"`
-	// InternalDNSNameLabel - Gets or sets the internal DNS name
-	InternalDNSNameLabel *string `json:"internalDnsNameLabel,omitempty"`
-	// InternalFqdn - Gets or sets the internal fqdn.
-	InternalFqdn *string `json:"internalFqdn,omitempty"`
-	// InternalDomainNameSuffix - Gets or sets internal domain name suffix of the NIC.
-	InternalDomainNameSuffix *string `json:"internalDomainNameSuffix,omitempty"`
+	DNSServers               *[]string `json:"dnsServers,omitempty"`
+	AppliedDNSServers        *[]string `json:"appliedDnsServers,omitempty"`
+	InternalDNSNameLabel     *string   `json:"internalDnsNameLabel,omitempty"`
+	InternalFqdn             *string   `json:"internalFqdn,omitempty"`
+	InternalDomainNameSuffix *string   `json:"internalDomainNameSuffix,omitempty"`
 }
 
-// InterfaceIPConfiguration iPConfiguration in a NetworkInterface
+// InterfaceIPConfiguration is iPConfiguration in a NetworkInterface
 type InterfaceIPConfiguration struct {
-	// ID - Resource Id
 	ID                                        *string `json:"id,omitempty"`
 	*InterfaceIPConfigurationPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                      *string `json:"name,omitempty"`
+	Etag                                      *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for InterfaceIPConfiguration struct.
-func (iic *InterfaceIPConfiguration) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties InterfaceIPConfigurationPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		iic.InterfaceIPConfigurationPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		iic.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		iic.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		iic.ID = &ID
-	}
-
-	return nil
-}
-
-// InterfaceIPConfigurationPropertiesFormat properties of IPConfiguration
+// InterfaceIPConfigurationPropertiesFormat is properties of IPConfiguration
 type InterfaceIPConfigurationPropertiesFormat struct {
-	// ApplicationGatewayBackendAddressPools - Gets or sets the reference of ApplicationGatewayBackendAddressPool resource
 	ApplicationGatewayBackendAddressPools *[]ApplicationGatewayBackendAddressPool `json:"applicationGatewayBackendAddressPools,omitempty"`
-	// LoadBalancerBackendAddressPools - Gets or sets the reference of LoadBalancerBackendAddressPool resource
-	LoadBalancerBackendAddressPools *[]BackendAddressPool `json:"loadBalancerBackendAddressPools,omitempty"`
-	// LoadBalancerInboundNatRules - Gets or sets list of references of LoadBalancerInboundNatRules
-	LoadBalancerInboundNatRules *[]InboundNatRule `json:"loadBalancerInboundNatRules,omitempty"`
-	PrivateIPAddress            *string           `json:"privateIPAddress,omitempty"`
-	// PrivateIPAllocationMethod - Gets or sets PrivateIP allocation method. Possible values include: 'Static', 'Dynamic'
-	PrivateIPAllocationMethod IPAllocationMethod `json:"privateIPAllocationMethod,omitempty"`
-	// PrivateIPAddressVersion - Gets or sets PrivateIP address version (IPv4/IPv6). Possible values include: 'IPv4', 'IPv6'
-	PrivateIPAddressVersion IPVersion `json:"privateIPAddressVersion,omitempty"`
-	Subnet                  *Subnet   `json:"subnet,omitempty"`
-	// Primary - Gets whether this is a primary customer address on the NIC
-	Primary           *bool            `json:"primary,omitempty"`
-	PublicIPAddress   *PublicIPAddress `json:"publicIPAddress,omitempty"`
-	ProvisioningState *string          `json:"provisioningState,omitempty"`
+	LoadBalancerBackendAddressPools       *[]BackendAddressPool                   `json:"loadBalancerBackendAddressPools,omitempty"`
+	LoadBalancerInboundNatRules           *[]InboundNatRule                       `json:"loadBalancerInboundNatRules,omitempty"`
+	PrivateIPAddress                      *string                                 `json:"privateIPAddress,omitempty"`
+	PrivateIPAllocationMethod             IPAllocationMethod                      `json:"privateIPAllocationMethod,omitempty"`
+	PrivateIPAddressVersion               IPVersion                               `json:"privateIPAddressVersion,omitempty"`
+	Subnet                                *Subnet                                 `json:"subnet,omitempty"`
+	Primary                               *bool                                   `json:"primary,omitempty"`
+	PublicIPAddress                       *PublicIPAddress                        `json:"publicIPAddress,omitempty"`
+	ProvisioningState                     *string                                 `json:"provisioningState,omitempty"`
 }
 
-// InterfaceListResult response for ListNetworkInterface Api service call
+// InterfaceListResult is response for ListNetworkInterface Api service call
 type InterfaceListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets or sets list of NetworkInterfaces in a resource group
-	Value *[]Interface `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Interface `json:"value,omitempty"`
+	NextLink          *string      `json:"nextLink,omitempty"`
 }
 
-// InterfaceListResultIterator provides access to a complete listing of Interface values.
-type InterfaceListResultIterator struct {
-	i    int
-	page InterfaceListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *InterfaceListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter InterfaceListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter InterfaceListResultIterator) Response() InterfaceListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter InterfaceListResultIterator) Value() Interface {
-	if !iter.page.NotDone() {
-		return Interface{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ilr InterfaceListResult) IsEmpty() bool {
-	return ilr.Value == nil || len(*ilr.Value) == 0
-}
-
-// interfaceListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ilr InterfaceListResult) interfaceListResultPreparer() (*http.Request, error) {
-	if ilr.NextLink == nil || len(to.String(ilr.NextLink)) < 1 {
+// InterfaceListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client InterfaceListResult) InterfaceListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ilr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// InterfaceListResultPage contains a page of Interface values.
-type InterfaceListResultPage struct {
-	fn  func(InterfaceListResult) (InterfaceListResult, error)
-	ilr InterfaceListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *InterfaceListResultPage) Next() error {
-	next, err := page.fn(page.ilr)
-	if err != nil {
-		return err
-	}
-	page.ilr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page InterfaceListResultPage) NotDone() bool {
-	return !page.ilr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page InterfaceListResultPage) Response() InterfaceListResult {
-	return page.ilr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page InterfaceListResultPage) Values() []Interface {
-	if page.ilr.IsEmpty() {
-		return nil
-	}
-	return *page.ilr.Value
-}
-
-// InterfacePropertiesFormat networkInterface properties.
+// InterfacePropertiesFormat is networkInterface properties.
 type InterfacePropertiesFormat struct {
-	// VirtualMachine - Gets or sets the reference of a VirtualMachine
-	VirtualMachine *SubResource `json:"virtualMachine,omitempty"`
-	// NetworkSecurityGroup - Gets or sets the reference of the NetworkSecurityGroup resource
-	NetworkSecurityGroup *SecurityGroup `json:"networkSecurityGroup,omitempty"`
-	// IPConfigurations - Gets or sets list of IPConfigurations of the network interface
-	IPConfigurations *[]InterfaceIPConfiguration `json:"ipConfigurations,omitempty"`
-	// DNSSettings - Gets or sets DNS settings in network interface
-	DNSSettings *InterfaceDNSSettings `json:"dnsSettings,omitempty"`
-	// MacAddress - Gets the MAC address of the network interface
-	MacAddress *string `json:"macAddress,omitempty"`
-	// Primary - Gets whether this is a primary NIC on a virtual machine
-	Primary *bool `json:"primary,omitempty"`
-	// EnableIPForwarding - Gets or sets whether IPForwarding is enabled on the NIC
-	EnableIPForwarding *bool `json:"enableIPForwarding,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the network interface resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	VirtualMachine       *SubResource                `json:"virtualMachine,omitempty"`
+	NetworkSecurityGroup *SecurityGroup              `json:"networkSecurityGroup,omitempty"`
+	IPConfigurations     *[]InterfaceIPConfiguration `json:"ipConfigurations,omitempty"`
+	DNSSettings          *InterfaceDNSSettings       `json:"dnsSettings,omitempty"`
+	MacAddress           *string                     `json:"macAddress,omitempty"`
+	Primary              *bool                       `json:"primary,omitempty"`
+	EnableIPForwarding   *bool                       `json:"enableIPForwarding,omitempty"`
+	ResourceGUID         *string                     `json:"resourceGuid,omitempty"`
+	ProvisioningState    *string                     `json:"provisioningState,omitempty"`
 }
 
-// InterfacesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type InterfacesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future InterfacesCreateOrUpdateFuture) Result(client InterfacesClient) (i Interface, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return i, autorest.NewError("network.InterfacesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		i, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	i, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// InterfacesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type InterfacesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future InterfacesDeleteFuture) Result(client InterfacesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.InterfacesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// InterfacesGetEffectiveRouteTableFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type InterfacesGetEffectiveRouteTableFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future InterfacesGetEffectiveRouteTableFuture) Result(client InterfacesClient) (erlr EffectiveRouteListResult, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return erlr, autorest.NewError("network.InterfacesGetEffectiveRouteTableFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		erlr, err = client.GetEffectiveRouteTableResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	erlr, err = client.GetEffectiveRouteTableResponder(resp)
-	return
-}
-
-// InterfacesListEffectiveNetworkSecurityGroupsFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type InterfacesListEffectiveNetworkSecurityGroupsFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future InterfacesListEffectiveNetworkSecurityGroupsFuture) Result(client InterfacesClient) (ensglr EffectiveNetworkSecurityGroupListResult, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ensglr, autorest.NewError("network.InterfacesListEffectiveNetworkSecurityGroupsFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ensglr, err = client.ListEffectiveNetworkSecurityGroupsResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ensglr, err = client.ListEffectiveNetworkSecurityGroupsResponder(resp)
-	return
-}
-
-// IPAddressAvailabilityResult response for CheckIPAddressAvailability Api service call
+// IPAddressAvailabilityResult is response for CheckIPAddressAvailability Api service call
 type IPAddressAvailabilityResult struct {
-	autorest.Response `json:"-"`
-	// Available - Private IP address availability
-	Available *bool `json:"available,omitempty"`
-	// AvailableIPAddresses - Contains other available private IP addresses if the asked for address is taken
+	autorest.Response    `json:"-"`
+	Available            *bool     `json:"available,omitempty"`
 	AvailableIPAddresses *[]string `json:"availableIPAddresses,omitempty"`
 }
 
-// IPConfiguration iPConfiguration
+// IPConfiguration is iPConfiguration
 type IPConfiguration struct {
-	// ID - Resource Id
 	ID                               *string `json:"id,omitempty"`
 	*IPConfigurationPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                             *string `json:"name,omitempty"`
+	Etag                             *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for IPConfiguration struct.
-func (ic *IPConfiguration) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties IPConfigurationPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		ic.IPConfigurationPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		ic.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		ic.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		ic.ID = &ID
-	}
-
-	return nil
-}
-
-// IPConfigurationPropertiesFormat properties of IPConfiguration
+// IPConfigurationPropertiesFormat is properties of IPConfiguration
 type IPConfigurationPropertiesFormat struct {
-	// PrivateIPAddress - Gets or sets the privateIPAddress of the IP Configuration
-	PrivateIPAddress *string `json:"privateIPAddress,omitempty"`
-	// PrivateIPAllocationMethod - Gets or sets PrivateIP allocation method. Possible values include: 'Static', 'Dynamic'
+	PrivateIPAddress          *string            `json:"privateIPAddress,omitempty"`
 	PrivateIPAllocationMethod IPAllocationMethod `json:"privateIPAllocationMethod,omitempty"`
-	// Subnet - Gets or sets the reference of the subnet resource
-	Subnet *Subnet `json:"subnet,omitempty"`
-	// PublicIPAddress - Gets or sets the reference of the PublicIP resource
-	PublicIPAddress *PublicIPAddress `json:"publicIPAddress,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Subnet                    *Subnet            `json:"subnet,omitempty"`
+	PublicIPAddress           *PublicIPAddress   `json:"publicIPAddress,omitempty"`
+	ProvisioningState         *string            `json:"provisioningState,omitempty"`
 }
 
-// LoadBalancer loadBalancer resource
+// LoadBalancer is loadBalancer resource
 type LoadBalancer struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response             `json:"-"`
+	ID                            *string             `json:"id,omitempty"`
+	Name                          *string             `json:"name,omitempty"`
+	Type                          *string             `json:"type,omitempty"`
+	Location                      *string             `json:"location,omitempty"`
 	Tags                          *map[string]*string `json:"tags,omitempty"`
 	*LoadBalancerPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                          *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for LoadBalancer struct.
-func (lb *LoadBalancer) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties LoadBalancerPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		lb.LoadBalancerPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		lb.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		lb.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		lb.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		lb.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		lb.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		lb.Tags = &tags
-	}
-
-	return nil
-}
-
-// LoadBalancerListResult response for ListLoadBalancers Api service call
+// LoadBalancerListResult is response for ListLoadBalancers Api service call
 type LoadBalancerListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets a list of LoadBalancers in a resource group
-	Value *[]LoadBalancer `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]LoadBalancer `json:"value,omitempty"`
+	NextLink          *string         `json:"nextLink,omitempty"`
 }
 
-// LoadBalancerListResultIterator provides access to a complete listing of LoadBalancer values.
-type LoadBalancerListResultIterator struct {
-	i    int
-	page LoadBalancerListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *LoadBalancerListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter LoadBalancerListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter LoadBalancerListResultIterator) Response() LoadBalancerListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter LoadBalancerListResultIterator) Value() LoadBalancer {
-	if !iter.page.NotDone() {
-		return LoadBalancer{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (lblr LoadBalancerListResult) IsEmpty() bool {
-	return lblr.Value == nil || len(*lblr.Value) == 0
-}
-
-// loadBalancerListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (lblr LoadBalancerListResult) loadBalancerListResultPreparer() (*http.Request, error) {
-	if lblr.NextLink == nil || len(to.String(lblr.NextLink)) < 1 {
+// LoadBalancerListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client LoadBalancerListResult) LoadBalancerListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(lblr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// LoadBalancerListResultPage contains a page of LoadBalancer values.
-type LoadBalancerListResultPage struct {
-	fn   func(LoadBalancerListResult) (LoadBalancerListResult, error)
-	lblr LoadBalancerListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *LoadBalancerListResultPage) Next() error {
-	next, err := page.fn(page.lblr)
-	if err != nil {
-		return err
-	}
-	page.lblr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page LoadBalancerListResultPage) NotDone() bool {
-	return !page.lblr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page LoadBalancerListResultPage) Response() LoadBalancerListResult {
-	return page.lblr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page LoadBalancerListResultPage) Values() []LoadBalancer {
-	if page.lblr.IsEmpty() {
-		return nil
-	}
-	return *page.lblr.Value
-}
-
-// LoadBalancerPropertiesFormat properties of Load Balancer
+// LoadBalancerPropertiesFormat is properties of Load Balancer
 type LoadBalancerPropertiesFormat struct {
-	// FrontendIPConfigurations - Gets or sets frontend IP addresses of the load balancer
 	FrontendIPConfigurations *[]FrontendIPConfiguration `json:"frontendIPConfigurations,omitempty"`
-	// BackendAddressPools - Gets or sets Pools of backend IP addresses
-	BackendAddressPools *[]BackendAddressPool `json:"backendAddressPools,omitempty"`
-	// LoadBalancingRules - Gets or sets load balancing rules
-	LoadBalancingRules *[]LoadBalancingRule `json:"loadBalancingRules,omitempty"`
-	// Probes - Gets or sets list of Load balancer probes
-	Probes *[]Probe `json:"probes,omitempty"`
-	// InboundNatRules - Gets or sets list of inbound rules
-	InboundNatRules *[]InboundNatRule `json:"inboundNatRules,omitempty"`
-	// InboundNatPools - Gets or sets inbound NAT pools
-	InboundNatPools *[]InboundNatPool `json:"inboundNatPools,omitempty"`
-	// OutboundNatRules - Gets or sets outbound NAT rules
-	OutboundNatRules *[]OutboundNatRule `json:"outboundNatRules,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the Load balancer resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	BackendAddressPools      *[]BackendAddressPool      `json:"backendAddressPools,omitempty"`
+	LoadBalancingRules       *[]LoadBalancingRule       `json:"loadBalancingRules,omitempty"`
+	Probes                   *[]Probe                   `json:"probes,omitempty"`
+	InboundNatRules          *[]InboundNatRule          `json:"inboundNatRules,omitempty"`
+	InboundNatPools          *[]InboundNatPool          `json:"inboundNatPools,omitempty"`
+	OutboundNatRules         *[]OutboundNatRule         `json:"outboundNatRules,omitempty"`
+	ResourceGUID             *string                    `json:"resourceGuid,omitempty"`
+	ProvisioningState        *string                    `json:"provisioningState,omitempty"`
 }
 
-// LoadBalancersCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type LoadBalancersCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future LoadBalancersCreateOrUpdateFuture) Result(client LoadBalancersClient) (lb LoadBalancer, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return lb, autorest.NewError("network.LoadBalancersCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		lb, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	lb, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// LoadBalancersDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type LoadBalancersDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future LoadBalancersDeleteFuture) Result(client LoadBalancersClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.LoadBalancersDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// LoadBalancingRule rules of the load balancer
+// LoadBalancingRule is rules of the load balancer
 type LoadBalancingRule struct {
-	// ID - Resource Id
 	ID                                 *string `json:"id,omitempty"`
 	*LoadBalancingRulePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                               *string `json:"name,omitempty"`
+	Etag                               *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for LoadBalancingRule struct.
-func (lbr *LoadBalancingRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties LoadBalancingRulePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		lbr.LoadBalancingRulePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		lbr.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		lbr.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		lbr.ID = &ID
-	}
-
-	return nil
-}
-
-// LoadBalancingRulePropertiesFormat properties of the load balancer
+// LoadBalancingRulePropertiesFormat is properties of the load balancer
 type LoadBalancingRulePropertiesFormat struct {
-	// FrontendIPConfiguration - Gets or sets a reference to frontend IP Addresses
-	FrontendIPConfiguration *SubResource `json:"frontendIPConfiguration,omitempty"`
-	// BackendAddressPool - Gets or sets  a reference to a pool of DIPs. Inbound traffic is randomly load balanced across IPs in the backend IPs
-	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
-	// Probe - Gets or sets the reference of the load balancer probe used by the Load Balancing rule.
-	Probe *SubResource `json:"probe,omitempty"`
-	// Protocol - Gets or sets the transport protocol for the external endpoint. Possible values are Udp or Tcp. Possible values include: 'TransportProtocolUDP', 'TransportProtocolTCP'
-	Protocol TransportProtocol `json:"protocol,omitempty"`
-	// LoadDistribution - Gets or sets the load distribution policy for this rule. Possible values include: 'Default', 'SourceIP', 'SourceIPProtocol'
-	LoadDistribution LoadDistribution `json:"loadDistribution,omitempty"`
-	// FrontendPort - Gets or sets the port for the external endpoint. You can specify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
-	FrontendPort *int32 `json:"frontendPort,omitempty"`
-	// BackendPort - Gets or sets a port used for internal connections on the endpoint. The localPort attribute maps the eternal port of the endpoint to an internal port on a role. This is useful in scenarios where a role must communicate to an internal component on a port that is different from the one that is exposed externally. If not specified, the value of localPort is the same as the port attribute. Set the value of localPort to '*' to automatically assign an unallocated port that is discoverable using the runtime API
-	BackendPort *int32 `json:"backendPort,omitempty"`
-	// IdleTimeoutInMinutes - Gets or sets the timeout for the Tcp idle connection. The value can be set between 4 and 30 minutes. The default value is 4 minutes. This element is only used when the protocol is set to Tcp
-	IdleTimeoutInMinutes *int32 `json:"idleTimeoutInMinutes,omitempty"`
-	// EnableFloatingIP - Configures a virtual machine's endpoint for the floating IP capability required to configure a SQL AlwaysOn availability Group. This setting is required when using the SQL Always ON availability Groups in SQL server. This setting can't be changed after you create the endpoint
-	EnableFloatingIP *bool `json:"enableFloatingIP,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	FrontendIPConfiguration *SubResource      `json:"frontendIPConfiguration,omitempty"`
+	BackendAddressPool      *SubResource      `json:"backendAddressPool,omitempty"`
+	Probe                   *SubResource      `json:"probe,omitempty"`
+	Protocol                TransportProtocol `json:"protocol,omitempty"`
+	LoadDistribution        LoadDistribution  `json:"loadDistribution,omitempty"`
+	FrontendPort            *int32            `json:"frontendPort,omitempty"`
+	BackendPort             *int32            `json:"backendPort,omitempty"`
+	IdleTimeoutInMinutes    *int32            `json:"idleTimeoutInMinutes,omitempty"`
+	EnableFloatingIP        *bool             `json:"enableFloatingIP,omitempty"`
+	ProvisioningState       *string           `json:"provisioningState,omitempty"`
 }
 
-// LocalNetworkGateway a common class for general resource information
+// LocalNetworkGateway is a common class for general resource information
 type LocalNetworkGateway struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response                    `json:"-"`
+	ID                                   *string             `json:"id,omitempty"`
+	Name                                 *string             `json:"name,omitempty"`
+	Type                                 *string             `json:"type,omitempty"`
+	Location                             *string             `json:"location,omitempty"`
 	Tags                                 *map[string]*string `json:"tags,omitempty"`
 	*LocalNetworkGatewayPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                                 *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for LocalNetworkGateway struct.
-func (lng *LocalNetworkGateway) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties LocalNetworkGatewayPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		lng.LocalNetworkGatewayPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		lng.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		lng.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		lng.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		lng.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		lng.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		lng.Tags = &tags
-	}
-
-	return nil
-}
-
-// LocalNetworkGatewayListResult response for ListLocalNetworkGateways Api service call
+// LocalNetworkGatewayListResult is response for ListLocalNetworkGateways Api service call
 type LocalNetworkGatewayListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of LocalNetworkGateways that exists in a resource group
-	Value *[]LocalNetworkGateway `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]LocalNetworkGateway `json:"value,omitempty"`
+	NextLink          *string                `json:"nextLink,omitempty"`
 }
 
-// LocalNetworkGatewayListResultIterator provides access to a complete listing of LocalNetworkGateway values.
-type LocalNetworkGatewayListResultIterator struct {
-	i    int
-	page LocalNetworkGatewayListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *LocalNetworkGatewayListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter LocalNetworkGatewayListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter LocalNetworkGatewayListResultIterator) Response() LocalNetworkGatewayListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter LocalNetworkGatewayListResultIterator) Value() LocalNetworkGateway {
-	if !iter.page.NotDone() {
-		return LocalNetworkGateway{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (lnglr LocalNetworkGatewayListResult) IsEmpty() bool {
-	return lnglr.Value == nil || len(*lnglr.Value) == 0
-}
-
-// localNetworkGatewayListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (lnglr LocalNetworkGatewayListResult) localNetworkGatewayListResultPreparer() (*http.Request, error) {
-	if lnglr.NextLink == nil || len(to.String(lnglr.NextLink)) < 1 {
+// LocalNetworkGatewayListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client LocalNetworkGatewayListResult) LocalNetworkGatewayListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(lnglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// LocalNetworkGatewayListResultPage contains a page of LocalNetworkGateway values.
-type LocalNetworkGatewayListResultPage struct {
-	fn    func(LocalNetworkGatewayListResult) (LocalNetworkGatewayListResult, error)
-	lnglr LocalNetworkGatewayListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *LocalNetworkGatewayListResultPage) Next() error {
-	next, err := page.fn(page.lnglr)
-	if err != nil {
-		return err
-	}
-	page.lnglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page LocalNetworkGatewayListResultPage) NotDone() bool {
-	return !page.lnglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page LocalNetworkGatewayListResultPage) Response() LocalNetworkGatewayListResult {
-	return page.lnglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page LocalNetworkGatewayListResultPage) Values() []LocalNetworkGateway {
-	if page.lnglr.IsEmpty() {
-		return nil
-	}
-	return *page.lnglr.Value
-}
-
-// LocalNetworkGatewayPropertiesFormat localNetworkGateway properties
+// LocalNetworkGatewayPropertiesFormat is localNetworkGateway properties
 type LocalNetworkGatewayPropertiesFormat struct {
-	// LocalNetworkAddressSpace - Local network site Address space
 	LocalNetworkAddressSpace *AddressSpace `json:"localNetworkAddressSpace,omitempty"`
-	// GatewayIPAddress - IP address of local network gateway.
-	GatewayIPAddress *string `json:"gatewayIpAddress,omitempty"`
-	// BgpSettings - Local network gateway's BGP speaker settings
-	BgpSettings *BgpSettings `json:"bgpSettings,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the LocalNetworkGateway resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the LocalNetworkGateway resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	GatewayIPAddress         *string       `json:"gatewayIpAddress,omitempty"`
+	BgpSettings              *BgpSettings  `json:"bgpSettings,omitempty"`
+	ResourceGUID             *string       `json:"resourceGuid,omitempty"`
+	ProvisioningState        *string       `json:"provisioningState,omitempty"`
 }
 
-// LocalNetworkGatewaysCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type LocalNetworkGatewaysCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future LocalNetworkGatewaysCreateOrUpdateFuture) Result(client LocalNetworkGatewaysClient) (lng LocalNetworkGateway, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return lng, autorest.NewError("network.LocalNetworkGatewaysCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		lng, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	lng, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// LocalNetworkGatewaysDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type LocalNetworkGatewaysDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future LocalNetworkGatewaysDeleteFuture) Result(client LocalNetworkGatewaysClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.LocalNetworkGatewaysDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// OutboundNatRule outbound NAT pool of the load balancer
+// OutboundNatRule is outbound NAT pool of the load balancer
 type OutboundNatRule struct {
-	// ID - Resource Id
 	ID                               *string `json:"id,omitempty"`
 	*OutboundNatRulePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                             *string `json:"name,omitempty"`
+	Etag                             *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for OutboundNatRule struct.
-func (onr *OutboundNatRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties OutboundNatRulePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		onr.OutboundNatRulePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		onr.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		onr.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		onr.ID = &ID
-	}
-
-	return nil
-}
-
-// OutboundNatRulePropertiesFormat outbound NAT pool of the load balancer
+// OutboundNatRulePropertiesFormat is outbound NAT pool of the load balancer
 type OutboundNatRulePropertiesFormat struct {
-	// AllocatedOutboundPorts - Gets or sets the number of outbound ports to be used for SNAT
-	AllocatedOutboundPorts *int32 `json:"allocatedOutboundPorts,omitempty"`
-	// FrontendIPConfigurations - Gets or sets Frontend IP addresses of the load balancer
+	AllocatedOutboundPorts   *int32         `json:"allocatedOutboundPorts,omitempty"`
 	FrontendIPConfigurations *[]SubResource `json:"frontendIPConfigurations,omitempty"`
-	// BackendAddressPool - Gets or sets a reference to a pool of DIPs. Outbound traffic is randomly load balanced across IPs in the backend IPs
-	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	BackendAddressPool       *SubResource   `json:"backendAddressPool,omitempty"`
+	ProvisioningState        *string        `json:"provisioningState,omitempty"`
 }
 
-// Probe load balancer Probe
+// Probe is load balancer Probe
 type Probe struct {
-	// ID - Resource Id
 	ID                     *string `json:"id,omitempty"`
 	*ProbePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                   *string `json:"name,omitempty"`
+	Etag                   *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Probe struct.
-func (p *Probe) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ProbePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		p.ProbePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		p.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		p.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		p.ID = &ID
-	}
-
-	return nil
-}
-
-// ProbePropertiesFormat ...
+// ProbePropertiesFormat is
 type ProbePropertiesFormat struct {
-	// LoadBalancingRules - Gets Load balancer rules that use this probe
 	LoadBalancingRules *[]SubResource `json:"loadBalancingRules,omitempty"`
-	// Protocol - Gets or sets the protocol of the end point. Possible values are http or Tcp. If Tcp is specified, a received ACK is required for the probe to be successful. If http is specified,a 200 OK response from the specifies URI is required for the probe to be successful. Possible values include: 'ProbeProtocolHTTP', 'ProbeProtocolTCP'
-	Protocol ProbeProtocol `json:"protocol,omitempty"`
-	// Port - Gets or sets Port for communicating the probe. Possible values range from 1 to 65535, inclusive.
-	Port *int32 `json:"port,omitempty"`
-	// IntervalInSeconds - Gets or sets the interval, in seconds, for how frequently to probe the endpoint for health status. Typically, the interval is slightly less than half the allocated timeout period (in seconds) which allows two full probes before taking the instance out of rotation. The default value is 15, the minimum value is 5
-	IntervalInSeconds *int32 `json:"intervalInSeconds,omitempty"`
-	// NumberOfProbes - Gets or sets the number of probes where if no response, will result in stopping further traffic from being delivered to the endpoint. This values allows endpoints to be taken out of rotation faster or slower than the typical times used in Azure.
-	NumberOfProbes *int32 `json:"numberOfProbes,omitempty"`
-	// RequestPath - Gets or sets the URI used for requesting health status from the VM. Path is required if a protocol is set to http. Otherwise, it is not allowed. There is no default value
-	RequestPath *string `json:"requestPath,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Protocol           ProbeProtocol  `json:"protocol,omitempty"`
+	Port               *int32         `json:"port,omitempty"`
+	IntervalInSeconds  *int32         `json:"intervalInSeconds,omitempty"`
+	NumberOfProbes     *int32         `json:"numberOfProbes,omitempty"`
+	RequestPath        *string        `json:"requestPath,omitempty"`
+	ProvisioningState  *string        `json:"provisioningState,omitempty"`
 }
 
-// PublicIPAddress publicIPAddress resource
+// PublicIPAddress is publicIPAddress resource
 type PublicIPAddress struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response                `json:"-"`
+	ID                               *string             `json:"id,omitempty"`
+	Name                             *string             `json:"name,omitempty"`
+	Type                             *string             `json:"type,omitempty"`
+	Location                         *string             `json:"location,omitempty"`
 	Tags                             *map[string]*string `json:"tags,omitempty"`
 	*PublicIPAddressPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                             *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for PublicIPAddress struct.
-func (pia *PublicIPAddress) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties PublicIPAddressPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		pia.PublicIPAddressPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		pia.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		pia.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		pia.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		pia.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		pia.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		pia.Tags = &tags
-	}
-
-	return nil
-}
-
-// PublicIPAddressDNSSettings contains FQDN of the DNS record associated with the public IP address
+// PublicIPAddressDNSSettings is contains FQDN of the DNS record associated with the public IP address
 type PublicIPAddressDNSSettings struct {
-	// DomainNameLabel - Gets or sets the Domain name label.The concatenation of the domain name label and the regionalized DNS zone make up the fully qualified domain name associated with the public IP address. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system.
 	DomainNameLabel *string `json:"domainNameLabel,omitempty"`
-	// Fqdn - Gets the FQDN, Fully qualified domain name of the A DNS record associated with the public IP. This is the concatenation of the domainNameLabel and the regionalized DNS zone.
-	Fqdn *string `json:"fqdn,omitempty"`
-	// ReverseFqdn - Gets or Sets the Reverse FQDN. A user-visible, fully qualified domain name that resolves to this public IP address. If the reverseFqdn is specified, then a PTR DNS record is created pointing from the IP address in the in-addr.arpa domain to the reverse FQDN.
-	ReverseFqdn *string `json:"reverseFqdn,omitempty"`
+	Fqdn            *string `json:"fqdn,omitempty"`
+	ReverseFqdn     *string `json:"reverseFqdn,omitempty"`
 }
 
-// PublicIPAddressesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type PublicIPAddressesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future PublicIPAddressesCreateOrUpdateFuture) Result(client PublicIPAddressesClient) (pia PublicIPAddress, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return pia, autorest.NewError("network.PublicIPAddressesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		pia, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	pia, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// PublicIPAddressesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type PublicIPAddressesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future PublicIPAddressesDeleteFuture) Result(client PublicIPAddressesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.PublicIPAddressesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// PublicIPAddressListResult response for ListPublicIpAddresses Api service call
+// PublicIPAddressListResult is response for ListPublicIpAddresses Api service call
 type PublicIPAddressListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of publicIP addresses that exists in a resource group
-	Value *[]PublicIPAddress `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]PublicIPAddress `json:"value,omitempty"`
+	NextLink          *string            `json:"nextLink,omitempty"`
 }
 
-// PublicIPAddressListResultIterator provides access to a complete listing of PublicIPAddress values.
-type PublicIPAddressListResultIterator struct {
-	i    int
-	page PublicIPAddressListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *PublicIPAddressListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter PublicIPAddressListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter PublicIPAddressListResultIterator) Response() PublicIPAddressListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter PublicIPAddressListResultIterator) Value() PublicIPAddress {
-	if !iter.page.NotDone() {
-		return PublicIPAddress{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (pialr PublicIPAddressListResult) IsEmpty() bool {
-	return pialr.Value == nil || len(*pialr.Value) == 0
-}
-
-// publicIPAddressListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (pialr PublicIPAddressListResult) publicIPAddressListResultPreparer() (*http.Request, error) {
-	if pialr.NextLink == nil || len(to.String(pialr.NextLink)) < 1 {
+// PublicIPAddressListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client PublicIPAddressListResult) PublicIPAddressListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(pialr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// PublicIPAddressListResultPage contains a page of PublicIPAddress values.
-type PublicIPAddressListResultPage struct {
-	fn    func(PublicIPAddressListResult) (PublicIPAddressListResult, error)
-	pialr PublicIPAddressListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *PublicIPAddressListResultPage) Next() error {
-	next, err := page.fn(page.pialr)
-	if err != nil {
-		return err
-	}
-	page.pialr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page PublicIPAddressListResultPage) NotDone() bool {
-	return !page.pialr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page PublicIPAddressListResultPage) Response() PublicIPAddressListResult {
-	return page.pialr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page PublicIPAddressListResultPage) Values() []PublicIPAddress {
-	if page.pialr.IsEmpty() {
-		return nil
-	}
-	return *page.pialr.Value
-}
-
-// PublicIPAddressPropertiesFormat publicIpAddress properties
+// PublicIPAddressPropertiesFormat is publicIpAddress properties
 type PublicIPAddressPropertiesFormat struct {
-	// PublicIPAllocationMethod - Gets or sets PublicIP allocation method (Static/Dynamic). Possible values include: 'Static', 'Dynamic'
-	PublicIPAllocationMethod IPAllocationMethod `json:"publicIPAllocationMethod,omitempty"`
-	// PublicIPAddressVersion - Gets or sets PublicIP address version (IPv4/IPv6). Possible values include: 'IPv4', 'IPv6'
-	PublicIPAddressVersion IPVersion        `json:"publicIPAddressVersion,omitempty"`
-	IPConfiguration        *IPConfiguration `json:"ipConfiguration,omitempty"`
-	// DNSSettings - Gets or sets FQDN of the DNS record associated with the public IP address
-	DNSSettings *PublicIPAddressDNSSettings `json:"dnsSettings,omitempty"`
-	IPAddress   *string                     `json:"ipAddress,omitempty"`
-	// IdleTimeoutInMinutes - Gets or sets the Idletimeout of the public IP address
-	IdleTimeoutInMinutes *int32 `json:"idleTimeoutInMinutes,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the PublicIP resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	PublicIPAllocationMethod IPAllocationMethod          `json:"publicIPAllocationMethod,omitempty"`
+	PublicIPAddressVersion   IPVersion                   `json:"publicIPAddressVersion,omitempty"`
+	IPConfiguration          *IPConfiguration            `json:"ipConfiguration,omitempty"`
+	DNSSettings              *PublicIPAddressDNSSettings `json:"dnsSettings,omitempty"`
+	IPAddress                *string                     `json:"ipAddress,omitempty"`
+	IdleTimeoutInMinutes     *int32                      `json:"idleTimeoutInMinutes,omitempty"`
+	ResourceGUID             *string                     `json:"resourceGuid,omitempty"`
+	ProvisioningState        *string                     `json:"provisioningState,omitempty"`
 }
 
-// Resource ...
+// Resource is
 type Resource struct {
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
-	Tags *map[string]*string `json:"tags,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Location *string             `json:"location,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
 }
 
-// ResourceNavigationLink resourceNavigationLink resource
+// ResourceNavigationLink is resourceNavigationLink resource
 type ResourceNavigationLink struct {
-	// ID - Resource Id
 	ID                            *string `json:"id,omitempty"`
 	*ResourceNavigationLinkFormat `json:"properties,omitempty"`
-	// Name - Name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                          *string `json:"name,omitempty"`
+	Etag                          *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for ResourceNavigationLink struct.
-func (rnl *ResourceNavigationLink) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ResourceNavigationLinkFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rnl.ResourceNavigationLinkFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rnl.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		rnl.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rnl.ID = &ID
-	}
-
-	return nil
-}
-
-// ResourceNavigationLinkFormat properties of ResourceNavigationLink
+// ResourceNavigationLinkFormat is properties of ResourceNavigationLink
 type ResourceNavigationLinkFormat struct {
-	// LinkedResourceType - Resource type of the linked resource
 	LinkedResourceType *string `json:"linkedResourceType,omitempty"`
-	// Link - Link to the external resource
-	Link *string `json:"link,omitempty"`
-	// ProvisioningState - Provisioning state of the ResourceNavigationLink resource
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Link               *string `json:"link,omitempty"`
+	ProvisioningState  *string `json:"provisioningState,omitempty"`
 }
 
-// Route route resource
+// Route is route resource
 type Route struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
+	autorest.Response      `json:"-"`
 	ID                     *string `json:"id,omitempty"`
 	*RoutePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                   *string `json:"name,omitempty"`
+	Etag                   *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Route struct.
-func (r *Route) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties RoutePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		r.RoutePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		r.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		r.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		r.ID = &ID
-	}
-
-	return nil
-}
-
-// RouteListResult response for ListRoute Api service call
+// RouteListResult is response for ListRoute Api service call
 type RouteListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of Routes in a resource group
-	Value *[]Route `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Route `json:"value,omitempty"`
+	NextLink          *string  `json:"nextLink,omitempty"`
 }
 
-// RouteListResultIterator provides access to a complete listing of Route values.
-type RouteListResultIterator struct {
-	i    int
-	page RouteListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *RouteListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter RouteListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter RouteListResultIterator) Response() RouteListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter RouteListResultIterator) Value() Route {
-	if !iter.page.NotDone() {
-		return Route{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (rlr RouteListResult) IsEmpty() bool {
-	return rlr.Value == nil || len(*rlr.Value) == 0
-}
-
-// routeListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (rlr RouteListResult) routeListResultPreparer() (*http.Request, error) {
-	if rlr.NextLink == nil || len(to.String(rlr.NextLink)) < 1 {
+// RouteListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client RouteListResult) RouteListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(rlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// RouteListResultPage contains a page of Route values.
-type RouteListResultPage struct {
-	fn  func(RouteListResult) (RouteListResult, error)
-	rlr RouteListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *RouteListResultPage) Next() error {
-	next, err := page.fn(page.rlr)
-	if err != nil {
-		return err
-	}
-	page.rlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page RouteListResultPage) NotDone() bool {
-	return !page.rlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page RouteListResultPage) Response() RouteListResult {
-	return page.rlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page RouteListResultPage) Values() []Route {
-	if page.rlr.IsEmpty() {
-		return nil
-	}
-	return *page.rlr.Value
-}
-
-// RoutePropertiesFormat route resource
+// RoutePropertiesFormat is route resource
 type RoutePropertiesFormat struct {
-	// AddressPrefix - Gets or sets the destination CIDR to which the route applies.
-	AddressPrefix *string `json:"addressPrefix,omitempty"`
-	// NextHopType - Gets or sets the type of Azure hop the packet should be sent to. Possible values include: 'RouteNextHopTypeVirtualNetworkGateway', 'RouteNextHopTypeVnetLocal', 'RouteNextHopTypeInternet', 'RouteNextHopTypeVirtualAppliance', 'RouteNextHopTypeNone'
-	NextHopType RouteNextHopType `json:"nextHopType,omitempty"`
-	// NextHopIPAddress - Gets or sets the IP address packets should be forwarded to. Next hop values are only allowed in routes where the next hop type is VirtualAppliance.
-	NextHopIPAddress *string `json:"nextHopIpAddress,omitempty"`
-	// ProvisioningState - Gets provisioning state of the resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	AddressPrefix     *string          `json:"addressPrefix,omitempty"`
+	NextHopType       RouteNextHopType `json:"nextHopType,omitempty"`
+	NextHopIPAddress  *string          `json:"nextHopIpAddress,omitempty"`
+	ProvisioningState *string          `json:"provisioningState,omitempty"`
 }
 
-// RoutesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type RoutesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future RoutesCreateOrUpdateFuture) Result(client RoutesClient) (r Route, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return r, autorest.NewError("network.RoutesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		r, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	r, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// RoutesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type RoutesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future RoutesDeleteFuture) Result(client RoutesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.RoutesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// RouteTable routeTable resource
+// RouteTable is routeTable resource
 type RouteTable struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response           `json:"-"`
+	ID                          *string             `json:"id,omitempty"`
+	Name                        *string             `json:"name,omitempty"`
+	Type                        *string             `json:"type,omitempty"`
+	Location                    *string             `json:"location,omitempty"`
 	Tags                        *map[string]*string `json:"tags,omitempty"`
 	*RouteTablePropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                        *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for RouteTable struct.
-func (rt *RouteTable) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties RouteTablePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		rt.RouteTablePropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		rt.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		rt.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		rt.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		rt.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		rt.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		rt.Tags = &tags
-	}
-
-	return nil
-}
-
-// RouteTableListResult response for ListRouteTable Api service call
+// RouteTableListResult is response for ListRouteTable Api service call
 type RouteTableListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of RouteTables in a resource group
-	Value *[]RouteTable `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]RouteTable `json:"value,omitempty"`
+	NextLink          *string       `json:"nextLink,omitempty"`
 }
 
-// RouteTableListResultIterator provides access to a complete listing of RouteTable values.
-type RouteTableListResultIterator struct {
-	i    int
-	page RouteTableListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *RouteTableListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter RouteTableListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter RouteTableListResultIterator) Response() RouteTableListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter RouteTableListResultIterator) Value() RouteTable {
-	if !iter.page.NotDone() {
-		return RouteTable{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (rtlr RouteTableListResult) IsEmpty() bool {
-	return rtlr.Value == nil || len(*rtlr.Value) == 0
-}
-
-// routeTableListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (rtlr RouteTableListResult) routeTableListResultPreparer() (*http.Request, error) {
-	if rtlr.NextLink == nil || len(to.String(rtlr.NextLink)) < 1 {
+// RouteTableListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client RouteTableListResult) RouteTableListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(rtlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// RouteTableListResultPage contains a page of RouteTable values.
-type RouteTableListResultPage struct {
-	fn   func(RouteTableListResult) (RouteTableListResult, error)
-	rtlr RouteTableListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *RouteTableListResultPage) Next() error {
-	next, err := page.fn(page.rtlr)
-	if err != nil {
-		return err
-	}
-	page.rtlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page RouteTableListResultPage) NotDone() bool {
-	return !page.rtlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page RouteTableListResultPage) Response() RouteTableListResult {
-	return page.rtlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page RouteTableListResultPage) Values() []RouteTable {
-	if page.rtlr.IsEmpty() {
-		return nil
-	}
-	return *page.rtlr.Value
-}
-
-// RouteTablePropertiesFormat route Table resource
+// RouteTablePropertiesFormat is route Table resource
 type RouteTablePropertiesFormat struct {
-	// Routes - Gets or sets Routes in a Route Table
-	Routes *[]Route `json:"routes,omitempty"`
-	// Subnets - Gets collection of references to subnets
-	Subnets *[]Subnet `json:"subnets,omitempty"`
-	// ProvisioningState - Gets provisioning state of the resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Routes            *[]Route  `json:"routes,omitempty"`
+	Subnets           *[]Subnet `json:"subnets,omitempty"`
+	ProvisioningState *string   `json:"provisioningState,omitempty"`
 }
 
-// RouteTablesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type RouteTablesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future RouteTablesCreateOrUpdateFuture) Result(client RouteTablesClient) (rt RouteTable, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return rt, autorest.NewError("network.RouteTablesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		rt, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	rt, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// RouteTablesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type RouteTablesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future RouteTablesDeleteFuture) Result(client RouteTablesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.RouteTablesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// SecurityGroup networkSecurityGroup resource
+// SecurityGroup is networkSecurityGroup resource
 type SecurityGroup struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response              `json:"-"`
+	ID                             *string             `json:"id,omitempty"`
+	Name                           *string             `json:"name,omitempty"`
+	Type                           *string             `json:"type,omitempty"`
+	Location                       *string             `json:"location,omitempty"`
 	Tags                           *map[string]*string `json:"tags,omitempty"`
 	*SecurityGroupPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                           *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SecurityGroup struct.
-func (sg *SecurityGroup) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SecurityGroupPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sg.SecurityGroupPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		sg.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sg.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sg.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		sg.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		sg.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		sg.Tags = &tags
-	}
-
-	return nil
-}
-
-// SecurityGroupListResult response for ListNetworkSecurityGroups Api service call
+// SecurityGroupListResult is response for ListNetworkSecurityGroups Api service call
 type SecurityGroupListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of NetworkSecurityGroups
-	Value *[]SecurityGroup `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SecurityGroup `json:"value,omitempty"`
+	NextLink          *string          `json:"nextLink,omitempty"`
 }
 
-// SecurityGroupListResultIterator provides access to a complete listing of SecurityGroup values.
-type SecurityGroupListResultIterator struct {
-	i    int
-	page SecurityGroupListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SecurityGroupListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SecurityGroupListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SecurityGroupListResultIterator) Response() SecurityGroupListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SecurityGroupListResultIterator) Value() SecurityGroup {
-	if !iter.page.NotDone() {
-		return SecurityGroup{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sglr SecurityGroupListResult) IsEmpty() bool {
-	return sglr.Value == nil || len(*sglr.Value) == 0
-}
-
-// securityGroupListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sglr SecurityGroupListResult) securityGroupListResultPreparer() (*http.Request, error) {
-	if sglr.NextLink == nil || len(to.String(sglr.NextLink)) < 1 {
+// SecurityGroupListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SecurityGroupListResult) SecurityGroupListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SecurityGroupListResultPage contains a page of SecurityGroup values.
-type SecurityGroupListResultPage struct {
-	fn   func(SecurityGroupListResult) (SecurityGroupListResult, error)
-	sglr SecurityGroupListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SecurityGroupListResultPage) Next() error {
-	next, err := page.fn(page.sglr)
-	if err != nil {
-		return err
-	}
-	page.sglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SecurityGroupListResultPage) NotDone() bool {
-	return !page.sglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SecurityGroupListResultPage) Response() SecurityGroupListResult {
-	return page.sglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SecurityGroupListResultPage) Values() []SecurityGroup {
-	if page.sglr.IsEmpty() {
-		return nil
-	}
-	return *page.sglr.Value
-}
-
-// SecurityGroupPropertiesFormat network Security Group resource
+// SecurityGroupPropertiesFormat is network Security Group resource
 type SecurityGroupPropertiesFormat struct {
-	// SecurityRules - Gets or sets security rules of network security group
-	SecurityRules *[]SecurityRule `json:"securityRules,omitempty"`
-	// DefaultSecurityRules - Gets or default security rules of network security group
+	SecurityRules        *[]SecurityRule `json:"securityRules,omitempty"`
 	DefaultSecurityRules *[]SecurityRule `json:"defaultSecurityRules,omitempty"`
-	// NetworkInterfaces - Gets collection of references to Network Interfaces
-	NetworkInterfaces *[]Interface `json:"networkInterfaces,omitempty"`
-	// Subnets - Gets collection of references to subnets
-	Subnets *[]Subnet `json:"subnets,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the network security group resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	NetworkInterfaces    *[]Interface    `json:"networkInterfaces,omitempty"`
+	Subnets              *[]Subnet       `json:"subnets,omitempty"`
+	ResourceGUID         *string         `json:"resourceGuid,omitempty"`
+	ProvisioningState    *string         `json:"provisioningState,omitempty"`
 }
 
-// SecurityGroupsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type SecurityGroupsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SecurityGroupsCreateOrUpdateFuture) Result(client SecurityGroupsClient) (sg SecurityGroup, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sg, autorest.NewError("network.SecurityGroupsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sg, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sg, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// SecurityGroupsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SecurityGroupsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SecurityGroupsDeleteFuture) Result(client SecurityGroupsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.SecurityGroupsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// SecurityRule network security rule
+// SecurityRule is network security rule
 type SecurityRule struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
+	autorest.Response             `json:"-"`
 	ID                            *string `json:"id,omitempty"`
 	*SecurityRulePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                          *string `json:"name,omitempty"`
+	Etag                          *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for SecurityRule struct.
-func (sr *SecurityRule) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SecurityRulePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		sr.SecurityRulePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		sr.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		sr.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		sr.ID = &ID
-	}
-
-	return nil
-}
-
-// SecurityRuleListResult response for ListSecurityRule Api service callRetrieves all security rules that belongs to a
-// network security group
+// SecurityRuleListResult is response for ListSecurityRule Api service callRetrieves all security rules that belongs to
+// a network security group
 type SecurityRuleListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets security rules in a network security group
-	Value *[]SecurityRule `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SecurityRule `json:"value,omitempty"`
+	NextLink          *string         `json:"nextLink,omitempty"`
 }
 
-// SecurityRuleListResultIterator provides access to a complete listing of SecurityRule values.
-type SecurityRuleListResultIterator struct {
-	i    int
-	page SecurityRuleListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SecurityRuleListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SecurityRuleListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SecurityRuleListResultIterator) Response() SecurityRuleListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SecurityRuleListResultIterator) Value() SecurityRule {
-	if !iter.page.NotDone() {
-		return SecurityRule{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (srlr SecurityRuleListResult) IsEmpty() bool {
-	return srlr.Value == nil || len(*srlr.Value) == 0
-}
-
-// securityRuleListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (srlr SecurityRuleListResult) securityRuleListResultPreparer() (*http.Request, error) {
-	if srlr.NextLink == nil || len(to.String(srlr.NextLink)) < 1 {
+// SecurityRuleListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SecurityRuleListResult) SecurityRuleListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(srlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SecurityRuleListResultPage contains a page of SecurityRule values.
-type SecurityRuleListResultPage struct {
-	fn   func(SecurityRuleListResult) (SecurityRuleListResult, error)
-	srlr SecurityRuleListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SecurityRuleListResultPage) Next() error {
-	next, err := page.fn(page.srlr)
-	if err != nil {
-		return err
-	}
-	page.srlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SecurityRuleListResultPage) NotDone() bool {
-	return !page.srlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SecurityRuleListResultPage) Response() SecurityRuleListResult {
-	return page.srlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SecurityRuleListResultPage) Values() []SecurityRule {
-	if page.srlr.IsEmpty() {
-		return nil
-	}
-	return *page.srlr.Value
-}
-
-// SecurityRulePropertiesFormat ...
+// SecurityRulePropertiesFormat is
 type SecurityRulePropertiesFormat struct {
-	// Description - Gets or sets a description for this rule. Restricted to 140 chars.
-	Description *string `json:"description,omitempty"`
-	// Protocol - Gets or sets Network protocol this rule applies to. Can be Tcp, Udp or All(*). Possible values include: 'TCP', 'UDP', 'Asterisk'
-	Protocol SecurityRuleProtocol `json:"protocol,omitempty"`
-	// SourcePortRange - Gets or sets Source Port or Range. Integer or range between 0 and 65535. Asterix '*' can also be used to match all ports.
-	SourcePortRange *string `json:"sourcePortRange,omitempty"`
-	// DestinationPortRange - Gets or sets Destination Port or Range. Integer or range between 0 and 65535. Asterix '*' can also be used to match all ports.
-	DestinationPortRange *string `json:"destinationPortRange,omitempty"`
-	// SourceAddressPrefix - Gets or sets source address prefix. CIDR or source IP range. Asterix '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress rule, specifies where network traffic originates from.
-	SourceAddressPrefix *string `json:"sourceAddressPrefix,omitempty"`
-	// DestinationAddressPrefix - Gets or sets destination address prefix. CIDR or source IP range. Asterix '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used.
-	DestinationAddressPrefix *string `json:"destinationAddressPrefix,omitempty"`
-	// Access - Gets or sets network traffic is allowed or denied. Possible values are 'Allow' and 'Deny'. Possible values include: 'Allow', 'Deny'
-	Access SecurityRuleAccess `json:"access,omitempty"`
-	// Priority - Gets or sets the priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the collection. The lower the priority number, the higher the priority of the rule.
-	Priority *int32 `json:"priority,omitempty"`
-	// Direction - Gets or sets the direction of the rule.InBound or Outbound. The direction specifies if rule will be evaluated on incoming or outcoming traffic. Possible values include: 'Inbound', 'Outbound'
-	Direction SecurityRuleDirection `json:"direction,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Description              *string               `json:"description,omitempty"`
+	Protocol                 SecurityRuleProtocol  `json:"protocol,omitempty"`
+	SourcePortRange          *string               `json:"sourcePortRange,omitempty"`
+	DestinationPortRange     *string               `json:"destinationPortRange,omitempty"`
+	SourceAddressPrefix      *string               `json:"sourceAddressPrefix,omitempty"`
+	DestinationAddressPrefix *string               `json:"destinationAddressPrefix,omitempty"`
+	Access                   SecurityRuleAccess    `json:"access,omitempty"`
+	Priority                 *int32                `json:"priority,omitempty"`
+	Direction                SecurityRuleDirection `json:"direction,omitempty"`
+	ProvisioningState        *string               `json:"provisioningState,omitempty"`
 }
 
-// SecurityRulesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type SecurityRulesCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SecurityRulesCreateOrUpdateFuture) Result(client SecurityRulesClient) (sr SecurityRule, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return sr, autorest.NewError("network.SecurityRulesCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		sr, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	sr, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// SecurityRulesDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SecurityRulesDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SecurityRulesDeleteFuture) Result(client SecurityRulesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.SecurityRulesDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// String ...
+// String is
 type String struct {
 	autorest.Response `json:"-"`
 	Value             *string `json:"value,omitempty"`
 }
 
-// Subnet subnet in a VirtualNework resource
+// Subnet is subnet in a VirtualNework resource
 type Subnet struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
+	autorest.Response       `json:"-"`
 	ID                      *string `json:"id,omitempty"`
 	*SubnetPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets or sets the name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                    *string `json:"name,omitempty"`
+	Etag                    *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Subnet struct.
-func (s *Subnet) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties SubnetPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		s.SubnetPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		s.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		s.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		s.ID = &ID
-	}
-
-	return nil
-}
-
-// SubnetListResult response for ListSubnets Api service callRetrieves all subnet that belongs to a virtual network
+// SubnetListResult is response for ListSubnets Api service callRetrieves all subnet that belongs to a virtual network
 type SubnetListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets the subnets in a virtual network
-	Value *[]Subnet `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Subnet `json:"value,omitempty"`
+	NextLink          *string   `json:"nextLink,omitempty"`
 }
 
-// SubnetListResultIterator provides access to a complete listing of Subnet values.
-type SubnetListResultIterator struct {
-	i    int
-	page SubnetListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SubnetListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SubnetListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SubnetListResultIterator) Response() SubnetListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SubnetListResultIterator) Value() Subnet {
-	if !iter.page.NotDone() {
-		return Subnet{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (slr SubnetListResult) IsEmpty() bool {
-	return slr.Value == nil || len(*slr.Value) == 0
-}
-
-// subnetListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (slr SubnetListResult) subnetListResultPreparer() (*http.Request, error) {
-	if slr.NextLink == nil || len(to.String(slr.NextLink)) < 1 {
+// SubnetListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SubnetListResult) SubnetListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(slr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SubnetListResultPage contains a page of Subnet values.
-type SubnetListResultPage struct {
-	fn  func(SubnetListResult) (SubnetListResult, error)
-	slr SubnetListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SubnetListResultPage) Next() error {
-	next, err := page.fn(page.slr)
-	if err != nil {
-		return err
-	}
-	page.slr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SubnetListResultPage) NotDone() bool {
-	return !page.slr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SubnetListResultPage) Response() SubnetListResult {
-	return page.slr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SubnetListResultPage) Values() []Subnet {
-	if page.slr.IsEmpty() {
-		return nil
-	}
-	return *page.slr.Value
-}
-
-// SubnetPropertiesFormat ...
+// SubnetPropertiesFormat is
 type SubnetPropertiesFormat struct {
-	// AddressPrefix - Gets or sets Address prefix for the subnet.
-	AddressPrefix *string `json:"addressPrefix,omitempty"`
-	// NetworkSecurityGroup - Gets or sets the reference of the NetworkSecurityGroup resource
-	NetworkSecurityGroup *SecurityGroup `json:"networkSecurityGroup,omitempty"`
-	// RouteTable - Gets or sets the reference of the RouteTable resource
-	RouteTable *RouteTable `json:"routeTable,omitempty"`
-	// IPConfigurations - Gets array of references to the network interface IP configurations using subnet
-	IPConfigurations *[]IPConfiguration `json:"ipConfigurations,omitempty"`
-	// ResourceNavigationLinks - Gets array of references to the external resources using subnet
+	AddressPrefix           *string                   `json:"addressPrefix,omitempty"`
+	NetworkSecurityGroup    *SecurityGroup            `json:"networkSecurityGroup,omitempty"`
+	RouteTable              *RouteTable               `json:"routeTable,omitempty"`
+	IPConfigurations        *[]IPConfiguration        `json:"ipConfigurations,omitempty"`
 	ResourceNavigationLinks *[]ResourceNavigationLink `json:"resourceNavigationLinks,omitempty"`
-	// ProvisioningState - Gets provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	ProvisioningState       *string                   `json:"provisioningState,omitempty"`
 }
 
-// SubnetsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SubnetsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SubnetsCreateOrUpdateFuture) Result(client SubnetsClient) (s Subnet, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return s, autorest.NewError("network.SubnetsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		s, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	s, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// SubnetsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type SubnetsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future SubnetsDeleteFuture) Result(client SubnetsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.SubnetsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// SubResource ...
+// SubResource is
 type SubResource struct {
-	// ID - Resource Id
 	ID *string `json:"id,omitempty"`
 }
 
-// Usage describes Network Resource Usage.
+// Usage is describes Network Resource Usage.
 type Usage struct {
-	// Unit - Gets or sets an enum describing the unit of measurement.
-	Unit *string `json:"unit,omitempty"`
-	// CurrentValue - Gets or sets the current value of the usage.
-	CurrentValue *int64 `json:"currentValue,omitempty"`
-	// Limit - Gets or sets the limit of usage.
-	Limit *int64 `json:"limit,omitempty"`
-	// Name - Gets or sets the name of the type of usage.
-	Name *UsageName `json:"name,omitempty"`
+	Unit         *string    `json:"unit,omitempty"`
+	CurrentValue *int64     `json:"currentValue,omitempty"`
+	Limit        *int64     `json:"limit,omitempty"`
+	Name         *UsageName `json:"name,omitempty"`
 }
 
-// UsageName the Usage Names.
+// UsageName is the Usage Names.
 type UsageName struct {
-	// Value - Gets or sets a string describing the resource name.
-	Value *string `json:"value,omitempty"`
-	// LocalizedValue - Gets or sets a localized string describing the resource name.
+	Value          *string `json:"value,omitempty"`
 	LocalizedValue *string `json:"localizedValue,omitempty"`
 }
 
-// UsagesListResult the List Usages operation response.
+// UsagesListResult is the List Usages operation response.
 type UsagesListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets or sets the list Network Resource Usages.
-	Value *[]Usage `json:"value,omitempty"`
-	// NextLink - URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Usage `json:"value,omitempty"`
+	NextLink          *string  `json:"nextLink,omitempty"`
 }
 
-// UsagesListResultIterator provides access to a complete listing of Usage values.
-type UsagesListResultIterator struct {
-	i    int
-	page UsagesListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *UsagesListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter UsagesListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter UsagesListResultIterator) Response() UsagesListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter UsagesListResultIterator) Value() Usage {
-	if !iter.page.NotDone() {
-		return Usage{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ulr UsagesListResult) IsEmpty() bool {
-	return ulr.Value == nil || len(*ulr.Value) == 0
-}
-
-// usagesListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ulr UsagesListResult) usagesListResultPreparer() (*http.Request, error) {
-	if ulr.NextLink == nil || len(to.String(ulr.NextLink)) < 1 {
+// UsagesListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client UsagesListResult) UsagesListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ulr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// UsagesListResultPage contains a page of Usage values.
-type UsagesListResultPage struct {
-	fn  func(UsagesListResult) (UsagesListResult, error)
-	ulr UsagesListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *UsagesListResultPage) Next() error {
-	next, err := page.fn(page.ulr)
-	if err != nil {
-		return err
-	}
-	page.ulr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page UsagesListResultPage) NotDone() bool {
-	return !page.ulr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page UsagesListResultPage) Response() UsagesListResult {
-	return page.ulr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page UsagesListResultPage) Values() []Usage {
-	if page.ulr.IsEmpty() {
-		return nil
-	}
-	return *page.ulr.Value
-}
-
-// VirtualNetwork virtual Network resource
+// VirtualNetwork is virtual Network resource
 type VirtualNetwork struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response               `json:"-"`
+	ID                              *string             `json:"id,omitempty"`
+	Name                            *string             `json:"name,omitempty"`
+	Type                            *string             `json:"type,omitempty"`
+	Location                        *string             `json:"location,omitempty"`
 	Tags                            *map[string]*string `json:"tags,omitempty"`
 	*VirtualNetworkPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                            *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VirtualNetwork struct.
-func (vn *VirtualNetwork) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VirtualNetworkPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vn.VirtualNetworkPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		vn.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vn.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vn.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		vn.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		vn.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		vn.Tags = &tags
-	}
-
-	return nil
-}
-
-// VirtualNetworkGateway a common class for general resource information
+// VirtualNetworkGateway is a common class for general resource information
 type VirtualNetworkGateway struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response                      `json:"-"`
+	ID                                     *string             `json:"id,omitempty"`
+	Name                                   *string             `json:"name,omitempty"`
+	Type                                   *string             `json:"type,omitempty"`
+	Location                               *string             `json:"location,omitempty"`
 	Tags                                   *map[string]*string `json:"tags,omitempty"`
 	*VirtualNetworkGatewayPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                                   *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VirtualNetworkGateway struct.
-func (vng *VirtualNetworkGateway) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VirtualNetworkGatewayPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vng.VirtualNetworkGatewayPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		vng.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vng.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vng.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		vng.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		vng.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		vng.Tags = &tags
-	}
-
-	return nil
-}
-
-// VirtualNetworkGatewayConnection a common class for general resource information
+// VirtualNetworkGatewayConnection is a common class for general resource information
 type VirtualNetworkGatewayConnection struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
-	ID *string `json:"id,omitempty"`
-	// Name - Resource name
-	Name *string `json:"name,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
-	// Location - Resource location
-	Location *string `json:"location,omitempty"`
-	// Tags - Resource tags
+	autorest.Response                                `json:"-"`
+	ID                                               *string             `json:"id,omitempty"`
+	Name                                             *string             `json:"name,omitempty"`
+	Type                                             *string             `json:"type,omitempty"`
+	Location                                         *string             `json:"location,omitempty"`
 	Tags                                             *map[string]*string `json:"tags,omitempty"`
 	*VirtualNetworkGatewayConnectionPropertiesFormat `json:"properties,omitempty"`
-	// Etag - Gets a unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Etag                                             *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VirtualNetworkGatewayConnection struct.
-func (vngc *VirtualNetworkGatewayConnection) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VirtualNetworkGatewayConnectionPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vngc.VirtualNetworkGatewayConnectionPropertiesFormat = &properties
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		vngc.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vngc.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vngc.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		vngc.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		vngc.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		vngc.Tags = &tags
-	}
-
-	return nil
-}
-
-// VirtualNetworkGatewayConnectionListResult response for ListVirtualNetworkGatewayConnections Api service call
+// VirtualNetworkGatewayConnectionListResult is response for ListVirtualNetworkGatewayConnections Api service call
 type VirtualNetworkGatewayConnectionListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of VirtualNetworkGatewayConnections that exists in a resource group
-	Value *[]VirtualNetworkGatewayConnection `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]VirtualNetworkGatewayConnection `json:"value,omitempty"`
+	NextLink          *string                            `json:"nextLink,omitempty"`
 }
 
-// VirtualNetworkGatewayConnectionListResultIterator provides access to a complete listing of
-// VirtualNetworkGatewayConnection values.
-type VirtualNetworkGatewayConnectionListResultIterator struct {
-	i    int
-	page VirtualNetworkGatewayConnectionListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *VirtualNetworkGatewayConnectionListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter VirtualNetworkGatewayConnectionListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter VirtualNetworkGatewayConnectionListResultIterator) Response() VirtualNetworkGatewayConnectionListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter VirtualNetworkGatewayConnectionListResultIterator) Value() VirtualNetworkGatewayConnection {
-	if !iter.page.NotDone() {
-		return VirtualNetworkGatewayConnection{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (vngclr VirtualNetworkGatewayConnectionListResult) IsEmpty() bool {
-	return vngclr.Value == nil || len(*vngclr.Value) == 0
-}
-
-// virtualNetworkGatewayConnectionListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (vngclr VirtualNetworkGatewayConnectionListResult) virtualNetworkGatewayConnectionListResultPreparer() (*http.Request, error) {
-	if vngclr.NextLink == nil || len(to.String(vngclr.NextLink)) < 1 {
+// VirtualNetworkGatewayConnectionListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client VirtualNetworkGatewayConnectionListResult) VirtualNetworkGatewayConnectionListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(vngclr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// VirtualNetworkGatewayConnectionListResultPage contains a page of VirtualNetworkGatewayConnection values.
-type VirtualNetworkGatewayConnectionListResultPage struct {
-	fn     func(VirtualNetworkGatewayConnectionListResult) (VirtualNetworkGatewayConnectionListResult, error)
-	vngclr VirtualNetworkGatewayConnectionListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *VirtualNetworkGatewayConnectionListResultPage) Next() error {
-	next, err := page.fn(page.vngclr)
-	if err != nil {
-		return err
-	}
-	page.vngclr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page VirtualNetworkGatewayConnectionListResultPage) NotDone() bool {
-	return !page.vngclr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page VirtualNetworkGatewayConnectionListResultPage) Response() VirtualNetworkGatewayConnectionListResult {
-	return page.vngclr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page VirtualNetworkGatewayConnectionListResultPage) Values() []VirtualNetworkGatewayConnection {
-	if page.vngclr.IsEmpty() {
-		return nil
-	}
-	return *page.vngclr.Value
-}
-
-// VirtualNetworkGatewayConnectionPropertiesFormat virtualNetworkGatewayConnection properties
+// VirtualNetworkGatewayConnectionPropertiesFormat is virtualNetworkGatewayConnection properties
 type VirtualNetworkGatewayConnectionPropertiesFormat struct {
-	// AuthorizationKey - The authorizationKey.
-	AuthorizationKey       *string                `json:"authorizationKey,omitempty"`
-	VirtualNetworkGateway1 *VirtualNetworkGateway `json:"virtualNetworkGateway1,omitempty"`
-	VirtualNetworkGateway2 *VirtualNetworkGateway `json:"virtualNetworkGateway2,omitempty"`
-	LocalNetworkGateway2   *LocalNetworkGateway   `json:"localNetworkGateway2,omitempty"`
-	// ConnectionType - Gateway connection type -Ipsec/Dedicated/VpnClient/Vnet2Vnet. Possible values include: 'IPsec', 'Vnet2Vnet', 'ExpressRoute', 'VPNClient'
-	ConnectionType VirtualNetworkGatewayConnectionType `json:"connectionType,omitempty"`
-	// RoutingWeight - The Routing weight.
-	RoutingWeight *int32 `json:"routingWeight,omitempty"`
-	// SharedKey - The Ipsec share key.
-	SharedKey *string `json:"sharedKey,omitempty"`
-	// ConnectionStatus - Virtual network Gateway connection status. Possible values include: 'Unknown', 'Connecting', 'Connected', 'NotConnected'
-	ConnectionStatus VirtualNetworkGatewayConnectionStatus `json:"connectionStatus,omitempty"`
-	// EgressBytesTransferred - The Egress Bytes Transferred in this connection
-	EgressBytesTransferred *int64 `json:"egressBytesTransferred,omitempty"`
-	// IngressBytesTransferred - The Ingress Bytes Transferred in this connection
-	IngressBytesTransferred *int64 `json:"ingressBytesTransferred,omitempty"`
-	// Peer - The reference to peerings resource.
-	Peer *SubResource `json:"peer,omitempty"`
-	// EnableBgp - EnableBgp Flag
-	EnableBgp *bool `json:"enableBgp,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the VirtualNetworkGatewayConnection resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the VirtualNetworkGatewayConnection resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	AuthorizationKey        *string                               `json:"authorizationKey,omitempty"`
+	VirtualNetworkGateway1  *VirtualNetworkGateway                `json:"virtualNetworkGateway1,omitempty"`
+	VirtualNetworkGateway2  *VirtualNetworkGateway                `json:"virtualNetworkGateway2,omitempty"`
+	LocalNetworkGateway2    *LocalNetworkGateway                  `json:"localNetworkGateway2,omitempty"`
+	ConnectionType          VirtualNetworkGatewayConnectionType   `json:"connectionType,omitempty"`
+	RoutingWeight           *int32                                `json:"routingWeight,omitempty"`
+	SharedKey               *string                               `json:"sharedKey,omitempty"`
+	ConnectionStatus        VirtualNetworkGatewayConnectionStatus `json:"connectionStatus,omitempty"`
+	EgressBytesTransferred  *int64                                `json:"egressBytesTransferred,omitempty"`
+	IngressBytesTransferred *int64                                `json:"ingressBytesTransferred,omitempty"`
+	Peer                    *SubResource                          `json:"peer,omitempty"`
+	EnableBgp               *bool                                 `json:"enableBgp,omitempty"`
+	ResourceGUID            *string                               `json:"resourceGuid,omitempty"`
+	ProvisioningState       *string                               `json:"provisioningState,omitempty"`
 }
 
-// VirtualNetworkGatewayConnectionsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type VirtualNetworkGatewayConnectionsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkGatewayConnectionsCreateOrUpdateFuture) Result(client VirtualNetworkGatewayConnectionsClient) (vngc VirtualNetworkGatewayConnection, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return vngc, autorest.NewError("network.VirtualNetworkGatewayConnectionsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		vngc, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	vngc, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// VirtualNetworkGatewayConnectionsDeleteFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type VirtualNetworkGatewayConnectionsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkGatewayConnectionsDeleteFuture) Result(client VirtualNetworkGatewayConnectionsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.VirtualNetworkGatewayConnectionsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// VirtualNetworkGatewayConnectionsResetSharedKeyFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type VirtualNetworkGatewayConnectionsResetSharedKeyFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkGatewayConnectionsResetSharedKeyFuture) Result(client VirtualNetworkGatewayConnectionsClient) (crsk ConnectionResetSharedKey, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return crsk, autorest.NewError("network.VirtualNetworkGatewayConnectionsResetSharedKeyFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		crsk, err = client.ResetSharedKeyResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	crsk, err = client.ResetSharedKeyResponder(resp)
-	return
-}
-
-// VirtualNetworkGatewayConnectionsSetSharedKeyFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type VirtualNetworkGatewayConnectionsSetSharedKeyFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkGatewayConnectionsSetSharedKeyFuture) Result(client VirtualNetworkGatewayConnectionsClient) (csk ConnectionSharedKey, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return csk, autorest.NewError("network.VirtualNetworkGatewayConnectionsSetSharedKeyFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		csk, err = client.SetSharedKeyResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	csk, err = client.SetSharedKeyResponder(resp)
-	return
-}
-
-// VirtualNetworkGatewayIPConfiguration ipConfiguration for Virtual network gateway
+// VirtualNetworkGatewayIPConfiguration is ipConfiguration for Virtual network gateway
 type VirtualNetworkGatewayIPConfiguration struct {
-	// ID - Resource Id
 	ID                                                    *string `json:"id,omitempty"`
 	*VirtualNetworkGatewayIPConfigurationPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                                  *string `json:"name,omitempty"`
+	Etag                                                  *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VirtualNetworkGatewayIPConfiguration struct.
-func (vngic *VirtualNetworkGatewayIPConfiguration) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VirtualNetworkGatewayIPConfigurationPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vngic.VirtualNetworkGatewayIPConfigurationPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vngic.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		vngic.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vngic.ID = &ID
-	}
-
-	return nil
-}
-
-// VirtualNetworkGatewayIPConfigurationPropertiesFormat properties of VirtualNetworkGatewayIPConfiguration
+// VirtualNetworkGatewayIPConfigurationPropertiesFormat is properties of VirtualNetworkGatewayIPConfiguration
 type VirtualNetworkGatewayIPConfigurationPropertiesFormat struct {
-	// PrivateIPAllocationMethod - Gets or sets PrivateIP allocation method. Possible values include: 'Static', 'Dynamic'
 	PrivateIPAllocationMethod IPAllocationMethod `json:"privateIPAllocationMethod,omitempty"`
-	// Subnet - Gets or sets the reference of the subnet resource
-	Subnet *SubResource `json:"subnet,omitempty"`
-	// PublicIPAddress - Gets or sets the reference of the PublicIP resource
-	PublicIPAddress *SubResource `json:"publicIPAddress,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	Subnet                    *SubResource       `json:"subnet,omitempty"`
+	PublicIPAddress           *SubResource       `json:"publicIPAddress,omitempty"`
+	ProvisioningState         *string            `json:"provisioningState,omitempty"`
 }
 
-// VirtualNetworkGatewayListResult response for ListVirtualNetworkGateways Api service call
+// VirtualNetworkGatewayListResult is response for ListVirtualNetworkGateways Api service call
 type VirtualNetworkGatewayListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets List of VirtualNetworkGateways that exists in a resource group
-	Value *[]VirtualNetworkGateway `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]VirtualNetworkGateway `json:"value,omitempty"`
+	NextLink          *string                  `json:"nextLink,omitempty"`
 }
 
-// VirtualNetworkGatewayListResultIterator provides access to a complete listing of VirtualNetworkGateway values.
-type VirtualNetworkGatewayListResultIterator struct {
-	i    int
-	page VirtualNetworkGatewayListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *VirtualNetworkGatewayListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter VirtualNetworkGatewayListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter VirtualNetworkGatewayListResultIterator) Response() VirtualNetworkGatewayListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter VirtualNetworkGatewayListResultIterator) Value() VirtualNetworkGateway {
-	if !iter.page.NotDone() {
-		return VirtualNetworkGateway{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (vnglr VirtualNetworkGatewayListResult) IsEmpty() bool {
-	return vnglr.Value == nil || len(*vnglr.Value) == 0
-}
-
-// virtualNetworkGatewayListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (vnglr VirtualNetworkGatewayListResult) virtualNetworkGatewayListResultPreparer() (*http.Request, error) {
-	if vnglr.NextLink == nil || len(to.String(vnglr.NextLink)) < 1 {
+// VirtualNetworkGatewayListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client VirtualNetworkGatewayListResult) VirtualNetworkGatewayListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(vnglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// VirtualNetworkGatewayListResultPage contains a page of VirtualNetworkGateway values.
-type VirtualNetworkGatewayListResultPage struct {
-	fn    func(VirtualNetworkGatewayListResult) (VirtualNetworkGatewayListResult, error)
-	vnglr VirtualNetworkGatewayListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *VirtualNetworkGatewayListResultPage) Next() error {
-	next, err := page.fn(page.vnglr)
-	if err != nil {
-		return err
-	}
-	page.vnglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page VirtualNetworkGatewayListResultPage) NotDone() bool {
-	return !page.vnglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page VirtualNetworkGatewayListResultPage) Response() VirtualNetworkGatewayListResult {
-	return page.vnglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page VirtualNetworkGatewayListResultPage) Values() []VirtualNetworkGateway {
-	if page.vnglr.IsEmpty() {
-		return nil
-	}
-	return *page.vnglr.Value
-}
-
-// VirtualNetworkGatewayPropertiesFormat virtualNetworkGateway properties
+// VirtualNetworkGatewayPropertiesFormat is virtualNetworkGateway properties
 type VirtualNetworkGatewayPropertiesFormat struct {
-	// IPConfigurations - IpConfigurations for Virtual network gateway.
-	IPConfigurations *[]VirtualNetworkGatewayIPConfiguration `json:"ipConfigurations,omitempty"`
-	// GatewayType - The type of this virtual network gateway. Possible values include: 'VirtualNetworkGatewayTypeVpn', 'VirtualNetworkGatewayTypeExpressRoute'
-	GatewayType VirtualNetworkGatewayType `json:"gatewayType,omitempty"`
-	// VpnType - The type of this virtual network gateway. Possible values include: 'PolicyBased', 'RouteBased'
-	VpnType VpnType `json:"vpnType,omitempty"`
-	// EnableBgp - EnableBgp Flag
-	EnableBgp *bool `json:"enableBgp,omitempty"`
-	// ActiveActive - ActiveActive flag
-	ActiveActive *bool `json:"activeActive,omitempty"`
-	// GatewayDefaultSite - Gets or sets the reference of the LocalNetworkGateway resource which represents Local network site having default routes. Assign Null value in case of removing existing default site setting.
-	GatewayDefaultSite *SubResource `json:"gatewayDefaultSite,omitempty"`
-	// Sku - Gets or sets the reference of the VirtualNetworkGatewaySku resource which represents the sku selected for Virtual network gateway.
-	Sku *VirtualNetworkGatewaySku `json:"sku,omitempty"`
-	// VpnClientConfiguration - Gets or sets the reference of the VpnClientConfiguration resource which represents the P2S VpnClient configurations.
-	VpnClientConfiguration *VpnClientConfiguration `json:"vpnClientConfiguration,omitempty"`
-	// BgpSettings - Virtual network gateway's BGP speaker settings
-	BgpSettings *BgpSettings `json:"bgpSettings,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the VirtualNetworkGateway resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the VirtualNetworkGateway resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	IPConfigurations       *[]VirtualNetworkGatewayIPConfiguration `json:"ipConfigurations,omitempty"`
+	GatewayType            VirtualNetworkGatewayType               `json:"gatewayType,omitempty"`
+	VpnType                VpnType                                 `json:"vpnType,omitempty"`
+	EnableBgp              *bool                                   `json:"enableBgp,omitempty"`
+	ActiveActive           *bool                                   `json:"activeActive,omitempty"`
+	GatewayDefaultSite     *SubResource                            `json:"gatewayDefaultSite,omitempty"`
+	Sku                    *VirtualNetworkGatewaySku               `json:"sku,omitempty"`
+	VpnClientConfiguration *VpnClientConfiguration                 `json:"vpnClientConfiguration,omitempty"`
+	BgpSettings            *BgpSettings                            `json:"bgpSettings,omitempty"`
+	ResourceGUID           *string                                 `json:"resourceGuid,omitempty"`
+	ProvisioningState      *string                                 `json:"provisioningState,omitempty"`
 }
 
-// VirtualNetworkGatewaysCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type VirtualNetworkGatewaysCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkGatewaysCreateOrUpdateFuture) Result(client VirtualNetworkGatewaysClient) (vng VirtualNetworkGateway, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return vng, autorest.NewError("network.VirtualNetworkGatewaysCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		vng, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	vng, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// VirtualNetworkGatewaysDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type VirtualNetworkGatewaysDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkGatewaysDeleteFuture) Result(client VirtualNetworkGatewaysClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.VirtualNetworkGatewaysDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// VirtualNetworkGatewaySku virtualNetworkGatewaySku details
+// VirtualNetworkGatewaySku is virtualNetworkGatewaySku details
 type VirtualNetworkGatewaySku struct {
-	// Name - Gateway sku name -Basic/HighPerformance/Standard/UltraPerformance. Possible values include: 'VirtualNetworkGatewaySkuNameBasic', 'VirtualNetworkGatewaySkuNameHighPerformance', 'VirtualNetworkGatewaySkuNameStandard', 'VirtualNetworkGatewaySkuNameUltraPerformance'
-	Name VirtualNetworkGatewaySkuName `json:"name,omitempty"`
-	// Tier - Gateway sku tier -Basic/HighPerformance/Standard/UltraPerformance. Possible values include: 'VirtualNetworkGatewaySkuTierBasic', 'VirtualNetworkGatewaySkuTierHighPerformance', 'VirtualNetworkGatewaySkuTierStandard', 'VirtualNetworkGatewaySkuTierUltraPerformance'
-	Tier VirtualNetworkGatewaySkuTier `json:"tier,omitempty"`
-	// Capacity - The capacity
-	Capacity *int32 `json:"capacity,omitempty"`
+	Name     VirtualNetworkGatewaySkuName `json:"name,omitempty"`
+	Tier     VirtualNetworkGatewaySkuTier `json:"tier,omitempty"`
+	Capacity *int32                       `json:"capacity,omitempty"`
 }
 
-// VirtualNetworkGatewaysResetFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type VirtualNetworkGatewaysResetFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkGatewaysResetFuture) Result(client VirtualNetworkGatewaysClient) (vng VirtualNetworkGateway, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return vng, autorest.NewError("network.VirtualNetworkGatewaysResetFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		vng, err = client.ResetResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	vng, err = client.ResetResponder(resp)
-	return
-}
-
-// VirtualNetworkListResult response for ListVirtualNetworks Api service call
+// VirtualNetworkListResult is response for ListVirtualNetworks Api service call
 type VirtualNetworkListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets list of VirtualNetworks in a resource group
-	Value *[]VirtualNetwork `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]VirtualNetwork `json:"value,omitempty"`
+	NextLink          *string           `json:"nextLink,omitempty"`
 }
 
-// VirtualNetworkListResultIterator provides access to a complete listing of VirtualNetwork values.
-type VirtualNetworkListResultIterator struct {
-	i    int
-	page VirtualNetworkListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *VirtualNetworkListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter VirtualNetworkListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter VirtualNetworkListResultIterator) Response() VirtualNetworkListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter VirtualNetworkListResultIterator) Value() VirtualNetwork {
-	if !iter.page.NotDone() {
-		return VirtualNetwork{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (vnlr VirtualNetworkListResult) IsEmpty() bool {
-	return vnlr.Value == nil || len(*vnlr.Value) == 0
-}
-
-// virtualNetworkListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (vnlr VirtualNetworkListResult) virtualNetworkListResultPreparer() (*http.Request, error) {
-	if vnlr.NextLink == nil || len(to.String(vnlr.NextLink)) < 1 {
+// VirtualNetworkListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client VirtualNetworkListResult) VirtualNetworkListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(vnlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// VirtualNetworkListResultPage contains a page of VirtualNetwork values.
-type VirtualNetworkListResultPage struct {
-	fn   func(VirtualNetworkListResult) (VirtualNetworkListResult, error)
-	vnlr VirtualNetworkListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *VirtualNetworkListResultPage) Next() error {
-	next, err := page.fn(page.vnlr)
-	if err != nil {
-		return err
-	}
-	page.vnlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page VirtualNetworkListResultPage) NotDone() bool {
-	return !page.vnlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page VirtualNetworkListResultPage) Response() VirtualNetworkListResult {
-	return page.vnlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page VirtualNetworkListResultPage) Values() []VirtualNetwork {
-	if page.vnlr.IsEmpty() {
-		return nil
-	}
-	return *page.vnlr.Value
-}
-
-// VirtualNetworkPeering peerings in a VirtualNework resource
+// VirtualNetworkPeering is peerings in a VirtualNework resource
 type VirtualNetworkPeering struct {
-	autorest.Response `json:"-"`
-	// ID - Resource Id
+	autorest.Response                      `json:"-"`
 	ID                                     *string `json:"id,omitempty"`
 	*VirtualNetworkPeeringPropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets or sets the name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                   *string `json:"name,omitempty"`
+	Etag                                   *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VirtualNetworkPeering struct.
-func (vnp *VirtualNetworkPeering) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VirtualNetworkPeeringPropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vnp.VirtualNetworkPeeringPropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vnp.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		vnp.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vnp.ID = &ID
-	}
-
-	return nil
-}
-
-// VirtualNetworkPeeringListResult response for ListSubnets Api service callRetrieves all subnet that belongs to a
+// VirtualNetworkPeeringListResult is response for ListSubnets Api service callRetrieves all subnet that belongs to a
 // virtual network
 type VirtualNetworkPeeringListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets the peerings in a virtual network
-	Value *[]VirtualNetworkPeering `json:"value,omitempty"`
-	// NextLink - Gets the URL to get the next set of results.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]VirtualNetworkPeering `json:"value,omitempty"`
+	NextLink          *string                  `json:"nextLink,omitempty"`
 }
 
-// VirtualNetworkPeeringListResultIterator provides access to a complete listing of VirtualNetworkPeering values.
-type VirtualNetworkPeeringListResultIterator struct {
-	i    int
-	page VirtualNetworkPeeringListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *VirtualNetworkPeeringListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter VirtualNetworkPeeringListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter VirtualNetworkPeeringListResultIterator) Response() VirtualNetworkPeeringListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter VirtualNetworkPeeringListResultIterator) Value() VirtualNetworkPeering {
-	if !iter.page.NotDone() {
-		return VirtualNetworkPeering{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (vnplr VirtualNetworkPeeringListResult) IsEmpty() bool {
-	return vnplr.Value == nil || len(*vnplr.Value) == 0
-}
-
-// virtualNetworkPeeringListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (vnplr VirtualNetworkPeeringListResult) virtualNetworkPeeringListResultPreparer() (*http.Request, error) {
-	if vnplr.NextLink == nil || len(to.String(vnplr.NextLink)) < 1 {
+// VirtualNetworkPeeringListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client VirtualNetworkPeeringListResult) VirtualNetworkPeeringListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(vnplr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// VirtualNetworkPeeringListResultPage contains a page of VirtualNetworkPeering values.
-type VirtualNetworkPeeringListResultPage struct {
-	fn    func(VirtualNetworkPeeringListResult) (VirtualNetworkPeeringListResult, error)
-	vnplr VirtualNetworkPeeringListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *VirtualNetworkPeeringListResultPage) Next() error {
-	next, err := page.fn(page.vnplr)
-	if err != nil {
-		return err
-	}
-	page.vnplr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page VirtualNetworkPeeringListResultPage) NotDone() bool {
-	return !page.vnplr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page VirtualNetworkPeeringListResultPage) Response() VirtualNetworkPeeringListResult {
-	return page.vnplr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page VirtualNetworkPeeringListResultPage) Values() []VirtualNetworkPeering {
-	if page.vnplr.IsEmpty() {
-		return nil
-	}
-	return *page.vnplr.Value
-}
-
-// VirtualNetworkPeeringPropertiesFormat ...
+// VirtualNetworkPeeringPropertiesFormat is
 type VirtualNetworkPeeringPropertiesFormat struct {
-	// AllowVirtualNetworkAccess - Gets or sets whether the VMs in the linked virtual network space would be able to access all the VMs in local Virtual network space
-	AllowVirtualNetworkAccess *bool `json:"allowVirtualNetworkAccess,omitempty"`
-	// AllowForwardedTraffic - Gets or sets whether the forwarded traffic from the VMs in the remote virtual network will be allowed/disallowed
-	AllowForwardedTraffic *bool `json:"allowForwardedTraffic,omitempty"`
-	// AllowGatewayTransit - Gets or sets if gatewayLinks can be used in remote virtual network’s link to this virtual network
-	AllowGatewayTransit *bool `json:"allowGatewayTransit,omitempty"`
-	// UseRemoteGateways - Gets or sets if remote gateways can be used on this virtual network. If the flag is set to true, and allowGatewayTransit on remote peering is also true, virtual network will use gateways of remote virtual network for transit. Only 1 peering can have this flag set to true. This flag cannot be set if virtual network already has a gateway.
-	UseRemoteGateways *bool `json:"useRemoteGateways,omitempty"`
-	// RemoteVirtualNetwork - Gets or sets the reference of the remote virtual network
-	RemoteVirtualNetwork *SubResource `json:"remoteVirtualNetwork,omitempty"`
-	// PeeringState - Gets the status of the virtual network peering. Possible values include: 'VirtualNetworkPeeringStateInitiated', 'VirtualNetworkPeeringStateConnected', 'VirtualNetworkPeeringStateDisconnected'
-	PeeringState VirtualNetworkPeeringState `json:"peeringState,omitempty"`
-	// ProvisioningState - Gets provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	AllowVirtualNetworkAccess *bool                      `json:"allowVirtualNetworkAccess,omitempty"`
+	AllowForwardedTraffic     *bool                      `json:"allowForwardedTraffic,omitempty"`
+	AllowGatewayTransit       *bool                      `json:"allowGatewayTransit,omitempty"`
+	UseRemoteGateways         *bool                      `json:"useRemoteGateways,omitempty"`
+	RemoteVirtualNetwork      *SubResource               `json:"remoteVirtualNetwork,omitempty"`
+	PeeringState              VirtualNetworkPeeringState `json:"peeringState,omitempty"`
+	ProvisioningState         *string                    `json:"provisioningState,omitempty"`
 }
 
-// VirtualNetworkPeeringsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
-// long-running operation.
-type VirtualNetworkPeeringsCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkPeeringsCreateOrUpdateFuture) Result(client VirtualNetworkPeeringsClient) (vnp VirtualNetworkPeering, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return vnp, autorest.NewError("network.VirtualNetworkPeeringsCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		vnp, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	vnp, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// VirtualNetworkPeeringsDeleteFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type VirtualNetworkPeeringsDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworkPeeringsDeleteFuture) Result(client VirtualNetworkPeeringsClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.VirtualNetworkPeeringsDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// VirtualNetworkPropertiesFormat ...
+// VirtualNetworkPropertiesFormat is
 type VirtualNetworkPropertiesFormat struct {
-	// AddressSpace - Gets or sets AddressSpace that contains an array of IP address ranges that can be used by subnets
-	AddressSpace *AddressSpace `json:"addressSpace,omitempty"`
-	// DhcpOptions - Gets or sets DHCPOptions that contains an array of DNS servers available to VMs deployed in the virtual network
-	DhcpOptions *DhcpOptions `json:"dhcpOptions,omitempty"`
-	// Subnets - Gets or sets list of subnets in a VirtualNetwork
-	Subnets *[]Subnet `json:"subnets,omitempty"`
-	// VirtualNetworkPeerings - Gets or sets list of peerings in a VirtualNetwork
+	AddressSpace           *AddressSpace            `json:"addressSpace,omitempty"`
+	DhcpOptions            *DhcpOptions             `json:"dhcpOptions,omitempty"`
+	Subnets                *[]Subnet                `json:"subnets,omitempty"`
 	VirtualNetworkPeerings *[]VirtualNetworkPeering `json:"VirtualNetworkPeerings,omitempty"`
-	// ResourceGUID - Gets or sets resource guid property of the VirtualNetwork resource
-	ResourceGUID *string `json:"resourceGuid,omitempty"`
-	// ProvisioningState - Gets provisioning state of the PublicIP resource Updating/Deleting/Failed
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	ResourceGUID           *string                  `json:"resourceGuid,omitempty"`
+	ProvisioningState      *string                  `json:"provisioningState,omitempty"`
 }
 
-// VirtualNetworksCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type VirtualNetworksCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworksCreateOrUpdateFuture) Result(client VirtualNetworksClient) (vn VirtualNetwork, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return vn, autorest.NewError("network.VirtualNetworksCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		vn, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	vn, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// VirtualNetworksDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type VirtualNetworksDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future VirtualNetworksDeleteFuture) Result(client VirtualNetworksClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ar, autorest.NewError("network.VirtualNetworksDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ar, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ar, err = client.DeleteResponder(resp)
-	return
-}
-
-// VpnClientConfiguration vpnClientConfiguration for P2S client
+// VpnClientConfiguration is vpnClientConfiguration for P2S client
 type VpnClientConfiguration struct {
-	// VpnClientAddressPool - Gets or sets the reference of the Address space resource which represents Address space for P2S VpnClient.
-	VpnClientAddressPool *AddressSpace `json:"vpnClientAddressPool,omitempty"`
-	// VpnClientRootCertificates - VpnClientRootCertificate for Virtual network gateway.
-	VpnClientRootCertificates *[]VpnClientRootCertificate `json:"vpnClientRootCertificates,omitempty"`
-	// VpnClientRevokedCertificates - VpnClientRevokedCertificate for Virtual network gateway.
+	VpnClientAddressPool         *AddressSpace                  `json:"vpnClientAddressPool,omitempty"`
+	VpnClientRootCertificates    *[]VpnClientRootCertificate    `json:"vpnClientRootCertificates,omitempty"`
 	VpnClientRevokedCertificates *[]VpnClientRevokedCertificate `json:"vpnClientRevokedCertificates,omitempty"`
 }
 
-// VpnClientParameters vpnClientParameters
+// VpnClientParameters is vpnClientParameters
 type VpnClientParameters struct {
-	// ProcessorArchitecture - VPN client Processor Architecture -Amd64/X86. Possible values include: 'Amd64', 'X86'
 	ProcessorArchitecture ProcessorArchitecture `json:"ProcessorArchitecture,omitempty"`
 }
 
-// VpnClientRevokedCertificate VPN client revoked certificate of virtual network gateway
+// VpnClientRevokedCertificate is VPN client revoked certificate of virtual network gateway
 type VpnClientRevokedCertificate struct {
-	// ID - Resource Id
 	ID                                           *string `json:"id,omitempty"`
 	*VpnClientRevokedCertificatePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                         *string `json:"name,omitempty"`
+	Etag                                         *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VpnClientRevokedCertificate struct.
-func (vcrc *VpnClientRevokedCertificate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VpnClientRevokedCertificatePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vcrc.VpnClientRevokedCertificatePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vcrc.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		vcrc.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vcrc.ID = &ID
-	}
-
-	return nil
-}
-
-// VpnClientRevokedCertificatePropertiesFormat properties of the revoked VPN client certificate of virtual network
+// VpnClientRevokedCertificatePropertiesFormat is properties of the revoked VPN client certificate of virtual network
 // gateway
 type VpnClientRevokedCertificatePropertiesFormat struct {
-	// Thumbprint - Gets or sets the revoked Vpn client certificate thumbprint
-	Thumbprint *string `json:"thumbprint,omitempty"`
-	// ProvisioningState - Gets provisioning state of the VPN client revoked certificate resource Updating/Deleting/Failed
+	Thumbprint        *string `json:"thumbprint,omitempty"`
 	ProvisioningState *string `json:"provisioningState,omitempty"`
 }
 
-// VpnClientRootCertificate VPN client root certificate of virtual network gateway
+// VpnClientRootCertificate is VPN client root certificate of virtual network gateway
 type VpnClientRootCertificate struct {
-	// ID - Resource Id
 	ID                                        *string `json:"id,omitempty"`
 	*VpnClientRootCertificatePropertiesFormat `json:"properties,omitempty"`
-	// Name - Gets name of the resource that is unique within a resource group. This name can be used to access the resource
-	Name *string `json:"name,omitempty"`
-	// Etag - A unique read-only string that changes whenever the resource is updated
-	Etag *string `json:"etag,omitempty"`
+	Name                                      *string `json:"name,omitempty"`
+	Etag                                      *string `json:"etag,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for VpnClientRootCertificate struct.
-func (vcrc *VpnClientRootCertificate) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties VpnClientRootCertificatePropertiesFormat
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		vcrc.VpnClientRootCertificatePropertiesFormat = &properties
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		vcrc.Name = &name
-	}
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		vcrc.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		vcrc.ID = &ID
-	}
-
-	return nil
-}
-
-// VpnClientRootCertificatePropertiesFormat properties of SSL certificates of application gateway
+// VpnClientRootCertificatePropertiesFormat is properties of SSL certificates of application gateway
 type VpnClientRootCertificatePropertiesFormat struct {
-	// PublicCertData - Gets or sets the certificate public data
-	PublicCertData *string `json:"publicCertData,omitempty"`
-	// ProvisioningState - Gets provisioning state of the VPN client root certificate resource Updating/Deleting/Failed
+	PublicCertData    *string `json:"publicCertData,omitempty"`
 	ProvisioningState *string `json:"provisioningState,omitempty"`
 }

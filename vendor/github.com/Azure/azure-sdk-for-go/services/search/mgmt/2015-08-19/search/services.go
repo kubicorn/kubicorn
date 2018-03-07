@@ -18,7 +18,6 @@ package search
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -28,7 +27,7 @@ import (
 
 // ServicesClient is the client that can be used to manage Azure Search services and API keys.
 type ServicesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewServicesClient creates an instance of the ServicesClient client.
@@ -47,7 +46,7 @@ func NewServicesClientWithBaseURI(baseURI string, subscriptionID string) Service
 // checkNameAvailabilityInput is the resource name and type to check. clientRequestID is a client-generated GUID value
 // that identifies this request. If specified, this will be included in response information as a way to track the
 // request.
-func (client ServicesClient) CheckNameAvailability(ctx context.Context, checkNameAvailabilityInput CheckNameAvailabilityInput, clientRequestID *uuid.UUID) (result CheckNameAvailabilityOutput, err error) {
+func (client ServicesClient) CheckNameAvailability(checkNameAvailabilityInput CheckNameAvailabilityInput, clientRequestID *uuid.UUID) (result CheckNameAvailabilityOutput, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: checkNameAvailabilityInput,
 			Constraints: []validation.Constraint{{Target: "checkNameAvailabilityInput.Name", Name: validation.Null, Rule: true, Chain: nil},
@@ -55,7 +54,7 @@ func (client ServicesClient) CheckNameAvailability(ctx context.Context, checkNam
 		return result, validation.NewErrorWithValidationError(err, "search.ServicesClient", "CheckNameAvailability")
 	}
 
-	req, err := client.CheckNameAvailabilityPreparer(ctx, checkNameAvailabilityInput, clientRequestID)
+	req, err := client.CheckNameAvailabilityPreparer(checkNameAvailabilityInput, clientRequestID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "search.ServicesClient", "CheckNameAvailability", nil, "Failure preparing request")
 		return
@@ -77,7 +76,7 @@ func (client ServicesClient) CheckNameAvailability(ctx context.Context, checkNam
 }
 
 // CheckNameAvailabilityPreparer prepares the CheckNameAvailability request.
-func (client ServicesClient) CheckNameAvailabilityPreparer(ctx context.Context, checkNameAvailabilityInput CheckNameAvailabilityInput, clientRequestID *uuid.UUID) (*http.Request, error) {
+func (client ServicesClient) CheckNameAvailabilityPreparer(checkNameAvailabilityInput CheckNameAvailabilityInput, clientRequestID *uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -98,13 +97,14 @@ func (client ServicesClient) CheckNameAvailabilityPreparer(ctx context.Context, 
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("x-ms-client-request-id", autorest.String(clientRequestID)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CheckNameAvailabilitySender sends the CheckNameAvailability request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServicesClient) CheckNameAvailabilitySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -122,7 +122,9 @@ func (client ServicesClient) CheckNameAvailabilityResponder(resp *http.Response)
 }
 
 // CreateOrUpdate creates or updates a Search service in the given resource group. If the Search service already
-// exists, all properties will be updated with the given values.
+// exists, all properties will be updated with the given values. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the resource group within the current subscription. You can obtain this value from
 // the Azure Resource Manager API or the portal. searchServiceName is the name of the Azure Search service to create or
@@ -132,7 +134,9 @@ func (client ServicesClient) CheckNameAvailabilityResponder(resp *http.Response)
 // You cannot change the service name after the service is created. service is the definition of the Search service to
 // create or update. clientRequestID is a client-generated GUID value that identifies this request. If specified, this
 // will be included in response information as a way to track the request.
-func (client ServicesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, searchServiceName string, service Service, clientRequestID *uuid.UUID) (result ServicesCreateOrUpdateFuture, err error) {
+func (client ServicesClient) CreateOrUpdate(resourceGroupName string, searchServiceName string, service Service, clientRequestID *uuid.UUID, cancel <-chan struct{}) (<-chan Service, <-chan error) {
+	resultChan := make(chan Service, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: service,
 			Constraints: []validation.Constraint{{Target: "service.ServiceProperties", Name: validation.Null, Rule: false,
@@ -146,26 +150,46 @@ func (client ServicesClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 						}},
 				}},
 				{Target: "service.Sku", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "search.ServicesClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "search.ServicesClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, searchServiceName, service, clientRequestID)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "search.ServicesClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result Service
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, searchServiceName, service, clientRequestID, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "search.ServicesClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "search.ServicesClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "search.ServicesClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "search.ServicesClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ServicesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, searchServiceName string, service Service, clientRequestID *uuid.UUID) (*http.Request, error) {
+func (client ServicesClient) CreateOrUpdatePreparer(resourceGroupName string, searchServiceName string, service Service, clientRequestID *uuid.UUID, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"searchServiceName": autorest.Encode("path", searchServiceName),
@@ -188,22 +212,16 @@ func (client ServicesClient) CreateOrUpdatePreparer(ctx context.Context, resourc
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("x-ms-client-request-id", autorest.String(clientRequestID)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client ServicesClient) CreateOrUpdateSender(req *http.Request) (future ServicesCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client ServicesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -225,8 +243,8 @@ func (client ServicesClient) CreateOrUpdateResponder(resp *http.Response) (resul
 // the Azure Resource Manager API or the portal. searchServiceName is the name of the Azure Search service associated
 // with the specified resource group. clientRequestID is a client-generated GUID value that identifies this request. If
 // specified, this will be included in response information as a way to track the request.
-func (client ServicesClient) Delete(ctx context.Context, resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, searchServiceName, clientRequestID)
+func (client ServicesClient) Delete(resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, searchServiceName, clientRequestID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "search.ServicesClient", "Delete", nil, "Failure preparing request")
 		return
@@ -248,7 +266,7 @@ func (client ServicesClient) Delete(ctx context.Context, resourceGroupName strin
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ServicesClient) DeletePreparer(ctx context.Context, resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (*http.Request, error) {
+func (client ServicesClient) DeletePreparer(resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"searchServiceName": autorest.Encode("path", searchServiceName),
@@ -269,13 +287,14 @@ func (client ServicesClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("x-ms-client-request-id", autorest.String(clientRequestID)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServicesClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -297,8 +316,8 @@ func (client ServicesClient) DeleteResponder(resp *http.Response) (result autore
 // the Azure Resource Manager API or the portal. searchServiceName is the name of the Azure Search service associated
 // with the specified resource group. clientRequestID is a client-generated GUID value that identifies this request. If
 // specified, this will be included in response information as a way to track the request.
-func (client ServicesClient) Get(ctx context.Context, resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (result Service, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, searchServiceName, clientRequestID)
+func (client ServicesClient) Get(resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (result Service, err error) {
+	req, err := client.GetPreparer(resourceGroupName, searchServiceName, clientRequestID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "search.ServicesClient", "Get", nil, "Failure preparing request")
 		return
@@ -320,7 +339,7 @@ func (client ServicesClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client ServicesClient) GetPreparer(ctx context.Context, resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (*http.Request, error) {
+func (client ServicesClient) GetPreparer(resourceGroupName string, searchServiceName string, clientRequestID *uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"searchServiceName": autorest.Encode("path", searchServiceName),
@@ -341,13 +360,14 @@ func (client ServicesClient) GetPreparer(ctx context.Context, resourceGroupName 
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("x-ms-client-request-id", autorest.String(clientRequestID)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServicesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -369,8 +389,8 @@ func (client ServicesClient) GetResponder(resp *http.Response) (result Service, 
 // resourceGroupName is the name of the resource group within the current subscription. You can obtain this value from
 // the Azure Resource Manager API or the portal. clientRequestID is a client-generated GUID value that identifies this
 // request. If specified, this will be included in response information as a way to track the request.
-func (client ServicesClient) ListByResourceGroup(ctx context.Context, resourceGroupName string, clientRequestID *uuid.UUID) (result ServiceListResult, err error) {
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName, clientRequestID)
+func (client ServicesClient) ListByResourceGroup(resourceGroupName string, clientRequestID *uuid.UUID) (result ServiceListResult, err error) {
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName, clientRequestID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "search.ServicesClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -392,7 +412,7 @@ func (client ServicesClient) ListByResourceGroup(ctx context.Context, resourceGr
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client ServicesClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string, clientRequestID *uuid.UUID) (*http.Request, error) {
+func (client ServicesClient) ListByResourceGroupPreparer(resourceGroupName string, clientRequestID *uuid.UUID) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -412,13 +432,14 @@ func (client ServicesClient) ListByResourceGroupPreparer(ctx context.Context, re
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("x-ms-client-request-id", autorest.String(clientRequestID)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServicesClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

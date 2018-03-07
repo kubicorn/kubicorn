@@ -55,12 +55,13 @@ func (c *StorageGateway) ActivateGatewayRequest(input *ActivateGatewayInput) (re
 
 // ActivateGateway API operation for AWS Storage Gateway.
 //
-// Activates the gateway you previously deployed on your host. In the activation
-// process, you specify information such as the region you want to use for storing
-// snapshots or tapes, the time zone for scheduled snapshots the gateway snapshot
-// schedule window, an activation key, and a name for your gateway. The activation
-// process also associates your gateway with your account; for more information,
-// see UpdateGatewayInformation.
+// Activates the gateway you previously deployed on your host. For more information,
+// see  Activate the AWS Storage Gateway (http://docs.aws.amazon.com/storagegateway/latest/userguide/GettingStartedActivateGateway-common.html).
+// In the activation process, you specify information such as the region you
+// want to use for storing snapshots or tapes, the time zone for scheduled snapshots
+// the gateway snapshot schedule window, an activation key, and a name for your
+// gateway. The activation process also associates your gateway with your account;
+// for more information, see UpdateGatewayInformation.
 //
 // You must turn on the gateway VM before you can activate your gateway.
 //
@@ -4560,20 +4561,17 @@ func (c *StorageGateway) NotifyWhenUploadedRequest(input *NotifyWhenUploadedInpu
 
 // NotifyWhenUploaded API operation for AWS Storage Gateway.
 //
-// Sends you notification through CloudWatch Events when all files written to
-// your NFS file share have been uploaded to Amazon S3.
+// Sends you notification when all file data written to the NFS file share has
+// been uploaded to Amazon S3.
 //
 // AWS Storage Gateway can send a notification through Amazon CloudWatch Events
 // when all files written to your file share up to that point in time have been
 // uploaded to Amazon S3. These files include files written to the NFS file
 // share up to the time that you make a request for notification. When the upload
 // is done, Storage Gateway sends you notification through an Amazon CloudWatch
-// Event. You can configure CloudWatch Events to send the notification through
-// event targets such as Amazon SNS or AWS Lambda function. This operation is
-// only supported in the file gateway type.
-//
-// For more information, see Getting File Upload Notification in the Storage
-// Gateway User Guide (https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-upload-notification).
+// event. You can configure CloudWatch Events to sent the notification through
+// event targets such as email, SNS or a Lambda function. text or Lambda functions.
+// This operation is only supported in the file gateway type.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -4835,7 +4833,8 @@ func (c *StorageGateway) ResetCacheRequest(input *ResetCacheInput) (req *request
 // in the gateway. For example, an error can occur when a disk is corrupted
 // or removed from the gateway. When a cache is reset, the gateway loses its
 // cache storage. At this point you can reconfigure the disks as cache disks.
-// This operation is only supported in the cached volume and tape types.
+// This operation is only supported in the cached volume, tape and file gateway
+// types.
 //
 // If the cache disk you are resetting contains data that has not been uploaded
 // to Amazon S3 yet, that data can be lost. After you reset cache disks, there
@@ -6107,6 +6106,7 @@ func (c *StorageGateway) UpdateVTLDeviceTypeWithContext(ctx aws.Context, input *
 //    * ActivateGatewayInput$TapeDriveType
 //
 //    * ActivateGatewayInput$MediumChangerType
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ActivateGatewayInput
 type ActivateGatewayInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6117,9 +6117,6 @@ type ActivateGatewayInput struct {
 	// also include other activation-related parameters, however, these are merely
 	// defaults -- the arguments you pass to the ActivateGateway API call determine
 	// the actual configuration of your gateway.
-	//
-	// For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html
-	// in the Storage Gateway User Guide.
 	//
 	// ActivationKey is a required field
 	ActivationKey *string `min:"1" type:"string" required:"true"`
@@ -6136,8 +6133,8 @@ type ActivateGatewayInput struct {
 	// in the Amazon Web Services Glossary.
 	//
 	// Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1",
-	// "eu-west-1", "eu-central-1", "eu-west-2", "eu-west-3", "ap-northeast-1",
-	// "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1", "sa-east-1"
+	// "eu-west-1", "eu-central-1", "eu-west-2", "ap-northeast-1", "ap-northeast-2",
+	// "ap-southeast-1", "ap-southeast-2", "ap-south-1", "sa-east-1"
 	//
 	// GatewayRegion is a required field
 	GatewayRegion *string `min:"1" type:"string" required:"true"`
@@ -6274,6 +6271,7 @@ func (s *ActivateGatewayInput) SetTapeDriveType(v string) *ActivateGatewayInput 
 // For gateways activated prior to September 02, 2015, the gateway ARN contains
 // the gateway name rather than the gateway ID. Changing the name of the gateway
 // has no effect on the gateway ARN.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ActivateGatewayOutput
 type ActivateGatewayOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6298,6 +6296,7 @@ func (s *ActivateGatewayOutput) SetGatewayARN(v string) *ActivateGatewayOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddCacheInput
 type AddCacheInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6352,6 +6351,7 @@ func (s *AddCacheInput) SetGatewayARN(v string) *AddCacheInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddCacheOutput
 type AddCacheOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6377,6 +6377,7 @@ func (s *AddCacheOutput) SetGatewayARN(v string) *AddCacheOutput {
 }
 
 // AddTagsToResourceInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddTagsToResourceInput
 type AddTagsToResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6447,6 +6448,7 @@ func (s *AddTagsToResourceInput) SetTags(v []*Tag) *AddTagsToResourceInput {
 }
 
 // AddTagsToResourceOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddTagsToResourceOutput
 type AddTagsToResourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6470,6 +6472,7 @@ func (s *AddTagsToResourceOutput) SetResourceARN(v string) *AddTagsToResourceOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddUploadBufferInput
 type AddUploadBufferInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6524,6 +6527,7 @@ func (s *AddUploadBufferInput) SetGatewayARN(v string) *AddUploadBufferInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddUploadBufferOutput
 type AddUploadBufferOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6551,6 +6555,7 @@ func (s *AddUploadBufferOutput) SetGatewayARN(v string) *AddUploadBufferOutput {
 // A JSON object containing one or more of the following fields:
 //
 //    * AddWorkingStorageInput$DiskIds
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddWorkingStorageInput
 type AddWorkingStorageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6611,6 +6616,7 @@ func (s *AddWorkingStorageInput) SetGatewayARN(v string) *AddWorkingStorageInput
 
 // A JSON object containing the of the gateway for which working storage was
 // configured.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/AddWorkingStorageOutput
 type AddWorkingStorageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6636,6 +6642,7 @@ func (s *AddWorkingStorageOutput) SetGatewayARN(v string) *AddWorkingStorageOutp
 }
 
 // Describes an iSCSI cached volume.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CachediSCSIVolume
 type CachediSCSIVolume struct {
 	_ struct{} `type:"structure"`
 
@@ -6749,6 +6756,7 @@ func (s *CachediSCSIVolume) SetVolumeiSCSIAttributes(v *VolumeiSCSIAttributes) *
 }
 
 // CancelArchivalInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CancelArchivalInput
 type CancelArchivalInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6810,6 +6818,7 @@ func (s *CancelArchivalInput) SetTapeARN(v string) *CancelArchivalInput {
 }
 
 // CancelArchivalOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CancelArchivalOutput
 type CancelArchivalOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6835,6 +6844,7 @@ func (s *CancelArchivalOutput) SetTapeARN(v string) *CancelArchivalOutput {
 }
 
 // CancelRetrievalInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CancelRetrievalInput
 type CancelRetrievalInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6896,6 +6906,7 @@ func (s *CancelRetrievalInput) SetTapeARN(v string) *CancelRetrievalInput {
 }
 
 // CancelRetrievalOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CancelRetrievalOutput
 type CancelRetrievalOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6922,6 +6933,7 @@ func (s *CancelRetrievalOutput) SetTapeARN(v string) *CancelRetrievalOutput {
 
 // Describes Challenge-Handshake Authentication Protocol (CHAP) information
 // that supports authentication between your gateway and iSCSI initiators.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ChapInfo
 type ChapInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -6977,6 +6989,7 @@ func (s *ChapInfo) SetTargetARN(v string) *ChapInfo {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateCachediSCSIVolumeInput
 type CreateCachediSCSIVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7096,6 +7109,7 @@ func (s *CreateCachediSCSIVolumeInput) SetVolumeSizeInBytes(v int64) *CreateCach
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateCachediSCSIVolumeOutput
 type CreateCachediSCSIVolumeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7127,6 +7141,7 @@ func (s *CreateCachediSCSIVolumeOutput) SetVolumeARN(v string) *CreateCachediSCS
 }
 
 // CreateNFSFileShareInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateNFSFileShareInput
 type CreateNFSFileShareInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7151,9 +7166,8 @@ type CreateNFSFileShareInput struct {
 	// GatewayARN is a required field
 	GatewayARN *string `min:"50" type:"string" required:"true"`
 
-	// Enables guessing of the MIME type for uploaded objects based on file extensions.
-	// Set this value to true to enable MIME type guessing, and otherwise to false.
-	// The default value is true.
+	// Enables guessing of the MIME type for uploaded objects based on file extensions:
+	// "true" to enable MIME type guessing, and otherwise "false".
 	GuessMIMETypeEnabled *bool `type:"boolean"`
 
 	// True to use Amazon S3 server side encryption with your own AWS KMS key, or
@@ -7172,18 +7186,9 @@ type CreateNFSFileShareInput struct {
 	// File share default values. Optional.
 	NFSFileShareDefaults *NFSFileShareDefaults `type:"structure"`
 
-	// Sets the access control list permission for objects in the Amazon S3 bucket
-	// that a file gateway puts objects into. The default value is "private".
-	ObjectACL *string `type:"string" enum:"ObjectACL"`
-
-	// Sets the write status of a file share. This value is true if the write status
-	// is read-only, and otherwise false.
+	// Sets the write status of a file share: "true" if the write status is read-only,
+	// and otherwise "false".
 	ReadOnly *bool `type:"boolean"`
-
-	// Sets who pays the cost of the request and the data download from the Amazon
-	// S3 bucket. Set this value to true if you want the requester to pay instead
-	// of the bucket owner, and otherwise to false.
-	RequesterPays *bool `type:"boolean"`
 
 	// The ARN of the AWS Identity and Access Management (IAM) role that a file
 	// gateway assumes when it accesses the underlying storage.
@@ -7316,21 +7321,9 @@ func (s *CreateNFSFileShareInput) SetNFSFileShareDefaults(v *NFSFileShareDefault
 	return s
 }
 
-// SetObjectACL sets the ObjectACL field's value.
-func (s *CreateNFSFileShareInput) SetObjectACL(v string) *CreateNFSFileShareInput {
-	s.ObjectACL = &v
-	return s
-}
-
 // SetReadOnly sets the ReadOnly field's value.
 func (s *CreateNFSFileShareInput) SetReadOnly(v bool) *CreateNFSFileShareInput {
 	s.ReadOnly = &v
-	return s
-}
-
-// SetRequesterPays sets the RequesterPays field's value.
-func (s *CreateNFSFileShareInput) SetRequesterPays(v bool) *CreateNFSFileShareInput {
-	s.RequesterPays = &v
 	return s
 }
 
@@ -7347,6 +7340,7 @@ func (s *CreateNFSFileShareInput) SetSquash(v string) *CreateNFSFileShareInput {
 }
 
 // CreateNFSFileShareOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateNFSFileShareOutput
 type CreateNFSFileShareOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7370,6 +7364,7 @@ func (s *CreateNFSFileShareOutput) SetFileShareARN(v string) *CreateNFSFileShare
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateSnapshotFromVolumeRecoveryPointInput
 type CreateSnapshotFromVolumeRecoveryPointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7424,6 +7419,7 @@ func (s *CreateSnapshotFromVolumeRecoveryPointInput) SetVolumeARN(v string) *Cre
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateSnapshotFromVolumeRecoveryPointOutput
 type CreateSnapshotFromVolumeRecoveryPointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7467,6 +7463,7 @@ func (s *CreateSnapshotFromVolumeRecoveryPointOutput) SetVolumeRecoveryPointTime
 //    * CreateSnapshotInput$SnapshotDescription
 //
 //    * CreateSnapshotInput$VolumeARN
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateSnapshotInput
 type CreateSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7529,6 +7526,7 @@ func (s *CreateSnapshotInput) SetVolumeARN(v string) *CreateSnapshotInput {
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateSnapshotOutput
 type CreateSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7574,6 +7572,7 @@ func (s *CreateSnapshotOutput) SetVolumeARN(v string) *CreateSnapshotOutput {
 //    * CreateStorediSCSIVolumeInput$SnapshotId
 //
 //    * CreateStorediSCSIVolumeInput$TargetName
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateStorediSCSIVolumeInput
 type CreateStorediSCSIVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7704,6 +7703,7 @@ func (s *CreateStorediSCSIVolumeInput) SetTargetName(v string) *CreateStorediSCS
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateStorediSCSIVolumeOutput
 type CreateStorediSCSIVolumeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7747,6 +7747,7 @@ func (s *CreateStorediSCSIVolumeOutput) SetVolumeSizeInBytes(v int64) *CreateSto
 }
 
 // CreateTapeWithBarcodeInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateTapeWithBarcodeInput
 type CreateTapeWithBarcodeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7827,6 +7828,7 @@ func (s *CreateTapeWithBarcodeInput) SetTapeSizeInBytes(v int64) *CreateTapeWith
 }
 
 // CreateTapeOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateTapeWithBarcodeOutput
 type CreateTapeWithBarcodeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7852,6 +7854,7 @@ func (s *CreateTapeWithBarcodeOutput) SetTapeARN(v string) *CreateTapeWithBarcod
 }
 
 // CreateTapesInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateTapesInput
 type CreateTapesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7970,6 +7973,7 @@ func (s *CreateTapesInput) SetTapeSizeInBytes(v int64) *CreateTapesInput {
 }
 
 // CreateTapeOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateTapesOutput
 type CreateTapesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7997,6 +8001,7 @@ func (s *CreateTapesOutput) SetTapeARNs(v []*string) *CreateTapesOutput {
 // A JSON object containing the following fields:
 //
 //    * DeleteBandwidthRateLimitInput$BandwidthType
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteBandwidthRateLimitInput
 type DeleteBandwidthRateLimitInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8061,6 +8066,7 @@ func (s *DeleteBandwidthRateLimitInput) SetGatewayARN(v string) *DeleteBandwidth
 
 // A JSON object containing the of the gateway whose bandwidth rate information
 // was deleted.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteBandwidthRateLimitOutput
 type DeleteBandwidthRateLimitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8090,6 +8096,7 @@ func (s *DeleteBandwidthRateLimitOutput) SetGatewayARN(v string) *DeleteBandwidt
 //    * DeleteChapCredentialsInput$InitiatorName
 //
 //    * DeleteChapCredentialsInput$TargetARN
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteChapCredentialsInput
 type DeleteChapCredentialsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8150,6 +8157,7 @@ func (s *DeleteChapCredentialsInput) SetTargetARN(v string) *DeleteChapCredentia
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteChapCredentialsOutput
 type DeleteChapCredentialsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8183,6 +8191,7 @@ func (s *DeleteChapCredentialsOutput) SetTargetARN(v string) *DeleteChapCredenti
 }
 
 // DeleteFileShareInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteFileShareInput
 type DeleteFileShareInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8237,6 +8246,7 @@ func (s *DeleteFileShareInput) SetForceDelete(v bool) *DeleteFileShareInput {
 }
 
 // DeleteFileShareOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteFileShareOutput
 type DeleteFileShareOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8261,6 +8271,7 @@ func (s *DeleteFileShareOutput) SetFileShareARN(v string) *DeleteFileShareOutput
 }
 
 // A JSON object containing the ID of the gateway to delete.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteGatewayInput
 type DeleteGatewayInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8304,6 +8315,7 @@ func (s *DeleteGatewayInput) SetGatewayARN(v string) *DeleteGatewayInput {
 }
 
 // A JSON object containing the ID of the deleted gateway.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteGatewayOutput
 type DeleteGatewayOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8328,6 +8340,7 @@ func (s *DeleteGatewayOutput) SetGatewayARN(v string) *DeleteGatewayOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteSnapshotScheduleInput
 type DeleteSnapshotScheduleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8367,6 +8380,7 @@ func (s *DeleteSnapshotScheduleInput) SetVolumeARN(v string) *DeleteSnapshotSche
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteSnapshotScheduleOutput
 type DeleteSnapshotScheduleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8390,6 +8404,7 @@ func (s *DeleteSnapshotScheduleOutput) SetVolumeARN(v string) *DeleteSnapshotSch
 }
 
 // DeleteTapeArchiveInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteTapeArchiveInput
 type DeleteTapeArchiveInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8433,6 +8448,7 @@ func (s *DeleteTapeArchiveInput) SetTapeARN(v string) *DeleteTapeArchiveInput {
 }
 
 // DeleteTapeArchiveOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteTapeArchiveOutput
 type DeleteTapeArchiveOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8458,6 +8474,7 @@ func (s *DeleteTapeArchiveOutput) SetTapeARN(v string) *DeleteTapeArchiveOutput 
 }
 
 // DeleteTapeInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteTapeInput
 type DeleteTapeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8519,6 +8536,7 @@ func (s *DeleteTapeInput) SetTapeARN(v string) *DeleteTapeInput {
 }
 
 // DeleteTapeOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteTapeOutput
 type DeleteTapeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8543,6 +8561,7 @@ func (s *DeleteTapeOutput) SetTapeARN(v string) *DeleteTapeOutput {
 }
 
 // A JSON object containing the DeleteVolumeInput$VolumeARN to delete.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteVolumeInput
 type DeleteVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8586,6 +8605,7 @@ func (s *DeleteVolumeInput) SetVolumeARN(v string) *DeleteVolumeInput {
 }
 
 // A JSON object containing the of the storage volume that was deleted
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteVolumeOutput
 type DeleteVolumeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8611,6 +8631,7 @@ func (s *DeleteVolumeOutput) SetVolumeARN(v string) *DeleteVolumeOutput {
 }
 
 // A JSON object containing the of the gateway.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeBandwidthRateLimitInput
 type DescribeBandwidthRateLimitInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8654,6 +8675,7 @@ func (s *DescribeBandwidthRateLimitInput) SetGatewayARN(v string) *DescribeBandw
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeBandwidthRateLimitOutput
 type DescribeBandwidthRateLimitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8698,6 +8720,7 @@ func (s *DescribeBandwidthRateLimitOutput) SetGatewayARN(v string) *DescribeBand
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeCacheInput
 type DescribeCacheInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8740,6 +8763,7 @@ func (s *DescribeCacheInput) SetGatewayARN(v string) *DescribeCacheInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeCacheOutput
 type DescribeCacheOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8812,6 +8836,7 @@ func (s *DescribeCacheOutput) SetGatewayARN(v string) *DescribeCacheOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeCachediSCSIVolumesInput
 type DescribeCachediSCSIVolumesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8849,6 +8874,7 @@ func (s *DescribeCachediSCSIVolumesInput) SetVolumeARNs(v []*string) *DescribeCa
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeCachediSCSIVolumesOutput
 type DescribeCachediSCSIVolumesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8875,6 +8901,7 @@ func (s *DescribeCachediSCSIVolumesOutput) SetCachediSCSIVolumes(v []*CachediSCS
 
 // A JSON object containing the Amazon Resource Name (ARN) of the iSCSI volume
 // target.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeChapCredentialsInput
 type DescribeChapCredentialsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8918,6 +8945,7 @@ func (s *DescribeChapCredentialsInput) SetTargetARN(v string) *DescribeChapCrede
 }
 
 // A JSON object containing a .
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeChapCredentialsOutput
 type DescribeChapCredentialsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8956,6 +8984,7 @@ func (s *DescribeChapCredentialsOutput) SetChapCredentials(v []*ChapInfo) *Descr
 }
 
 // A JSON object containing the ID of the gateway.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeGatewayInformationInput
 type DescribeGatewayInformationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8999,6 +9028,7 @@ func (s *DescribeGatewayInformationInput) SetGatewayARN(v string) *DescribeGatew
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeGatewayInformationOutput
 type DescribeGatewayInformationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9103,6 +9133,7 @@ func (s *DescribeGatewayInformationOutput) SetNextUpdateAvailabilityDate(v strin
 }
 
 // A JSON object containing the of the gateway.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeMaintenanceStartTimeInput
 type DescribeMaintenanceStartTimeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9154,6 +9185,7 @@ func (s *DescribeMaintenanceStartTimeInput) SetGatewayARN(v string) *DescribeMai
 //    * DescribeMaintenanceStartTimeOutput$MinuteOfHour
 //
 //    * DescribeMaintenanceStartTimeOutput$Timezone
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeMaintenanceStartTimeOutput
 type DescribeMaintenanceStartTimeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9220,6 +9252,7 @@ func (s *DescribeMaintenanceStartTimeOutput) SetTimezone(v string) *DescribeMain
 }
 
 // DescribeNFSFileSharesInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeNFSFileSharesInput
 type DescribeNFSFileSharesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9263,6 +9296,7 @@ func (s *DescribeNFSFileSharesInput) SetFileShareARNList(v []*string) *DescribeN
 }
 
 // DescribeNFSFileSharesOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeNFSFileSharesOutput
 type DescribeNFSFileSharesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9288,6 +9322,7 @@ func (s *DescribeNFSFileSharesOutput) SetNFSFileShareInfoList(v []*NFSFileShareI
 
 // A JSON object containing the DescribeSnapshotScheduleInput$VolumeARN of the
 // volume.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeSnapshotScheduleInput
 type DescribeSnapshotScheduleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9330,6 +9365,7 @@ func (s *DescribeSnapshotScheduleInput) SetVolumeARN(v string) *DescribeSnapshot
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeSnapshotScheduleOutput
 type DescribeSnapshotScheduleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9385,6 +9421,7 @@ func (s *DescribeSnapshotScheduleOutput) SetVolumeARN(v string) *DescribeSnapsho
 }
 
 // A JSON object containing a list of DescribeStorediSCSIVolumesInput$VolumeARNs.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeStorediSCSIVolumesInput
 type DescribeStorediSCSIVolumesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9425,6 +9462,7 @@ func (s *DescribeStorediSCSIVolumesInput) SetVolumeARNs(v []*string) *DescribeSt
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeStorediSCSIVolumesOutput
 type DescribeStorediSCSIVolumesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9448,6 +9486,7 @@ func (s *DescribeStorediSCSIVolumesOutput) SetStorediSCSIVolumes(v []*StorediSCS
 }
 
 // DescribeTapeArchivesInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeTapeArchivesInput
 type DescribeTapeArchivesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9509,6 +9548,7 @@ func (s *DescribeTapeArchivesInput) SetTapeARNs(v []*string) *DescribeTapeArchiv
 }
 
 // DescribeTapeArchivesOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeTapeArchivesOutput
 type DescribeTapeArchivesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9549,6 +9589,7 @@ func (s *DescribeTapeArchivesOutput) SetTapeArchives(v []*TapeArchive) *Describe
 }
 
 // DescribeTapeRecoveryPointsInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeTapeRecoveryPointsInput
 type DescribeTapeRecoveryPointsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9618,6 +9659,7 @@ func (s *DescribeTapeRecoveryPointsInput) SetMarker(v string) *DescribeTapeRecov
 }
 
 // DescribeTapeRecoveryPointsOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeTapeRecoveryPointsOutput
 type DescribeTapeRecoveryPointsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9666,6 +9708,7 @@ func (s *DescribeTapeRecoveryPointsOutput) SetTapeRecoveryPointInfos(v []*TapeRe
 }
 
 // DescribeTapesInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeTapesInput
 type DescribeTapesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9751,6 +9794,7 @@ func (s *DescribeTapesInput) SetTapeARNs(v []*string) *DescribeTapesInput {
 }
 
 // DescribeTapesOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeTapesOutput
 type DescribeTapesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9787,6 +9831,7 @@ func (s *DescribeTapesOutput) SetTapes(v []*Tape) *DescribeTapesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeUploadBufferInput
 type DescribeUploadBufferInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9829,6 +9874,7 @@ func (s *DescribeUploadBufferInput) SetGatewayARN(v string) *DescribeUploadBuffe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeUploadBufferOutput
 type DescribeUploadBufferOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9878,6 +9924,7 @@ func (s *DescribeUploadBufferOutput) SetUploadBufferUsedInBytes(v int64) *Descri
 }
 
 // DescribeVTLDevicesInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeVTLDevicesInput
 type DescribeVTLDevicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9961,6 +10008,7 @@ func (s *DescribeVTLDevicesInput) SetVTLDeviceARNs(v []*string) *DescribeVTLDevi
 }
 
 // DescribeVTLDevicesOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeVTLDevicesOutput
 type DescribeVTLDevicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10008,6 +10056,7 @@ func (s *DescribeVTLDevicesOutput) SetVTLDevices(v []*VTLDevice) *DescribeVTLDev
 }
 
 // A JSON object containing the of the gateway.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeWorkingStorageInput
 type DescribeWorkingStorageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10051,6 +10100,7 @@ func (s *DescribeWorkingStorageInput) SetGatewayARN(v string) *DescribeWorkingSt
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeWorkingStorageOutput
 type DescribeWorkingStorageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10108,6 +10158,7 @@ func (s *DescribeWorkingStorageOutput) SetWorkingStorageUsedInBytes(v int64) *De
 }
 
 // Lists iSCSI information about a VTL device.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeviceiSCSIAttributes
 type DeviceiSCSIAttributes struct {
 	_ struct{} `type:"structure"`
 
@@ -10160,6 +10211,7 @@ func (s *DeviceiSCSIAttributes) SetTargetARN(v string) *DeviceiSCSIAttributes {
 }
 
 // DisableGatewayInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DisableGatewayInput
 type DisableGatewayInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10203,6 +10255,7 @@ func (s *DisableGatewayInput) SetGatewayARN(v string) *DisableGatewayInput {
 }
 
 // DisableGatewayOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DisableGatewayOutput
 type DisableGatewayOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10226,6 +10279,7 @@ func (s *DisableGatewayOutput) SetGatewayARN(v string) *DisableGatewayOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/Disk
 type Disk struct {
 	_ struct{} `type:"structure"`
 
@@ -10299,6 +10353,7 @@ func (s *Disk) SetDiskStatus(v string) *Disk {
 // Provides additional information about an error that was returned by the service
 // as an or. See the errorCode and errorDetails members for more information
 // about the error.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/StorageGatewayError
 type Error struct {
 	_ struct{} `type:"structure"`
 
@@ -10332,6 +10387,7 @@ func (s *Error) SetErrorDetails(v map[string]*string) *Error {
 }
 
 // Describes a file share.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/FileShareInfo
 type FileShareInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -10385,6 +10441,7 @@ func (s *FileShareInfo) SetGatewayARN(v string) *FileShareInfo {
 }
 
 // Describes a gateway object.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/GatewayInfo
 type GatewayInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -10450,6 +10507,7 @@ func (s *GatewayInfo) SetGatewayType(v string) *GatewayInfo {
 }
 
 // ListFileShareInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListFileSharesInput
 type ListFileSharesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10516,6 +10574,7 @@ func (s *ListFileSharesInput) SetMarker(v string) *ListFileSharesInput {
 }
 
 // ListFileShareOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListFileSharesOutput
 type ListFileSharesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10564,6 +10623,7 @@ func (s *ListFileSharesOutput) SetNextMarker(v string) *ListFileSharesOutput {
 //    * ListGatewaysInput$Limit
 //
 //    * ListGatewaysInput$Marker
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListGatewaysInput
 type ListGatewaysInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10614,6 +10674,7 @@ func (s *ListGatewaysInput) SetMarker(v string) *ListGatewaysInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListGatewaysOutput
 type ListGatewaysOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10645,6 +10706,7 @@ func (s *ListGatewaysOutput) SetMarker(v string) *ListGatewaysOutput {
 }
 
 // A JSON object containing the of the gateway.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListLocalDisksInput
 type ListLocalDisksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10687,6 +10749,7 @@ func (s *ListLocalDisksInput) SetGatewayARN(v string) *ListLocalDisksInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListLocalDisksOutput
 type ListLocalDisksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10720,6 +10783,7 @@ func (s *ListLocalDisksOutput) SetGatewayARN(v string) *ListLocalDisksOutput {
 }
 
 // ListTagsForResourceInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListTagsForResourceInput
 type ListTagsForResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10789,6 +10853,7 @@ func (s *ListTagsForResourceInput) SetResourceARN(v string) *ListTagsForResource
 }
 
 // ListTagsForResourceOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListTagsForResourceOutput
 type ListTagsForResourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10839,6 +10904,7 @@ func (s *ListTagsForResourceOutput) SetTags(v []*Tag) *ListTagsForResourceOutput
 //    * ListTapesInput$Marker
 //
 //    * ListTapesInput$TapeARNs
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListTapesInput
 type ListTapesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10904,6 +10970,7 @@ func (s *ListTapesInput) SetTapeARNs(v []*string) *ListTapesInput {
 //    * ListTapesOutput$Marker
 //
 //    * ListTapesOutput$VolumeInfos
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListTapesOutput
 type ListTapesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10942,6 +11009,7 @@ func (s *ListTapesOutput) SetTapeInfos(v []*TapeInfo) *ListTapesOutput {
 }
 
 // ListVolumeInitiatorsInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListVolumeInitiatorsInput
 type ListVolumeInitiatorsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10985,6 +11053,7 @@ func (s *ListVolumeInitiatorsInput) SetVolumeARN(v string) *ListVolumeInitiators
 }
 
 // ListVolumeInitiatorsOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListVolumeInitiatorsOutput
 type ListVolumeInitiatorsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11009,6 +11078,7 @@ func (s *ListVolumeInitiatorsOutput) SetInitiators(v []*string) *ListVolumeIniti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListVolumeRecoveryPointsInput
 type ListVolumeRecoveryPointsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11051,6 +11121,7 @@ func (s *ListVolumeRecoveryPointsInput) SetGatewayARN(v string) *ListVolumeRecov
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListVolumeRecoveryPointsOutput
 type ListVolumeRecoveryPointsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11088,6 +11159,7 @@ func (s *ListVolumeRecoveryPointsOutput) SetVolumeRecoveryPointInfos(v []*Volume
 //    * ListVolumesInput$Limit
 //
 //    * ListVolumesInput$Marker
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListVolumesInput
 type ListVolumesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11152,6 +11224,7 @@ func (s *ListVolumesInput) SetMarker(v string) *ListVolumesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ListVolumesOutput
 type ListVolumesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11197,6 +11270,7 @@ func (s *ListVolumesOutput) SetVolumeInfos(v []*VolumeInfo) *ListVolumesOutput {
 // to them. Upon discovery in an S3 bucket by Storage Gateway, the S3 objects
 // that represent files and folders are assigned these default Unix permissions.
 // This operation is only supported in the file gateway type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NFSFileShareDefaults
 type NFSFileShareDefaults struct {
 	_ struct{} `type:"structure"`
 
@@ -11271,6 +11345,7 @@ func (s *NFSFileShareDefaults) SetOwnerId(v int64) *NFSFileShareDefaults {
 // The Unix file permissions and ownership information assigned, by default,
 // to native S3 objects when file gateway discovers them in S3 buckets. This
 // operation is only supported in file gateways.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NFSFileShareInfo
 type NFSFileShareInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -11297,9 +11372,8 @@ type NFSFileShareInfo struct {
 	// to return a list of gateways for your account and region.
 	GatewayARN *string `min:"50" type:"string"`
 
-	// Enables guessing of the MIME type for uploaded objects based on file extensions.
-	// Set this value to true to enable MIME type guessing, and otherwise to false.
-	// The default value is true.
+	// Enables guessing of the MIME type for uploaded objects based on file extensions:
+	// "true" to enable MIME type guessing, and otherwise "false".
 	GuessMIMETypeEnabled *bool `type:"boolean"`
 
 	// True to use Amazon S3 server side encryption with your own KMS key, or false
@@ -11319,21 +11393,12 @@ type NFSFileShareInfo struct {
 	// This operation is only supported in the file gateway type.
 	NFSFileShareDefaults *NFSFileShareDefaults `type:"structure"`
 
-	// Sets the access control list permission for objects in the S3 bucket that
-	// a file gateway puts objects into. The default value is "private".
-	ObjectACL *string `type:"string" enum:"ObjectACL"`
-
 	// The file share path used by the NFS client to identify the mount point.
 	Path *string `type:"string"`
 
-	// Sets the write status of a file share. This value is true if the write status
-	// is read-only, and otherwise false.
+	// A value that indicates whether the write status of a file share is read-only:
+	// "true" if write status is read-only, and otherwise "false".
 	ReadOnly *bool `type:"boolean"`
-
-	// Sets who pays the cost of the request and the data download from the Amazon
-	// S3 bucket. Set this value to true if you want the requester to pay instead
-	// of the bucket owner, and otherwise to false.
-	RequesterPays *bool `type:"boolean"`
 
 	// The ARN of the IAM role that file gateway assumes when it accesses the underlying
 	// storage.
@@ -11425,12 +11490,6 @@ func (s *NFSFileShareInfo) SetNFSFileShareDefaults(v *NFSFileShareDefaults) *NFS
 	return s
 }
 
-// SetObjectACL sets the ObjectACL field's value.
-func (s *NFSFileShareInfo) SetObjectACL(v string) *NFSFileShareInfo {
-	s.ObjectACL = &v
-	return s
-}
-
 // SetPath sets the Path field's value.
 func (s *NFSFileShareInfo) SetPath(v string) *NFSFileShareInfo {
 	s.Path = &v
@@ -11440,12 +11499,6 @@ func (s *NFSFileShareInfo) SetPath(v string) *NFSFileShareInfo {
 // SetReadOnly sets the ReadOnly field's value.
 func (s *NFSFileShareInfo) SetReadOnly(v bool) *NFSFileShareInfo {
 	s.ReadOnly = &v
-	return s
-}
-
-// SetRequesterPays sets the RequesterPays field's value.
-func (s *NFSFileShareInfo) SetRequesterPays(v bool) *NFSFileShareInfo {
-	s.RequesterPays = &v
 	return s
 }
 
@@ -11462,6 +11515,7 @@ func (s *NFSFileShareInfo) SetSquash(v string) *NFSFileShareInfo {
 }
 
 // Describes a gateway's network interface.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NetworkInterface
 type NetworkInterface struct {
 	_ struct{} `type:"structure"`
 
@@ -11506,6 +11560,7 @@ func (s *NetworkInterface) SetMacAddress(v string) *NetworkInterface {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploadedInput
 type NotifyWhenUploadedInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11547,6 +11602,7 @@ func (s *NotifyWhenUploadedInput) SetFileShareARN(v string) *NotifyWhenUploadedI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploadedOutput
 type NotifyWhenUploadedOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11580,6 +11636,7 @@ func (s *NotifyWhenUploadedOutput) SetNotificationId(v string) *NotifyWhenUpload
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RefreshCacheInput
 type RefreshCacheInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11621,6 +11678,7 @@ func (s *RefreshCacheInput) SetFileShareARN(v string) *RefreshCacheInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RefreshCacheOutput
 type RefreshCacheOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11645,6 +11703,7 @@ func (s *RefreshCacheOutput) SetFileShareARN(v string) *RefreshCacheOutput {
 }
 
 // RemoveTagsFromResourceInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RemoveTagsFromResourceInput
 type RemoveTagsFromResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11703,6 +11762,7 @@ func (s *RemoveTagsFromResourceInput) SetTagKeys(v []*string) *RemoveTagsFromRes
 }
 
 // RemoveTagsFromResourceOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RemoveTagsFromResourceOutput
 type RemoveTagsFromResourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11727,6 +11787,7 @@ func (s *RemoveTagsFromResourceOutput) SetResourceARN(v string) *RemoveTagsFromR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ResetCacheInput
 type ResetCacheInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11769,6 +11830,7 @@ func (s *ResetCacheInput) SetGatewayARN(v string) *ResetCacheInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ResetCacheOutput
 type ResetCacheOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11794,6 +11856,7 @@ func (s *ResetCacheOutput) SetGatewayARN(v string) *ResetCacheOutput {
 }
 
 // RetrieveTapeArchiveInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RetrieveTapeArchiveInput
 type RetrieveTapeArchiveInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11859,6 +11922,7 @@ func (s *RetrieveTapeArchiveInput) SetTapeARN(v string) *RetrieveTapeArchiveInpu
 }
 
 // RetrieveTapeArchiveOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RetrieveTapeArchiveOutput
 type RetrieveTapeArchiveOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11883,6 +11947,7 @@ func (s *RetrieveTapeArchiveOutput) SetTapeARN(v string) *RetrieveTapeArchiveOut
 }
 
 // RetrieveTapeRecoveryPointInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RetrieveTapeRecoveryPointInput
 type RetrieveTapeRecoveryPointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11944,6 +12009,7 @@ func (s *RetrieveTapeRecoveryPointInput) SetTapeARN(v string) *RetrieveTapeRecov
 }
 
 // RetrieveTapeRecoveryPointOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RetrieveTapeRecoveryPointOutput
 type RetrieveTapeRecoveryPointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11969,6 +12035,7 @@ func (s *RetrieveTapeRecoveryPointOutput) SetTapeARN(v string) *RetrieveTapeReco
 }
 
 // SetLocalConsolePasswordInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/SetLocalConsolePasswordInput
 type SetLocalConsolePasswordInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12028,6 +12095,7 @@ func (s *SetLocalConsolePasswordInput) SetLocalConsolePassword(v string) *SetLoc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/SetLocalConsolePasswordOutput
 type SetLocalConsolePasswordOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12053,6 +12121,7 @@ func (s *SetLocalConsolePasswordOutput) SetGatewayARN(v string) *SetLocalConsole
 }
 
 // A JSON object containing the of the gateway to shut down.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ShutdownGatewayInput
 type ShutdownGatewayInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12096,6 +12165,7 @@ func (s *ShutdownGatewayInput) SetGatewayARN(v string) *ShutdownGatewayInput {
 }
 
 // A JSON object containing the of the gateway that was shut down.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ShutdownGatewayOutput
 type ShutdownGatewayOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12121,6 +12191,7 @@ func (s *ShutdownGatewayOutput) SetGatewayARN(v string) *ShutdownGatewayOutput {
 }
 
 // A JSON object containing the of the gateway to start.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/StartGatewayInput
 type StartGatewayInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12164,6 +12235,7 @@ func (s *StartGatewayInput) SetGatewayARN(v string) *StartGatewayInput {
 }
 
 // A JSON object containing the of the gateway that was restarted.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/StartGatewayOutput
 type StartGatewayOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12189,6 +12261,7 @@ func (s *StartGatewayOutput) SetGatewayARN(v string) *StartGatewayOutput {
 }
 
 // Describes an iSCSI stored volume.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/StorediSCSIVolume
 type StorediSCSIVolume struct {
 	_ struct{} `type:"structure"`
 
@@ -12323,6 +12396,7 @@ func (s *StorediSCSIVolume) SetVolumeiSCSIAttributes(v *VolumeiSCSIAttributes) *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/Tag
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -12375,6 +12449,7 @@ func (s *Tag) SetValue(v string) *Tag {
 }
 
 // Describes a virtual tape object.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/Tape
 type Tape struct {
 	_ struct{} `type:"structure"`
 
@@ -12468,6 +12543,7 @@ func (s *Tape) SetVTLDevice(v string) *Tape {
 }
 
 // Represents a virtual tape that is archived in the virtual tape shelf (VTS).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/TapeArchive
 type TapeArchive struct {
 	_ struct{} `type:"structure"`
 
@@ -12562,6 +12638,7 @@ func (s *TapeArchive) SetTapeUsedInBytes(v int64) *TapeArchive {
 }
 
 // Describes a virtual tape.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/TapeInfo
 type TapeInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -12623,6 +12700,7 @@ func (s *TapeInfo) SetTapeStatus(v string) *TapeInfo {
 }
 
 // Describes a recovery point.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/TapeRecoveryPointInfo
 type TapeRecoveryPointInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -12681,6 +12759,7 @@ func (s *TapeRecoveryPointInfo) SetTapeStatus(v string) *TapeRecoveryPointInfo {
 //    * UpdateBandwidthRateLimitInput$AverageDownloadRateLimitInBitsPerSec
 //
 //    * UpdateBandwidthRateLimitInput$AverageUploadRateLimitInBitsPerSec
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateBandwidthRateLimitInput
 type UpdateBandwidthRateLimitInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12749,6 +12828,7 @@ func (s *UpdateBandwidthRateLimitInput) SetGatewayARN(v string) *UpdateBandwidth
 
 // A JSON object containing the of the gateway whose throttle information was
 // updated.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateBandwidthRateLimitOutput
 type UpdateBandwidthRateLimitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12782,6 +12862,7 @@ func (s *UpdateBandwidthRateLimitOutput) SetGatewayARN(v string) *UpdateBandwidt
 //    * UpdateChapCredentialsInput$SecretToAuthenticateTarget
 //
 //    * UpdateChapCredentialsInput$TargetARN
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateChapCredentialsInput
 type UpdateChapCredentialsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12879,6 +12960,7 @@ func (s *UpdateChapCredentialsInput) SetTargetARN(v string) *UpdateChapCredentia
 }
 
 // A JSON object containing the following fields:
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateChapCredentialsOutput
 type UpdateChapCredentialsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12913,6 +12995,7 @@ func (s *UpdateChapCredentialsOutput) SetTargetARN(v string) *UpdateChapCredenti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateGatewayInformationInput
 type UpdateGatewayInformationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12979,6 +13062,7 @@ func (s *UpdateGatewayInformationInput) SetGatewayTimezone(v string) *UpdateGate
 }
 
 // A JSON object containing the ARN of the gateway that was updated.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateGatewayInformationOutput
 type UpdateGatewayInformationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13012,6 +13096,7 @@ func (s *UpdateGatewayInformationOutput) SetGatewayName(v string) *UpdateGateway
 }
 
 // A JSON object containing the of the gateway to update.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateGatewaySoftwareNowInput
 type UpdateGatewaySoftwareNowInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13055,6 +13140,7 @@ func (s *UpdateGatewaySoftwareNowInput) SetGatewayARN(v string) *UpdateGatewaySo
 }
 
 // A JSON object containing the of the gateway that was updated.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateGatewaySoftwareNowOutput
 type UpdateGatewaySoftwareNowOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13086,6 +13172,7 @@ func (s *UpdateGatewaySoftwareNowOutput) SetGatewayARN(v string) *UpdateGatewayS
 //    * UpdateMaintenanceStartTimeInput$HourOfDay
 //
 //    * UpdateMaintenanceStartTimeInput$MinuteOfHour
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateMaintenanceStartTimeInput
 type UpdateMaintenanceStartTimeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13177,6 +13264,7 @@ func (s *UpdateMaintenanceStartTimeInput) SetMinuteOfHour(v int64) *UpdateMainte
 
 // A JSON object containing the of the gateway whose maintenance start time
 // is updated.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateMaintenanceStartTimeOutput
 type UpdateMaintenanceStartTimeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13202,6 +13290,7 @@ func (s *UpdateMaintenanceStartTimeOutput) SetGatewayARN(v string) *UpdateMainte
 }
 
 // UpdateNFSFileShareInput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateNFSFileShareInput
 type UpdateNFSFileShareInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13219,9 +13308,8 @@ type UpdateNFSFileShareInput struct {
 	// FileShareARN is a required field
 	FileShareARN *string `min:"50" type:"string" required:"true"`
 
-	// Enables guessing of the MIME type for uploaded objects based on file extensions.
-	// Set this value to true to enable MIME type guessing, and otherwise to false.
-	// The default value is true.
+	// Enables guessing of the MIME type for uploaded objects based on file extensions:
+	// "true" to enable MIME type guessing, and otherwise "false".
 	GuessMIMETypeEnabled *bool `type:"boolean"`
 
 	// True to use Amazon S3 server side encryption with your own AWS KMS key, or
@@ -13235,18 +13323,9 @@ type UpdateNFSFileShareInput struct {
 	// The default values for the file share. Optional.
 	NFSFileShareDefaults *NFSFileShareDefaults `type:"structure"`
 
-	// Sets the access control list permission for objects in the S3 bucket that
-	// a file gateway puts objects into. The default value is "private".
-	ObjectACL *string `type:"string" enum:"ObjectACL"`
-
-	// Sets the write status of a file share. This value is true if the write status
-	// is read-only, and otherwise false.
+	// Sets the write status of a file share: "true" if the write status is read-only,
+	// otherwise "false".
 	ReadOnly *bool `type:"boolean"`
-
-	// Sets who pays the cost of the request and the data download from the Amazon
-	// S3 bucket. Set this value to true if you want the requester to pay instead
-	// of the bucket owner, and otherwise to false.
-	RequesterPays *bool `type:"boolean"`
 
 	// The user mapped to anonymous user. Valid options are the following:
 	//
@@ -13343,21 +13422,9 @@ func (s *UpdateNFSFileShareInput) SetNFSFileShareDefaults(v *NFSFileShareDefault
 	return s
 }
 
-// SetObjectACL sets the ObjectACL field's value.
-func (s *UpdateNFSFileShareInput) SetObjectACL(v string) *UpdateNFSFileShareInput {
-	s.ObjectACL = &v
-	return s
-}
-
 // SetReadOnly sets the ReadOnly field's value.
 func (s *UpdateNFSFileShareInput) SetReadOnly(v bool) *UpdateNFSFileShareInput {
 	s.ReadOnly = &v
-	return s
-}
-
-// SetRequesterPays sets the RequesterPays field's value.
-func (s *UpdateNFSFileShareInput) SetRequesterPays(v bool) *UpdateNFSFileShareInput {
-	s.RequesterPays = &v
 	return s
 }
 
@@ -13368,6 +13435,7 @@ func (s *UpdateNFSFileShareInput) SetSquash(v string) *UpdateNFSFileShareInput {
 }
 
 // UpdateNFSFileShareOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateNFSFileShareOutput
 type UpdateNFSFileShareOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13400,6 +13468,7 @@ func (s *UpdateNFSFileShareOutput) SetFileShareARN(v string) *UpdateNFSFileShare
 //    * UpdateSnapshotScheduleInput$StartAt
 //
 //    * UpdateSnapshotScheduleInput$VolumeARN
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateSnapshotScheduleInput
 type UpdateSnapshotScheduleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13488,6 +13557,7 @@ func (s *UpdateSnapshotScheduleInput) SetVolumeARN(v string) *UpdateSnapshotSche
 }
 
 // A JSON object containing the of the updated storage volume.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateSnapshotScheduleOutput
 type UpdateSnapshotScheduleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13510,6 +13580,7 @@ func (s *UpdateSnapshotScheduleOutput) SetVolumeARN(v string) *UpdateSnapshotSch
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateVTLDeviceTypeInput
 type UpdateVTLDeviceTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13571,6 +13642,7 @@ func (s *UpdateVTLDeviceTypeInput) SetVTLDeviceARN(v string) *UpdateVTLDeviceTyp
 }
 
 // UpdateVTLDeviceTypeOutput
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/UpdateVTLDeviceTypeOutput
 type UpdateVTLDeviceTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13595,6 +13667,7 @@ func (s *UpdateVTLDeviceTypeOutput) SetVTLDeviceARN(v string) *UpdateVTLDeviceTy
 }
 
 // Represents a device object associated with a tape gateway.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/VTLDevice
 type VTLDevice struct {
 	_ struct{} `type:"structure"`
 
@@ -13653,6 +13726,7 @@ func (s *VTLDevice) SetVTLDeviceVendor(v string) *VTLDevice {
 }
 
 // Describes a storage volume object.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/VolumeInfo
 type VolumeInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -13739,6 +13813,7 @@ func (s *VolumeInfo) SetVolumeType(v string) *VolumeInfo {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/VolumeRecoveryPointInfo
 type VolumeRecoveryPointInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -13786,6 +13861,7 @@ func (s *VolumeRecoveryPointInfo) SetVolumeUsageInBytes(v int64) *VolumeRecovery
 }
 
 // Lists iSCSI information about a volume.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/VolumeiSCSIAttributes
 type VolumeiSCSIAttributes struct {
 	_ struct{} `type:"structure"`
 
@@ -14028,29 +14104,4 @@ const (
 
 	// ErrorCodeVolumeNotReady is a ErrorCode enum value
 	ErrorCodeVolumeNotReady = "VolumeNotReady"
-)
-
-// Sets the access control list permission for objects in the S3 bucket that
-// a file gateway puts objects into. The default value is "private".
-const (
-	// ObjectACLPrivate is a ObjectACL enum value
-	ObjectACLPrivate = "private"
-
-	// ObjectACLPublicRead is a ObjectACL enum value
-	ObjectACLPublicRead = "public-read"
-
-	// ObjectACLPublicReadWrite is a ObjectACL enum value
-	ObjectACLPublicReadWrite = "public-read-write"
-
-	// ObjectACLAuthenticatedRead is a ObjectACL enum value
-	ObjectACLAuthenticatedRead = "authenticated-read"
-
-	// ObjectACLBucketOwnerRead is a ObjectACL enum value
-	ObjectACLBucketOwnerRead = "bucket-owner-read"
-
-	// ObjectACLBucketOwnerFullControl is a ObjectACL enum value
-	ObjectACLBucketOwnerFullControl = "bucket-owner-full-control"
-
-	// ObjectACLAwsExecRead is a ObjectACL enum value
-	ObjectACLAwsExecRead = "aws-exec-read"
 )

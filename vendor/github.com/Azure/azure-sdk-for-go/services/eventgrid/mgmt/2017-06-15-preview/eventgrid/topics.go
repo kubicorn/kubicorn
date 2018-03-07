@@ -18,7 +18,6 @@ package eventgrid
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // TopicsClient is the azure EventGrid Management Client
 type TopicsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewTopicsClient creates an instance of the TopicsClient client.
@@ -40,28 +39,49 @@ func NewTopicsClientWithBaseURI(baseURI string, subscriptionID string) TopicsCli
 	return TopicsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate asynchronously creates a new topic with the specified parameters.
+// CreateOrUpdate asynchronously creates a new topic with the specified parameters. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group within the user's subscription. topicName is name of the topic
 // topicInfo is topic information
-func (client TopicsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, topicName string, topicInfo Topic) (result TopicsCreateOrUpdateFuture, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, topicName, topicInfo)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+func (client TopicsClient) CreateOrUpdate(resourceGroupName string, topicName string, topicInfo Topic, cancel <-chan struct{}) (<-chan Topic, <-chan error) {
+	resultChan := make(chan Topic, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result Topic
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, topicName, topicInfo, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client TopicsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, topicName string, topicInfo Topic) (*http.Request, error) {
+func (client TopicsClient) CreateOrUpdatePreparer(resourceGroupName string, topicName string, topicInfo Topic, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -80,22 +100,16 @@ func (client TopicsClient) CreateOrUpdatePreparer(ctx context.Context, resourceG
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}", pathParameters),
 		autorest.WithJSON(topicInfo),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client TopicsClient) CreateOrUpdateSender(req *http.Request) (future TopicsCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client TopicsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -111,27 +125,47 @@ func (client TopicsClient) CreateOrUpdateResponder(resp *http.Response) (result 
 	return
 }
 
-// Delete delete existing topic
+// Delete delete existing topic This method may poll for completion. Polling can be canceled by passing the cancel
+// channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group within the user's subscription. topicName is name of the topic
-func (client TopicsClient) Delete(ctx context.Context, resourceGroupName string, topicName string) (result TopicsDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, topicName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client TopicsClient) Delete(resourceGroupName string, topicName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, topicName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client TopicsClient) DeletePreparer(ctx context.Context, resourceGroupName string, topicName string) (*http.Request, error) {
+func (client TopicsClient) DeletePreparer(resourceGroupName string, topicName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -148,22 +182,16 @@ func (client TopicsClient) DeletePreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client TopicsClient) DeleteSender(req *http.Request) (future TopicsDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client TopicsClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -181,8 +209,8 @@ func (client TopicsClient) DeleteResponder(resp *http.Response) (result autorest
 // Get get properties of a topic
 //
 // resourceGroupName is the name of the resource group within the user's subscription. topicName is name of the topic
-func (client TopicsClient) Get(ctx context.Context, resourceGroupName string, topicName string) (result Topic, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, topicName)
+func (client TopicsClient) Get(resourceGroupName string, topicName string) (result Topic, err error) {
+	req, err := client.GetPreparer(resourceGroupName, topicName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "Get", nil, "Failure preparing request")
 		return
@@ -204,7 +232,7 @@ func (client TopicsClient) Get(ctx context.Context, resourceGroupName string, to
 }
 
 // GetPreparer prepares the Get request.
-func (client TopicsClient) GetPreparer(ctx context.Context, resourceGroupName string, topicName string) (*http.Request, error) {
+func (client TopicsClient) GetPreparer(resourceGroupName string, topicName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -221,13 +249,14 @@ func (client TopicsClient) GetPreparer(ctx context.Context, resourceGroupName st
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopicsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -247,8 +276,8 @@ func (client TopicsClient) GetResponder(resp *http.Response) (result Topic, err 
 // ListByResourceGroup list all the topics under a resource group
 //
 // resourceGroupName is the name of the resource group within the user's subscription.
-func (client TopicsClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result TopicsListResult, err error) {
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName)
+func (client TopicsClient) ListByResourceGroup(resourceGroupName string) (result TopicsListResult, err error) {
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -270,7 +299,7 @@ func (client TopicsClient) ListByResourceGroup(ctx context.Context, resourceGrou
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client TopicsClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client TopicsClient) ListByResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -286,13 +315,14 @@ func (client TopicsClient) ListByResourceGroupPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopicsClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -310,8 +340,8 @@ func (client TopicsClient) ListByResourceGroupResponder(resp *http.Response) (re
 }
 
 // ListBySubscription list all the topics under an Azure subscription
-func (client TopicsClient) ListBySubscription(ctx context.Context) (result TopicsListResult, err error) {
-	req, err := client.ListBySubscriptionPreparer(ctx)
+func (client TopicsClient) ListBySubscription() (result TopicsListResult, err error) {
+	req, err := client.ListBySubscriptionPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "ListBySubscription", nil, "Failure preparing request")
 		return
@@ -333,7 +363,7 @@ func (client TopicsClient) ListBySubscription(ctx context.Context) (result Topic
 }
 
 // ListBySubscriptionPreparer prepares the ListBySubscription request.
-func (client TopicsClient) ListBySubscriptionPreparer(ctx context.Context) (*http.Request, error) {
+func (client TopicsClient) ListBySubscriptionPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -348,13 +378,14 @@ func (client TopicsClient) ListBySubscriptionPreparer(ctx context.Context) (*htt
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.EventGrid/topics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListBySubscriptionSender sends the ListBySubscription request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopicsClient) ListBySubscriptionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -375,8 +406,8 @@ func (client TopicsClient) ListBySubscriptionResponder(resp *http.Response) (res
 //
 // resourceGroupName is the name of the resource group within the user's subscription. providerNamespace is namespace
 // of the provider of the topic resourceTypeName is name of the topic type resourceName is name of the topic
-func (client TopicsClient) ListEventTypes(ctx context.Context, resourceGroupName string, providerNamespace string, resourceTypeName string, resourceName string) (result EventTypesListResult, err error) {
-	req, err := client.ListEventTypesPreparer(ctx, resourceGroupName, providerNamespace, resourceTypeName, resourceName)
+func (client TopicsClient) ListEventTypes(resourceGroupName string, providerNamespace string, resourceTypeName string, resourceName string) (result EventTypesListResult, err error) {
+	req, err := client.ListEventTypesPreparer(resourceGroupName, providerNamespace, resourceTypeName, resourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "ListEventTypes", nil, "Failure preparing request")
 		return
@@ -398,7 +429,7 @@ func (client TopicsClient) ListEventTypes(ctx context.Context, resourceGroupName
 }
 
 // ListEventTypesPreparer prepares the ListEventTypes request.
-func (client TopicsClient) ListEventTypesPreparer(ctx context.Context, resourceGroupName string, providerNamespace string, resourceTypeName string, resourceName string) (*http.Request, error) {
+func (client TopicsClient) ListEventTypesPreparer(resourceGroupName string, providerNamespace string, resourceTypeName string, resourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"providerNamespace": autorest.Encode("path", providerNamespace),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -417,13 +448,14 @@ func (client TopicsClient) ListEventTypesPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/Microsoft.EventGrid/eventTypes", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListEventTypesSender sends the ListEventTypes request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopicsClient) ListEventTypesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -443,8 +475,8 @@ func (client TopicsClient) ListEventTypesResponder(resp *http.Response) (result 
 // ListSharedAccessKeys list the two keys used to publish to a topic
 //
 // resourceGroupName is the name of the resource group within the user's subscription. topicName is name of the topic
-func (client TopicsClient) ListSharedAccessKeys(ctx context.Context, resourceGroupName string, topicName string) (result TopicSharedAccessKeys, err error) {
-	req, err := client.ListSharedAccessKeysPreparer(ctx, resourceGroupName, topicName)
+func (client TopicsClient) ListSharedAccessKeys(resourceGroupName string, topicName string) (result TopicSharedAccessKeys, err error) {
+	req, err := client.ListSharedAccessKeysPreparer(resourceGroupName, topicName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "ListSharedAccessKeys", nil, "Failure preparing request")
 		return
@@ -466,7 +498,7 @@ func (client TopicsClient) ListSharedAccessKeys(ctx context.Context, resourceGro
 }
 
 // ListSharedAccessKeysPreparer prepares the ListSharedAccessKeys request.
-func (client TopicsClient) ListSharedAccessKeysPreparer(ctx context.Context, resourceGroupName string, topicName string) (*http.Request, error) {
+func (client TopicsClient) ListSharedAccessKeysPreparer(resourceGroupName string, topicName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -483,13 +515,14 @@ func (client TopicsClient) ListSharedAccessKeysPreparer(ctx context.Context, res
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/listKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSharedAccessKeysSender sends the ListSharedAccessKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopicsClient) ListSharedAccessKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -510,14 +543,14 @@ func (client TopicsClient) ListSharedAccessKeysResponder(resp *http.Response) (r
 //
 // resourceGroupName is the name of the resource group within the user's subscription. topicName is name of the topic
 // regenerateKeyRequest is request body to regenerate key
-func (client TopicsClient) RegenerateKey(ctx context.Context, resourceGroupName string, topicName string, regenerateKeyRequest TopicRegenerateKeyRequest) (result TopicSharedAccessKeys, err error) {
+func (client TopicsClient) RegenerateKey(resourceGroupName string, topicName string, regenerateKeyRequest TopicRegenerateKeyRequest) (result TopicSharedAccessKeys, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: regenerateKeyRequest,
 			Constraints: []validation.Constraint{{Target: "regenerateKeyRequest.KeyName", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "eventgrid.TopicsClient", "RegenerateKey")
 	}
 
-	req, err := client.RegenerateKeyPreparer(ctx, resourceGroupName, topicName, regenerateKeyRequest)
+	req, err := client.RegenerateKeyPreparer(resourceGroupName, topicName, regenerateKeyRequest)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventgrid.TopicsClient", "RegenerateKey", nil, "Failure preparing request")
 		return
@@ -539,7 +572,7 @@ func (client TopicsClient) RegenerateKey(ctx context.Context, resourceGroupName 
 }
 
 // RegenerateKeyPreparer prepares the RegenerateKey request.
-func (client TopicsClient) RegenerateKeyPreparer(ctx context.Context, resourceGroupName string, topicName string, regenerateKeyRequest TopicRegenerateKeyRequest) (*http.Request, error) {
+func (client TopicsClient) RegenerateKeyPreparer(resourceGroupName string, topicName string, regenerateKeyRequest TopicRegenerateKeyRequest) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -558,13 +591,14 @@ func (client TopicsClient) RegenerateKeyPreparer(ctx context.Context, resourceGr
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}/regenerateKey", pathParameters),
 		autorest.WithJSON(regenerateKeyRequest),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegenerateKeySender sends the RegenerateKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client TopicsClient) RegenerateKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

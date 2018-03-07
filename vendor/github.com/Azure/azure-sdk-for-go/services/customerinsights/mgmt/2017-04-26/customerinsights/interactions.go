@@ -18,7 +18,6 @@ package customerinsights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // interact with Azure Customer Insights service to manage your resources. The API has entities that capture the
 // relationship between an end user and the Azure Customer Insights service.
 type InteractionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewInteractionsClient creates an instance of the InteractionsClient client.
@@ -42,36 +41,60 @@ func NewInteractionsClientWithBaseURI(baseURI string, subscriptionID string) Int
 	return InteractionsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates an interaction or updates an existing interaction within a hub.
+// CreateOrUpdate creates an interaction or updates an existing interaction within a hub. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. interactionName is the name of
 // the interaction. parameters is parameters supplied to the CreateOrUpdate Interaction operation.
-func (client InteractionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, hubName string, interactionName string, parameters InteractionResourceFormat) (result InteractionsCreateOrUpdateFuture, err error) {
+func (client InteractionsClient) CreateOrUpdate(resourceGroupName string, hubName string, interactionName string, parameters InteractionResourceFormat, cancel <-chan struct{}) (<-chan InteractionResourceFormat, <-chan error) {
+	resultChan := make(chan InteractionResourceFormat, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: interactionName,
 			Constraints: []validation.Constraint{{Target: "interactionName", Name: validation.MaxLength, Rule: 128, Chain: nil},
 				{Target: "interactionName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "interactionName", Name: validation.Pattern, Rule: `^[a-zA-Z][a-zA-Z0-9_]+$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "customerinsights.InteractionsClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "customerinsights.InteractionsClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, hubName, interactionName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result InteractionResourceFormat
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, hubName, interactionName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client InteractionsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, hubName string, interactionName string, parameters InteractionResourceFormat) (*http.Request, error) {
+func (client InteractionsClient) CreateOrUpdatePreparer(resourceGroupName string, hubName string, interactionName string, parameters InteractionResourceFormat, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"interactionName":   autorest.Encode("path", interactionName),
@@ -91,22 +114,16 @@ func (client InteractionsClient) CreateOrUpdatePreparer(ctx context.Context, res
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/interactions/{interactionName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client InteractionsClient) CreateOrUpdateSender(req *http.Request) (future InteractionsCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client InteractionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -126,8 +143,8 @@ func (client InteractionsClient) CreateOrUpdateResponder(resp *http.Response) (r
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. interactionName is the name of
 // the interaction. localeCode is locale of interaction to retrieve, default is en-us.
-func (client InteractionsClient) Get(ctx context.Context, resourceGroupName string, hubName string, interactionName string, localeCode string) (result InteractionResourceFormat, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, hubName, interactionName, localeCode)
+func (client InteractionsClient) Get(resourceGroupName string, hubName string, interactionName string, localeCode string) (result InteractionResourceFormat, err error) {
+	req, err := client.GetPreparer(resourceGroupName, hubName, interactionName, localeCode)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -149,7 +166,7 @@ func (client InteractionsClient) Get(ctx context.Context, resourceGroupName stri
 }
 
 // GetPreparer prepares the Get request.
-func (client InteractionsClient) GetPreparer(ctx context.Context, resourceGroupName string, hubName string, interactionName string, localeCode string) (*http.Request, error) {
+func (client InteractionsClient) GetPreparer(resourceGroupName string, hubName string, interactionName string, localeCode string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"interactionName":   autorest.Encode("path", interactionName),
@@ -170,13 +187,14 @@ func (client InteractionsClient) GetPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/interactions/{interactionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client InteractionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -197,9 +215,8 @@ func (client InteractionsClient) GetResponder(resp *http.Response) (result Inter
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. localeCode is locale of
 // interaction to retrieve, default is en-us.
-func (client InteractionsClient) ListByHub(ctx context.Context, resourceGroupName string, hubName string, localeCode string) (result InteractionListResultPage, err error) {
-	result.fn = client.listByHubNextResults
-	req, err := client.ListByHubPreparer(ctx, resourceGroupName, hubName, localeCode)
+func (client InteractionsClient) ListByHub(resourceGroupName string, hubName string, localeCode string) (result InteractionListResult, err error) {
+	req, err := client.ListByHubPreparer(resourceGroupName, hubName, localeCode)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "ListByHub", nil, "Failure preparing request")
 		return
@@ -207,12 +224,12 @@ func (client InteractionsClient) ListByHub(ctx context.Context, resourceGroupNam
 
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
-		result.ilr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "ListByHub", resp, "Failure sending request")
 		return
 	}
 
-	result.ilr, err = client.ListByHubResponder(resp)
+	result, err = client.ListByHubResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "ListByHub", resp, "Failure responding to request")
 	}
@@ -221,7 +238,7 @@ func (client InteractionsClient) ListByHub(ctx context.Context, resourceGroupNam
 }
 
 // ListByHubPreparer prepares the ListByHub request.
-func (client InteractionsClient) ListByHubPreparer(ctx context.Context, resourceGroupName string, hubName string, localeCode string) (*http.Request, error) {
+func (client InteractionsClient) ListByHubPreparer(resourceGroupName string, hubName string, localeCode string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -241,13 +258,14 @@ func (client InteractionsClient) ListByHubPreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/interactions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByHubSender sends the ListByHub request. The method will close the
 // http.Response Body if it receives an error.
 func (client InteractionsClient) ListByHubSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -264,39 +282,81 @@ func (client InteractionsClient) ListByHubResponder(resp *http.Response) (result
 	return
 }
 
-// listByHubNextResults retrieves the next set of results, if any.
-func (client InteractionsClient) listByHubNextResults(lastResults InteractionListResult) (result InteractionListResult, err error) {
-	req, err := lastResults.interactionListResultPreparer()
+// ListByHubNextResults retrieves the next set of results, if any.
+func (client InteractionsClient) ListByHubNextResults(lastResults InteractionListResult) (result InteractionListResult, err error) {
+	req, err := lastResults.InteractionListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "listByHubNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "ListByHub", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "listByHubNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "ListByHub", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByHubResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "listByHubNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "ListByHub", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByHubComplete enumerates all values, automatically crossing page boundaries as required.
-func (client InteractionsClient) ListByHubComplete(ctx context.Context, resourceGroupName string, hubName string, localeCode string) (result InteractionListResultIterator, err error) {
-	result.page, err = client.ListByHub(ctx, resourceGroupName, hubName, localeCode)
-	return
+// ListByHubComplete gets all elements from the list without paging.
+func (client InteractionsClient) ListByHubComplete(resourceGroupName string, hubName string, localeCode string, cancel <-chan struct{}) (<-chan InteractionResourceFormat, <-chan error) {
+	resultChan := make(chan InteractionResourceFormat)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByHub(resourceGroupName, hubName, localeCode)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByHubNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // SuggestRelationshipLinks suggests relationships to create relationship links.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. interactionName is the name of
 // the interaction.
-func (client InteractionsClient) SuggestRelationshipLinks(ctx context.Context, resourceGroupName string, hubName string, interactionName string) (result SuggestRelationshipLinksResponse, err error) {
-	req, err := client.SuggestRelationshipLinksPreparer(ctx, resourceGroupName, hubName, interactionName)
+func (client InteractionsClient) SuggestRelationshipLinks(resourceGroupName string, hubName string, interactionName string) (result SuggestRelationshipLinksResponse, err error) {
+	req, err := client.SuggestRelationshipLinksPreparer(resourceGroupName, hubName, interactionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.InteractionsClient", "SuggestRelationshipLinks", nil, "Failure preparing request")
 		return
@@ -318,7 +378,7 @@ func (client InteractionsClient) SuggestRelationshipLinks(ctx context.Context, r
 }
 
 // SuggestRelationshipLinksPreparer prepares the SuggestRelationshipLinks request.
-func (client InteractionsClient) SuggestRelationshipLinksPreparer(ctx context.Context, resourceGroupName string, hubName string, interactionName string) (*http.Request, error) {
+func (client InteractionsClient) SuggestRelationshipLinksPreparer(resourceGroupName string, hubName string, interactionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"interactionName":   autorest.Encode("path", interactionName),
@@ -336,13 +396,14 @@ func (client InteractionsClient) SuggestRelationshipLinksPreparer(ctx context.Co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/interactions/{interactionName}/suggestRelationshipLinks", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // SuggestRelationshipLinksSender sends the SuggestRelationshipLinks request. The method will close the
 // http.Response Body if it receives an error.
 func (client InteractionsClient) SuggestRelationshipLinksSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

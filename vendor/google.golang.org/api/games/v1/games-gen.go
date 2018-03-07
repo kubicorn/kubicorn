@@ -5046,6 +5046,13 @@ func (r *AchievementDefinitionsService) List() *AchievementDefinitionsListCall {
 	return c
 }
 
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *AchievementDefinitionsListCall) ConsistencyToken(consistencyToken int64) *AchievementDefinitionsListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
+	return c
+}
+
 // Language sets the optional parameter "language": The preferred
 // language to use for strings returned by this method.
 func (c *AchievementDefinitionsListCall) Language(language string) *AchievementDefinitionsListCall {
@@ -5165,6 +5172,12 @@ func (c *AchievementDefinitionsListCall) Do(opts ...googleapi.CallOption) (*Achi
 	//   "httpMethod": "GET",
 	//   "id": "games.achievementDefinitions.list",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -5233,6 +5246,13 @@ func (r *AchievementsService) Increment(achievementId string, stepsToIncrement i
 	c := &AchievementsIncrementCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.achievementId = achievementId
 	c.urlParams_.Set("stepsToIncrement", fmt.Sprint(stepsToIncrement))
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *AchievementsIncrementCall) ConsistencyToken(consistencyToken int64) *AchievementsIncrementCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -5340,6 +5360,12 @@ func (c *AchievementsIncrementCall) Do(opts ...googleapi.CallOption) (*Achieveme
 	//       "required": true,
 	//       "type": "string"
 	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "requestId": {
 	//       "description": "A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries.",
 	//       "format": "int64",
@@ -5383,6 +5409,13 @@ type AchievementsListCall struct {
 func (r *AchievementsService) List(playerId string) *AchievementsListCall {
 	c := &AchievementsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.playerId = playerId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *AchievementsListCall) ConsistencyToken(consistencyToken int64) *AchievementsListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -5524,6 +5557,12 @@ func (c *AchievementsListCall) Do(opts ...googleapi.CallOption) (*PlayerAchievem
 	//     "playerId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -5614,6 +5653,13 @@ type AchievementsRevealCall struct {
 func (r *AchievementsService) Reveal(achievementId string) *AchievementsRevealCall {
 	c := &AchievementsRevealCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.achievementId = achievementId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *AchievementsRevealCall) ConsistencyToken(consistencyToken int64) *AchievementsRevealCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -5710,6 +5756,12 @@ func (c *AchievementsRevealCall) Do(opts ...googleapi.CallOption) (*AchievementR
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"
+	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
 	//     }
 	//   },
 	//   "path": "achievements/{achievementId}/reveal",
@@ -5742,6 +5794,13 @@ func (r *AchievementsService) SetStepsAtLeast(achievementId string, steps int64)
 	c := &AchievementsSetStepsAtLeastCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.achievementId = achievementId
 	c.urlParams_.Set("steps", fmt.Sprint(steps))
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *AchievementsSetStepsAtLeastCall) ConsistencyToken(consistencyToken int64) *AchievementsSetStepsAtLeastCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -5841,6 +5900,12 @@ func (c *AchievementsSetStepsAtLeastCall) Do(opts ...googleapi.CallOption) (*Ach
 	//       "required": true,
 	//       "type": "string"
 	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "steps": {
 	//       "description": "The minimum value to set the steps to.",
 	//       "format": "int32",
@@ -5877,6 +5942,13 @@ type AchievementsUnlockCall struct {
 func (r *AchievementsService) Unlock(achievementId string) *AchievementsUnlockCall {
 	c := &AchievementsUnlockCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.achievementId = achievementId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *AchievementsUnlockCall) ConsistencyToken(consistencyToken int64) *AchievementsUnlockCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -5973,6 +6045,12 @@ func (c *AchievementsUnlockCall) Do(opts ...googleapi.CallOption) (*AchievementU
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"
+	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
 	//     }
 	//   },
 	//   "path": "achievements/{achievementId}/unlock",
@@ -6002,6 +6080,13 @@ type AchievementsUpdateMultipleCall struct {
 func (r *AchievementsService) UpdateMultiple(achievementupdatemultiplerequest *AchievementUpdateMultipleRequest) *AchievementsUpdateMultipleCall {
 	c := &AchievementsUpdateMultipleCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.achievementupdatemultiplerequest = achievementupdatemultiplerequest
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *AchievementsUpdateMultipleCall) ConsistencyToken(consistencyToken int64) *AchievementsUpdateMultipleCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -6092,6 +6177,14 @@ func (c *AchievementsUpdateMultipleCall) Do(opts ...googleapi.CallOption) (*Achi
 	//   "description": "Updates multiple achievements for the currently authenticated player.",
 	//   "httpMethod": "POST",
 	//   "id": "games.achievements.updateMultiple",
+	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     }
+	//   },
 	//   "path": "achievements/updateMultiple",
 	//   "request": {
 	//     "$ref": "AchievementUpdateMultipleRequest"
@@ -6125,6 +6218,13 @@ type ApplicationsGetCall struct {
 func (r *ApplicationsService) Get(applicationId string) *ApplicationsGetCall {
 	c := &ApplicationsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.applicationId = applicationId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ApplicationsGetCall) ConsistencyToken(consistencyToken int64) *ApplicationsGetCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -6255,6 +6355,12 @@ func (c *ApplicationsGetCall) Do(opts ...googleapi.CallOption) (*Application, er
 	//       "required": true,
 	//       "type": "string"
 	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -6301,6 +6407,13 @@ type ApplicationsPlayedCall struct {
 // your application.
 func (r *ApplicationsService) Played() *ApplicationsPlayedCall {
 	c := &ApplicationsPlayedCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ApplicationsPlayedCall) ConsistencyToken(consistencyToken int64) *ApplicationsPlayedCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -6360,6 +6473,14 @@ func (c *ApplicationsPlayedCall) Do(opts ...googleapi.CallOption) error {
 	//   "description": "Indicate that the the currently authenticated user is playing your application.",
 	//   "httpMethod": "POST",
 	//   "id": "games.applications.played",
+	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     }
+	//   },
 	//   "path": "applications/played",
 	//   "scopes": [
 	//     "https://www.googleapis.com/auth/games",
@@ -6386,6 +6507,13 @@ type ApplicationsVerifyCall struct {
 func (r *ApplicationsService) Verify(applicationId string) *ApplicationsVerifyCall {
 	c := &ApplicationsVerifyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.applicationId = applicationId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ApplicationsVerifyCall) ConsistencyToken(consistencyToken int64) *ApplicationsVerifyCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -6495,6 +6623,12 @@ func (c *ApplicationsVerifyCall) Do(opts ...googleapi.CallOption) (*ApplicationV
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"
+	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
 	//     }
 	//   },
 	//   "path": "applications/{applicationId}/verify",
@@ -6523,6 +6657,13 @@ type EventsListByPlayerCall struct {
 // in this application for the currently authenticated user.
 func (r *EventsService) ListByPlayer() *EventsListByPlayerCall {
 	c := &EventsListByPlayerCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *EventsListByPlayerCall) ConsistencyToken(consistencyToken int64) *EventsListByPlayerCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -6644,6 +6785,12 @@ func (c *EventsListByPlayerCall) Do(opts ...googleapi.CallOption) (*PlayerEventL
 	//   "httpMethod": "GET",
 	//   "id": "games.events.listByPlayer",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -6710,6 +6857,13 @@ type EventsListDefinitionsCall struct {
 // application.
 func (r *EventsService) ListDefinitions() *EventsListDefinitionsCall {
 	c := &EventsListDefinitionsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *EventsListDefinitionsCall) ConsistencyToken(consistencyToken int64) *EventsListDefinitionsCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -6831,6 +6985,12 @@ func (c *EventsListDefinitionsCall) Do(opts ...googleapi.CallOption) (*EventDefi
 	//   "httpMethod": "GET",
 	//   "id": "games.events.listDefinitions",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -6898,6 +7058,13 @@ type EventsRecordCall struct {
 func (r *EventsService) Record(eventrecordrequest *EventRecordRequest) *EventsRecordCall {
 	c := &EventsRecordCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.eventrecordrequest = eventrecordrequest
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *EventsRecordCall) ConsistencyToken(consistencyToken int64) *EventsRecordCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -6995,6 +7162,12 @@ func (c *EventsRecordCall) Do(opts ...googleapi.CallOption) (*EventUpdateRespons
 	//   "httpMethod": "POST",
 	//   "id": "games.events.record",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -7031,6 +7204,13 @@ type LeaderboardsGetCall struct {
 func (r *LeaderboardsService) Get(leaderboardId string) *LeaderboardsGetCall {
 	c := &LeaderboardsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.leaderboardId = leaderboardId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *LeaderboardsGetCall) ConsistencyToken(consistencyToken int64) *LeaderboardsGetCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -7142,6 +7322,12 @@ func (c *LeaderboardsGetCall) Do(opts ...googleapi.CallOption) (*Leaderboard, er
 	//     "leaderboardId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -7179,6 +7365,13 @@ type LeaderboardsListCall struct {
 // List: Lists all the leaderboard metadata for your application.
 func (r *LeaderboardsService) List() *LeaderboardsListCall {
 	c := &LeaderboardsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *LeaderboardsListCall) ConsistencyToken(consistencyToken int64) *LeaderboardsListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -7300,6 +7493,12 @@ func (c *LeaderboardsListCall) Do(opts ...googleapi.CallOption) (*LeaderboardLis
 	//   "httpMethod": "GET",
 	//   "id": "games.leaderboards.list",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -7366,6 +7565,13 @@ type MetagameGetMetagameConfigCall struct {
 // calling application.
 func (r *MetagameService) GetMetagameConfig() *MetagameGetMetagameConfigCall {
 	c := &MetagameGetMetagameConfigCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *MetagameGetMetagameConfigCall) ConsistencyToken(consistencyToken int64) *MetagameGetMetagameConfigCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -7463,6 +7669,14 @@ func (c *MetagameGetMetagameConfigCall) Do(opts ...googleapi.CallOption) (*Metag
 	//   "description": "Return the metagame configuration data for the calling application.",
 	//   "httpMethod": "GET",
 	//   "id": "games.metagame.getMetagameConfig",
+	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     }
+	//   },
 	//   "path": "metagameConfig",
 	//   "response": {
 	//     "$ref": "MetagameConfig"
@@ -7493,6 +7707,13 @@ func (r *MetagameService) ListCategoriesByPlayer(playerId string, collection str
 	c := &MetagameListCategoriesByPlayerCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.playerId = playerId
 	c.collection = collection
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *MetagameListCategoriesByPlayerCall) ConsistencyToken(consistencyToken int64) *MetagameListCategoriesByPlayerCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -7634,6 +7855,12 @@ func (c *MetagameListCategoriesByPlayerCall) Do(opts ...googleapi.CallOption) (*
 	//       "required": true,
 	//       "type": "string"
 	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -7708,6 +7935,13 @@ type PlayersGetCall struct {
 func (r *PlayersService) Get(playerId string) *PlayersGetCall {
 	c := &PlayersGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.playerId = playerId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *PlayersGetCall) ConsistencyToken(consistencyToken int64) *PlayersGetCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -7819,6 +8053,12 @@ func (c *PlayersGetCall) Do(opts ...googleapi.CallOption) (*Player, error) {
 	//     "playerId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -7859,6 +8099,13 @@ type PlayersListCall struct {
 func (r *PlayersService) List(collection string) *PlayersListCall {
 	c := &PlayersListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.collection = collection
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *PlayersListCall) ConsistencyToken(consistencyToken int64) *PlayersListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -8004,6 +8251,12 @@ func (c *PlayersListCall) Do(opts ...googleapi.CallOption) (*PlayerListResponse,
 	//       "required": true,
 	//       "type": "string"
 	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -8074,6 +8327,13 @@ func (r *PushtokensService) Remove(pushtokenid *PushTokenId) *PushtokensRemoveCa
 	return c
 }
 
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *PushtokensRemoveCall) ConsistencyToken(consistencyToken int64) *PushtokensRemoveCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
+	return c
+}
+
 // Fields allows partial responses to be retrieved. See
 // https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
 // for more information.
@@ -8135,6 +8395,14 @@ func (c *PushtokensRemoveCall) Do(opts ...googleapi.CallOption) error {
 	//   "description": "Removes a push token for the current user and application. Removing a non-existent push token will report success.",
 	//   "httpMethod": "POST",
 	//   "id": "games.pushtokens.remove",
+	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     }
+	//   },
 	//   "path": "pushtokens/remove",
 	//   "request": {
 	//     "$ref": "PushTokenId"
@@ -8161,6 +8429,13 @@ type PushtokensUpdateCall struct {
 func (r *PushtokensService) Update(pushtoken *PushToken) *PushtokensUpdateCall {
 	c := &PushtokensUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.pushtoken = pushtoken
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *PushtokensUpdateCall) ConsistencyToken(consistencyToken int64) *PushtokensUpdateCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -8225,6 +8500,14 @@ func (c *PushtokensUpdateCall) Do(opts ...googleapi.CallOption) error {
 	//   "description": "Registers a push token for the current user and application.",
 	//   "httpMethod": "PUT",
 	//   "id": "games.pushtokens.update",
+	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     }
+	//   },
 	//   "path": "pushtokens",
 	//   "request": {
 	//     "$ref": "PushToken"
@@ -8256,6 +8539,13 @@ func (r *QuestMilestonesService) Claim(questId string, milestoneId string, reque
 	c.questId = questId
 	c.milestoneId = milestoneId
 	c.urlParams_.Set("requestId", fmt.Sprint(requestId))
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *QuestMilestonesClaimCall) ConsistencyToken(consistencyToken int64) *QuestMilestonesClaimCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -8325,6 +8615,12 @@ func (c *QuestMilestonesClaimCall) Do(opts ...googleapi.CallOption) error {
 	//     "requestId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "milestoneId": {
 	//       "description": "The ID of the milestone.",
 	//       "location": "path",
@@ -8369,6 +8665,13 @@ type QuestsAcceptCall struct {
 func (r *QuestsService) Accept(questId string) *QuestsAcceptCall {
 	c := &QuestsAcceptCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.questId = questId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *QuestsAcceptCall) ConsistencyToken(consistencyToken int64) *QuestsAcceptCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -8467,6 +8770,12 @@ func (c *QuestsAcceptCall) Do(opts ...googleapi.CallOption) (*Quest, error) {
 	//     "questId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -8507,6 +8816,13 @@ type QuestsListCall struct {
 func (r *QuestsService) List(playerId string) *QuestsListCall {
 	c := &QuestsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.playerId = playerId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *QuestsListCall) ConsistencyToken(consistencyToken int64) *QuestsListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -8635,6 +8951,12 @@ func (c *QuestsListCall) Do(opts ...googleapi.CallOption) (*QuestListResponse, e
 	//     "playerId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -8707,6 +9029,13 @@ type RevisionsCheckCall struct {
 func (r *RevisionsService) Check(clientRevision string) *RevisionsCheckCall {
 	c := &RevisionsCheckCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.urlParams_.Set("clientRevision", clientRevision)
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RevisionsCheckCall) ConsistencyToken(consistencyToken int64) *RevisionsCheckCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -8813,6 +9142,12 @@ func (c *RevisionsCheckCall) Do(opts ...googleapi.CallOption) (*RevisionCheckRes
 	//       "location": "query",
 	//       "required": true,
 	//       "type": "string"
+	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
 	//     }
 	//   },
 	//   "path": "revisions/check",
@@ -8842,6 +9177,13 @@ type RoomsCreateCall struct {
 func (r *RoomsService) Create(roomcreaterequest *RoomCreateRequest) *RoomsCreateCall {
 	c := &RoomsCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.roomcreaterequest = roomcreaterequest
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsCreateCall) ConsistencyToken(consistencyToken int64) *RoomsCreateCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -8939,6 +9281,12 @@ func (c *RoomsCreateCall) Do(opts ...googleapi.CallOption) (*Room, error) {
 	//   "httpMethod": "POST",
 	//   "id": "games.rooms.create",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -8975,6 +9323,13 @@ type RoomsDeclineCall struct {
 func (r *RoomsService) Decline(roomId string) *RoomsDeclineCall {
 	c := &RoomsDeclineCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.roomId = roomId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsDeclineCall) ConsistencyToken(consistencyToken int64) *RoomsDeclineCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -9073,6 +9428,12 @@ func (c *RoomsDeclineCall) Do(opts ...googleapi.CallOption) (*Room, error) {
 	//     "roomId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -9112,6 +9473,13 @@ type RoomsDismissCall struct {
 func (r *RoomsService) Dismiss(roomId string) *RoomsDismissCall {
 	c := &RoomsDismissCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.roomId = roomId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsDismissCall) ConsistencyToken(consistencyToken int64) *RoomsDismissCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -9178,6 +9546,12 @@ func (c *RoomsDismissCall) Do(opts ...googleapi.CallOption) error {
 	//     "roomId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "roomId": {
 	//       "description": "The ID of the room.",
 	//       "location": "path",
@@ -9209,6 +9583,13 @@ type RoomsGetCall struct {
 func (r *RoomsService) Get(roomId string) *RoomsGetCall {
 	c := &RoomsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.roomId = roomId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsGetCall) ConsistencyToken(consistencyToken int64) *RoomsGetCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -9320,6 +9701,12 @@ func (c *RoomsGetCall) Do(opts ...googleapi.CallOption) (*Room, error) {
 	//     "roomId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -9361,6 +9748,13 @@ func (r *RoomsService) Join(roomId string, roomjoinrequest *RoomJoinRequest) *Ro
 	c := &RoomsJoinCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.roomId = roomId
 	c.roomjoinrequest = roomjoinrequest
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsJoinCall) ConsistencyToken(consistencyToken int64) *RoomsJoinCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -9464,6 +9858,12 @@ func (c *RoomsJoinCall) Do(opts ...googleapi.CallOption) (*Room, error) {
 	//     "roomId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -9508,6 +9908,13 @@ func (r *RoomsService) Leave(roomId string, roomleaverequest *RoomLeaveRequest) 
 	c := &RoomsLeaveCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.roomId = roomId
 	c.roomleaverequest = roomleaverequest
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsLeaveCall) ConsistencyToken(consistencyToken int64) *RoomsLeaveCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -9611,6 +10018,12 @@ func (c *RoomsLeaveCall) Do(opts ...googleapi.CallOption) (*Room, error) {
 	//     "roomId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -9651,6 +10064,13 @@ type RoomsListCall struct {
 // List: Returns invitations to join rooms.
 func (r *RoomsService) List() *RoomsListCall {
 	c := &RoomsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsListCall) ConsistencyToken(consistencyToken int64) *RoomsListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -9772,6 +10192,12 @@ func (c *RoomsListCall) Do(opts ...googleapi.CallOption) (*RoomList, error) {
 	//   "httpMethod": "GET",
 	//   "id": "games.rooms.list",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -9842,6 +10268,13 @@ func (r *RoomsService) ReportStatus(roomId string, roomp2pstatuses *RoomP2PStatu
 	c := &RoomsReportStatusCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.roomId = roomId
 	c.roomp2pstatuses = roomp2pstatuses
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *RoomsReportStatusCall) ConsistencyToken(consistencyToken int64) *RoomsReportStatusCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -9945,6 +10378,12 @@ func (c *RoomsReportStatusCall) Do(opts ...googleapi.CallOption) (*RoomStatus, e
 	//     "roomId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -9996,6 +10435,13 @@ func (r *ScoresService) Get(playerId string, leaderboardId string, timeSpan stri
 	c.playerId = playerId
 	c.leaderboardId = leaderboardId
 	c.timeSpan = timeSpan
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ScoresGetCall) ConsistencyToken(consistencyToken int64) *ScoresGetCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -10142,6 +10588,12 @@ func (c *ScoresGetCall) Do(opts ...googleapi.CallOption) (*PlayerLeaderboardScor
 	//     "timeSpan"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "includeRankType": {
 	//       "description": "The types of ranks to return. If the parameter is omitted, no ranks will be returned.",
 	//       "enum": [
@@ -10257,6 +10709,13 @@ func (r *ScoresService) List(leaderboardId string, collection string, timeSpan s
 	c.leaderboardId = leaderboardId
 	c.collection = collection
 	c.urlParams_.Set("timeSpan", timeSpan)
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ScoresListCall) ConsistencyToken(consistencyToken int64) *ScoresListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -10403,6 +10862,12 @@ func (c *ScoresListCall) Do(opts ...googleapi.CallOption) (*LeaderboardScores, e
 	//       "required": true,
 	//       "type": "string"
 	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -10496,6 +10961,13 @@ func (r *ScoresService) ListWindow(leaderboardId string, collection string, time
 	c.leaderboardId = leaderboardId
 	c.collection = collection
 	c.urlParams_.Set("timeSpan", timeSpan)
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ScoresListWindowCall) ConsistencyToken(consistencyToken int64) *ScoresListWindowCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -10660,6 +11132,12 @@ func (c *ScoresListWindowCall) Do(opts ...googleapi.CallOption) (*LeaderboardSco
 	//       "required": true,
 	//       "type": "string"
 	//     },
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -10760,6 +11238,13 @@ func (r *ScoresService) Submit(leaderboardId string, score int64) *ScoresSubmitC
 	c := &ScoresSubmitCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.leaderboardId = leaderboardId
 	c.urlParams_.Set("score", fmt.Sprint(score))
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ScoresSubmitCall) ConsistencyToken(consistencyToken int64) *ScoresSubmitCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -10868,6 +11353,12 @@ func (c *ScoresSubmitCall) Do(opts ...googleapi.CallOption) (*PlayerScoreRespons
 	//     "score"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -10919,6 +11410,13 @@ type ScoresSubmitMultipleCall struct {
 func (r *ScoresService) SubmitMultiple(playerscoresubmissionlist *PlayerScoreSubmissionList) *ScoresSubmitMultipleCall {
 	c := &ScoresSubmitMultipleCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.playerscoresubmissionlist = playerscoresubmissionlist
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *ScoresSubmitMultipleCall) ConsistencyToken(consistencyToken int64) *ScoresSubmitMultipleCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -11016,6 +11514,12 @@ func (c *ScoresSubmitMultipleCall) Do(opts ...googleapi.CallOption) (*PlayerScor
 	//   "httpMethod": "POST",
 	//   "id": "games.scores.submitMultiple",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -11052,6 +11556,13 @@ type SnapshotsGetCall struct {
 func (r *SnapshotsService) Get(snapshotId string) *SnapshotsGetCall {
 	c := &SnapshotsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.snapshotId = snapshotId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *SnapshotsGetCall) ConsistencyToken(consistencyToken int64) *SnapshotsGetCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -11163,6 +11674,12 @@ func (c *SnapshotsGetCall) Do(opts ...googleapi.CallOption) (*Snapshot, error) {
 	//     "snapshotId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -11204,6 +11721,13 @@ type SnapshotsListCall struct {
 func (r *SnapshotsService) List(playerId string) *SnapshotsListCall {
 	c := &SnapshotsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.playerId = playerId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *SnapshotsListCall) ConsistencyToken(consistencyToken int64) *SnapshotsListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -11331,6 +11855,12 @@ func (c *SnapshotsListCall) Do(opts ...googleapi.CallOption) (*SnapshotListRespo
 	//     "playerId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -11407,6 +11937,13 @@ func (r *TurnBasedMatchesService) Cancel(matchId string) *TurnBasedMatchesCancel
 	return c
 }
 
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesCancelCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesCancelCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
+	return c
+}
+
 // Fields allows partial responses to be retrieved. See
 // https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
 // for more information.
@@ -11470,6 +12007,12 @@ func (c *TurnBasedMatchesCancelCall) Do(opts ...googleapi.CallOption) error {
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "matchId": {
 	//       "description": "The ID of the match.",
 	//       "location": "path",
@@ -11500,6 +12043,13 @@ type TurnBasedMatchesCreateCall struct {
 func (r *TurnBasedMatchesService) Create(turnbasedmatchcreaterequest *TurnBasedMatchCreateRequest) *TurnBasedMatchesCreateCall {
 	c := &TurnBasedMatchesCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.turnbasedmatchcreaterequest = turnbasedmatchcreaterequest
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesCreateCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesCreateCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -11597,6 +12147,12 @@ func (c *TurnBasedMatchesCreateCall) Do(opts ...googleapi.CallOption) (*TurnBase
 	//   "httpMethod": "POST",
 	//   "id": "games.turnBasedMatches.create",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -11632,6 +12188,13 @@ type TurnBasedMatchesDeclineCall struct {
 func (r *TurnBasedMatchesService) Decline(matchId string) *TurnBasedMatchesDeclineCall {
 	c := &TurnBasedMatchesDeclineCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesDeclineCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesDeclineCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -11730,6 +12293,12 @@ func (c *TurnBasedMatchesDeclineCall) Do(opts ...googleapi.CallOption) (*TurnBas
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -11770,6 +12339,13 @@ type TurnBasedMatchesDismissCall struct {
 func (r *TurnBasedMatchesService) Dismiss(matchId string) *TurnBasedMatchesDismissCall {
 	c := &TurnBasedMatchesDismissCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesDismissCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesDismissCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -11836,6 +12412,12 @@ func (c *TurnBasedMatchesDismissCall) Do(opts ...googleapi.CallOption) error {
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "matchId": {
 	//       "description": "The ID of the match.",
 	//       "location": "path",
@@ -11870,6 +12452,13 @@ func (r *TurnBasedMatchesService) Finish(matchId string, turnbasedmatchresults *
 	c := &TurnBasedMatchesFinishCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
 	c.turnbasedmatchresults = turnbasedmatchresults
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesFinishCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesFinishCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -11973,6 +12562,12 @@ func (c *TurnBasedMatchesFinishCall) Do(opts ...googleapi.CallOption) (*TurnBase
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -12015,6 +12610,13 @@ type TurnBasedMatchesGetCall struct {
 func (r *TurnBasedMatchesService) Get(matchId string) *TurnBasedMatchesGetCall {
 	c := &TurnBasedMatchesGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesGetCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesGetCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -12133,6 +12735,12 @@ func (c *TurnBasedMatchesGetCall) Do(opts ...googleapi.CallOption) (*TurnBasedMa
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "includeMatchData": {
 	//       "description": "Get match data along with metadata.",
 	//       "location": "query",
@@ -12176,6 +12784,13 @@ type TurnBasedMatchesJoinCall struct {
 func (r *TurnBasedMatchesService) Join(matchId string) *TurnBasedMatchesJoinCall {
 	c := &TurnBasedMatchesJoinCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesJoinCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesJoinCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -12274,6 +12889,12 @@ func (c *TurnBasedMatchesJoinCall) Do(opts ...googleapi.CallOption) (*TurnBasedM
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -12313,6 +12934,13 @@ type TurnBasedMatchesLeaveCall struct {
 func (r *TurnBasedMatchesService) Leave(matchId string) *TurnBasedMatchesLeaveCall {
 	c := &TurnBasedMatchesLeaveCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesLeaveCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesLeaveCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -12411,6 +13039,12 @@ func (c *TurnBasedMatchesLeaveCall) Do(opts ...googleapi.CallOption) (*TurnBased
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -12451,6 +13085,13 @@ func (r *TurnBasedMatchesService) LeaveTurn(matchId string, matchVersion int64) 
 	c := &TurnBasedMatchesLeaveTurnCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
 	c.urlParams_.Set("matchVersion", fmt.Sprint(matchVersion))
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesLeaveTurnCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesLeaveTurnCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -12560,6 +13201,12 @@ func (c *TurnBasedMatchesLeaveTurnCall) Do(opts ...googleapi.CallOption) (*TurnB
 	//     "matchVersion"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -12609,6 +13256,13 @@ type TurnBasedMatchesListCall struct {
 // List: Returns turn-based matches the player is or was involved in.
 func (r *TurnBasedMatchesService) List() *TurnBasedMatchesListCall {
 	c := &TurnBasedMatchesListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesListCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesListCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -12750,6 +13404,12 @@ func (c *TurnBasedMatchesListCall) Do(opts ...googleapi.CallOption) (*TurnBasedM
 	//   "httpMethod": "GET",
 	//   "id": "games.turnBasedMatches.list",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "includeMatchData": {
 	//       "description": "True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request.",
 	//       "location": "query",
@@ -12832,6 +13492,13 @@ type TurnBasedMatchesRematchCall struct {
 func (r *TurnBasedMatchesService) Rematch(matchId string) *TurnBasedMatchesRematchCall {
 	c := &TurnBasedMatchesRematchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesRematchCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesRematchCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -12939,6 +13606,12 @@ func (c *TurnBasedMatchesRematchCall) Do(opts ...googleapi.CallOption) (*TurnBas
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",
@@ -12985,6 +13658,13 @@ type TurnBasedMatchesSyncCall struct {
 // will have a status of MATCH_DELETED.
 func (r *TurnBasedMatchesService) Sync() *TurnBasedMatchesSyncCall {
 	c := &TurnBasedMatchesSyncCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesSyncCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesSyncCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -13126,6 +13806,12 @@ func (c *TurnBasedMatchesSyncCall) Do(opts ...googleapi.CallOption) (*TurnBasedM
 	//   "httpMethod": "GET",
 	//   "id": "games.turnBasedMatches.sync",
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "includeMatchData": {
 	//       "description": "True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request.",
 	//       "location": "query",
@@ -13207,6 +13893,13 @@ func (r *TurnBasedMatchesService) TakeTurn(matchId string, turnbasedmatchturn *T
 	c := &TurnBasedMatchesTakeTurnCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.matchId = matchId
 	c.turnbasedmatchturn = turnbasedmatchturn
+	return c
+}
+
+// ConsistencyToken sets the optional parameter "consistencyToken": The
+// last-seen mutation timestamp.
+func (c *TurnBasedMatchesTakeTurnCall) ConsistencyToken(consistencyToken int64) *TurnBasedMatchesTakeTurnCall {
+	c.urlParams_.Set("consistencyToken", fmt.Sprint(consistencyToken))
 	return c
 }
 
@@ -13310,6 +14003,12 @@ func (c *TurnBasedMatchesTakeTurnCall) Do(opts ...googleapi.CallOption) (*TurnBa
 	//     "matchId"
 	//   ],
 	//   "parameters": {
+	//     "consistencyToken": {
+	//       "description": "The last-seen mutation timestamp.",
+	//       "format": "int64",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
 	//     "language": {
 	//       "description": "The preferred language to use for strings returned by this method.",
 	//       "location": "query",

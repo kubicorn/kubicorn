@@ -128,10 +128,6 @@ func (c *Client) GetAll(ctx context.Context, docRefs []*DocumentRef) ([]*Documen
 	if err := checkTransaction(ctx); err != nil {
 		return nil, err
 	}
-	return c.getAll(ctx, docRefs, nil)
-}
-
-func (c *Client) getAll(ctx context.Context, docRefs []*DocumentRef, tid []byte) ([]*DocumentSnapshot, error) {
 	var docNames []string
 	for _, dr := range docRefs {
 		if dr == nil {
@@ -142,9 +138,6 @@ func (c *Client) getAll(ctx context.Context, docRefs []*DocumentRef, tid []byte)
 	req := &pb.BatchGetDocumentsRequest{
 		Database:  c.path(),
 		Documents: docNames,
-	}
-	if tid != nil {
-		req.ConsistencySelector = &pb.BatchGetDocumentsRequest_Transaction{tid}
 	}
 	streamClient, err := c.c.BatchGetDocuments(withResourceHeader(ctx, req.Database), req)
 	if err != nil {
@@ -216,7 +209,7 @@ func (c *Client) Batch() *WriteBatch {
 }
 
 // commit calls the Commit RPC outside of a transaction.
-func (c *Client) commit(ctx context.Context, ws []*pb.Write) ([]*WriteResult, error) {
+func (c *Client) commit(ctx context.Context, ws []*pb.Write) (*WriteResult, error) {
 	if err := checkTransaction(ctx); err != nil {
 		return nil, err
 	}
@@ -231,23 +224,7 @@ func (c *Client) commit(ctx context.Context, ws []*pb.Write) ([]*WriteResult, er
 	if len(res.WriteResults) == 0 {
 		return nil, errors.New("firestore: missing WriteResult")
 	}
-	var wrs []*WriteResult
-	for _, pwr := range res.WriteResults {
-		wr, err := writeResultFromProto(pwr)
-		if err != nil {
-			return nil, err
-		}
-		wrs = append(wrs, wr)
-	}
-	return wrs, nil
-}
-
-func (c *Client) commit1(ctx context.Context, ws []*pb.Write) (*WriteResult, error) {
-	wrs, err := c.commit(ctx, ws)
-	if err != nil {
-		return nil, err
-	}
-	return wrs[0], nil
+	return writeResultFromProto(res.WriteResults[0])
 }
 
 // A WriteResult is returned by methods that write documents.

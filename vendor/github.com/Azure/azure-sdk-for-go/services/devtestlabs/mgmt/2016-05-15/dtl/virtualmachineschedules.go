@@ -18,7 +18,6 @@ package dtl
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // VirtualMachineSchedulesClient is the the DevTest Labs Client.
 type VirtualMachineSchedulesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewVirtualMachineSchedulesClient creates an instance of the VirtualMachineSchedulesClient client.
@@ -44,14 +43,14 @@ func NewVirtualMachineSchedulesClientWithBaseURI(baseURI string, subscriptionID 
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. virtualMachineName is the name
 // of the virtual machine. name is the name of the schedule. schedule is a schedule.
-func (client VirtualMachineSchedulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, schedule Schedule) (result Schedule, err error) {
+func (client VirtualMachineSchedulesClient) CreateOrUpdate(resourceGroupName string, labName string, virtualMachineName string, name string, schedule Schedule) (result Schedule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: schedule,
 			Constraints: []validation.Constraint{{Target: "schedule.ScheduleProperties", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "dtl.VirtualMachineSchedulesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, labName, virtualMachineName, name, schedule)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, labName, virtualMachineName, name, schedule)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -73,7 +72,7 @@ func (client VirtualMachineSchedulesClient) CreateOrUpdate(ctx context.Context, 
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client VirtualMachineSchedulesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, schedule Schedule) (*http.Request, error) {
+func (client VirtualMachineSchedulesClient) CreateOrUpdatePreparer(resourceGroupName string, labName string, virtualMachineName string, name string, schedule Schedule) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":            autorest.Encode("path", labName),
 		"name":               autorest.Encode("path", name),
@@ -94,13 +93,14 @@ func (client VirtualMachineSchedulesClient) CreateOrUpdatePreparer(ctx context.C
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{virtualMachineName}/schedules/{name}", pathParameters),
 		autorest.WithJSON(schedule),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualMachineSchedulesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -121,8 +121,8 @@ func (client VirtualMachineSchedulesClient) CreateOrUpdateResponder(resp *http.R
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. virtualMachineName is the name
 // of the virtual machine. name is the name of the schedule.
-func (client VirtualMachineSchedulesClient) Delete(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, labName, virtualMachineName, name)
+func (client VirtualMachineSchedulesClient) Delete(resourceGroupName string, labName string, virtualMachineName string, name string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, labName, virtualMachineName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Delete", nil, "Failure preparing request")
 		return
@@ -144,7 +144,7 @@ func (client VirtualMachineSchedulesClient) Delete(ctx context.Context, resource
 }
 
 // DeletePreparer prepares the Delete request.
-func (client VirtualMachineSchedulesClient) DeletePreparer(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string) (*http.Request, error) {
+func (client VirtualMachineSchedulesClient) DeletePreparer(resourceGroupName string, labName string, virtualMachineName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":            autorest.Encode("path", labName),
 		"name":               autorest.Encode("path", name),
@@ -163,13 +163,14 @@ func (client VirtualMachineSchedulesClient) DeletePreparer(ctx context.Context, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{virtualMachineName}/schedules/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualMachineSchedulesClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -185,28 +186,49 @@ func (client VirtualMachineSchedulesClient) DeleteResponder(resp *http.Response)
 	return
 }
 
-// Execute execute a schedule. This operation can take a while to complete.
+// Execute execute a schedule. This operation can take a while to complete. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. virtualMachineName is the name
 // of the virtual machine. name is the name of the schedule.
-func (client VirtualMachineSchedulesClient) Execute(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string) (result VirtualMachineSchedulesExecuteFuture, err error) {
-	req, err := client.ExecutePreparer(ctx, resourceGroupName, labName, virtualMachineName, name)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Execute", nil, "Failure preparing request")
-		return
-	}
+func (client VirtualMachineSchedulesClient) Execute(resourceGroupName string, labName string, virtualMachineName string, name string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.ExecutePreparer(resourceGroupName, labName, virtualMachineName, name, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Execute", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.ExecuteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Execute", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.ExecuteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Execute", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.ExecuteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Execute", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ExecutePreparer prepares the Execute request.
-func (client VirtualMachineSchedulesClient) ExecutePreparer(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string) (*http.Request, error) {
+func (client VirtualMachineSchedulesClient) ExecutePreparer(resourceGroupName string, labName string, virtualMachineName string, name string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":            autorest.Encode("path", labName),
 		"name":               autorest.Encode("path", name),
@@ -225,22 +247,16 @@ func (client VirtualMachineSchedulesClient) ExecutePreparer(ctx context.Context,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{virtualMachineName}/schedules/{name}/execute", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // ExecuteSender sends the Execute request. The method will close the
 // http.Response Body if it receives an error.
-func (client VirtualMachineSchedulesClient) ExecuteSender(req *http.Request) (future VirtualMachineSchedulesExecuteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client VirtualMachineSchedulesClient) ExecuteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // ExecuteResponder handles the response to the Execute request. The method always
@@ -260,8 +276,8 @@ func (client VirtualMachineSchedulesClient) ExecuteResponder(resp *http.Response
 // resourceGroupName is the name of the resource group. labName is the name of the lab. virtualMachineName is the name
 // of the virtual machine. name is the name of the schedule. expand is specify the $expand query. Example:
 // 'properties($select=status)'
-func (client VirtualMachineSchedulesClient) Get(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, expand string) (result Schedule, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, labName, virtualMachineName, name, expand)
+func (client VirtualMachineSchedulesClient) Get(resourceGroupName string, labName string, virtualMachineName string, name string, expand string) (result Schedule, err error) {
+	req, err := client.GetPreparer(resourceGroupName, labName, virtualMachineName, name, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Get", nil, "Failure preparing request")
 		return
@@ -283,7 +299,7 @@ func (client VirtualMachineSchedulesClient) Get(ctx context.Context, resourceGro
 }
 
 // GetPreparer prepares the Get request.
-func (client VirtualMachineSchedulesClient) GetPreparer(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, expand string) (*http.Request, error) {
+func (client VirtualMachineSchedulesClient) GetPreparer(resourceGroupName string, labName string, virtualMachineName string, name string, expand string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":            autorest.Encode("path", labName),
 		"name":               autorest.Encode("path", name),
@@ -305,13 +321,14 @@ func (client VirtualMachineSchedulesClient) GetPreparer(ctx context.Context, res
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{virtualMachineName}/schedules/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualMachineSchedulesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -334,9 +351,8 @@ func (client VirtualMachineSchedulesClient) GetResponder(resp *http.Response) (r
 // of the virtual machine. expand is specify the $expand query. Example: 'properties($select=status)' filter is the
 // filter to apply to the operation. top is the maximum number of resources to return from the operation. orderby is
 // the ordering expression for the results, using OData notation.
-func (client VirtualMachineSchedulesClient) List(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationSchedulePage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, labName, virtualMachineName, expand, filter, top, orderby)
+func (client VirtualMachineSchedulesClient) List(resourceGroupName string, labName string, virtualMachineName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationSchedule, err error) {
+	req, err := client.ListPreparer(resourceGroupName, labName, virtualMachineName, expand, filter, top, orderby)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "List", nil, "Failure preparing request")
 		return
@@ -344,12 +360,12 @@ func (client VirtualMachineSchedulesClient) List(ctx context.Context, resourceGr
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rwcs.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rwcs, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "List", resp, "Failure responding to request")
 	}
@@ -358,7 +374,7 @@ func (client VirtualMachineSchedulesClient) List(ctx context.Context, resourceGr
 }
 
 // ListPreparer prepares the List request.
-func (client VirtualMachineSchedulesClient) ListPreparer(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
+func (client VirtualMachineSchedulesClient) ListPreparer(resourceGroupName string, labName string, virtualMachineName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":            autorest.Encode("path", labName),
 		"resourceGroupName":  autorest.Encode("path", resourceGroupName),
@@ -388,13 +404,14 @@ func (client VirtualMachineSchedulesClient) ListPreparer(ctx context.Context, re
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{virtualMachineName}/schedules", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualMachineSchedulesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -411,39 +428,81 @@ func (client VirtualMachineSchedulesClient) ListResponder(resp *http.Response) (
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client VirtualMachineSchedulesClient) listNextResults(lastResults ResponseWithContinuationSchedule) (result ResponseWithContinuationSchedule, err error) {
-	req, err := lastResults.responseWithContinuationSchedulePreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client VirtualMachineSchedulesClient) ListNextResults(lastResults ResponseWithContinuationSchedule) (result ResponseWithContinuationSchedule, err error) {
+	req, err := lastResults.ResponseWithContinuationSchedulePreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client VirtualMachineSchedulesClient) ListComplete(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationScheduleIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, labName, virtualMachineName, expand, filter, top, orderby)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client VirtualMachineSchedulesClient) ListComplete(resourceGroupName string, labName string, virtualMachineName string, expand string, filter string, top *int32, orderby string, cancel <-chan struct{}) (<-chan Schedule, <-chan error) {
+	resultChan := make(chan Schedule)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, labName, virtualMachineName, expand, filter, top, orderby)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update modify properties of schedules.
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. virtualMachineName is the name
 // of the virtual machine. name is the name of the schedule. schedule is a schedule.
-func (client VirtualMachineSchedulesClient) Update(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, schedule ScheduleFragment) (result Schedule, err error) {
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, labName, virtualMachineName, name, schedule)
+func (client VirtualMachineSchedulesClient) Update(resourceGroupName string, labName string, virtualMachineName string, name string, schedule ScheduleFragment) (result Schedule, err error) {
+	req, err := client.UpdatePreparer(resourceGroupName, labName, virtualMachineName, name, schedule)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.VirtualMachineSchedulesClient", "Update", nil, "Failure preparing request")
 		return
@@ -465,7 +524,7 @@ func (client VirtualMachineSchedulesClient) Update(ctx context.Context, resource
 }
 
 // UpdatePreparer prepares the Update request.
-func (client VirtualMachineSchedulesClient) UpdatePreparer(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, name string, schedule ScheduleFragment) (*http.Request, error) {
+func (client VirtualMachineSchedulesClient) UpdatePreparer(resourceGroupName string, labName string, virtualMachineName string, name string, schedule ScheduleFragment) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":            autorest.Encode("path", labName),
 		"name":               autorest.Encode("path", name),
@@ -486,13 +545,14 @@ func (client VirtualMachineSchedulesClient) UpdatePreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{virtualMachineName}/schedules/{name}", pathParameters),
 		autorest.WithJSON(schedule),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client VirtualMachineSchedulesClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

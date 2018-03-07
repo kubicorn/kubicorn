@@ -877,6 +877,7 @@ func (c *Shield) ListProtectionsWithContext(ctx aws.Context, input *ListProtecti
 }
 
 // The details of a DDoS attack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackDetail
 type AttackDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -967,6 +968,7 @@ func (s *AttackDetail) SetSubResources(v []*SubResourceSummary) *AttackDetail {
 }
 
 // Details of the described attack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackProperty
 type AttackProperty struct {
 	_ struct{} `type:"structure"`
 
@@ -1030,6 +1032,7 @@ func (s *AttackProperty) SetUnit(v string) *AttackProperty {
 }
 
 // Summarizes all DDoS attacks for a specified time period.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackSummary
 type AttackSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -1092,6 +1095,7 @@ func (s *AttackSummary) SetStartTime(v time.Time) *AttackSummary {
 }
 
 // Describes the attack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackVectorDescription
 type AttackVectorDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -1148,6 +1152,7 @@ func (s *AttackVectorDescription) SetVectorType(v string) *AttackVectorDescripti
 }
 
 // A contributor to the attack and their contribution.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Contributor
 type Contributor struct {
 	_ struct{} `type:"structure"`
 
@@ -1183,6 +1188,7 @@ func (s *Contributor) SetValue(v int64) *Contributor {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateProtectionRequest
 type CreateProtectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1253,6 +1259,7 @@ func (s *CreateProtectionInput) SetResourceArn(v string) *CreateProtectionInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateProtectionResponse
 type CreateProtectionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1276,6 +1283,7 @@ func (s *CreateProtectionOutput) SetProtectionId(v string) *CreateProtectionOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateSubscriptionRequest
 type CreateSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1290,6 +1298,7 @@ func (s CreateSubscriptionInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateSubscriptionResponse
 type CreateSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1304,6 +1313,7 @@ func (s CreateSubscriptionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DeleteProtectionRequest
 type DeleteProtectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1345,6 +1355,7 @@ func (s *DeleteProtectionInput) SetProtectionId(v string) *DeleteProtectionInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DeleteProtectionResponse
 type DeleteProtectionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1359,6 +1370,7 @@ func (s DeleteProtectionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DeleteSubscriptionRequest
 type DeleteSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1373,6 +1385,7 @@ func (s DeleteSubscriptionInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DeleteSubscriptionResponse
 type DeleteSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1387,6 +1400,7 @@ func (s DeleteSubscriptionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DescribeAttackRequest
 type DescribeAttackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1428,6 +1442,7 @@ func (s *DescribeAttackInput) SetAttackId(v string) *DescribeAttackInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DescribeAttackResponse
 type DescribeAttackOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1451,6 +1466,7 @@ func (s *DescribeAttackOutput) SetAttack(v *AttackDetail) *DescribeAttackOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DescribeProtectionRequest
 type DescribeProtectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1492,6 +1508,7 @@ func (s *DescribeProtectionInput) SetProtectionId(v string) *DescribeProtectionI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DescribeProtectionResponse
 type DescribeProtectionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1515,6 +1532,7 @@ func (s *DescribeProtectionOutput) SetProtection(v *Protection) *DescribeProtect
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DescribeSubscriptionRequest
 type DescribeSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1529,6 +1547,7 @@ func (s DescribeSubscriptionInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/DescribeSubscriptionResponse
 type DescribeSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1552,6 +1571,7 @@ func (s *DescribeSubscriptionOutput) SetSubscription(v *Subscription) *DescribeS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateRequest
 type GetSubscriptionStateInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1566,6 +1586,7 @@ func (s GetSubscriptionStateInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateResponse
 type GetSubscriptionStateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1591,6 +1612,7 @@ func (s *GetSubscriptionStateOutput) SetSubscriptionState(v string) *GetSubscrip
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListAttacksRequest
 type ListAttacksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1672,6 +1694,7 @@ func (s *ListAttacksInput) SetStartTime(v *TimeRange) *ListAttacksInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListAttacksResponse
 type ListAttacksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1707,6 +1730,7 @@ func (s *ListAttacksOutput) SetNextToken(v string) *ListAttacksOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListProtectionsRequest
 type ListProtectionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1754,6 +1778,7 @@ func (s *ListProtectionsInput) SetNextToken(v string) *ListProtectionsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListProtectionsResponse
 type ListProtectionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1791,6 +1816,7 @@ func (s *ListProtectionsOutput) SetProtections(v []*Protection) *ListProtections
 }
 
 // The mitigation applied to a DDoS attack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Mitigation
 type Mitigation struct {
 	_ struct{} `type:"structure"`
 
@@ -1815,6 +1841,7 @@ func (s *Mitigation) SetMitigationName(v string) *Mitigation {
 }
 
 // An object that represents a resource that is under DDoS protection.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Protection
 type Protection struct {
 	_ struct{} `type:"structure"`
 
@@ -1857,6 +1884,7 @@ func (s *Protection) SetResourceArn(v string) *Protection {
 }
 
 // The attack information for the specified SubResource.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/SubResourceSummary
 type SubResourceSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -1908,6 +1936,7 @@ func (s *SubResourceSummary) SetType(v string) *SubResourceSummary {
 }
 
 // Information about the AWS Shield Advanced subscription for an account.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Subscription
 type Subscription struct {
 	_ struct{} `type:"structure"`
 
@@ -1942,6 +1971,7 @@ func (s *Subscription) SetTimeCommitmentInSeconds(v int64) *Subscription {
 }
 
 // A summary of information about the attack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/SummarizedAttackVector
 type SummarizedAttackVector struct {
 	_ struct{} `type:"structure"`
 
@@ -1977,6 +2007,7 @@ func (s *SummarizedAttackVector) SetVectorType(v string) *SummarizedAttackVector
 }
 
 // The counter that describes a DDoS attack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/SummarizedCounter
 type SummarizedCounter struct {
 	_ struct{} `type:"structure"`
 
@@ -2046,6 +2077,7 @@ func (s *SummarizedCounter) SetUnit(v string) *SummarizedCounter {
 }
 
 // The time range.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/TimeRange
 type TimeRange struct {
 	_ struct{} `type:"structure"`
 

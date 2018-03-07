@@ -109,8 +109,8 @@ type AircraftData struct {
 }
 
 func (s *AircraftData) MarshalJSON() ([]byte, error) {
-	type NoMethod AircraftData
-	raw := NoMethod(*s)
+	type noMethod AircraftData
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -150,8 +150,8 @@ type AirportData struct {
 }
 
 func (s *AirportData) MarshalJSON() ([]byte, error) {
-	type NoMethod AirportData
-	raw := NoMethod(*s)
+	type noMethod AirportData
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -193,8 +193,8 @@ type BagDescriptor struct {
 }
 
 func (s *BagDescriptor) MarshalJSON() ([]byte, error) {
-	type NoMethod BagDescriptor
-	raw := NoMethod(*s)
+	type noMethod BagDescriptor
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -231,8 +231,8 @@ type CarrierData struct {
 }
 
 func (s *CarrierData) MarshalJSON() ([]byte, error) {
-	type NoMethod CarrierData
-	raw := NoMethod(*s)
+	type noMethod CarrierData
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -272,8 +272,8 @@ type CityData struct {
 }
 
 func (s *CityData) MarshalJSON() ([]byte, error) {
-	type NoMethod CityData
-	raw := NoMethod(*s)
+	type noMethod CityData
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -322,8 +322,8 @@ type Data struct {
 }
 
 func (s *Data) MarshalJSON() ([]byte, error) {
-	type NoMethod Data
-	raw := NoMethod(*s)
+	type noMethod Data
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -375,8 +375,8 @@ type FareInfo struct {
 }
 
 func (s *FareInfo) MarshalJSON() ([]byte, error) {
-	type NoMethod FareInfo
-	raw := NoMethod(*s)
+	type noMethod FareInfo
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -412,8 +412,8 @@ type FlightInfo struct {
 }
 
 func (s *FlightInfo) MarshalJSON() ([]byte, error) {
-	type NoMethod FlightInfo
-	raw := NoMethod(*s)
+	type noMethod FlightInfo
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -460,8 +460,8 @@ type FreeBaggageAllowance struct {
 }
 
 func (s *FreeBaggageAllowance) MarshalJSON() ([]byte, error) {
-	type NoMethod FreeBaggageAllowance
-	raw := NoMethod(*s)
+	type noMethod FreeBaggageAllowance
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -557,8 +557,8 @@ type LegInfo struct {
 }
 
 func (s *LegInfo) MarshalJSON() ([]byte, error) {
-	type NoMethod LegInfo
-	raw := NoMethod(*s)
+	type noMethod LegInfo
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -606,8 +606,8 @@ type PassengerCounts struct {
 }
 
 func (s *PassengerCounts) MarshalJSON() ([]byte, error) {
-	type NoMethod PassengerCounts
-	raw := NoMethod(*s)
+	type noMethod PassengerCounts
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -686,8 +686,8 @@ type PricingInfo struct {
 }
 
 func (s *PricingInfo) MarshalJSON() ([]byte, error) {
-	type NoMethod PricingInfo
-	raw := NoMethod(*s)
+	type noMethod PricingInfo
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -764,8 +764,8 @@ type SegmentInfo struct {
 }
 
 func (s *SegmentInfo) MarshalJSON() ([]byte, error) {
-	type NoMethod SegmentInfo
-	raw := NoMethod(*s)
+	type noMethod SegmentInfo
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -805,8 +805,8 @@ type SegmentPricing struct {
 }
 
 func (s *SegmentPricing) MarshalJSON() ([]byte, error) {
-	type NoMethod SegmentPricing
-	raw := NoMethod(*s)
+	type noMethod SegmentPricing
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -851,8 +851,8 @@ type SliceInfo struct {
 }
 
 func (s *SliceInfo) MarshalJSON() ([]byte, error) {
-	type NoMethod SliceInfo
-	raw := NoMethod(*s)
+	type noMethod SliceInfo
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -919,8 +919,8 @@ type SliceInput struct {
 }
 
 func (s *SliceInput) MarshalJSON() ([]byte, error) {
-	type NoMethod SliceInput
-	raw := NoMethod(*s)
+	type noMethod SliceInput
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -954,8 +954,8 @@ type TaxData struct {
 }
 
 func (s *TaxData) MarshalJSON() ([]byte, error) {
-	type NoMethod TaxData
-	raw := NoMethod(*s)
+	type noMethod TaxData
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1000,8 +1000,8 @@ type TaxInfo struct {
 }
 
 func (s *TaxInfo) MarshalJSON() ([]byte, error) {
-	type NoMethod TaxInfo
-	raw := NoMethod(*s)
+	type noMethod TaxInfo
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1036,8 +1036,8 @@ type TimeOfDayRange struct {
 }
 
 func (s *TimeOfDayRange) MarshalJSON() ([]byte, error) {
-	type NoMethod TimeOfDayRange
-	raw := NoMethod(*s)
+	type noMethod TimeOfDayRange
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1078,8 +1078,8 @@ type TripOption struct {
 }
 
 func (s *TripOption) MarshalJSON() ([]byte, error) {
-	type NoMethod TripOption
-	raw := NoMethod(*s)
+	type noMethod TripOption
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1135,8 +1135,8 @@ type TripOptionsRequest struct {
 }
 
 func (s *TripOptionsRequest) MarshalJSON() ([]byte, error) {
-	type NoMethod TripOptionsRequest
-	raw := NoMethod(*s)
+	type noMethod TripOptionsRequest
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1175,8 +1175,8 @@ type TripOptionsResponse struct {
 }
 
 func (s *TripOptionsResponse) MarshalJSON() ([]byte, error) {
-	type NoMethod TripOptionsResponse
-	raw := NoMethod(*s)
+	type noMethod TripOptionsResponse
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1204,8 +1204,8 @@ type TripsSearchRequest struct {
 }
 
 func (s *TripsSearchRequest) MarshalJSON() ([]byte, error) {
-	type NoMethod TripsSearchRequest
-	raw := NoMethod(*s)
+	type noMethod TripsSearchRequest
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1240,8 +1240,8 @@ type TripsSearchResponse struct {
 }
 
 func (s *TripsSearchResponse) MarshalJSON() ([]byte, error) {
-	type NoMethod TripsSearchResponse
-	raw := NoMethod(*s)
+	type noMethod TripsSearchResponse
+	raw := noMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1340,7 +1340,7 @@ func (c *TripsSearchCall) Do(opts ...googleapi.CallOption) (*TripsSearchResponse
 		},
 	}
 	target := &ret
-	if err := gensupport.DecodeResponse(target, res); err != nil {
+	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
 		return nil, err
 	}
 	return ret, nil

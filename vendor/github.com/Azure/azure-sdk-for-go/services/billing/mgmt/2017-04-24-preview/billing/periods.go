@@ -18,7 +18,6 @@ package billing
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // subscription types which were not purchased directly through the Azure web portal are not supported through this
 // preview API.
 type PeriodsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPeriodsClient creates an instance of the PeriodsClient client.
@@ -45,8 +44,8 @@ func NewPeriodsClientWithBaseURI(baseURI string, subscriptionID string) PeriodsC
 // Get gets a named billing period.
 //
 // billingPeriodName is the name of a BillingPeriod resource.
-func (client PeriodsClient) Get(ctx context.Context, billingPeriodName string) (result Period, err error) {
-	req, err := client.GetPreparer(ctx, billingPeriodName)
+func (client PeriodsClient) Get(billingPeriodName string) (result Period, err error) {
+	req, err := client.GetPreparer(billingPeriodName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "billing.PeriodsClient", "Get", nil, "Failure preparing request")
 		return
@@ -68,7 +67,7 @@ func (client PeriodsClient) Get(ctx context.Context, billingPeriodName string) (
 }
 
 // GetPreparer prepares the Get request.
-func (client PeriodsClient) GetPreparer(ctx context.Context, billingPeriodName string) (*http.Request, error) {
+func (client PeriodsClient) GetPreparer(billingPeriodName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"billingPeriodName": autorest.Encode("path", billingPeriodName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -84,13 +83,14 @@ func (client PeriodsClient) GetPreparer(ctx context.Context, billingPeriodName s
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PeriodsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -114,7 +114,7 @@ func (client PeriodsClient) GetResponder(resp *http.Response) (result Period, er
 // previous operation returned a partial result. If a previous response contains a nextLink element, the value of the
 // nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. top
 // is may be used to limit the number of results to the most recent N billing periods.
-func (client PeriodsClient) List(ctx context.Context, filter string, skiptoken string, top *int32) (result PeriodsListResultPage, err error) {
+func (client PeriodsClient) List(filter string, skiptoken string, top *int32) (result PeriodsListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: top,
 			Constraints: []validation.Constraint{{Target: "top", Name: validation.Null, Rule: false,
@@ -124,8 +124,7 @@ func (client PeriodsClient) List(ctx context.Context, filter string, skiptoken s
 		return result, validation.NewErrorWithValidationError(err, "billing.PeriodsClient", "List")
 	}
 
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, filter, skiptoken, top)
+	req, err := client.ListPreparer(filter, skiptoken, top)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "billing.PeriodsClient", "List", nil, "Failure preparing request")
 		return
@@ -133,12 +132,12 @@ func (client PeriodsClient) List(ctx context.Context, filter string, skiptoken s
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.plr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "billing.PeriodsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.plr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "billing.PeriodsClient", "List", resp, "Failure responding to request")
 	}
@@ -147,7 +146,7 @@ func (client PeriodsClient) List(ctx context.Context, filter string, skiptoken s
 }
 
 // ListPreparer prepares the List request.
-func (client PeriodsClient) ListPreparer(ctx context.Context, filter string, skiptoken string, top *int32) (*http.Request, error) {
+func (client PeriodsClient) ListPreparer(filter string, skiptoken string, top *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -171,13 +170,14 @@ func (client PeriodsClient) ListPreparer(ctx context.Context, filter string, ski
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Billing/billingPeriods", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client PeriodsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -194,29 +194,71 @@ func (client PeriodsClient) ListResponder(resp *http.Response) (result PeriodsLi
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client PeriodsClient) listNextResults(lastResults PeriodsListResult) (result PeriodsListResult, err error) {
-	req, err := lastResults.periodsListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client PeriodsClient) ListNextResults(lastResults PeriodsListResult) (result PeriodsListResult, err error) {
+	req, err := lastResults.PeriodsListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "billing.PeriodsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "billing.PeriodsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "billing.PeriodsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "billing.PeriodsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "billing.PeriodsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "billing.PeriodsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client PeriodsClient) ListComplete(ctx context.Context, filter string, skiptoken string, top *int32) (result PeriodsListResultIterator, err error) {
-	result.page, err = client.List(ctx, filter, skiptoken, top)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client PeriodsClient) ListComplete(filter string, skiptoken string, top *int32, cancel <-chan struct{}) (<-chan Period, <-chan error) {
+	resultChan := make(chan Period)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(filter, skiptoken, top)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

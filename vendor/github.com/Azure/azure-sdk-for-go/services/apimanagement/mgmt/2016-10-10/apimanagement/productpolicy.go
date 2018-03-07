@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -28,7 +27,7 @@ import (
 
 // ProductPolicyClient is the apiManagement Client
 type ProductPolicyClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewProductPolicyClient creates an instance of the ProductPolicyClient client.
@@ -48,7 +47,7 @@ func NewProductPolicyClientWithBaseURI(baseURI string, subscriptionID string) Pr
 // policy contents to apply. parameters will be closed upon successful return. Callers should ensure closure when
 // receiving an error.ifMatch is the entity state (Etag) version of the product policy to update. A value of "*" can be
 // used for If-Match to unconditionally apply the operation.
-func (client ProductPolicyClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, productID string, parameters io.ReadCloser, ifMatch string) (result autorest.Response, err error) {
+func (client ProductPolicyClient) CreateOrUpdate(resourceGroupName string, serviceName string, productID string, parameters io.ReadCloser, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -61,7 +60,7 @@ func (client ProductPolicyClient) CreateOrUpdate(ctx context.Context, resourceGr
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.ProductPolicyClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serviceName, productID, parameters, ifMatch)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serviceName, productID, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.ProductPolicyClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -83,7 +82,7 @@ func (client ProductPolicyClient) CreateOrUpdate(ctx context.Context, resourceGr
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ProductPolicyClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, productID string, parameters io.ReadCloser, ifMatch string) (*http.Request, error) {
+func (client ProductPolicyClient) CreateOrUpdatePreparer(resourceGroupName string, serviceName string, productID string, parameters io.ReadCloser, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"productId":         autorest.Encode("path", productID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -103,13 +102,14 @@ func (client ProductPolicyClient) CreateOrUpdatePreparer(ctx context.Context, re
 		autorest.WithFile(parameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProductPolicyClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -131,7 +131,7 @@ func (client ProductPolicyClient) CreateOrUpdateResponder(resp *http.Response) (
 // productID is product identifier. Must be unique in the current API Management service instance. ifMatch is the
 // entity state (Etag) version of the product policy to update. A value of "*" can be used for If-Match to
 // unconditionally apply the operation.
-func (client ProductPolicyClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, productID string, ifMatch string) (result autorest.Response, err error) {
+func (client ProductPolicyClient) Delete(resourceGroupName string, serviceName string, productID string, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -144,7 +144,7 @@ func (client ProductPolicyClient) Delete(ctx context.Context, resourceGroupName 
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.ProductPolicyClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serviceName, productID, ifMatch)
+	req, err := client.DeletePreparer(resourceGroupName, serviceName, productID, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.ProductPolicyClient", "Delete", nil, "Failure preparing request")
 		return
@@ -166,7 +166,7 @@ func (client ProductPolicyClient) Delete(ctx context.Context, resourceGroupName 
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ProductPolicyClient) DeletePreparer(ctx context.Context, resourceGroupName string, serviceName string, productID string, ifMatch string) (*http.Request, error) {
+func (client ProductPolicyClient) DeletePreparer(resourceGroupName string, serviceName string, productID string, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"productId":         autorest.Encode("path", productID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -185,13 +185,14 @@ func (client ProductPolicyClient) DeletePreparer(ctx context.Context, resourceGr
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policy", pathParameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProductPolicyClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -211,7 +212,7 @@ func (client ProductPolicyClient) DeleteResponder(resp *http.Response) (result a
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
 // productID is product identifier. Must be unique in the current API Management service instance.
-func (client ProductPolicyClient) Get(ctx context.Context, resourceGroupName string, serviceName string, productID string) (result ReadCloser, err error) {
+func (client ProductPolicyClient) Get(resourceGroupName string, serviceName string, productID string) (result ReadCloser, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -224,7 +225,7 @@ func (client ProductPolicyClient) Get(ctx context.Context, resourceGroupName str
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.ProductPolicyClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName, productID)
+	req, err := client.GetPreparer(resourceGroupName, serviceName, productID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.ProductPolicyClient", "Get", nil, "Failure preparing request")
 		return
@@ -246,7 +247,7 @@ func (client ProductPolicyClient) Get(ctx context.Context, resourceGroupName str
 }
 
 // GetPreparer prepares the Get request.
-func (client ProductPolicyClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string, productID string) (*http.Request, error) {
+func (client ProductPolicyClient) GetPreparer(resourceGroupName string, serviceName string, productID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"productId":         autorest.Encode("path", productID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -264,13 +265,14 @@ func (client ProductPolicyClient) GetPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policy", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProductPolicyClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

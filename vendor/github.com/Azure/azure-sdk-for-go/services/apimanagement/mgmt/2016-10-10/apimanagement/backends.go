@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // BackendsClient is the apiManagement Client
 type BackendsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewBackendsClient creates an instance of the BackendsClient client.
@@ -45,7 +44,7 @@ func NewBackendsClientWithBaseURI(baseURI string, subscriptionID string) Backend
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
 // backendid is identifier of the Backend entity. Must be unique in the current API Management service instance.
 // parameters is create parameters.
-func (client BackendsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, backendid string, parameters BackendContract) (result autorest.Response, err error) {
+func (client BackendsClient) CreateOrUpdate(resourceGroupName string, serviceName string, backendid string, parameters BackendContract) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -58,7 +57,7 @@ func (client BackendsClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.BackendsClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serviceName, backendid, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serviceName, backendid, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -80,7 +79,7 @@ func (client BackendsClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client BackendsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, backendid string, parameters BackendContract) (*http.Request, error) {
+func (client BackendsClient) CreateOrUpdatePreparer(resourceGroupName string, serviceName string, backendid string, parameters BackendContract) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backendid":         autorest.Encode("path", backendid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -100,13 +99,14 @@ func (client BackendsClient) CreateOrUpdatePreparer(ctx context.Context, resourc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends/{backendid}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client BackendsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -128,7 +128,7 @@ func (client BackendsClient) CreateOrUpdateResponder(resp *http.Response) (resul
 // backendid is identifier of the Backend entity. Must be unique in the current API Management service instance.
 // ifMatch is the entity state (Etag) version of the backend to delete. A value of "*" can be used for If-Match to
 // unconditionally apply the operation.
-func (client BackendsClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, backendid string, ifMatch string) (result autorest.Response, err error) {
+func (client BackendsClient) Delete(resourceGroupName string, serviceName string, backendid string, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -141,7 +141,7 @@ func (client BackendsClient) Delete(ctx context.Context, resourceGroupName strin
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.BackendsClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serviceName, backendid, ifMatch)
+	req, err := client.DeletePreparer(resourceGroupName, serviceName, backendid, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -163,7 +163,7 @@ func (client BackendsClient) Delete(ctx context.Context, resourceGroupName strin
 }
 
 // DeletePreparer prepares the Delete request.
-func (client BackendsClient) DeletePreparer(ctx context.Context, resourceGroupName string, serviceName string, backendid string, ifMatch string) (*http.Request, error) {
+func (client BackendsClient) DeletePreparer(resourceGroupName string, serviceName string, backendid string, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backendid":         autorest.Encode("path", backendid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -182,13 +182,14 @@ func (client BackendsClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends/{backendid}", pathParameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client BackendsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -208,7 +209,7 @@ func (client BackendsClient) DeleteResponder(resp *http.Response) (result autore
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
 // backendid is identifier of the Backend entity. Must be unique in the current API Management service instance.
-func (client BackendsClient) Get(ctx context.Context, resourceGroupName string, serviceName string, backendid string) (result BackendResponse, err error) {
+func (client BackendsClient) Get(resourceGroupName string, serviceName string, backendid string) (result BackendResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -221,7 +222,7 @@ func (client BackendsClient) Get(ctx context.Context, resourceGroupName string, 
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.BackendsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName, backendid)
+	req, err := client.GetPreparer(resourceGroupName, serviceName, backendid)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "Get", nil, "Failure preparing request")
 		return
@@ -243,7 +244,7 @@ func (client BackendsClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client BackendsClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string, backendid string) (*http.Request, error) {
+func (client BackendsClient) GetPreparer(resourceGroupName string, serviceName string, backendid string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backendid":         autorest.Encode("path", backendid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -261,13 +262,14 @@ func (client BackendsClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends/{backendid}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client BackendsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -292,7 +294,7 @@ func (client BackendsClient) GetResponder(resp *http.Response) (result BackendRe
 // | id    | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 // | host  | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith | top is number of records to return.
 // skip is number of records to skip.
-func (client BackendsClient) ListByService(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result BackendCollectionPage, err error) {
+func (client BackendsClient) ListByService(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result BackendCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -307,8 +309,7 @@ func (client BackendsClient) ListByService(ctx context.Context, resourceGroupNam
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.BackendsClient", "ListByService")
 	}
 
-	result.fn = client.listByServiceNextResults
-	req, err := client.ListByServicePreparer(ctx, resourceGroupName, serviceName, filter, top, skip)
+	req, err := client.ListByServicePreparer(resourceGroupName, serviceName, filter, top, skip)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "ListByService", nil, "Failure preparing request")
 		return
@@ -316,12 +317,12 @@ func (client BackendsClient) ListByService(ctx context.Context, resourceGroupNam
 
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
-		result.bc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "ListByService", resp, "Failure sending request")
 		return
 	}
 
-	result.bc, err = client.ListByServiceResponder(resp)
+	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "ListByService", resp, "Failure responding to request")
 	}
@@ -330,7 +331,7 @@ func (client BackendsClient) ListByService(ctx context.Context, resourceGroupNam
 }
 
 // ListByServicePreparer prepares the ListByService request.
-func (client BackendsClient) ListByServicePreparer(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
+func (client BackendsClient) ListByServicePreparer(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -356,13 +357,14 @@ func (client BackendsClient) ListByServicePreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServiceSender sends the ListByService request. The method will close the
 // http.Response Body if it receives an error.
 func (client BackendsClient) ListByServiceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -379,31 +381,73 @@ func (client BackendsClient) ListByServiceResponder(resp *http.Response) (result
 	return
 }
 
-// listByServiceNextResults retrieves the next set of results, if any.
-func (client BackendsClient) listByServiceNextResults(lastResults BackendCollection) (result BackendCollection, err error) {
-	req, err := lastResults.backendCollectionPreparer()
+// ListByServiceNextResults retrieves the next set of results, if any.
+func (client BackendsClient) ListByServiceNextResults(lastResults BackendCollection) (result BackendCollection, err error) {
+	req, err := lastResults.BackendCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "listByServiceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "ListByService", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "listByServiceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "ListByService", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "listByServiceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "ListByService", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByServiceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client BackendsClient) ListByServiceComplete(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result BackendCollectionIterator, err error) {
-	result.page, err = client.ListByService(ctx, resourceGroupName, serviceName, filter, top, skip)
-	return
+// ListByServiceComplete gets all elements from the list without paging.
+func (client BackendsClient) ListByServiceComplete(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32, cancel <-chan struct{}) (<-chan BackendResponse, <-chan error) {
+	resultChan := make(chan BackendResponse)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByService(resourceGroupName, serviceName, filter, top, skip)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByServiceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update updates an existing backend.
@@ -412,7 +456,7 @@ func (client BackendsClient) ListByServiceComplete(ctx context.Context, resource
 // backendid is identifier of the Backend entity. Must be unique in the current API Management service instance.
 // parameters is update parameters. ifMatch is the entity state (Etag) version of the backend to update. A value of "*"
 // can be used for If-Match to unconditionally apply the operation.
-func (client BackendsClient) Update(ctx context.Context, resourceGroupName string, serviceName string, backendid string, parameters BackendUpdateParameters, ifMatch string) (result autorest.Response, err error) {
+func (client BackendsClient) Update(resourceGroupName string, serviceName string, backendid string, parameters BackendUpdateParameters, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -425,7 +469,7 @@ func (client BackendsClient) Update(ctx context.Context, resourceGroupName strin
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.BackendsClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, serviceName, backendid, parameters, ifMatch)
+	req, err := client.UpdatePreparer(resourceGroupName, serviceName, backendid, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.BackendsClient", "Update", nil, "Failure preparing request")
 		return
@@ -447,7 +491,7 @@ func (client BackendsClient) Update(ctx context.Context, resourceGroupName strin
 }
 
 // UpdatePreparer prepares the Update request.
-func (client BackendsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, backendid string, parameters BackendUpdateParameters, ifMatch string) (*http.Request, error) {
+func (client BackendsClient) UpdatePreparer(resourceGroupName string, serviceName string, backendid string, parameters BackendUpdateParameters, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"backendid":         autorest.Encode("path", backendid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -468,13 +512,14 @@ func (client BackendsClient) UpdatePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client BackendsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

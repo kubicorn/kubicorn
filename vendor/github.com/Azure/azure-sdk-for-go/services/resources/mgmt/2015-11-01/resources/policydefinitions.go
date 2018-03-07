@@ -18,7 +18,6 @@ package resources
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // PolicyDefinitionsClient is the client for the PolicyDefinitions methods of the Resources service.
 type PolicyDefinitionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPolicyDefinitionsClient creates an instance of the PolicyDefinitionsClient client.
@@ -42,8 +41,8 @@ func NewPolicyDefinitionsClientWithBaseURI(baseURI string, subscriptionID string
 // CreateOrUpdate create or update policy definition.
 //
 // policyDefinitionName is the policy definition name. parameters is the policy definition properties
-func (client PolicyDefinitionsClient) CreateOrUpdate(ctx context.Context, policyDefinitionName string, parameters PolicyDefinition) (result PolicyDefinition, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, policyDefinitionName, parameters)
+func (client PolicyDefinitionsClient) CreateOrUpdate(policyDefinitionName string, parameters PolicyDefinition) (result PolicyDefinition, err error) {
+	req, err := client.CreateOrUpdatePreparer(policyDefinitionName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.PolicyDefinitionsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client PolicyDefinitionsClient) CreateOrUpdate(ctx context.Context, policy
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client PolicyDefinitionsClient) CreateOrUpdatePreparer(ctx context.Context, policyDefinitionName string, parameters PolicyDefinition) (*http.Request, error) {
+func (client PolicyDefinitionsClient) CreateOrUpdatePreparer(policyDefinitionName string, parameters PolicyDefinition) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"policyDefinitionName": autorest.Encode("path", policyDefinitionName),
 		"subscriptionId":       autorest.Encode("path", client.SubscriptionID),
@@ -83,13 +82,14 @@ func (client PolicyDefinitionsClient) CreateOrUpdatePreparer(ctx context.Context
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policydefinitions/{policyDefinitionName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client PolicyDefinitionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -109,8 +109,8 @@ func (client PolicyDefinitionsClient) CreateOrUpdateResponder(resp *http.Respons
 // Delete deletes policy definition.
 //
 // policyDefinitionName is the policy definition name.
-func (client PolicyDefinitionsClient) Delete(ctx context.Context, policyDefinitionName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, policyDefinitionName)
+func (client PolicyDefinitionsClient) Delete(policyDefinitionName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(policyDefinitionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.PolicyDefinitionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -132,7 +132,7 @@ func (client PolicyDefinitionsClient) Delete(ctx context.Context, policyDefiniti
 }
 
 // DeletePreparer prepares the Delete request.
-func (client PolicyDefinitionsClient) DeletePreparer(ctx context.Context, policyDefinitionName string) (*http.Request, error) {
+func (client PolicyDefinitionsClient) DeletePreparer(policyDefinitionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"policyDefinitionName": autorest.Encode("path", policyDefinitionName),
 		"subscriptionId":       autorest.Encode("path", client.SubscriptionID),
@@ -148,13 +148,14 @@ func (client PolicyDefinitionsClient) DeletePreparer(ctx context.Context, policy
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policydefinitions/{policyDefinitionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client PolicyDefinitionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -173,8 +174,8 @@ func (client PolicyDefinitionsClient) DeleteResponder(resp *http.Response) (resu
 // Get gets policy definition.
 //
 // policyDefinitionName is the policy definition name.
-func (client PolicyDefinitionsClient) Get(ctx context.Context, policyDefinitionName string) (result PolicyDefinition, err error) {
-	req, err := client.GetPreparer(ctx, policyDefinitionName)
+func (client PolicyDefinitionsClient) Get(policyDefinitionName string) (result PolicyDefinition, err error) {
+	req, err := client.GetPreparer(policyDefinitionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.PolicyDefinitionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -196,7 +197,7 @@ func (client PolicyDefinitionsClient) Get(ctx context.Context, policyDefinitionN
 }
 
 // GetPreparer prepares the Get request.
-func (client PolicyDefinitionsClient) GetPreparer(ctx context.Context, policyDefinitionName string) (*http.Request, error) {
+func (client PolicyDefinitionsClient) GetPreparer(policyDefinitionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"policyDefinitionName": autorest.Encode("path", policyDefinitionName),
 		"subscriptionId":       autorest.Encode("path", client.SubscriptionID),
@@ -212,13 +213,14 @@ func (client PolicyDefinitionsClient) GetPreparer(ctx context.Context, policyDef
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policydefinitions/{policyDefinitionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PolicyDefinitionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

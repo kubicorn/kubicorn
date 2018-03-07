@@ -18,7 +18,6 @@ package servicemap
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
@@ -28,7 +27,7 @@ import (
 
 // SummariesClient is the service Map API Reference
 type SummariesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewSummariesClient creates an instance of the SummariesClient client.
@@ -47,7 +46,7 @@ func NewSummariesClientWithBaseURI(baseURI string, subscriptionID string) Summar
 // containing the resources of interest. startTime is UTC date and time specifying the start time of an interval. When
 // not specified the service uses DateTime.UtcNow - 10m endTime is UTC date and time specifying the end time of an
 // interval. When not specified the service uses DateTime.UtcNow
-func (client SummariesClient) GetMachines(ctx context.Context, resourceGroupName string, workspaceName string, startTime *date.Time, endTime *date.Time) (result MachinesSummary, err error) {
+func (client SummariesClient) GetMachines(resourceGroupName string, workspaceName string, startTime *date.Time, endTime *date.Time) (result MachinesSummary, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 64, Chain: nil},
@@ -60,7 +59,7 @@ func (client SummariesClient) GetMachines(ctx context.Context, resourceGroupName
 		return result, validation.NewErrorWithValidationError(err, "servicemap.SummariesClient", "GetMachines")
 	}
 
-	req, err := client.GetMachinesPreparer(ctx, resourceGroupName, workspaceName, startTime, endTime)
+	req, err := client.GetMachinesPreparer(resourceGroupName, workspaceName, startTime, endTime)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicemap.SummariesClient", "GetMachines", nil, "Failure preparing request")
 		return
@@ -82,7 +81,7 @@ func (client SummariesClient) GetMachines(ctx context.Context, resourceGroupName
 }
 
 // GetMachinesPreparer prepares the GetMachines request.
-func (client SummariesClient) GetMachinesPreparer(ctx context.Context, resourceGroupName string, workspaceName string, startTime *date.Time, endTime *date.Time) (*http.Request, error) {
+func (client SummariesClient) GetMachinesPreparer(resourceGroupName string, workspaceName string, startTime *date.Time, endTime *date.Time) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -105,13 +104,14 @@ func (client SummariesClient) GetMachinesPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/features/serviceMap/summaries/machines", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMachinesSender sends the GetMachines request. The method will close the
 // http.Response Body if it receives an error.
 func (client SummariesClient) GetMachinesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

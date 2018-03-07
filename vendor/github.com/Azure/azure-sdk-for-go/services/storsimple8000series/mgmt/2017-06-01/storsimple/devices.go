@@ -18,7 +18,6 @@ package storsimple
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // DevicesClient is the client for the Devices methods of the Storsimple service.
 type DevicesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDevicesClient creates an instance of the DevicesClient client.
@@ -43,7 +42,7 @@ func NewDevicesClientWithBaseURI(baseURI string, subscriptionID string) DevicesC
 // AuthorizeForServiceEncryptionKeyRollover authorizes the specified device for service data encryption key rollover.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) AuthorizeForServiceEncryptionKeyRollover(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result autorest.Response, err error) {
+func (client DevicesClient) AuthorizeForServiceEncryptionKeyRollover(deviceName string, resourceGroupName string, managerName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -51,7 +50,7 @@ func (client DevicesClient) AuthorizeForServiceEncryptionKeyRollover(ctx context
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "AuthorizeForServiceEncryptionKeyRollover")
 	}
 
-	req, err := client.AuthorizeForServiceEncryptionKeyRolloverPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.AuthorizeForServiceEncryptionKeyRolloverPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "AuthorizeForServiceEncryptionKeyRollover", nil, "Failure preparing request")
 		return
@@ -73,7 +72,7 @@ func (client DevicesClient) AuthorizeForServiceEncryptionKeyRollover(ctx context
 }
 
 // AuthorizeForServiceEncryptionKeyRolloverPreparer prepares the AuthorizeForServiceEncryptionKeyRollover request.
-func (client DevicesClient) AuthorizeForServiceEncryptionKeyRolloverPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) AuthorizeForServiceEncryptionKeyRolloverPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -91,13 +90,14 @@ func (client DevicesClient) AuthorizeForServiceEncryptionKeyRolloverPreparer(ctx
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/authorizeForServiceEncryptionKeyRollover", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // AuthorizeForServiceEncryptionKeyRolloverSender sends the AuthorizeForServiceEncryptionKeyRollover request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) AuthorizeForServiceEncryptionKeyRolloverSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -113,11 +113,15 @@ func (client DevicesClient) AuthorizeForServiceEncryptionKeyRolloverResponder(re
 	return
 }
 
-// Configure complete minimal setup before using the device.
+// Configure complete minimal setup before using the device. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // parameters is the minimal properties to configure a device. resourceGroupName is the resource group name managerName
 // is the manager name
-func (client DevicesClient) Configure(ctx context.Context, parameters ConfigureDeviceRequest, resourceGroupName string, managerName string) (result DevicesConfigureFuture, err error) {
+func (client DevicesClient) Configure(parameters ConfigureDeviceRequest, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.ConfigureDeviceRequestProperties", Name: validation.Null, Rule: true,
@@ -128,26 +132,46 @@ func (client DevicesClient) Configure(ctx context.Context, parameters ConfigureD
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Configure")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Configure")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.ConfigurePreparer(ctx, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Configure", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.ConfigurePreparer(parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Configure", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.ConfigureSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Configure", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.ConfigureSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Configure", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.ConfigureResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Configure", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ConfigurePreparer prepares the Configure request.
-func (client DevicesClient) ConfigurePreparer(ctx context.Context, parameters ConfigureDeviceRequest, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) ConfigurePreparer(parameters ConfigureDeviceRequest, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"managerName":       managerName,
 		"resourceGroupName": resourceGroupName,
@@ -166,22 +190,16 @@ func (client DevicesClient) ConfigurePreparer(ctx context.Context, parameters Co
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/configureDevice", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // ConfigureSender sends the Configure request. The method will close the
 // http.Response Body if it receives an error.
-func (client DevicesClient) ConfigureSender(req *http.Request) (future DevicesConfigureFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DevicesClient) ConfigureSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // ConfigureResponder handles the response to the Configure request. The method always
@@ -196,34 +214,57 @@ func (client DevicesClient) ConfigureResponder(resp *http.Response) (result auto
 	return
 }
 
-// Deactivate deactivates the device.
+// Deactivate deactivates the device. This method may poll for completion. Polling can be canceled by passing the
+// cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) Deactivate(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result DevicesDeactivateFuture, err error) {
+func (client DevicesClient) Deactivate(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Deactivate")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Deactivate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.DeactivatePreparer(ctx, deviceName, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Deactivate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeactivatePreparer(deviceName, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Deactivate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeactivateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Deactivate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeactivateSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Deactivate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeactivateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Deactivate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeactivatePreparer prepares the Deactivate request.
-func (client DevicesClient) DeactivatePreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) DeactivatePreparer(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -241,22 +282,16 @@ func (client DevicesClient) DeactivatePreparer(ctx context.Context, deviceName s
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/deactivate", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeactivateSender sends the Deactivate request. The method will close the
 // http.Response Body if it receives an error.
-func (client DevicesClient) DeactivateSender(req *http.Request) (future DevicesDeactivateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DevicesClient) DeactivateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeactivateResponder handles the response to the Deactivate request. The method always
@@ -271,34 +306,57 @@ func (client DevicesClient) DeactivateResponder(resp *http.Response) (result aut
 	return
 }
 
-// Delete deletes the device.
+// Delete deletes the device. This method may poll for completion. Polling can be canceled by passing the cancel
+// channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) Delete(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result DevicesDeleteFuture, err error) {
+func (client DevicesClient) Delete(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Delete")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Delete")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.DeletePreparer(ctx, deviceName, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(deviceName, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client DevicesClient) DeletePreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) DeletePreparer(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -316,22 +374,16 @@ func (client DevicesClient) DeletePreparer(ctx context.Context, deviceName strin
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client DevicesClient) DeleteSender(req *http.Request) (future DevicesDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DevicesClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -346,36 +398,60 @@ func (client DevicesClient) DeleteResponder(resp *http.Response) (result autores
 	return
 }
 
-// Failover failovers a set of volume containers from a specified source device to a target device.
+// Failover failovers a set of volume containers from a specified source device to a target device. This method may
+// poll for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to
+// cancel polling and any outstanding HTTP requests.
 //
 // sourceDeviceName is the source device name on which failover is performed. parameters is failoverRequest containing
 // the source device and the list of volume containers to be failed over. resourceGroupName is the resource group name
 // managerName is the manager name
-func (client DevicesClient) Failover(ctx context.Context, sourceDeviceName string, parameters FailoverRequest, resourceGroupName string, managerName string) (result DevicesFailoverFuture, err error) {
+func (client DevicesClient) Failover(sourceDeviceName string, parameters FailoverRequest, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Failover")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Failover")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.FailoverPreparer(ctx, sourceDeviceName, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Failover", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.FailoverPreparer(sourceDeviceName, parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Failover", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.FailoverSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Failover", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.FailoverSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Failover", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.FailoverResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Failover", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // FailoverPreparer prepares the Failover request.
-func (client DevicesClient) FailoverPreparer(ctx context.Context, sourceDeviceName string, parameters FailoverRequest, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) FailoverPreparer(sourceDeviceName string, parameters FailoverRequest, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"managerName":       managerName,
 		"resourceGroupName": resourceGroupName,
@@ -395,22 +471,16 @@ func (client DevicesClient) FailoverPreparer(ctx context.Context, sourceDeviceNa
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{sourceDeviceName}/failover", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // FailoverSender sends the Failover request. The method will close the
 // http.Response Body if it receives an error.
-func (client DevicesClient) FailoverSender(req *http.Request) (future DevicesFailoverFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DevicesClient) FailoverSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // FailoverResponder handles the response to the Failover request. The method always
@@ -430,7 +500,7 @@ func (client DevicesClient) FailoverResponder(resp *http.Response) (result autor
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name expand is
 // specify $expand=details to populate additional fields related to the device or $expand=rolloverdetails to populate
 // additional fields related to the service data encryption key rollover on device
-func (client DevicesClient) Get(ctx context.Context, deviceName string, resourceGroupName string, managerName string, expand string) (result Device, err error) {
+func (client DevicesClient) Get(deviceName string, resourceGroupName string, managerName string, expand string) (result Device, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -438,7 +508,7 @@ func (client DevicesClient) Get(ctx context.Context, deviceName string, resource
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, deviceName, resourceGroupName, managerName, expand)
+	req, err := client.GetPreparer(deviceName, resourceGroupName, managerName, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Get", nil, "Failure preparing request")
 		return
@@ -460,7 +530,7 @@ func (client DevicesClient) Get(ctx context.Context, deviceName string, resource
 }
 
 // GetPreparer prepares the Get request.
-func (client DevicesClient) GetPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string, expand string) (*http.Request, error) {
+func (client DevicesClient) GetPreparer(deviceName string, resourceGroupName string, managerName string, expand string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -481,13 +551,14 @@ func (client DevicesClient) GetPreparer(ctx context.Context, deviceName string, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -507,7 +578,7 @@ func (client DevicesClient) GetResponder(resp *http.Response) (result Device, er
 // GetUpdateSummary returns the update summary of the specified device name.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) GetUpdateSummary(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result Updates, err error) {
+func (client DevicesClient) GetUpdateSummary(deviceName string, resourceGroupName string, managerName string) (result Updates, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -515,7 +586,7 @@ func (client DevicesClient) GetUpdateSummary(ctx context.Context, deviceName str
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "GetUpdateSummary")
 	}
 
-	req, err := client.GetUpdateSummaryPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.GetUpdateSummaryPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "GetUpdateSummary", nil, "Failure preparing request")
 		return
@@ -537,7 +608,7 @@ func (client DevicesClient) GetUpdateSummary(ctx context.Context, deviceName str
 }
 
 // GetUpdateSummaryPreparer prepares the GetUpdateSummary request.
-func (client DevicesClient) GetUpdateSummaryPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) GetUpdateSummaryPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -555,13 +626,14 @@ func (client DevicesClient) GetUpdateSummaryPreparer(ctx context.Context, device
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/updateSummary/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetUpdateSummarySender sends the GetUpdateSummary request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) GetUpdateSummarySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -578,34 +650,58 @@ func (client DevicesClient) GetUpdateSummaryResponder(resp *http.Response) (resu
 	return
 }
 
-// InstallUpdates downloads and installs the updates on the device.
+// InstallUpdates downloads and installs the updates on the device. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) InstallUpdates(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result DevicesInstallUpdatesFuture, err error) {
+func (client DevicesClient) InstallUpdates(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "InstallUpdates")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "InstallUpdates")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.InstallUpdatesPreparer(ctx, deviceName, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "InstallUpdates", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.InstallUpdatesPreparer(deviceName, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "InstallUpdates", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.InstallUpdatesSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "InstallUpdates", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.InstallUpdatesSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "InstallUpdates", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.InstallUpdatesResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "InstallUpdates", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // InstallUpdatesPreparer prepares the InstallUpdates request.
-func (client DevicesClient) InstallUpdatesPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) InstallUpdatesPreparer(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -623,22 +719,16 @@ func (client DevicesClient) InstallUpdatesPreparer(ctx context.Context, deviceNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/installUpdates", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // InstallUpdatesSender sends the InstallUpdates request. The method will close the
 // http.Response Body if it receives an error.
-func (client DevicesClient) InstallUpdatesSender(req *http.Request) (future DevicesInstallUpdatesFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DevicesClient) InstallUpdatesSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // InstallUpdatesResponder handles the response to the InstallUpdates request. The method always
@@ -658,7 +748,7 @@ func (client DevicesClient) InstallUpdatesResponder(resp *http.Response) (result
 // resourceGroupName is the resource group name managerName is the manager name expand is specify $expand=details to
 // populate additional fields related to the device or $expand=rolloverdetails to populate additional fields related to
 // the service data encryption key rollover on device
-func (client DevicesClient) ListByManager(ctx context.Context, resourceGroupName string, managerName string, expand string) (result DeviceList, err error) {
+func (client DevicesClient) ListByManager(resourceGroupName string, managerName string, expand string) (result DeviceList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -666,7 +756,7 @@ func (client DevicesClient) ListByManager(ctx context.Context, resourceGroupName
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "ListByManager")
 	}
 
-	req, err := client.ListByManagerPreparer(ctx, resourceGroupName, managerName, expand)
+	req, err := client.ListByManagerPreparer(resourceGroupName, managerName, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ListByManager", nil, "Failure preparing request")
 		return
@@ -688,7 +778,7 @@ func (client DevicesClient) ListByManager(ctx context.Context, resourceGroupName
 }
 
 // ListByManagerPreparer prepares the ListByManager request.
-func (client DevicesClient) ListByManagerPreparer(ctx context.Context, resourceGroupName string, managerName string, expand string) (*http.Request, error) {
+func (client DevicesClient) ListByManagerPreparer(resourceGroupName string, managerName string, expand string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"managerName":       managerName,
 		"resourceGroupName": resourceGroupName,
@@ -708,13 +798,14 @@ func (client DevicesClient) ListByManagerPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByManagerSender sends the ListByManager request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) ListByManagerSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -736,7 +827,7 @@ func (client DevicesClient) ListByManagerResponder(resp *http.Response) (result 
 // integrity.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) ListFailoverSets(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result FailoverSetsList, err error) {
+func (client DevicesClient) ListFailoverSets(deviceName string, resourceGroupName string, managerName string) (result FailoverSetsList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -744,7 +835,7 @@ func (client DevicesClient) ListFailoverSets(ctx context.Context, deviceName str
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "ListFailoverSets")
 	}
 
-	req, err := client.ListFailoverSetsPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.ListFailoverSetsPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ListFailoverSets", nil, "Failure preparing request")
 		return
@@ -766,7 +857,7 @@ func (client DevicesClient) ListFailoverSets(ctx context.Context, deviceName str
 }
 
 // ListFailoverSetsPreparer prepares the ListFailoverSets request.
-func (client DevicesClient) ListFailoverSetsPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) ListFailoverSetsPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -784,13 +875,14 @@ func (client DevicesClient) ListFailoverSetsPreparer(ctx context.Context, device
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/listFailoverSets", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListFailoverSetsSender sends the ListFailoverSets request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) ListFailoverSetsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -813,7 +905,7 @@ func (client DevicesClient) ListFailoverSetsResponder(resp *http.Response) (resu
 // sourceDeviceName is the source device name on which failover is performed. parameters is listFailoverTargetsRequest
 // containing the list of volume containers to be failed over. resourceGroupName is the resource group name managerName
 // is the manager name
-func (client DevicesClient) ListFailoverTargets(ctx context.Context, sourceDeviceName string, parameters ListFailoverTargetsRequest, resourceGroupName string, managerName string) (result FailoverTargetsList, err error) {
+func (client DevicesClient) ListFailoverTargets(sourceDeviceName string, parameters ListFailoverTargetsRequest, resourceGroupName string, managerName string) (result FailoverTargetsList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -821,7 +913,7 @@ func (client DevicesClient) ListFailoverTargets(ctx context.Context, sourceDevic
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "ListFailoverTargets")
 	}
 
-	req, err := client.ListFailoverTargetsPreparer(ctx, sourceDeviceName, parameters, resourceGroupName, managerName)
+	req, err := client.ListFailoverTargetsPreparer(sourceDeviceName, parameters, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ListFailoverTargets", nil, "Failure preparing request")
 		return
@@ -843,7 +935,7 @@ func (client DevicesClient) ListFailoverTargets(ctx context.Context, sourceDevic
 }
 
 // ListFailoverTargetsPreparer prepares the ListFailoverTargets request.
-func (client DevicesClient) ListFailoverTargetsPreparer(ctx context.Context, sourceDeviceName string, parameters ListFailoverTargetsRequest, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) ListFailoverTargetsPreparer(sourceDeviceName string, parameters ListFailoverTargetsRequest, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"managerName":       managerName,
 		"resourceGroupName": resourceGroupName,
@@ -863,13 +955,14 @@ func (client DevicesClient) ListFailoverTargetsPreparer(ctx context.Context, sou
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{sourceDeviceName}/listFailoverTargets", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListFailoverTargetsSender sends the ListFailoverTargets request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) ListFailoverTargetsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -889,7 +982,7 @@ func (client DevicesClient) ListFailoverTargetsResponder(resp *http.Response) (r
 // ListMetricDefinition gets the metric definitions for the specified device.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) ListMetricDefinition(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result MetricDefinitionList, err error) {
+func (client DevicesClient) ListMetricDefinition(deviceName string, resourceGroupName string, managerName string) (result MetricDefinitionList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -897,7 +990,7 @@ func (client DevicesClient) ListMetricDefinition(ctx context.Context, deviceName
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "ListMetricDefinition")
 	}
 
-	req, err := client.ListMetricDefinitionPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.ListMetricDefinitionPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ListMetricDefinition", nil, "Failure preparing request")
 		return
@@ -919,7 +1012,7 @@ func (client DevicesClient) ListMetricDefinition(ctx context.Context, deviceName
 }
 
 // ListMetricDefinitionPreparer prepares the ListMetricDefinition request.
-func (client DevicesClient) ListMetricDefinitionPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) ListMetricDefinitionPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -937,13 +1030,14 @@ func (client DevicesClient) ListMetricDefinitionPreparer(ctx context.Context, de
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/metricsDefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMetricDefinitionSender sends the ListMetricDefinition request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) ListMetricDefinitionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -964,7 +1058,7 @@ func (client DevicesClient) ListMetricDefinitionResponder(resp *http.Response) (
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name filter is
 // oData Filter options
-func (client DevicesClient) ListMetrics(ctx context.Context, deviceName string, resourceGroupName string, managerName string, filter string) (result MetricList, err error) {
+func (client DevicesClient) ListMetrics(deviceName string, resourceGroupName string, managerName string, filter string) (result MetricList, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -972,7 +1066,7 @@ func (client DevicesClient) ListMetrics(ctx context.Context, deviceName string, 
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "ListMetrics")
 	}
 
-	req, err := client.ListMetricsPreparer(ctx, deviceName, resourceGroupName, managerName, filter)
+	req, err := client.ListMetricsPreparer(deviceName, resourceGroupName, managerName, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ListMetrics", nil, "Failure preparing request")
 		return
@@ -994,7 +1088,7 @@ func (client DevicesClient) ListMetrics(ctx context.Context, deviceName string, 
 }
 
 // ListMetricsPreparer prepares the ListMetrics request.
-func (client DevicesClient) ListMetricsPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string, filter string) (*http.Request, error) {
+func (client DevicesClient) ListMetricsPreparer(deviceName string, resourceGroupName string, managerName string, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -1013,13 +1107,14 @@ func (client DevicesClient) ListMetricsPreparer(ctx context.Context, deviceName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMetricsSender sends the ListMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) ListMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1036,34 +1131,57 @@ func (client DevicesClient) ListMetricsResponder(resp *http.Response) (result Me
 	return
 }
 
-// ScanForUpdates scans for updates on the device.
+// ScanForUpdates scans for updates on the device. This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DevicesClient) ScanForUpdates(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result DevicesScanForUpdatesFuture, err error) {
+func (client DevicesClient) ScanForUpdates(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "ScanForUpdates")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "ScanForUpdates")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.ScanForUpdatesPreparer(ctx, deviceName, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ScanForUpdates", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.ScanForUpdatesPreparer(deviceName, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ScanForUpdates", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.ScanForUpdatesSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ScanForUpdates", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.ScanForUpdatesSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ScanForUpdates", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.ScanForUpdatesResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "ScanForUpdates", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ScanForUpdatesPreparer prepares the ScanForUpdates request.
-func (client DevicesClient) ScanForUpdatesPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) ScanForUpdatesPreparer(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -1081,22 +1199,16 @@ func (client DevicesClient) ScanForUpdatesPreparer(ctx context.Context, deviceNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/scanForUpdates", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // ScanForUpdatesSender sends the ScanForUpdates request. The method will close the
 // http.Response Body if it receives an error.
-func (client DevicesClient) ScanForUpdatesSender(req *http.Request) (future DevicesScanForUpdatesFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DevicesClient) ScanForUpdatesSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // ScanForUpdatesResponder handles the response to the ScanForUpdates request. The method always
@@ -1115,7 +1227,7 @@ func (client DevicesClient) ScanForUpdatesResponder(resp *http.Response) (result
 //
 // deviceName is the device name parameters is patch representation of the device. resourceGroupName is the resource
 // group name managerName is the manager name
-func (client DevicesClient) Update(ctx context.Context, deviceName string, parameters DevicePatch, resourceGroupName string, managerName string) (result Device, err error) {
+func (client DevicesClient) Update(deviceName string, parameters DevicePatch, resourceGroupName string, managerName string) (result Device, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -1123,7 +1235,7 @@ func (client DevicesClient) Update(ctx context.Context, deviceName string, param
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DevicesClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, deviceName, parameters, resourceGroupName, managerName)
+	req, err := client.UpdatePreparer(deviceName, parameters, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DevicesClient", "Update", nil, "Failure preparing request")
 		return
@@ -1145,7 +1257,7 @@ func (client DevicesClient) Update(ctx context.Context, deviceName string, param
 }
 
 // UpdatePreparer prepares the Update request.
-func (client DevicesClient) UpdatePreparer(ctx context.Context, deviceName string, parameters DevicePatch, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DevicesClient) UpdatePreparer(deviceName string, parameters DevicePatch, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -1165,13 +1277,14 @@ func (client DevicesClient) UpdatePreparer(ctx context.Context, deviceName strin
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client DevicesClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

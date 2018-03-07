@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // APIOperationsClient is the apiManagement Client
 type APIOperationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewAPIOperationsClient creates an instance of the APIOperationsClient client.
@@ -45,7 +44,7 @@ func NewAPIOperationsClientWithBaseURI(baseURI string, subscriptionID string) AP
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. apiid is
 // API identifier. Must be unique in the current API Management service instance. operationID is operation identifier
 // within an API. Must be unique in the current API Management service instance. parameters is create parameters.
-func (client APIOperationsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationContract) (result autorest.Response, err error) {
+func (client APIOperationsClient) CreateOrUpdate(resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationContract) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -72,7 +71,7 @@ func (client APIOperationsClient) CreateOrUpdate(ctx context.Context, resourceGr
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.APIOperationsClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serviceName, apiid, operationID, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serviceName, apiid, operationID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -94,7 +93,7 @@ func (client APIOperationsClient) CreateOrUpdate(ctx context.Context, resourceGr
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client APIOperationsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationContract) (*http.Request, error) {
+func (client APIOperationsClient) CreateOrUpdatePreparer(resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationContract) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"apiId":             autorest.Encode("path", apiid),
 		"operationId":       autorest.Encode("path", operationID),
@@ -115,13 +114,14 @@ func (client APIOperationsClient) CreateOrUpdatePreparer(ctx context.Context, re
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/operations/{operationId}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client APIOperationsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -144,7 +144,7 @@ func (client APIOperationsClient) CreateOrUpdateResponder(resp *http.Response) (
 // within an API. Must be unique in the current API Management service instance. ifMatch is eTag of the API Operation
 // Entity. ETag should match the current entity state from the header response of the GET request or it should be * for
 // unconditional update.
-func (client APIOperationsClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string, ifMatch string) (result autorest.Response, err error) {
+func (client APIOperationsClient) Delete(resourceGroupName string, serviceName string, apiid string, operationID string, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -161,7 +161,7 @@ func (client APIOperationsClient) Delete(ctx context.Context, resourceGroupName 
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.APIOperationsClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serviceName, apiid, operationID, ifMatch)
+	req, err := client.DeletePreparer(resourceGroupName, serviceName, apiid, operationID, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -183,7 +183,7 @@ func (client APIOperationsClient) Delete(ctx context.Context, resourceGroupName 
 }
 
 // DeletePreparer prepares the Delete request.
-func (client APIOperationsClient) DeletePreparer(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string, ifMatch string) (*http.Request, error) {
+func (client APIOperationsClient) DeletePreparer(resourceGroupName string, serviceName string, apiid string, operationID string, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"apiId":             autorest.Encode("path", apiid),
 		"operationId":       autorest.Encode("path", operationID),
@@ -203,13 +203,14 @@ func (client APIOperationsClient) DeletePreparer(ctx context.Context, resourceGr
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/operations/{operationId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client APIOperationsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -230,7 +231,7 @@ func (client APIOperationsClient) DeleteResponder(resp *http.Response) (result a
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. apiid is
 // API identifier. Must be unique in the current API Management service instance. operationID is operation identifier
 // within an API. Must be unique in the current API Management service instance.
-func (client APIOperationsClient) Get(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string) (result OperationContract, err error) {
+func (client APIOperationsClient) Get(resourceGroupName string, serviceName string, apiid string, operationID string) (result OperationContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -247,7 +248,7 @@ func (client APIOperationsClient) Get(ctx context.Context, resourceGroupName str
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.APIOperationsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName, apiid, operationID)
+	req, err := client.GetPreparer(resourceGroupName, serviceName, apiid, operationID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "Get", nil, "Failure preparing request")
 		return
@@ -269,7 +270,7 @@ func (client APIOperationsClient) Get(ctx context.Context, resourceGroupName str
 }
 
 // GetPreparer prepares the Get request.
-func (client APIOperationsClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string) (*http.Request, error) {
+func (client APIOperationsClient) GetPreparer(resourceGroupName string, serviceName string, apiid string, operationID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"apiId":             autorest.Encode("path", apiid),
 		"operationId":       autorest.Encode("path", operationID),
@@ -288,13 +289,14 @@ func (client APIOperationsClient) GetPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/operations/{operationId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client APIOperationsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -322,7 +324,7 @@ func (client APIOperationsClient) GetResponder(resp *http.Response) (result Oper
 // | description | ge, le, eq, ne, gt, lt | substringof, startswith, endswith |
 // | urlTemplate | ge, le, eq, ne, gt, lt | substringof, startswith, endswith | top is number of records to return.
 // skip is number of records to skip.
-func (client APIOperationsClient) ListByApis(ctx context.Context, resourceGroupName string, serviceName string, apiid string, filter string, top *int32, skip *int32) (result OperationCollectionPage, err error) {
+func (client APIOperationsClient) ListByApis(resourceGroupName string, serviceName string, apiid string, filter string, top *int32, skip *int32) (result OperationCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -341,8 +343,7 @@ func (client APIOperationsClient) ListByApis(ctx context.Context, resourceGroupN
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.APIOperationsClient", "ListByApis")
 	}
 
-	result.fn = client.listByApisNextResults
-	req, err := client.ListByApisPreparer(ctx, resourceGroupName, serviceName, apiid, filter, top, skip)
+	req, err := client.ListByApisPreparer(resourceGroupName, serviceName, apiid, filter, top, skip)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "ListByApis", nil, "Failure preparing request")
 		return
@@ -350,12 +351,12 @@ func (client APIOperationsClient) ListByApis(ctx context.Context, resourceGroupN
 
 	resp, err := client.ListByApisSender(req)
 	if err != nil {
-		result.oc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "ListByApis", resp, "Failure sending request")
 		return
 	}
 
-	result.oc, err = client.ListByApisResponder(resp)
+	result, err = client.ListByApisResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "ListByApis", resp, "Failure responding to request")
 	}
@@ -364,7 +365,7 @@ func (client APIOperationsClient) ListByApis(ctx context.Context, resourceGroupN
 }
 
 // ListByApisPreparer prepares the ListByApis request.
-func (client APIOperationsClient) ListByApisPreparer(ctx context.Context, resourceGroupName string, serviceName string, apiid string, filter string, top *int32, skip *int32) (*http.Request, error) {
+func (client APIOperationsClient) ListByApisPreparer(resourceGroupName string, serviceName string, apiid string, filter string, top *int32, skip *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"apiId":             autorest.Encode("path", apiid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -391,13 +392,14 @@ func (client APIOperationsClient) ListByApisPreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apis/{apiId}/operations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByApisSender sends the ListByApis request. The method will close the
 // http.Response Body if it receives an error.
 func (client APIOperationsClient) ListByApisSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -414,31 +416,73 @@ func (client APIOperationsClient) ListByApisResponder(resp *http.Response) (resu
 	return
 }
 
-// listByApisNextResults retrieves the next set of results, if any.
-func (client APIOperationsClient) listByApisNextResults(lastResults OperationCollection) (result OperationCollection, err error) {
-	req, err := lastResults.operationCollectionPreparer()
+// ListByApisNextResults retrieves the next set of results, if any.
+func (client APIOperationsClient) ListByApisNextResults(lastResults OperationCollection) (result OperationCollection, err error) {
+	req, err := lastResults.OperationCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "listByApisNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "ListByApis", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByApisSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "listByApisNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "ListByApis", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByApisResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "listByApisNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "ListByApis", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByApisComplete enumerates all values, automatically crossing page boundaries as required.
-func (client APIOperationsClient) ListByApisComplete(ctx context.Context, resourceGroupName string, serviceName string, apiid string, filter string, top *int32, skip *int32) (result OperationCollectionIterator, err error) {
-	result.page, err = client.ListByApis(ctx, resourceGroupName, serviceName, apiid, filter, top, skip)
-	return
+// ListByApisComplete gets all elements from the list without paging.
+func (client APIOperationsClient) ListByApisComplete(resourceGroupName string, serviceName string, apiid string, filter string, top *int32, skip *int32, cancel <-chan struct{}) (<-chan OperationContract, <-chan error) {
+	resultChan := make(chan OperationContract)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByApis(resourceGroupName, serviceName, apiid, filter, top, skip)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByApisNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update updates the details of the operation specified by its identifier.
@@ -448,7 +492,7 @@ func (client APIOperationsClient) ListByApisComplete(ctx context.Context, resour
 // within an API. Must be unique in the current API Management service instance. parameters is API Operation Update
 // parameters. ifMatch is eTag of the API Operation Entity. ETag should match the current entity state from the header
 // response of the GET request or it should be * for unconditional update.
-func (client APIOperationsClient) Update(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationUpdateContract, ifMatch string) (result autorest.Response, err error) {
+func (client APIOperationsClient) Update(resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationUpdateContract, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -465,7 +509,7 @@ func (client APIOperationsClient) Update(ctx context.Context, resourceGroupName 
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.APIOperationsClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, serviceName, apiid, operationID, parameters, ifMatch)
+	req, err := client.UpdatePreparer(resourceGroupName, serviceName, apiid, operationID, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.APIOperationsClient", "Update", nil, "Failure preparing request")
 		return
@@ -487,7 +531,7 @@ func (client APIOperationsClient) Update(ctx context.Context, resourceGroupName 
 }
 
 // UpdatePreparer prepares the Update request.
-func (client APIOperationsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationUpdateContract, ifMatch string) (*http.Request, error) {
+func (client APIOperationsClient) UpdatePreparer(resourceGroupName string, serviceName string, apiid string, operationID string, parameters OperationUpdateContract, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"apiId":             autorest.Encode("path", apiid),
 		"operationId":       autorest.Encode("path", operationID),
@@ -509,13 +553,14 @@ func (client APIOperationsClient) UpdatePreparer(ctx context.Context, resourceGr
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client APIOperationsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

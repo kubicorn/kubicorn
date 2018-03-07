@@ -18,7 +18,6 @@ package powerbiembedded
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // WorkspacesClient is the client to manage your Power BI Embedded workspace collections and retrieve workspaces.
 type WorkspacesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewWorkspacesClient creates an instance of the WorkspacesClient client.
@@ -42,8 +41,8 @@ func NewWorkspacesClientWithBaseURI(baseURI string, subscriptionID string) Works
 // List retrieves all existing Power BI workspaces in the specified workspace collection.
 //
 // resourceGroupName is azure resource group workspaceCollectionName is power BI Embedded Workspace Collection name
-func (client WorkspacesClient) List(ctx context.Context, resourceGroupName string, workspaceCollectionName string) (result WorkspaceList, err error) {
-	req, err := client.ListPreparer(ctx, resourceGroupName, workspaceCollectionName)
+func (client WorkspacesClient) List(resourceGroupName string, workspaceCollectionName string) (result WorkspaceList, err error) {
+	req, err := client.ListPreparer(resourceGroupName, workspaceCollectionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "powerbiembedded.WorkspacesClient", "List", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client WorkspacesClient) List(ctx context.Context, resourceGroupName strin
 }
 
 // ListPreparer prepares the List request.
-func (client WorkspacesClient) ListPreparer(ctx context.Context, resourceGroupName string, workspaceCollectionName string) (*http.Request, error) {
+func (client WorkspacesClient) ListPreparer(resourceGroupName string, workspaceCollectionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName":       autorest.Encode("path", resourceGroupName),
 		"subscriptionId":          autorest.Encode("path", client.SubscriptionID),
@@ -82,13 +81,14 @@ func (client WorkspacesClient) ListPreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBI/workspaceCollections/{workspaceCollectionName}/workspaces", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkspacesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -2094,95 +2094,6 @@ func (c *WAF) DeleteIPSetWithContext(ctx aws.Context, input *DeleteIPSetInput, o
 	return out, req.Send()
 }
 
-const opDeletePermissionPolicy = "DeletePermissionPolicy"
-
-// DeletePermissionPolicyRequest generates a "aws/request.Request" representing the
-// client's request for the DeletePermissionPolicy operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeletePermissionPolicy for more information on using the DeletePermissionPolicy
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the DeletePermissionPolicyRequest method.
-//    req, resp := client.DeletePermissionPolicyRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeletePermissionPolicy
-func (c *WAF) DeletePermissionPolicyRequest(input *DeletePermissionPolicyInput) (req *request.Request, output *DeletePermissionPolicyOutput) {
-	op := &request.Operation{
-		Name:       opDeletePermissionPolicy,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &DeletePermissionPolicyInput{}
-	}
-
-	output = &DeletePermissionPolicyOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// DeletePermissionPolicy API operation for AWS WAF.
-//
-// Permanently deletes an IAM policy from the specified RuleGroup.
-//
-// The user making the request must be the owner of the RuleGroup.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF's
-// API operation DeletePermissionPolicy for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeInternalErrorException "InternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeStaleDataException "StaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
-//   * ErrCodeNonexistentItemException "NonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeletePermissionPolicy
-func (c *WAF) DeletePermissionPolicy(input *DeletePermissionPolicyInput) (*DeletePermissionPolicyOutput, error) {
-	req, out := c.DeletePermissionPolicyRequest(input)
-	return out, req.Send()
-}
-
-// DeletePermissionPolicyWithContext is the same as DeletePermissionPolicy with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeletePermissionPolicy for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAF) DeletePermissionPolicyWithContext(ctx aws.Context, input *DeletePermissionPolicyInput, opts ...request.Option) (*DeletePermissionPolicyOutput, error) {
-	req, out := c.DeletePermissionPolicyRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
 const opDeleteRateBasedRule = "DeleteRateBasedRule"
 
 // DeleteRateBasedRuleRequest generates a "aws/request.Request" representing the
@@ -3748,89 +3659,6 @@ func (c *WAF) GetIPSet(input *GetIPSetInput) (*GetIPSetOutput, error) {
 // for more information on using Contexts.
 func (c *WAF) GetIPSetWithContext(ctx aws.Context, input *GetIPSetInput, opts ...request.Option) (*GetIPSetOutput, error) {
 	req, out := c.GetIPSetRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opGetPermissionPolicy = "GetPermissionPolicy"
-
-// GetPermissionPolicyRequest generates a "aws/request.Request" representing the
-// client's request for the GetPermissionPolicy operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetPermissionPolicy for more information on using the GetPermissionPolicy
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the GetPermissionPolicyRequest method.
-//    req, resp := client.GetPermissionPolicyRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetPermissionPolicy
-func (c *WAF) GetPermissionPolicyRequest(input *GetPermissionPolicyInput) (req *request.Request, output *GetPermissionPolicyOutput) {
-	op := &request.Operation{
-		Name:       opGetPermissionPolicy,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &GetPermissionPolicyInput{}
-	}
-
-	output = &GetPermissionPolicyOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// GetPermissionPolicy API operation for AWS WAF.
-//
-// Returns the IAM policy attached to the RuleGroup.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF's
-// API operation GetPermissionPolicy for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeInternalErrorException "InternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeNonexistentItemException "NonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetPermissionPolicy
-func (c *WAF) GetPermissionPolicy(input *GetPermissionPolicyInput) (*GetPermissionPolicyOutput, error) {
-	req, out := c.GetPermissionPolicyRequest(input)
-	return out, req.Send()
-}
-
-// GetPermissionPolicyWithContext is the same as GetPermissionPolicy with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetPermissionPolicy for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAF) GetPermissionPolicyWithContext(ctx aws.Context, input *GetPermissionPolicyInput, opts ...request.Option) (*GetPermissionPolicyOutput, error) {
-	req, out := c.GetPermissionPolicyRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -6026,141 +5854,6 @@ func (c *WAF) ListXssMatchSets(input *ListXssMatchSetsInput) (*ListXssMatchSetsO
 // for more information on using Contexts.
 func (c *WAF) ListXssMatchSetsWithContext(ctx aws.Context, input *ListXssMatchSetsInput, opts ...request.Option) (*ListXssMatchSetsOutput, error) {
 	req, out := c.ListXssMatchSetsRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opPutPermissionPolicy = "PutPermissionPolicy"
-
-// PutPermissionPolicyRequest generates a "aws/request.Request" representing the
-// client's request for the PutPermissionPolicy operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PutPermissionPolicy for more information on using the PutPermissionPolicy
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the PutPermissionPolicyRequest method.
-//    req, resp := client.PutPermissionPolicyRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/PutPermissionPolicy
-func (c *WAF) PutPermissionPolicyRequest(input *PutPermissionPolicyInput) (req *request.Request, output *PutPermissionPolicyOutput) {
-	op := &request.Operation{
-		Name:       opPutPermissionPolicy,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &PutPermissionPolicyInput{}
-	}
-
-	output = &PutPermissionPolicyOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// PutPermissionPolicy API operation for AWS WAF.
-//
-// Attaches a IAM policy to the specified resource. The only supported use for
-// this action is to share a RuleGroup across accounts.
-//
-// The PutPermissionPolicy is subject to the following restrictions:
-//
-//    * You can attach only one policy with each PutPermissionPolicy request.
-//
-//    * The policy must include an Effect, Action and Principal.
-//
-//    * Effect must specify Allow.
-//
-//    * The Action in the policy must be waf:UpdateWebACL and waf-regional:UpdateWebACL.
-//    Any extra or wildcard actions in the policy will be rejected.
-//
-//    * The policy cannot include a Resource parameter.
-//
-//    * The ARN in the request must be a valid WAF RuleGroup ARN and the RuleGroup
-//    must exist in the same region.
-//
-//    * The user making the request must be the owner of the RuleGroup.
-//
-//    * Your policy must be composed using IAM Policy version 2012-10-17.
-//
-// For more information, see IAM Policies (https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html).
-//
-// An example of a valid policy parameter is shown in the Examples section below.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF's
-// API operation PutPermissionPolicy for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeInternalErrorException "InternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeStaleDataException "StaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
-//   * ErrCodeNonexistentItemException "NonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-//   * ErrCodeInvalidPermissionPolicyException "InvalidPermissionPolicyException"
-//   The operation failed because the specified policy is not in the proper format.
-//
-//   The policy is subject to the following restrictions:
-//
-//      * You can attach only one policy with each PutPermissionPolicy request.
-//
-//      * The policy must include an Effect, Action and Principal.
-//
-//      * Effect must specify Allow.
-//
-//      * The Action in the policy must be waf:UpdateWebACL or waf-regional:UpdateWebACL.
-//      Any extra or wildcard actions in the policy will be rejected.
-//
-//      * The policy cannot include a Resource parameter.
-//
-//      * The ARN in the request must be a valid WAF RuleGroup ARN and the RuleGroup
-//      must exist in the same region.
-//
-//      * The user making the request must be the owner of the RuleGroup.
-//
-//      * Your policy must be composed using IAM Policy version 2012-10-17.
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/PutPermissionPolicy
-func (c *WAF) PutPermissionPolicy(input *PutPermissionPolicyInput) (*PutPermissionPolicyOutput, error) {
-	req, out := c.PutPermissionPolicyRequest(input)
-	return out, req.Send()
-}
-
-// PutPermissionPolicyWithContext is the same as PutPermissionPolicy with the addition of
-// the ability to pass a context and additional request options.
-//
-// See PutPermissionPolicy for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAF) PutPermissionPolicyWithContext(ctx aws.Context, input *PutPermissionPolicyInput, opts ...request.Option) (*PutPermissionPolicyOutput, error) {
-	req, out := c.PutPermissionPolicyRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -8536,6 +8229,7 @@ func (c *WAF) UpdateXssMatchSetWithContext(ctx aws.Context, input *UpdateXssMatc
 //
 // To specify whether to insert or delete a Rule, use the Action parameter in
 // the WebACLUpdate data type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ActivatedRule
 type ActivatedRule struct {
 	_ struct{} `type:"structure"`
 
@@ -8550,9 +8244,9 @@ type ActivatedRule struct {
 	//    in the rule and then continues to inspect the web request based on the
 	//    remaining rules in the web ACL.
 	//
-	// ActivatedRule|OverrideAction applies only when updating or adding a RuleGroup
-	// to a WebACL. In this case you do not use ActivatedRule|Action. For all other
-	// update requests, ActivatedRule|Action is used instead of ActivatedRule|OverrideAction.
+	// The Action data type within ActivatedRule is used only when submitting an
+	// UpdateWebACL request. ActivatedRule|Action is not applicable and therefore
+	// not available for UpdateRuleGroup.
 	Action *WafAction `type:"structure"`
 
 	// Use the OverrideAction to test your RuleGroup.
@@ -8566,9 +8260,9 @@ type ActivatedRule struct {
 	// those requests will be counted. You can view a record of counted requests
 	// using GetSampledRequests.
 	//
-	// ActivatedRule|OverrideAction applies only when updating or adding a RuleGroup
-	// to a WebACL. In this case you do not use ActivatedRule|Action. For all other
-	// update requests, ActivatedRule|Action is used instead of ActivatedRule|OverrideAction.
+	// The OverrideAction data type within ActivatedRule is used only when submitting
+	// an UpdateRuleGroup request. ActivatedRule|OverrideAction is not applicable
+	// and therefore not available for UpdateWebACL.
 	OverrideAction *WafOverrideAction `type:"structure"`
 
 	// Specifies the order in which the Rules in a WebACL are evaluated. Rules with
@@ -8676,6 +8370,7 @@ func (s *ActivatedRule) SetType(v string) *ActivatedRule {
 // want AWS WAF to search for. If a ByteMatchSet contains more than one ByteMatchTuple
 // object, a request needs to match the settings in only one ByteMatchTuple
 // to be considered a match.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ByteMatchSet
 type ByteMatchSet struct {
 	_ struct{} `type:"structure"`
 
@@ -8731,6 +8426,7 @@ func (s *ByteMatchSet) SetName(v string) *ByteMatchSet {
 
 // Returned by ListByteMatchSets. Each ByteMatchSetSummary object includes the
 // Name and ByteMatchSetId for one ByteMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ByteMatchSetSummary
 type ByteMatchSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -8774,6 +8470,7 @@ func (s *ByteMatchSetSummary) SetName(v string) *ByteMatchSetSummary {
 
 // In an UpdateByteMatchSet request, ByteMatchSetUpdate specifies whether to
 // insert or delete a ByteMatchTuple and includes the settings for the ByteMatchTuple.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ByteMatchSetUpdate
 type ByteMatchSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -8837,6 +8534,7 @@ func (s *ByteMatchSetUpdate) SetByteMatchTuple(v *ByteMatchTuple) *ByteMatchSetU
 // The bytes (typically a string that corresponds with ASCII characters) that
 // you want AWS WAF to search for in web requests, the location in requests
 // that you want AWS WAF to search, and other settings.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ByteMatchTuple
 type ByteMatchTuple struct {
 	_ struct{} `type:"structure"`
 
@@ -9082,6 +8780,7 @@ func (s *ByteMatchTuple) SetTextTransformation(v string) *ByteMatchTuple {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateByteMatchSetRequest
 type CreateByteMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9141,6 +8840,7 @@ func (s *CreateByteMatchSetInput) SetName(v string) *CreateByteMatchSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateByteMatchSetResponse
 type CreateByteMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9175,6 +8875,7 @@ func (s *CreateByteMatchSetOutput) SetChangeToken(v string) *CreateByteMatchSetO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateGeoMatchSetRequest
 type CreateGeoMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9234,6 +8935,7 @@ func (s *CreateGeoMatchSetInput) SetName(v string) *CreateGeoMatchSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateGeoMatchSetResponse
 type CreateGeoMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9269,6 +8971,7 @@ func (s *CreateGeoMatchSetOutput) SetGeoMatchSet(v *GeoMatchSet) *CreateGeoMatch
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateIPSetRequest
 type CreateIPSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9328,6 +9031,7 @@ func (s *CreateIPSetInput) SetName(v string) *CreateIPSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateIPSetResponse
 type CreateIPSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9362,6 +9066,7 @@ func (s *CreateIPSetOutput) SetIPSet(v *IPSet) *CreateIPSetOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRateBasedRuleRequest
 type CreateRateBasedRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9478,6 +9183,7 @@ func (s *CreateRateBasedRuleInput) SetRateLimit(v int64) *CreateRateBasedRuleInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRateBasedRuleResponse
 type CreateRateBasedRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9512,6 +9218,7 @@ func (s *CreateRateBasedRuleOutput) SetRule(v *RateBasedRule) *CreateRateBasedRu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRegexMatchSetRequest
 type CreateRegexMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9571,6 +9278,7 @@ func (s *CreateRegexMatchSetInput) SetName(v string) *CreateRegexMatchSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRegexMatchSetResponse
 type CreateRegexMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9605,6 +9313,7 @@ func (s *CreateRegexMatchSetOutput) SetRegexMatchSet(v *RegexMatchSet) *CreateRe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRegexPatternSetRequest
 type CreateRegexPatternSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9664,6 +9373,7 @@ func (s *CreateRegexPatternSetInput) SetName(v string) *CreateRegexPatternSetInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRegexPatternSetResponse
 type CreateRegexPatternSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9698,6 +9408,7 @@ func (s *CreateRegexPatternSetOutput) SetRegexPatternSet(v *RegexPatternSet) *Cr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRuleGroupRequest
 type CreateRuleGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9774,6 +9485,7 @@ func (s *CreateRuleGroupInput) SetName(v string) *CreateRuleGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRuleGroupResponse
 type CreateRuleGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9808,6 +9520,7 @@ func (s *CreateRuleGroupOutput) SetRuleGroup(v *RuleGroup) *CreateRuleGroupOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRuleRequest
 type CreateRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9884,6 +9597,7 @@ func (s *CreateRuleInput) SetName(v string) *CreateRuleInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRuleResponse
 type CreateRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9918,6 +9632,7 @@ func (s *CreateRuleOutput) SetRule(v *Rule) *CreateRuleOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateSizeConstraintSetRequest
 type CreateSizeConstraintSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9977,6 +9692,7 @@ func (s *CreateSizeConstraintSetInput) SetName(v string) *CreateSizeConstraintSe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateSizeConstraintSetResponse
 type CreateSizeConstraintSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10012,6 +9728,7 @@ func (s *CreateSizeConstraintSetOutput) SetSizeConstraintSet(v *SizeConstraintSe
 }
 
 // A request to create a SqlInjectionMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateSqlInjectionMatchSetRequest
 type CreateSqlInjectionMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10072,6 +9789,7 @@ func (s *CreateSqlInjectionMatchSetInput) SetName(v string) *CreateSqlInjectionM
 }
 
 // The response to a CreateSqlInjectionMatchSet request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateSqlInjectionMatchSetResponse
 type CreateSqlInjectionMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10106,6 +9824,7 @@ func (s *CreateSqlInjectionMatchSetOutput) SetSqlInjectionMatchSet(v *SqlInjecti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateWebACLRequest
 type CreateWebACLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10202,6 +9921,7 @@ func (s *CreateWebACLInput) SetName(v string) *CreateWebACLInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateWebACLResponse
 type CreateWebACLOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10237,6 +9957,7 @@ func (s *CreateWebACLOutput) SetWebACL(v *WebACL) *CreateWebACLOutput {
 }
 
 // A request to create an XssMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateXssMatchSetRequest
 type CreateXssMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10297,6 +10018,7 @@ func (s *CreateXssMatchSetInput) SetName(v string) *CreateXssMatchSetInput {
 }
 
 // The response to a CreateXssMatchSet request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateXssMatchSetResponse
 type CreateXssMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10331,6 +10053,7 @@ func (s *CreateXssMatchSetOutput) SetXssMatchSet(v *XssMatchSet) *CreateXssMatch
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteByteMatchSetRequest
 type DeleteByteMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10390,6 +10113,7 @@ func (s *DeleteByteMatchSetInput) SetChangeToken(v string) *DeleteByteMatchSetIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteByteMatchSetResponse
 type DeleteByteMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10415,6 +10139,7 @@ func (s *DeleteByteMatchSetOutput) SetChangeToken(v string) *DeleteByteMatchSetO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteGeoMatchSetRequest
 type DeleteGeoMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10474,6 +10199,7 @@ func (s *DeleteGeoMatchSetInput) SetGeoMatchSetId(v string) *DeleteGeoMatchSetIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteGeoMatchSetResponse
 type DeleteGeoMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10499,6 +10225,7 @@ func (s *DeleteGeoMatchSetOutput) SetChangeToken(v string) *DeleteGeoMatchSetOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteIPSetRequest
 type DeleteIPSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10558,6 +10285,7 @@ func (s *DeleteIPSetInput) SetIPSetId(v string) *DeleteIPSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteIPSetResponse
 type DeleteIPSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10583,64 +10311,7 @@ func (s *DeleteIPSetOutput) SetChangeToken(v string) *DeleteIPSetOutput {
 	return s
 }
 
-type DeletePermissionPolicyInput struct {
-	_ struct{} `type:"structure"`
-
-	// The Amazon Resource Name (ARN) of the RuleGroup from which you want to delete
-	// the policy.
-	//
-	// The user making the request must be the owner of the RuleGroup.
-	//
-	// ResourceArn is a required field
-	ResourceArn *string `min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s DeletePermissionPolicyInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeletePermissionPolicyInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *DeletePermissionPolicyInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DeletePermissionPolicyInput"}
-	if s.ResourceArn == nil {
-		invalidParams.Add(request.NewErrParamRequired("ResourceArn"))
-	}
-	if s.ResourceArn != nil && len(*s.ResourceArn) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("ResourceArn", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetResourceArn sets the ResourceArn field's value.
-func (s *DeletePermissionPolicyInput) SetResourceArn(v string) *DeletePermissionPolicyInput {
-	s.ResourceArn = &v
-	return s
-}
-
-type DeletePermissionPolicyOutput struct {
-	_ struct{} `type:"structure"`
-}
-
-// String returns the string representation
-func (s DeletePermissionPolicyOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeletePermissionPolicyOutput) GoString() string {
-	return s.String()
-}
-
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRateBasedRuleRequest
 type DeleteRateBasedRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10700,6 +10371,7 @@ func (s *DeleteRateBasedRuleInput) SetRuleId(v string) *DeleteRateBasedRuleInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRateBasedRuleResponse
 type DeleteRateBasedRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10725,6 +10397,7 @@ func (s *DeleteRateBasedRuleOutput) SetChangeToken(v string) *DeleteRateBasedRul
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRegexMatchSetRequest
 type DeleteRegexMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10784,6 +10457,7 @@ func (s *DeleteRegexMatchSetInput) SetRegexMatchSetId(v string) *DeleteRegexMatc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRegexMatchSetResponse
 type DeleteRegexMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10809,6 +10483,7 @@ func (s *DeleteRegexMatchSetOutput) SetChangeToken(v string) *DeleteRegexMatchSe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRegexPatternSetRequest
 type DeleteRegexPatternSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10868,6 +10543,7 @@ func (s *DeleteRegexPatternSetInput) SetRegexPatternSetId(v string) *DeleteRegex
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRegexPatternSetResponse
 type DeleteRegexPatternSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10893,6 +10569,7 @@ func (s *DeleteRegexPatternSetOutput) SetChangeToken(v string) *DeleteRegexPatte
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRuleGroupRequest
 type DeleteRuleGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10952,6 +10629,7 @@ func (s *DeleteRuleGroupInput) SetRuleGroupId(v string) *DeleteRuleGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRuleGroupResponse
 type DeleteRuleGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10977,6 +10655,7 @@ func (s *DeleteRuleGroupOutput) SetChangeToken(v string) *DeleteRuleGroupOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRuleRequest
 type DeleteRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11036,6 +10715,7 @@ func (s *DeleteRuleInput) SetRuleId(v string) *DeleteRuleInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRuleResponse
 type DeleteRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11061,6 +10741,7 @@ func (s *DeleteRuleOutput) SetChangeToken(v string) *DeleteRuleOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteSizeConstraintSetRequest
 type DeleteSizeConstraintSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11120,6 +10801,7 @@ func (s *DeleteSizeConstraintSetInput) SetSizeConstraintSetId(v string) *DeleteS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteSizeConstraintSetResponse
 type DeleteSizeConstraintSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11146,6 +10828,7 @@ func (s *DeleteSizeConstraintSetOutput) SetChangeToken(v string) *DeleteSizeCons
 }
 
 // A request to delete a SqlInjectionMatchSet from AWS WAF.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteSqlInjectionMatchSetRequest
 type DeleteSqlInjectionMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11206,6 +10889,7 @@ func (s *DeleteSqlInjectionMatchSetInput) SetSqlInjectionMatchSetId(v string) *D
 }
 
 // The response to a request to delete a SqlInjectionMatchSet from AWS WAF.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteSqlInjectionMatchSetResponse
 type DeleteSqlInjectionMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11231,6 +10915,7 @@ func (s *DeleteSqlInjectionMatchSetOutput) SetChangeToken(v string) *DeleteSqlIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteWebACLRequest
 type DeleteWebACLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11290,6 +10975,7 @@ func (s *DeleteWebACLInput) SetWebACLId(v string) *DeleteWebACLInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteWebACLResponse
 type DeleteWebACLOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11316,6 +11002,7 @@ func (s *DeleteWebACLOutput) SetChangeToken(v string) *DeleteWebACLOutput {
 }
 
 // A request to delete an XssMatchSet from AWS WAF.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteXssMatchSetRequest
 type DeleteXssMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11376,6 +11063,7 @@ func (s *DeleteXssMatchSetInput) SetXssMatchSetId(v string) *DeleteXssMatchSetIn
 }
 
 // The response to a request to delete an XssMatchSet from AWS WAF.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteXssMatchSetResponse
 type DeleteXssMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11402,6 +11090,7 @@ func (s *DeleteXssMatchSetOutput) SetChangeToken(v string) *DeleteXssMatchSetOut
 }
 
 // Specifies where in a web request to look for TargetString.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/FieldToMatch
 type FieldToMatch struct {
 	_ struct{} `type:"structure"`
 
@@ -11478,6 +11167,7 @@ func (s *FieldToMatch) SetType(v string) *FieldToMatch {
 
 // The country from which web requests originate that you want AWS WAF to search
 // for.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GeoMatchConstraint
 type GeoMatchConstraint struct {
 	_ struct{} `type:"structure"`
 
@@ -11532,6 +11222,7 @@ func (s *GeoMatchConstraint) SetValue(v string) *GeoMatchConstraint {
 }
 
 // Contains one or more countries that AWS WAF will search for.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GeoMatchSet
 type GeoMatchSet struct {
 	_ struct{} `type:"structure"`
 
@@ -11585,6 +11276,7 @@ func (s *GeoMatchSet) SetName(v string) *GeoMatchSet {
 }
 
 // Contains the identifier and the name of the GeoMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GeoMatchSetSummary
 type GeoMatchSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -11624,6 +11316,7 @@ func (s *GeoMatchSetSummary) SetName(v string) *GeoMatchSetSummary {
 }
 
 // Specifies the type of update to perform to an GeoMatchSet with UpdateGeoMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GeoMatchSetUpdate
 type GeoMatchSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -11682,6 +11375,7 @@ func (s *GeoMatchSetUpdate) SetGeoMatchConstraint(v *GeoMatchConstraint) *GeoMat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetByteMatchSetRequest
 type GetByteMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11724,6 +11418,7 @@ func (s *GetByteMatchSetInput) SetByteMatchSetId(v string) *GetByteMatchSetInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetByteMatchSetResponse
 type GetByteMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11756,6 +11451,7 @@ func (s *GetByteMatchSetOutput) SetByteMatchSet(v *ByteMatchSet) *GetByteMatchSe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetChangeTokenRequest
 type GetChangeTokenInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11770,6 +11466,7 @@ func (s GetChangeTokenInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetChangeTokenResponse
 type GetChangeTokenOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11794,6 +11491,7 @@ func (s *GetChangeTokenOutput) SetChangeToken(v string) *GetChangeTokenOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetChangeTokenStatusRequest
 type GetChangeTokenStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11836,6 +11534,7 @@ func (s *GetChangeTokenStatusInput) SetChangeToken(v string) *GetChangeTokenStat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetChangeTokenStatusResponse
 type GetChangeTokenStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11859,6 +11558,7 @@ func (s *GetChangeTokenStatusOutput) SetChangeTokenStatus(v string) *GetChangeTo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetGeoMatchSetRequest
 type GetGeoMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11901,6 +11601,7 @@ func (s *GetGeoMatchSetInput) SetGeoMatchSetId(v string) *GetGeoMatchSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetGeoMatchSetResponse
 type GetGeoMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11926,6 +11627,7 @@ func (s *GetGeoMatchSetOutput) SetGeoMatchSet(v *GeoMatchSet) *GetGeoMatchSetOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetIPSetRequest
 type GetIPSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11968,6 +11670,7 @@ func (s *GetIPSetInput) SetIPSetId(v string) *GetIPSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetIPSetResponse
 type GetIPSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11997,71 +11700,7 @@ func (s *GetIPSetOutput) SetIPSet(v *IPSet) *GetIPSetOutput {
 	return s
 }
 
-type GetPermissionPolicyInput struct {
-	_ struct{} `type:"structure"`
-
-	// The Amazon Resource Name (ARN) of the RuleGroup for which you want to get
-	// the policy.
-	//
-	// ResourceArn is a required field
-	ResourceArn *string `min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetPermissionPolicyInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetPermissionPolicyInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetPermissionPolicyInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetPermissionPolicyInput"}
-	if s.ResourceArn == nil {
-		invalidParams.Add(request.NewErrParamRequired("ResourceArn"))
-	}
-	if s.ResourceArn != nil && len(*s.ResourceArn) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("ResourceArn", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetResourceArn sets the ResourceArn field's value.
-func (s *GetPermissionPolicyInput) SetResourceArn(v string) *GetPermissionPolicyInput {
-	s.ResourceArn = &v
-	return s
-}
-
-type GetPermissionPolicyOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The IAM policy attached to the specified RuleGroup.
-	Policy *string `min:"1" type:"string"`
-}
-
-// String returns the string representation
-func (s GetPermissionPolicyOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetPermissionPolicyOutput) GoString() string {
-	return s.String()
-}
-
-// SetPolicy sets the Policy field's value.
-func (s *GetPermissionPolicyOutput) SetPolicy(v string) *GetPermissionPolicyOutput {
-	s.Policy = &v
-	return s
-}
-
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRateBasedRuleRequest
 type GetRateBasedRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12104,6 +11743,7 @@ func (s *GetRateBasedRuleInput) SetRuleId(v string) *GetRateBasedRuleInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRateBasedRuleManagedKeysRequest
 type GetRateBasedRuleManagedKeysInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12158,6 +11798,7 @@ func (s *GetRateBasedRuleManagedKeysInput) SetRuleId(v string) *GetRateBasedRule
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRateBasedRuleManagedKeysResponse
 type GetRateBasedRuleManagedKeysOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12190,6 +11831,7 @@ func (s *GetRateBasedRuleManagedKeysOutput) SetNextMarker(v string) *GetRateBase
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRateBasedRuleResponse
 type GetRateBasedRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12214,6 +11856,7 @@ func (s *GetRateBasedRuleOutput) SetRule(v *RateBasedRule) *GetRateBasedRuleOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRegexMatchSetRequest
 type GetRegexMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12256,6 +11899,7 @@ func (s *GetRegexMatchSetInput) SetRegexMatchSetId(v string) *GetRegexMatchSetIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRegexMatchSetResponse
 type GetRegexMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12280,6 +11924,7 @@ func (s *GetRegexMatchSetOutput) SetRegexMatchSet(v *RegexMatchSet) *GetRegexMat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRegexPatternSetRequest
 type GetRegexPatternSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12322,6 +11967,7 @@ func (s *GetRegexPatternSetInput) SetRegexPatternSetId(v string) *GetRegexPatter
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRegexPatternSetResponse
 type GetRegexPatternSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12347,6 +11993,7 @@ func (s *GetRegexPatternSetOutput) SetRegexPatternSet(v *RegexPatternSet) *GetRe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRuleGroupRequest
 type GetRuleGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12389,6 +12036,7 @@ func (s *GetRuleGroupInput) SetRuleGroupId(v string) *GetRuleGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRuleGroupResponse
 type GetRuleGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12412,6 +12060,7 @@ func (s *GetRuleGroupOutput) SetRuleGroup(v *RuleGroup) *GetRuleGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRuleRequest
 type GetRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12454,6 +12103,7 @@ func (s *GetRuleInput) SetRuleId(v string) *GetRuleInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRuleResponse
 type GetRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12483,6 +12133,7 @@ func (s *GetRuleOutput) SetRule(v *Rule) *GetRuleOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetSampledRequestsRequest
 type GetSampledRequestsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12590,6 +12241,7 @@ func (s *GetSampledRequestsInput) SetWebAclId(v string) *GetSampledRequestsInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetSampledRequestsResponse
 type GetSampledRequestsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12637,6 +12289,7 @@ func (s *GetSampledRequestsOutput) SetTimeWindow(v *TimeWindow) *GetSampledReque
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetSizeConstraintSetRequest
 type GetSizeConstraintSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12679,6 +12332,7 @@ func (s *GetSizeConstraintSetInput) SetSizeConstraintSetId(v string) *GetSizeCon
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetSizeConstraintSetResponse
 type GetSizeConstraintSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12713,6 +12367,7 @@ func (s *GetSizeConstraintSetOutput) SetSizeConstraintSet(v *SizeConstraintSet) 
 }
 
 // A request to get a SqlInjectionMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetSqlInjectionMatchSetRequest
 type GetSqlInjectionMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12756,6 +12411,7 @@ func (s *GetSqlInjectionMatchSetInput) SetSqlInjectionMatchSetId(v string) *GetS
 }
 
 // The response to a GetSqlInjectionMatchSet request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetSqlInjectionMatchSetResponse
 type GetSqlInjectionMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12788,6 +12444,7 @@ func (s *GetSqlInjectionMatchSetOutput) SetSqlInjectionMatchSet(v *SqlInjectionM
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetWebACLRequest
 type GetWebACLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12830,6 +12487,7 @@ func (s *GetWebACLInput) SetWebACLId(v string) *GetWebACLInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetWebACLResponse
 type GetWebACLOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12865,6 +12523,7 @@ func (s *GetWebACLOutput) SetWebACL(v *WebACL) *GetWebACLOutput {
 }
 
 // A request to get an XssMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetXssMatchSetRequest
 type GetXssMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12908,6 +12567,7 @@ func (s *GetXssMatchSetInput) SetXssMatchSetId(v string) *GetXssMatchSetInput {
 }
 
 // The response to a GetXssMatchSet request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetXssMatchSetResponse
 type GetXssMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12943,6 +12603,7 @@ func (s *GetXssMatchSetOutput) SetXssMatchSet(v *XssMatchSet) *GetXssMatchSetOut
 // type that appears as Headers in the response syntax. HTTPHeader contains
 // the names and values of all of the headers that appear in one of the web
 // requests that were returned by GetSampledRequests.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/HTTPHeader
 type HTTPHeader struct {
 	_ struct{} `type:"structure"`
 
@@ -12978,6 +12639,7 @@ func (s *HTTPHeader) SetValue(v string) *HTTPHeader {
 // The response from a GetSampledRequests request includes an HTTPRequest complex
 // type that appears as Request in the response syntax. HTTPRequest contains
 // information about one of the web requests that were returned by GetSampledRequests.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/HTTPRequest
 type HTTPRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -13068,6 +12730,7 @@ func (s *HTTPRequest) SetURI(v string) *HTTPRequest {
 // you can specify a /128, /64, /56, /48, /32, /24, /16, or /8 CIDR. For more
 // information about CIDR notation, see the Wikipedia entry Classless Inter-Domain
 // Routing (https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/IPSet
 type IPSet struct {
 	_ struct{} `type:"structure"`
 
@@ -13125,6 +12788,7 @@ func (s *IPSet) SetName(v string) *IPSet {
 
 // Specifies the IP address type (IPV4 or IPV6) and the IP address range (in
 // CIDR format) that web requests originate from.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/IPSetDescriptor
 type IPSetDescriptor struct {
 	_ struct{} `type:"structure"`
 
@@ -13196,6 +12860,7 @@ func (s *IPSetDescriptor) SetValue(v string) *IPSetDescriptor {
 }
 
 // Contains the identifier and the name of the IPSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/IPSetSummary
 type IPSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -13235,6 +12900,7 @@ func (s *IPSetSummary) SetName(v string) *IPSetSummary {
 }
 
 // Specifies the type of update to perform to an IPSet with UpdateIPSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/IPSetUpdate
 type IPSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -13293,6 +12959,7 @@ func (s *IPSetUpdate) SetIPSetDescriptor(v *IPSetDescriptor) *IPSetUpdate {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListActivatedRulesInRuleGroupRequest
 type ListActivatedRulesInRuleGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13358,6 +13025,7 @@ func (s *ListActivatedRulesInRuleGroupInput) SetRuleGroupId(v string) *ListActiv
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListActivatedRulesInRuleGroupResponse
 type ListActivatedRulesInRuleGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13393,6 +13061,7 @@ func (s *ListActivatedRulesInRuleGroupOutput) SetNextMarker(v string) *ListActiv
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListByteMatchSetsRequest
 type ListByteMatchSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13445,6 +13114,7 @@ func (s *ListByteMatchSetsInput) SetNextMarker(v string) *ListByteMatchSetsInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListByteMatchSetsResponse
 type ListByteMatchSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13481,6 +13151,7 @@ func (s *ListByteMatchSetsOutput) SetNextMarker(v string) *ListByteMatchSetsOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListGeoMatchSetsRequest
 type ListGeoMatchSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13533,6 +13204,7 @@ func (s *ListGeoMatchSetsInput) SetNextMarker(v string) *ListGeoMatchSetsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListGeoMatchSetsResponse
 type ListGeoMatchSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13569,6 +13241,7 @@ func (s *ListGeoMatchSetsOutput) SetNextMarker(v string) *ListGeoMatchSetsOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListIPSetsRequest
 type ListIPSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13621,6 +13294,7 @@ func (s *ListIPSetsInput) SetNextMarker(v string) *ListIPSetsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListIPSetsResponse
 type ListIPSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13656,6 +13330,7 @@ func (s *ListIPSetsOutput) SetNextMarker(v string) *ListIPSetsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRateBasedRulesRequest
 type ListRateBasedRulesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13707,6 +13382,7 @@ func (s *ListRateBasedRulesInput) SetNextMarker(v string) *ListRateBasedRulesInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRateBasedRulesResponse
 type ListRateBasedRulesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13742,6 +13418,7 @@ func (s *ListRateBasedRulesOutput) SetRules(v []*RuleSummary) *ListRateBasedRule
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRegexMatchSetsRequest
 type ListRegexMatchSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13795,6 +13472,7 @@ func (s *ListRegexMatchSetsInput) SetNextMarker(v string) *ListRegexMatchSetsInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRegexMatchSetsResponse
 type ListRegexMatchSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13831,6 +13509,7 @@ func (s *ListRegexMatchSetsOutput) SetRegexMatchSets(v []*RegexMatchSetSummary) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRegexPatternSetsRequest
 type ListRegexPatternSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13884,6 +13563,7 @@ func (s *ListRegexPatternSetsInput) SetNextMarker(v string) *ListRegexPatternSet
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRegexPatternSetsResponse
 type ListRegexPatternSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13920,6 +13600,7 @@ func (s *ListRegexPatternSetsOutput) SetRegexPatternSets(v []*RegexPatternSetSum
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRuleGroupsRequest
 type ListRuleGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13972,6 +13653,7 @@ func (s *ListRuleGroupsInput) SetNextMarker(v string) *ListRuleGroupsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRuleGroupsResponse
 type ListRuleGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14007,6 +13689,7 @@ func (s *ListRuleGroupsOutput) SetRuleGroups(v []*RuleGroupSummary) *ListRuleGro
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRulesRequest
 type ListRulesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14058,6 +13741,7 @@ func (s *ListRulesInput) SetNextMarker(v string) *ListRulesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRulesResponse
 type ListRulesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14093,6 +13777,7 @@ func (s *ListRulesOutput) SetRules(v []*RuleSummary) *ListRulesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListSizeConstraintSetsRequest
 type ListSizeConstraintSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14145,6 +13830,7 @@ func (s *ListSizeConstraintSetsInput) SetNextMarker(v string) *ListSizeConstrain
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListSizeConstraintSetsResponse
 type ListSizeConstraintSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14183,6 +13869,7 @@ func (s *ListSizeConstraintSetsOutput) SetSizeConstraintSets(v []*SizeConstraint
 
 // A request to list the SqlInjectionMatchSet objects created by the current
 // AWS account.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListSqlInjectionMatchSetsRequest
 type ListSqlInjectionMatchSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14236,6 +13923,7 @@ func (s *ListSqlInjectionMatchSetsInput) SetNextMarker(v string) *ListSqlInjecti
 }
 
 // The response to a ListSqlInjectionMatchSets request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListSqlInjectionMatchSetsResponse
 type ListSqlInjectionMatchSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14272,6 +13960,7 @@ func (s *ListSqlInjectionMatchSetsOutput) SetSqlInjectionMatchSets(v []*SqlInjec
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListSubscribedRuleGroupsRequest
 type ListSubscribedRuleGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14325,6 +14014,7 @@ func (s *ListSubscribedRuleGroupsInput) SetNextMarker(v string) *ListSubscribedR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListSubscribedRuleGroupsResponse
 type ListSubscribedRuleGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14360,6 +14050,7 @@ func (s *ListSubscribedRuleGroupsOutput) SetRuleGroups(v []*SubscribedRuleGroupS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListWebACLsRequest
 type ListWebACLsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14413,6 +14104,7 @@ func (s *ListWebACLsInput) SetNextMarker(v string) *ListWebACLsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListWebACLsResponse
 type ListWebACLsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14449,6 +14141,7 @@ func (s *ListWebACLsOutput) SetWebACLs(v []*WebACLSummary) *ListWebACLsOutput {
 }
 
 // A request to list the XssMatchSet objects created by the current AWS account.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListXssMatchSetsRequest
 type ListXssMatchSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14502,6 +14195,7 @@ func (s *ListXssMatchSetsInput) SetNextMarker(v string) *ListXssMatchSetsInput {
 }
 
 // The response to a ListXssMatchSets request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListXssMatchSetsResponse
 type ListXssMatchSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14542,6 +14236,7 @@ func (s *ListXssMatchSetsOutput) SetXssMatchSets(v []*XssMatchSetSummary) *ListX
 // GeoMatchSet, and SizeConstraintSet objects that you want to add to a Rule
 // and, for each object, indicates whether you want to negate the settings,
 // for example, requests that do NOT originate from the IP address 192.0.2.44.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/Predicate
 type Predicate struct {
 	_ struct{} `type:"structure"`
 
@@ -14622,79 +14317,6 @@ func (s *Predicate) SetType(v string) *Predicate {
 	return s
 }
 
-type PutPermissionPolicyInput struct {
-	_ struct{} `type:"structure"`
-
-	// The policy to attach to the specified RuleGroup.
-	//
-	// Policy is a required field
-	Policy *string `min:"1" type:"string" required:"true"`
-
-	// The Amazon Resource Name (ARN) of the RuleGroup to which you want to attach
-	// the policy.
-	//
-	// ResourceArn is a required field
-	ResourceArn *string `min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s PutPermissionPolicyInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s PutPermissionPolicyInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *PutPermissionPolicyInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "PutPermissionPolicyInput"}
-	if s.Policy == nil {
-		invalidParams.Add(request.NewErrParamRequired("Policy"))
-	}
-	if s.Policy != nil && len(*s.Policy) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("Policy", 1))
-	}
-	if s.ResourceArn == nil {
-		invalidParams.Add(request.NewErrParamRequired("ResourceArn"))
-	}
-	if s.ResourceArn != nil && len(*s.ResourceArn) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("ResourceArn", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetPolicy sets the Policy field's value.
-func (s *PutPermissionPolicyInput) SetPolicy(v string) *PutPermissionPolicyInput {
-	s.Policy = &v
-	return s
-}
-
-// SetResourceArn sets the ResourceArn field's value.
-func (s *PutPermissionPolicyInput) SetResourceArn(v string) *PutPermissionPolicyInput {
-	s.ResourceArn = &v
-	return s
-}
-
-type PutPermissionPolicyOutput struct {
-	_ struct{} `type:"structure"`
-}
-
-// String returns the string representation
-func (s PutPermissionPolicyOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s PutPermissionPolicyOutput) GoString() string {
-	return s.String()
-}
-
 // A RateBasedRule is identical to a regular Rule, with one addition: a RateBasedRule
 // counts the number of requests that arrive from a specified IP address every
 // five minutes. For example, based on recent requests that you've seen from
@@ -14710,6 +14332,7 @@ func (s PutPermissionPolicyOutput) GoString() string {
 // Requests that meet both of these conditions and exceed 15,000 requests every
 // five minutes trigger the rule's action (block or count), which is defined
 // in the web ACL.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RateBasedRule
 type RateBasedRule struct {
 	_ struct{} `type:"structure"`
 
@@ -14811,6 +14434,7 @@ func (s *RateBasedRule) SetRuleId(v string) *RateBasedRule {
 // want AWS WAF to search for. If a RegexMatchSet contains more than one RegexMatchTuple
 // object, a request needs to match the settings in only one ByteMatchTuple
 // to be considered a match.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RegexMatchSet
 type RegexMatchSet struct {
 	_ struct{} `type:"structure"`
 
@@ -14870,6 +14494,7 @@ func (s *RegexMatchSet) SetRegexMatchTuples(v []*RegexMatchTuple) *RegexMatchSet
 
 // Returned by ListRegexMatchSets. Each RegexMatchSetSummary object includes
 // the Name and RegexMatchSetId for one RegexMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RegexMatchSetSummary
 type RegexMatchSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -14913,6 +14538,7 @@ func (s *RegexMatchSetSummary) SetRegexMatchSetId(v string) *RegexMatchSetSummar
 
 // In an UpdateRegexMatchSet request, RegexMatchSetUpdate specifies whether
 // to insert or delete a RegexMatchTuple and includes the settings for the RegexMatchTuple.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RegexMatchSetUpdate
 type RegexMatchSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -14986,6 +14612,7 @@ func (s *RegexMatchSetUpdate) SetRegexMatchTuple(v *RegexMatchTuple) *RegexMatch
 //
 //    * Whether to perform any conversions on the request, such as converting
 //    it to lowercase, before inspecting it for the specified string.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RegexMatchTuple
 type RegexMatchTuple struct {
 	_ struct{} `type:"structure"`
 
@@ -15138,6 +14765,7 @@ func (s *RegexMatchTuple) SetTextTransformation(v string) *RegexMatchTuple {
 // The RegexPatternSet specifies the regular expression (regex) pattern that
 // you want AWS WAF to search for, such as B[a@]dB[o0]t. You can then configure
 // AWS WAF to reject those requests.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RegexPatternSet
 type RegexPatternSet struct {
 	_ struct{} `type:"structure"`
 
@@ -15191,6 +14819,7 @@ func (s *RegexPatternSet) SetRegexPatternStrings(v []*string) *RegexPatternSet {
 
 // Returned by ListRegexPatternSets. Each RegexPatternSetSummary object includes
 // the Name and RegexPatternSetId for one RegexPatternSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RegexPatternSetSummary
 type RegexPatternSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -15236,6 +14865,7 @@ func (s *RegexPatternSetSummary) SetRegexPatternSetId(v string) *RegexPatternSet
 // In an UpdateRegexPatternSet request, RegexPatternSetUpdate specifies whether
 // to insert or delete a RegexPatternString and includes the settings for the
 // RegexPatternString.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RegexPatternSetUpdate
 type RegexPatternSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -15304,6 +14934,7 @@ func (s *RegexPatternSetUpdate) SetRegexPatternString(v string) *RegexPatternSet
 //
 // To match the settings in this Rule, a request must originate from 192.0.2.44
 // AND include a User-Agent header for which the value is BadBot.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/Rule
 type Rule struct {
 	_ struct{} `type:"structure"`
 
@@ -15377,6 +15008,7 @@ func (s *Rule) SetRuleId(v string) *Rule {
 //    * One rule group per web ACL.
 //
 //    * Ten rules per rule group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RuleGroup
 type RuleGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -15430,6 +15062,7 @@ func (s *RuleGroup) SetRuleGroupId(v string) *RuleGroup {
 }
 
 // Contains the identifier and the friendly name or description of the RuleGroup.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RuleGroupSummary
 type RuleGroupSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -15474,6 +15107,7 @@ func (s *RuleGroupSummary) SetRuleGroupId(v string) *RuleGroupSummary {
 
 // Specifies an ActivatedRule and indicates whether you want to add it to a
 // RuleGroup or delete it from a RuleGroup.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RuleGroupUpdate
 type RuleGroupUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -15535,6 +15169,7 @@ func (s *RuleGroupUpdate) SetActivatedRule(v *ActivatedRule) *RuleGroupUpdate {
 }
 
 // Contains the identifier and the friendly name or description of the Rule.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RuleSummary
 type RuleSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -15579,6 +15214,7 @@ func (s *RuleSummary) SetRuleId(v string) *RuleSummary {
 
 // Specifies a Predicate (such as an IPSet) and indicates whether you want to
 // add it to a Rule or delete it from a Rule.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/RuleUpdate
 type RuleUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -15641,6 +15277,7 @@ func (s *RuleUpdate) SetPredicate(v *Predicate) *RuleUpdate {
 // complex type that appears as SampledRequests in the response syntax. SampledHTTPRequests
 // contains one SampledHTTPRequest object for each web request that is returned
 // by GetSampledRequests.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SampledHTTPRequest
 type SampledHTTPRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -15715,6 +15352,7 @@ func (s *SampledHTTPRequest) SetWeight(v int64) *SampledHTTPRequest {
 // uses the Size, ComparisonOperator, and FieldToMatch to build an expression
 // in the form of "SizeComparisonOperator size in bytes of FieldToMatch". If
 // that expression is true, the SizeConstraint is considered to match.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SizeConstraint
 type SizeConstraint struct {
 	_ struct{} `type:"structure"`
 
@@ -15902,6 +15540,7 @@ func (s *SizeConstraint) SetTextTransformation(v string) *SizeConstraint {
 // of web requests that you want AWS WAF to inspect the size of. If a SizeConstraintSet
 // contains more than one SizeConstraint object, a request only needs to match
 // one constraint to be considered a match.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SizeConstraintSet
 type SizeConstraintSet struct {
 	_ struct{} `type:"structure"`
 
@@ -15954,6 +15593,7 @@ func (s *SizeConstraintSet) SetSizeConstraints(v []*SizeConstraint) *SizeConstra
 }
 
 // The Id and Name of a SizeConstraintSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SizeConstraintSetSummary
 type SizeConstraintSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -15999,6 +15639,7 @@ func (s *SizeConstraintSetSummary) SetSizeConstraintSetId(v string) *SizeConstra
 // Specifies the part of a web request that you want to inspect the size of
 // and indicates whether you want to add the specification to a SizeConstraintSet
 // or delete it from a SizeConstraintSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SizeConstraintSetUpdate
 type SizeConstraintSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -16066,6 +15707,7 @@ func (s *SizeConstraintSetUpdate) SetSizeConstraint(v *SizeConstraint) *SizeCons
 // of the header. If a SqlInjectionMatchSet contains more than one SqlInjectionMatchTuple
 // object, a request needs to include snippets of SQL code in only one of the
 // specified parts of the request to be considered a match.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SqlInjectionMatchSet
 type SqlInjectionMatchSet struct {
 	_ struct{} `type:"structure"`
 
@@ -16119,6 +15761,7 @@ func (s *SqlInjectionMatchSet) SetSqlInjectionMatchTuples(v []*SqlInjectionMatch
 }
 
 // The Id and Name of a SqlInjectionMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SqlInjectionMatchSetSummary
 type SqlInjectionMatchSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -16164,6 +15807,7 @@ func (s *SqlInjectionMatchSetSummary) SetSqlInjectionMatchSetId(v string) *SqlIn
 // Specifies the part of a web request that you want to inspect for snippets
 // of malicious SQL code and indicates whether you want to add the specification
 // to a SqlInjectionMatchSet or delete it from a SqlInjectionMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SqlInjectionMatchSetUpdate
 type SqlInjectionMatchSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -16227,6 +15871,7 @@ func (s *SqlInjectionMatchSetUpdate) SetSqlInjectionMatchTuple(v *SqlInjectionMa
 // Specifies the part of a web request that you want AWS WAF to inspect for
 // snippets of malicious SQL code and, if you want AWS WAF to inspect a header,
 // the name of the header.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SqlInjectionMatchTuple
 type SqlInjectionMatchTuple struct {
 	_ struct{} `type:"structure"`
 
@@ -16354,6 +15999,7 @@ func (s *SqlInjectionMatchTuple) SetTextTransformation(v string) *SqlInjectionMa
 }
 
 // A summary of the rule groups you are subscribed to.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/SubscribedRuleGroupSummary
 type SubscribedRuleGroupSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -16415,6 +16061,7 @@ func (s *SubscribedRuleGroupSummary) SetRuleGroupId(v string) *SubscribedRuleGro
 // If your resource receives more than 5,000 requests during that period, AWS
 // WAF stops sampling after the 5,000th request. In that case, EndTime is the
 // time that AWS WAF received the 5,000th request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/TimeWindow
 type TimeWindow struct {
 	_ struct{} `type:"structure"`
 
@@ -16473,6 +16120,7 @@ func (s *TimeWindow) SetStartTime(v time.Time) *TimeWindow {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateByteMatchSetRequest
 type UpdateByteMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16567,6 +16215,7 @@ func (s *UpdateByteMatchSetInput) SetUpdates(v []*ByteMatchSetUpdate) *UpdateByt
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateByteMatchSetResponse
 type UpdateByteMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16592,6 +16241,7 @@ func (s *UpdateByteMatchSetOutput) SetChangeToken(v string) *UpdateByteMatchSetO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateGeoMatchSetRequest
 type UpdateGeoMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16686,6 +16336,7 @@ func (s *UpdateGeoMatchSetInput) SetUpdates(v []*GeoMatchSetUpdate) *UpdateGeoMa
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateGeoMatchSetResponse
 type UpdateGeoMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16711,6 +16362,7 @@ func (s *UpdateGeoMatchSetOutput) SetChangeToken(v string) *UpdateGeoMatchSetOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateIPSetRequest
 type UpdateIPSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16802,6 +16454,7 @@ func (s *UpdateIPSetInput) SetUpdates(v []*IPSetUpdate) *UpdateIPSetInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateIPSetResponse
 type UpdateIPSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16827,6 +16480,7 @@ func (s *UpdateIPSetOutput) SetChangeToken(v string) *UpdateIPSetOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRateBasedRuleRequest
 type UpdateRateBasedRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16932,6 +16586,7 @@ func (s *UpdateRateBasedRuleInput) SetUpdates(v []*RuleUpdate) *UpdateRateBasedR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRateBasedRuleResponse
 type UpdateRateBasedRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16957,6 +16612,7 @@ func (s *UpdateRateBasedRuleOutput) SetChangeToken(v string) *UpdateRateBasedRul
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRegexMatchSetRequest
 type UpdateRegexMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17044,6 +16700,7 @@ func (s *UpdateRegexMatchSetInput) SetUpdates(v []*RegexMatchSetUpdate) *UpdateR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRegexMatchSetResponse
 type UpdateRegexMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17069,6 +16726,7 @@ func (s *UpdateRegexMatchSetOutput) SetChangeToken(v string) *UpdateRegexMatchSe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRegexPatternSetRequest
 type UpdateRegexPatternSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17156,6 +16814,7 @@ func (s *UpdateRegexPatternSetInput) SetUpdates(v []*RegexPatternSetUpdate) *Upd
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRegexPatternSetResponse
 type UpdateRegexPatternSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17181,6 +16840,7 @@ func (s *UpdateRegexPatternSetOutput) SetChangeToken(v string) *UpdateRegexPatte
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRuleGroupRequest
 type UpdateRuleGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17200,9 +16860,9 @@ type UpdateRuleGroupInput struct {
 	//
 	// You can only insert REGULAR rules into a rule group.
 	//
-	// ActivatedRule|OverrideAction applies only when updating or adding a RuleGroup
-	// to a WebACL. In this case you do not use ActivatedRule|Action. For all other
-	// update requests, ActivatedRule|Action is used instead of ActivatedRule|OverrideAction.
+	// The Action data type within ActivatedRule is used only when submitting an
+	// UpdateWebACL request. ActivatedRule|Action is not applicable and therefore
+	// not available for UpdateRuleGroup.
 	//
 	// Updates is a required field
 	Updates []*RuleGroupUpdate `min:"1" type:"list" required:"true"`
@@ -17274,6 +16934,7 @@ func (s *UpdateRuleGroupInput) SetUpdates(v []*RuleGroupUpdate) *UpdateRuleGroup
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRuleGroupResponse
 type UpdateRuleGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17299,6 +16960,7 @@ func (s *UpdateRuleGroupOutput) SetChangeToken(v string) *UpdateRuleGroupOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRuleRequest
 type UpdateRuleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17389,6 +17051,7 @@ func (s *UpdateRuleInput) SetUpdates(v []*RuleUpdate) *UpdateRuleInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRuleResponse
 type UpdateRuleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17414,6 +17077,7 @@ func (s *UpdateRuleOutput) SetChangeToken(v string) *UpdateRuleOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateSizeConstraintSetRequest
 type UpdateSizeConstraintSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17509,6 +17173,7 @@ func (s *UpdateSizeConstraintSetInput) SetUpdates(v []*SizeConstraintSetUpdate) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateSizeConstraintSetResponse
 type UpdateSizeConstraintSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17535,6 +17200,7 @@ func (s *UpdateSizeConstraintSetOutput) SetChangeToken(v string) *UpdateSizeCons
 }
 
 // A request to update a SqlInjectionMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateSqlInjectionMatchSetRequest
 type UpdateSqlInjectionMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17630,6 +17296,7 @@ func (s *UpdateSqlInjectionMatchSetInput) SetUpdates(v []*SqlInjectionMatchSetUp
 }
 
 // The response to an UpdateSqlInjectionMatchSets request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateSqlInjectionMatchSetResponse
 type UpdateSqlInjectionMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17655,6 +17322,7 @@ func (s *UpdateSqlInjectionMatchSetOutput) SetChangeToken(v string) *UpdateSqlIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateWebACLRequest
 type UpdateWebACLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17675,11 +17343,10 @@ type UpdateWebACLInput struct {
 	//
 	//    * WebACLUpdate: Contains Action and ActivatedRule
 	//
-	//    * ActivatedRule: Contains Action, OverrideAction, Priority, RuleId, and
-	//    Type. ActivatedRule|OverrideAction applies only when updating or adding
-	//    a RuleGroup to a WebACL. In this case you do not use ActivatedRule|Action.
-	//    For all other update requests, ActivatedRule|Action is used instead of
-	//    ActivatedRule|OverrideAction.
+	//    * ActivatedRule: Contains Action, Priority, RuleId, and Type. The OverrideAction
+	//    data type within ActivatedRule is used only when submitting an UpdateRuleGroup
+	//    request. ActivatedRule|OverrideAction is not applicable and therefore
+	//    not available for UpdateWebACL.
 	//
 	//    * WafAction: Contains Type
 	Updates []*WebACLUpdate `type:"list"`
@@ -17762,6 +17429,7 @@ func (s *UpdateWebACLInput) SetWebACLId(v string) *UpdateWebACLInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateWebACLResponse
 type UpdateWebACLOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17788,6 +17456,7 @@ func (s *UpdateWebACLOutput) SetChangeToken(v string) *UpdateWebACLOutput {
 }
 
 // A request to update an XssMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateXssMatchSetRequest
 type UpdateXssMatchSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17882,6 +17551,7 @@ func (s *UpdateXssMatchSetInput) SetXssMatchSetId(v string) *UpdateXssMatchSetIn
 }
 
 // The response to an UpdateXssMatchSets request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateXssMatchSetResponse
 type UpdateXssMatchSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17912,6 +17582,7 @@ func (s *UpdateXssMatchSetOutput) SetChangeToken(v string) *UpdateXssMatchSetOut
 // the conditions in a rule. For the default action in a WebACL, specifies the
 // action that you want AWS WAF to take when a web request doesn't match all
 // of the conditions in any of the rules in a WebACL.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/WafAction
 type WafAction struct {
 	_ struct{} `type:"structure"`
 
@@ -17961,6 +17632,7 @@ func (s *WafAction) SetType(v string) *WafAction {
 }
 
 // The action to take if any rule within the RuleGroup matches a request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/WafOverrideAction
 type WafOverrideAction struct {
 	_ struct{} `type:"structure"`
 
@@ -18008,6 +17680,7 @@ func (s *WafOverrideAction) SetType(v string) *WafOverrideAction {
 // the requests that you want AWS WAF to filter. If you add more than one Rule
 // to a WebACL, a request needs to match only one of the specifications to be
 // allowed, blocked, or counted. For more information, see UpdateWebACL.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/WebACL
 type WebACL struct {
 	_ struct{} `type:"structure"`
 
@@ -18083,6 +17756,7 @@ func (s *WebACL) SetWebACLId(v string) *WebACL {
 }
 
 // Contains the identifier and the name or description of the WebACL.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/WebACLSummary
 type WebACLSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -18125,6 +17799,7 @@ func (s *WebACLSummary) SetWebACLId(v string) *WebACLSummary {
 }
 
 // Specifies whether to insert a Rule into or delete a Rule from a WebACL.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/WebACLUpdate
 type WebACLUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -18191,6 +17866,7 @@ func (s *WebACLUpdate) SetActivatedRule(v *ActivatedRule) *WebACLUpdate {
 // If a XssMatchSet contains more than one XssMatchTuple object, a request needs
 // to include cross-site scripting attacks in only one of the specified parts
 // of the request to be considered a match.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/XssMatchSet
 type XssMatchSet struct {
 	_ struct{} `type:"structure"`
 
@@ -18243,6 +17919,7 @@ func (s *XssMatchSet) SetXssMatchTuples(v []*XssMatchTuple) *XssMatchSet {
 }
 
 // The Id and Name of an XssMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/XssMatchSetSummary
 type XssMatchSetSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -18287,6 +17964,7 @@ func (s *XssMatchSetSummary) SetXssMatchSetId(v string) *XssMatchSetSummary {
 // Specifies the part of a web request that you want to inspect for cross-site
 // scripting attacks and indicates whether you want to add the specification
 // to an XssMatchSet or delete it from an XssMatchSet.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/XssMatchSetUpdate
 type XssMatchSetUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -18350,6 +18028,7 @@ func (s *XssMatchSetUpdate) SetXssMatchTuple(v *XssMatchTuple) *XssMatchSetUpdat
 // Specifies the part of a web request that you want AWS WAF to inspect for
 // cross-site scripting attacks and, if you want AWS WAF to inspect a header,
 // the name of the header.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/XssMatchTuple
 type XssMatchTuple struct {
 	_ struct{} `type:"structure"`
 

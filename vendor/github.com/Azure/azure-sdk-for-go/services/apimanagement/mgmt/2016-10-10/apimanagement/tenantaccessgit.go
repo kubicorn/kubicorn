@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // TenantAccessGitClient is the apiManagement Client
 type TenantAccessGitClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewTenantAccessGitClient creates an instance of the TenantAccessGitClient client.
@@ -43,7 +42,7 @@ func NewTenantAccessGitClientWithBaseURI(baseURI string, subscriptionID string) 
 // Get gets the Git access configuration for the tenant.
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
-func (client TenantAccessGitClient) Get(ctx context.Context, resourceGroupName string, serviceName string) (result AccessInformationContract, err error) {
+func (client TenantAccessGitClient) Get(resourceGroupName string, serviceName string) (result AccessInformationContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -52,7 +51,7 @@ func (client TenantAccessGitClient) Get(ctx context.Context, resourceGroupName s
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.TenantAccessGitClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName)
+	req, err := client.GetPreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.TenantAccessGitClient", "Get", nil, "Failure preparing request")
 		return
@@ -74,7 +73,7 @@ func (client TenantAccessGitClient) Get(ctx context.Context, resourceGroupName s
 }
 
 // GetPreparer prepares the Get request.
-func (client TenantAccessGitClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client TenantAccessGitClient) GetPreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -91,13 +90,14 @@ func (client TenantAccessGitClient) GetPreparer(ctx context.Context, resourceGro
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tenant/access/git", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantAccessGitClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -117,7 +117,7 @@ func (client TenantAccessGitClient) GetResponder(resp *http.Response) (result Ac
 // RegeneratePrimaryKey regenerate primary access key for GIT.
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
-func (client TenantAccessGitClient) RegeneratePrimaryKey(ctx context.Context, resourceGroupName string, serviceName string) (result autorest.Response, err error) {
+func (client TenantAccessGitClient) RegeneratePrimaryKey(resourceGroupName string, serviceName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -126,7 +126,7 @@ func (client TenantAccessGitClient) RegeneratePrimaryKey(ctx context.Context, re
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.TenantAccessGitClient", "RegeneratePrimaryKey")
 	}
 
-	req, err := client.RegeneratePrimaryKeyPreparer(ctx, resourceGroupName, serviceName)
+	req, err := client.RegeneratePrimaryKeyPreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.TenantAccessGitClient", "RegeneratePrimaryKey", nil, "Failure preparing request")
 		return
@@ -148,7 +148,7 @@ func (client TenantAccessGitClient) RegeneratePrimaryKey(ctx context.Context, re
 }
 
 // RegeneratePrimaryKeyPreparer prepares the RegeneratePrimaryKey request.
-func (client TenantAccessGitClient) RegeneratePrimaryKeyPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client TenantAccessGitClient) RegeneratePrimaryKeyPreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -165,13 +165,14 @@ func (client TenantAccessGitClient) RegeneratePrimaryKeyPreparer(ctx context.Con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tenant/access/git/regeneratePrimaryKey", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegeneratePrimaryKeySender sends the RegeneratePrimaryKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantAccessGitClient) RegeneratePrimaryKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -190,7 +191,7 @@ func (client TenantAccessGitClient) RegeneratePrimaryKeyResponder(resp *http.Res
 // RegenerateSecondaryKey regenerate secondary access key for GIT.
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service.
-func (client TenantAccessGitClient) RegenerateSecondaryKey(ctx context.Context, resourceGroupName string, serviceName string) (result autorest.Response, err error) {
+func (client TenantAccessGitClient) RegenerateSecondaryKey(resourceGroupName string, serviceName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -199,7 +200,7 @@ func (client TenantAccessGitClient) RegenerateSecondaryKey(ctx context.Context, 
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.TenantAccessGitClient", "RegenerateSecondaryKey")
 	}
 
-	req, err := client.RegenerateSecondaryKeyPreparer(ctx, resourceGroupName, serviceName)
+	req, err := client.RegenerateSecondaryKeyPreparer(resourceGroupName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.TenantAccessGitClient", "RegenerateSecondaryKey", nil, "Failure preparing request")
 		return
@@ -221,7 +222,7 @@ func (client TenantAccessGitClient) RegenerateSecondaryKey(ctx context.Context, 
 }
 
 // RegenerateSecondaryKeyPreparer prepares the RegenerateSecondaryKey request.
-func (client TenantAccessGitClient) RegenerateSecondaryKeyPreparer(ctx context.Context, resourceGroupName string, serviceName string) (*http.Request, error) {
+func (client TenantAccessGitClient) RegenerateSecondaryKeyPreparer(resourceGroupName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -238,13 +239,14 @@ func (client TenantAccessGitClient) RegenerateSecondaryKeyPreparer(ctx context.C
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tenant/access/git/regenerateSecondaryKey", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegenerateSecondaryKeySender sends the RegenerateSecondaryKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client TenantAccessGitClient) RegenerateSecondaryKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

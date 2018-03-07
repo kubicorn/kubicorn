@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ApplicationManifestsClient is the client for the ApplicationManifests methods of the Servicefabric service.
 type ApplicationManifestsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewApplicationManifestsClient creates an instance of the ApplicationManifestsClient client.
@@ -43,8 +42,8 @@ func NewApplicationManifestsClientWithBaseURI(baseURI string, timeout *int32) Ap
 //
 // applicationTypeName is the name of the application type applicationTypeVersion is the version of the application
 // type
-func (client ApplicationManifestsClient) Get(ctx context.Context, applicationTypeName string, applicationTypeVersion string) (result ApplicationManifest, err error) {
-	req, err := client.GetPreparer(ctx, applicationTypeName, applicationTypeVersion)
+func (client ApplicationManifestsClient) Get(applicationTypeName string, applicationTypeVersion string) (result ApplicationManifest, err error) {
+	req, err := client.GetPreparer(applicationTypeName, applicationTypeVersion)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ApplicationManifestsClient", "Get", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client ApplicationManifestsClient) Get(ctx context.Context, applicationTyp
 }
 
 // GetPreparer prepares the Get request.
-func (client ApplicationManifestsClient) GetPreparer(ctx context.Context, applicationTypeName string, applicationTypeVersion string) (*http.Request, error) {
+func (client ApplicationManifestsClient) GetPreparer(applicationTypeName string, applicationTypeVersion string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationTypeName": autorest.Encode("path", applicationTypeName),
 	}
@@ -85,13 +84,14 @@ func (client ApplicationManifestsClient) GetPreparer(ctx context.Context, applic
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/ApplicationTypes/{applicationTypeName}/$/GetApplicationManifest", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationManifestsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

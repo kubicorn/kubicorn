@@ -18,7 +18,6 @@ package compute
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // ImagesClient is the compute Client
 type ImagesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewImagesClient creates an instance of the ImagesClient client.
@@ -40,37 +39,60 @@ func NewImagesClientWithBaseURI(baseURI string, subscriptionID string) ImagesCli
 	return ImagesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate create or update an image.
+// CreateOrUpdate create or update an image. This method may poll for completion. Polling can be canceled by passing
+// the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. imageName is the name of the image. parameters is parameters
 // supplied to the Create Image operation.
-func (client ImagesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, imageName string, parameters Image) (result ImagesCreateOrUpdateFuture, err error) {
+func (client ImagesClient) CreateOrUpdate(resourceGroupName string, imageName string, parameters Image, cancel <-chan struct{}) (<-chan Image, <-chan error) {
+	resultChan := make(chan Image, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.ImageProperties", Name: validation.Null, Rule: false,
 				Chain: []validation.Constraint{{Target: "parameters.ImageProperties.StorageProfile", Name: validation.Null, Rule: false,
 					Chain: []validation.Constraint{{Target: "parameters.ImageProperties.StorageProfile.OsDisk", Name: validation.Null, Rule: true, Chain: nil}}},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "compute.ImagesClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "compute.ImagesClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, imageName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result Image
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, imageName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "compute.ImagesClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "compute.ImagesClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "compute.ImagesClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ImagesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, imageName string, parameters Image) (*http.Request, error) {
+func (client ImagesClient) CreateOrUpdatePreparer(resourceGroupName string, imageName string, parameters Image, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"imageName":         autorest.Encode("path", imageName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -89,22 +111,16 @@ func (client ImagesClient) CreateOrUpdatePreparer(ctx context.Context, resourceG
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images/{imageName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client ImagesClient) CreateOrUpdateSender(req *http.Request) (future ImagesCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client ImagesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -120,27 +136,47 @@ func (client ImagesClient) CreateOrUpdateResponder(resp *http.Response) (result 
 	return
 }
 
-// Delete deletes an Image.
+// Delete deletes an Image. This method may poll for completion. Polling can be canceled by passing the cancel channel
+// argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. imageName is the name of the image.
-func (client ImagesClient) Delete(ctx context.Context, resourceGroupName string, imageName string) (result ImagesDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, imageName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client ImagesClient) Delete(resourceGroupName string, imageName string, cancel <-chan struct{}) (<-chan OperationStatusResponse, <-chan error) {
+	resultChan := make(chan OperationStatusResponse, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result OperationStatusResponse
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, imageName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "compute.ImagesClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "compute.ImagesClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "compute.ImagesClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ImagesClient) DeletePreparer(ctx context.Context, resourceGroupName string, imageName string) (*http.Request, error) {
+func (client ImagesClient) DeletePreparer(resourceGroupName string, imageName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"imageName":         autorest.Encode("path", imageName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -157,22 +193,16 @@ func (client ImagesClient) DeletePreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images/{imageName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client ImagesClient) DeleteSender(req *http.Request) (future ImagesDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client ImagesClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -192,8 +222,8 @@ func (client ImagesClient) DeleteResponder(resp *http.Response) (result Operatio
 //
 // resourceGroupName is the name of the resource group. imageName is the name of the image. expand is the expand
 // expression to apply on the operation.
-func (client ImagesClient) Get(ctx context.Context, resourceGroupName string, imageName string, expand string) (result Image, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, imageName, expand)
+func (client ImagesClient) Get(resourceGroupName string, imageName string, expand string) (result Image, err error) {
+	req, err := client.GetPreparer(resourceGroupName, imageName, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "Get", nil, "Failure preparing request")
 		return
@@ -215,7 +245,7 @@ func (client ImagesClient) Get(ctx context.Context, resourceGroupName string, im
 }
 
 // GetPreparer prepares the Get request.
-func (client ImagesClient) GetPreparer(ctx context.Context, resourceGroupName string, imageName string, expand string) (*http.Request, error) {
+func (client ImagesClient) GetPreparer(resourceGroupName string, imageName string, expand string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"imageName":         autorest.Encode("path", imageName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -235,13 +265,14 @@ func (client ImagesClient) GetPreparer(ctx context.Context, resourceGroupName st
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images/{imageName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ImagesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -259,10 +290,9 @@ func (client ImagesClient) GetResponder(resp *http.Response) (result Image, err 
 }
 
 // List gets the list of Images in the subscription. Use nextLink property in the response to get the next page of
-// Images. Do this till nextLink is null to fetch all the Images.
-func (client ImagesClient) List(ctx context.Context) (result ImageListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx)
+// Images. Do this till nextLink is not null to fetch all the Images.
+func (client ImagesClient) List() (result ImageListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "List", nil, "Failure preparing request")
 		return
@@ -270,12 +300,12 @@ func (client ImagesClient) List(ctx context.Context) (result ImageListResultPage
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.ilr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.ilr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "List", resp, "Failure responding to request")
 	}
@@ -284,7 +314,7 @@ func (client ImagesClient) List(ctx context.Context) (result ImageListResultPage
 }
 
 // ListPreparer prepares the List request.
-func (client ImagesClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client ImagesClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -299,13 +329,14 @@ func (client ImagesClient) ListPreparer(ctx context.Context) (*http.Request, err
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ImagesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -322,39 +353,80 @@ func (client ImagesClient) ListResponder(resp *http.Response) (result ImageListR
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ImagesClient) listNextResults(lastResults ImageListResult) (result ImageListResult, err error) {
-	req, err := lastResults.imageListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ImagesClient) ListNextResults(lastResults ImageListResult) (result ImageListResult, err error) {
+	req, err := lastResults.ImageListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ImagesClient) ListComplete(ctx context.Context) (result ImageListResultIterator, err error) {
-	result.page, err = client.List(ctx)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ImagesClient) ListComplete(cancel <-chan struct{}) (<-chan Image, <-chan error) {
+	resultChan := make(chan Image)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListByResourceGroup gets the list of images under a resource group.
 //
 // resourceGroupName is the name of the resource group.
-func (client ImagesClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result ImageListResultPage, err error) {
-	result.fn = client.listByResourceGroupNextResults
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName)
+func (client ImagesClient) ListByResourceGroup(resourceGroupName string) (result ImageListResult, err error) {
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -362,12 +434,12 @@ func (client ImagesClient) ListByResourceGroup(ctx context.Context, resourceGrou
 
 	resp, err := client.ListByResourceGroupSender(req)
 	if err != nil {
-		result.ilr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "ListByResourceGroup", resp, "Failure sending request")
 		return
 	}
 
-	result.ilr, err = client.ListByResourceGroupResponder(resp)
+	result, err = client.ListByResourceGroupResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "ListByResourceGroup", resp, "Failure responding to request")
 	}
@@ -376,7 +448,7 @@ func (client ImagesClient) ListByResourceGroup(ctx context.Context, resourceGrou
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client ImagesClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client ImagesClient) ListByResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -392,13 +464,14 @@ func (client ImagesClient) ListByResourceGroupPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client ImagesClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -415,29 +488,71 @@ func (client ImagesClient) ListByResourceGroupResponder(resp *http.Response) (re
 	return
 }
 
-// listByResourceGroupNextResults retrieves the next set of results, if any.
-func (client ImagesClient) listByResourceGroupNextResults(lastResults ImageListResult) (result ImageListResult, err error) {
-	req, err := lastResults.imageListResultPreparer()
+// ListByResourceGroupNextResults retrieves the next set of results, if any.
+func (client ImagesClient) ListByResourceGroupNextResults(lastResults ImageListResult) (result ImageListResult, err error) {
+	req, err := lastResults.ImageListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "listByResourceGroupNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "ListByResourceGroup", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByResourceGroupSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "listByResourceGroupNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "compute.ImagesClient", "ListByResourceGroup", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByResourceGroupResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "listByResourceGroupNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "compute.ImagesClient", "ListByResourceGroup", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByResourceGroupComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ImagesClient) ListByResourceGroupComplete(ctx context.Context, resourceGroupName string) (result ImageListResultIterator, err error) {
-	result.page, err = client.ListByResourceGroup(ctx, resourceGroupName)
-	return
+// ListByResourceGroupComplete gets all elements from the list without paging.
+func (client ImagesClient) ListByResourceGroupComplete(resourceGroupName string, cancel <-chan struct{}) (<-chan Image, <-chan error) {
+	resultChan := make(chan Image)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByResourceGroup(resourceGroupName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByResourceGroupNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

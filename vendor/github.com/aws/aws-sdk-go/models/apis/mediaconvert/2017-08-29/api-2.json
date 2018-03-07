@@ -4426,13 +4426,6 @@
         "EXCLUDE"
       ]
     },
-    "M2tsNielsenId3": {
-      "type": "string",
-      "enum": [
-        "INSERT",
-        "NONE"
-      ]
-    },
     "M2tsPcrControl": {
       "type": "string",
       "enum": [
@@ -4539,10 +4532,6 @@
           "shape": "__integer",
           "locationName": "minEbpInterval"
         },
-        "NielsenId3": {
-          "shape": "M2tsNielsenId3",
-          "locationName": "nielsenId3"
-        },
         "NullPacketBitrate": {
           "shape": "__double",
           "locationName": "nullPacketBitrate"
@@ -4599,10 +4588,6 @@
           "shape": "__double",
           "locationName": "segmentationTime"
         },
-        "TimedMetadataPid": {
-          "shape": "__integer",
-          "locationName": "timedMetadataPid"
-        },
         "TransportStreamId": {
           "shape": "__integer",
           "locationName": "transportStreamId"
@@ -4612,13 +4597,6 @@
           "locationName": "videoPid"
         }
       }
-    },
-    "M3u8NielsenId3": {
-      "type": "string",
-      "enum": [
-        "INSERT",
-        "NONE"
-      ]
     },
     "M3u8PcrControl": {
       "type": "string",
@@ -4644,10 +4622,6 @@
         "AudioPids": {
           "shape": "ListOf__integer",
           "locationName": "audioPids"
-        },
-        "NielsenId3": {
-          "shape": "M3u8NielsenId3",
-          "locationName": "nielsenId3"
         },
         "PatInterval": {
           "shape": "__integer",

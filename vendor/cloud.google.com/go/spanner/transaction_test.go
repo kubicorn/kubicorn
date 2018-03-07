@@ -18,6 +18,7 @@ package spanner
 
 import (
 	"errors"
+	"reflect"
 	"sync"
 	"testing"
 	"time"
@@ -59,12 +60,12 @@ func TestReadOnlyAcquire(t *testing.T) {
 	t.Parallel()
 	_, mc, client := mockClient(t)
 	defer client.Close()
-	mc.SetActions(
-		testutil.Action{"BeginTransaction", errUsr},
-		testutil.Action{"BeginTransaction", nil},
-		testutil.Action{"BeginTransaction", nil},
-	)
-
+	acts := []testutil.Action{
+		testutil.NewAction("Begin", errUsr),
+		testutil.NewAction("Begin", nil),
+		testutil.NewAction("Begin", nil),
+	}
+	mc.SetActions(acts...)
 	// Singleuse should only be used once.
 	txn := client.Single()
 	defer txn.Close()
@@ -73,13 +74,13 @@ func TestReadOnlyAcquire(t *testing.T) {
 		t.Errorf("Acquire for single use, got %v, want nil.", e)
 	}
 	_, _, e = txn.acquire(context.Background())
-	if wantErr := errTxClosed(); !testEqual(e, wantErr) {
+	if wantErr := errTxClosed(); !reflect.DeepEqual(e, wantErr) {
 		t.Errorf("Second acquire for single use, got %v, want %v.", e, wantErr)
 	}
 	// Multiuse can recover from acquire failure.
 	txn = client.ReadOnlyTransaction()
 	_, _, e = txn.acquire(context.Background())
-	if wantErr := toSpannerError(errUsr); !testEqual(e, wantErr) {
+	if wantErr := toSpannerError(errUsr); !reflect.DeepEqual(e, wantErr) {
 		t.Errorf("Acquire for multi use, got %v, want %v.", e, wantErr)
 	}
 	_, _, e = txn.acquire(context.Background())
@@ -89,7 +90,7 @@ func TestReadOnlyAcquire(t *testing.T) {
 	txn.Close()
 	// Multiuse can not be used after close.
 	_, _, e = txn.acquire(context.Background())
-	if wantErr := errTxClosed(); !testEqual(e, wantErr) {
+	if wantErr := errTxClosed(); !reflect.DeepEqual(e, wantErr) {
 		t.Errorf("Second acquire for multi use, got %v, want %v.", e, wantErr)
 	}
 	// Multiuse can be acquired concurrently.
@@ -117,10 +118,10 @@ func TestReadOnlyAcquire(t *testing.T) {
 	<-time.After(100 * time.Millisecond)
 	mc.Unfreeze()
 	wg.Wait()
-	if !testEqual(sh1.session, sh2.session) {
+	if !reflect.DeepEqual(sh1, sh2) {
 		t.Errorf("Expect acquire to get same session handle, got %v and %v.", sh1, sh2)
 	}
-	if !testEqual(ts1, ts2) {
+	if !reflect.DeepEqual(ts1, ts2) {
 		t.Errorf("Expect acquire to get same transaction selector, got %v and %v.", ts1, ts2)
 	}
 }
@@ -131,11 +132,11 @@ func TestRetryOnAbort(t *testing.T) {
 	_, mc, client := mockClient(t)
 	defer client.Close()
 	// commit in writeOnlyTransaction
-	mc.SetActions(
-		testutil.Action{"Commit", errAbrt}, // abort on first commit
-		testutil.Action{"Commit", nil},
-	)
-
+	acts := []testutil.Action{
+		testutil.NewAction("Commit", errAbrt), // abort on first commit
+		testutil.NewAction("Commit", nil),
+	}
+	mc.SetActions(acts...)
 	ms := []*Mutation{
 		Insert("Accounts", []string{"AccountId", "Nickname", "Balance"}, []interface{}{int64(1), "Foo", int64(50)}),
 		Insert("Accounts", []string{"AccountId", "Nickname", "Balance"}, []interface{}{int64(2), "Bar", int64(1)}),
@@ -144,14 +145,14 @@ func TestRetryOnAbort(t *testing.T) {
 		t.Errorf("applyAtLeastOnce retry on abort, got %v, want nil.", e)
 	}
 	// begin and commit in ReadWriteTransaction
-	mc.SetActions(
-		testutil.Action{"BeginTransaction", nil},     // let takeWriteSession succeed and get a session handle
-		testutil.Action{"Commit", errAbrt},           // let first commit fail and retry will begin new transaction
-		testutil.Action{"BeginTransaction", errAbrt}, // this time we can fail the begin attempt
-		testutil.Action{"BeginTransaction", nil},
-		testutil.Action{"Commit", nil},
-	)
-
+	acts = []testutil.Action{
+		testutil.NewAction("Begin", nil),      // let takeWriteSession succeed and get a session handle
+		testutil.NewAction("Commit", errAbrt), // let first commit fail and retry will begin new transaction
+		testutil.NewAction("Begin", errAbrt),  // this time we can fail the begin attempt
+		testutil.NewAction("Begin", nil),
+		testutil.NewAction("Commit", nil),
+	}
+	mc.SetActions(acts...)
 	if _, e := client.Apply(context.Background(), ms); e != nil {
 		t.Errorf("ReadWriteTransaction retry on abort, got %v, want nil.", e)
 	}
@@ -175,21 +176,22 @@ func TestBadSession(t *testing.T) {
 
 	wantErr := spannerErrorf(codes.NotFound, "Session not found: %v", sid)
 	// ReadOnlyTransaction
-	mc.SetActions(
-		testutil.Action{"BeginTransaction", wantErr},
-		testutil.Action{"BeginTransaction", wantErr},
-		testutil.Action{"BeginTransaction", wantErr},
-	)
+	acts := []testutil.Action{
+		testutil.NewAction("Begin", wantErr),
+		testutil.NewAction("Begin", wantErr),
+		testutil.NewAction("Begin", wantErr),
+	}
+	mc.SetActions(acts...)
 	txn := client.ReadOnlyTransaction()
 	defer txn.Close()
-	if _, _, got := txn.acquire(ctx); !testEqual(wantErr, got) {
+	if _, _, got := txn.acquire(ctx); !reflect.DeepEqual(wantErr, got) {
 		t.Errorf("Expect acquire to fail, got %v, want %v.", got, wantErr)
 	}
 	// The failure should recycle the session, we expect it to be used in following requests.
-	if got := txn.Query(ctx, NewStatement("SELECT 1")); !testEqual(wantErr, got.err) {
+	if got := txn.Query(ctx, NewStatement("SELECT 1")); !reflect.DeepEqual(wantErr, got.err) {
 		t.Errorf("Expect Query to fail, got %v, want %v.", got.err, wantErr)
 	}
-	if got := txn.Read(ctx, "Users", KeySets(Key{"alice"}, Key{"bob"}), []string{"name", "email"}); !testEqual(wantErr, got.err) {
+	if got := txn.Read(ctx, "Users", KeySets(Key{"alice"}, Key{"bob"}), []string{"name", "email"}); !reflect.DeepEqual(wantErr, got.err) {
 		t.Errorf("Expect Read to fail, got %v, want %v.", got.err, wantErr)
 	}
 	// writeOnlyTransaction
@@ -197,26 +199,11 @@ func TestBadSession(t *testing.T) {
 		Insert("Accounts", []string{"AccountId", "Nickname", "Balance"}, []interface{}{int64(1), "Foo", int64(50)}),
 		Insert("Accounts", []string{"AccountId", "Nickname", "Balance"}, []interface{}{int64(2), "Bar", int64(1)}),
 	}
-	mc.SetActions(testutil.Action{"Commit", wantErr})
-	if _, got := client.Apply(context.Background(), ms, ApplyAtLeastOnce()); !testEqual(wantErr, got) {
+	acts = []testutil.Action{
+		testutil.NewAction("Commit", wantErr),
+	}
+	mc.SetActions(acts...)
+	if _, got := client.Apply(context.Background(), ms, ApplyAtLeastOnce()); !reflect.DeepEqual(wantErr, got) {
 		t.Errorf("Expect applyAtLeastOnce to fail, got %v, want %v.", got, wantErr)
 	}
-}
-
-func TestFunctionErrorReturned(t *testing.T) {
-	t.Parallel()
-	_, mc, client := mockClient(t)
-	defer client.Close()
-	mc.SetActions(
-		testutil.Action{"BeginTransaction", nil},
-		testutil.Action{"Rollback", nil},
-	)
-
-	want := errors.New("an error")
-	_, got := client.ReadWriteTransaction(context.Background(),
-		func(context.Context, *ReadWriteTransaction) error { return want })
-	if got != want {
-		t.Errorf("got <%v>, want <%v>", got, want)
-	}
-	mc.CheckActionsConsumed()
 }

@@ -790,6 +790,7 @@ func (c *Firehose) UpdateDestinationWithContext(ctx aws.Context, input *UpdateDe
 // Describes hints for the buffering to perform before delivering data to the
 // destination. Please note that these options are treated as hints, and therefore
 // Kinesis Firehose may choose to use different values when it is optimal.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/BufferingHints
 type BufferingHints struct {
 	_ struct{} `type:"structure"`
 
@@ -845,6 +846,7 @@ func (s *BufferingHints) SetSizeInMBs(v int64) *BufferingHints {
 }
 
 // Describes the Amazon CloudWatch logging options for your delivery stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/CloudWatchLoggingOptions
 type CloudWatchLoggingOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -889,6 +891,7 @@ func (s *CloudWatchLoggingOptions) SetLogStreamName(v string) *CloudWatchLogging
 }
 
 // Describes a COPY command for Amazon Redshift.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/CopyCommand
 type CopyCommand struct {
 	_ struct{} `type:"structure"`
 
@@ -967,6 +970,7 @@ func (s *CopyCommand) SetDataTableName(v string) *CopyCommand {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/CreateDeliveryStreamInput
 type CreateDeliveryStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1109,6 +1113,7 @@ func (s *CreateDeliveryStreamInput) SetSplunkDestinationConfiguration(v *SplunkD
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/CreateDeliveryStreamOutput
 type CreateDeliveryStreamOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1132,6 +1137,7 @@ func (s *CreateDeliveryStreamOutput) SetDeliveryStreamARN(v string) *CreateDeliv
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DeleteDeliveryStreamInput
 type DeleteDeliveryStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1173,6 +1179,7 @@ func (s *DeleteDeliveryStreamInput) SetDeliveryStreamName(v string) *DeleteDeliv
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DeleteDeliveryStreamOutput
 type DeleteDeliveryStreamOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1188,6 +1195,7 @@ func (s DeleteDeliveryStreamOutput) GoString() string {
 }
 
 // Contains information about a delivery stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DeliveryStreamDescription
 type DeliveryStreamDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -1315,6 +1323,7 @@ func (s *DeliveryStreamDescription) SetVersionId(v string) *DeliveryStreamDescri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DescribeDeliveryStreamInput
 type DescribeDeliveryStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1382,6 +1391,7 @@ func (s *DescribeDeliveryStreamInput) SetLimit(v int64) *DescribeDeliveryStreamI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DescribeDeliveryStreamOutput
 type DescribeDeliveryStreamOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1408,6 +1418,7 @@ func (s *DescribeDeliveryStreamOutput) SetDeliveryStreamDescription(v *DeliveryS
 }
 
 // Describes the destination for a delivery stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DestinationDescription
 type DestinationDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -1480,6 +1491,7 @@ func (s *DestinationDescription) SetSplunkDestinationDescription(v *SplunkDestin
 
 // Describes the buffering to perform before delivering data to the Amazon ES
 // destination.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ElasticsearchBufferingHints
 type ElasticsearchBufferingHints struct {
 	_ struct{} `type:"structure"`
 
@@ -1535,6 +1547,7 @@ func (s *ElasticsearchBufferingHints) SetSizeInMBs(v int64) *ElasticsearchBuffer
 }
 
 // Describes the configuration of a destination in Amazon ES.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ElasticsearchDestinationConfiguration
 type ElasticsearchDestinationConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -1727,6 +1740,7 @@ func (s *ElasticsearchDestinationConfiguration) SetTypeName(v string) *Elasticse
 }
 
 // The destination description in Amazon ES.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ElasticsearchDestinationDescription
 type ElasticsearchDestinationDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -1841,6 +1855,7 @@ func (s *ElasticsearchDestinationDescription) SetTypeName(v string) *Elasticsear
 }
 
 // Describes an update for a destination in Amazon ES.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ElasticsearchDestinationUpdate
 type ElasticsearchDestinationUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -1993,6 +2008,7 @@ func (s *ElasticsearchDestinationUpdate) SetTypeName(v string) *ElasticsearchDes
 
 // Configures retry behavior in case Kinesis Firehose is unable to deliver documents
 // to Amazon ES.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ElasticsearchRetryOptions
 type ElasticsearchRetryOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -2021,6 +2037,7 @@ func (s *ElasticsearchRetryOptions) SetDurationInSeconds(v int64) *Elasticsearch
 }
 
 // Describes the encryption for a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/EncryptionConfiguration
 type EncryptionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -2070,6 +2087,7 @@ func (s *EncryptionConfiguration) SetNoEncryptionConfig(v string) *EncryptionCon
 }
 
 // Describes the configuration of a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ExtendedS3DestinationConfiguration
 type ExtendedS3DestinationConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -2226,6 +2244,7 @@ func (s *ExtendedS3DestinationConfiguration) SetS3BackupMode(v string) *Extended
 }
 
 // Describes a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ExtendedS3DestinationDescription
 type ExtendedS3DestinationDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -2346,6 +2365,7 @@ func (s *ExtendedS3DestinationDescription) SetS3BackupMode(v string) *ExtendedS3
 }
 
 // Describes an update for a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ExtendedS3DestinationUpdate
 type ExtendedS3DestinationUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -2492,6 +2512,7 @@ func (s *ExtendedS3DestinationUpdate) SetS3BackupUpdate(v *S3DestinationUpdate) 
 }
 
 // Describes an encryption key for a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KMSEncryptionConfig
 type KMSEncryptionConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -2536,6 +2557,7 @@ func (s *KMSEncryptionConfig) SetAWSKMSKeyARN(v string) *KMSEncryptionConfig {
 
 // The stream and role ARNs for a Kinesis stream used as the source for a delivery
 // stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KinesisStreamSourceConfiguration
 type KinesisStreamSourceConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -2596,6 +2618,7 @@ func (s *KinesisStreamSourceConfiguration) SetRoleARN(v string) *KinesisStreamSo
 
 // Details about a Kinesis stream used as the source for a Kinesis Firehose
 // delivery stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KinesisStreamSourceDescription
 type KinesisStreamSourceDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -2638,6 +2661,7 @@ func (s *KinesisStreamSourceDescription) SetRoleARN(v string) *KinesisStreamSour
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ListDeliveryStreamsInput
 type ListDeliveryStreamsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2703,6 +2727,7 @@ func (s *ListDeliveryStreamsInput) SetLimit(v int64) *ListDeliveryStreamsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ListDeliveryStreamsOutput
 type ListDeliveryStreamsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2740,6 +2765,7 @@ func (s *ListDeliveryStreamsOutput) SetHasMoreDeliveryStreams(v bool) *ListDeliv
 }
 
 // Describes a data processing configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ProcessingConfiguration
 type ProcessingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -2793,6 +2819,7 @@ func (s *ProcessingConfiguration) SetProcessors(v []*Processor) *ProcessingConfi
 }
 
 // Describes a data processor.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/Processor
 type Processor struct {
 	_ struct{} `type:"structure"`
 
@@ -2851,6 +2878,7 @@ func (s *Processor) SetType(v string) *Processor {
 }
 
 // Describes the processor parameter.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ProcessorParameter
 type ProcessorParameter struct {
 	_ struct{} `type:"structure"`
 
@@ -2906,6 +2934,7 @@ func (s *ProcessorParameter) SetParameterValue(v string) *ProcessorParameter {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/PutRecordBatchInput
 type PutRecordBatchInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2974,6 +3003,7 @@ func (s *PutRecordBatchInput) SetRecords(v []*Record) *PutRecordBatchInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/PutRecordBatchOutput
 type PutRecordBatchOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3015,6 +3045,7 @@ func (s *PutRecordBatchOutput) SetRequestResponses(v []*PutRecordBatchResponseEn
 // If the record is successfully added to your delivery stream, it receives
 // a record ID. If the record fails to be added to your delivery stream, the
 // result includes an error code and an error message.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/PutRecordBatchResponseEntry
 type PutRecordBatchResponseEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -3056,6 +3087,7 @@ func (s *PutRecordBatchResponseEntry) SetRecordId(v string) *PutRecordBatchRespo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/PutRecordInput
 type PutRecordInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3116,6 +3148,7 @@ func (s *PutRecordInput) SetRecord(v *Record) *PutRecordInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/PutRecordOutput
 type PutRecordOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3142,6 +3175,7 @@ func (s *PutRecordOutput) SetRecordId(v string) *PutRecordOutput {
 }
 
 // The unit of data in a delivery stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/Record
 type Record struct {
 	_ struct{} `type:"structure"`
 
@@ -3184,6 +3218,7 @@ func (s *Record) SetData(v []byte) *Record {
 }
 
 // Describes the configuration of a destination in Amazon Redshift.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/RedshiftDestinationConfiguration
 type RedshiftDestinationConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -3376,6 +3411,7 @@ func (s *RedshiftDestinationConfiguration) SetUsername(v string) *RedshiftDestin
 }
 
 // Describes a destination in Amazon Redshift.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/RedshiftDestinationDescription
 type RedshiftDestinationDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -3492,6 +3528,7 @@ func (s *RedshiftDestinationDescription) SetUsername(v string) *RedshiftDestinat
 }
 
 // Describes an update for a destination in Amazon Redshift.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/RedshiftDestinationUpdate
 type RedshiftDestinationUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -3654,6 +3691,7 @@ func (s *RedshiftDestinationUpdate) SetUsername(v string) *RedshiftDestinationUp
 
 // Configures retry behavior in case Kinesis Firehose is unable to deliver documents
 // to Amazon Redshift.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/RedshiftRetryOptions
 type RedshiftRetryOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -3682,6 +3720,7 @@ func (s *RedshiftRetryOptions) SetDurationInSeconds(v int64) *RedshiftRetryOptio
 }
 
 // Describes the configuration of a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/S3DestinationConfiguration
 type S3DestinationConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -3806,6 +3845,7 @@ func (s *S3DestinationConfiguration) SetRoleARN(v string) *S3DestinationConfigur
 }
 
 // Describes a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/S3DestinationDescription
 type S3DestinationDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -3900,6 +3940,7 @@ func (s *S3DestinationDescription) SetRoleARN(v string) *S3DestinationDescriptio
 }
 
 // Describes an update for a destination in Amazon S3.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/S3DestinationUpdate
 type S3DestinationUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -4015,6 +4056,7 @@ func (s *S3DestinationUpdate) SetRoleARN(v string) *S3DestinationUpdate {
 
 // Details about a Kinesis stream used as the source for a Kinesis Firehose
 // delivery stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SourceDescription
 type SourceDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -4039,6 +4081,7 @@ func (s *SourceDescription) SetKinesisStreamSourceDescription(v *KinesisStreamSo
 }
 
 // Describes the configuration of a destination in Splunk.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SplunkDestinationConfiguration
 type SplunkDestinationConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -4188,6 +4231,7 @@ func (s *SplunkDestinationConfiguration) SetS3Configuration(v *S3DestinationConf
 }
 
 // Describes a destination in Splunk.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SplunkDestinationDescription
 type SplunkDestinationDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -4294,6 +4338,7 @@ func (s *SplunkDestinationDescription) SetS3DestinationDescription(v *S3Destinat
 }
 
 // Describes an update for a destination in Splunk.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SplunkDestinationUpdate
 type SplunkDestinationUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -4424,6 +4469,7 @@ func (s *SplunkDestinationUpdate) SetS3Update(v *S3DestinationUpdate) *SplunkDes
 
 // Configures retry behavior in case Kinesis Firehose is unable to deliver documents
 // to Splunk or if it doesn't receive an acknowledgment from Splunk.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SplunkRetryOptions
 type SplunkRetryOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -4450,6 +4496,7 @@ func (s *SplunkRetryOptions) SetDurationInSeconds(v int64) *SplunkRetryOptions {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/UpdateDestinationInput
 type UpdateDestinationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4600,6 +4647,7 @@ func (s *UpdateDestinationInput) SetSplunkDestinationUpdate(v *SplunkDestination
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/UpdateDestinationOutput
 type UpdateDestinationOutput struct {
 	_ struct{} `type:"structure"`
 }

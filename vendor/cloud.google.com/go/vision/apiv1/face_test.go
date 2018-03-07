@@ -17,8 +17,7 @@ package vision
 import (
 	"testing"
 
-	"cloud.google.com/go/internal/testutil"
-
+	"cloud.google.com/go/internal/pretty"
 	pb "google.golang.org/genproto/googleapis/cloud/vision/v1"
 )
 
@@ -219,7 +218,11 @@ func TestFaceFromLandmarks(t *testing.T) {
 	}
 
 	got := FaceFromLandmarks(landmarks)
-	if diff := testutil.Diff(got, want); diff != "" {
-		t.Error(diff)
+	msg, ok, err := pretty.Diff(want, got)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !ok {
+		t.Error(msg)
 	}
 }

@@ -18,7 +18,6 @@ package network
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ExpressRouteCircuitPeeringsClient is the network Client
 type ExpressRouteCircuitPeeringsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewExpressRouteCircuitPeeringsClient creates an instance of the ExpressRouteCircuitPeeringsClient client.
@@ -39,29 +38,50 @@ func NewExpressRouteCircuitPeeringsClientWithBaseURI(baseURI string, subscriptio
 	return ExpressRouteCircuitPeeringsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates or updates a peering in the specified express route circuits.
+// CreateOrUpdate creates or updates a peering in the specified express route circuits. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. circuitName is the name of the express route circuit.
 // peeringName is the name of the peering. peeringParameters is parameters supplied to the create or update express
 // route circuit peering operation.
-func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, circuitName string, peeringName string, peeringParameters ExpressRouteCircuitPeering) (result ExpressRouteCircuitPeeringsCreateOrUpdateFuture, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, circuitName, peeringName, peeringParameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdate(resourceGroupName string, circuitName string, peeringName string, peeringParameters ExpressRouteCircuitPeering, cancel <-chan struct{}) (<-chan ExpressRouteCircuitPeering, <-chan error) {
+	resultChan := make(chan ExpressRouteCircuitPeering, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result ExpressRouteCircuitPeering
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, circuitName, peeringName, peeringParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, circuitName string, peeringName string, peeringParameters ExpressRouteCircuitPeering) (*http.Request, error) {
+func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdatePreparer(resourceGroupName string, circuitName string, peeringName string, peeringParameters ExpressRouteCircuitPeering, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"circuitName":       autorest.Encode("path", circuitName),
 		"peeringName":       autorest.Encode("path", peeringName),
@@ -81,22 +101,16 @@ func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdatePreparer(ctx conte
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/peerings/{peeringName}", pathParameters),
 		autorest.WithJSON(peeringParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdateSender(req *http.Request) (future ExpressRouteCircuitPeeringsCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -112,28 +126,49 @@ func (client ExpressRouteCircuitPeeringsClient) CreateOrUpdateResponder(resp *ht
 	return
 }
 
-// Delete deletes the specified peering from the specified express route circuit.
+// Delete deletes the specified peering from the specified express route circuit. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. circuitName is the name of the express route circuit.
 // peeringName is the name of the peering.
-func (client ExpressRouteCircuitPeeringsClient) Delete(ctx context.Context, resourceGroupName string, circuitName string, peeringName string) (result ExpressRouteCircuitPeeringsDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, circuitName, peeringName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client ExpressRouteCircuitPeeringsClient) Delete(resourceGroupName string, circuitName string, peeringName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, circuitName, peeringName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ExpressRouteCircuitPeeringsClient) DeletePreparer(ctx context.Context, resourceGroupName string, circuitName string, peeringName string) (*http.Request, error) {
+func (client ExpressRouteCircuitPeeringsClient) DeletePreparer(resourceGroupName string, circuitName string, peeringName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"circuitName":       autorest.Encode("path", circuitName),
 		"peeringName":       autorest.Encode("path", peeringName),
@@ -151,22 +186,16 @@ func (client ExpressRouteCircuitPeeringsClient) DeletePreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/peerings/{peeringName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client ExpressRouteCircuitPeeringsClient) DeleteSender(req *http.Request) (future ExpressRouteCircuitPeeringsDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client ExpressRouteCircuitPeeringsClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -185,8 +214,8 @@ func (client ExpressRouteCircuitPeeringsClient) DeleteResponder(resp *http.Respo
 //
 // resourceGroupName is the name of the resource group. circuitName is the name of the express route circuit.
 // peeringName is the name of the peering.
-func (client ExpressRouteCircuitPeeringsClient) Get(ctx context.Context, resourceGroupName string, circuitName string, peeringName string) (result ExpressRouteCircuitPeering, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, circuitName, peeringName)
+func (client ExpressRouteCircuitPeeringsClient) Get(resourceGroupName string, circuitName string, peeringName string) (result ExpressRouteCircuitPeering, err error) {
+	req, err := client.GetPreparer(resourceGroupName, circuitName, peeringName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "Get", nil, "Failure preparing request")
 		return
@@ -208,7 +237,7 @@ func (client ExpressRouteCircuitPeeringsClient) Get(ctx context.Context, resourc
 }
 
 // GetPreparer prepares the Get request.
-func (client ExpressRouteCircuitPeeringsClient) GetPreparer(ctx context.Context, resourceGroupName string, circuitName string, peeringName string) (*http.Request, error) {
+func (client ExpressRouteCircuitPeeringsClient) GetPreparer(resourceGroupName string, circuitName string, peeringName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"circuitName":       autorest.Encode("path", circuitName),
 		"peeringName":       autorest.Encode("path", peeringName),
@@ -226,13 +255,14 @@ func (client ExpressRouteCircuitPeeringsClient) GetPreparer(ctx context.Context,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/peerings/{peeringName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ExpressRouteCircuitPeeringsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -252,9 +282,8 @@ func (client ExpressRouteCircuitPeeringsClient) GetResponder(resp *http.Response
 // List gets all peerings in a specified express route circuit.
 //
 // resourceGroupName is the name of the resource group. circuitName is the name of the express route circuit.
-func (client ExpressRouteCircuitPeeringsClient) List(ctx context.Context, resourceGroupName string, circuitName string) (result ExpressRouteCircuitPeeringListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, circuitName)
+func (client ExpressRouteCircuitPeeringsClient) List(resourceGroupName string, circuitName string) (result ExpressRouteCircuitPeeringListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName, circuitName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "List", nil, "Failure preparing request")
 		return
@@ -262,12 +291,12 @@ func (client ExpressRouteCircuitPeeringsClient) List(ctx context.Context, resour
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.ercplr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.ercplr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "List", resp, "Failure responding to request")
 	}
@@ -276,7 +305,7 @@ func (client ExpressRouteCircuitPeeringsClient) List(ctx context.Context, resour
 }
 
 // ListPreparer prepares the List request.
-func (client ExpressRouteCircuitPeeringsClient) ListPreparer(ctx context.Context, resourceGroupName string, circuitName string) (*http.Request, error) {
+func (client ExpressRouteCircuitPeeringsClient) ListPreparer(resourceGroupName string, circuitName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"circuitName":       autorest.Encode("path", circuitName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -293,13 +322,14 @@ func (client ExpressRouteCircuitPeeringsClient) ListPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/peerings", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ExpressRouteCircuitPeeringsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -316,29 +346,71 @@ func (client ExpressRouteCircuitPeeringsClient) ListResponder(resp *http.Respons
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ExpressRouteCircuitPeeringsClient) listNextResults(lastResults ExpressRouteCircuitPeeringListResult) (result ExpressRouteCircuitPeeringListResult, err error) {
-	req, err := lastResults.expressRouteCircuitPeeringListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ExpressRouteCircuitPeeringsClient) ListNextResults(lastResults ExpressRouteCircuitPeeringListResult) (result ExpressRouteCircuitPeeringListResult, err error) {
+	req, err := lastResults.ExpressRouteCircuitPeeringListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "network.ExpressRouteCircuitPeeringsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ExpressRouteCircuitPeeringsClient) ListComplete(ctx context.Context, resourceGroupName string, circuitName string) (result ExpressRouteCircuitPeeringListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, circuitName)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ExpressRouteCircuitPeeringsClient) ListComplete(resourceGroupName string, circuitName string, cancel <-chan struct{}) (<-chan ExpressRouteCircuitPeering, <-chan error) {
+	resultChan := make(chan ExpressRouteCircuitPeering)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, circuitName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

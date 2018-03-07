@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ServiceGroupsClient is the client for the ServiceGroups methods of the Servicefabric service.
 type ServiceGroupsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewServiceGroupsClient creates an instance of the ServiceGroupsClient client.
@@ -43,8 +42,8 @@ func NewServiceGroupsClientWithBaseURI(baseURI string, timeout *int32) ServiceGr
 //
 // applicationName is the name of the service group createServiceGroupDescription is the description of the service
 // group
-func (client ServiceGroupsClient) Create(ctx context.Context, applicationName string, createServiceGroupDescription BasicCreateServiceGroupDescription) (result String, err error) {
-	req, err := client.CreatePreparer(ctx, applicationName, createServiceGroupDescription)
+func (client ServiceGroupsClient) Create(applicationName string, createServiceGroupDescription CreateServiceGroupDescription) (result String, err error) {
+	req, err := client.CreatePreparer(applicationName, createServiceGroupDescription)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ServiceGroupsClient", "Create", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client ServiceGroupsClient) Create(ctx context.Context, applicationName st
 }
 
 // CreatePreparer prepares the Create request.
-func (client ServiceGroupsClient) CreatePreparer(ctx context.Context, applicationName string, createServiceGroupDescription BasicCreateServiceGroupDescription) (*http.Request, error) {
+func (client ServiceGroupsClient) CreatePreparer(applicationName string, createServiceGroupDescription CreateServiceGroupDescription) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 	}
@@ -86,13 +85,14 @@ func (client ServiceGroupsClient) CreatePreparer(ctx context.Context, applicatio
 		autorest.WithPathParameters("/Applications/{applicationName}/$/GetServices/$/CreateServiceGroup", pathParameters),
 		autorest.WithJSON(createServiceGroupDescription),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServiceGroupsClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -112,8 +112,8 @@ func (client ServiceGroupsClient) CreateResponder(resp *http.Response) (result S
 // Remove remove service groups
 //
 // applicationName is the name of the application serviceName is the name of the service
-func (client ServiceGroupsClient) Remove(ctx context.Context, applicationName string, serviceName string) (result String, err error) {
-	req, err := client.RemovePreparer(ctx, applicationName, serviceName)
+func (client ServiceGroupsClient) Remove(applicationName string, serviceName string) (result String, err error) {
+	req, err := client.RemovePreparer(applicationName, serviceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ServiceGroupsClient", "Remove", nil, "Failure preparing request")
 		return
@@ -135,7 +135,7 @@ func (client ServiceGroupsClient) Remove(ctx context.Context, applicationName st
 }
 
 // RemovePreparer prepares the Remove request.
-func (client ServiceGroupsClient) RemovePreparer(ctx context.Context, applicationName string, serviceName string) (*http.Request, error) {
+func (client ServiceGroupsClient) RemovePreparer(applicationName string, serviceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 		"serviceName":     serviceName,
@@ -154,13 +154,14 @@ func (client ServiceGroupsClient) RemovePreparer(ctx context.Context, applicatio
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/Applications/{applicationName}/$/GetServiceGroups/{serviceName}/$/Delete", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RemoveSender sends the Remove request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServiceGroupsClient) RemoveSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -181,8 +182,8 @@ func (client ServiceGroupsClient) RemoveResponder(resp *http.Response) (result S
 //
 // applicationName is the name of the application serviceName is the name of the service updateServiceGroupDescription
 // is the description of the service group update
-func (client ServiceGroupsClient) Update(ctx context.Context, applicationName string, serviceName string, updateServiceGroupDescription BasicUpdateServiceGroupDescription) (result String, err error) {
-	req, err := client.UpdatePreparer(ctx, applicationName, serviceName, updateServiceGroupDescription)
+func (client ServiceGroupsClient) Update(applicationName string, serviceName string, updateServiceGroupDescription UpdateServiceGroupDescription) (result String, err error) {
+	req, err := client.UpdatePreparer(applicationName, serviceName, updateServiceGroupDescription)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.ServiceGroupsClient", "Update", nil, "Failure preparing request")
 		return
@@ -204,7 +205,7 @@ func (client ServiceGroupsClient) Update(ctx context.Context, applicationName st
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ServiceGroupsClient) UpdatePreparer(ctx context.Context, applicationName string, serviceName string, updateServiceGroupDescription BasicUpdateServiceGroupDescription) (*http.Request, error) {
+func (client ServiceGroupsClient) UpdatePreparer(applicationName string, serviceName string, updateServiceGroupDescription UpdateServiceGroupDescription) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationName": applicationName,
 		"serviceName":     serviceName,
@@ -225,13 +226,14 @@ func (client ServiceGroupsClient) UpdatePreparer(ctx context.Context, applicatio
 		autorest.WithPathParameters("/Applications/{applicationName}/$/GetServices/{serviceName}/$/UpdateServiceGroup", pathParameters),
 		autorest.WithJSON(updateServiceGroupDescription),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client ServiceGroupsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

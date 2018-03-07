@@ -18,7 +18,6 @@ package trafficmanager
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // UserMetricsKeysClient is the client for the UserMetricsKeys methods of the Trafficmanager service.
 type UserMetricsKeysClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewUserMetricsKeysClient creates an instance of the UserMetricsKeysClient client.
@@ -40,8 +39,8 @@ func NewUserMetricsKeysClientWithBaseURI(baseURI string, subscriptionID string) 
 }
 
 // CreateOrUpdate create or update a subscription-level key used for Real User Metrics collection.
-func (client UserMetricsKeysClient) CreateOrUpdate(ctx context.Context) (result UserMetricsKeyModel, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx)
+func (client UserMetricsKeysClient) CreateOrUpdate() (result UserMetricsKeyModel, err error) {
+	req, err := client.CreateOrUpdatePreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "trafficmanager.UserMetricsKeysClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -63,7 +62,7 @@ func (client UserMetricsKeysClient) CreateOrUpdate(ctx context.Context) (result 
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client UserMetricsKeysClient) CreateOrUpdatePreparer(ctx context.Context) (*http.Request, error) {
+func (client UserMetricsKeysClient) CreateOrUpdatePreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -78,13 +77,14 @@ func (client UserMetricsKeysClient) CreateOrUpdatePreparer(ctx context.Context) 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client UserMetricsKeysClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -102,8 +102,8 @@ func (client UserMetricsKeysClient) CreateOrUpdateResponder(resp *http.Response)
 }
 
 // Delete delete a subscription-level key used for Real User Metrics collection.
-func (client UserMetricsKeysClient) Delete(ctx context.Context) (result DeleteOperationResult, err error) {
-	req, err := client.DeletePreparer(ctx)
+func (client UserMetricsKeysClient) Delete() (result DeleteOperationResult, err error) {
+	req, err := client.DeletePreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "trafficmanager.UserMetricsKeysClient", "Delete", nil, "Failure preparing request")
 		return
@@ -125,7 +125,7 @@ func (client UserMetricsKeysClient) Delete(ctx context.Context) (result DeleteOp
 }
 
 // DeletePreparer prepares the Delete request.
-func (client UserMetricsKeysClient) DeletePreparer(ctx context.Context) (*http.Request, error) {
+func (client UserMetricsKeysClient) DeletePreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -140,13 +140,14 @@ func (client UserMetricsKeysClient) DeletePreparer(ctx context.Context) (*http.R
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client UserMetricsKeysClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -164,8 +165,8 @@ func (client UserMetricsKeysClient) DeleteResponder(resp *http.Response) (result
 }
 
 // Get get the subscription-level key used for Real User Metrics collection.
-func (client UserMetricsKeysClient) Get(ctx context.Context) (result UserMetricsKeyModel, err error) {
-	req, err := client.GetPreparer(ctx)
+func (client UserMetricsKeysClient) Get() (result UserMetricsKeyModel, err error) {
+	req, err := client.GetPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "trafficmanager.UserMetricsKeysClient", "Get", nil, "Failure preparing request")
 		return
@@ -187,7 +188,7 @@ func (client UserMetricsKeysClient) Get(ctx context.Context) (result UserMetrics
 }
 
 // GetPreparer prepares the Get request.
-func (client UserMetricsKeysClient) GetPreparer(ctx context.Context) (*http.Request, error) {
+func (client UserMetricsKeysClient) GetPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -202,13 +203,14 @@ func (client UserMetricsKeysClient) GetPreparer(ctx context.Context) (*http.Requ
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client UserMetricsKeysClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -18,7 +18,6 @@ package mobileengagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // AppsClient is the microsoft Azure Mobile Engagement REST APIs.
 type AppsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewAppsClient creates an instance of the AppsClient client.
@@ -42,9 +41,8 @@ func NewAppsClientWithBaseURI(baseURI string, subscriptionID string) AppsClient 
 // List lists apps in an appCollection.
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection.
-func (client AppsClient) List(ctx context.Context, resourceGroupName string, appCollection string) (result AppListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, appCollection)
+func (client AppsClient) List(resourceGroupName string, appCollection string) (result AppListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName, appCollection)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "List", nil, "Failure preparing request")
 		return
@@ -52,12 +50,12 @@ func (client AppsClient) List(ctx context.Context, resourceGroupName string, app
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.alr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.alr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "List", resp, "Failure responding to request")
 	}
@@ -66,7 +64,7 @@ func (client AppsClient) List(ctx context.Context, resourceGroupName string, app
 }
 
 // ListPreparer prepares the List request.
-func (client AppsClient) ListPreparer(ctx context.Context, resourceGroupName string, appCollection string) (*http.Request, error) {
+func (client AppsClient) ListPreparer(resourceGroupName string, appCollection string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -83,13 +81,14 @@ func (client AppsClient) ListPreparer(ctx context.Context, resourceGroupName str
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client AppsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -106,29 +105,71 @@ func (client AppsClient) ListResponder(resp *http.Response) (result AppListResul
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client AppsClient) listNextResults(lastResults AppListResult) (result AppListResult, err error) {
-	req, err := lastResults.appListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client AppsClient) ListNextResults(lastResults AppListResult) (result AppListResult, err error) {
+	req, err := lastResults.AppListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "mobileengagement.AppsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AppsClient) ListComplete(ctx context.Context, resourceGroupName string, appCollection string) (result AppListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, appCollection)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client AppsClient) ListComplete(resourceGroupName string, appCollection string, cancel <-chan struct{}) (<-chan App, <-chan error) {
+	resultChan := make(chan App)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, appCollection)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

@@ -18,7 +18,6 @@ package customerinsights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -28,7 +27,7 @@ import (
 // interact with Azure Customer Insights service to manage your resources. The API has entities that capture the
 // relationship between an end user and the Azure Customer Insights service.
 type WidgetTypesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewWidgetTypesClient creates an instance of the WidgetTypesClient client.
@@ -45,8 +44,8 @@ func NewWidgetTypesClientWithBaseURI(baseURI string, subscriptionID string) Widg
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. widgetTypeName is the name of
 // the widget type.
-func (client WidgetTypesClient) Get(ctx context.Context, resourceGroupName string, hubName string, widgetTypeName string) (result WidgetTypeResourceFormat, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, hubName, widgetTypeName)
+func (client WidgetTypesClient) Get(resourceGroupName string, hubName string, widgetTypeName string) (result WidgetTypeResourceFormat, err error) {
+	req, err := client.GetPreparer(resourceGroupName, hubName, widgetTypeName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "Get", nil, "Failure preparing request")
 		return
@@ -68,7 +67,7 @@ func (client WidgetTypesClient) Get(ctx context.Context, resourceGroupName strin
 }
 
 // GetPreparer prepares the Get request.
-func (client WidgetTypesClient) GetPreparer(ctx context.Context, resourceGroupName string, hubName string, widgetTypeName string) (*http.Request, error) {
+func (client WidgetTypesClient) GetPreparer(resourceGroupName string, hubName string, widgetTypeName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -86,13 +85,14 @@ func (client WidgetTypesClient) GetPreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/widgetTypes/{widgetTypeName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client WidgetTypesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -112,9 +112,8 @@ func (client WidgetTypesClient) GetResponder(resp *http.Response) (result Widget
 // ListByHub gets all available widget types in the specified hub.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub.
-func (client WidgetTypesClient) ListByHub(ctx context.Context, resourceGroupName string, hubName string) (result WidgetTypeListResultPage, err error) {
-	result.fn = client.listByHubNextResults
-	req, err := client.ListByHubPreparer(ctx, resourceGroupName, hubName)
+func (client WidgetTypesClient) ListByHub(resourceGroupName string, hubName string) (result WidgetTypeListResult, err error) {
+	req, err := client.ListByHubPreparer(resourceGroupName, hubName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "ListByHub", nil, "Failure preparing request")
 		return
@@ -122,12 +121,12 @@ func (client WidgetTypesClient) ListByHub(ctx context.Context, resourceGroupName
 
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
-		result.wtlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "ListByHub", resp, "Failure sending request")
 		return
 	}
 
-	result.wtlr, err = client.ListByHubResponder(resp)
+	result, err = client.ListByHubResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "ListByHub", resp, "Failure responding to request")
 	}
@@ -136,7 +135,7 @@ func (client WidgetTypesClient) ListByHub(ctx context.Context, resourceGroupName
 }
 
 // ListByHubPreparer prepares the ListByHub request.
-func (client WidgetTypesClient) ListByHubPreparer(ctx context.Context, resourceGroupName string, hubName string) (*http.Request, error) {
+func (client WidgetTypesClient) ListByHubPreparer(resourceGroupName string, hubName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -153,13 +152,14 @@ func (client WidgetTypesClient) ListByHubPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/widgetTypes", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByHubSender sends the ListByHub request. The method will close the
 // http.Response Body if it receives an error.
 func (client WidgetTypesClient) ListByHubSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -176,29 +176,71 @@ func (client WidgetTypesClient) ListByHubResponder(resp *http.Response) (result 
 	return
 }
 
-// listByHubNextResults retrieves the next set of results, if any.
-func (client WidgetTypesClient) listByHubNextResults(lastResults WidgetTypeListResult) (result WidgetTypeListResult, err error) {
-	req, err := lastResults.widgetTypeListResultPreparer()
+// ListByHubNextResults retrieves the next set of results, if any.
+func (client WidgetTypesClient) ListByHubNextResults(lastResults WidgetTypeListResult) (result WidgetTypeListResult, err error) {
+	req, err := lastResults.WidgetTypeListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "listByHubNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "ListByHub", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "listByHubNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "ListByHub", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByHubResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "listByHubNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "customerinsights.WidgetTypesClient", "ListByHub", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByHubComplete enumerates all values, automatically crossing page boundaries as required.
-func (client WidgetTypesClient) ListByHubComplete(ctx context.Context, resourceGroupName string, hubName string) (result WidgetTypeListResultIterator, err error) {
-	result.page, err = client.ListByHub(ctx, resourceGroupName, hubName)
-	return
+// ListByHubComplete gets all elements from the list without paging.
+func (client WidgetTypesClient) ListByHubComplete(resourceGroupName string, hubName string, cancel <-chan struct{}) (<-chan WidgetTypeResourceFormat, <-chan error) {
+	resultChan := make(chan WidgetTypeResourceFormat)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByHub(resourceGroupName, hubName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByHubNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

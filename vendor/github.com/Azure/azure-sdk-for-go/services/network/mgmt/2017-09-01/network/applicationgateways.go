@@ -18,7 +18,6 @@ package network
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // ApplicationGatewaysClient is the network Client
 type ApplicationGatewaysClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewApplicationGatewaysClient creates an instance of the ApplicationGatewaysClient client.
@@ -40,28 +39,49 @@ func NewApplicationGatewaysClientWithBaseURI(baseURI string, subscriptionID stri
 	return ApplicationGatewaysClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// BackendHealth gets the backend health of the specified application gateway in a resource group.
+// BackendHealth gets the backend health of the specified application gateway in a resource group. This method may poll
+// for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. applicationGatewayName is the name of the application gateway.
 // expand is expands BackendAddressPool and BackendHttpSettings referenced in backend health.
-func (client ApplicationGatewaysClient) BackendHealth(ctx context.Context, resourceGroupName string, applicationGatewayName string, expand string) (result ApplicationGatewaysBackendHealthFuture, err error) {
-	req, err := client.BackendHealthPreparer(ctx, resourceGroupName, applicationGatewayName, expand)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "BackendHealth", nil, "Failure preparing request")
-		return
-	}
+func (client ApplicationGatewaysClient) BackendHealth(resourceGroupName string, applicationGatewayName string, expand string, cancel <-chan struct{}) (<-chan ApplicationGatewayBackendHealth, <-chan error) {
+	resultChan := make(chan ApplicationGatewayBackendHealth, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result ApplicationGatewayBackendHealth
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.BackendHealthPreparer(resourceGroupName, applicationGatewayName, expand, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "BackendHealth", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.BackendHealthSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "BackendHealth", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.BackendHealthSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "BackendHealth", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.BackendHealthResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "BackendHealth", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // BackendHealthPreparer prepares the BackendHealth request.
-func (client ApplicationGatewaysClient) BackendHealthPreparer(ctx context.Context, resourceGroupName string, applicationGatewayName string, expand string) (*http.Request, error) {
+func (client ApplicationGatewaysClient) BackendHealthPreparer(resourceGroupName string, applicationGatewayName string, expand string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationGatewayName": autorest.Encode("path", applicationGatewayName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -81,22 +101,16 @@ func (client ApplicationGatewaysClient) BackendHealthPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}/backendhealth", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // BackendHealthSender sends the BackendHealth request. The method will close the
 // http.Response Body if it receives an error.
-func (client ApplicationGatewaysClient) BackendHealthSender(req *http.Request) (future ApplicationGatewaysBackendHealthFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client ApplicationGatewaysClient) BackendHealthSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // BackendHealthResponder handles the response to the BackendHealth request. The method always
@@ -112,11 +126,15 @@ func (client ApplicationGatewaysClient) BackendHealthResponder(resp *http.Respon
 	return
 }
 
-// CreateOrUpdate creates or updates the specified application gateway.
+// CreateOrUpdate creates or updates the specified application gateway. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. applicationGatewayName is the name of the application gateway.
 // parameters is parameters supplied to the create or update application gateway operation.
-func (client ApplicationGatewaysClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, applicationGatewayName string, parameters ApplicationGateway) (result ApplicationGatewaysCreateOrUpdateFuture, err error) {
+func (client ApplicationGatewaysClient) CreateOrUpdate(resourceGroupName string, applicationGatewayName string, parameters ApplicationGateway, cancel <-chan struct{}) (<-chan ApplicationGateway, <-chan error) {
+	resultChan := make(chan ApplicationGateway, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.ApplicationGatewayPropertiesFormat", Name: validation.Null, Rule: false,
@@ -126,26 +144,46 @@ func (client ApplicationGatewaysClient) CreateOrUpdate(ctx context.Context, reso
 						{Target: "parameters.ApplicationGatewayPropertiesFormat.WebApplicationFirewallConfiguration.RuleSetVersion", Name: validation.Null, Rule: true, Chain: nil},
 					}},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "network.ApplicationGatewaysClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "network.ApplicationGatewaysClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, applicationGatewayName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result ApplicationGateway
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, applicationGatewayName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ApplicationGatewaysClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, applicationGatewayName string, parameters ApplicationGateway) (*http.Request, error) {
+func (client ApplicationGatewaysClient) CreateOrUpdatePreparer(resourceGroupName string, applicationGatewayName string, parameters ApplicationGateway, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationGatewayName": autorest.Encode("path", applicationGatewayName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -164,22 +202,16 @@ func (client ApplicationGatewaysClient) CreateOrUpdatePreparer(ctx context.Conte
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client ApplicationGatewaysClient) CreateOrUpdateSender(req *http.Request) (future ApplicationGatewaysCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client ApplicationGatewaysClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -188,34 +220,54 @@ func (client ApplicationGatewaysClient) CreateOrUpdateResponder(resp *http.Respo
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
+		azure.WithErrorUnlessStatusCode(http.StatusCreated, http.StatusOK),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
 }
 
-// Delete deletes the specified application gateway.
+// Delete deletes the specified application gateway. This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. applicationGatewayName is the name of the application gateway.
-func (client ApplicationGatewaysClient) Delete(ctx context.Context, resourceGroupName string, applicationGatewayName string) (result ApplicationGatewaysDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, applicationGatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client ApplicationGatewaysClient) Delete(resourceGroupName string, applicationGatewayName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, applicationGatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ApplicationGatewaysClient) DeletePreparer(ctx context.Context, resourceGroupName string, applicationGatewayName string) (*http.Request, error) {
+func (client ApplicationGatewaysClient) DeletePreparer(resourceGroupName string, applicationGatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationGatewayName": autorest.Encode("path", applicationGatewayName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -232,22 +284,16 @@ func (client ApplicationGatewaysClient) DeletePreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client ApplicationGatewaysClient) DeleteSender(req *http.Request) (future ApplicationGatewaysDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client ApplicationGatewaysClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -256,7 +302,7 @@ func (client ApplicationGatewaysClient) DeleteResponder(resp *http.Response) (re
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent),
+		azure.WithErrorUnlessStatusCode(http.StatusAccepted, http.StatusNoContent, http.StatusOK),
 		autorest.ByClosing())
 	result.Response = resp
 	return
@@ -265,8 +311,8 @@ func (client ApplicationGatewaysClient) DeleteResponder(resp *http.Response) (re
 // Get gets the specified application gateway.
 //
 // resourceGroupName is the name of the resource group. applicationGatewayName is the name of the application gateway.
-func (client ApplicationGatewaysClient) Get(ctx context.Context, resourceGroupName string, applicationGatewayName string) (result ApplicationGateway, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, applicationGatewayName)
+func (client ApplicationGatewaysClient) Get(resourceGroupName string, applicationGatewayName string) (result ApplicationGateway, err error) {
+	req, err := client.GetPreparer(resourceGroupName, applicationGatewayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Get", nil, "Failure preparing request")
 		return
@@ -288,7 +334,7 @@ func (client ApplicationGatewaysClient) Get(ctx context.Context, resourceGroupNa
 }
 
 // GetPreparer prepares the Get request.
-func (client ApplicationGatewaysClient) GetPreparer(ctx context.Context, resourceGroupName string, applicationGatewayName string) (*http.Request, error) {
+func (client ApplicationGatewaysClient) GetPreparer(resourceGroupName string, applicationGatewayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationGatewayName": autorest.Encode("path", applicationGatewayName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -305,13 +351,14 @@ func (client ApplicationGatewaysClient) GetPreparer(ctx context.Context, resourc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationGatewaysClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -331,8 +378,8 @@ func (client ApplicationGatewaysClient) GetResponder(resp *http.Response) (resul
 // GetSslPredefinedPolicy gets Ssl predefined policy with the specified policy name.
 //
 // predefinedPolicyName is name of Ssl predefined policy.
-func (client ApplicationGatewaysClient) GetSslPredefinedPolicy(ctx context.Context, predefinedPolicyName string) (result ApplicationGatewaySslPredefinedPolicy, err error) {
-	req, err := client.GetSslPredefinedPolicyPreparer(ctx, predefinedPolicyName)
+func (client ApplicationGatewaysClient) GetSslPredefinedPolicy(predefinedPolicyName string) (result ApplicationGatewaySslPredefinedPolicy, err error) {
+	req, err := client.GetSslPredefinedPolicyPreparer(predefinedPolicyName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "GetSslPredefinedPolicy", nil, "Failure preparing request")
 		return
@@ -354,7 +401,7 @@ func (client ApplicationGatewaysClient) GetSslPredefinedPolicy(ctx context.Conte
 }
 
 // GetSslPredefinedPolicyPreparer prepares the GetSslPredefinedPolicy request.
-func (client ApplicationGatewaysClient) GetSslPredefinedPolicyPreparer(ctx context.Context, predefinedPolicyName string) (*http.Request, error) {
+func (client ApplicationGatewaysClient) GetSslPredefinedPolicyPreparer(predefinedPolicyName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"predefinedPolicyName": autorest.Encode("path", predefinedPolicyName),
 		"subscriptionId":       autorest.Encode("path", client.SubscriptionID),
@@ -370,13 +417,14 @@ func (client ApplicationGatewaysClient) GetSslPredefinedPolicyPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/applicationGatewayAvailableSslOptions/default/predefinedPolicies/{predefinedPolicyName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSslPredefinedPolicySender sends the GetSslPredefinedPolicy request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationGatewaysClient) GetSslPredefinedPolicySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -396,9 +444,8 @@ func (client ApplicationGatewaysClient) GetSslPredefinedPolicyResponder(resp *ht
 // List lists all application gateways in a resource group.
 //
 // resourceGroupName is the name of the resource group.
-func (client ApplicationGatewaysClient) List(ctx context.Context, resourceGroupName string) (result ApplicationGatewayListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName)
+func (client ApplicationGatewaysClient) List(resourceGroupName string) (result ApplicationGatewayListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "List", nil, "Failure preparing request")
 		return
@@ -406,12 +453,12 @@ func (client ApplicationGatewaysClient) List(ctx context.Context, resourceGroupN
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.aglr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.aglr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "List", resp, "Failure responding to request")
 	}
@@ -420,7 +467,7 @@ func (client ApplicationGatewaysClient) List(ctx context.Context, resourceGroupN
 }
 
 // ListPreparer prepares the List request.
-func (client ApplicationGatewaysClient) ListPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client ApplicationGatewaysClient) ListPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -436,13 +483,14 @@ func (client ApplicationGatewaysClient) ListPreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationGatewaysClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -459,37 +507,78 @@ func (client ApplicationGatewaysClient) ListResponder(resp *http.Response) (resu
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ApplicationGatewaysClient) listNextResults(lastResults ApplicationGatewayListResult) (result ApplicationGatewayListResult, err error) {
-	req, err := lastResults.applicationGatewayListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ApplicationGatewaysClient) ListNextResults(lastResults ApplicationGatewayListResult) (result ApplicationGatewayListResult, err error) {
+	req, err := lastResults.ApplicationGatewayListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ApplicationGatewaysClient) ListComplete(ctx context.Context, resourceGroupName string) (result ApplicationGatewayListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ApplicationGatewaysClient) ListComplete(resourceGroupName string, cancel <-chan struct{}) (<-chan ApplicationGateway, <-chan error) {
+	resultChan := make(chan ApplicationGateway)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListAll gets all the application gateways in a subscription.
-func (client ApplicationGatewaysClient) ListAll(ctx context.Context) (result ApplicationGatewayListResultPage, err error) {
-	result.fn = client.listAllNextResults
-	req, err := client.ListAllPreparer(ctx)
+func (client ApplicationGatewaysClient) ListAll() (result ApplicationGatewayListResult, err error) {
+	req, err := client.ListAllPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAll", nil, "Failure preparing request")
 		return
@@ -497,12 +586,12 @@ func (client ApplicationGatewaysClient) ListAll(ctx context.Context) (result App
 
 	resp, err := client.ListAllSender(req)
 	if err != nil {
-		result.aglr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAll", resp, "Failure sending request")
 		return
 	}
 
-	result.aglr, err = client.ListAllResponder(resp)
+	result, err = client.ListAllResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAll", resp, "Failure responding to request")
 	}
@@ -511,7 +600,7 @@ func (client ApplicationGatewaysClient) ListAll(ctx context.Context) (result App
 }
 
 // ListAllPreparer prepares the ListAll request.
-func (client ApplicationGatewaysClient) ListAllPreparer(ctx context.Context) (*http.Request, error) {
+func (client ApplicationGatewaysClient) ListAllPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -526,13 +615,14 @@ func (client ApplicationGatewaysClient) ListAllPreparer(ctx context.Context) (*h
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/applicationGateways", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAllSender sends the ListAll request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationGatewaysClient) ListAllSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -549,36 +639,78 @@ func (client ApplicationGatewaysClient) ListAllResponder(resp *http.Response) (r
 	return
 }
 
-// listAllNextResults retrieves the next set of results, if any.
-func (client ApplicationGatewaysClient) listAllNextResults(lastResults ApplicationGatewayListResult) (result ApplicationGatewayListResult, err error) {
-	req, err := lastResults.applicationGatewayListResultPreparer()
+// ListAllNextResults retrieves the next set of results, if any.
+func (client ApplicationGatewaysClient) ListAllNextResults(lastResults ApplicationGatewayListResult) (result ApplicationGatewayListResult, err error) {
+	req, err := lastResults.ApplicationGatewayListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listAllNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAll", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAllSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listAllNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAll", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAllResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listAllNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAll", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAllComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ApplicationGatewaysClient) ListAllComplete(ctx context.Context) (result ApplicationGatewayListResultIterator, err error) {
-	result.page, err = client.ListAll(ctx)
-	return
+// ListAllComplete gets all elements from the list without paging.
+func (client ApplicationGatewaysClient) ListAllComplete(cancel <-chan struct{}) (<-chan ApplicationGateway, <-chan error) {
+	resultChan := make(chan ApplicationGateway)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAll()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAllNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListAvailableSslOptions lists available Ssl options for configuring Ssl policy.
-func (client ApplicationGatewaysClient) ListAvailableSslOptions(ctx context.Context) (result ApplicationGatewayAvailableSslOptions, err error) {
-	req, err := client.ListAvailableSslOptionsPreparer(ctx)
+func (client ApplicationGatewaysClient) ListAvailableSslOptions() (result ApplicationGatewayAvailableSslOptions, err error) {
+	req, err := client.ListAvailableSslOptionsPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableSslOptions", nil, "Failure preparing request")
 		return
@@ -600,7 +732,7 @@ func (client ApplicationGatewaysClient) ListAvailableSslOptions(ctx context.Cont
 }
 
 // ListAvailableSslOptionsPreparer prepares the ListAvailableSslOptions request.
-func (client ApplicationGatewaysClient) ListAvailableSslOptionsPreparer(ctx context.Context) (*http.Request, error) {
+func (client ApplicationGatewaysClient) ListAvailableSslOptionsPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -615,13 +747,14 @@ func (client ApplicationGatewaysClient) ListAvailableSslOptionsPreparer(ctx cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/applicationGatewayAvailableSslOptions/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAvailableSslOptionsSender sends the ListAvailableSslOptions request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationGatewaysClient) ListAvailableSslOptionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -639,9 +772,8 @@ func (client ApplicationGatewaysClient) ListAvailableSslOptionsResponder(resp *h
 }
 
 // ListAvailableSslPredefinedPolicies lists all SSL predefined policies for configuring Ssl policy.
-func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPolicies(ctx context.Context) (result ApplicationGatewayAvailableSslPredefinedPoliciesPage, err error) {
-	result.fn = client.listAvailableSslPredefinedPoliciesNextResults
-	req, err := client.ListAvailableSslPredefinedPoliciesPreparer(ctx)
+func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPolicies() (result ApplicationGatewayAvailableSslPredefinedPolicies, err error) {
+	req, err := client.ListAvailableSslPredefinedPoliciesPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableSslPredefinedPolicies", nil, "Failure preparing request")
 		return
@@ -649,12 +781,12 @@ func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPolicies(ctx c
 
 	resp, err := client.ListAvailableSslPredefinedPoliciesSender(req)
 	if err != nil {
-		result.agaspp.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableSslPredefinedPolicies", resp, "Failure sending request")
 		return
 	}
 
-	result.agaspp, err = client.ListAvailableSslPredefinedPoliciesResponder(resp)
+	result, err = client.ListAvailableSslPredefinedPoliciesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableSslPredefinedPolicies", resp, "Failure responding to request")
 	}
@@ -663,7 +795,7 @@ func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPolicies(ctx c
 }
 
 // ListAvailableSslPredefinedPoliciesPreparer prepares the ListAvailableSslPredefinedPolicies request.
-func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesPreparer(ctx context.Context) (*http.Request, error) {
+func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -678,13 +810,14 @@ func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesPrepar
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/applicationGatewayAvailableSslOptions/default/predefinedPolicies", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAvailableSslPredefinedPoliciesSender sends the ListAvailableSslPredefinedPolicies request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -701,36 +834,78 @@ func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesRespon
 	return
 }
 
-// listAvailableSslPredefinedPoliciesNextResults retrieves the next set of results, if any.
-func (client ApplicationGatewaysClient) listAvailableSslPredefinedPoliciesNextResults(lastResults ApplicationGatewayAvailableSslPredefinedPolicies) (result ApplicationGatewayAvailableSslPredefinedPolicies, err error) {
-	req, err := lastResults.applicationGatewayAvailableSslPredefinedPoliciesPreparer()
+// ListAvailableSslPredefinedPoliciesNextResults retrieves the next set of results, if any.
+func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesNextResults(lastResults ApplicationGatewayAvailableSslPredefinedPolicies) (result ApplicationGatewayAvailableSslPredefinedPolicies, err error) {
+	req, err := lastResults.ApplicationGatewayAvailableSslPredefinedPoliciesPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listAvailableSslPredefinedPoliciesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableSslPredefinedPolicies", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAvailableSslPredefinedPoliciesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listAvailableSslPredefinedPoliciesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableSslPredefinedPolicies", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAvailableSslPredefinedPoliciesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "listAvailableSslPredefinedPoliciesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableSslPredefinedPolicies", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAvailableSslPredefinedPoliciesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesComplete(ctx context.Context) (result ApplicationGatewayAvailableSslPredefinedPoliciesIterator, err error) {
-	result.page, err = client.ListAvailableSslPredefinedPolicies(ctx)
-	return
+// ListAvailableSslPredefinedPoliciesComplete gets all elements from the list without paging.
+func (client ApplicationGatewaysClient) ListAvailableSslPredefinedPoliciesComplete(cancel <-chan struct{}) (<-chan ApplicationGatewaySslPredefinedPolicy, <-chan error) {
+	resultChan := make(chan ApplicationGatewaySslPredefinedPolicy)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAvailableSslPredefinedPolicies()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAvailableSslPredefinedPoliciesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListAvailableWafRuleSets lists all available web application firewall rule sets.
-func (client ApplicationGatewaysClient) ListAvailableWafRuleSets(ctx context.Context) (result ApplicationGatewayAvailableWafRuleSetsResult, err error) {
-	req, err := client.ListAvailableWafRuleSetsPreparer(ctx)
+func (client ApplicationGatewaysClient) ListAvailableWafRuleSets() (result ApplicationGatewayAvailableWafRuleSetsResult, err error) {
+	req, err := client.ListAvailableWafRuleSetsPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "ListAvailableWafRuleSets", nil, "Failure preparing request")
 		return
@@ -752,7 +927,7 @@ func (client ApplicationGatewaysClient) ListAvailableWafRuleSets(ctx context.Con
 }
 
 // ListAvailableWafRuleSetsPreparer prepares the ListAvailableWafRuleSets request.
-func (client ApplicationGatewaysClient) ListAvailableWafRuleSetsPreparer(ctx context.Context) (*http.Request, error) {
+func (client ApplicationGatewaysClient) ListAvailableWafRuleSetsPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -767,13 +942,14 @@ func (client ApplicationGatewaysClient) ListAvailableWafRuleSetsPreparer(ctx con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/applicationGatewayAvailableWafRuleSets", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAvailableWafRuleSetsSender sends the ListAvailableWafRuleSets request. The method will close the
 // http.Response Body if it receives an error.
 func (client ApplicationGatewaysClient) ListAvailableWafRuleSetsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -790,27 +966,47 @@ func (client ApplicationGatewaysClient) ListAvailableWafRuleSetsResponder(resp *
 	return
 }
 
-// Start starts the specified application gateway.
+// Start starts the specified application gateway. This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. applicationGatewayName is the name of the application gateway.
-func (client ApplicationGatewaysClient) Start(ctx context.Context, resourceGroupName string, applicationGatewayName string) (result ApplicationGatewaysStartFuture, err error) {
-	req, err := client.StartPreparer(ctx, resourceGroupName, applicationGatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Start", nil, "Failure preparing request")
-		return
-	}
+func (client ApplicationGatewaysClient) Start(resourceGroupName string, applicationGatewayName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.StartPreparer(resourceGroupName, applicationGatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Start", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.StartSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Start", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.StartSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Start", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.StartResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Start", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // StartPreparer prepares the Start request.
-func (client ApplicationGatewaysClient) StartPreparer(ctx context.Context, resourceGroupName string, applicationGatewayName string) (*http.Request, error) {
+func (client ApplicationGatewaysClient) StartPreparer(resourceGroupName string, applicationGatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationGatewayName": autorest.Encode("path", applicationGatewayName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -827,22 +1023,16 @@ func (client ApplicationGatewaysClient) StartPreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}/start", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // StartSender sends the Start request. The method will close the
 // http.Response Body if it receives an error.
-func (client ApplicationGatewaysClient) StartSender(req *http.Request) (future ApplicationGatewaysStartFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client ApplicationGatewaysClient) StartSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // StartResponder handles the response to the Start request. The method always
@@ -857,27 +1047,48 @@ func (client ApplicationGatewaysClient) StartResponder(resp *http.Response) (res
 	return
 }
 
-// Stop stops the specified application gateway in a resource group.
+// Stop stops the specified application gateway in a resource group. This method may poll for completion. Polling can
+// be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding
+// HTTP requests.
 //
 // resourceGroupName is the name of the resource group. applicationGatewayName is the name of the application gateway.
-func (client ApplicationGatewaysClient) Stop(ctx context.Context, resourceGroupName string, applicationGatewayName string) (result ApplicationGatewaysStopFuture, err error) {
-	req, err := client.StopPreparer(ctx, resourceGroupName, applicationGatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Stop", nil, "Failure preparing request")
-		return
-	}
+func (client ApplicationGatewaysClient) Stop(resourceGroupName string, applicationGatewayName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.StopPreparer(resourceGroupName, applicationGatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Stop", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.StopSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Stop", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.StopSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Stop", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.StopResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "Stop", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // StopPreparer prepares the Stop request.
-func (client ApplicationGatewaysClient) StopPreparer(ctx context.Context, resourceGroupName string, applicationGatewayName string) (*http.Request, error) {
+func (client ApplicationGatewaysClient) StopPreparer(resourceGroupName string, applicationGatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationGatewayName": autorest.Encode("path", applicationGatewayName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -894,22 +1105,16 @@ func (client ApplicationGatewaysClient) StopPreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}/stop", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // StopSender sends the Stop request. The method will close the
 // http.Response Body if it receives an error.
-func (client ApplicationGatewaysClient) StopSender(req *http.Request) (future ApplicationGatewaysStopFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client ApplicationGatewaysClient) StopSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // StopResponder handles the response to the Stop request. The method always
@@ -924,28 +1129,49 @@ func (client ApplicationGatewaysClient) StopResponder(resp *http.Response) (resu
 	return
 }
 
-// UpdateTags updates the specified application gateway tags.
+// UpdateTags updates the specified application gateway tags. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the name of the resource group. applicationGatewayName is the name of the application gateway.
 // parameters is parameters supplied to update application gateway tags.
-func (client ApplicationGatewaysClient) UpdateTags(ctx context.Context, resourceGroupName string, applicationGatewayName string, parameters TagsObject) (result ApplicationGatewaysUpdateTagsFuture, err error) {
-	req, err := client.UpdateTagsPreparer(ctx, resourceGroupName, applicationGatewayName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "UpdateTags", nil, "Failure preparing request")
-		return
-	}
+func (client ApplicationGatewaysClient) UpdateTags(resourceGroupName string, applicationGatewayName string, parameters TagsObject, cancel <-chan struct{}) (<-chan ApplicationGateway, <-chan error) {
+	resultChan := make(chan ApplicationGateway, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result ApplicationGateway
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdateTagsPreparer(resourceGroupName, applicationGatewayName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "UpdateTags", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateTagsSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "UpdateTags", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateTagsSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "UpdateTags", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateTagsResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.ApplicationGatewaysClient", "UpdateTags", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdateTagsPreparer prepares the UpdateTags request.
-func (client ApplicationGatewaysClient) UpdateTagsPreparer(ctx context.Context, resourceGroupName string, applicationGatewayName string, parameters TagsObject) (*http.Request, error) {
+func (client ApplicationGatewaysClient) UpdateTagsPreparer(resourceGroupName string, applicationGatewayName string, parameters TagsObject, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"applicationGatewayName": autorest.Encode("path", applicationGatewayName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -964,22 +1190,16 @@ func (client ApplicationGatewaysClient) UpdateTagsPreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationGateways/{applicationGatewayName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateTagsSender sends the UpdateTags request. The method will close the
 // http.Response Body if it receives an error.
-func (client ApplicationGatewaysClient) UpdateTagsSender(req *http.Request) (future ApplicationGatewaysUpdateTagsFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK))
-	return
+func (client ApplicationGatewaysClient) UpdateTagsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateTagsResponder handles the response to the UpdateTags request. The method always

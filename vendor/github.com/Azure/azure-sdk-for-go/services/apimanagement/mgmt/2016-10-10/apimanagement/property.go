@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // PropertyClient is the apiManagement Client
 type PropertyClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPropertyClient creates an instance of the PropertyClient client.
@@ -44,7 +43,7 @@ func NewPropertyClientWithBaseURI(baseURI string, subscriptionID string) Propert
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. propID
 // is identifier of the property. parameters is create parameters.
-func (client PropertyClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, propID string, parameters PropertyCreateParameters) (result autorest.Response, err error) {
+func (client PropertyClient) CreateOrUpdate(resourceGroupName string, serviceName string, propID string, parameters PropertyCreateParameters) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -68,7 +67,7 @@ func (client PropertyClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.PropertyClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serviceName, propID, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serviceName, propID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.PropertyClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -90,7 +89,7 @@ func (client PropertyClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client PropertyClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, propID string, parameters PropertyCreateParameters) (*http.Request, error) {
+func (client PropertyClient) CreateOrUpdatePreparer(resourceGroupName string, serviceName string, propID string, parameters PropertyCreateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"propId":            autorest.Encode("path", propID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -110,13 +109,14 @@ func (client PropertyClient) CreateOrUpdatePreparer(ctx context.Context, resourc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/properties/{propId}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client PropertyClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -137,7 +137,7 @@ func (client PropertyClient) CreateOrUpdateResponder(resp *http.Response) (resul
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. propID
 // is identifier of the property. ifMatch is the entity state (Etag) version of the property to delete. A value of "*"
 // can be used for If-Match to unconditionally apply the operation.
-func (client PropertyClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, propID string, ifMatch string) (result ErrorBodyContract, err error) {
+func (client PropertyClient) Delete(resourceGroupName string, serviceName string, propID string, ifMatch string) (result ErrorBodyContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -149,7 +149,7 @@ func (client PropertyClient) Delete(ctx context.Context, resourceGroupName strin
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.PropertyClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serviceName, propID, ifMatch)
+	req, err := client.DeletePreparer(resourceGroupName, serviceName, propID, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.PropertyClient", "Delete", nil, "Failure preparing request")
 		return
@@ -171,7 +171,7 @@ func (client PropertyClient) Delete(ctx context.Context, resourceGroupName strin
 }
 
 // DeletePreparer prepares the Delete request.
-func (client PropertyClient) DeletePreparer(ctx context.Context, resourceGroupName string, serviceName string, propID string, ifMatch string) (*http.Request, error) {
+func (client PropertyClient) DeletePreparer(resourceGroupName string, serviceName string, propID string, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"propId":            autorest.Encode("path", propID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -190,13 +190,14 @@ func (client PropertyClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/properties/{propId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client PropertyClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -217,7 +218,7 @@ func (client PropertyClient) DeleteResponder(resp *http.Response) (result ErrorB
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. propID
 // is identifier of the property.
-func (client PropertyClient) Get(ctx context.Context, resourceGroupName string, serviceName string, propID string) (result PropertyContract, err error) {
+func (client PropertyClient) Get(resourceGroupName string, serviceName string, propID string) (result PropertyContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -229,7 +230,7 @@ func (client PropertyClient) Get(ctx context.Context, resourceGroupName string, 
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.PropertyClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName, propID)
+	req, err := client.GetPreparer(resourceGroupName, serviceName, propID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.PropertyClient", "Get", nil, "Failure preparing request")
 		return
@@ -251,7 +252,7 @@ func (client PropertyClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client PropertyClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string, propID string) (*http.Request, error) {
+func (client PropertyClient) GetPreparer(resourceGroupName string, serviceName string, propID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"propId":            autorest.Encode("path", propID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -269,13 +270,14 @@ func (client PropertyClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/properties/{propId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PropertyClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -297,7 +299,7 @@ func (client PropertyClient) GetResponder(resp *http.Response) (result PropertyC
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. propID
 // is identifier of the property. parameters is update parameters. ifMatch is the entity state (Etag) version of the
 // property to update. A value of "*" can be used for If-Match to unconditionally apply the operation.
-func (client PropertyClient) Update(ctx context.Context, resourceGroupName string, serviceName string, propID string, parameters PropertyUpdateParameters, ifMatch string) (result autorest.Response, err error) {
+func (client PropertyClient) Update(resourceGroupName string, serviceName string, propID string, parameters PropertyUpdateParameters, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -309,7 +311,7 @@ func (client PropertyClient) Update(ctx context.Context, resourceGroupName strin
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.PropertyClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, serviceName, propID, parameters, ifMatch)
+	req, err := client.UpdatePreparer(resourceGroupName, serviceName, propID, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.PropertyClient", "Update", nil, "Failure preparing request")
 		return
@@ -331,7 +333,7 @@ func (client PropertyClient) Update(ctx context.Context, resourceGroupName strin
 }
 
 // UpdatePreparer prepares the Update request.
-func (client PropertyClient) UpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, propID string, parameters PropertyUpdateParameters, ifMatch string) (*http.Request, error) {
+func (client PropertyClient) UpdatePreparer(resourceGroupName string, serviceName string, propID string, parameters PropertyUpdateParameters, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"propId":            autorest.Encode("path", propID),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -352,13 +354,14 @@ func (client PropertyClient) UpdatePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client PropertyClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

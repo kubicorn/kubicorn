@@ -18,7 +18,6 @@ package sql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // interact with Azure SQL Database services to manage your databases. The API enables you to create, retrieve, update,
 // and delete databases.
 type FirewallRulesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewFirewallRulesClient creates an instance of the FirewallRulesClient client.
@@ -47,7 +46,7 @@ func NewFirewallRulesClientWithBaseURI(baseURI string, subscriptionID string) Fi
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. firewallRuleName is the name of the
 // firewall rule. parameters is the required parameters for creating or updating a firewall rule.
-func (client FirewallRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule) (result FirewallRule, err error) {
+func (client FirewallRulesClient) CreateOrUpdate(resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule) (result FirewallRule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.FirewallRuleProperties", Name: validation.Null, Rule: false,
@@ -57,7 +56,7 @@ func (client FirewallRulesClient) CreateOrUpdate(ctx context.Context, resourceGr
 		return result, validation.NewErrorWithValidationError(err, "sql.FirewallRulesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serverName, firewallRuleName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serverName, firewallRuleName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.FirewallRulesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -79,7 +78,7 @@ func (client FirewallRulesClient) CreateOrUpdate(ctx context.Context, resourceGr
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client FirewallRulesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule) (*http.Request, error) {
+func (client FirewallRulesClient) CreateOrUpdatePreparer(resourceGroupName string, serverName string, firewallRuleName string, parameters FirewallRule) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"firewallRuleName":  autorest.Encode("path", firewallRuleName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -99,13 +98,14 @@ func (client FirewallRulesClient) CreateOrUpdatePreparer(ctx context.Context, re
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/firewallRules/{firewallRuleName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client FirewallRulesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -127,8 +127,8 @@ func (client FirewallRulesClient) CreateOrUpdateResponder(resp *http.Response) (
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. firewallRuleName is the name of the
 // firewall rule.
-func (client FirewallRulesClient) Delete(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serverName, firewallRuleName)
+func (client FirewallRulesClient) Delete(resourceGroupName string, serverName string, firewallRuleName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, serverName, firewallRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.FirewallRulesClient", "Delete", nil, "Failure preparing request")
 		return
@@ -150,7 +150,7 @@ func (client FirewallRulesClient) Delete(ctx context.Context, resourceGroupName 
 }
 
 // DeletePreparer prepares the Delete request.
-func (client FirewallRulesClient) DeletePreparer(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (*http.Request, error) {
+func (client FirewallRulesClient) DeletePreparer(resourceGroupName string, serverName string, firewallRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"firewallRuleName":  autorest.Encode("path", firewallRuleName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -168,13 +168,14 @@ func (client FirewallRulesClient) DeletePreparer(ctx context.Context, resourceGr
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/firewallRules/{firewallRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client FirewallRulesClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -195,8 +196,8 @@ func (client FirewallRulesClient) DeleteResponder(resp *http.Response) (result a
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. firewallRuleName is the name of the
 // firewall rule.
-func (client FirewallRulesClient) Get(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (result FirewallRule, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, serverName, firewallRuleName)
+func (client FirewallRulesClient) Get(resourceGroupName string, serverName string, firewallRuleName string) (result FirewallRule, err error) {
+	req, err := client.GetPreparer(resourceGroupName, serverName, firewallRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.FirewallRulesClient", "Get", nil, "Failure preparing request")
 		return
@@ -218,7 +219,7 @@ func (client FirewallRulesClient) Get(ctx context.Context, resourceGroupName str
 }
 
 // GetPreparer prepares the Get request.
-func (client FirewallRulesClient) GetPreparer(ctx context.Context, resourceGroupName string, serverName string, firewallRuleName string) (*http.Request, error) {
+func (client FirewallRulesClient) GetPreparer(resourceGroupName string, serverName string, firewallRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"firewallRuleName":  autorest.Encode("path", firewallRuleName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -236,13 +237,14 @@ func (client FirewallRulesClient) GetPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/firewallRules/{firewallRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client FirewallRulesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -263,8 +265,8 @@ func (client FirewallRulesClient) GetResponder(resp *http.Response) (result Fire
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server.
-func (client FirewallRulesClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result FirewallRuleListResult, err error) {
-	req, err := client.ListByServerPreparer(ctx, resourceGroupName, serverName)
+func (client FirewallRulesClient) ListByServer(resourceGroupName string, serverName string) (result FirewallRuleListResult, err error) {
+	req, err := client.ListByServerPreparer(resourceGroupName, serverName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.FirewallRulesClient", "ListByServer", nil, "Failure preparing request")
 		return
@@ -286,7 +288,7 @@ func (client FirewallRulesClient) ListByServer(ctx context.Context, resourceGrou
 }
 
 // ListByServerPreparer prepares the ListByServer request.
-func (client FirewallRulesClient) ListByServerPreparer(ctx context.Context, resourceGroupName string, serverName string) (*http.Request, error) {
+func (client FirewallRulesClient) ListByServerPreparer(resourceGroupName string, serverName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serverName":        autorest.Encode("path", serverName),
@@ -303,13 +305,14 @@ func (client FirewallRulesClient) ListByServerPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/firewallRules", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServerSender sends the ListByServer request. The method will close the
 // http.Response Body if it receives an error.
 func (client FirewallRulesClient) ListByServerSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

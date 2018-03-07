@@ -216,12 +216,6 @@ type Dirent C.struct_dirent
 
 type Fsid C.struct_fsid
 
-// File system limits
-
-const (
-	PathMax = C.PATH_MAX
-)
-
 // Advice to Fadvise
 
 const (

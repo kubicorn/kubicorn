@@ -18,7 +18,6 @@ package sql
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -28,7 +27,7 @@ import (
 // that interact with Azure SQL Database services to manage your databases. The API enables you to create, retrieve,
 // update, and delete databases.
 type RecommendedElasticPoolsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewRecommendedElasticPoolsClient creates an instance of the RecommendedElasticPoolsClient client.
@@ -46,8 +45,8 @@ func NewRecommendedElasticPoolsClientWithBaseURI(baseURI string, subscriptionID 
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. recommendedElasticPoolName is the
 // name of the recommended elastic pool to be retrieved.
-func (client RecommendedElasticPoolsClient) Get(ctx context.Context, resourceGroupName string, serverName string, recommendedElasticPoolName string) (result RecommendedElasticPool, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, serverName, recommendedElasticPoolName)
+func (client RecommendedElasticPoolsClient) Get(resourceGroupName string, serverName string, recommendedElasticPoolName string) (result RecommendedElasticPool, err error) {
+	req, err := client.GetPreparer(resourceGroupName, serverName, recommendedElasticPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.RecommendedElasticPoolsClient", "Get", nil, "Failure preparing request")
 		return
@@ -69,7 +68,7 @@ func (client RecommendedElasticPoolsClient) Get(ctx context.Context, resourceGro
 }
 
 // GetPreparer prepares the Get request.
-func (client RecommendedElasticPoolsClient) GetPreparer(ctx context.Context, resourceGroupName string, serverName string, recommendedElasticPoolName string) (*http.Request, error) {
+func (client RecommendedElasticPoolsClient) GetPreparer(resourceGroupName string, serverName string, recommendedElasticPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"recommendedElasticPoolName": autorest.Encode("path", recommendedElasticPoolName),
 		"resourceGroupName":          autorest.Encode("path", resourceGroupName),
@@ -87,13 +86,14 @@ func (client RecommendedElasticPoolsClient) GetPreparer(ctx context.Context, res
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/recommendedElasticPools/{recommendedElasticPoolName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecommendedElasticPoolsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -114,8 +114,8 @@ func (client RecommendedElasticPoolsClient) GetResponder(resp *http.Response) (r
 //
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server.
-func (client RecommendedElasticPoolsClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result RecommendedElasticPoolListResult, err error) {
-	req, err := client.ListByServerPreparer(ctx, resourceGroupName, serverName)
+func (client RecommendedElasticPoolsClient) ListByServer(resourceGroupName string, serverName string) (result RecommendedElasticPoolListResult, err error) {
+	req, err := client.ListByServerPreparer(resourceGroupName, serverName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.RecommendedElasticPoolsClient", "ListByServer", nil, "Failure preparing request")
 		return
@@ -137,7 +137,7 @@ func (client RecommendedElasticPoolsClient) ListByServer(ctx context.Context, re
 }
 
 // ListByServerPreparer prepares the ListByServer request.
-func (client RecommendedElasticPoolsClient) ListByServerPreparer(ctx context.Context, resourceGroupName string, serverName string) (*http.Request, error) {
+func (client RecommendedElasticPoolsClient) ListByServerPreparer(resourceGroupName string, serverName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serverName":        autorest.Encode("path", serverName),
@@ -154,13 +154,14 @@ func (client RecommendedElasticPoolsClient) ListByServerPreparer(ctx context.Con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/recommendedElasticPools", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServerSender sends the ListByServer request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecommendedElasticPoolsClient) ListByServerSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -182,8 +183,8 @@ func (client RecommendedElasticPoolsClient) ListByServerResponder(resp *http.Res
 // resourceGroupName is the name of the resource group that contains the resource. You can obtain this value from the
 // Azure Resource Manager API or the portal. serverName is the name of the server. recommendedElasticPoolName is the
 // name of the recommended elastic pool to be retrieved.
-func (client RecommendedElasticPoolsClient) ListMetrics(ctx context.Context, resourceGroupName string, serverName string, recommendedElasticPoolName string) (result RecommendedElasticPoolListMetricsResult, err error) {
-	req, err := client.ListMetricsPreparer(ctx, resourceGroupName, serverName, recommendedElasticPoolName)
+func (client RecommendedElasticPoolsClient) ListMetrics(resourceGroupName string, serverName string, recommendedElasticPoolName string) (result RecommendedElasticPoolListMetricsResult, err error) {
+	req, err := client.ListMetricsPreparer(resourceGroupName, serverName, recommendedElasticPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.RecommendedElasticPoolsClient", "ListMetrics", nil, "Failure preparing request")
 		return
@@ -205,7 +206,7 @@ func (client RecommendedElasticPoolsClient) ListMetrics(ctx context.Context, res
 }
 
 // ListMetricsPreparer prepares the ListMetrics request.
-func (client RecommendedElasticPoolsClient) ListMetricsPreparer(ctx context.Context, resourceGroupName string, serverName string, recommendedElasticPoolName string) (*http.Request, error) {
+func (client RecommendedElasticPoolsClient) ListMetricsPreparer(resourceGroupName string, serverName string, recommendedElasticPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"recommendedElasticPoolName": autorest.Encode("path", recommendedElasticPoolName),
 		"resourceGroupName":          autorest.Encode("path", resourceGroupName),
@@ -223,13 +224,14 @@ func (client RecommendedElasticPoolsClient) ListMetricsPreparer(ctx context.Cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/recommendedElasticPools/{recommendedElasticPoolName}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListMetricsSender sends the ListMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecommendedElasticPoolsClient) ListMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -5889,6 +5889,7 @@ func (c *Greengrass) UpdateSubscriptionDefinitionWithContext(ctx aws.Context, in
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateRoleToGroupRequest
 type AssociateRoleToGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5934,6 +5935,7 @@ func (s *AssociateRoleToGroupInput) SetRoleArn(v string) *AssociateRoleToGroupIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateRoleToGroupResponse
 type AssociateRoleToGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5957,6 +5959,7 @@ func (s *AssociateRoleToGroupOutput) SetAssociatedAt(v string) *AssociateRoleToG
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateServiceRoleToAccountRequest
 type AssociateServiceRoleToAccountInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5980,6 +5983,7 @@ func (s *AssociateServiceRoleToAccountInput) SetRoleArn(v string) *AssociateServ
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateServiceRoleToAccountResponse
 type AssociateServiceRoleToAccountOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6004,6 +6008,7 @@ func (s *AssociateServiceRoleToAccountOutput) SetAssociatedAt(v string) *Associa
 }
 
 // Connectivity Info
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ConnectivityInfo
 type ConnectivityInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -6055,6 +6060,7 @@ func (s *ConnectivityInfo) SetPortNumber(v int64) *ConnectivityInfo {
 }
 
 // Information on the core
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Core
 type Core struct {
 	_ struct{} `type:"structure"`
 
@@ -6107,6 +6113,7 @@ func (s *Core) SetThingArn(v string) *Core {
 }
 
 // Information on core definition version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CoreDefinitionVersion
 type CoreDefinitionVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -6130,6 +6137,7 @@ func (s *CoreDefinitionVersion) SetCores(v []*Core) *CoreDefinitionVersion {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateCoreDefinitionRequest
 type CreateCoreDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6169,6 +6177,7 @@ func (s *CreateCoreDefinitionInput) SetName(v string) *CreateCoreDefinitionInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateCoreDefinitionResponse
 type CreateCoreDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6239,6 +6248,7 @@ func (s *CreateCoreDefinitionOutput) SetName(v string) *CreateCoreDefinitionOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateCoreDefinitionVersionRequest
 type CreateCoreDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6291,6 +6301,7 @@ func (s *CreateCoreDefinitionVersionInput) SetCores(v []*Core) *CreateCoreDefini
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateCoreDefinitionVersionResponse
 type CreateCoreDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6338,6 +6349,7 @@ func (s *CreateCoreDefinitionVersionOutput) SetVersion(v string) *CreateCoreDefi
 }
 
 // Information on Deployment
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeploymentRequest
 type CreateDeploymentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6410,6 +6422,7 @@ func (s *CreateDeploymentInput) SetGroupVersionId(v string) *CreateDeploymentInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeploymentResponse
 type CreateDeploymentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6442,6 +6455,7 @@ func (s *CreateDeploymentOutput) SetDeploymentId(v string) *CreateDeploymentOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeviceDefinitionRequest
 type CreateDeviceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6481,6 +6495,7 @@ func (s *CreateDeviceDefinitionInput) SetName(v string) *CreateDeviceDefinitionI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeviceDefinitionResponse
 type CreateDeviceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6551,6 +6566,7 @@ func (s *CreateDeviceDefinitionOutput) SetName(v string) *CreateDeviceDefinition
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeviceDefinitionVersionRequest
 type CreateDeviceDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6603,6 +6619,7 @@ func (s *CreateDeviceDefinitionVersionInput) SetDevices(v []*Device) *CreateDevi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeviceDefinitionVersionResponse
 type CreateDeviceDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6649,6 +6666,7 @@ func (s *CreateDeviceDefinitionVersionOutput) SetVersion(v string) *CreateDevice
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateFunctionDefinitionRequest
 type CreateFunctionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6688,6 +6706,7 @@ func (s *CreateFunctionDefinitionInput) SetName(v string) *CreateFunctionDefinit
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateFunctionDefinitionResponse
 type CreateFunctionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6758,6 +6777,7 @@ func (s *CreateFunctionDefinitionOutput) SetName(v string) *CreateFunctionDefini
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateFunctionDefinitionVersionRequest
 type CreateFunctionDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6810,6 +6830,7 @@ func (s *CreateFunctionDefinitionVersionInput) SetFunctions(v []*Function) *Crea
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateFunctionDefinitionVersionResponse
 type CreateFunctionDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6856,6 +6877,7 @@ func (s *CreateFunctionDefinitionVersionOutput) SetVersion(v string) *CreateFunc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupCertificateAuthorityRequest
 type CreateGroupCertificateAuthorityInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6900,6 +6922,7 @@ func (s *CreateGroupCertificateAuthorityInput) SetGroupId(v string) *CreateGroup
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupCertificateAuthorityResponse
 type CreateGroupCertificateAuthorityOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6923,6 +6946,7 @@ func (s *CreateGroupCertificateAuthorityOutput) SetGroupCertificateAuthorityArn(
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupRequest
 type CreateGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6962,6 +6986,7 @@ func (s *CreateGroupInput) SetName(v string) *CreateGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupResponse
 type CreateGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7032,6 +7057,7 @@ func (s *CreateGroupOutput) SetName(v string) *CreateGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupVersionRequest
 type CreateGroupVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7124,6 +7150,7 @@ func (s *CreateGroupVersionInput) SetSubscriptionDefinitionVersionArn(v string) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupVersionResponse
 type CreateGroupVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7170,6 +7197,7 @@ func (s *CreateGroupVersionOutput) SetVersion(v string) *CreateGroupVersionOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateLoggerDefinitionRequest
 type CreateLoggerDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7209,6 +7237,7 @@ func (s *CreateLoggerDefinitionInput) SetName(v string) *CreateLoggerDefinitionI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateLoggerDefinitionResponse
 type CreateLoggerDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7279,6 +7308,7 @@ func (s *CreateLoggerDefinitionOutput) SetName(v string) *CreateLoggerDefinition
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateLoggerDefinitionVersionRequest
 type CreateLoggerDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7331,6 +7361,7 @@ func (s *CreateLoggerDefinitionVersionInput) SetLoggers(v []*Logger) *CreateLogg
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateLoggerDefinitionVersionResponse
 type CreateLoggerDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7377,6 +7408,7 @@ func (s *CreateLoggerDefinitionVersionOutput) SetVersion(v string) *CreateLogger
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionRequest
 type CreateResourceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7416,6 +7448,7 @@ func (s *CreateResourceDefinitionInput) SetName(v string) *CreateResourceDefinit
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionResponse
 type CreateResourceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7486,6 +7519,7 @@ func (s *CreateResourceDefinitionOutput) SetName(v string) *CreateResourceDefini
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersionRequest
 type CreateResourceDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7538,6 +7572,7 @@ func (s *CreateResourceDefinitionVersionInput) SetResources(v []*Resource) *Crea
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersionResponse
 type CreateResourceDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7585,6 +7620,7 @@ func (s *CreateResourceDefinitionVersionOutput) SetVersion(v string) *CreateReso
 }
 
 // Request for the CreateSoftwareUpdateJob API
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJobRequest
 type CreateSoftwareUpdateJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7663,6 +7699,7 @@ func (s *CreateSoftwareUpdateJobInput) SetUpdateTargetsOperatingSystem(v string)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJobResponse
 type CreateSoftwareUpdateJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7695,6 +7732,7 @@ func (s *CreateSoftwareUpdateJobOutput) SetIotJobId(v string) *CreateSoftwareUpd
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionRequest
 type CreateSubscriptionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7734,6 +7772,7 @@ func (s *CreateSubscriptionDefinitionInput) SetName(v string) *CreateSubscriptio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionResponse
 type CreateSubscriptionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7804,6 +7843,7 @@ func (s *CreateSubscriptionDefinitionOutput) SetName(v string) *CreateSubscripti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionVersionRequest
 type CreateSubscriptionDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7856,6 +7896,7 @@ func (s *CreateSubscriptionDefinitionVersionInput) SetSubscriptions(v []*Subscri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionVersionResponse
 type CreateSubscriptionDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7903,6 +7944,7 @@ func (s *CreateSubscriptionDefinitionVersionOutput) SetVersion(v string) *Create
 }
 
 // Information on the Definition
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DefinitionInformation
 type DefinitionInformation struct {
 	_ struct{} `type:"structure"`
 
@@ -7980,6 +8022,7 @@ func (s *DefinitionInformation) SetName(v string) *DefinitionInformation {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteCoreDefinitionRequest
 type DeleteCoreDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8016,6 +8059,7 @@ func (s *DeleteCoreDefinitionInput) SetCoreDefinitionId(v string) *DeleteCoreDef
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteCoreDefinitionResponse
 type DeleteCoreDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8030,6 +8074,7 @@ func (s DeleteCoreDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteDeviceDefinitionRequest
 type DeleteDeviceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8066,6 +8111,7 @@ func (s *DeleteDeviceDefinitionInput) SetDeviceDefinitionId(v string) *DeleteDev
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteDeviceDefinitionResponse
 type DeleteDeviceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8080,6 +8126,7 @@ func (s DeleteDeviceDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteFunctionDefinitionRequest
 type DeleteFunctionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8116,6 +8163,7 @@ func (s *DeleteFunctionDefinitionInput) SetFunctionDefinitionId(v string) *Delet
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteFunctionDefinitionResponse
 type DeleteFunctionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8130,6 +8178,7 @@ func (s DeleteFunctionDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteGroupRequest
 type DeleteGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8166,6 +8215,7 @@ func (s *DeleteGroupInput) SetGroupId(v string) *DeleteGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteGroupResponse
 type DeleteGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8180,6 +8230,7 @@ func (s DeleteGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteLoggerDefinitionRequest
 type DeleteLoggerDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8216,6 +8267,7 @@ func (s *DeleteLoggerDefinitionInput) SetLoggerDefinitionId(v string) *DeleteLog
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteLoggerDefinitionResponse
 type DeleteLoggerDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8230,6 +8282,7 @@ func (s DeleteLoggerDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteResourceDefinitionRequest
 type DeleteResourceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8266,6 +8319,7 @@ func (s *DeleteResourceDefinitionInput) SetResourceDefinitionId(v string) *Delet
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteResourceDefinitionResponse
 type DeleteResourceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8280,6 +8334,7 @@ func (s DeleteResourceDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteSubscriptionDefinitionRequest
 type DeleteSubscriptionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8316,6 +8371,7 @@ func (s *DeleteSubscriptionDefinitionInput) SetSubscriptionDefinitionId(v string
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteSubscriptionDefinitionResponse
 type DeleteSubscriptionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8331,6 +8387,7 @@ func (s DeleteSubscriptionDefinitionOutput) GoString() string {
 }
 
 // Information on the deployment
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Deployment
 type Deployment struct {
 	_ struct{} `type:"structure"`
 
@@ -8391,6 +8448,7 @@ func (s *Deployment) SetGroupArn(v string) *Deployment {
 }
 
 // Information on a Device
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Device
 type Device struct {
 	_ struct{} `type:"structure"`
 
@@ -8443,6 +8501,7 @@ func (s *Device) SetThingArn(v string) *Device {
 }
 
 // Information on device definition version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeviceDefinitionVersion
 type DeviceDefinitionVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -8466,6 +8525,7 @@ func (s *DeviceDefinitionVersion) SetDevices(v []*Device) *DeviceDefinitionVersi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateRoleFromGroupRequest
 type DisassociateRoleFromGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8502,6 +8562,7 @@ func (s *DisassociateRoleFromGroupInput) SetGroupId(v string) *DisassociateRoleF
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateRoleFromGroupResponse
 type DisassociateRoleFromGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8525,6 +8586,7 @@ func (s *DisassociateRoleFromGroupOutput) SetDisassociatedAt(v string) *Disassoc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateServiceRoleFromAccountRequest
 type DisassociateServiceRoleFromAccountInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8539,6 +8601,7 @@ func (s DisassociateServiceRoleFromAccountInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateServiceRoleFromAccountResponse
 type DisassociateServiceRoleFromAccountOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8563,6 +8626,7 @@ func (s *DisassociateServiceRoleFromAccountOutput) SetDisassociatedAt(v string) 
 }
 
 // ErrorDetail
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ErrorDetail
 type ErrorDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -8596,6 +8660,7 @@ func (s *ErrorDetail) SetDetailedErrorMessage(v string) *ErrorDetail {
 }
 
 // Information on function
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Function
 type Function struct {
 	_ struct{} `type:"structure"`
 
@@ -8638,6 +8703,7 @@ func (s *Function) SetId(v string) *Function {
 }
 
 // Configuration of the function
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/FunctionConfiguration
 type FunctionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -8709,6 +8775,7 @@ func (s *FunctionConfiguration) SetTimeout(v int64) *FunctionConfiguration {
 }
 
 // Environment of the function configuration
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/FunctionConfigurationEnvironment
 type FunctionConfigurationEnvironment struct {
 	_ struct{} `type:"structure"`
 
@@ -8750,6 +8817,7 @@ func (s *FunctionConfigurationEnvironment) SetVariables(v map[string]*string) *F
 }
 
 // Information on the function definition version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/FunctionDefinitionVersion
 type FunctionDefinitionVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -8773,6 +8841,7 @@ func (s *FunctionDefinitionVersion) SetFunctions(v []*Function) *FunctionDefinit
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetAssociatedRoleRequest
 type GetAssociatedRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8809,6 +8878,7 @@ func (s *GetAssociatedRoleInput) SetGroupId(v string) *GetAssociatedRoleInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetAssociatedRoleResponse
 type GetAssociatedRoleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8841,6 +8911,7 @@ func (s *GetAssociatedRoleOutput) SetRoleArn(v string) *GetAssociatedRoleOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetConnectivityInfoRequest
 type GetConnectivityInfoInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8878,6 +8949,7 @@ func (s *GetConnectivityInfoInput) SetThingName(v string) *GetConnectivityInfoIn
 }
 
 // connectivity info response
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetConnectivityInfoResponse
 type GetConnectivityInfoOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8910,6 +8982,7 @@ func (s *GetConnectivityInfoOutput) SetMessage(v string) *GetConnectivityInfoOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetCoreDefinitionRequest
 type GetCoreDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8946,6 +9019,7 @@ func (s *GetCoreDefinitionInput) SetCoreDefinitionId(v string) *GetCoreDefinitio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetCoreDefinitionResponse
 type GetCoreDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9016,6 +9090,7 @@ func (s *GetCoreDefinitionOutput) SetName(v string) *GetCoreDefinitionOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetCoreDefinitionVersionRequest
 type GetCoreDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9064,6 +9139,7 @@ func (s *GetCoreDefinitionVersionInput) SetCoreDefinitionVersionId(v string) *Ge
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetCoreDefinitionVersionResponse
 type GetCoreDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9123,6 +9199,7 @@ func (s *GetCoreDefinitionVersionOutput) SetVersion(v string) *GetCoreDefinition
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeploymentStatusRequest
 type GetDeploymentStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9172,6 +9249,7 @@ func (s *GetDeploymentStatusInput) SetGroupId(v string) *GetDeploymentStatusInpu
 }
 
 // The response body contains the status of a deployment for a group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeploymentStatusResponse
 type GetDeploymentStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9231,6 +9309,7 @@ func (s *GetDeploymentStatusOutput) SetUpdatedAt(v string) *GetDeploymentStatusO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeviceDefinitionRequest
 type GetDeviceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9267,6 +9346,7 @@ func (s *GetDeviceDefinitionInput) SetDeviceDefinitionId(v string) *GetDeviceDef
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeviceDefinitionResponse
 type GetDeviceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9337,6 +9417,7 @@ func (s *GetDeviceDefinitionOutput) SetName(v string) *GetDeviceDefinitionOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeviceDefinitionVersionRequest
 type GetDeviceDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9385,6 +9466,7 @@ func (s *GetDeviceDefinitionVersionInput) SetDeviceDefinitionVersionId(v string)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeviceDefinitionVersionResponse
 type GetDeviceDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9444,6 +9526,7 @@ func (s *GetDeviceDefinitionVersionOutput) SetVersion(v string) *GetDeviceDefini
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetFunctionDefinitionRequest
 type GetFunctionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9480,6 +9563,7 @@ func (s *GetFunctionDefinitionInput) SetFunctionDefinitionId(v string) *GetFunct
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetFunctionDefinitionResponse
 type GetFunctionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9550,6 +9634,7 @@ func (s *GetFunctionDefinitionOutput) SetName(v string) *GetFunctionDefinitionOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetFunctionDefinitionVersionRequest
 type GetFunctionDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9599,6 +9684,7 @@ func (s *GetFunctionDefinitionVersionInput) SetFunctionDefinitionVersionId(v str
 }
 
 // Function definition version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetFunctionDefinitionVersionResponse
 type GetFunctionDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9658,6 +9744,7 @@ func (s *GetFunctionDefinitionVersionOutput) SetVersion(v string) *GetFunctionDe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateAuthorityRequest
 type GetGroupCertificateAuthorityInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9707,6 +9794,7 @@ func (s *GetGroupCertificateAuthorityInput) SetGroupId(v string) *GetGroupCertif
 }
 
 // Certificate authority for the group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateAuthorityResponse
 type GetGroupCertificateAuthorityOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9748,6 +9836,7 @@ func (s *GetGroupCertificateAuthorityOutput) SetPemEncodedCertificate(v string) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateConfigurationRequest
 type GetGroupCertificateConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9784,6 +9873,7 @@ func (s *GetGroupCertificateConfigurationInput) SetGroupId(v string) *GetGroupCe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateConfigurationResponse
 type GetGroupCertificateConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9822,6 +9912,7 @@ func (s *GetGroupCertificateConfigurationOutput) SetGroupId(v string) *GetGroupC
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupRequest
 type GetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9858,6 +9949,7 @@ func (s *GetGroupInput) SetGroupId(v string) *GetGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupResponse
 type GetGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9928,6 +10020,7 @@ func (s *GetGroupOutput) SetName(v string) *GetGroupOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupVersionRequest
 type GetGroupVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9977,6 +10070,7 @@ func (s *GetGroupVersionInput) SetGroupVersionId(v string) *GetGroupVersionInput
 }
 
 // Information on the group version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupVersionResponse
 type GetGroupVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10036,6 +10130,7 @@ func (s *GetGroupVersionOutput) SetVersion(v string) *GetGroupVersionOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionRequest
 type GetLoggerDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10072,6 +10167,7 @@ func (s *GetLoggerDefinitionInput) SetLoggerDefinitionId(v string) *GetLoggerDef
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionResponse
 type GetLoggerDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10142,6 +10238,7 @@ func (s *GetLoggerDefinitionOutput) SetName(v string) *GetLoggerDefinitionOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionVersionRequest
 type GetLoggerDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10191,6 +10288,7 @@ func (s *GetLoggerDefinitionVersionInput) SetLoggerDefinitionVersionId(v string)
 }
 
 // Information on logger definition version response
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionVersionResponse
 type GetLoggerDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10250,6 +10348,7 @@ func (s *GetLoggerDefinitionVersionOutput) SetVersion(v string) *GetLoggerDefini
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionRequest
 type GetResourceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10286,6 +10385,7 @@ func (s *GetResourceDefinitionInput) SetResourceDefinitionId(v string) *GetResou
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionResponse
 type GetResourceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10356,6 +10456,7 @@ func (s *GetResourceDefinitionOutput) SetName(v string) *GetResourceDefinitionOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionVersionRequest
 type GetResourceDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10405,6 +10506,7 @@ func (s *GetResourceDefinitionVersionInput) SetResourceDefinitionVersionId(v str
 }
 
 // Information on resource definition version response
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionVersionResponse
 type GetResourceDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10464,6 +10566,7 @@ func (s *GetResourceDefinitionVersionOutput) SetVersion(v string) *GetResourceDe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccountRequest
 type GetServiceRoleForAccountInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10478,6 +10581,7 @@ func (s GetServiceRoleForAccountInput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccountResponse
 type GetServiceRoleForAccountOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10510,6 +10614,7 @@ func (s *GetServiceRoleForAccountOutput) SetRoleArn(v string) *GetServiceRoleFor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetSubscriptionDefinitionRequest
 type GetSubscriptionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10546,6 +10651,7 @@ func (s *GetSubscriptionDefinitionInput) SetSubscriptionDefinitionId(v string) *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetSubscriptionDefinitionResponse
 type GetSubscriptionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10616,6 +10722,7 @@ func (s *GetSubscriptionDefinitionOutput) SetName(v string) *GetSubscriptionDefi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetSubscriptionDefinitionVersionRequest
 type GetSubscriptionDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10665,6 +10772,7 @@ func (s *GetSubscriptionDefinitionVersionInput) SetSubscriptionDefinitionVersion
 }
 
 // Information on the Subscription Definition Version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetSubscriptionDefinitionVersionResponse
 type GetSubscriptionDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10725,6 +10833,7 @@ func (s *GetSubscriptionDefinitionVersionOutput) SetVersion(v string) *GetSubscr
 }
 
 // Information on group certificate authority properties
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupCertificateAuthorityProperties
 type GroupCertificateAuthorityProperties struct {
 	_ struct{} `type:"structure"`
 
@@ -10758,6 +10867,7 @@ func (s *GroupCertificateAuthorityProperties) SetGroupCertificateAuthorityId(v s
 }
 
 // Information on the group
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupInformation
 type GroupInformation struct {
 	_ struct{} `type:"structure"`
 
@@ -10836,6 +10946,7 @@ func (s *GroupInformation) SetName(v string) *GroupInformation {
 }
 
 // Group owner related settings for local resources.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupOwnerSetting
 type GroupOwnerSetting struct {
 	_ struct{} `type:"structure"`
 
@@ -10869,6 +10980,7 @@ func (s *GroupOwnerSetting) SetGroupOwner(v string) *GroupOwnerSetting {
 }
 
 // Information on group version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupVersion
 type GroupVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -10937,6 +11049,7 @@ func (s *GroupVersion) SetSubscriptionDefinitionVersionArn(v string) *GroupVersi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListCoreDefinitionVersionsRequest
 type ListCoreDefinitionVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10989,6 +11102,7 @@ func (s *ListCoreDefinitionVersionsInput) SetNextToken(v string) *ListCoreDefini
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListCoreDefinitionVersionsResponse
 type ListCoreDefinitionVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11019,6 +11133,7 @@ func (s *ListCoreDefinitionVersionsOutput) SetVersions(v []*VersionInformation) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListCoreDefinitionsRequest
 type ListCoreDefinitionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11049,6 +11164,7 @@ func (s *ListCoreDefinitionsInput) SetNextToken(v string) *ListCoreDefinitionsIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListCoreDefinitionsResponse
 type ListCoreDefinitionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11079,6 +11195,7 @@ func (s *ListCoreDefinitionsOutput) SetNextToken(v string) *ListCoreDefinitionsO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeploymentsRequest
 type ListDeploymentsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11131,6 +11248,7 @@ func (s *ListDeploymentsInput) SetNextToken(v string) *ListDeploymentsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeploymentsResponse
 type ListDeploymentsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11164,6 +11282,7 @@ func (s *ListDeploymentsOutput) SetNextToken(v string) *ListDeploymentsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeviceDefinitionVersionsRequest
 type ListDeviceDefinitionVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11216,6 +11335,7 @@ func (s *ListDeviceDefinitionVersionsInput) SetNextToken(v string) *ListDeviceDe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeviceDefinitionVersionsResponse
 type ListDeviceDefinitionVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11246,6 +11366,7 @@ func (s *ListDeviceDefinitionVersionsOutput) SetVersions(v []*VersionInformation
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeviceDefinitionsRequest
 type ListDeviceDefinitionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11276,6 +11397,7 @@ func (s *ListDeviceDefinitionsInput) SetNextToken(v string) *ListDeviceDefinitio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeviceDefinitionsResponse
 type ListDeviceDefinitionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11306,6 +11428,7 @@ func (s *ListDeviceDefinitionsOutput) SetNextToken(v string) *ListDeviceDefiniti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListFunctionDefinitionVersionsRequest
 type ListFunctionDefinitionVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11358,6 +11481,7 @@ func (s *ListFunctionDefinitionVersionsInput) SetNextToken(v string) *ListFuncti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListFunctionDefinitionVersionsResponse
 type ListFunctionDefinitionVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11388,6 +11512,7 @@ func (s *ListFunctionDefinitionVersionsOutput) SetVersions(v []*VersionInformati
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListFunctionDefinitionsRequest
 type ListFunctionDefinitionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11418,6 +11543,7 @@ func (s *ListFunctionDefinitionsInput) SetNextToken(v string) *ListFunctionDefin
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListFunctionDefinitionsResponse
 type ListFunctionDefinitionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11448,6 +11574,7 @@ func (s *ListFunctionDefinitionsOutput) SetNextToken(v string) *ListFunctionDefi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupCertificateAuthoritiesRequest
 type ListGroupCertificateAuthoritiesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11484,6 +11611,7 @@ func (s *ListGroupCertificateAuthoritiesInput) SetGroupId(v string) *ListGroupCe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupCertificateAuthoritiesResponse
 type ListGroupCertificateAuthoritiesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11507,6 +11635,7 @@ func (s *ListGroupCertificateAuthoritiesOutput) SetGroupCertificateAuthorities(v
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupVersionsRequest
 type ListGroupVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11559,6 +11688,7 @@ func (s *ListGroupVersionsInput) SetNextToken(v string) *ListGroupVersionsInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupVersionsResponse
 type ListGroupVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11589,6 +11719,7 @@ func (s *ListGroupVersionsOutput) SetVersions(v []*VersionInformation) *ListGrou
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupsRequest
 type ListGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11619,6 +11750,7 @@ func (s *ListGroupsInput) SetNextToken(v string) *ListGroupsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupsResponse
 type ListGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11652,6 +11784,7 @@ func (s *ListGroupsOutput) SetNextToken(v string) *ListGroupsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionVersionsRequest
 type ListLoggerDefinitionVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11704,6 +11837,7 @@ func (s *ListLoggerDefinitionVersionsInput) SetNextToken(v string) *ListLoggerDe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionVersionsResponse
 type ListLoggerDefinitionVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11734,6 +11868,7 @@ func (s *ListLoggerDefinitionVersionsOutput) SetVersions(v []*VersionInformation
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionsRequest
 type ListLoggerDefinitionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11764,6 +11899,7 @@ func (s *ListLoggerDefinitionsInput) SetNextToken(v string) *ListLoggerDefinitio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionsResponse
 type ListLoggerDefinitionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11794,6 +11930,7 @@ func (s *ListLoggerDefinitionsOutput) SetNextToken(v string) *ListLoggerDefiniti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersionsRequest
 type ListResourceDefinitionVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11846,6 +11983,7 @@ func (s *ListResourceDefinitionVersionsInput) SetResourceDefinitionId(v string) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersionsResponse
 type ListResourceDefinitionVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11876,6 +12014,7 @@ func (s *ListResourceDefinitionVersionsOutput) SetVersions(v []*VersionInformati
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionsRequest
 type ListResourceDefinitionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11906,6 +12045,7 @@ func (s *ListResourceDefinitionsInput) SetNextToken(v string) *ListResourceDefin
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionsResponse
 type ListResourceDefinitionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11936,6 +12076,7 @@ func (s *ListResourceDefinitionsOutput) SetNextToken(v string) *ListResourceDefi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListSubscriptionDefinitionVersionsRequest
 type ListSubscriptionDefinitionVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11988,6 +12129,7 @@ func (s *ListSubscriptionDefinitionVersionsInput) SetSubscriptionDefinitionId(v 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListSubscriptionDefinitionVersionsResponse
 type ListSubscriptionDefinitionVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12018,6 +12160,7 @@ func (s *ListSubscriptionDefinitionVersionsOutput) SetVersions(v []*VersionInfor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListSubscriptionDefinitionsRequest
 type ListSubscriptionDefinitionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12048,6 +12191,7 @@ func (s *ListSubscriptionDefinitionsInput) SetNextToken(v string) *ListSubscript
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListSubscriptionDefinitionsResponse
 type ListSubscriptionDefinitionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12079,6 +12223,7 @@ func (s *ListSubscriptionDefinitionsOutput) SetNextToken(v string) *ListSubscrip
 }
 
 // Attributes that define the Local Device Resource.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LocalDeviceResourceData
 type LocalDeviceResourceData struct {
 	_ struct{} `type:"structure"`
 
@@ -12112,6 +12257,7 @@ func (s *LocalDeviceResourceData) SetSourcePath(v string) *LocalDeviceResourceDa
 }
 
 // Attributes that define the Local Volume Resource.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LocalVolumeResourceData
 type LocalVolumeResourceData struct {
 	_ struct{} `type:"structure"`
 
@@ -12154,6 +12300,7 @@ func (s *LocalVolumeResourceData) SetSourcePath(v string) *LocalVolumeResourceDa
 }
 
 // Information on the Logger
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Logger
 type Logger struct {
 	_ struct{} `type:"structure"`
 
@@ -12215,6 +12362,7 @@ func (s *Logger) SetType(v string) *Logger {
 }
 
 // Information on logger definition version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LoggerDefinitionVersion
 type LoggerDefinitionVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -12239,6 +12387,7 @@ func (s *LoggerDefinitionVersion) SetLoggers(v []*Logger) *LoggerDefinitionVersi
 }
 
 // Information needed to perform a reset of a group's deployments.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResetDeploymentsRequest
 type ResetDeploymentsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12292,6 +12441,7 @@ func (s *ResetDeploymentsInput) SetGroupId(v string) *ResetDeploymentsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResetDeploymentsResponse
 type ResetDeploymentsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12325,6 +12475,7 @@ func (s *ResetDeploymentsOutput) SetDeploymentId(v string) *ResetDeploymentsOutp
 }
 
 // Information on the resource.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Resource
 type Resource struct {
 	_ struct{} `type:"structure"`
 
@@ -12367,6 +12518,7 @@ func (s *Resource) SetResourceDataContainer(v *ResourceDataContainer) *Resource 
 }
 
 // Policy for the function to access a resource.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResourceAccessPolicy
 type ResourceAccessPolicy struct {
 	_ struct{} `type:"structure"`
 
@@ -12400,6 +12552,7 @@ func (s *ResourceAccessPolicy) SetResourceId(v string) *ResourceAccessPolicy {
 }
 
 // A container of data for all resource types.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResourceDataContainer
 type ResourceDataContainer struct {
 	_ struct{} `type:"structure"`
 
@@ -12433,6 +12586,7 @@ func (s *ResourceDataContainer) SetLocalVolumeResourceData(v *LocalVolumeResourc
 }
 
 // Information on resource definition version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResourceDefinitionVersion
 type ResourceDefinitionVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -12457,6 +12611,7 @@ func (s *ResourceDefinitionVersion) SetResources(v []*Resource) *ResourceDefinit
 }
 
 // Information on subscription
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Subscription
 type Subscription struct {
 	_ struct{} `type:"structure"`
 
@@ -12508,6 +12663,7 @@ func (s *Subscription) SetTarget(v string) *Subscription {
 }
 
 // Information on subscription definition version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/SubscriptionDefinitionVersion
 type SubscriptionDefinitionVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -12532,6 +12688,7 @@ func (s *SubscriptionDefinitionVersion) SetSubscriptions(v []*Subscription) *Sub
 }
 
 // Information on connectivity info
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateConnectivityInfoRequest
 type UpdateConnectivityInfoInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12577,6 +12734,7 @@ func (s *UpdateConnectivityInfoInput) SetThingName(v string) *UpdateConnectivity
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateConnectivityInfoResponse
 type UpdateConnectivityInfoOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12609,6 +12767,7 @@ func (s *UpdateConnectivityInfoOutput) SetVersion(v string) *UpdateConnectivityI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateCoreDefinitionRequest
 type UpdateCoreDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12653,6 +12812,7 @@ func (s *UpdateCoreDefinitionInput) SetName(v string) *UpdateCoreDefinitionInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateCoreDefinitionResponse
 type UpdateCoreDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12667,6 +12827,7 @@ func (s UpdateCoreDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateDeviceDefinitionRequest
 type UpdateDeviceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12711,6 +12872,7 @@ func (s *UpdateDeviceDefinitionInput) SetName(v string) *UpdateDeviceDefinitionI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateDeviceDefinitionResponse
 type UpdateDeviceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12725,6 +12887,7 @@ func (s UpdateDeviceDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateFunctionDefinitionRequest
 type UpdateFunctionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12769,6 +12932,7 @@ func (s *UpdateFunctionDefinitionInput) SetName(v string) *UpdateFunctionDefinit
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateFunctionDefinitionResponse
 type UpdateFunctionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12783,6 +12947,7 @@ func (s UpdateFunctionDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateGroupCertificateConfigurationRequest
 type UpdateGroupCertificateConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12828,6 +12993,7 @@ func (s *UpdateGroupCertificateConfigurationInput) SetGroupId(v string) *UpdateG
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateGroupCertificateConfigurationResponse
 type UpdateGroupCertificateConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12866,6 +13032,7 @@ func (s *UpdateGroupCertificateConfigurationOutput) SetGroupId(v string) *Update
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateGroupRequest
 type UpdateGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12910,6 +13077,7 @@ func (s *UpdateGroupInput) SetName(v string) *UpdateGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateGroupResponse
 type UpdateGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12924,6 +13092,7 @@ func (s UpdateGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateLoggerDefinitionRequest
 type UpdateLoggerDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12968,6 +13137,7 @@ func (s *UpdateLoggerDefinitionInput) SetName(v string) *UpdateLoggerDefinitionI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateLoggerDefinitionResponse
 type UpdateLoggerDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12982,6 +13152,7 @@ func (s UpdateLoggerDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinitionRequest
 type UpdateResourceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13026,6 +13197,7 @@ func (s *UpdateResourceDefinitionInput) SetResourceDefinitionId(v string) *Updat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinitionResponse
 type UpdateResourceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13040,6 +13212,7 @@ func (s UpdateResourceDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinitionRequest
 type UpdateSubscriptionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13084,6 +13257,7 @@ func (s *UpdateSubscriptionDefinitionInput) SetSubscriptionDefinitionId(v string
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinitionResponse
 type UpdateSubscriptionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13099,6 +13273,7 @@ func (s UpdateSubscriptionDefinitionOutput) GoString() string {
 }
 
 // Information on the version
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/VersionInformation
 type VersionInformation struct {
 	_ struct{} `type:"structure"`
 

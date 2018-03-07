@@ -18,7 +18,6 @@ package automation
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,27 +26,28 @@ import (
 
 // CertificateClient is the automation Client
 type CertificateClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCertificateClient creates an instance of the CertificateClient client.
-func NewCertificateClient(subscriptionID string, resourceGroupName string) CertificateClient {
-	return NewCertificateClientWithBaseURI(DefaultBaseURI, subscriptionID, resourceGroupName)
+func NewCertificateClient(subscriptionID string) CertificateClient {
+	return NewCertificateClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewCertificateClientWithBaseURI creates an instance of the CertificateClient client.
-func NewCertificateClientWithBaseURI(baseURI string, subscriptionID string, resourceGroupName string) CertificateClient {
-	return CertificateClient{NewWithBaseURI(baseURI, subscriptionID, resourceGroupName)}
+func NewCertificateClientWithBaseURI(baseURI string, subscriptionID string) CertificateClient {
+	return CertificateClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
 // CreateOrUpdate create a certificate.
 //
-// automationAccountName is the automation account name. certificateName is the parameters supplied to the create or
-// update certificate operation. parameters is the parameters supplied to the create or update certificate operation.
-func (client CertificateClient) CreateOrUpdate(ctx context.Context, automationAccountName string, certificateName string, parameters CertificateCreateOrUpdateParameters) (result Certificate, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. certificateName
+// is the parameters supplied to the create or update certificate operation. parameters is the parameters supplied to
+// the create or update certificate operation.
+func (client CertificateClient) CreateOrUpdate(resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateCreateOrUpdateParameters) (result Certificate, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}},
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}},
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Name", Name: validation.Null, Rule: true, Chain: nil},
 				{Target: "parameters.CertificateCreateOrUpdateProperties", Name: validation.Null, Rule: true,
@@ -55,7 +55,7 @@ func (client CertificateClient) CreateOrUpdate(ctx context.Context, automationAc
 		return result, validation.NewErrorWithValidationError(err, "automation.CertificateClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, automationAccountName, certificateName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, automationAccountName, certificateName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -77,11 +77,11 @@ func (client CertificateClient) CreateOrUpdate(ctx context.Context, automationAc
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client CertificateClient) CreateOrUpdatePreparer(ctx context.Context, automationAccountName string, certificateName string, parameters CertificateCreateOrUpdateParameters) (*http.Request, error) {
+func (client CertificateClient) CreateOrUpdatePreparer(resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateCreateOrUpdateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"certificateName":       autorest.Encode("path", certificateName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -97,13 +97,14 @@ func (client CertificateClient) CreateOrUpdatePreparer(ctx context.Context, auto
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificateClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -113,7 +114,7 @@ func (client CertificateClient) CreateOrUpdateResponder(resp *http.Response) (re
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
+		azure.WithErrorUnlessStatusCode(http.StatusCreated, http.StatusOK),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
@@ -122,15 +123,16 @@ func (client CertificateClient) CreateOrUpdateResponder(resp *http.Response) (re
 
 // Delete delete the certificate.
 //
-// automationAccountName is the automation account name. certificateName is the name of certificate.
-func (client CertificateClient) Delete(ctx context.Context, automationAccountName string, certificateName string) (result autorest.Response, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. certificateName
+// is the name of certificate.
+func (client CertificateClient) Delete(resourceGroupName string, automationAccountName string, certificateName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.CertificateClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, automationAccountName, certificateName)
+	req, err := client.DeletePreparer(resourceGroupName, automationAccountName, certificateName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "Delete", nil, "Failure preparing request")
 		return
@@ -152,11 +154,11 @@ func (client CertificateClient) Delete(ctx context.Context, automationAccountNam
 }
 
 // DeletePreparer prepares the Delete request.
-func (client CertificateClient) DeletePreparer(ctx context.Context, automationAccountName string, certificateName string) (*http.Request, error) {
+func (client CertificateClient) DeletePreparer(resourceGroupName string, automationAccountName string, certificateName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"certificateName":       autorest.Encode("path", certificateName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -170,13 +172,14 @@ func (client CertificateClient) DeletePreparer(ctx context.Context, automationAc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificateClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -194,15 +197,16 @@ func (client CertificateClient) DeleteResponder(resp *http.Response) (result aut
 
 // Get retrieve the certificate identified by certificate name.
 //
-// automationAccountName is the automation account name. certificateName is the name of certificate.
-func (client CertificateClient) Get(ctx context.Context, automationAccountName string, certificateName string) (result Certificate, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. certificateName
+// is the name of certificate.
+func (client CertificateClient) Get(resourceGroupName string, automationAccountName string, certificateName string) (result Certificate, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.CertificateClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, automationAccountName, certificateName)
+	req, err := client.GetPreparer(resourceGroupName, automationAccountName, certificateName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "Get", nil, "Failure preparing request")
 		return
@@ -224,11 +228,11 @@ func (client CertificateClient) Get(ctx context.Context, automationAccountName s
 }
 
 // GetPreparer prepares the Get request.
-func (client CertificateClient) GetPreparer(ctx context.Context, automationAccountName string, certificateName string) (*http.Request, error) {
+func (client CertificateClient) GetPreparer(resourceGroupName string, automationAccountName string, certificateName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"certificateName":       autorest.Encode("path", certificateName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -242,13 +246,14 @@ func (client CertificateClient) GetPreparer(ctx context.Context, automationAccou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificateClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -267,16 +272,15 @@ func (client CertificateClient) GetResponder(resp *http.Response) (result Certif
 
 // ListByAutomationAccount retrieve a list of certificates.
 //
-// automationAccountName is the automation account name.
-func (client CertificateClient) ListByAutomationAccount(ctx context.Context, automationAccountName string) (result CertificateListResultPage, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name.
+func (client CertificateClient) ListByAutomationAccount(resourceGroupName string, automationAccountName string) (result CertificateListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.CertificateClient", "ListByAutomationAccount")
 	}
 
-	result.fn = client.listByAutomationAccountNextResults
-	req, err := client.ListByAutomationAccountPreparer(ctx, automationAccountName)
+	req, err := client.ListByAutomationAccountPreparer(resourceGroupName, automationAccountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "ListByAutomationAccount", nil, "Failure preparing request")
 		return
@@ -284,12 +288,12 @@ func (client CertificateClient) ListByAutomationAccount(ctx context.Context, aut
 
 	resp, err := client.ListByAutomationAccountSender(req)
 	if err != nil {
-		result.clr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "ListByAutomationAccount", resp, "Failure sending request")
 		return
 	}
 
-	result.clr, err = client.ListByAutomationAccountResponder(resp)
+	result, err = client.ListByAutomationAccountResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "ListByAutomationAccount", resp, "Failure responding to request")
 	}
@@ -298,10 +302,10 @@ func (client CertificateClient) ListByAutomationAccount(ctx context.Context, aut
 }
 
 // ListByAutomationAccountPreparer prepares the ListByAutomationAccount request.
-func (client CertificateClient) ListByAutomationAccountPreparer(ctx context.Context, automationAccountName string) (*http.Request, error) {
+func (client CertificateClient) ListByAutomationAccountPreparer(resourceGroupName string, automationAccountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -315,13 +319,14 @@ func (client CertificateClient) ListByAutomationAccountPreparer(ctx context.Cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByAutomationAccountSender sends the ListByAutomationAccount request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificateClient) ListByAutomationAccountSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -338,45 +343,88 @@ func (client CertificateClient) ListByAutomationAccountResponder(resp *http.Resp
 	return
 }
 
-// listByAutomationAccountNextResults retrieves the next set of results, if any.
-func (client CertificateClient) listByAutomationAccountNextResults(lastResults CertificateListResult) (result CertificateListResult, err error) {
-	req, err := lastResults.certificateListResultPreparer()
+// ListByAutomationAccountNextResults retrieves the next set of results, if any.
+func (client CertificateClient) ListByAutomationAccountNextResults(lastResults CertificateListResult) (result CertificateListResult, err error) {
+	req, err := lastResults.CertificateListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "automation.CertificateClient", "listByAutomationAccountNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "automation.CertificateClient", "ListByAutomationAccount", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByAutomationAccountSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "automation.CertificateClient", "listByAutomationAccountNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "automation.CertificateClient", "ListByAutomationAccount", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByAutomationAccountResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "listByAutomationAccountNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "ListByAutomationAccount", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByAutomationAccountComplete enumerates all values, automatically crossing page boundaries as required.
-func (client CertificateClient) ListByAutomationAccountComplete(ctx context.Context, automationAccountName string) (result CertificateListResultIterator, err error) {
-	result.page, err = client.ListByAutomationAccount(ctx, automationAccountName)
-	return
+// ListByAutomationAccountComplete gets all elements from the list without paging.
+func (client CertificateClient) ListByAutomationAccountComplete(resourceGroupName string, automationAccountName string, cancel <-chan struct{}) (<-chan Certificate, <-chan error) {
+	resultChan := make(chan Certificate)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByAutomationAccount(resourceGroupName, automationAccountName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByAutomationAccountNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update update a certificate.
 //
-// automationAccountName is the automation account name. certificateName is the parameters supplied to the update
-// certificate operation. parameters is the parameters supplied to the update certificate operation.
-func (client CertificateClient) Update(ctx context.Context, automationAccountName string, certificateName string, parameters CertificateUpdateParameters) (result Certificate, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. certificateName
+// is the parameters supplied to the update certificate operation. parameters is the parameters supplied to the update
+// certificate operation.
+func (client CertificateClient) Update(resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateUpdateParameters) (result Certificate, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.CertificateClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, automationAccountName, certificateName, parameters)
+	req, err := client.UpdatePreparer(resourceGroupName, automationAccountName, certificateName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.CertificateClient", "Update", nil, "Failure preparing request")
 		return
@@ -398,11 +446,11 @@ func (client CertificateClient) Update(ctx context.Context, automationAccountNam
 }
 
 // UpdatePreparer prepares the Update request.
-func (client CertificateClient) UpdatePreparer(ctx context.Context, automationAccountName string, certificateName string, parameters CertificateUpdateParameters) (*http.Request, error) {
+func (client CertificateClient) UpdatePreparer(resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateUpdateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
 		"certificateName":       autorest.Encode("path", certificateName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -418,13 +466,14 @@ func (client CertificateClient) UpdatePreparer(ctx context.Context, automationAc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/certificates/{certificateName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client CertificateClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

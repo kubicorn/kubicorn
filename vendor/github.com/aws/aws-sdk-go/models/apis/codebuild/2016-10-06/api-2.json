@@ -442,8 +442,7 @@
       "type":"structure",
       "members":{
         "name":{"shape":"String"},
-        "description":{"shape":"String"},
-        "versions":{"shape":"ImageVersions"}
+        "description":{"shape":"String"}
       }
     },
     "EnvironmentImages":{
@@ -498,14 +497,6 @@
     "EnvironmentVariables":{
       "type":"list",
       "member":{"shape":"EnvironmentVariable"}
-    },
-    "GitCloneDepth":{
-      "type":"integer",
-      "min":0
-    },
-    "ImageVersions":{
-      "type":"list",
-      "member":{"shape":"String"}
     },
     "InvalidInputException":{
       "type":"structure",
@@ -710,8 +701,7 @@
         "image":{"shape":"NonEmptyString"},
         "computeType":{"shape":"ComputeType"},
         "environmentVariables":{"shape":"EnvironmentVariables"},
-        "privilegedMode":{"shape":"WrapperBoolean"},
-        "certificate":{"shape":"String"}
+        "privilegedMode":{"shape":"WrapperBoolean"}
       }
     },
     "ProjectName":{
@@ -740,10 +730,8 @@
       "members":{
         "type":{"shape":"SourceType"},
         "location":{"shape":"String"},
-        "gitCloneDepth":{"shape":"GitCloneDepth"},
         "buildspec":{"shape":"String"},
-        "auth":{"shape":"SourceAuth"},
-        "insecureSsl":{"shape":"WrapperBoolean"}
+        "auth":{"shape":"SourceAuth"}
       }
     },
     "Projects":{
@@ -793,8 +781,7 @@
         "CODEPIPELINE",
         "GITHUB",
         "S3",
-        "BITBUCKET",
-        "GITHUB_ENTERPRISE"
+        "BITBUCKET"
       ]
     },
     "StartBuildInput":{
@@ -805,7 +792,6 @@
         "sourceVersion":{"shape":"String"},
         "artifactsOverride":{"shape":"ProjectArtifacts"},
         "environmentVariablesOverride":{"shape":"EnvironmentVariables"},
-        "gitCloneDepthOverride":{"shape":"GitCloneDepth"},
         "buildspecOverride":{"shape":"String"},
         "timeoutInMinutesOverride":{"shape":"TimeOut"}
       }
@@ -906,9 +892,7 @@
     "Webhook":{
       "type":"structure",
       "members":{
-        "url":{"shape":"NonEmptyString"},
-        "payloadUrl":{"shape":"NonEmptyString"},
-        "secret":{"shape":"NonEmptyString"}
+        "url":{"shape":"NonEmptyString"}
       }
     },
     "WrapperBoolean":{"type":"boolean"},

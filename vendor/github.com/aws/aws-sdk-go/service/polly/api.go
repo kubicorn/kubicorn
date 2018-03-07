@@ -588,6 +588,7 @@ func (c *Polly) SynthesizeSpeechWithContext(ctx aws.Context, input *SynthesizeSp
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/DeleteLexiconInput
 type DeleteLexiconInput struct {
 	_ struct{} `type:"structure"`
 
@@ -626,6 +627,7 @@ func (s *DeleteLexiconInput) SetName(v string) *DeleteLexiconInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/DeleteLexiconOutput
 type DeleteLexiconOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -640,6 +642,7 @@ func (s DeleteLexiconOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/DescribeVoicesInput
 type DescribeVoicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -675,6 +678,7 @@ func (s *DescribeVoicesInput) SetNextToken(v string) *DescribeVoicesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/DescribeVoicesOutput
 type DescribeVoicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -708,6 +712,7 @@ func (s *DescribeVoicesOutput) SetVoices(v []*Voice) *DescribeVoicesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/GetLexiconInput
 type GetLexiconInput struct {
 	_ struct{} `type:"structure"`
 
@@ -746,6 +751,7 @@ func (s *GetLexiconInput) SetName(v string) *GetLexiconInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/GetLexiconOutput
 type GetLexiconOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -782,6 +788,7 @@ func (s *GetLexiconOutput) SetLexiconAttributes(v *LexiconAttributes) *GetLexico
 
 // Provides lexicon name and lexicon content in string format. For more information,
 // see Pronunciation Lexicon Specification (PLS) Version 1.0 (https://www.w3.org/TR/pronunciation-lexicon/).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/Lexicon
 type Lexicon struct {
 	_ struct{} `type:"structure"`
 
@@ -817,6 +824,7 @@ func (s *Lexicon) SetName(v string) *Lexicon {
 
 // Contains metadata describing the lexicon such as the number of lexemes, language
 // code, and so on. For more information, see Managing Lexicons (http://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/LexiconAttributes
 type LexiconAttributes struct {
 	_ struct{} `type:"structure"`
 
@@ -888,6 +896,7 @@ func (s *LexiconAttributes) SetSize(v int64) *LexiconAttributes {
 }
 
 // Describes the content of the lexicon.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/LexiconDescription
 type LexiconDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -920,6 +929,7 @@ func (s *LexiconDescription) SetName(v string) *LexiconDescription {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/ListLexiconsInput
 type ListLexiconsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -944,6 +954,7 @@ func (s *ListLexiconsInput) SetNextToken(v string) *ListLexiconsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/ListLexiconsOutput
 type ListLexiconsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -977,6 +988,7 @@ func (s *ListLexiconsOutput) SetNextToken(v string) *ListLexiconsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/PutLexiconInput
 type PutLexiconInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1031,6 +1043,7 @@ func (s *PutLexiconInput) SetName(v string) *PutLexiconInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/PutLexiconOutput
 type PutLexiconOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1045,6 +1058,7 @@ func (s PutLexiconOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/SynthesizeSpeechInput
 type SynthesizeSpeechInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1160,6 +1174,7 @@ func (s *SynthesizeSpeechInput) SetVoiceId(v string) *SynthesizeSpeechInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/SynthesizeSpeechOutput
 type SynthesizeSpeechOutput struct {
 	_ struct{} `type:"structure" payload:"AudioStream"`
 
@@ -1216,6 +1231,7 @@ func (s *SynthesizeSpeechOutput) SetRequestCharacters(v int64) *SynthesizeSpeech
 }
 
 // Description of the voice.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/polly-2016-06-10/Voice
 type Voice struct {
 	_ struct{} `type:"structure"`
 

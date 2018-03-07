@@ -18,7 +18,6 @@ package redis
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // PatchSchedulesClient is the REST API for Azure Redis Cache Service.
 type PatchSchedulesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPatchSchedulesClient creates an instance of the PatchSchedulesClient client.
@@ -44,7 +43,7 @@ func NewPatchSchedulesClientWithBaseURI(baseURI string, subscriptionID string) P
 //
 // resourceGroupName is the name of the resource group. name is the name of the Redis cache. parameters is parameters
 // to set the patching schedule for Redis cache.
-func (client PatchSchedulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, name string, parameters PatchSchedule) (result PatchSchedule, err error) {
+func (client PatchSchedulesClient) CreateOrUpdate(resourceGroupName string, name string, parameters PatchSchedule) (result PatchSchedule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.ScheduleEntries", Name: validation.Null, Rule: true,
@@ -52,7 +51,7 @@ func (client PatchSchedulesClient) CreateOrUpdate(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "redis.PatchSchedulesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, name, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, name, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "redis.PatchSchedulesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -74,7 +73,7 @@ func (client PatchSchedulesClient) CreateOrUpdate(ctx context.Context, resourceG
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client PatchSchedulesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, name string, parameters PatchSchedule) (*http.Request, error) {
+func (client PatchSchedulesClient) CreateOrUpdatePreparer(resourceGroupName string, name string, parameters PatchSchedule) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -93,13 +92,14 @@ func (client PatchSchedulesClient) CreateOrUpdatePreparer(ctx context.Context, r
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/Redis/{name}/patchSchedules/default", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client PatchSchedulesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -119,8 +119,8 @@ func (client PatchSchedulesClient) CreateOrUpdateResponder(resp *http.Response) 
 // Delete deletes the patching schedule of a redis cache (requires Premium SKU).
 //
 // resourceGroupName is the name of the resource group. name is the name of the redis cache.
-func (client PatchSchedulesClient) Delete(ctx context.Context, resourceGroupName string, name string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, name)
+func (client PatchSchedulesClient) Delete(resourceGroupName string, name string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "redis.PatchSchedulesClient", "Delete", nil, "Failure preparing request")
 		return
@@ -142,7 +142,7 @@ func (client PatchSchedulesClient) Delete(ctx context.Context, resourceGroupName
 }
 
 // DeletePreparer prepares the Delete request.
-func (client PatchSchedulesClient) DeletePreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client PatchSchedulesClient) DeletePreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -159,13 +159,14 @@ func (client PatchSchedulesClient) DeletePreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/Redis/{name}/patchSchedules/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client PatchSchedulesClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -184,8 +185,8 @@ func (client PatchSchedulesClient) DeleteResponder(resp *http.Response) (result 
 // Get gets the patching schedule of a redis cache (requires Premium SKU).
 //
 // resourceGroupName is the name of the resource group. name is the name of the redis cache.
-func (client PatchSchedulesClient) Get(ctx context.Context, resourceGroupName string, name string) (result PatchSchedule, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, name)
+func (client PatchSchedulesClient) Get(resourceGroupName string, name string) (result PatchSchedule, err error) {
+	req, err := client.GetPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "redis.PatchSchedulesClient", "Get", nil, "Failure preparing request")
 		return
@@ -207,7 +208,7 @@ func (client PatchSchedulesClient) Get(ctx context.Context, resourceGroupName st
 }
 
 // GetPreparer prepares the Get request.
-func (client PatchSchedulesClient) GetPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client PatchSchedulesClient) GetPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -224,13 +225,14 @@ func (client PatchSchedulesClient) GetPreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/Redis/{name}/patchSchedules/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PatchSchedulesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

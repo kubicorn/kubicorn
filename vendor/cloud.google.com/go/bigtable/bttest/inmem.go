@@ -19,7 +19,7 @@ Package bttest contains test helpers for working with the bigtable package.
 
 To use a Server, create it, and then connect to it with no security:
 (The project/instance values are ignored.)
-	srv, err := bttest.NewServer("localhost:0")
+	srv, err := bttest.NewServer("127.0.0.1:0")
 	...
 	conn, err := grpc.Dial(srv.Addr, grpc.WithInsecure())
 	...
@@ -45,14 +45,12 @@ import (
 
 	emptypb "github.com/golang/protobuf/ptypes/empty"
 	"github.com/golang/protobuf/ptypes/wrappers"
-	"github.com/google/btree"
 	"golang.org/x/net/context"
 	btapb "google.golang.org/genproto/googleapis/bigtable/admin/v2"
 	btpb "google.golang.org/genproto/googleapis/bigtable/v2"
 	statpb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 // Server is an in-memory Cloud Bigtable fake.
@@ -164,7 +162,7 @@ func (s *server) DeleteTable(ctx context.Context, req *btapb.DeleteTableRequest)
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if _, ok := s.tables[req.Name]; !ok {
-		return nil, status.Errorf(codes.NotFound, "table %q not found", req.Name)
+		return nil, grpc.Errorf(codes.NotFound, "table %q not found", req.Name)
 	}
 	delete(s.tables, req.Name)
 	return &emptypb.Empty{}, nil
@@ -218,7 +216,6 @@ func (s *server) ModifyColumnFamilies(ctx context.Context, req *btapb.ModifyColu
 	return &btapb.Table{
 		Name:           tblName,
 		ColumnFamilies: toColumnFamilies(tbl.families),
-		Granularity:    btapb.Table_TimestampGranularity(btapb.Table_MILLIS),
 	}, nil
 }
 
@@ -227,75 +224,46 @@ func (s *server) DropRowRange(ctx context.Context, req *btapb.DropRowRangeReques
 	defer s.mu.Unlock()
 	tbl, ok := s.tables[req.Name]
 	if !ok {
-		return nil, status.Errorf(codes.NotFound, "table %q not found", req.Name)
+		return nil, grpc.Errorf(codes.NotFound, "table %q not found", req.Name)
 	}
 
 	if req.GetDeleteAllDataFromTable() {
-		tbl.rows = btree.New(btreeDegree)
+		tbl.rows = nil
+		tbl.rowIndex = make(map[string]*row)
 	} else {
-		// Delete rows by prefix.
+		// Delete rows by prefix
 		prefixBytes := req.GetRowKeyPrefix()
 		if prefixBytes == nil {
 			return nil, fmt.Errorf("missing row key prefix")
 		}
 		prefix := string(prefixBytes)
 
-		// The BTree does not specify what happens if rows are deleted during
-		// iteration, and it provides no "delete range" method.
-		// So we collect the rows first, then delete them one by one.
-		var rowsToDelete []*row
-		tbl.rows.AscendGreaterOrEqual(btreeKey(prefix), func(i btree.Item) bool {
-			r := i.(*row)
-			if strings.HasPrefix(r.key, prefix) {
-				rowsToDelete = append(rowsToDelete, r)
-				return true
-			} else {
-				return false // stop iteration
+		start := -1
+		end := 0
+		for i, row := range tbl.rows {
+			match := strings.HasPrefix(row.key, prefix)
+			if match {
+				// Delete the mapping. Row will be deleted from sorted range below.
+				delete(tbl.rowIndex, row.key)
 			}
-		})
-		for _, r := range rowsToDelete {
-			tbl.rows.Delete(r)
+			if match && start == -1 {
+				start = i
+			} else if !match && start != -1 {
+				break
+			}
+			end++
+		}
+		if start != -1 {
+			// Delete the range, using method from https://github.com/golang/go/wiki/SliceTricks
+			copy(tbl.rows[start:], tbl.rows[end:])
+			for k, n := len(tbl.rows)-end+start, len(tbl.rows); k < n; k++ {
+				tbl.rows[k] = nil
+			}
+			tbl.rows = tbl.rows[:len(tbl.rows)-end+start]
 		}
 	}
+
 	return &emptypb.Empty{}, nil
-}
-
-// This is a private alpha release of Cloud Bigtable replication. This feature
-// is not currently available to most Cloud Bigtable customers. This feature
-// might be changed in backward-incompatible ways and is not recommended for
-// production use. It is not subject to any SLA or deprecation policy.
-func (s *server) GenerateConsistencyToken(ctx context.Context, req *btapb.GenerateConsistencyTokenRequest) (*btapb.GenerateConsistencyTokenResponse, error) {
-	// Check that the table exists.
-	_, ok := s.tables[req.Name]
-	if !ok {
-		return nil, status.Errorf(codes.NotFound, "table %q not found", req.Name)
-	}
-
-	return &btapb.GenerateConsistencyTokenResponse{
-		ConsistencyToken: "TokenFor-" + req.Name,
-	}, nil
-}
-
-// This is a private alpha release of Cloud Bigtable replication. This feature
-// is not currently available to most Cloud Bigtable customers. This feature
-// might be changed in backward-incompatible ways and is not recommended for
-// production use. It is not subject to any SLA or deprecation policy.
-func (s *server) CheckConsistency(ctx context.Context, req *btapb.CheckConsistencyRequest) (*btapb.CheckConsistencyResponse, error) {
-	// Check that the table exists.
-	_, ok := s.tables[req.Name]
-	if !ok {
-		return nil, status.Errorf(codes.NotFound, "table %q not found", req.Name)
-	}
-
-	// Check this is the right token.
-	if req.ConsistencyToken != "TokenFor-"+req.Name {
-		return nil, status.Errorf(codes.InvalidArgument, "token %q not valid", req.ConsistencyToken)
-	}
-
-	// Single cluster instances are always consistent.
-	return &btapb.CheckConsistencyResponse{
-		Consistent: true,
-	}, nil
 }
 
 func (s *server) ReadRows(req *btpb.ReadRowsRequest, stream btpb.Bigtable_ReadRowsServer) error {
@@ -303,27 +271,18 @@ func (s *server) ReadRows(req *btpb.ReadRowsRequest, stream btpb.Bigtable_ReadRo
 	tbl, ok := s.tables[req.TableName]
 	s.mu.Unlock()
 	if !ok {
-		return status.Errorf(codes.NotFound, "table %q not found", req.TableName)
+		return grpc.Errorf(codes.NotFound, "table %q not found", req.TableName)
 	}
 
 	// Rows to read can be specified by a set of row keys and/or a set of row ranges.
 	// Output is a stream of sorted, de-duped rows.
 	tbl.mu.RLock()
 	rowSet := make(map[string]*row)
-
-	addRow := func(i btree.Item) bool {
-		r := i.(*row)
-		rowSet[r.key] = r
-		return true
-	}
-
 	if req.Rows != nil {
 		// Add the explicitly given keys
 		for _, key := range req.Rows.RowKeys {
-			k := string(key)
-			if i := tbl.rows.Get(btreeKey(k)); i != nil {
-				addRow(i)
-			}
+			start := string(key)
+			addRows(start, start+"\x00", tbl, rowSet)
 		}
 
 		// Add keys from row ranges
@@ -341,20 +300,12 @@ func (s *server) ReadRows(req *btpb.ReadRowsRequest, stream btpb.Bigtable_ReadRo
 			case *btpb.RowRange_EndKeyOpen:
 				end = string(ek.EndKeyOpen)
 			}
-			switch {
-			case start == "" && end == "":
-				tbl.rows.Ascend(addRow) // all rows
-			case start == "":
-				tbl.rows.AscendLessThan(btreeKey(end), addRow)
-			case end == "":
-				tbl.rows.AscendGreaterOrEqual(btreeKey(start), addRow)
-			default:
-				tbl.rows.AscendRange(btreeKey(start), btreeKey(end), addRow)
-			}
+
+			addRows(start, end, tbl, rowSet)
 		}
 	} else {
 		// Read all rows
-		tbl.rows.Ascend(addRow)
+		addRows("", "", tbl, rowSet)
 	}
 	tbl.mu.RUnlock()
 
@@ -379,6 +330,21 @@ func (s *server) ReadRows(req *btpb.ReadRowsRequest, stream btpb.Bigtable_ReadRo
 		}
 	}
 	return nil
+}
+
+func addRows(start, end string, tbl *table, rowSet map[string]*row) {
+	si, ei := 0, len(tbl.rows) // half-open interval
+	if start != "" {
+		si = sort.Search(len(tbl.rows), func(i int) bool { return tbl.rows[i].key >= start })
+	}
+	if end != "" {
+		ei = sort.Search(len(tbl.rows), func(i int) bool { return tbl.rows[i].key >= end })
+	}
+	if si < ei {
+		for _, row := range tbl.rows[si:ei] {
+			rowSet[row.key] = row
+		}
+	}
 }
 
 // streamRow filters the given row and sends it via the given stream.
@@ -416,7 +382,7 @@ func streamRow(stream btpb.Bigtable_ReadRowsServer, r *row, f *btpb.RowFilter) (
 	// We can't have a cell with just COMMIT set, which would imply a new empty cell.
 	// So modify the last cell to have the COMMIT flag set.
 	if len(rrr.Chunks) > 0 {
-		rrr.Chunks[len(rrr.Chunks)-1].RowStatus = &btpb.ReadRowsResponse_CellChunk_CommitRow{CommitRow: true}
+		rrr.Chunks[len(rrr.Chunks)-1].RowStatus = &btpb.ReadRowsResponse_CellChunk_CommitRow{true}
 	}
 
 	return true, stream.Send(rrr)
@@ -430,10 +396,6 @@ func filterRow(f *btpb.RowFilter, r *row) bool {
 	}
 	// Handle filters that apply beyond just including/excluding cells.
 	switch f := f.Filter.(type) {
-	case *btpb.RowFilter_BlockAllFilter:
-		return !f.BlockAllFilter
-	case *btpb.RowFilter_PassAllFilter:
-		return f.PassAllFilter
 	case *btpb.RowFilter_Chain_:
 		for _, sub := range f.Chain.Filters {
 			if !filterRow(sub, r) {
@@ -459,14 +421,12 @@ func filterRow(f *btpb.RowFilter, r *row) bool {
 				}
 			}
 		}
-		var count int
 		for _, fam := range r.families {
 			for _, cs := range fam.cells {
 				sort.Sort(byDescTS(cs))
-				count += len(cs)
 			}
 		}
-		return count > 0
+		return true
 	case *btpb.RowFilter_CellsPerColumnLimitFilter:
 		lim := int(f.CellsPerColumnLimitFilter)
 		for _, fam := range r.families {
@@ -661,11 +621,12 @@ func (s *server) MutateRow(ctx context.Context, req *btpb.MutateRowRequest) (*bt
 	tbl, ok := s.tables[req.TableName]
 	s.mu.Unlock()
 	if !ok {
-		return nil, status.Errorf(codes.NotFound, "table %q not found", req.TableName)
+		return nil, grpc.Errorf(codes.NotFound, "table %q not found", req.TableName)
 	}
 	fs := tbl.columnFamilies()
-	r := tbl.mutableRow(string(req.RowKey))
+	r, _ := tbl.mutableRow(string(req.RowKey))
 	r.mu.Lock()
+	defer tbl.resortRowIndex() // Make sure the row lock is released before this grabs the table lock
 	defer r.mu.Unlock()
 	if err := applyMutations(tbl, r, req.Mutations, fs); err != nil {
 		return nil, err
@@ -678,14 +639,15 @@ func (s *server) MutateRows(req *btpb.MutateRowsRequest, stream btpb.Bigtable_Mu
 	tbl, ok := s.tables[req.TableName]
 	s.mu.Unlock()
 	if !ok {
-		return status.Errorf(codes.NotFound, "table %q not found", req.TableName)
+		return grpc.Errorf(codes.NotFound, "table %q not found", req.TableName)
 	}
 	res := &btpb.MutateRowsResponse{Entries: make([]*btpb.MutateRowsResponse_Entry, len(req.Entries))}
 
 	fs := tbl.columnFamilies()
 
+	defer tbl.resortRowIndex()
 	for i, entry := range req.Entries {
-		r := tbl.mutableRow(string(entry.RowKey))
+		r, _ := tbl.mutableRow(string(entry.RowKey))
 		r.mu.Lock()
 		code, msg := int32(codes.OK), ""
 		if err := applyMutations(tbl, r, entry.Mutations, fs); err != nil {
@@ -707,13 +669,13 @@ func (s *server) CheckAndMutateRow(ctx context.Context, req *btpb.CheckAndMutate
 	tbl, ok := s.tables[req.TableName]
 	s.mu.Unlock()
 	if !ok {
-		return nil, status.Errorf(codes.NotFound, "table %q not found", req.TableName)
+		return nil, grpc.Errorf(codes.NotFound, "table %q not found", req.TableName)
 	}
 	res := &btpb.CheckAndMutateRowResponse{}
 
 	fs := tbl.columnFamilies()
 
-	r := tbl.mutableRow(string(req.RowKey))
+	r, _ := tbl.mutableRow(string(req.RowKey))
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -728,13 +690,16 @@ func (s *server) CheckAndMutateRow(ctx context.Context, req *btpb.CheckAndMutate
 		nr := r.copy()
 		filterRow(req.PredicateFilter, nr)
 		whichMut = !nr.isEmpty()
+		// TODO(dsymonds): Figure out if this is supposed to be set
+		// even when there's no predicate filter.
+		res.PredicateMatched = whichMut
 	}
-	res.PredicateMatched = whichMut
 	muts := req.FalseMutations
 	if whichMut {
 		muts = req.TrueMutations
 	}
 
+	defer tbl.resortRowIndex()
 	if err := applyMutations(tbl, r, muts, fs); err != nil {
 		return nil, err
 	}
@@ -859,15 +824,18 @@ func (s *server) ReadModifyWriteRow(ctx context.Context, req *btpb.ReadModifyWri
 	tbl, ok := s.tables[req.TableName]
 	s.mu.Unlock()
 	if !ok {
-		return nil, status.Errorf(codes.NotFound, "table %q not found", req.TableName)
+		return nil, grpc.Errorf(codes.NotFound, "table %q not found", req.TableName)
 	}
 	updates := make(map[string]cell) // copy of updated cells; keyed by full column name
 
 	fs := tbl.columnFamilies()
 
 	rowKey := string(req.RowKey)
-	r := tbl.mutableRow(rowKey)
+	r, isNewRow := tbl.mutableRow(rowKey)
 	// This must be done before the row lock, acquired below, is released.
+	if isNewRow {
+		defer tbl.resortRowIndex()
+	}
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	// Assume all mutations apply to the most recent version of the cell.
@@ -939,8 +907,7 @@ func (s *server) ReadModifyWriteRow(ctx context.Context, req *btpb.ReadModifyWri
 		f.Columns = append(f.Columns, &btpb.Column{
 			Qualifier: []byte(qual),
 			Cells: []*btpb.Cell{{
-				TimestampMicros: cell.ts,
-				Value:           cell.value,
+				Value: cell.value,
 			}},
 		})
 	}
@@ -952,7 +919,7 @@ func (s *server) SampleRowKeys(req *btpb.SampleRowKeysRequest, stream btpb.Bigta
 	tbl, ok := s.tables[req.TableName]
 	s.mu.Unlock()
 	if !ok {
-		return status.Errorf(codes.NotFound, "table %q not found", req.TableName)
+		return grpc.Errorf(codes.NotFound, "table %q not found", req.TableName)
 	}
 
 	tbl.mu.RLock()
@@ -961,25 +928,20 @@ func (s *server) SampleRowKeys(req *btpb.SampleRowKeysRequest, stream btpb.Bigta
 	// The return value of SampleRowKeys is very loosely defined. Return at least the
 	// final row key in the table and choose other row keys randomly.
 	var offset int64
-	var err error
-	i := 0
-	tbl.rows.Ascend(func(it btree.Item) bool {
-		row := it.(*row)
-		if i == tbl.rows.Len()-1 || rand.Int31n(100) == 0 {
+	for i, row := range tbl.rows {
+		if i == len(tbl.rows)-1 || rand.Int31n(100) == 0 {
 			resp := &btpb.SampleRowKeysResponse{
 				RowKey:      []byte(row.key),
 				OffsetBytes: offset,
 			}
-			err = stream.Send(resp)
+			err := stream.Send(resp)
 			if err != nil {
-				return false
+				return err
 			}
 		}
 		offset += int64(row.size())
-		i++
-		return true
-	})
-	return err
+	}
+	return nil
 }
 
 // needGC is invoked whenever the server needs gcloop running.
@@ -1024,10 +986,9 @@ type table struct {
 	mu       sync.RWMutex
 	counter  uint64                   // increment by 1 when a new family is created
 	families map[string]*columnFamily // keyed by plain family name
-	rows     *btree.BTree             // indexed by row key
+	rows     []*row                   // sorted by row key
+	rowIndex map[string]*row          // indexed by row key
 }
-
-const btreeDegree = 16
 
 func newTable(ctr *btapb.CreateTableRequest) *table {
 	fams := make(map[string]*columnFamily)
@@ -1045,7 +1006,7 @@ func newTable(ctr *btapb.CreateTableRequest) *table {
 	return &table{
 		families: fams,
 		counter:  c,
-		rows:     btree.New(btreeDegree),
+		rowIndex: make(map[string]*row),
 	}
 }
 
@@ -1064,26 +1025,31 @@ func (t *table) columnFamilies() map[string]*columnFamily {
 	return cp
 }
 
-func (t *table) mutableRow(key string) *row {
-	bkey := btreeKey(key)
+func (t *table) mutableRow(row string) (mutRow *row, isNewRow bool) {
 	// Try fast path first.
 	t.mu.RLock()
-	i := t.rows.Get(bkey)
+	r := t.rowIndex[row]
 	t.mu.RUnlock()
-	if i != nil {
-		return i.(*row)
+	if r != nil {
+		return r, false
 	}
 
 	// We probably need to create the row.
 	t.mu.Lock()
-	defer t.mu.Unlock()
-	i = t.rows.Get(bkey)
-	if i != nil {
-		return i.(*row)
+	r = t.rowIndex[row]
+	if r == nil {
+		r = newRow(row)
+		t.rowIndex[row] = r
+		t.rows = append(t.rows, r)
 	}
-	r := newRow(key)
-	t.rows.ReplaceOrInsert(r)
-	return r
+	t.mu.Unlock()
+	return r, true
+}
+
+func (t *table) resortRowIndex() {
+	t.mu.Lock()
+	sort.Sort(byRowKey(t.rows))
+	t.mu.Unlock()
 }
 
 func (t *table) gc() {
@@ -1102,13 +1068,11 @@ func (t *table) gc() {
 		return
 	}
 
-	t.rows.Ascend(func(i btree.Item) bool {
-		r := i.(*row)
+	for _, r := range t.rows {
 		r.mu.Lock()
 		r.gc(rules)
 		r.mu.Unlock()
-		return true
-	})
+	}
 }
 
 type byRowKey []*row
@@ -1211,14 +1175,6 @@ func (r *row) size() int {
 	}
 	return size
 }
-
-// Less implements btree.Less.
-func (r *row) Less(i btree.Item) bool {
-	return r.key < i.(*row).key
-}
-
-// btreeKey returns a row for use as a key into the BTree.
-func btreeKey(s string) *row { return &row{key: s} }
 
 func (r *row) String() string {
 	return r.key

@@ -22,9 +22,9 @@ import strconv "strconv"
 
 import strings "strings"
 import reflect "reflect"
-import sortkeys "github.com/gogo/protobuf/sortkeys"
+import github_com_gogo_protobuf_sortkeys "github.com/gogo/protobuf/sortkeys"
 
-import binary "encoding/binary"
+import encoding_binary "encoding/binary"
 
 import io "io"
 
@@ -361,7 +361,10 @@ func (x NullValue) String() string {
 }
 func (this *Struct) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Struct)
@@ -374,7 +377,10 @@ func (this *Struct) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -390,7 +396,10 @@ func (this *Struct) Equal(that interface{}) bool {
 }
 func (this *Value) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Value)
@@ -403,7 +412,10 @@ func (this *Value) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -420,7 +432,10 @@ func (this *Value) Equal(that interface{}) bool {
 }
 func (this *Value_NullValue) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Value_NullValue)
@@ -433,7 +448,10 @@ func (this *Value_NullValue) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -444,7 +462,10 @@ func (this *Value_NullValue) Equal(that interface{}) bool {
 }
 func (this *Value_NumberValue) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Value_NumberValue)
@@ -457,7 +478,10 @@ func (this *Value_NumberValue) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -468,7 +492,10 @@ func (this *Value_NumberValue) Equal(that interface{}) bool {
 }
 func (this *Value_StringValue) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Value_StringValue)
@@ -481,7 +508,10 @@ func (this *Value_StringValue) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -492,7 +522,10 @@ func (this *Value_StringValue) Equal(that interface{}) bool {
 }
 func (this *Value_BoolValue) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Value_BoolValue)
@@ -505,7 +538,10 @@ func (this *Value_BoolValue) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -516,7 +552,10 @@ func (this *Value_BoolValue) Equal(that interface{}) bool {
 }
 func (this *Value_StructValue) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Value_StructValue)
@@ -529,7 +568,10 @@ func (this *Value_StructValue) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -540,7 +582,10 @@ func (this *Value_StructValue) Equal(that interface{}) bool {
 }
 func (this *Value_ListValue) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*Value_ListValue)
@@ -553,7 +598,10 @@ func (this *Value_ListValue) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -564,7 +612,10 @@ func (this *Value_ListValue) Equal(that interface{}) bool {
 }
 func (this *ListValue) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*ListValue)
@@ -577,7 +628,10 @@ func (this *ListValue) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}
@@ -601,7 +655,7 @@ func (this *Struct) GoString() string {
 	for k := range this.Fields {
 		keysForFields = append(keysForFields, k)
 	}
-	sortkeys.Strings(keysForFields)
+	github_com_gogo_protobuf_sortkeys.Strings(keysForFields)
 	mapStringForFields := "map[string]*Value{"
 	for _, k := range keysForFields {
 		mapStringForFields += fmt.Sprintf("%#v: %#v,", k, this.Fields[k])
@@ -775,7 +829,7 @@ func (m *Value_NumberValue) MarshalTo(dAtA []byte) (int, error) {
 	i := 0
 	dAtA[i] = 0x11
 	i++
-	binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.NumberValue))))
+	encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.NumberValue))))
 	i += 8
 	return i, nil
 }
@@ -1125,7 +1179,7 @@ func (this *Struct) String() string {
 	for k := range this.Fields {
 		keysForFields = append(keysForFields, k)
 	}
-	sortkeys.Strings(keysForFields)
+	github_com_gogo_protobuf_sortkeys.Strings(keysForFields)
 	mapStringForFields := "map[string]*Value{"
 	for _, k := range keysForFields {
 		mapStringForFields += fmt.Sprintf("%v: %v,", k, this.Fields[k])
@@ -1455,7 +1509,7 @@ func (m *Value) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 8) > l {
 				return io.ErrUnexpectedEOF
 			}
-			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
+			v = uint64(encoding_binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
 			m.Kind = &Value_NumberValue{float64(math.Float64frombits(v))}
 		case 3:

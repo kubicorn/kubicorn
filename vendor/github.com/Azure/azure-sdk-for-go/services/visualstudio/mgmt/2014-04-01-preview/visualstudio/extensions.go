@@ -18,7 +18,6 @@ package visualstudio
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -29,7 +28,7 @@ import (
 // x-ms-request-id header that can be used to obtain information about the request. You must make sure that requests
 // made to these resources are secure. For more information, see https://docs.microsoft.com/en-us/rest/api/index.
 type ExtensionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewExtensionsClient creates an instance of the ExtensionsClient client.
@@ -47,8 +46,8 @@ func NewExtensionsClientWithBaseURI(baseURI string, subscriptionID string) Exten
 // resourceGroupName is name of the resource group within the Azure subscription. body is an object containing
 // additional information related to the extension request. accountResourceName is the name of the Visual Studio Team
 // Services account resource. extensionResourceName is the name of the extension.
-func (client ExtensionsClient) Create(ctx context.Context, resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (result ExtensionResource, err error) {
-	req, err := client.CreatePreparer(ctx, resourceGroupName, body, accountResourceName, extensionResourceName)
+func (client ExtensionsClient) Create(resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (result ExtensionResource, err error) {
+	req, err := client.CreatePreparer(resourceGroupName, body, accountResourceName, extensionResourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ExtensionsClient", "Create", nil, "Failure preparing request")
 		return
@@ -70,7 +69,7 @@ func (client ExtensionsClient) Create(ctx context.Context, resourceGroupName str
 }
 
 // CreatePreparer prepares the Create request.
-func (client ExtensionsClient) CreatePreparer(ctx context.Context, resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (*http.Request, error) {
+func (client ExtensionsClient) CreatePreparer(resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountResourceName":   autorest.Encode("path", accountResourceName),
 		"extensionResourceName": autorest.Encode("path", extensionResourceName),
@@ -90,13 +89,14 @@ func (client ExtensionsClient) CreatePreparer(ctx context.Context, resourceGroup
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{accountResourceName}/extension/{extensionResourceName}", pathParameters),
 		autorest.WithJSON(body),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
 func (client ExtensionsClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -117,8 +117,8 @@ func (client ExtensionsClient) CreateResponder(resp *http.Response) (result Exte
 //
 // resourceGroupName is name of the resource group within the Azure subscription. accountResourceName is the name of
 // the Visual Studio Team Services account resource. extensionResourceName is the name of the extension.
-func (client ExtensionsClient) Delete(ctx context.Context, resourceGroupName string, accountResourceName string, extensionResourceName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, accountResourceName, extensionResourceName)
+func (client ExtensionsClient) Delete(resourceGroupName string, accountResourceName string, extensionResourceName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, accountResourceName, extensionResourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ExtensionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -140,7 +140,7 @@ func (client ExtensionsClient) Delete(ctx context.Context, resourceGroupName str
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ExtensionsClient) DeletePreparer(ctx context.Context, resourceGroupName string, accountResourceName string, extensionResourceName string) (*http.Request, error) {
+func (client ExtensionsClient) DeletePreparer(resourceGroupName string, accountResourceName string, extensionResourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountResourceName":   autorest.Encode("path", accountResourceName),
 		"extensionResourceName": autorest.Encode("path", extensionResourceName),
@@ -158,13 +158,14 @@ func (client ExtensionsClient) DeletePreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{accountResourceName}/extension/{extensionResourceName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ExtensionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -184,8 +185,8 @@ func (client ExtensionsClient) DeleteResponder(resp *http.Response) (result auto
 //
 // resourceGroupName is name of the resource group within the Azure subscription. accountResourceName is the name of
 // the Visual Studio Team Services account resource. extensionResourceName is the name of the extension.
-func (client ExtensionsClient) Get(ctx context.Context, resourceGroupName string, accountResourceName string, extensionResourceName string) (result ExtensionResource, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, accountResourceName, extensionResourceName)
+func (client ExtensionsClient) Get(resourceGroupName string, accountResourceName string, extensionResourceName string) (result ExtensionResource, err error) {
+	req, err := client.GetPreparer(resourceGroupName, accountResourceName, extensionResourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ExtensionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -207,7 +208,7 @@ func (client ExtensionsClient) Get(ctx context.Context, resourceGroupName string
 }
 
 // GetPreparer prepares the Get request.
-func (client ExtensionsClient) GetPreparer(ctx context.Context, resourceGroupName string, accountResourceName string, extensionResourceName string) (*http.Request, error) {
+func (client ExtensionsClient) GetPreparer(resourceGroupName string, accountResourceName string, extensionResourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountResourceName":   autorest.Encode("path", accountResourceName),
 		"extensionResourceName": autorest.Encode("path", extensionResourceName),
@@ -225,13 +226,14 @@ func (client ExtensionsClient) GetPreparer(ctx context.Context, resourceGroupNam
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{accountResourceName}/extension/{extensionResourceName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ExtensionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -252,8 +254,8 @@ func (client ExtensionsClient) GetResponder(resp *http.Response) (result Extensi
 //
 // resourceGroupName is name of the resource group within the Azure subscription. accountResourceName is the name of
 // the Visual Studio Team Services account resource.
-func (client ExtensionsClient) ListByAccount(ctx context.Context, resourceGroupName string, accountResourceName string) (result ExtensionResourceListResult, err error) {
-	req, err := client.ListByAccountPreparer(ctx, resourceGroupName, accountResourceName)
+func (client ExtensionsClient) ListByAccount(resourceGroupName string, accountResourceName string) (result ExtensionResourceListResult, err error) {
+	req, err := client.ListByAccountPreparer(resourceGroupName, accountResourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ExtensionsClient", "ListByAccount", nil, "Failure preparing request")
 		return
@@ -275,7 +277,7 @@ func (client ExtensionsClient) ListByAccount(ctx context.Context, resourceGroupN
 }
 
 // ListByAccountPreparer prepares the ListByAccount request.
-func (client ExtensionsClient) ListByAccountPreparer(ctx context.Context, resourceGroupName string, accountResourceName string) (*http.Request, error) {
+func (client ExtensionsClient) ListByAccountPreparer(resourceGroupName string, accountResourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountResourceName": autorest.Encode("path", accountResourceName),
 		"resourceGroupName":   autorest.Encode("path", resourceGroupName),
@@ -292,13 +294,14 @@ func (client ExtensionsClient) ListByAccountPreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{accountResourceName}/extension", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByAccountSender sends the ListByAccount request. The method will close the
 // http.Response Body if it receives an error.
 func (client ExtensionsClient) ListByAccountSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -320,8 +323,8 @@ func (client ExtensionsClient) ListByAccountResponder(resp *http.Response) (resu
 // resourceGroupName is name of the resource group within the Azure subscription. body is an object containing
 // additional information related to the extension request. accountResourceName is the name of the Visual Studio Team
 // Services account resource. extensionResourceName is the name of the extension.
-func (client ExtensionsClient) Update(ctx context.Context, resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (result ExtensionResource, err error) {
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, body, accountResourceName, extensionResourceName)
+func (client ExtensionsClient) Update(resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (result ExtensionResource, err error) {
+	req, err := client.UpdatePreparer(resourceGroupName, body, accountResourceName, extensionResourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "visualstudio.ExtensionsClient", "Update", nil, "Failure preparing request")
 		return
@@ -343,7 +346,7 @@ func (client ExtensionsClient) Update(ctx context.Context, resourceGroupName str
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ExtensionsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (*http.Request, error) {
+func (client ExtensionsClient) UpdatePreparer(resourceGroupName string, body ExtensionResourceRequest, accountResourceName string, extensionResourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountResourceName":   autorest.Encode("path", accountResourceName),
 		"extensionResourceName": autorest.Encode("path", extensionResourceName),
@@ -363,13 +366,14 @@ func (client ExtensionsClient) UpdatePreparer(ctx context.Context, resourceGroup
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/microsoft.visualstudio/account/{accountResourceName}/extension/{extensionResourceName}", pathParameters),
 		autorest.WithJSON(body),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client ExtensionsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -18,7 +18,6 @@ package job
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
@@ -28,7 +27,7 @@ import (
 
 // RecurrenceClient is the creates an Azure Data Lake Analytics job client.
 type RecurrenceClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewRecurrenceClient creates an instance of the RecurrenceClient client.
@@ -42,8 +41,8 @@ func NewRecurrenceClient() RecurrenceClient {
 // ID. startDateTime is the start date for when to get the recurrence and aggregate its data. The startDateTime and
 // endDateTime can be no more than 30 days apart. endDateTime is the end date for when to get recurrence and aggregate
 // its data. The startDateTime and endDateTime can be no more than 30 days apart.
-func (client RecurrenceClient) Get(ctx context.Context, accountName string, recurrenceIdentity uuid.UUID, startDateTime *date.Time, endDateTime *date.Time) (result RecurrenceInformation, err error) {
-	req, err := client.GetPreparer(ctx, accountName, recurrenceIdentity, startDateTime, endDateTime)
+func (client RecurrenceClient) Get(accountName string, recurrenceIdentity uuid.UUID, startDateTime *date.Time, endDateTime *date.Time) (result RecurrenceInformation, err error) {
+	req, err := client.GetPreparer(accountName, recurrenceIdentity, startDateTime, endDateTime)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "job.RecurrenceClient", "Get", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client RecurrenceClient) Get(ctx context.Context, accountName string, recu
 }
 
 // GetPreparer prepares the Get request.
-func (client RecurrenceClient) GetPreparer(ctx context.Context, accountName string, recurrenceIdentity uuid.UUID, startDateTime *date.Time, endDateTime *date.Time) (*http.Request, error) {
+func (client RecurrenceClient) GetPreparer(accountName string, recurrenceIdentity uuid.UUID, startDateTime *date.Time, endDateTime *date.Time) (*http.Request, error) {
 	urlParameters := map[string]interface{}{
 		"accountName":      accountName,
 		"adlaJobDnsSuffix": client.AdlaJobDNSSuffix,
@@ -91,13 +90,14 @@ func (client RecurrenceClient) GetPreparer(ctx context.Context, accountName stri
 		autorest.WithCustomBaseURL("https://{accountName}.{adlaJobDnsSuffix}", urlParameters),
 		autorest.WithPathParameters("/recurrences/{recurrenceIdentity}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecurrenceClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -120,9 +120,8 @@ func (client RecurrenceClient) GetResponder(resp *http.Response) (result Recurre
 // for when to get the list of recurrences. The startDateTime and endDateTime can be no more than 30 days apart.
 // endDateTime is the end date for when to get the list of recurrences. The startDateTime and endDateTime can be no
 // more than 30 days apart.
-func (client RecurrenceClient) List(ctx context.Context, accountName string, startDateTime *date.Time, endDateTime *date.Time) (result RecurrenceInformationListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, accountName, startDateTime, endDateTime)
+func (client RecurrenceClient) List(accountName string, startDateTime *date.Time, endDateTime *date.Time) (result RecurrenceInformationListResult, err error) {
+	req, err := client.ListPreparer(accountName, startDateTime, endDateTime)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "job.RecurrenceClient", "List", nil, "Failure preparing request")
 		return
@@ -130,12 +129,12 @@ func (client RecurrenceClient) List(ctx context.Context, accountName string, sta
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rilr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "job.RecurrenceClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rilr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "job.RecurrenceClient", "List", resp, "Failure responding to request")
 	}
@@ -144,7 +143,7 @@ func (client RecurrenceClient) List(ctx context.Context, accountName string, sta
 }
 
 // ListPreparer prepares the List request.
-func (client RecurrenceClient) ListPreparer(ctx context.Context, accountName string, startDateTime *date.Time, endDateTime *date.Time) (*http.Request, error) {
+func (client RecurrenceClient) ListPreparer(accountName string, startDateTime *date.Time, endDateTime *date.Time) (*http.Request, error) {
 	urlParameters := map[string]interface{}{
 		"accountName":      accountName,
 		"adlaJobDnsSuffix": client.AdlaJobDNSSuffix,
@@ -166,13 +165,14 @@ func (client RecurrenceClient) ListPreparer(ctx context.Context, accountName str
 		autorest.WithCustomBaseURL("https://{accountName}.{adlaJobDnsSuffix}", urlParameters),
 		autorest.WithPath("/recurrences"),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client RecurrenceClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -189,29 +189,71 @@ func (client RecurrenceClient) ListResponder(resp *http.Response) (result Recurr
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client RecurrenceClient) listNextResults(lastResults RecurrenceInformationListResult) (result RecurrenceInformationListResult, err error) {
-	req, err := lastResults.recurrenceInformationListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client RecurrenceClient) ListNextResults(lastResults RecurrenceInformationListResult) (result RecurrenceInformationListResult, err error) {
+	req, err := lastResults.RecurrenceInformationListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "job.RecurrenceClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "job.RecurrenceClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "job.RecurrenceClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "job.RecurrenceClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "job.RecurrenceClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "job.RecurrenceClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client RecurrenceClient) ListComplete(ctx context.Context, accountName string, startDateTime *date.Time, endDateTime *date.Time) (result RecurrenceInformationListResultIterator, err error) {
-	result.page, err = client.List(ctx, accountName, startDateTime, endDateTime)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client RecurrenceClient) ListComplete(accountName string, startDateTime *date.Time, endDateTime *date.Time, cancel <-chan struct{}) (<-chan RecurrenceInformation, <-chan error) {
+	resultChan := make(chan RecurrenceInformation)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(accountName, startDateTime, endDateTime)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

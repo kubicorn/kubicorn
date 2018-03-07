@@ -2924,80 +2924,6 @@ func (c *OpsWorks) DescribeMyUserProfileWithContext(ctx aws.Context, input *Desc
 	return out, req.Send()
 }
 
-const opDescribeOperatingSystems = "DescribeOperatingSystems"
-
-// DescribeOperatingSystemsRequest generates a "aws/request.Request" representing the
-// client's request for the DescribeOperatingSystems operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeOperatingSystems for more information on using the DescribeOperatingSystems
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the DescribeOperatingSystemsRequest method.
-//    req, resp := client.DescribeOperatingSystemsRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeOperatingSystems
-func (c *OpsWorks) DescribeOperatingSystemsRequest(input *DescribeOperatingSystemsInput) (req *request.Request, output *DescribeOperatingSystemsOutput) {
-	op := &request.Operation{
-		Name:       opDescribeOperatingSystems,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &DescribeOperatingSystemsInput{}
-	}
-
-	output = &DescribeOperatingSystemsOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// DescribeOperatingSystems API operation for AWS OpsWorks.
-//
-// Describes the operating systems that are supported by AWS OpsWorks Stacks.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS OpsWorks's
-// API operation DescribeOperatingSystems for usage and error information.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeOperatingSystems
-func (c *OpsWorks) DescribeOperatingSystems(input *DescribeOperatingSystemsInput) (*DescribeOperatingSystemsOutput, error) {
-	req, out := c.DescribeOperatingSystemsRequest(input)
-	return out, req.Send()
-}
-
-// DescribeOperatingSystemsWithContext is the same as DescribeOperatingSystems with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DescribeOperatingSystems for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *OpsWorks) DescribeOperatingSystemsWithContext(ctx aws.Context, input *DescribeOperatingSystemsInput, opts ...request.Option) (*DescribeOperatingSystemsOutput, error) {
-	req, out := c.DescribeOperatingSystemsRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
 const opDescribePermissions = "DescribePermissions"
 
 // DescribePermissionsRequest generates a "aws/request.Request" representing the
@@ -6646,6 +6572,7 @@ func (c *OpsWorks) UpdateVolumeWithContext(ctx aws.Context, input *UpdateVolumeI
 }
 
 // Describes an agent version.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AgentVersion
 type AgentVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -6679,6 +6606,7 @@ func (s *AgentVersion) SetVersion(v string) *AgentVersion {
 }
 
 // A description of the app.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/App
 type App struct {
 	_ struct{} `type:"structure"`
 
@@ -6830,6 +6758,7 @@ func (s *App) SetType(v string) *App {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AssignInstanceRequest
 type AssignInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6883,6 +6812,7 @@ func (s *AssignInstanceInput) SetLayerIds(v []*string) *AssignInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AssignInstanceOutput
 type AssignInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6897,6 +6827,7 @@ func (s AssignInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AssignVolumeRequest
 type AssignVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6944,6 +6875,7 @@ func (s *AssignVolumeInput) SetVolumeId(v string) *AssignVolumeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AssignVolumeOutput
 type AssignVolumeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6958,6 +6890,7 @@ func (s AssignVolumeOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AssociateElasticIpRequest
 type AssociateElasticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7005,6 +6938,7 @@ func (s *AssociateElasticIpInput) SetInstanceId(v string) *AssociateElasticIpInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AssociateElasticIpOutput
 type AssociateElasticIpOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7019,6 +6953,7 @@ func (s AssociateElasticIpOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AttachElasticLoadBalancerRequest
 type AttachElasticLoadBalancerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7072,6 +7007,7 @@ func (s *AttachElasticLoadBalancerInput) SetLayerId(v string) *AttachElasticLoad
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AttachElasticLoadBalancerOutput
 type AttachElasticLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7088,6 +7024,7 @@ func (s AttachElasticLoadBalancerOutput) GoString() string {
 
 // Describes a load-based auto scaling upscaling or downscaling threshold configuration,
 // which specifies when AWS OpsWorks Stacks starts or stops load-based instances.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/AutoScalingThresholds
 type AutoScalingThresholds struct {
 	_ struct{} `type:"structure"`
 
@@ -7202,6 +7139,7 @@ func (s *AutoScalingThresholds) SetThresholdsWaitTime(v int64) *AutoScalingThres
 // Describes a block device mapping. This data type maps directly to the Amazon
 // EC2 BlockDeviceMapping (http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_BlockDeviceMapping.html)
 // data type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/BlockDeviceMapping
 type BlockDeviceMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -7256,6 +7194,7 @@ func (s *BlockDeviceMapping) SetVirtualName(v string) *BlockDeviceMapping {
 }
 
 // Describes the Chef configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ChefConfiguration
 type ChefConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -7288,6 +7227,7 @@ func (s *ChefConfiguration) SetManageBerkshelf(v bool) *ChefConfiguration {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CloneStackRequest
 type CloneStackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7361,8 +7301,8 @@ type CloneStackInput struct {
 	// The stack's operating system, which must be set to one of the following.
 	//
 	//    * A supported Linux operating system: An Amazon Linux version, such as
-	//    Amazon Linux 2017.09, Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon
-	//    Linux 2016.03, Amazon Linux 2015.09, or Amazon Linux 2015.03.
+	//    Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon Linux 2016.03, Amazon
+	//    Linux 2015.09, or Amazon Linux 2015.03.
 	//
 	//    * A supported Ubuntu operating system, such as Ubuntu 16.04 LTS, Ubuntu
 	//    14.04 LTS, or Ubuntu 12.04 LTS.
@@ -7681,6 +7621,7 @@ func (s *CloneStackInput) SetVpcId(v string) *CloneStackInput {
 }
 
 // Contains the response to a CloneStack request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CloneStackResult
 type CloneStackOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7705,6 +7646,7 @@ func (s *CloneStackOutput) SetStackId(v string) *CloneStackOutput {
 }
 
 // Describes the Amazon CloudWatch logs configuration for a layer.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CloudWatchLogsConfiguration
 type CloudWatchLogsConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -7740,6 +7682,7 @@ func (s *CloudWatchLogsConfiguration) SetLogStreams(v []*CloudWatchLogsLogStream
 // Describes the Amazon CloudWatch logs configuration for a layer. For detailed
 // information about members of this data type, see the CloudWatch Logs Agent
 // Reference (http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CloudWatchLogsLogStream
 type CloudWatchLogsLogStream struct {
 	_ struct{} `type:"structure"`
 
@@ -7882,6 +7825,7 @@ func (s *CloudWatchLogsLogStream) SetTimeZone(v string) *CloudWatchLogsLogStream
 }
 
 // Describes a command.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Command
 type Command struct {
 	_ struct{} `type:"structure"`
 
@@ -8018,6 +7962,7 @@ func (s *Command) SetType(v string) *Command {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateAppRequest
 type CreateAppInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8199,6 +8144,7 @@ func (s *CreateAppInput) SetType(v string) *CreateAppInput {
 }
 
 // Contains the response to a CreateApp request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateAppResult
 type CreateAppOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8222,6 +8168,7 @@ func (s *CreateAppOutput) SetAppId(v string) *CreateAppOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateDeploymentRequest
 type CreateDeploymentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8334,6 +8281,7 @@ func (s *CreateDeploymentInput) SetStackId(v string) *CreateDeploymentInput {
 }
 
 // Contains the response to a CreateDeployment request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateDeploymentResult
 type CreateDeploymentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8358,6 +8306,7 @@ func (s *CreateDeploymentOutput) SetDeploymentId(v string) *CreateDeploymentOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateInstanceRequest
 type CreateInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8436,8 +8385,8 @@ type CreateInstanceInput struct {
 	// The instance's operating system, which must be set to one of the following.
 	//
 	//    * A supported Linux operating system: An Amazon Linux version, such as
-	//    Amazon Linux 2017.09, Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon
-	//    Linux 2016.03, Amazon Linux 2015.09, or Amazon Linux 2015.03.
+	//    Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon Linux 2016.03, Amazon
+	//    Linux 2015.09, or Amazon Linux 2015.03.
 	//
 	//    * A supported Ubuntu operating system, such as Ubuntu 16.04 LTS, Ubuntu
 	//    14.04 LTS, or Ubuntu 12.04 LTS.
@@ -8636,6 +8585,7 @@ func (s *CreateInstanceInput) SetVirtualizationType(v string) *CreateInstanceInp
 }
 
 // Contains the response to a CreateInstance request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateInstanceResult
 type CreateInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8659,6 +8609,7 @@ func (s *CreateInstanceOutput) SetInstanceId(v string) *CreateInstanceOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateLayerRequest
 type CreateLayerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8905,6 +8856,7 @@ func (s *CreateLayerInput) SetVolumeConfigurations(v []*VolumeConfiguration) *Cr
 }
 
 // Contains the response to a CreateLayer request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateLayerResult
 type CreateLayerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8928,6 +8880,7 @@ func (s *CreateLayerOutput) SetLayerId(v string) *CreateLayerOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateStackRequest
 type CreateStackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8998,8 +8951,8 @@ type CreateStackInput struct {
 	// You can specify one of the following.
 	//
 	//    * A supported Linux operating system: An Amazon Linux version, such as
-	//    Amazon Linux 2017.09, Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon
-	//    Linux 2016.03, Amazon Linux 2015.09, or Amazon Linux 2015.03.
+	//    Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon Linux 2016.03, Amazon
+	//    Linux 2015.09, or Amazon Linux 2015.03.
 	//
 	//    * A supported Ubuntu operating system, such as Ubuntu 16.04 LTS, Ubuntu
 	//    14.04 LTS, or Ubuntu 12.04 LTS.
@@ -9296,6 +9249,7 @@ func (s *CreateStackInput) SetVpcId(v string) *CreateStackInput {
 }
 
 // Contains the response to a CreateStack request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateStackResult
 type CreateStackOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9320,6 +9274,7 @@ func (s *CreateStackOutput) SetStackId(v string) *CreateStackOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateUserProfileRequest
 type CreateUserProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9391,6 +9346,7 @@ func (s *CreateUserProfileInput) SetSshUsername(v string) *CreateUserProfileInpu
 }
 
 // Contains the response to a CreateUserProfile request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/CreateUserProfileResult
 type CreateUserProfileOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9415,6 +9371,7 @@ func (s *CreateUserProfileOutput) SetIamUserArn(v string) *CreateUserProfileOutp
 }
 
 // Describes an app's data source.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DataSource
 type DataSource struct {
 	_ struct{} `type:"structure"`
 
@@ -9425,7 +9382,7 @@ type DataSource struct {
 	DatabaseName *string `type:"string"`
 
 	// The data source's type, AutoSelectOpsworksMysqlInstance, OpsworksMysqlInstance,
-	// RdsDbInstance, or None.
+	// or RdsDbInstance.
 	Type *string `type:"string"`
 }
 
@@ -9457,6 +9414,7 @@ func (s *DataSource) SetType(v string) *DataSource {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteAppRequest
 type DeleteAppInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9495,6 +9453,7 @@ func (s *DeleteAppInput) SetAppId(v string) *DeleteAppInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteAppOutput
 type DeleteAppOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9509,6 +9468,7 @@ func (s DeleteAppOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteInstanceRequest
 type DeleteInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9565,6 +9525,7 @@ func (s *DeleteInstanceInput) SetInstanceId(v string) *DeleteInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteInstanceOutput
 type DeleteInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9579,6 +9540,7 @@ func (s DeleteInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteLayerRequest
 type DeleteLayerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9617,6 +9579,7 @@ func (s *DeleteLayerInput) SetLayerId(v string) *DeleteLayerInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteLayerOutput
 type DeleteLayerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9631,6 +9594,7 @@ func (s DeleteLayerOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteStackRequest
 type DeleteStackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9669,6 +9633,7 @@ func (s *DeleteStackInput) SetStackId(v string) *DeleteStackInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteStackOutput
 type DeleteStackOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9683,6 +9648,7 @@ func (s DeleteStackOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteUserProfileRequest
 type DeleteUserProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9721,6 +9687,7 @@ func (s *DeleteUserProfileInput) SetIamUserArn(v string) *DeleteUserProfileInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeleteUserProfileOutput
 type DeleteUserProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9736,6 +9703,7 @@ func (s DeleteUserProfileOutput) GoString() string {
 }
 
 // Describes a deployment of a stack or app.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Deployment
 type Deployment struct {
 	_ struct{} `type:"structure"`
 
@@ -9872,6 +9840,7 @@ func (s *Deployment) SetStatus(v string) *Deployment {
 }
 
 // Used to specify a stack or deployment command.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeploymentCommand
 type DeploymentCommand struct {
 	_ struct{} `type:"structure"`
 
@@ -9973,6 +9942,7 @@ func (s *DeploymentCommand) SetName(v string) *DeploymentCommand {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterEcsClusterRequest
 type DeregisterEcsClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10011,6 +9981,7 @@ func (s *DeregisterEcsClusterInput) SetEcsClusterArn(v string) *DeregisterEcsClu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterEcsClusterOutput
 type DeregisterEcsClusterOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10025,6 +9996,7 @@ func (s DeregisterEcsClusterOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterElasticIpRequest
 type DeregisterElasticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10063,6 +10035,7 @@ func (s *DeregisterElasticIpInput) SetElasticIp(v string) *DeregisterElasticIpIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterElasticIpOutput
 type DeregisterElasticIpOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10077,6 +10050,7 @@ func (s DeregisterElasticIpOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterInstanceRequest
 type DeregisterInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10115,6 +10089,7 @@ func (s *DeregisterInstanceInput) SetInstanceId(v string) *DeregisterInstanceInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterInstanceOutput
 type DeregisterInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10129,6 +10104,7 @@ func (s DeregisterInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterRdsDbInstanceRequest
 type DeregisterRdsDbInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10167,6 +10143,7 @@ func (s *DeregisterRdsDbInstanceInput) SetRdsDbInstanceArn(v string) *Deregister
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterRdsDbInstanceOutput
 type DeregisterRdsDbInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10181,6 +10158,7 @@ func (s DeregisterRdsDbInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterVolumeRequest
 type DeregisterVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10221,6 +10199,7 @@ func (s *DeregisterVolumeInput) SetVolumeId(v string) *DeregisterVolumeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DeregisterVolumeOutput
 type DeregisterVolumeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10235,6 +10214,7 @@ func (s DeregisterVolumeOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeAgentVersionsRequest
 type DescribeAgentVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10268,6 +10248,7 @@ func (s *DescribeAgentVersionsInput) SetStackId(v string) *DescribeAgentVersions
 }
 
 // Contains the response to a DescribeAgentVersions request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeAgentVersionsResult
 type DescribeAgentVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10293,6 +10274,7 @@ func (s *DescribeAgentVersionsOutput) SetAgentVersions(v []*AgentVersion) *Descr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeAppsRequest
 type DescribeAppsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10329,6 +10311,7 @@ func (s *DescribeAppsInput) SetStackId(v string) *DescribeAppsInput {
 }
 
 // Contains the response to a DescribeApps request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeAppsResult
 type DescribeAppsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10352,6 +10335,7 @@ func (s *DescribeAppsOutput) SetApps(v []*App) *DescribeAppsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeCommandsRequest
 type DescribeCommandsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10398,6 +10382,7 @@ func (s *DescribeCommandsInput) SetInstanceId(v string) *DescribeCommandsInput {
 }
 
 // Contains the response to a DescribeCommands request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeCommandsResult
 type DescribeCommandsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10421,20 +10406,21 @@ func (s *DescribeCommandsOutput) SetCommands(v []*Command) *DescribeCommandsOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeDeploymentsRequest
 type DescribeDeploymentsInput struct {
 	_ struct{} `type:"structure"`
 
-	// The app ID. If you include this parameter, the command returns a description
-	// of the commands associated with the specified app.
+	// The app ID. If you include this parameter, DescribeDeployments returns a
+	// description of the commands associated with the specified app.
 	AppId *string `type:"string"`
 
 	// An array of deployment IDs to be described. If you include this parameter,
-	// the command returns a description of the specified deployments. Otherwise,
+	// DescribeDeployments returns a description of the specified deployments. Otherwise,
 	// it returns a description of every deployment.
 	DeploymentIds []*string `type:"list"`
 
-	// The stack ID. If you include this parameter, the command returns a description
-	// of the commands associated with the specified stack.
+	// The stack ID. If you include this parameter, DescribeDeployments returns
+	// a description of the commands associated with the specified stack.
 	StackId *string `type:"string"`
 }
 
@@ -10467,6 +10453,7 @@ func (s *DescribeDeploymentsInput) SetStackId(v string) *DescribeDeploymentsInpu
 }
 
 // Contains the response to a DescribeDeployments request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeDeploymentsResult
 type DescribeDeploymentsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10490,6 +10477,7 @@ func (s *DescribeDeploymentsOutput) SetDeployments(v []*Deployment) *DescribeDep
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeEcsClustersRequest
 type DescribeEcsClustersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10550,6 +10538,7 @@ func (s *DescribeEcsClustersInput) SetStackId(v string) *DescribeEcsClustersInpu
 }
 
 // Contains the response to a DescribeEcsClusters request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeEcsClustersResult
 type DescribeEcsClustersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10585,6 +10574,7 @@ func (s *DescribeEcsClustersOutput) SetNextToken(v string) *DescribeEcsClustersO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeElasticIpsRequest
 type DescribeElasticIpsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10631,6 +10621,7 @@ func (s *DescribeElasticIpsInput) SetStackId(v string) *DescribeElasticIpsInput 
 }
 
 // Contains the response to a DescribeElasticIps request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeElasticIpsResult
 type DescribeElasticIpsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10654,6 +10645,7 @@ func (s *DescribeElasticIpsOutput) SetElasticIps(v []*ElasticIp) *DescribeElasti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeElasticLoadBalancersRequest
 type DescribeElasticLoadBalancersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10688,6 +10680,7 @@ func (s *DescribeElasticLoadBalancersInput) SetStackId(v string) *DescribeElasti
 }
 
 // Contains the response to a DescribeElasticLoadBalancers request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeElasticLoadBalancersResult
 type DescribeElasticLoadBalancersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10712,6 +10705,7 @@ func (s *DescribeElasticLoadBalancersOutput) SetElasticLoadBalancers(v []*Elasti
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeInstancesRequest
 type DescribeInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10758,6 +10752,7 @@ func (s *DescribeInstancesInput) SetStackId(v string) *DescribeInstancesInput {
 }
 
 // Contains the response to a DescribeInstances request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeInstancesResult
 type DescribeInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10781,6 +10776,7 @@ func (s *DescribeInstancesOutput) SetInstances(v []*Instance) *DescribeInstances
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeLayersRequest
 type DescribeLayersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10816,6 +10812,7 @@ func (s *DescribeLayersInput) SetStackId(v string) *DescribeLayersInput {
 }
 
 // Contains the response to a DescribeLayers request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeLayersResult
 type DescribeLayersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10839,6 +10836,7 @@ func (s *DescribeLayersOutput) SetLayers(v []*Layer) *DescribeLayersOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeLoadBasedAutoScalingRequest
 type DescribeLoadBasedAutoScalingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10878,6 +10876,7 @@ func (s *DescribeLoadBasedAutoScalingInput) SetLayerIds(v []*string) *DescribeLo
 }
 
 // Contains the response to a DescribeLoadBasedAutoScaling request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeLoadBasedAutoScalingResult
 type DescribeLoadBasedAutoScalingOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10902,6 +10901,7 @@ func (s *DescribeLoadBasedAutoScalingOutput) SetLoadBasedAutoScalingConfiguratio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeMyUserProfileInput
 type DescribeMyUserProfileInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10917,6 +10917,7 @@ func (s DescribeMyUserProfileInput) GoString() string {
 }
 
 // Contains the response to a DescribeMyUserProfile request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeMyUserProfileResult
 type DescribeMyUserProfileOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10940,43 +10941,7 @@ func (s *DescribeMyUserProfileOutput) SetUserProfile(v *SelfUserProfile) *Descri
 	return s
 }
 
-type DescribeOperatingSystemsInput struct {
-	_ struct{} `type:"structure"`
-}
-
-// String returns the string representation
-func (s DescribeOperatingSystemsInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DescribeOperatingSystemsInput) GoString() string {
-	return s.String()
-}
-
-// The response to a DescribeOperatingSystems request.
-type DescribeOperatingSystemsOutput struct {
-	_ struct{} `type:"structure"`
-
-	OperatingSystems []*OperatingSystem `type:"list"`
-}
-
-// String returns the string representation
-func (s DescribeOperatingSystemsOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DescribeOperatingSystemsOutput) GoString() string {
-	return s.String()
-}
-
-// SetOperatingSystems sets the OperatingSystems field's value.
-func (s *DescribeOperatingSystemsOutput) SetOperatingSystems(v []*OperatingSystem) *DescribeOperatingSystemsOutput {
-	s.OperatingSystems = v
-	return s
-}
-
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribePermissionsRequest
 type DescribePermissionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11011,6 +10976,7 @@ func (s *DescribePermissionsInput) SetStackId(v string) *DescribePermissionsInpu
 }
 
 // Contains the response to a DescribePermissions request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribePermissionsResult
 type DescribePermissionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11044,6 +11010,7 @@ func (s *DescribePermissionsOutput) SetPermissions(v []*Permission) *DescribePer
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeRaidArraysRequest
 type DescribeRaidArraysInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11089,6 +11056,7 @@ func (s *DescribeRaidArraysInput) SetStackId(v string) *DescribeRaidArraysInput 
 }
 
 // Contains the response to a DescribeRaidArrays request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeRaidArraysResult
 type DescribeRaidArraysOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11112,6 +11080,7 @@ func (s *DescribeRaidArraysOutput) SetRaidArrays(v []*RaidArray) *DescribeRaidAr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeRdsDbInstancesRequest
 type DescribeRdsDbInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11161,6 +11130,7 @@ func (s *DescribeRdsDbInstancesInput) SetStackId(v string) *DescribeRdsDbInstanc
 }
 
 // Contains the response to a DescribeRdsDbInstances request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeRdsDbInstancesResult
 type DescribeRdsDbInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11184,6 +11154,7 @@ func (s *DescribeRdsDbInstancesOutput) SetRdsDbInstances(v []*RdsDbInstance) *De
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeServiceErrorsRequest
 type DescribeServiceErrorsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11230,6 +11201,7 @@ func (s *DescribeServiceErrorsInput) SetStackId(v string) *DescribeServiceErrors
 }
 
 // Contains the response to a DescribeServiceErrors request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeServiceErrorsResult
 type DescribeServiceErrorsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11253,6 +11225,7 @@ func (s *DescribeServiceErrorsOutput) SetServiceErrors(v []*ServiceError) *Descr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeStackProvisioningParametersRequest
 type DescribeStackProvisioningParametersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11292,6 +11265,7 @@ func (s *DescribeStackProvisioningParametersInput) SetStackId(v string) *Describ
 }
 
 // Contains the response to a DescribeStackProvisioningParameters request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeStackProvisioningParametersResult
 type DescribeStackProvisioningParametersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11324,6 +11298,7 @@ func (s *DescribeStackProvisioningParametersOutput) SetParameters(v map[string]*
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeStackSummaryRequest
 type DescribeStackSummaryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11363,6 +11338,7 @@ func (s *DescribeStackSummaryInput) SetStackId(v string) *DescribeStackSummaryIn
 }
 
 // Contains the response to a DescribeStackSummary request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeStackSummaryResult
 type DescribeStackSummaryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11386,6 +11362,7 @@ func (s *DescribeStackSummaryOutput) SetStackSummary(v *StackSummary) *DescribeS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeStacksRequest
 type DescribeStacksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11411,6 +11388,7 @@ func (s *DescribeStacksInput) SetStackIds(v []*string) *DescribeStacksInput {
 }
 
 // Contains the response to a DescribeStacks request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeStacksResult
 type DescribeStacksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11434,6 +11412,7 @@ func (s *DescribeStacksOutput) SetStacks(v []*Stack) *DescribeStacksOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeTimeBasedAutoScalingRequest
 type DescribeTimeBasedAutoScalingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11473,6 +11452,7 @@ func (s *DescribeTimeBasedAutoScalingInput) SetInstanceIds(v []*string) *Describ
 }
 
 // Contains the response to a DescribeTimeBasedAutoScaling request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeTimeBasedAutoScalingResult
 type DescribeTimeBasedAutoScalingOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11497,6 +11477,7 @@ func (s *DescribeTimeBasedAutoScalingOutput) SetTimeBasedAutoScalingConfiguratio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeUserProfilesRequest
 type DescribeUserProfilesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11521,6 +11502,7 @@ func (s *DescribeUserProfilesInput) SetIamUserArns(v []*string) *DescribeUserPro
 }
 
 // Contains the response to a DescribeUserProfiles request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeUserProfilesResult
 type DescribeUserProfilesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11544,6 +11526,7 @@ func (s *DescribeUserProfilesOutput) SetUserProfiles(v []*UserProfile) *Describe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeVolumesRequest
 type DescribeVolumesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11599,6 +11582,7 @@ func (s *DescribeVolumesInput) SetVolumeIds(v []*string) *DescribeVolumesInput {
 }
 
 // Contains the response to a DescribeVolumes request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DescribeVolumesResult
 type DescribeVolumesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11622,6 +11606,7 @@ func (s *DescribeVolumesOutput) SetVolumes(v []*Volume) *DescribeVolumesOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DetachElasticLoadBalancerRequest
 type DetachElasticLoadBalancerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11675,6 +11660,7 @@ func (s *DetachElasticLoadBalancerInput) SetLayerId(v string) *DetachElasticLoad
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DetachElasticLoadBalancerOutput
 type DetachElasticLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11689,6 +11675,7 @@ func (s DetachElasticLoadBalancerOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DisassociateElasticIpRequest
 type DisassociateElasticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11727,6 +11714,7 @@ func (s *DisassociateElasticIpInput) SetElasticIp(v string) *DisassociateElastic
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/DisassociateElasticIpOutput
 type DisassociateElasticIpOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11744,6 +11732,7 @@ func (s DisassociateElasticIpOutput) GoString() string {
 // Describes an Amazon EBS volume. This data type maps directly to the Amazon
 // EC2 EbsBlockDevice (http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_EbsBlockDevice.html)
 // data type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/EbsBlockDevice
 type EbsBlockDevice struct {
 	_ struct{} `type:"structure"`
 
@@ -11761,13 +11750,7 @@ type EbsBlockDevice struct {
 	VolumeSize *int64 `type:"integer"`
 
 	// The volume type. gp2 for General Purpose (SSD) volumes, io1 for Provisioned
-	// IOPS (SSD) volumes, st1 for Throughput Optimized hard disk drives (HDD),
-	// sc1 for Cold HDD,and standard for Magnetic volumes.
-	//
-	// If you specify the io1 volume type, you must also specify a value for the
-	// Iops attribute. The maximum ratio of provisioned IOPS to requested volume
-	// size (in GiB) is 50:1. AWS uses the default volume size (in GiB) specified
-	// in the AMI attributes to set IOPS to 50 x (volume size).
+	// IOPS (SSD) volumes, and standard for Magnetic volumes.
 	VolumeType *string `type:"string" enum:"VolumeType"`
 }
 
@@ -11812,6 +11795,7 @@ func (s *EbsBlockDevice) SetVolumeType(v string) *EbsBlockDevice {
 }
 
 // Describes a registered Amazon ECS cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/EcsCluster
 type EcsCluster struct {
 	_ struct{} `type:"structure"`
 
@@ -11863,6 +11847,7 @@ func (s *EcsCluster) SetStackId(v string) *EcsCluster {
 }
 
 // Describes an Elastic IP address.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ElasticIp
 type ElasticIp struct {
 	_ struct{} `type:"structure"`
 
@@ -11923,6 +11908,7 @@ func (s *ElasticIp) SetRegion(v string) *ElasticIp {
 }
 
 // Describes an Elastic Load Balancing instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ElasticLoadBalancer
 type ElasticLoadBalancer struct {
 	_ struct{} `type:"structure"`
 
@@ -12020,6 +12006,7 @@ func (s *ElasticLoadBalancer) SetVpcId(v string) *ElasticLoadBalancer {
 }
 
 // Represents an app's environment variable.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/EnvironmentVariable
 type EnvironmentVariable struct {
 	_ struct{} `type:"structure"`
 
@@ -12089,6 +12076,7 @@ func (s *EnvironmentVariable) SetValue(v string) *EnvironmentVariable {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/GetHostnameSuggestionRequest
 type GetHostnameSuggestionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12128,6 +12116,7 @@ func (s *GetHostnameSuggestionInput) SetLayerId(v string) *GetHostnameSuggestion
 }
 
 // Contains the response to a GetHostnameSuggestion request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/GetHostnameSuggestionResult
 type GetHostnameSuggestionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12160,6 +12149,7 @@ func (s *GetHostnameSuggestionOutput) SetLayerId(v string) *GetHostnameSuggestio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/GrantAccessRequest
 type GrantAccessInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12214,6 +12204,7 @@ func (s *GrantAccessInput) SetValidForInMinutes(v int64) *GrantAccessInput {
 }
 
 // Contains the response to a GrantAccess request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/GrantAccessResult
 type GrantAccessOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12239,6 +12230,7 @@ func (s *GrantAccessOutput) SetTemporaryCredential(v *TemporaryCredential) *Gran
 }
 
 // Describes an instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Instance
 type Instance struct {
 	_ struct{} `type:"structure"`
 
@@ -12666,6 +12658,7 @@ func (s *Instance) SetVirtualizationType(v string) *Instance {
 
 // Contains a description of an Amazon EC2 instance from the Amazon EC2 metadata
 // service. For more information, see Instance Metadata and User Data (http://docs.aws.amazon.com/sdkfornet/latest/apidocs/Index.html).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/InstanceIdentity
 type InstanceIdentity struct {
 	_ struct{} `type:"structure"`
 
@@ -12699,6 +12692,7 @@ func (s *InstanceIdentity) SetSignature(v string) *InstanceIdentity {
 }
 
 // Describes how many instances a stack has for each status.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/InstancesCount
 type InstancesCount struct {
 	_ struct{} `type:"structure"`
 
@@ -12743,8 +12737,6 @@ type InstancesCount struct {
 
 	// The number of instances with start_failed status.
 	StartFailed *int64 `type:"integer"`
-
-	StopFailed *int64 `type:"integer"`
 
 	// The number of instances with stopped status.
 	Stopped *int64 `type:"integer"`
@@ -12856,12 +12848,6 @@ func (s *InstancesCount) SetStartFailed(v int64) *InstancesCount {
 	return s
 }
 
-// SetStopFailed sets the StopFailed field's value.
-func (s *InstancesCount) SetStopFailed(v int64) *InstancesCount {
-	s.StopFailed = &v
-	return s
-}
-
 // SetStopped sets the Stopped field's value.
 func (s *InstancesCount) SetStopped(v int64) *InstancesCount {
 	s.Stopped = &v
@@ -12893,6 +12879,7 @@ func (s *InstancesCount) SetUnassigning(v int64) *InstancesCount {
 }
 
 // Describes a layer.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Layer
 type Layer struct {
 	_ struct{} `type:"structure"`
 
@@ -13143,6 +13130,7 @@ func (s *Layer) SetVolumeConfigurations(v []*VolumeConfiguration) *Layer {
 }
 
 // Specifies the lifecycle event configuration
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/LifecycleEventConfiguration
 type LifecycleEventConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -13166,6 +13154,7 @@ func (s *LifecycleEventConfiguration) SetShutdown(v *ShutdownEventConfiguration)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ListTagsRequest
 type ListTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13225,6 +13214,7 @@ func (s *ListTagsInput) SetResourceArn(v string) *ListTagsInput {
 }
 
 // Contains the response to a ListTags request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ListTagsResult
 type ListTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13262,6 +13252,7 @@ func (s *ListTagsOutput) SetTags(v map[string]*string) *ListTagsOutput {
 }
 
 // Describes a layer's load-based auto scaling configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/LoadBasedAutoScalingConfiguration
 type LoadBasedAutoScalingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -13314,123 +13305,8 @@ func (s *LoadBasedAutoScalingConfiguration) SetUpScaling(v *AutoScalingThreshold
 	return s
 }
 
-// Describes supported operating systems in AWS OpsWorks Stacks.
-type OperatingSystem struct {
-	_ struct{} `type:"structure"`
-
-	// Supported configuration manager name and versions for an AWS OpsWorks Stacks
-	// operating system.
-	ConfigurationManagers []*OperatingSystemConfigurationManager `type:"list"`
-
-	// The ID of a supported operating system, such as Amazon Linux 2017.09.
-	Id *string `type:"string"`
-
-	// The name of the operating system, such as Amazon Linux 2017.09.
-	Name *string `type:"string"`
-
-	// A short name for the operating system manufacturer.
-	ReportedName *string `type:"string"`
-
-	// The version of the operating system, including the release and edition, if
-	// applicable.
-	ReportedVersion *string `type:"string"`
-
-	// Indicates that an operating system is not supported for new instances.
-	Supported *bool `type:"boolean"`
-
-	// The type of a supported operating system, either Linux or Windows.
-	Type *string `type:"string"`
-}
-
-// String returns the string representation
-func (s OperatingSystem) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s OperatingSystem) GoString() string {
-	return s.String()
-}
-
-// SetConfigurationManagers sets the ConfigurationManagers field's value.
-func (s *OperatingSystem) SetConfigurationManagers(v []*OperatingSystemConfigurationManager) *OperatingSystem {
-	s.ConfigurationManagers = v
-	return s
-}
-
-// SetId sets the Id field's value.
-func (s *OperatingSystem) SetId(v string) *OperatingSystem {
-	s.Id = &v
-	return s
-}
-
-// SetName sets the Name field's value.
-func (s *OperatingSystem) SetName(v string) *OperatingSystem {
-	s.Name = &v
-	return s
-}
-
-// SetReportedName sets the ReportedName field's value.
-func (s *OperatingSystem) SetReportedName(v string) *OperatingSystem {
-	s.ReportedName = &v
-	return s
-}
-
-// SetReportedVersion sets the ReportedVersion field's value.
-func (s *OperatingSystem) SetReportedVersion(v string) *OperatingSystem {
-	s.ReportedVersion = &v
-	return s
-}
-
-// SetSupported sets the Supported field's value.
-func (s *OperatingSystem) SetSupported(v bool) *OperatingSystem {
-	s.Supported = &v
-	return s
-}
-
-// SetType sets the Type field's value.
-func (s *OperatingSystem) SetType(v string) *OperatingSystem {
-	s.Type = &v
-	return s
-}
-
-// A block that contains information about the configuration manager (Chef)
-// and the versions of the configuration manager that are supported for an operating
-// system.
-type OperatingSystemConfigurationManager struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the configuration manager, which is Chef.
-	Name *string `type:"string"`
-
-	// The versions of the configuration manager that are supported by an operating
-	// system.
-	Version *string `type:"string"`
-}
-
-// String returns the string representation
-func (s OperatingSystemConfigurationManager) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s OperatingSystemConfigurationManager) GoString() string {
-	return s.String()
-}
-
-// SetName sets the Name field's value.
-func (s *OperatingSystemConfigurationManager) SetName(v string) *OperatingSystemConfigurationManager {
-	s.Name = &v
-	return s
-}
-
-// SetVersion sets the Version field's value.
-func (s *OperatingSystemConfigurationManager) SetVersion(v string) *OperatingSystemConfigurationManager {
-	s.Version = &v
-	return s
-}
-
 // Describes stack or user permissions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Permission
 type Permission struct {
 	_ struct{} `type:"structure"`
 
@@ -13505,6 +13381,7 @@ func (s *Permission) SetStackId(v string) *Permission {
 }
 
 // Describes an instance's RAID array.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RaidArray
 type RaidArray struct {
 	_ struct{} `type:"structure"`
 
@@ -13638,6 +13515,7 @@ func (s *RaidArray) SetVolumeType(v string) *RaidArray {
 }
 
 // Describes an Amazon RDS instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RdsDbInstance
 type RdsDbInstance struct {
 	_ struct{} `type:"structure"`
 
@@ -13736,6 +13614,7 @@ func (s *RdsDbInstance) SetStackId(v string) *RdsDbInstance {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RebootInstanceRequest
 type RebootInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13774,6 +13653,7 @@ func (s *RebootInstanceInput) SetInstanceId(v string) *RebootInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RebootInstanceOutput
 type RebootInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13800,6 +13680,7 @@ func (s RebootInstanceOutput) GoString() string {
 // followed by two colons and the recipe name, which is the recipe's file name
 // without the .rb extension. For example: phpapp2::dbsetup specifies the dbsetup.rb
 // recipe in the repository's phpapp2 folder.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Recipes
 type Recipes struct {
 	_ struct{} `type:"structure"`
 
@@ -13859,6 +13740,7 @@ func (s *Recipes) SetUndeploy(v []*string) *Recipes {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterEcsClusterRequest
 type RegisterEcsClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13912,6 +13794,7 @@ func (s *RegisterEcsClusterInput) SetStackId(v string) *RegisterEcsClusterInput 
 }
 
 // Contains the response to a RegisterEcsCluster request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterEcsClusterResult
 type RegisterEcsClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13935,6 +13818,7 @@ func (s *RegisterEcsClusterOutput) SetEcsClusterArn(v string) *RegisterEcsCluste
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterElasticIpRequest
 type RegisterElasticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13988,6 +13872,7 @@ func (s *RegisterElasticIpInput) SetStackId(v string) *RegisterElasticIpInput {
 }
 
 // Contains the response to a RegisterElasticIp request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterElasticIpResult
 type RegisterElasticIpOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14011,6 +13896,7 @@ func (s *RegisterElasticIpOutput) SetElasticIp(v string) *RegisterElasticIpOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterInstanceRequest
 type RegisterInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14105,6 +13991,7 @@ func (s *RegisterInstanceInput) SetStackId(v string) *RegisterInstanceInput {
 }
 
 // Contains the response to a RegisterInstanceResult request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterInstanceResult
 type RegisterInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14128,6 +14015,7 @@ func (s *RegisterInstanceOutput) SetInstanceId(v string) *RegisterInstanceOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterRdsDbInstanceRequest
 type RegisterRdsDbInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14208,6 +14096,7 @@ func (s *RegisterRdsDbInstanceInput) SetStackId(v string) *RegisterRdsDbInstance
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterRdsDbInstanceOutput
 type RegisterRdsDbInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14222,6 +14111,7 @@ func (s RegisterRdsDbInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterVolumeRequest
 type RegisterVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14270,6 +14160,7 @@ func (s *RegisterVolumeInput) SetStackId(v string) *RegisterVolumeInput {
 }
 
 // Contains the response to a RegisterVolume request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/RegisterVolumeResult
 type RegisterVolumeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14294,6 +14185,7 @@ func (s *RegisterVolumeOutput) SetVolumeId(v string) *RegisterVolumeOutput {
 }
 
 // A registered instance's reported operating system.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ReportedOs
 type ReportedOs struct {
 	_ struct{} `type:"structure"`
 
@@ -14336,6 +14228,7 @@ func (s *ReportedOs) SetVersion(v string) *ReportedOs {
 }
 
 // Describes a user's SSH information.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SelfUserProfile
 type SelfUserProfile struct {
 	_ struct{} `type:"structure"`
 
@@ -14387,6 +14280,7 @@ func (s *SelfUserProfile) SetSshUsername(v string) *SelfUserProfile {
 }
 
 // Describes an AWS OpsWorks Stacks service error.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ServiceError
 type ServiceError struct {
 	_ struct{} `type:"structure"`
 
@@ -14455,6 +14349,7 @@ func (s *ServiceError) SetType(v string) *ServiceError {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SetLoadBasedAutoScalingRequest
 type SetLoadBasedAutoScalingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14534,6 +14429,7 @@ func (s *SetLoadBasedAutoScalingInput) SetUpScaling(v *AutoScalingThresholds) *S
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SetLoadBasedAutoScalingOutput
 type SetLoadBasedAutoScalingOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14548,6 +14444,7 @@ func (s SetLoadBasedAutoScalingOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SetPermissionRequest
 type SetPermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14641,6 +14538,7 @@ func (s *SetPermissionInput) SetStackId(v string) *SetPermissionInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SetPermissionOutput
 type SetPermissionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14655,6 +14553,7 @@ func (s SetPermissionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SetTimeBasedAutoScalingRequest
 type SetTimeBasedAutoScalingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14702,6 +14601,7 @@ func (s *SetTimeBasedAutoScalingInput) SetInstanceId(v string) *SetTimeBasedAuto
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SetTimeBasedAutoScalingOutput
 type SetTimeBasedAutoScalingOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -14717,6 +14617,7 @@ func (s SetTimeBasedAutoScalingOutput) GoString() string {
 }
 
 // The Shutdown event configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/ShutdownEventConfiguration
 type ShutdownEventConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -14754,6 +14655,7 @@ func (s *ShutdownEventConfiguration) SetExecutionTimeout(v int64) *ShutdownEvent
 // Contains the information required to retrieve an app or cookbook from a repository.
 // For more information, see Creating Apps (http://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
 // or Custom Recipes and Cookbooks (http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Source
 type Source struct {
 	_ struct{} `type:"structure"`
 
@@ -14846,6 +14748,7 @@ func (s *Source) SetUsername(v string) *Source {
 }
 
 // Describes an app's SSL configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/SslConfiguration
 type SslConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -14909,6 +14812,7 @@ func (s *SslConfiguration) SetPrivateKey(v string) *SslConfiguration {
 }
 
 // Describes a stack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Stack
 type Stack struct {
 	_ struct{} `type:"structure"`
 
@@ -15142,6 +15046,7 @@ func (s *Stack) SetVpcId(v string) *Stack {
 }
 
 // Describes the configuration manager.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StackConfigurationManager
 type StackConfigurationManager struct {
 	_ struct{} `type:"structure"`
 
@@ -15177,6 +15082,7 @@ func (s *StackConfigurationManager) SetVersion(v string) *StackConfigurationMana
 }
 
 // Summarizes the number of layers, instances, and apps in a stack.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StackSummary
 type StackSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -15245,6 +15151,7 @@ func (s *StackSummary) SetStackId(v string) *StackSummary {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StartInstanceRequest
 type StartInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15283,6 +15190,7 @@ func (s *StartInstanceInput) SetInstanceId(v string) *StartInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StartInstanceOutput
 type StartInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15297,6 +15205,7 @@ func (s StartInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StartStackRequest
 type StartStackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15335,6 +15244,7 @@ func (s *StartStackInput) SetStackId(v string) *StartStackInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StartStackOutput
 type StartStackOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15349,10 +15259,9 @@ func (s StartStackOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StopInstanceRequest
 type StopInstanceInput struct {
 	_ struct{} `type:"structure"`
-
-	Force *bool `type:"boolean"`
 
 	// The instance ID.
 	//
@@ -15383,18 +15292,13 @@ func (s *StopInstanceInput) Validate() error {
 	return nil
 }
 
-// SetForce sets the Force field's value.
-func (s *StopInstanceInput) SetForce(v bool) *StopInstanceInput {
-	s.Force = &v
-	return s
-}
-
 // SetInstanceId sets the InstanceId field's value.
 func (s *StopInstanceInput) SetInstanceId(v string) *StopInstanceInput {
 	s.InstanceId = &v
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StopInstanceOutput
 type StopInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15409,6 +15313,7 @@ func (s StopInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StopStackRequest
 type StopStackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15447,6 +15352,7 @@ func (s *StopStackInput) SetStackId(v string) *StopStackInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/StopStackOutput
 type StopStackOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15461,6 +15367,7 @@ func (s StopStackOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/TagResourceRequest
 type TagResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15529,6 +15436,7 @@ func (s *TagResourceInput) SetTags(v map[string]*string) *TagResourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/TagResourceOutput
 type TagResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15545,6 +15453,7 @@ func (s TagResourceOutput) GoString() string {
 
 // Contains the data needed by RDP clients such as the Microsoft Remote Desktop
 // Connection to log in to the instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/TemporaryCredential
 type TemporaryCredential struct {
 	_ struct{} `type:"structure"`
 
@@ -15599,6 +15508,7 @@ func (s *TemporaryCredential) SetValidForInMinutes(v int64) *TemporaryCredential
 }
 
 // Describes an instance's time-based auto scaling configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/TimeBasedAutoScalingConfiguration
 type TimeBasedAutoScalingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -15631,6 +15541,7 @@ func (s *TimeBasedAutoScalingConfiguration) SetInstanceId(v string) *TimeBasedAu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UnassignInstanceRequest
 type UnassignInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15669,6 +15580,7 @@ func (s *UnassignInstanceInput) SetInstanceId(v string) *UnassignInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UnassignInstanceOutput
 type UnassignInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15683,6 +15595,7 @@ func (s UnassignInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UnassignVolumeRequest
 type UnassignVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15721,6 +15634,7 @@ func (s *UnassignVolumeInput) SetVolumeId(v string) *UnassignVolumeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UnassignVolumeOutput
 type UnassignVolumeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15735,6 +15649,7 @@ func (s UnassignVolumeOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UntagResourceRequest
 type UntagResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15787,6 +15702,7 @@ func (s *UntagResourceInput) SetTagKeys(v []*string) *UntagResourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UntagResourceOutput
 type UntagResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15801,6 +15717,7 @@ func (s UntagResourceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateAppRequest
 type UpdateAppInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15958,6 +15875,7 @@ func (s *UpdateAppInput) SetType(v string) *UpdateAppInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateAppOutput
 type UpdateAppOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -15972,6 +15890,7 @@ func (s UpdateAppOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateElasticIpRequest
 type UpdateElasticIpInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16019,6 +15938,7 @@ func (s *UpdateElasticIpInput) SetName(v string) *UpdateElasticIpInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateElasticIpOutput
 type UpdateElasticIpOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16033,6 +15953,7 @@ func (s UpdateElasticIpOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateInstanceRequest
 type UpdateInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16103,8 +16024,8 @@ type UpdateInstanceInput struct {
 	// You cannot update an instance that is using a custom AMI.
 	//
 	//    * A supported Linux operating system: An Amazon Linux version, such as
-	//    Amazon Linux 2017.09, Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon
-	//    Linux 2016.03, Amazon Linux 2015.09, or Amazon Linux 2015.03.
+	//    Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon Linux 2016.03, Amazon
+	//    Linux 2015.09, or Amazon Linux 2015.03.
 	//
 	//    * A supported Ubuntu operating system, such as Ubuntu 16.04 LTS, Ubuntu
 	//    14.04 LTS, or Ubuntu 12.04 LTS.
@@ -16231,6 +16152,7 @@ func (s *UpdateInstanceInput) SetSshKeyName(v string) *UpdateInstanceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateInstanceOutput
 type UpdateInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16245,6 +16167,7 @@ func (s UpdateInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateLayerRequest
 type UpdateLayerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16458,6 +16381,7 @@ func (s *UpdateLayerInput) SetVolumeConfigurations(v []*VolumeConfiguration) *Up
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateLayerOutput
 type UpdateLayerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16472,6 +16396,7 @@ func (s UpdateLayerOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateMyUserProfileRequest
 type UpdateMyUserProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16495,6 +16420,7 @@ func (s *UpdateMyUserProfileInput) SetSshPublicKey(v string) *UpdateMyUserProfil
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateMyUserProfileOutput
 type UpdateMyUserProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16509,6 +16435,7 @@ func (s UpdateMyUserProfileOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateRdsDbInstanceRequest
 type UpdateRdsDbInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16565,6 +16492,7 @@ func (s *UpdateRdsDbInstanceInput) SetRdsDbInstanceArn(v string) *UpdateRdsDbIns
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateRdsDbInstanceOutput
 type UpdateRdsDbInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16579,6 +16507,7 @@ func (s UpdateRdsDbInstanceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateStackRequest
 type UpdateStackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16645,8 +16574,8 @@ type UpdateStackInput struct {
 	// The stack's operating system, which must be set to one of the following:
 	//
 	//    * A supported Linux operating system: An Amazon Linux version, such as
-	//    Amazon Linux 2017.09, Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon
-	//    Linux 2016.03, Amazon Linux 2015.09, or Amazon Linux 2015.03.
+	//    Amazon Linux 2017.03, Amazon Linux 2016.09, Amazon Linux 2016.03, Amazon
+	//    Linux 2015.09, or Amazon Linux 2015.03.
 	//
 	//    * A supported Ubuntu operating system, such as Ubuntu 16.04 LTS, Ubuntu
 	//    14.04 LTS, or Ubuntu 12.04 LTS.
@@ -16890,6 +16819,7 @@ func (s *UpdateStackInput) SetUseOpsworksSecurityGroups(v bool) *UpdateStackInpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateStackOutput
 type UpdateStackOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16904,6 +16834,7 @@ func (s UpdateStackOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateUserProfileRequest
 type UpdateUserProfileInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16974,6 +16905,7 @@ func (s *UpdateUserProfileInput) SetSshUsername(v string) *UpdateUserProfileInpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateUserProfileOutput
 type UpdateUserProfileOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16988,6 +16920,7 @@ func (s UpdateUserProfileOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateVolumeRequest
 type UpdateVolumeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17044,6 +16977,7 @@ func (s *UpdateVolumeInput) SetVolumeId(v string) *UpdateVolumeInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UpdateVolumeOutput
 type UpdateVolumeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17059,6 +16993,7 @@ func (s UpdateVolumeOutput) GoString() string {
 }
 
 // Describes a user's SSH information.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/UserProfile
 type UserProfile struct {
 	_ struct{} `type:"structure"`
 
@@ -17120,6 +17055,7 @@ func (s *UserProfile) SetSshUsername(v string) *UserProfile {
 }
 
 // Describes an instance's Amazon EBS volume.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/Volume
 type Volume struct {
 	_ struct{} `type:"structure"`
 
@@ -17132,8 +17068,6 @@ type Volume struct {
 
 	// The Amazon EC2 volume ID.
 	Ec2VolumeId *string `type:"string"`
-
-	Encrypted *bool `type:"boolean"`
 
 	// The instance ID.
 	InstanceId *string `type:"string"`
@@ -17192,12 +17126,6 @@ func (s *Volume) SetDevice(v string) *Volume {
 // SetEc2VolumeId sets the Ec2VolumeId field's value.
 func (s *Volume) SetEc2VolumeId(v string) *Volume {
 	s.Ec2VolumeId = &v
-	return s
-}
-
-// SetEncrypted sets the Encrypted field's value.
-func (s *Volume) SetEncrypted(v bool) *Volume {
-	s.Encrypted = &v
 	return s
 }
 
@@ -17262,12 +17190,9 @@ func (s *Volume) SetVolumeType(v string) *Volume {
 }
 
 // Describes an Amazon EBS volume configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/VolumeConfiguration
 type VolumeConfiguration struct {
 	_ struct{} `type:"structure"`
-
-	// Specifies whether an Amazon EBS volume is encrypted. For more information,
-	// see Amazon EBS Encryption (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
-	Encrypted *bool `type:"boolean"`
 
 	// For PIOPS volumes, the IOPS per disk.
 	Iops *int64 `type:"integer"`
@@ -17290,17 +17215,13 @@ type VolumeConfiguration struct {
 	// Size is a required field
 	Size *int64 `type:"integer" required:"true"`
 
-	// The volume type. For more information, see  Amazon EBS Volume Types (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+	// The volume type:
 	//
 	//    * standard - Magnetic
 	//
 	//    * io1 - Provisioned IOPS (SSD)
 	//
 	//    * gp2 - General Purpose (SSD)
-	//
-	//    * st1 - Throughput Optimized hard disk drive (HDD)
-	//
-	//    * sc1 - Cold HDD
 	VolumeType *string `type:"string"`
 }
 
@@ -17331,12 +17252,6 @@ func (s *VolumeConfiguration) Validate() error {
 		return invalidParams
 	}
 	return nil
-}
-
-// SetEncrypted sets the Encrypted field's value.
-func (s *VolumeConfiguration) SetEncrypted(v bool) *VolumeConfiguration {
-	s.Encrypted = &v
-	return s
 }
 
 // SetIops sets the Iops field's value.
@@ -17393,6 +17308,7 @@ func (s *VolumeConfiguration) SetVolumeType(v string) *VolumeConfiguration {
 // hours, from UTC 1200 - 1600. It will be off for the remainder of the day.
 //
 // { "12":"on", "13":"on", "14":"on", "15":"on" }
+// See also, https://docs.aws.amazon.com/goto/WebAPI/opsworks-2013-02-18/WeeklyAutoScalingSchedule
 type WeeklyAutoScalingSchedule struct {
 	_ struct{} `type:"structure"`
 

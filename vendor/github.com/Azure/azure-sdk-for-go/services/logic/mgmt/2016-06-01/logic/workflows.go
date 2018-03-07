@@ -18,7 +18,6 @@ package logic
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // WorkflowsClient is the REST API for Azure Logic Apps.
 type WorkflowsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewWorkflowsClient creates an instance of the WorkflowsClient client.
@@ -42,8 +41,8 @@ func NewWorkflowsClientWithBaseURI(baseURI string, subscriptionID string) Workfl
 // CreateOrUpdate creates or updates a workflow.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name. workflow is the workflow.
-func (client WorkflowsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workflowName string, workflow Workflow) (result Workflow, err error) {
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, workflowName, workflow)
+func (client WorkflowsClient) CreateOrUpdate(resourceGroupName string, workflowName string, workflow Workflow) (result Workflow, err error) {
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, workflowName, workflow)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client WorkflowsClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client WorkflowsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, workflowName string, workflow Workflow) (*http.Request, error) {
+func (client WorkflowsClient) CreateOrUpdatePreparer(resourceGroupName string, workflowName string, workflow Workflow) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -84,13 +83,14 @@ func (client WorkflowsClient) CreateOrUpdatePreparer(ctx context.Context, resour
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}", pathParameters),
 		autorest.WithJSON(workflow),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -110,8 +110,8 @@ func (client WorkflowsClient) CreateOrUpdateResponder(resp *http.Response) (resu
 // Delete deletes a workflow.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name.
-func (client WorkflowsClient) Delete(ctx context.Context, resourceGroupName string, workflowName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, workflowName)
+func (client WorkflowsClient) Delete(resourceGroupName string, workflowName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, workflowName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -133,7 +133,7 @@ func (client WorkflowsClient) Delete(ctx context.Context, resourceGroupName stri
 }
 
 // DeletePreparer prepares the Delete request.
-func (client WorkflowsClient) DeletePreparer(ctx context.Context, resourceGroupName string, workflowName string) (*http.Request, error) {
+func (client WorkflowsClient) DeletePreparer(resourceGroupName string, workflowName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -150,13 +150,14 @@ func (client WorkflowsClient) DeletePreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -175,8 +176,8 @@ func (client WorkflowsClient) DeleteResponder(resp *http.Response) (result autor
 // Disable disables a workflow.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name.
-func (client WorkflowsClient) Disable(ctx context.Context, resourceGroupName string, workflowName string) (result autorest.Response, err error) {
-	req, err := client.DisablePreparer(ctx, resourceGroupName, workflowName)
+func (client WorkflowsClient) Disable(resourceGroupName string, workflowName string) (result autorest.Response, err error) {
+	req, err := client.DisablePreparer(resourceGroupName, workflowName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "Disable", nil, "Failure preparing request")
 		return
@@ -198,7 +199,7 @@ func (client WorkflowsClient) Disable(ctx context.Context, resourceGroupName str
 }
 
 // DisablePreparer prepares the Disable request.
-func (client WorkflowsClient) DisablePreparer(ctx context.Context, resourceGroupName string, workflowName string) (*http.Request, error) {
+func (client WorkflowsClient) DisablePreparer(resourceGroupName string, workflowName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -215,13 +216,14 @@ func (client WorkflowsClient) DisablePreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/disable", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DisableSender sends the Disable request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) DisableSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -240,8 +242,8 @@ func (client WorkflowsClient) DisableResponder(resp *http.Response) (result auto
 // Enable enables a workflow.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name.
-func (client WorkflowsClient) Enable(ctx context.Context, resourceGroupName string, workflowName string) (result autorest.Response, err error) {
-	req, err := client.EnablePreparer(ctx, resourceGroupName, workflowName)
+func (client WorkflowsClient) Enable(resourceGroupName string, workflowName string) (result autorest.Response, err error) {
+	req, err := client.EnablePreparer(resourceGroupName, workflowName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "Enable", nil, "Failure preparing request")
 		return
@@ -263,7 +265,7 @@ func (client WorkflowsClient) Enable(ctx context.Context, resourceGroupName stri
 }
 
 // EnablePreparer prepares the Enable request.
-func (client WorkflowsClient) EnablePreparer(ctx context.Context, resourceGroupName string, workflowName string) (*http.Request, error) {
+func (client WorkflowsClient) EnablePreparer(resourceGroupName string, workflowName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -280,13 +282,14 @@ func (client WorkflowsClient) EnablePreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/enable", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // EnableSender sends the Enable request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) EnableSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -306,8 +309,8 @@ func (client WorkflowsClient) EnableResponder(resp *http.Response) (result autor
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name. parameters is parameters for
 // generating an upgraded definition.
-func (client WorkflowsClient) GenerateUpgradedDefinition(ctx context.Context, resourceGroupName string, workflowName string, parameters GenerateUpgradedDefinitionParameters) (result SetObject, err error) {
-	req, err := client.GenerateUpgradedDefinitionPreparer(ctx, resourceGroupName, workflowName, parameters)
+func (client WorkflowsClient) GenerateUpgradedDefinition(resourceGroupName string, workflowName string, parameters GenerateUpgradedDefinitionParameters) (result SetObject, err error) {
+	req, err := client.GenerateUpgradedDefinitionPreparer(resourceGroupName, workflowName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "GenerateUpgradedDefinition", nil, "Failure preparing request")
 		return
@@ -329,7 +332,7 @@ func (client WorkflowsClient) GenerateUpgradedDefinition(ctx context.Context, re
 }
 
 // GenerateUpgradedDefinitionPreparer prepares the GenerateUpgradedDefinition request.
-func (client WorkflowsClient) GenerateUpgradedDefinitionPreparer(ctx context.Context, resourceGroupName string, workflowName string, parameters GenerateUpgradedDefinitionParameters) (*http.Request, error) {
+func (client WorkflowsClient) GenerateUpgradedDefinitionPreparer(resourceGroupName string, workflowName string, parameters GenerateUpgradedDefinitionParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -348,13 +351,14 @@ func (client WorkflowsClient) GenerateUpgradedDefinitionPreparer(ctx context.Con
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/generateUpgradedDefinition", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GenerateUpgradedDefinitionSender sends the GenerateUpgradedDefinition request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) GenerateUpgradedDefinitionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -374,8 +378,8 @@ func (client WorkflowsClient) GenerateUpgradedDefinitionResponder(resp *http.Res
 // Get gets a workflow.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name.
-func (client WorkflowsClient) Get(ctx context.Context, resourceGroupName string, workflowName string) (result Workflow, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, workflowName)
+func (client WorkflowsClient) Get(resourceGroupName string, workflowName string) (result Workflow, err error) {
+	req, err := client.GetPreparer(resourceGroupName, workflowName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "Get", nil, "Failure preparing request")
 		return
@@ -397,7 +401,7 @@ func (client WorkflowsClient) Get(ctx context.Context, resourceGroupName string,
 }
 
 // GetPreparer prepares the Get request.
-func (client WorkflowsClient) GetPreparer(ctx context.Context, resourceGroupName string, workflowName string) (*http.Request, error) {
+func (client WorkflowsClient) GetPreparer(resourceGroupName string, workflowName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -414,13 +418,14 @@ func (client WorkflowsClient) GetPreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -441,9 +446,8 @@ func (client WorkflowsClient) GetResponder(resp *http.Response) (result Workflow
 //
 // resourceGroupName is the resource group name. top is the number of items to be included in the result. filter is the
 // filter to apply on the operation.
-func (client WorkflowsClient) ListByResourceGroup(ctx context.Context, resourceGroupName string, top *int32, filter string) (result WorkflowListResultPage, err error) {
-	result.fn = client.listByResourceGroupNextResults
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName, top, filter)
+func (client WorkflowsClient) ListByResourceGroup(resourceGroupName string, top *int32, filter string) (result WorkflowListResult, err error) {
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName, top, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -451,12 +455,12 @@ func (client WorkflowsClient) ListByResourceGroup(ctx context.Context, resourceG
 
 	resp, err := client.ListByResourceGroupSender(req)
 	if err != nil {
-		result.wlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListByResourceGroup", resp, "Failure sending request")
 		return
 	}
 
-	result.wlr, err = client.ListByResourceGroupResponder(resp)
+	result, err = client.ListByResourceGroupResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListByResourceGroup", resp, "Failure responding to request")
 	}
@@ -465,7 +469,7 @@ func (client WorkflowsClient) ListByResourceGroup(ctx context.Context, resourceG
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client WorkflowsClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string, top *int32, filter string) (*http.Request, error) {
+func (client WorkflowsClient) ListByResourceGroupPreparer(resourceGroupName string, top *int32, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -487,13 +491,14 @@ func (client WorkflowsClient) ListByResourceGroupPreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -510,39 +515,80 @@ func (client WorkflowsClient) ListByResourceGroupResponder(resp *http.Response) 
 	return
 }
 
-// listByResourceGroupNextResults retrieves the next set of results, if any.
-func (client WorkflowsClient) listByResourceGroupNextResults(lastResults WorkflowListResult) (result WorkflowListResult, err error) {
-	req, err := lastResults.workflowListResultPreparer()
+// ListByResourceGroupNextResults retrieves the next set of results, if any.
+func (client WorkflowsClient) ListByResourceGroupNextResults(lastResults WorkflowListResult) (result WorkflowListResult, err error) {
+	req, err := lastResults.WorkflowListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "listByResourceGroupNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListByResourceGroup", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByResourceGroupSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "listByResourceGroupNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListByResourceGroup", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByResourceGroupResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "listByResourceGroupNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListByResourceGroup", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByResourceGroupComplete enumerates all values, automatically crossing page boundaries as required.
-func (client WorkflowsClient) ListByResourceGroupComplete(ctx context.Context, resourceGroupName string, top *int32, filter string) (result WorkflowListResultIterator, err error) {
-	result.page, err = client.ListByResourceGroup(ctx, resourceGroupName, top, filter)
-	return
+// ListByResourceGroupComplete gets all elements from the list without paging.
+func (client WorkflowsClient) ListByResourceGroupComplete(resourceGroupName string, top *int32, filter string, cancel <-chan struct{}) (<-chan Workflow, <-chan error) {
+	resultChan := make(chan Workflow)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByResourceGroup(resourceGroupName, top, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByResourceGroupNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListBySubscription gets a list of workflows by subscription.
 //
 // top is the number of items to be included in the result. filter is the filter to apply on the operation.
-func (client WorkflowsClient) ListBySubscription(ctx context.Context, top *int32, filter string) (result WorkflowListResultPage, err error) {
-	result.fn = client.listBySubscriptionNextResults
-	req, err := client.ListBySubscriptionPreparer(ctx, top, filter)
+func (client WorkflowsClient) ListBySubscription(top *int32, filter string) (result WorkflowListResult, err error) {
+	req, err := client.ListBySubscriptionPreparer(top, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListBySubscription", nil, "Failure preparing request")
 		return
@@ -550,12 +596,12 @@ func (client WorkflowsClient) ListBySubscription(ctx context.Context, top *int32
 
 	resp, err := client.ListBySubscriptionSender(req)
 	if err != nil {
-		result.wlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListBySubscription", resp, "Failure sending request")
 		return
 	}
 
-	result.wlr, err = client.ListBySubscriptionResponder(resp)
+	result, err = client.ListBySubscriptionResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListBySubscription", resp, "Failure responding to request")
 	}
@@ -564,7 +610,7 @@ func (client WorkflowsClient) ListBySubscription(ctx context.Context, top *int32
 }
 
 // ListBySubscriptionPreparer prepares the ListBySubscription request.
-func (client WorkflowsClient) ListBySubscriptionPreparer(ctx context.Context, top *int32, filter string) (*http.Request, error) {
+func (client WorkflowsClient) ListBySubscriptionPreparer(top *int32, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -585,13 +631,14 @@ func (client WorkflowsClient) ListBySubscriptionPreparer(ctx context.Context, to
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Logic/workflows", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListBySubscriptionSender sends the ListBySubscription request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) ListBySubscriptionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -608,38 +655,80 @@ func (client WorkflowsClient) ListBySubscriptionResponder(resp *http.Response) (
 	return
 }
 
-// listBySubscriptionNextResults retrieves the next set of results, if any.
-func (client WorkflowsClient) listBySubscriptionNextResults(lastResults WorkflowListResult) (result WorkflowListResult, err error) {
-	req, err := lastResults.workflowListResultPreparer()
+// ListBySubscriptionNextResults retrieves the next set of results, if any.
+func (client WorkflowsClient) ListBySubscriptionNextResults(lastResults WorkflowListResult) (result WorkflowListResult, err error) {
+	req, err := lastResults.WorkflowListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "listBySubscriptionNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListBySubscription", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListBySubscriptionSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "listBySubscriptionNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListBySubscription", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListBySubscriptionResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "listBySubscriptionNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListBySubscription", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListBySubscriptionComplete enumerates all values, automatically crossing page boundaries as required.
-func (client WorkflowsClient) ListBySubscriptionComplete(ctx context.Context, top *int32, filter string) (result WorkflowListResultIterator, err error) {
-	result.page, err = client.ListBySubscription(ctx, top, filter)
-	return
+// ListBySubscriptionComplete gets all elements from the list without paging.
+func (client WorkflowsClient) ListBySubscriptionComplete(top *int32, filter string, cancel <-chan struct{}) (<-chan Workflow, <-chan error) {
+	resultChan := make(chan Workflow)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListBySubscription(top, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListBySubscriptionNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListSwagger gets an OpenAPI definition for the workflow.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name.
-func (client WorkflowsClient) ListSwagger(ctx context.Context, resourceGroupName string, workflowName string) (result SetObject, err error) {
-	req, err := client.ListSwaggerPreparer(ctx, resourceGroupName, workflowName)
+func (client WorkflowsClient) ListSwagger(resourceGroupName string, workflowName string) (result SetObject, err error) {
+	req, err := client.ListSwaggerPreparer(resourceGroupName, workflowName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "ListSwagger", nil, "Failure preparing request")
 		return
@@ -661,7 +750,7 @@ func (client WorkflowsClient) ListSwagger(ctx context.Context, resourceGroupName
 }
 
 // ListSwaggerPreparer prepares the ListSwagger request.
-func (client WorkflowsClient) ListSwaggerPreparer(ctx context.Context, resourceGroupName string, workflowName string) (*http.Request, error) {
+func (client WorkflowsClient) ListSwaggerPreparer(resourceGroupName string, workflowName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -678,13 +767,14 @@ func (client WorkflowsClient) ListSwaggerPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/listSwagger", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSwaggerSender sends the ListSwagger request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) ListSwaggerSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -704,8 +794,8 @@ func (client WorkflowsClient) ListSwaggerResponder(resp *http.Response) (result 
 // RegenerateAccessKey regenerates the callback URL access key for request triggers.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name. keyType is the access key type.
-func (client WorkflowsClient) RegenerateAccessKey(ctx context.Context, resourceGroupName string, workflowName string, keyType RegenerateActionParameter) (result autorest.Response, err error) {
-	req, err := client.RegenerateAccessKeyPreparer(ctx, resourceGroupName, workflowName, keyType)
+func (client WorkflowsClient) RegenerateAccessKey(resourceGroupName string, workflowName string, keyType RegenerateActionParameter) (result autorest.Response, err error) {
+	req, err := client.RegenerateAccessKeyPreparer(resourceGroupName, workflowName, keyType)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "RegenerateAccessKey", nil, "Failure preparing request")
 		return
@@ -727,7 +817,7 @@ func (client WorkflowsClient) RegenerateAccessKey(ctx context.Context, resourceG
 }
 
 // RegenerateAccessKeyPreparer prepares the RegenerateAccessKey request.
-func (client WorkflowsClient) RegenerateAccessKeyPreparer(ctx context.Context, resourceGroupName string, workflowName string, keyType RegenerateActionParameter) (*http.Request, error) {
+func (client WorkflowsClient) RegenerateAccessKeyPreparer(resourceGroupName string, workflowName string, keyType RegenerateActionParameter) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -746,13 +836,14 @@ func (client WorkflowsClient) RegenerateAccessKeyPreparer(ctx context.Context, r
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/regenerateAccessKey", pathParameters),
 		autorest.WithJSON(keyType),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegenerateAccessKeySender sends the RegenerateAccessKey request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) RegenerateAccessKeySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -771,8 +862,8 @@ func (client WorkflowsClient) RegenerateAccessKeyResponder(resp *http.Response) 
 // Update updates a workflow.
 //
 // resourceGroupName is the resource group name. workflowName is the workflow name. workflow is the workflow.
-func (client WorkflowsClient) Update(ctx context.Context, resourceGroupName string, workflowName string, workflow Workflow) (result Workflow, err error) {
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, workflowName, workflow)
+func (client WorkflowsClient) Update(resourceGroupName string, workflowName string, workflow Workflow) (result Workflow, err error) {
+	req, err := client.UpdatePreparer(resourceGroupName, workflowName, workflow)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "Update", nil, "Failure preparing request")
 		return
@@ -794,7 +885,7 @@ func (client WorkflowsClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // UpdatePreparer prepares the Update request.
-func (client WorkflowsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, workflowName string, workflow Workflow) (*http.Request, error) {
+func (client WorkflowsClient) UpdatePreparer(resourceGroupName string, workflowName string, workflow Workflow) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -813,13 +904,14 @@ func (client WorkflowsClient) UpdatePreparer(ctx context.Context, resourceGroupN
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}", pathParameters),
 		autorest.WithJSON(workflow),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -840,8 +932,8 @@ func (client WorkflowsClient) UpdateResponder(resp *http.Response) (result Workf
 //
 // resourceGroupName is the resource group name. location is the workflow location. workflowName is the workflow name.
 // workflow is the workflow definition.
-func (client WorkflowsClient) Validate(ctx context.Context, resourceGroupName string, location string, workflowName string, workflow Workflow) (result autorest.Response, err error) {
-	req, err := client.ValidatePreparer(ctx, resourceGroupName, location, workflowName, workflow)
+func (client WorkflowsClient) Validate(resourceGroupName string, location string, workflowName string, workflow Workflow) (result autorest.Response, err error) {
+	req, err := client.ValidatePreparer(resourceGroupName, location, workflowName, workflow)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.WorkflowsClient", "Validate", nil, "Failure preparing request")
 		return
@@ -863,7 +955,7 @@ func (client WorkflowsClient) Validate(ctx context.Context, resourceGroupName st
 }
 
 // ValidatePreparer prepares the Validate request.
-func (client WorkflowsClient) ValidatePreparer(ctx context.Context, resourceGroupName string, location string, workflowName string, workflow Workflow) (*http.Request, error) {
+func (client WorkflowsClient) ValidatePreparer(resourceGroupName string, location string, workflowName string, workflow Workflow) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"location":          autorest.Encode("path", location),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -883,13 +975,14 @@ func (client WorkflowsClient) ValidatePreparer(ctx context.Context, resourceGrou
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/locations/{location}/workflows/{workflowName}/validate", pathParameters),
 		autorest.WithJSON(workflow),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ValidateSender sends the Validate request. The method will close the
 // http.Response Body if it receives an error.
 func (client WorkflowsClient) ValidateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

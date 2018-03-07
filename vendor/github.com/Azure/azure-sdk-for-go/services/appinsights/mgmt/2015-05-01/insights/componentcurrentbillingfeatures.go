@@ -18,7 +18,6 @@ package insights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ComponentCurrentBillingFeaturesClient is the composite Swagger for Application Insights Management Client
 type ComponentCurrentBillingFeaturesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewComponentCurrentBillingFeaturesClient creates an instance of the ComponentCurrentBillingFeaturesClient client.
@@ -44,8 +43,8 @@ func NewComponentCurrentBillingFeaturesClientWithBaseURI(baseURI string, subscri
 //
 // resourceGroupName is the name of the resource group. resourceName is the name of the Application Insights component
 // resource.
-func (client ComponentCurrentBillingFeaturesClient) Get(ctx context.Context, resourceGroupName string, resourceName string) (result ApplicationInsightsComponentBillingFeatures, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, resourceName)
+func (client ComponentCurrentBillingFeaturesClient) Get(resourceGroupName string, resourceName string) (result ApplicationInsightsComponentBillingFeatures, err error) {
+	req, err := client.GetPreparer(resourceGroupName, resourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "insights.ComponentCurrentBillingFeaturesClient", "Get", nil, "Failure preparing request")
 		return
@@ -67,7 +66,7 @@ func (client ComponentCurrentBillingFeaturesClient) Get(ctx context.Context, res
 }
 
 // GetPreparer prepares the Get request.
-func (client ComponentCurrentBillingFeaturesClient) GetPreparer(ctx context.Context, resourceGroupName string, resourceName string) (*http.Request, error) {
+func (client ComponentCurrentBillingFeaturesClient) GetPreparer(resourceGroupName string, resourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"resourceName":      autorest.Encode("path", resourceName),
@@ -84,13 +83,14 @@ func (client ComponentCurrentBillingFeaturesClient) GetPreparer(ctx context.Cont
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{resourceName}/currentbillingfeatures", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ComponentCurrentBillingFeaturesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -112,8 +112,8 @@ func (client ComponentCurrentBillingFeaturesClient) GetResponder(resp *http.Resp
 // resourceGroupName is the name of the resource group. resourceName is the name of the Application Insights component
 // resource. billingFeaturesProperties is properties that need to be specified to update billing features for an
 // Application Insights component.
-func (client ComponentCurrentBillingFeaturesClient) Update(ctx context.Context, resourceGroupName string, resourceName string, billingFeaturesProperties ApplicationInsightsComponentBillingFeatures) (result ApplicationInsightsComponentBillingFeatures, err error) {
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, resourceName, billingFeaturesProperties)
+func (client ComponentCurrentBillingFeaturesClient) Update(resourceGroupName string, resourceName string, billingFeaturesProperties ApplicationInsightsComponentBillingFeatures) (result ApplicationInsightsComponentBillingFeatures, err error) {
+	req, err := client.UpdatePreparer(resourceGroupName, resourceName, billingFeaturesProperties)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "insights.ComponentCurrentBillingFeaturesClient", "Update", nil, "Failure preparing request")
 		return
@@ -135,7 +135,7 @@ func (client ComponentCurrentBillingFeaturesClient) Update(ctx context.Context, 
 }
 
 // UpdatePreparer prepares the Update request.
-func (client ComponentCurrentBillingFeaturesClient) UpdatePreparer(ctx context.Context, resourceGroupName string, resourceName string, billingFeaturesProperties ApplicationInsightsComponentBillingFeatures) (*http.Request, error) {
+func (client ComponentCurrentBillingFeaturesClient) UpdatePreparer(resourceGroupName string, resourceName string, billingFeaturesProperties ApplicationInsightsComponentBillingFeatures) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"resourceName":      autorest.Encode("path", resourceName),
@@ -154,13 +154,14 @@ func (client ComponentCurrentBillingFeaturesClient) UpdatePreparer(ctx context.C
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{resourceName}/currentbillingfeatures", pathParameters),
 		autorest.WithJSON(billingFeaturesProperties),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client ComponentCurrentBillingFeaturesClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

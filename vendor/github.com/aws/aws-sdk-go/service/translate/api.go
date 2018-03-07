@@ -118,6 +118,7 @@ func (c *Translate) TextWithContext(ctx aws.Context, input *TextInput, opts ...r
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TextRequest
 type TextInput struct {
 	_ struct{} `type:"structure"`
 
@@ -195,6 +196,7 @@ func (s *TextInput) SetText(v string) *TextInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TextResponse
 type TextOutput struct {
 	_ struct{} `type:"structure"`
 

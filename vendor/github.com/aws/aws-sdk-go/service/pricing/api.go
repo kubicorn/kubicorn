@@ -464,6 +464,7 @@ func (c *Pricing) GetProductsPagesWithContext(ctx aws.Context, input *GetProduct
 
 // The values of a given attribute, such as Throughput Optimized HDD or Provisioned
 // IOPS for the Amazon EC2volumeType attribute.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/AttributeValue
 type AttributeValue struct {
 	_ struct{} `type:"structure"`
 
@@ -487,6 +488,7 @@ func (s *AttributeValue) SetValue(v string) *AttributeValue {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServicesRequest
 type DescribeServicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -555,6 +557,7 @@ func (s *DescribeServicesInput) SetServiceCode(v string) *DescribeServicesInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServicesResponse
 type DescribeServicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -597,6 +600,7 @@ func (s *DescribeServicesOutput) SetServices(v []*Service) *DescribeServicesOutp
 }
 
 // The constraints that you want all returned products to match.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/Filter
 type Filter struct {
 	_ struct{} `type:"structure"`
 
@@ -678,6 +682,7 @@ func (s *Filter) SetValue(v string) *Filter {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValuesRequest
 type GetAttributeValuesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -754,6 +759,7 @@ func (s *GetAttributeValuesInput) SetServiceCode(v string) *GetAttributeValuesIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValuesResponse
 type GetAttributeValuesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -787,6 +793,7 @@ func (s *GetAttributeValuesOutput) SetNextToken(v string) *GetAttributeValuesOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProductsRequest
 type GetProductsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -873,6 +880,7 @@ func (s *GetProductsInput) SetServiceCode(v string) *GetProductsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProductsResponse
 type GetProductsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -917,6 +925,7 @@ func (s *GetProductsOutput) SetPriceList(v []aws.JSONValue) *GetProductsOutput {
 
 // The metadata for a service, such as the service code and available attribute
 // names.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/Service
 type Service struct {
 	_ struct{} `type:"structure"`
 

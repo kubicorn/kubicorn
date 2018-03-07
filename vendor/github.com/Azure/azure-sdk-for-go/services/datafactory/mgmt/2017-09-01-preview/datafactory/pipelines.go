@@ -18,7 +18,6 @@ package datafactory
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -28,7 +27,7 @@ import (
 // PipelinesClient is the the Azure Data Factory V2 management API provides a RESTful set of web services that interact
 // with Azure Data Factory V2 services.
 type PipelinesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPipelinesClient creates an instance of the PipelinesClient client.
@@ -46,7 +45,7 @@ func NewPipelinesClientWithBaseURI(baseURI string, subscriptionID string) Pipeli
 // resourceGroupName is the resource group name. factoryName is the factory name. pipelineName is the pipeline name.
 // pipeline is pipeline resource definition. ifMatch is eTag of the pipeline entity.  Should only be specified for
 // update, for which it should match existing entity or can be * for unconditional update.
-func (client PipelinesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string, pipeline PipelineResource, ifMatch string) (result PipelineResource, err error) {
+func (client PipelinesClient) CreateOrUpdate(resourceGroupName string, factoryName string, pipelineName string, pipeline PipelineResource, ifMatch string) (result PipelineResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -68,7 +67,7 @@ func (client PipelinesClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 		return result, validation.NewErrorWithValidationError(err, "datafactory.PipelinesClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, factoryName, pipelineName, pipeline, ifMatch)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, factoryName, pipelineName, pipeline, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -90,7 +89,7 @@ func (client PipelinesClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client PipelinesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string, pipeline PipelineResource, ifMatch string) (*http.Request, error) {
+func (client PipelinesClient) CreateOrUpdatePreparer(resourceGroupName string, factoryName string, pipelineName string, pipeline PipelineResource, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"factoryName":       autorest.Encode("path", factoryName),
 		"pipelineName":      autorest.Encode("path", pipelineName),
@@ -114,13 +113,14 @@ func (client PipelinesClient) CreateOrUpdatePreparer(ctx context.Context, resour
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("If-Match", autorest.String(ifMatch)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client PipelinesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -141,7 +141,7 @@ func (client PipelinesClient) CreateOrUpdateResponder(resp *http.Response) (resu
 //
 // resourceGroupName is the resource group name. factoryName is the factory name. pipelineName is the pipeline name.
 // parameters is parameters of the pipeline run.
-func (client PipelinesClient) CreateRun(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string, parameters map[string]*map[string]interface{}) (result CreateRunResponse, err error) {
+func (client PipelinesClient) CreateRun(resourceGroupName string, factoryName string, pipelineName string, parameters map[string]*map[string]interface{}) (result CreateRunResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -158,7 +158,7 @@ func (client PipelinesClient) CreateRun(ctx context.Context, resourceGroupName s
 		return result, validation.NewErrorWithValidationError(err, "datafactory.PipelinesClient", "CreateRun")
 	}
 
-	req, err := client.CreateRunPreparer(ctx, resourceGroupName, factoryName, pipelineName, parameters)
+	req, err := client.CreateRunPreparer(resourceGroupName, factoryName, pipelineName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "CreateRun", nil, "Failure preparing request")
 		return
@@ -180,7 +180,7 @@ func (client PipelinesClient) CreateRun(ctx context.Context, resourceGroupName s
 }
 
 // CreateRunPreparer prepares the CreateRun request.
-func (client PipelinesClient) CreateRunPreparer(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string, parameters map[string]*map[string]interface{}) (*http.Request, error) {
+func (client PipelinesClient) CreateRunPreparer(resourceGroupName string, factoryName string, pipelineName string, parameters map[string]*map[string]interface{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"factoryName":       autorest.Encode("path", factoryName),
 		"pipelineName":      autorest.Encode("path", pipelineName),
@@ -203,13 +203,14 @@ func (client PipelinesClient) CreateRunPreparer(ctx context.Context, resourceGro
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithJSON(parameters))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateRunSender sends the CreateRun request. The method will close the
 // http.Response Body if it receives an error.
 func (client PipelinesClient) CreateRunSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -229,7 +230,7 @@ func (client PipelinesClient) CreateRunResponder(resp *http.Response) (result Cr
 // Delete deletes a pipeline.
 //
 // resourceGroupName is the resource group name. factoryName is the factory name. pipelineName is the pipeline name.
-func (client PipelinesClient) Delete(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string) (result autorest.Response, err error) {
+func (client PipelinesClient) Delete(resourceGroupName string, factoryName string, pipelineName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -246,7 +247,7 @@ func (client PipelinesClient) Delete(ctx context.Context, resourceGroupName stri
 		return result, validation.NewErrorWithValidationError(err, "datafactory.PipelinesClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, factoryName, pipelineName)
+	req, err := client.DeletePreparer(resourceGroupName, factoryName, pipelineName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "Delete", nil, "Failure preparing request")
 		return
@@ -268,7 +269,7 @@ func (client PipelinesClient) Delete(ctx context.Context, resourceGroupName stri
 }
 
 // DeletePreparer prepares the Delete request.
-func (client PipelinesClient) DeletePreparer(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string) (*http.Request, error) {
+func (client PipelinesClient) DeletePreparer(resourceGroupName string, factoryName string, pipelineName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"factoryName":       autorest.Encode("path", factoryName),
 		"pipelineName":      autorest.Encode("path", pipelineName),
@@ -286,13 +287,14 @@ func (client PipelinesClient) DeletePreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/pipelines/{pipelineName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client PipelinesClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -311,7 +313,7 @@ func (client PipelinesClient) DeleteResponder(resp *http.Response) (result autor
 // Get gets a pipeline.
 //
 // resourceGroupName is the resource group name. factoryName is the factory name. pipelineName is the pipeline name.
-func (client PipelinesClient) Get(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string) (result PipelineResource, err error) {
+func (client PipelinesClient) Get(resourceGroupName string, factoryName string, pipelineName string) (result PipelineResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -328,7 +330,7 @@ func (client PipelinesClient) Get(ctx context.Context, resourceGroupName string,
 		return result, validation.NewErrorWithValidationError(err, "datafactory.PipelinesClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, factoryName, pipelineName)
+	req, err := client.GetPreparer(resourceGroupName, factoryName, pipelineName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "Get", nil, "Failure preparing request")
 		return
@@ -350,7 +352,7 @@ func (client PipelinesClient) Get(ctx context.Context, resourceGroupName string,
 }
 
 // GetPreparer prepares the Get request.
-func (client PipelinesClient) GetPreparer(ctx context.Context, resourceGroupName string, factoryName string, pipelineName string) (*http.Request, error) {
+func (client PipelinesClient) GetPreparer(resourceGroupName string, factoryName string, pipelineName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"factoryName":       autorest.Encode("path", factoryName),
 		"pipelineName":      autorest.Encode("path", pipelineName),
@@ -368,13 +370,14 @@ func (client PipelinesClient) GetPreparer(ctx context.Context, resourceGroupName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/pipelines/{pipelineName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client PipelinesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -394,7 +397,7 @@ func (client PipelinesClient) GetResponder(resp *http.Response) (result Pipeline
 // ListByFactory lists pipelines.
 //
 // resourceGroupName is the resource group name. factoryName is the factory name.
-func (client PipelinesClient) ListByFactory(ctx context.Context, resourceGroupName string, factoryName string) (result PipelineListResponsePage, err error) {
+func (client PipelinesClient) ListByFactory(resourceGroupName string, factoryName string) (result PipelineListResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -407,8 +410,7 @@ func (client PipelinesClient) ListByFactory(ctx context.Context, resourceGroupNa
 		return result, validation.NewErrorWithValidationError(err, "datafactory.PipelinesClient", "ListByFactory")
 	}
 
-	result.fn = client.listByFactoryNextResults
-	req, err := client.ListByFactoryPreparer(ctx, resourceGroupName, factoryName)
+	req, err := client.ListByFactoryPreparer(resourceGroupName, factoryName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "ListByFactory", nil, "Failure preparing request")
 		return
@@ -416,12 +418,12 @@ func (client PipelinesClient) ListByFactory(ctx context.Context, resourceGroupNa
 
 	resp, err := client.ListByFactorySender(req)
 	if err != nil {
-		result.plr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "ListByFactory", resp, "Failure sending request")
 		return
 	}
 
-	result.plr, err = client.ListByFactoryResponder(resp)
+	result, err = client.ListByFactoryResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "ListByFactory", resp, "Failure responding to request")
 	}
@@ -430,7 +432,7 @@ func (client PipelinesClient) ListByFactory(ctx context.Context, resourceGroupNa
 }
 
 // ListByFactoryPreparer prepares the ListByFactory request.
-func (client PipelinesClient) ListByFactoryPreparer(ctx context.Context, resourceGroupName string, factoryName string) (*http.Request, error) {
+func (client PipelinesClient) ListByFactoryPreparer(resourceGroupName string, factoryName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"factoryName":       autorest.Encode("path", factoryName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -447,13 +449,14 @@ func (client PipelinesClient) ListByFactoryPreparer(ctx context.Context, resourc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/pipelines", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByFactorySender sends the ListByFactory request. The method will close the
 // http.Response Body if it receives an error.
 func (client PipelinesClient) ListByFactorySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -470,29 +473,71 @@ func (client PipelinesClient) ListByFactoryResponder(resp *http.Response) (resul
 	return
 }
 
-// listByFactoryNextResults retrieves the next set of results, if any.
-func (client PipelinesClient) listByFactoryNextResults(lastResults PipelineListResponse) (result PipelineListResponse, err error) {
-	req, err := lastResults.pipelineListResponsePreparer()
+// ListByFactoryNextResults retrieves the next set of results, if any.
+func (client PipelinesClient) ListByFactoryNextResults(lastResults PipelineListResponse) (result PipelineListResponse, err error) {
+	req, err := lastResults.PipelineListResponsePreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "listByFactoryNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "ListByFactory", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByFactorySender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "listByFactoryNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "ListByFactory", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByFactoryResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "listByFactoryNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "datafactory.PipelinesClient", "ListByFactory", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByFactoryComplete enumerates all values, automatically crossing page boundaries as required.
-func (client PipelinesClient) ListByFactoryComplete(ctx context.Context, resourceGroupName string, factoryName string) (result PipelineListResponseIterator, err error) {
-	result.page, err = client.ListByFactory(ctx, resourceGroupName, factoryName)
-	return
+// ListByFactoryComplete gets all elements from the list without paging.
+func (client PipelinesClient) ListByFactoryComplete(resourceGroupName string, factoryName string, cancel <-chan struct{}) (<-chan PipelineResource, <-chan error) {
+	resultChan := make(chan PipelineResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByFactory(resourceGroupName, factoryName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByFactoryNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

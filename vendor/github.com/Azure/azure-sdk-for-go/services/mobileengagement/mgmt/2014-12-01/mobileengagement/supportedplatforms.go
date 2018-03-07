@@ -18,7 +18,6 @@ package mobileengagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // SupportedPlatformsClient is the microsoft Azure Mobile Engagement REST APIs.
 type SupportedPlatformsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewSupportedPlatformsClient creates an instance of the SupportedPlatformsClient client.
@@ -40,8 +39,8 @@ func NewSupportedPlatformsClientWithBaseURI(baseURI string, subscriptionID strin
 }
 
 // List lists supported platforms for Engagement applications.
-func (client SupportedPlatformsClient) List(ctx context.Context) (result SupportedPlatformsListResult, err error) {
-	req, err := client.ListPreparer(ctx)
+func (client SupportedPlatformsClient) List() (result SupportedPlatformsListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.SupportedPlatformsClient", "List", nil, "Failure preparing request")
 		return
@@ -63,7 +62,7 @@ func (client SupportedPlatformsClient) List(ctx context.Context) (result Support
 }
 
 // ListPreparer prepares the List request.
-func (client SupportedPlatformsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client SupportedPlatformsClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -78,13 +77,14 @@ func (client SupportedPlatformsClient) ListPreparer(ctx context.Context) (*http.
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.MobileEngagement/supportedPlatforms", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client SupportedPlatformsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

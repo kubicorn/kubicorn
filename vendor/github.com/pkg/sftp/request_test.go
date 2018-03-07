@@ -58,11 +58,12 @@ var filecontents = []byte("file-data.")
 
 func testRequest(method string) *Request {
 	request := &Request{
-		Filepath: "./request_test.go",
-		Method:   method,
-		Attrs:    []byte("foo"),
-		Target:   "foo",
-		state:    state{RWMutex: new(sync.RWMutex)},
+		Filepath:  "./request_test.go",
+		Method:    method,
+		Attrs:     []byte("foo"),
+		Target:    "foo",
+		state:     &state{},
+		stateLock: &sync.RWMutex{},
 	}
 	return request
 }
@@ -99,15 +100,15 @@ func (h Handlers) getOutString() string {
 
 var errTest = errors.New("test error")
 
-func (h *Handlers) returnError(err error) {
+func (h *Handlers) returnError() {
 	handler := h.FilePut.(*testHandler)
-	handler.err = err
+	handler.err = errTest
 }
 
 func statusOk(t *testing.T, p interface{}) {
-	pkt := p.(sshFxpStatusPacket)
-	assert.Equal(t, pkt.StatusError.Code, uint32(ssh_FX_OK),
-		"sshFxpStatusPacket not OK\n", pkt.StatusError.msg)
+	if pkt, ok := p.(*sshFxpStatusPacket); ok {
+		assert.Equal(t, pkt.StatusError.Code, uint32(ssh_FX_OK))
+	}
 }
 
 // fake/test packet
@@ -138,16 +139,6 @@ func TestRequestGet(t *testing.T) {
 	}
 }
 
-func TestRequestCustomError(t *testing.T) {
-	handlers := newTestHandlers()
-	request := testRequest("Stat")
-	pkt := fakePacket{myid: 1}
-	cmdErr := errors.New("stat not supported")
-	handlers.returnError(cmdErr)
-	rpkt := request.call(handlers, pkt)
-	assert.Equal(t, rpkt, statusFromError(rpkt, cmdErr))
-}
-
 func TestRequestPut(t *testing.T) {
 	handlers := newTestHandlers()
 	request := testRequest("Put")
@@ -167,7 +158,7 @@ func TestRequestCmdr(t *testing.T) {
 	rpkt := request.call(handlers, pkt)
 	statusOk(t, rpkt)
 
-	handlers.returnError(errTest)
+	handlers.returnError()
 	rpkt = request.call(handlers, pkt)
 	assert.Equal(t, rpkt, statusFromError(rpkt, errTest))
 }

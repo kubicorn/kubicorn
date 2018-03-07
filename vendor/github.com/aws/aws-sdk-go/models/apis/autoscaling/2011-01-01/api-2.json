@@ -18,8 +18,7 @@
       },
       "input":{"shape":"AttachInstancesQuery"},
       "errors":[
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "AttachLoadBalancerTargetGroups":{
@@ -34,8 +33,7 @@
         "resultWrapper":"AttachLoadBalancerTargetGroupsResult"
       },
       "errors":[
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "AttachLoadBalancers":{
@@ -50,8 +48,7 @@
         "resultWrapper":"AttachLoadBalancersResult"
       },
       "errors":[
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "CompleteLifecycleAction":{
@@ -79,8 +76,7 @@
       "errors":[
         {"shape":"AlreadyExistsFault"},
         {"shape":"LimitExceededFault"},
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "CreateLaunchConfiguration":{
@@ -169,8 +165,7 @@
       },
       "input":{"shape":"DeletePolicyType"},
       "errors":[
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "DeleteScheduledAction":{
@@ -388,8 +383,7 @@
       },
       "errors":[
         {"shape":"InvalidNextToken"},
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "DescribeScalingActivities":{
@@ -602,8 +596,7 @@
       "input":{"shape":"PutNotificationConfigurationType"},
       "errors":[
         {"shape":"LimitExceededFault"},
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "PutScalingPolicy":{
@@ -619,8 +612,7 @@
       },
       "errors":[
         {"shape":"LimitExceededFault"},
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     },
     "PutScheduledUpdateGroupAction":{
@@ -739,8 +731,7 @@
       "input":{"shape":"UpdateAutoScalingGroupType"},
       "errors":[
         {"shape":"ScalingActivityInProgressFault"},
-        {"shape":"ResourceContentionFault"},
-        {"shape":"ServiceLinkedRoleFailure"}
+        {"shape":"ResourceContentionFault"}
       ]
     }
   },
@@ -904,8 +895,7 @@
         "Status":{"shape":"XmlStringMaxLen255"},
         "Tags":{"shape":"TagDescriptionList"},
         "TerminationPolicies":{"shape":"TerminationPolicies"},
-        "NewInstancesProtectedFromScaleIn":{"shape":"InstanceProtected"},
-        "ServiceLinkedRoleARN":{"shape":"ResourceName"}
+        "NewInstancesProtectedFromScaleIn":{"shape":"InstanceProtected"}
       }
     },
     "AutoScalingGroupDesiredCapacity":{"type":"integer"},
@@ -1058,8 +1048,7 @@
         "TerminationPolicies":{"shape":"TerminationPolicies"},
         "NewInstancesProtectedFromScaleIn":{"shape":"InstanceProtected"},
         "LifecycleHookSpecificationList":{"shape":"LifecycleHookSpecifications"},
-        "Tags":{"shape":"Tags"},
-        "ServiceLinkedRoleARN":{"shape":"ResourceName"}
+        "Tags":{"shape":"Tags"}
       }
     },
     "CreateLaunchConfigurationType":{
@@ -2063,18 +2052,6 @@
       "type":"list",
       "member":{"shape":"XmlString"}
     },
-    "ServiceLinkedRoleFailure":{
-      "type":"structure",
-      "members":{
-        "message":{"shape":"XmlStringMaxLen255"}
-      },
-      "error":{
-        "code":"ServiceLinkedRoleFailure",
-        "httpStatusCode":500,
-        "senderFault":true
-      },
-      "exception":true
-    },
     "SetDesiredCapacityType":{
       "type":"structure",
       "required":[
@@ -2243,8 +2220,7 @@
         "PlacementGroup":{"shape":"XmlStringMaxLen255"},
         "VPCZoneIdentifier":{"shape":"XmlStringMaxLen2047"},
         "TerminationPolicies":{"shape":"TerminationPolicies"},
-        "NewInstancesProtectedFromScaleIn":{"shape":"InstanceProtected"},
-        "ServiceLinkedRoleARN":{"shape":"ResourceName"}
+        "NewInstancesProtectedFromScaleIn":{"shape":"InstanceProtected"}
       }
     },
     "Values":{

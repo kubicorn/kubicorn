@@ -18,7 +18,6 @@ package customerinsights
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // that interact with Azure Customer Insights service to manage your resources. The API has entities that capture the
 // relationship between an end user and the Azure Customer Insights service.
 type RelationshipLinksClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewRelationshipLinksClient creates an instance of the RelationshipLinksClient client.
@@ -42,11 +41,15 @@ func NewRelationshipLinksClientWithBaseURI(baseURI string, subscriptionID string
 	return RelationshipLinksClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates a relationship link or updates an existing relationship link within a hub.
+// CreateOrUpdate creates a relationship link or updates an existing relationship link within a hub. This method may
+// poll for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to
+// cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. relationshipLinkName is the
 // name of the relationship link. parameters is parameters supplied to the CreateOrUpdate relationship link operation.
-func (client RelationshipLinksClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, hubName string, relationshipLinkName string, parameters RelationshipLinkResourceFormat) (result RelationshipLinksCreateOrUpdateFuture, err error) {
+func (client RelationshipLinksClient) CreateOrUpdate(resourceGroupName string, hubName string, relationshipLinkName string, parameters RelationshipLinkResourceFormat, cancel <-chan struct{}) (<-chan RelationshipLinkResourceFormat, <-chan error) {
+	resultChan := make(chan RelationshipLinkResourceFormat, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: relationshipLinkName,
 			Constraints: []validation.Constraint{{Target: "relationshipLinkName", Name: validation.MaxLength, Rule: 512, Chain: nil},
@@ -59,26 +62,46 @@ func (client RelationshipLinksClient) CreateOrUpdate(ctx context.Context, resour
 					{Target: "parameters.RelationshipLinkDefinition.RelatedProfilePropertyReferences", Name: validation.Null, Rule: true, Chain: nil},
 					{Target: "parameters.RelationshipLinkDefinition.RelationshipName", Name: validation.Null, Rule: true, Chain: nil},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "customerinsights.RelationshipLinksClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "customerinsights.RelationshipLinksClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, hubName, relationshipLinkName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result RelationshipLinkResourceFormat
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, hubName, relationshipLinkName, parameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client RelationshipLinksClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, hubName string, relationshipLinkName string, parameters RelationshipLinkResourceFormat) (*http.Request, error) {
+func (client RelationshipLinksClient) CreateOrUpdatePreparer(resourceGroupName string, hubName string, relationshipLinkName string, parameters RelationshipLinkResourceFormat, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":              autorest.Encode("path", hubName),
 		"relationshipLinkName": autorest.Encode("path", relationshipLinkName),
@@ -98,22 +121,16 @@ func (client RelationshipLinksClient) CreateOrUpdatePreparer(ctx context.Context
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/relationshipLinks/{relationshipLinkName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client RelationshipLinksClient) CreateOrUpdateSender(req *http.Request) (future RelationshipLinksCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client RelationshipLinksClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -129,28 +146,48 @@ func (client RelationshipLinksClient) CreateOrUpdateResponder(resp *http.Respons
 	return
 }
 
-// Delete deletes a relationship link within a hub.
+// Delete deletes a relationship link within a hub. This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. relationshipLinkName is the
 // name of the relationship.
-func (client RelationshipLinksClient) Delete(ctx context.Context, resourceGroupName string, hubName string, relationshipLinkName string) (result RelationshipLinksDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, hubName, relationshipLinkName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client RelationshipLinksClient) Delete(resourceGroupName string, hubName string, relationshipLinkName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, hubName, relationshipLinkName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client RelationshipLinksClient) DeletePreparer(ctx context.Context, resourceGroupName string, hubName string, relationshipLinkName string) (*http.Request, error) {
+func (client RelationshipLinksClient) DeletePreparer(resourceGroupName string, hubName string, relationshipLinkName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":              autorest.Encode("path", hubName),
 		"relationshipLinkName": autorest.Encode("path", relationshipLinkName),
@@ -168,22 +205,16 @@ func (client RelationshipLinksClient) DeletePreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/relationshipLinks/{relationshipLinkName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client RelationshipLinksClient) DeleteSender(req *http.Request) (future RelationshipLinksDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client RelationshipLinksClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -192,7 +223,7 @@ func (client RelationshipLinksClient) DeleteResponder(resp *http.Response) (resu
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
+		azure.WithErrorUnlessStatusCode(http.StatusAccepted, http.StatusOK),
 		autorest.ByClosing())
 	result.Response = resp
 	return
@@ -202,8 +233,8 @@ func (client RelationshipLinksClient) DeleteResponder(resp *http.Response) (resu
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub. relationshipLinkName is the
 // name of the relationship link.
-func (client RelationshipLinksClient) Get(ctx context.Context, resourceGroupName string, hubName string, relationshipLinkName string) (result RelationshipLinkResourceFormat, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, hubName, relationshipLinkName)
+func (client RelationshipLinksClient) Get(resourceGroupName string, hubName string, relationshipLinkName string) (result RelationshipLinkResourceFormat, err error) {
+	req, err := client.GetPreparer(resourceGroupName, hubName, relationshipLinkName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "Get", nil, "Failure preparing request")
 		return
@@ -225,7 +256,7 @@ func (client RelationshipLinksClient) Get(ctx context.Context, resourceGroupName
 }
 
 // GetPreparer prepares the Get request.
-func (client RelationshipLinksClient) GetPreparer(ctx context.Context, resourceGroupName string, hubName string, relationshipLinkName string) (*http.Request, error) {
+func (client RelationshipLinksClient) GetPreparer(resourceGroupName string, hubName string, relationshipLinkName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":              autorest.Encode("path", hubName),
 		"relationshipLinkName": autorest.Encode("path", relationshipLinkName),
@@ -243,13 +274,14 @@ func (client RelationshipLinksClient) GetPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/relationshipLinks/{relationshipLinkName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client RelationshipLinksClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -269,9 +301,8 @@ func (client RelationshipLinksClient) GetResponder(resp *http.Response) (result 
 // ListByHub gets all relationship links in the hub.
 //
 // resourceGroupName is the name of the resource group. hubName is the name of the hub.
-func (client RelationshipLinksClient) ListByHub(ctx context.Context, resourceGroupName string, hubName string) (result RelationshipLinkListResultPage, err error) {
-	result.fn = client.listByHubNextResults
-	req, err := client.ListByHubPreparer(ctx, resourceGroupName, hubName)
+func (client RelationshipLinksClient) ListByHub(resourceGroupName string, hubName string) (result RelationshipLinkListResult, err error) {
+	req, err := client.ListByHubPreparer(resourceGroupName, hubName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "ListByHub", nil, "Failure preparing request")
 		return
@@ -279,12 +310,12 @@ func (client RelationshipLinksClient) ListByHub(ctx context.Context, resourceGro
 
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
-		result.rllr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "ListByHub", resp, "Failure sending request")
 		return
 	}
 
-	result.rllr, err = client.ListByHubResponder(resp)
+	result, err = client.ListByHubResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "ListByHub", resp, "Failure responding to request")
 	}
@@ -293,7 +324,7 @@ func (client RelationshipLinksClient) ListByHub(ctx context.Context, resourceGro
 }
 
 // ListByHubPreparer prepares the ListByHub request.
-func (client RelationshipLinksClient) ListByHubPreparer(ctx context.Context, resourceGroupName string, hubName string) (*http.Request, error) {
+func (client RelationshipLinksClient) ListByHubPreparer(resourceGroupName string, hubName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hubName":           autorest.Encode("path", hubName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -310,13 +341,14 @@ func (client RelationshipLinksClient) ListByHubPreparer(ctx context.Context, res
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomerInsights/hubs/{hubName}/relationshipLinks", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByHubSender sends the ListByHub request. The method will close the
 // http.Response Body if it receives an error.
 func (client RelationshipLinksClient) ListByHubSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -333,29 +365,71 @@ func (client RelationshipLinksClient) ListByHubResponder(resp *http.Response) (r
 	return
 }
 
-// listByHubNextResults retrieves the next set of results, if any.
-func (client RelationshipLinksClient) listByHubNextResults(lastResults RelationshipLinkListResult) (result RelationshipLinkListResult, err error) {
-	req, err := lastResults.relationshipLinkListResultPreparer()
+// ListByHubNextResults retrieves the next set of results, if any.
+func (client RelationshipLinksClient) ListByHubNextResults(lastResults RelationshipLinkListResult) (result RelationshipLinkListResult, err error) {
+	req, err := lastResults.RelationshipLinkListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "listByHubNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "ListByHub", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByHubSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "listByHubNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "ListByHub", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByHubResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "listByHubNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "customerinsights.RelationshipLinksClient", "ListByHub", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByHubComplete enumerates all values, automatically crossing page boundaries as required.
-func (client RelationshipLinksClient) ListByHubComplete(ctx context.Context, resourceGroupName string, hubName string) (result RelationshipLinkListResultIterator, err error) {
-	result.page, err = client.ListByHub(ctx, resourceGroupName, hubName)
-	return
+// ListByHubComplete gets all elements from the list without paging.
+func (client RelationshipLinksClient) ListByHubComplete(resourceGroupName string, hubName string, cancel <-chan struct{}) (<-chan RelationshipLinkResourceFormat, <-chan error) {
+	resultChan := make(chan RelationshipLinkResourceFormat)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByHub(resourceGroupName, hubName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByHubNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

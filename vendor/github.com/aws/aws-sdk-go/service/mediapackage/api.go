@@ -1089,6 +1089,7 @@ func (c *MediaPackage) UpdateOriginEndpointWithContext(ctx aws.Context, input *U
 }
 
 // A Channel resource configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/Channel
 type Channel struct {
 	_ struct{} `type:"structure"`
 
@@ -1139,6 +1140,7 @@ func (s *Channel) SetId(v string) *Channel {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannelRequest
 type CreateChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1183,6 +1185,7 @@ func (s *CreateChannelInput) SetId(v string) *CreateChannelInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannelResponse
 type CreateChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1230,6 +1233,7 @@ func (s *CreateChannelOutput) SetId(v string) *CreateChannelOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpointRequest
 type CreateOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1360,6 +1364,7 @@ func (s *CreateOriginEndpointInput) SetWhitelist(v []*string) *CreateOriginEndpo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpointResponse
 type CreateOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1474,6 +1479,7 @@ func (s *CreateOriginEndpointOutput) SetWhitelist(v []*string) *CreateOriginEndp
 }
 
 // A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DashEncryption
 type DashEncryption struct {
 	_ struct{} `type:"structure"`
 
@@ -1528,6 +1534,7 @@ func (s *DashEncryption) SetSpekeKeyProvider(v *SpekeKeyProvider) *DashEncryptio
 }
 
 // A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DashPackage
 type DashPackage struct {
 	_ struct{} `type:"structure"`
 
@@ -1633,6 +1640,7 @@ func (s *DashPackage) SetSuggestedPresentationDelaySeconds(v int64) *DashPackage
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannelRequest
 type DeleteChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1669,6 +1677,7 @@ func (s *DeleteChannelInput) SetId(v string) *DeleteChannelInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannelResponse
 type DeleteChannelOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1683,6 +1692,7 @@ func (s DeleteChannelOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpointRequest
 type DeleteOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1719,6 +1729,7 @@ func (s *DeleteOriginEndpointInput) SetId(v string) *DeleteOriginEndpointInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpointResponse
 type DeleteOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1733,6 +1744,7 @@ func (s DeleteOriginEndpointOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannelRequest
 type DescribeChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1769,6 +1781,7 @@ func (s *DescribeChannelInput) SetId(v string) *DescribeChannelInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannelResponse
 type DescribeChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1816,6 +1829,7 @@ func (s *DescribeChannelOutput) SetId(v string) *DescribeChannelOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpointRequest
 type DescribeOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1852,6 +1866,7 @@ func (s *DescribeOriginEndpointInput) SetId(v string) *DescribeOriginEndpointInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpointResponse
 type DescribeOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1966,6 +1981,7 @@ func (s *DescribeOriginEndpointOutput) SetWhitelist(v []*string) *DescribeOrigin
 }
 
 // An HTTP Live Streaming (HLS) encryption configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsEncryption
 type HlsEncryption struct {
 	_ struct{} `type:"structure"`
 
@@ -2048,6 +2064,7 @@ func (s *HlsEncryption) SetSpekeKeyProvider(v *SpekeKeyProvider) *HlsEncryption 
 }
 
 // An HTTP Live Streaming (HLS) ingest resource configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsIngest
 type HlsIngest struct {
 	_ struct{} `type:"structure"`
 
@@ -2072,6 +2089,7 @@ func (s *HlsIngest) SetIngestEndpoints(v []*IngestEndpoint) *HlsIngest {
 }
 
 // An HTTP Live Streaming (HLS) packaging configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsPackage
 type HlsPackage struct {
 	_ struct{} `type:"structure"`
 
@@ -2197,6 +2215,7 @@ func (s *HlsPackage) SetUseAudioRenditionGroup(v bool) *HlsPackage {
 }
 
 // An endpoint for ingesting source content for a Channel.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/IngestEndpoint
 type IngestEndpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -2238,6 +2257,7 @@ func (s *IngestEndpoint) SetUsername(v string) *IngestEndpoint {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannelsRequest
 type ListChannelsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2281,6 +2301,7 @@ func (s *ListChannelsInput) SetNextToken(v string) *ListChannelsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannelsResponse
 type ListChannelsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2311,6 +2332,7 @@ func (s *ListChannelsOutput) SetNextToken(v string) *ListChannelsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpointsRequest
 type ListOriginEndpointsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2362,6 +2384,7 @@ func (s *ListOriginEndpointsInput) SetNextToken(v string) *ListOriginEndpointsIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpointsResponse
 type ListOriginEndpointsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2393,6 +2416,7 @@ func (s *ListOriginEndpointsOutput) SetOriginEndpoints(v []*OriginEndpoint) *Lis
 }
 
 // A Microsoft Smooth Streaming (MSS) encryption configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/MssEncryption
 type MssEncryption struct {
 	_ struct{} `type:"structure"`
 
@@ -2438,6 +2462,7 @@ func (s *MssEncryption) SetSpekeKeyProvider(v *SpekeKeyProvider) *MssEncryption 
 }
 
 // A Microsoft Smooth Streaming (MSS) packaging configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/MssPackage
 type MssPackage struct {
 	_ struct{} `type:"structure"`
 
@@ -2504,6 +2529,7 @@ func (s *MssPackage) SetStreamSelection(v *StreamSelection) *MssPackage {
 }
 
 // An OriginEndpoint resource configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/OriginEndpoint
 type OriginEndpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -2628,6 +2654,7 @@ func (s *OriginEndpoint) SetWhitelist(v []*string) *OriginEndpoint {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentialsRequest
 type RotateChannelCredentialsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2664,6 +2691,7 @@ func (s *RotateChannelCredentialsInput) SetId(v string) *RotateChannelCredential
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentialsResponse
 type RotateChannelCredentialsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2713,6 +2741,7 @@ func (s *RotateChannelCredentialsOutput) SetId(v string) *RotateChannelCredentia
 
 // A configuration for accessing an external Secure Packager and Encoder Key
 // Exchange (SPEKE) service that will provide encryption keys.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/SpekeKeyProvider
 type SpekeKeyProvider struct {
 	_ struct{} `type:"structure"`
 
@@ -2795,6 +2824,7 @@ func (s *SpekeKeyProvider) SetUrl(v string) *SpekeKeyProvider {
 }
 
 // A StreamSelection configuration.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/StreamSelection
 type StreamSelection struct {
 	_ struct{} `type:"structure"`
 
@@ -2836,6 +2866,7 @@ func (s *StreamSelection) SetStreamOrder(v string) *StreamSelection {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannelRequest
 type UpdateChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2880,6 +2911,7 @@ func (s *UpdateChannelInput) SetId(v string) *UpdateChannelInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannelResponse
 type UpdateChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2927,6 +2959,7 @@ func (s *UpdateChannelOutput) SetId(v string) *UpdateChannelOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpointRequest
 type UpdateOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3045,6 +3078,7 @@ func (s *UpdateOriginEndpointInput) SetWhitelist(v []*string) *UpdateOriginEndpo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpointResponse
 type UpdateOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 

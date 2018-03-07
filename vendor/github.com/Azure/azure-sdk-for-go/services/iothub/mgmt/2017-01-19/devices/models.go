@@ -19,7 +19,6 @@ package devices
 
 import (
 	"github.com/Azure/go-autorest/autorest"
-	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/Azure/go-autorest/autorest/to"
 	"net/http"
@@ -29,35 +28,40 @@ import (
 type AccessRights string
 
 const (
-	// DeviceConnect ...
+	// DeviceConnect specifies the device connect state for access rights.
 	DeviceConnect AccessRights = "DeviceConnect"
-	// RegistryRead ...
+	// RegistryRead specifies the registry read state for access rights.
 	RegistryRead AccessRights = "RegistryRead"
-	// RegistryReadDeviceConnect ...
+	// RegistryReadDeviceConnect specifies the registry read device connect state for access rights.
 	RegistryReadDeviceConnect AccessRights = "RegistryRead, DeviceConnect"
-	// RegistryReadRegistryWrite ...
+	// RegistryReadRegistryWrite specifies the registry read registry write state for access rights.
 	RegistryReadRegistryWrite AccessRights = "RegistryRead, RegistryWrite"
-	// RegistryReadRegistryWriteDeviceConnect ...
+	// RegistryReadRegistryWriteDeviceConnect specifies the registry read registry write device connect state for access
+	// rights.
 	RegistryReadRegistryWriteDeviceConnect AccessRights = "RegistryRead, RegistryWrite, DeviceConnect"
-	// RegistryReadRegistryWriteServiceConnect ...
+	// RegistryReadRegistryWriteServiceConnect specifies the registry read registry write service connect state for access
+	// rights.
 	RegistryReadRegistryWriteServiceConnect AccessRights = "RegistryRead, RegistryWrite, ServiceConnect"
-	// RegistryReadRegistryWriteServiceConnectDeviceConnect ...
+	// RegistryReadRegistryWriteServiceConnectDeviceConnect specifies the registry read registry write service connect
+	// device connect state for access rights.
 	RegistryReadRegistryWriteServiceConnectDeviceConnect AccessRights = "RegistryRead, RegistryWrite, ServiceConnect, DeviceConnect"
-	// RegistryReadServiceConnect ...
+	// RegistryReadServiceConnect specifies the registry read service connect state for access rights.
 	RegistryReadServiceConnect AccessRights = "RegistryRead, ServiceConnect"
-	// RegistryReadServiceConnectDeviceConnect ...
+	// RegistryReadServiceConnectDeviceConnect specifies the registry read service connect device connect state for access
+	// rights.
 	RegistryReadServiceConnectDeviceConnect AccessRights = "RegistryRead, ServiceConnect, DeviceConnect"
-	// RegistryWrite ...
+	// RegistryWrite specifies the registry write state for access rights.
 	RegistryWrite AccessRights = "RegistryWrite"
-	// RegistryWriteDeviceConnect ...
+	// RegistryWriteDeviceConnect specifies the registry write device connect state for access rights.
 	RegistryWriteDeviceConnect AccessRights = "RegistryWrite, DeviceConnect"
-	// RegistryWriteServiceConnect ...
+	// RegistryWriteServiceConnect specifies the registry write service connect state for access rights.
 	RegistryWriteServiceConnect AccessRights = "RegistryWrite, ServiceConnect"
-	// RegistryWriteServiceConnectDeviceConnect ...
+	// RegistryWriteServiceConnectDeviceConnect specifies the registry write service connect device connect state for
+	// access rights.
 	RegistryWriteServiceConnectDeviceConnect AccessRights = "RegistryWrite, ServiceConnect, DeviceConnect"
-	// ServiceConnect ...
+	// ServiceConnect specifies the service connect state for access rights.
 	ServiceConnect AccessRights = "ServiceConnect"
-	// ServiceConnectDeviceConnect ...
+	// ServiceConnectDeviceConnect specifies the service connect device connect state for access rights.
 	ServiceConnectDeviceConnect AccessRights = "ServiceConnect, DeviceConnect"
 )
 
@@ -65,9 +69,9 @@ const (
 type Capabilities string
 
 const (
-	// DeviceManagement ...
+	// DeviceManagement specifies the device management state for capabilities.
 	DeviceManagement Capabilities = "DeviceManagement"
-	// None ...
+	// None specifies the none state for capabilities.
 	None Capabilities = "None"
 )
 
@@ -75,9 +79,9 @@ const (
 type IotHubNameUnavailabilityReason string
 
 const (
-	// AlreadyExists ...
+	// AlreadyExists specifies the already exists state for iot hub name unavailability reason.
 	AlreadyExists IotHubNameUnavailabilityReason = "AlreadyExists"
-	// Invalid ...
+	// Invalid specifies the invalid state for iot hub name unavailability reason.
 	Invalid IotHubNameUnavailabilityReason = "Invalid"
 )
 
@@ -85,11 +89,11 @@ const (
 type IotHubScaleType string
 
 const (
-	// IotHubScaleTypeAutomatic ...
+	// IotHubScaleTypeAutomatic specifies the iot hub scale type automatic state for iot hub scale type.
 	IotHubScaleTypeAutomatic IotHubScaleType = "Automatic"
-	// IotHubScaleTypeManual ...
+	// IotHubScaleTypeManual specifies the iot hub scale type manual state for iot hub scale type.
 	IotHubScaleTypeManual IotHubScaleType = "Manual"
-	// IotHubScaleTypeNone ...
+	// IotHubScaleTypeNone specifies the iot hub scale type none state for iot hub scale type.
 	IotHubScaleTypeNone IotHubScaleType = "None"
 )
 
@@ -97,13 +101,13 @@ const (
 type IotHubSku string
 
 const (
-	// F1 ...
+	// F1 specifies the f1 state for iot hub sku.
 	F1 IotHubSku = "F1"
-	// S1 ...
+	// S1 specifies the s1 state for iot hub sku.
 	S1 IotHubSku = "S1"
-	// S2 ...
+	// S2 specifies the s2 state for iot hub sku.
 	S2 IotHubSku = "S2"
-	// S3 ...
+	// S3 specifies the s3 state for iot hub sku.
 	S3 IotHubSku = "S3"
 )
 
@@ -111,9 +115,9 @@ const (
 type IotHubSkuTier string
 
 const (
-	// Free ...
+	// Free specifies the free state for iot hub sku tier.
 	Free IotHubSkuTier = "Free"
-	// Standard ...
+	// Standard specifies the standard state for iot hub sku tier.
 	Standard IotHubSkuTier = "Standard"
 )
 
@@ -121,9 +125,9 @@ const (
 type IPFilterActionType string
 
 const (
-	// Accept ...
+	// Accept specifies the accept state for ip filter action type.
 	Accept IPFilterActionType = "Accept"
-	// Reject ...
+	// Reject specifies the reject state for ip filter action type.
 	Reject IPFilterActionType = "Reject"
 )
 
@@ -131,17 +135,17 @@ const (
 type JobStatus string
 
 const (
-	// Cancelled ...
+	// Cancelled specifies the cancelled state for job status.
 	Cancelled JobStatus = "cancelled"
-	// Completed ...
+	// Completed specifies the completed state for job status.
 	Completed JobStatus = "completed"
-	// Enqueued ...
+	// Enqueued specifies the enqueued state for job status.
 	Enqueued JobStatus = "enqueued"
-	// Failed ...
+	// Failed specifies the failed state for job status.
 	Failed JobStatus = "failed"
-	// Running ...
+	// Running specifies the running state for job status.
 	Running JobStatus = "running"
-	// Unknown ...
+	// Unknown specifies the unknown state for job status.
 	Unknown JobStatus = "unknown"
 )
 
@@ -149,25 +153,25 @@ const (
 type JobType string
 
 const (
-	// JobTypeBackup ...
+	// JobTypeBackup specifies the job type backup state for job type.
 	JobTypeBackup JobType = "backup"
-	// JobTypeExport ...
+	// JobTypeExport specifies the job type export state for job type.
 	JobTypeExport JobType = "export"
-	// JobTypeFactoryResetDevice ...
+	// JobTypeFactoryResetDevice specifies the job type factory reset device state for job type.
 	JobTypeFactoryResetDevice JobType = "factoryResetDevice"
-	// JobTypeFirmwareUpdate ...
+	// JobTypeFirmwareUpdate specifies the job type firmware update state for job type.
 	JobTypeFirmwareUpdate JobType = "firmwareUpdate"
-	// JobTypeImport ...
+	// JobTypeImport specifies the job type import state for job type.
 	JobTypeImport JobType = "import"
-	// JobTypeReadDeviceProperties ...
+	// JobTypeReadDeviceProperties specifies the job type read device properties state for job type.
 	JobTypeReadDeviceProperties JobType = "readDeviceProperties"
-	// JobTypeRebootDevice ...
+	// JobTypeRebootDevice specifies the job type reboot device state for job type.
 	JobTypeRebootDevice JobType = "rebootDevice"
-	// JobTypeUnknown ...
+	// JobTypeUnknown specifies the job type unknown state for job type.
 	JobTypeUnknown JobType = "unknown"
-	// JobTypeUpdateDeviceConfiguration ...
+	// JobTypeUpdateDeviceConfiguration specifies the job type update device configuration state for job type.
 	JobTypeUpdateDeviceConfiguration JobType = "updateDeviceConfiguration"
-	// JobTypeWriteDeviceProperties ...
+	// JobTypeWriteDeviceProperties specifies the job type write device properties state for job type.
 	JobTypeWriteDeviceProperties JobType = "writeDeviceProperties"
 )
 
@@ -175,13 +179,15 @@ const (
 type OperationMonitoringLevel string
 
 const (
-	// OperationMonitoringLevelError ...
+	// OperationMonitoringLevelError specifies the operation monitoring level error state for operation monitoring level.
 	OperationMonitoringLevelError OperationMonitoringLevel = "Error"
-	// OperationMonitoringLevelErrorInformation ...
+	// OperationMonitoringLevelErrorInformation specifies the operation monitoring level error information state for
+	// operation monitoring level.
 	OperationMonitoringLevelErrorInformation OperationMonitoringLevel = "Error, Information"
-	// OperationMonitoringLevelInformation ...
+	// OperationMonitoringLevelInformation specifies the operation monitoring level information state for operation
+	// monitoring level.
 	OperationMonitoringLevelInformation OperationMonitoringLevel = "Information"
-	// OperationMonitoringLevelNone ...
+	// OperationMonitoringLevelNone specifies the operation monitoring level none state for operation monitoring level.
 	OperationMonitoringLevelNone OperationMonitoringLevel = "None"
 )
 
@@ -189,1056 +195,384 @@ const (
 type RoutingSource string
 
 const (
-	// DeviceJobLifecycleEvents ...
+	// DeviceJobLifecycleEvents specifies the device job lifecycle events state for routing source.
 	DeviceJobLifecycleEvents RoutingSource = "DeviceJobLifecycleEvents"
-	// DeviceLifecycleEvents ...
+	// DeviceLifecycleEvents specifies the device lifecycle events state for routing source.
 	DeviceLifecycleEvents RoutingSource = "DeviceLifecycleEvents"
-	// DeviceMessages ...
+	// DeviceMessages specifies the device messages state for routing source.
 	DeviceMessages RoutingSource = "DeviceMessages"
-	// TwinChangeEvents ...
+	// TwinChangeEvents specifies the twin change events state for routing source.
 	TwinChangeEvents RoutingSource = "TwinChangeEvents"
 )
 
-// CloudToDeviceProperties the IoT hub cloud-to-device messaging properties.
+// CloudToDeviceProperties is the IoT hub cloud-to-device messaging properties.
 type CloudToDeviceProperties struct {
-	// MaxDeliveryCount - The max delivery count for cloud-to-device messages in the device queue. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging#cloud-to-device-messages.
-	MaxDeliveryCount *int32 `json:"maxDeliveryCount,omitempty"`
-	// DefaultTTLAsIso8601 - The default time to live for cloud-to-device messages in the device queue. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging#cloud-to-device-messages.
+	MaxDeliveryCount    *int32              `json:"maxDeliveryCount,omitempty"`
 	DefaultTTLAsIso8601 *string             `json:"defaultTtlAsIso8601,omitempty"`
 	Feedback            *FeedbackProperties `json:"feedback,omitempty"`
 }
 
-// ErrorDetails error details.
+// ErrorDetails is error details.
 type ErrorDetails struct {
-	// Code - The error code.
-	Code *string `json:"Code,omitempty"`
-	// HTTPStatusCode - The HTTP status code.
+	Code           *string `json:"Code,omitempty"`
 	HTTPStatusCode *string `json:"HttpStatusCode,omitempty"`
-	// Message - The error message.
-	Message *string `json:"Message,omitempty"`
-	// Details - The error details.
-	Details *string `json:"Details,omitempty"`
+	Message        *string `json:"Message,omitempty"`
+	Details        *string `json:"Details,omitempty"`
 }
 
-// EventHubConsumerGroupInfo the properties of the EventHubConsumerGroupInfo object.
+// EventHubConsumerGroupInfo is the properties of the EventHubConsumerGroupInfo object.
 type EventHubConsumerGroupInfo struct {
 	autorest.Response `json:"-"`
-	// Tags - The tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// ID - The Event Hub-compatible consumer group identifier.
-	ID *string `json:"id,omitempty"`
-	// Name - The Event Hub-compatible consumer group name.
-	Name *string `json:"name,omitempty"`
+	Tags              *map[string]*string `json:"tags,omitempty"`
+	ID                *string             `json:"id,omitempty"`
+	Name              *string             `json:"name,omitempty"`
 }
 
-// EventHubConsumerGroupsListResult the JSON-serialized array of Event Hub-compatible consumer group names with a next
-// link.
+// EventHubConsumerGroupsListResult is the JSON-serialized array of Event Hub-compatible consumer group names with a
+// next link.
 type EventHubConsumerGroupsListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The array of Event Hub-compatible consumer group names.
-	Value *[]string `json:"value,omitempty"`
-	// NextLink - The next link.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]string `json:"value,omitempty"`
+	NextLink          *string   `json:"nextLink,omitempty"`
 }
 
-// EventHubConsumerGroupsListResultIterator provides access to a complete listing of string values.
-type EventHubConsumerGroupsListResultIterator struct {
-	i    int
-	page EventHubConsumerGroupsListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *EventHubConsumerGroupsListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter EventHubConsumerGroupsListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter EventHubConsumerGroupsListResultIterator) Response() EventHubConsumerGroupsListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter EventHubConsumerGroupsListResultIterator) Value() string {
-	if !iter.page.NotDone() {
-		return ""
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ehcglr EventHubConsumerGroupsListResult) IsEmpty() bool {
-	return ehcglr.Value == nil || len(*ehcglr.Value) == 0
-}
-
-// eventHubConsumerGroupsListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ehcglr EventHubConsumerGroupsListResult) eventHubConsumerGroupsListResultPreparer() (*http.Request, error) {
-	if ehcglr.NextLink == nil || len(to.String(ehcglr.NextLink)) < 1 {
+// EventHubConsumerGroupsListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client EventHubConsumerGroupsListResult) EventHubConsumerGroupsListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ehcglr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// EventHubConsumerGroupsListResultPage contains a page of string values.
-type EventHubConsumerGroupsListResultPage struct {
-	fn     func(EventHubConsumerGroupsListResult) (EventHubConsumerGroupsListResult, error)
-	ehcglr EventHubConsumerGroupsListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *EventHubConsumerGroupsListResultPage) Next() error {
-	next, err := page.fn(page.ehcglr)
-	if err != nil {
-		return err
-	}
-	page.ehcglr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page EventHubConsumerGroupsListResultPage) NotDone() bool {
-	return !page.ehcglr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page EventHubConsumerGroupsListResultPage) Response() EventHubConsumerGroupsListResult {
-	return page.ehcglr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page EventHubConsumerGroupsListResultPage) Values() []string {
-	if page.ehcglr.IsEmpty() {
-		return nil
-	}
-	return *page.ehcglr.Value
-}
-
-// EventHubProperties the properties of the provisioned Event Hub-compatible endpoint used by the IoT hub.
+// EventHubProperties is the properties of the provisioned Event Hub-compatible endpoint used by the IoT hub.
 type EventHubProperties struct {
-	// RetentionTimeInDays - The retention time for device-to-cloud messages in days. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging#device-to-cloud-messages
-	RetentionTimeInDays *int64 `json:"retentionTimeInDays,omitempty"`
-	// PartitionCount - The number of paritions for receiving device-to-cloud messages in the Event Hub-compatible endpoint. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging#device-to-cloud-messages.
-	PartitionCount *int32 `json:"partitionCount,omitempty"`
-	// PartitionIds - The partition ids in the Event Hub-compatible endpoint.
-	PartitionIds *[]string `json:"partitionIds,omitempty"`
-	// Path - The Event Hub-compatible name.
-	Path *string `json:"path,omitempty"`
-	// Endpoint - The Event Hub-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
+	RetentionTimeInDays *int64    `json:"retentionTimeInDays,omitempty"`
+	PartitionCount      *int32    `json:"partitionCount,omitempty"`
+	PartitionIds        *[]string `json:"partitionIds,omitempty"`
+	Path                *string   `json:"path,omitempty"`
+	Endpoint            *string   `json:"endpoint,omitempty"`
 }
 
-// ExportDevicesRequest use to provide parameters when requesting an export of all devices in the IoT hub.
+// ExportDevicesRequest is use to provide parameters when requesting an export of all devices in the IoT hub.
 type ExportDevicesRequest struct {
-	// ExportBlobContainerURI - The export blob container URI.
 	ExportBlobContainerURI *string `json:"ExportBlobContainerUri,omitempty"`
-	// ExcludeKeys - The value indicating whether keys should be excluded during export.
-	ExcludeKeys *bool `json:"ExcludeKeys,omitempty"`
+	ExcludeKeys            *bool   `json:"ExcludeKeys,omitempty"`
 }
 
-// FallbackRouteProperties the properties related to the fallback route based on which the IoT hub routes messages to
-// the fallback endpoint.
+// FallbackRouteProperties is the properties related to the fallback route based on which the IoT hub routes messages
+// to the fallback endpoint.
 type FallbackRouteProperties struct {
-	// Source - The source to which the routing rule is to be applied to. e.g. DeviceMessages
-	Source *string `json:"source,omitempty"`
-	// Condition - The condition which is evaluated in order to apply the fallback route. If the condition is not provided it will evaluate to true by default. For grammar, See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-query-language
-	Condition *string `json:"condition,omitempty"`
-	// EndpointNames - The list of endpoints to which the messages that satisfy the condition are routed to. Currently only 1 endpoint is allowed.
+	Source        *string   `json:"source,omitempty"`
+	Condition     *string   `json:"condition,omitempty"`
 	EndpointNames *[]string `json:"endpointNames,omitempty"`
-	// IsEnabled - Used to specify whether the fallback route is enabled or not.
-	IsEnabled *bool `json:"isEnabled,omitempty"`
+	IsEnabled     *bool     `json:"isEnabled,omitempty"`
 }
 
-// FeedbackProperties the properties of the feedback queue for cloud-to-device messages.
+// FeedbackProperties is the properties of the feedback queue for cloud-to-device messages.
 type FeedbackProperties struct {
-	// LockDurationAsIso8601 - The lock duration for the feedback queue. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging#cloud-to-device-messages.
 	LockDurationAsIso8601 *string `json:"lockDurationAsIso8601,omitempty"`
-	// TTLAsIso8601 - The period of time for which a message is available to consume before it is expired by the IoT hub. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging#cloud-to-device-messages.
-	TTLAsIso8601 *string `json:"ttlAsIso8601,omitempty"`
-	// MaxDeliveryCount - The number of times the IoT hub attempts to deliver a message on the feedback queue. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging#cloud-to-device-messages.
-	MaxDeliveryCount *int32 `json:"maxDeliveryCount,omitempty"`
+	TTLAsIso8601          *string `json:"ttlAsIso8601,omitempty"`
+	MaxDeliveryCount      *int32  `json:"maxDeliveryCount,omitempty"`
 }
 
-// ImportDevicesRequest use to provide parameters when requesting an import of all devices in the hub.
+// ImportDevicesRequest is use to provide parameters when requesting an import of all devices in the hub.
 type ImportDevicesRequest struct {
-	// InputBlobContainerURI - The input blob container URI.
-	InputBlobContainerURI *string `json:"InputBlobContainerUri,omitempty"`
-	// OutputBlobContainerURI - The output blob container URI.
+	InputBlobContainerURI  *string `json:"InputBlobContainerUri,omitempty"`
 	OutputBlobContainerURI *string `json:"OutputBlobContainerUri,omitempty"`
 }
 
-// IotHubCapacity ioT Hub capacity information.
+// IotHubCapacity is ioT Hub capacity information.
 type IotHubCapacity struct {
-	// Minimum - The minimum number of units.
-	Minimum *int64 `json:"minimum,omitempty"`
-	// Maximum - The maximum number of units.
-	Maximum *int64 `json:"maximum,omitempty"`
-	// Default - The default number of units.
-	Default *int64 `json:"default,omitempty"`
-	// ScaleType - The type of the scaling enabled. Possible values include: 'IotHubScaleTypeAutomatic', 'IotHubScaleTypeManual', 'IotHubScaleTypeNone'
+	Minimum   *int64          `json:"minimum,omitempty"`
+	Maximum   *int64          `json:"maximum,omitempty"`
+	Default   *int64          `json:"default,omitempty"`
 	ScaleType IotHubScaleType `json:"scaleType,omitempty"`
 }
 
-// IotHubDescription the description of the IoT hub.
+// IotHubDescription is the description of the IoT hub.
 type IotHubDescription struct {
 	autorest.Response `json:"-"`
-	// ID - The resource identifier.
-	ID *string `json:"id,omitempty"`
-	// Name - The resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - The resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The resource location.
-	Location *string `json:"location,omitempty"`
-	// Tags - The resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Subscriptionid - The subscription identifier.
-	Subscriptionid *string `json:"subscriptionid,omitempty"`
-	// Resourcegroup - The name of the resource group that contains the IoT hub. A resource group name uniquely identifies the resource group within the subscription.
-	Resourcegroup *string `json:"resourcegroup,omitempty"`
-	// Etag - The Etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal ETag convention.
-	Etag       *string           `json:"etag,omitempty"`
-	Properties *IotHubProperties `json:"properties,omitempty"`
-	Sku        *IotHubSkuInfo    `json:"sku,omitempty"`
+	ID                *string             `json:"id,omitempty"`
+	Name              *string             `json:"name,omitempty"`
+	Type              *string             `json:"type,omitempty"`
+	Location          *string             `json:"location,omitempty"`
+	Tags              *map[string]*string `json:"tags,omitempty"`
+	Subscriptionid    *string             `json:"subscriptionid,omitempty"`
+	Resourcegroup     *string             `json:"resourcegroup,omitempty"`
+	Etag              *string             `json:"etag,omitempty"`
+	Properties        *IotHubProperties   `json:"properties,omitempty"`
+	Sku               *IotHubSkuInfo      `json:"sku,omitempty"`
 }
 
-// IotHubDescriptionListResult the JSON-serialized array of IotHubDescription objects with a next link.
+// IotHubDescriptionListResult is the JSON-serialized array of IotHubDescription objects with a next link.
 type IotHubDescriptionListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The array of IotHubDescription objects.
-	Value *[]IotHubDescription `json:"value,omitempty"`
-	// NextLink - The next link.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]IotHubDescription `json:"value,omitempty"`
+	NextLink          *string              `json:"nextLink,omitempty"`
 }
 
-// IotHubDescriptionListResultIterator provides access to a complete listing of IotHubDescription values.
-type IotHubDescriptionListResultIterator struct {
-	i    int
-	page IotHubDescriptionListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *IotHubDescriptionListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter IotHubDescriptionListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter IotHubDescriptionListResultIterator) Response() IotHubDescriptionListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter IotHubDescriptionListResultIterator) Value() IotHubDescription {
-	if !iter.page.NotDone() {
-		return IotHubDescription{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ihdlr IotHubDescriptionListResult) IsEmpty() bool {
-	return ihdlr.Value == nil || len(*ihdlr.Value) == 0
-}
-
-// iotHubDescriptionListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ihdlr IotHubDescriptionListResult) iotHubDescriptionListResultPreparer() (*http.Request, error) {
-	if ihdlr.NextLink == nil || len(to.String(ihdlr.NextLink)) < 1 {
+// IotHubDescriptionListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client IotHubDescriptionListResult) IotHubDescriptionListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ihdlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// IotHubDescriptionListResultPage contains a page of IotHubDescription values.
-type IotHubDescriptionListResultPage struct {
-	fn    func(IotHubDescriptionListResult) (IotHubDescriptionListResult, error)
-	ihdlr IotHubDescriptionListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *IotHubDescriptionListResultPage) Next() error {
-	next, err := page.fn(page.ihdlr)
-	if err != nil {
-		return err
-	}
-	page.ihdlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page IotHubDescriptionListResultPage) NotDone() bool {
-	return !page.ihdlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page IotHubDescriptionListResultPage) Response() IotHubDescriptionListResult {
-	return page.ihdlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page IotHubDescriptionListResultPage) Values() []IotHubDescription {
-	if page.ihdlr.IsEmpty() {
-		return nil
-	}
-	return *page.ihdlr.Value
-}
-
-// IotHubNameAvailabilityInfo the properties indicating whether a given IoT hub name is available.
+// IotHubNameAvailabilityInfo is the properties indicating whether a given IoT hub name is available.
 type IotHubNameAvailabilityInfo struct {
 	autorest.Response `json:"-"`
-	// NameAvailable - The value which indicates whether the provided name is available.
-	NameAvailable *bool `json:"nameAvailable,omitempty"`
-	// Reason - The reason for unavailability. Possible values include: 'Invalid', 'AlreadyExists'
-	Reason IotHubNameUnavailabilityReason `json:"reason,omitempty"`
-	// Message - The detailed reason message.
-	Message *string `json:"message,omitempty"`
+	NameAvailable     *bool                          `json:"nameAvailable,omitempty"`
+	Reason            IotHubNameUnavailabilityReason `json:"reason,omitempty"`
+	Message           *string                        `json:"message,omitempty"`
 }
 
-// IotHubProperties the properties of an IoT hub.
+// IotHubProperties is the properties of an IoT hub.
 type IotHubProperties struct {
-	// AuthorizationPolicies - The shared access policies you can use to secure a connection to the IoT hub.
-	AuthorizationPolicies *[]SharedAccessSignatureAuthorizationRule `json:"authorizationPolicies,omitempty"`
-	// IPFilterRules - The IP filter rules.
-	IPFilterRules *[]IPFilterRule `json:"ipFilterRules,omitempty"`
-	// ProvisioningState - The provisioning state.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-	// HostName - The name of the host.
-	HostName *string `json:"hostName,omitempty"`
-	// EventHubEndpoints - The Event Hub-compatible endpoint properties. The possible keys to this dictionary are events and operationsMonitoringEvents. Both of these keys have to be present in the dictionary while making create or update calls for the IoT hub.
-	EventHubEndpoints *map[string]*EventHubProperties `json:"eventHubEndpoints,omitempty"`
-	Routing           *RoutingProperties              `json:"routing,omitempty"`
-	// StorageEndpoints - The list of Azure Storage endpoints where you can upload files. Currently you can configure only one Azure Storage account and that MUST have its key as $default. Specifying more than one storage account causes an error to be thrown. Not specifying a value for this property when the enableFileUploadNotifications property is set to True, causes an error to be thrown.
-	StorageEndpoints *map[string]*StorageEndpointProperties `json:"storageEndpoints,omitempty"`
-	// MessagingEndpoints - The messaging endpoint properties for the file upload notification queue.
-	MessagingEndpoints *map[string]*MessagingEndpointProperties `json:"messagingEndpoints,omitempty"`
-	// EnableFileUploadNotifications - If True, file upload notifications are enabled.
-	EnableFileUploadNotifications *bool                    `json:"enableFileUploadNotifications,omitempty"`
-	CloudToDevice                 *CloudToDeviceProperties `json:"cloudToDevice,omitempty"`
-	// Comments - Comments.
-	Comments                       *string                         `json:"comments,omitempty"`
-	OperationsMonitoringProperties *OperationsMonitoringProperties `json:"operationsMonitoringProperties,omitempty"`
-	// Features - The capabilities and features enabled for the IoT hub. Possible values include: 'None', 'DeviceManagement'
-	Features Capabilities `json:"features,omitempty"`
+	AuthorizationPolicies          *[]SharedAccessSignatureAuthorizationRule `json:"authorizationPolicies,omitempty"`
+	IPFilterRules                  *[]IPFilterRule                           `json:"ipFilterRules,omitempty"`
+	ProvisioningState              *string                                   `json:"provisioningState,omitempty"`
+	HostName                       *string                                   `json:"hostName,omitempty"`
+	EventHubEndpoints              *map[string]*EventHubProperties           `json:"eventHubEndpoints,omitempty"`
+	Routing                        *RoutingProperties                        `json:"routing,omitempty"`
+	StorageEndpoints               *map[string]*StorageEndpointProperties    `json:"storageEndpoints,omitempty"`
+	MessagingEndpoints             *map[string]*MessagingEndpointProperties  `json:"messagingEndpoints,omitempty"`
+	EnableFileUploadNotifications  *bool                                     `json:"enableFileUploadNotifications,omitempty"`
+	CloudToDevice                  *CloudToDeviceProperties                  `json:"cloudToDevice,omitempty"`
+	Comments                       *string                                   `json:"comments,omitempty"`
+	OperationsMonitoringProperties *OperationsMonitoringProperties           `json:"operationsMonitoringProperties,omitempty"`
+	Features                       Capabilities                              `json:"features,omitempty"`
 }
 
-// IotHubQuotaMetricInfo quota metrics properties.
+// IotHubQuotaMetricInfo is quota metrics properties.
 type IotHubQuotaMetricInfo struct {
-	// Name - The name of the quota metric.
-	Name *string `json:"Name,omitempty"`
-	// CurrentValue - The current value for the quota metric.
-	CurrentValue *int64 `json:"CurrentValue,omitempty"`
-	// MaxValue - The maximum value of the quota metric.
-	MaxValue *int64 `json:"MaxValue,omitempty"`
+	Name         *string `json:"Name,omitempty"`
+	CurrentValue *int64  `json:"CurrentValue,omitempty"`
+	MaxValue     *int64  `json:"MaxValue,omitempty"`
 }
 
-// IotHubQuotaMetricInfoListResult the JSON-serialized array of IotHubQuotaMetricInfo objects with a next link.
+// IotHubQuotaMetricInfoListResult is the JSON-serialized array of IotHubQuotaMetricInfo objects with a next link.
 type IotHubQuotaMetricInfoListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The array of quota metrics objects.
-	Value *[]IotHubQuotaMetricInfo `json:"value,omitempty"`
-	// NextLink - The next link.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]IotHubQuotaMetricInfo `json:"value,omitempty"`
+	NextLink          *string                  `json:"nextLink,omitempty"`
 }
 
-// IotHubQuotaMetricInfoListResultIterator provides access to a complete listing of IotHubQuotaMetricInfo values.
-type IotHubQuotaMetricInfoListResultIterator struct {
-	i    int
-	page IotHubQuotaMetricInfoListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *IotHubQuotaMetricInfoListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter IotHubQuotaMetricInfoListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter IotHubQuotaMetricInfoListResultIterator) Response() IotHubQuotaMetricInfoListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter IotHubQuotaMetricInfoListResultIterator) Value() IotHubQuotaMetricInfo {
-	if !iter.page.NotDone() {
-		return IotHubQuotaMetricInfo{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ihqmilr IotHubQuotaMetricInfoListResult) IsEmpty() bool {
-	return ihqmilr.Value == nil || len(*ihqmilr.Value) == 0
-}
-
-// iotHubQuotaMetricInfoListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ihqmilr IotHubQuotaMetricInfoListResult) iotHubQuotaMetricInfoListResultPreparer() (*http.Request, error) {
-	if ihqmilr.NextLink == nil || len(to.String(ihqmilr.NextLink)) < 1 {
+// IotHubQuotaMetricInfoListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client IotHubQuotaMetricInfoListResult) IotHubQuotaMetricInfoListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ihqmilr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// IotHubQuotaMetricInfoListResultPage contains a page of IotHubQuotaMetricInfo values.
-type IotHubQuotaMetricInfoListResultPage struct {
-	fn      func(IotHubQuotaMetricInfoListResult) (IotHubQuotaMetricInfoListResult, error)
-	ihqmilr IotHubQuotaMetricInfoListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *IotHubQuotaMetricInfoListResultPage) Next() error {
-	next, err := page.fn(page.ihqmilr)
-	if err != nil {
-		return err
-	}
-	page.ihqmilr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page IotHubQuotaMetricInfoListResultPage) NotDone() bool {
-	return !page.ihqmilr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page IotHubQuotaMetricInfoListResultPage) Response() IotHubQuotaMetricInfoListResult {
-	return page.ihqmilr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page IotHubQuotaMetricInfoListResultPage) Values() []IotHubQuotaMetricInfo {
-	if page.ihqmilr.IsEmpty() {
-		return nil
-	}
-	return *page.ihqmilr.Value
-}
-
-// IotHubResourceCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type IotHubResourceCreateOrUpdateFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future IotHubResourceCreateOrUpdateFuture) Result(client IotHubResourceClient) (ihd IotHubDescription, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return ihd, autorest.NewError("devices.IotHubResourceCreateOrUpdateFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		ihd, err = client.CreateOrUpdateResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	ihd, err = client.CreateOrUpdateResponder(resp)
-	return
-}
-
-// IotHubResourceDeleteFuture an abstraction for monitoring and retrieving the results of a long-running operation.
-type IotHubResourceDeleteFuture struct {
-	azure.Future
-	req *http.Request
-}
-
-// Result returns the result of the asynchronous operation.
-// If the operation has not completed it will return an error.
-func (future IotHubResourceDeleteFuture) Result(client IotHubResourceClient) (so SetObject, err error) {
-	var done bool
-	done, err = future.Done(client)
-	if err != nil {
-		return
-	}
-	if !done {
-		return so, autorest.NewError("devices.IotHubResourceDeleteFuture", "Result", "asynchronous operation has not completed")
-	}
-	if future.PollingMethod() == azure.PollingLocation {
-		so, err = client.DeleteResponder(future.Response())
-		return
-	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, autorest.ChangeToGet(future.req),
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return
-	}
-	so, err = client.DeleteResponder(resp)
-	return
-}
-
-// IotHubSkuDescription SKU properties.
+// IotHubSkuDescription is SKU properties.
 type IotHubSkuDescription struct {
-	// ResourceType - The type of the resource.
 	ResourceType *string         `json:"resourceType,omitempty"`
 	Sku          *IotHubSkuInfo  `json:"sku,omitempty"`
 	Capacity     *IotHubCapacity `json:"capacity,omitempty"`
 }
 
-// IotHubSkuDescriptionListResult the JSON-serialized array of IotHubSkuDescription objects with a next link.
+// IotHubSkuDescriptionListResult is the JSON-serialized array of IotHubSkuDescription objects with a next link.
 type IotHubSkuDescriptionListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The array of IotHubSkuDescription.
-	Value *[]IotHubSkuDescription `json:"value,omitempty"`
-	// NextLink - The next link.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]IotHubSkuDescription `json:"value,omitempty"`
+	NextLink          *string                 `json:"nextLink,omitempty"`
 }
 
-// IotHubSkuDescriptionListResultIterator provides access to a complete listing of IotHubSkuDescription values.
-type IotHubSkuDescriptionListResultIterator struct {
-	i    int
-	page IotHubSkuDescriptionListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *IotHubSkuDescriptionListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter IotHubSkuDescriptionListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter IotHubSkuDescriptionListResultIterator) Response() IotHubSkuDescriptionListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter IotHubSkuDescriptionListResultIterator) Value() IotHubSkuDescription {
-	if !iter.page.NotDone() {
-		return IotHubSkuDescription{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (ihsdlr IotHubSkuDescriptionListResult) IsEmpty() bool {
-	return ihsdlr.Value == nil || len(*ihsdlr.Value) == 0
-}
-
-// iotHubSkuDescriptionListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (ihsdlr IotHubSkuDescriptionListResult) iotHubSkuDescriptionListResultPreparer() (*http.Request, error) {
-	if ihsdlr.NextLink == nil || len(to.String(ihsdlr.NextLink)) < 1 {
+// IotHubSkuDescriptionListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client IotHubSkuDescriptionListResult) IotHubSkuDescriptionListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(ihsdlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// IotHubSkuDescriptionListResultPage contains a page of IotHubSkuDescription values.
-type IotHubSkuDescriptionListResultPage struct {
-	fn     func(IotHubSkuDescriptionListResult) (IotHubSkuDescriptionListResult, error)
-	ihsdlr IotHubSkuDescriptionListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *IotHubSkuDescriptionListResultPage) Next() error {
-	next, err := page.fn(page.ihsdlr)
-	if err != nil {
-		return err
-	}
-	page.ihsdlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page IotHubSkuDescriptionListResultPage) NotDone() bool {
-	return !page.ihsdlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page IotHubSkuDescriptionListResultPage) Response() IotHubSkuDescriptionListResult {
-	return page.ihsdlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page IotHubSkuDescriptionListResultPage) Values() []IotHubSkuDescription {
-	if page.ihsdlr.IsEmpty() {
-		return nil
-	}
-	return *page.ihsdlr.Value
-}
-
-// IotHubSkuInfo information about the SKU of the IoT hub.
+// IotHubSkuInfo is information about the SKU of the IoT hub.
 type IotHubSkuInfo struct {
-	// Name - The name of the SKU. Possible values include: 'F1', 'S1', 'S2', 'S3'
-	Name IotHubSku `json:"name,omitempty"`
-	// Tier - The billing tier for the IoT hub. Possible values include: 'Free', 'Standard'
-	Tier IotHubSkuTier `json:"tier,omitempty"`
-	// Capacity - The number of provisioned IoT Hub units. See: https://docs.microsoft.com/azure/azure-subscription-service-limits#iot-hub-limits.
-	Capacity *int64 `json:"capacity,omitempty"`
+	Name     IotHubSku     `json:"name,omitempty"`
+	Tier     IotHubSkuTier `json:"tier,omitempty"`
+	Capacity *int64        `json:"capacity,omitempty"`
 }
 
-// IPFilterRule the IP filter rules for the IoT hub.
+// IPFilterRule is the IP filter rules for the IoT hub.
 type IPFilterRule struct {
-	// FilterName - The name of the IP filter rule.
-	FilterName *string `json:"filterName,omitempty"`
-	// Action - The desired action for requests captured by this rule. Possible values include: 'Accept', 'Reject'
-	Action IPFilterActionType `json:"action,omitempty"`
-	// IPMask - A string that contains the IP address range in CIDR notation for the rule.
-	IPMask *string `json:"ipMask,omitempty"`
+	FilterName *string            `json:"filterName,omitempty"`
+	Action     IPFilterActionType `json:"action,omitempty"`
+	IPMask     *string            `json:"ipMask,omitempty"`
 }
 
-// JobResponse the properties of the Job Response object.
+// JobResponse is the properties of the Job Response object.
 type JobResponse struct {
 	autorest.Response `json:"-"`
-	// JobID - The job identifier.
-	JobID *string `json:"jobId,omitempty"`
-	// StartTimeUtc - The start time of the job.
-	StartTimeUtc *date.TimeRFC1123 `json:"startTimeUtc,omitempty"`
-	// EndTimeUtc - The time the job stopped processing.
-	EndTimeUtc *date.TimeRFC1123 `json:"endTimeUtc,omitempty"`
-	// Type - The type of the job. Possible values include: 'JobTypeUnknown', 'JobTypeExport', 'JobTypeImport', 'JobTypeBackup', 'JobTypeReadDeviceProperties', 'JobTypeWriteDeviceProperties', 'JobTypeUpdateDeviceConfiguration', 'JobTypeRebootDevice', 'JobTypeFactoryResetDevice', 'JobTypeFirmwareUpdate'
-	Type JobType `json:"type,omitempty"`
-	// Status - The status of the job. Possible values include: 'Unknown', 'Enqueued', 'Running', 'Completed', 'Failed', 'Cancelled'
-	Status JobStatus `json:"status,omitempty"`
-	// FailureReason - If status == failed, this string containing the reason for the failure.
-	FailureReason *string `json:"failureReason,omitempty"`
-	// StatusMessage - The status message for the job.
-	StatusMessage *string `json:"statusMessage,omitempty"`
-	// ParentJobID - The job identifier of the parent job, if any.
-	ParentJobID *string `json:"parentJobId,omitempty"`
+	JobID             *string           `json:"jobId,omitempty"`
+	StartTimeUtc      *date.TimeRFC1123 `json:"startTimeUtc,omitempty"`
+	EndTimeUtc        *date.TimeRFC1123 `json:"endTimeUtc,omitempty"`
+	Type              JobType           `json:"type,omitempty"`
+	Status            JobStatus         `json:"status,omitempty"`
+	FailureReason     *string           `json:"failureReason,omitempty"`
+	StatusMessage     *string           `json:"statusMessage,omitempty"`
+	ParentJobID       *string           `json:"parentJobId,omitempty"`
 }
 
-// JobResponseListResult the JSON-serialized array of JobResponse objects with a next link.
+// JobResponseListResult is the JSON-serialized array of JobResponse objects with a next link.
 type JobResponseListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The array of JobResponse objects.
-	Value *[]JobResponse `json:"value,omitempty"`
-	// NextLink - The next link.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]JobResponse `json:"value,omitempty"`
+	NextLink          *string        `json:"nextLink,omitempty"`
 }
 
-// JobResponseListResultIterator provides access to a complete listing of JobResponse values.
-type JobResponseListResultIterator struct {
-	i    int
-	page JobResponseListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *JobResponseListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter JobResponseListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter JobResponseListResultIterator) Response() JobResponseListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter JobResponseListResultIterator) Value() JobResponse {
-	if !iter.page.NotDone() {
-		return JobResponse{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (jrlr JobResponseListResult) IsEmpty() bool {
-	return jrlr.Value == nil || len(*jrlr.Value) == 0
-}
-
-// jobResponseListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (jrlr JobResponseListResult) jobResponseListResultPreparer() (*http.Request, error) {
-	if jrlr.NextLink == nil || len(to.String(jrlr.NextLink)) < 1 {
+// JobResponseListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client JobResponseListResult) JobResponseListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(jrlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// JobResponseListResultPage contains a page of JobResponse values.
-type JobResponseListResultPage struct {
-	fn   func(JobResponseListResult) (JobResponseListResult, error)
-	jrlr JobResponseListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *JobResponseListResultPage) Next() error {
-	next, err := page.fn(page.jrlr)
-	if err != nil {
-		return err
-	}
-	page.jrlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page JobResponseListResultPage) NotDone() bool {
-	return !page.jrlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page JobResponseListResultPage) Response() JobResponseListResult {
-	return page.jrlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page JobResponseListResultPage) Values() []JobResponse {
-	if page.jrlr.IsEmpty() {
-		return nil
-	}
-	return *page.jrlr.Value
-}
-
-// MessagingEndpointProperties the properties of the messaging endpoints used by this IoT hub.
+// MessagingEndpointProperties is the properties of the messaging endpoints used by this IoT hub.
 type MessagingEndpointProperties struct {
-	// LockDurationAsIso8601 - The lock duration. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-file-upload.
 	LockDurationAsIso8601 *string `json:"lockDurationAsIso8601,omitempty"`
-	// TTLAsIso8601 - The period of time for which a message is available to consume before it is expired by the IoT hub. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-file-upload.
-	TTLAsIso8601 *string `json:"ttlAsIso8601,omitempty"`
-	// MaxDeliveryCount - The number of times the IoT hub attempts to deliver a message. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-file-upload.
-	MaxDeliveryCount *int32 `json:"maxDeliveryCount,omitempty"`
+	TTLAsIso8601          *string `json:"ttlAsIso8601,omitempty"`
+	MaxDeliveryCount      *int32  `json:"maxDeliveryCount,omitempty"`
 }
 
-// OperationInputs input values.
+// OperationInputs is input values.
 type OperationInputs struct {
-	// Name - The name of the IoT hub to check.
 	Name *string `json:"Name,omitempty"`
 }
 
-// OperationsMonitoringProperties the operations monitoring properties for the IoT hub. The possible keys to the
+// OperationsMonitoringProperties is the operations monitoring properties for the IoT hub. The possible keys to the
 // dictionary are Connections, DeviceTelemetry, C2DCommands, DeviceIdentityOperations, FileUploadOperations, Routes,
 // D2CTwinOperations, C2DTwinOperations, TwinQueries, JobsOperations, DirectMethods.
 type OperationsMonitoringProperties struct {
 	Events *map[string]*OperationMonitoringLevel `json:"events,omitempty"`
 }
 
-// RegistryStatistics identity registry statistics.
+// RegistryStatistics is identity registry statistics.
 type RegistryStatistics struct {
-	autorest.Response `json:"-"`
-	// TotalDeviceCount - The total count of devices in the identity registry.
-	TotalDeviceCount *int64 `json:"totalDeviceCount,omitempty"`
-	// EnabledDeviceCount - The count of enabled devices in the identity registry.
-	EnabledDeviceCount *int64 `json:"enabledDeviceCount,omitempty"`
-	// DisabledDeviceCount - The count of disabled devices in the identity registry.
+	autorest.Response   `json:"-"`
+	TotalDeviceCount    *int64 `json:"totalDeviceCount,omitempty"`
+	EnabledDeviceCount  *int64 `json:"enabledDeviceCount,omitempty"`
 	DisabledDeviceCount *int64 `json:"disabledDeviceCount,omitempty"`
 }
 
-// Resource the common properties of an Azure resource.
+// Resource is the common properties of an Azure resource.
 type Resource struct {
-	// ID - The resource identifier.
-	ID *string `json:"id,omitempty"`
-	// Name - The resource name.
-	Name *string `json:"name,omitempty"`
-	// Type - The resource type.
-	Type *string `json:"type,omitempty"`
-	// Location - The resource location.
-	Location *string `json:"location,omitempty"`
-	// Tags - The resource tags.
-	Tags *map[string]*string `json:"tags,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Location *string             `json:"location,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
 }
 
-// RouteProperties the properties of a routing rule that your IoT hub uses to route messages to endpoints.
+// RouteProperties is the properties of a routing rule that your IoT hub uses to route messages to endpoints.
 type RouteProperties struct {
-	// Name - The name of the route. The name can only include alphanumeric characters, periods, underscores, hyphens, has a maximum length of 64 characters,  and must be unique.
-	Name *string `json:"name,omitempty"`
-	// Source - The source that the routing rule is to be applied to, such as DeviceMessages. Possible values include: 'DeviceMessages', 'TwinChangeEvents', 'DeviceLifecycleEvents', 'DeviceJobLifecycleEvents'
-	Source RoutingSource `json:"source,omitempty"`
-	// Condition - The condition that is evaluated to apply the routing rule. If no condition is provided, it evaluates to true by default. For grammar, See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-query-language
-	Condition *string `json:"condition,omitempty"`
-	// EndpointNames - The list of endpoints to which messages that satisfy the condition are routed. Currently only one endpoint is allowed.
-	EndpointNames *[]string `json:"endpointNames,omitempty"`
-	// IsEnabled - Used to specify whether a route is enabled.
-	IsEnabled *bool `json:"isEnabled,omitempty"`
+	Name          *string       `json:"name,omitempty"`
+	Source        RoutingSource `json:"source,omitempty"`
+	Condition     *string       `json:"condition,omitempty"`
+	EndpointNames *[]string     `json:"endpointNames,omitempty"`
+	IsEnabled     *bool         `json:"isEnabled,omitempty"`
 }
 
-// RoutingEndpoints the properties related to the custom endpoints to which your IoT hub routes messages based on the
-// routing rules. A maximum of 10 custom endpoints are allowed across all endpoint types for paid hubs and only 1
+// RoutingEndpoints is the properties related to the custom endpoints to which your IoT hub routes messages based on
+// the routing rules. A maximum of 10 custom endpoints are allowed across all endpoint types for paid hubs and only 1
 // custom endpoint is allowed across all endpoint types for free hubs.
 type RoutingEndpoints struct {
-	// ServiceBusQueues - The list of Service Bus queue endpoints that IoT hub routes the messages to, based on the routing rules.
 	ServiceBusQueues *[]RoutingServiceBusQueueEndpointProperties `json:"serviceBusQueues,omitempty"`
-	// ServiceBusTopics - The list of Service Bus topic endpoints that the IoT hub routes the messages to, based on the routing rules.
 	ServiceBusTopics *[]RoutingServiceBusTopicEndpointProperties `json:"serviceBusTopics,omitempty"`
-	// EventHubs - The list of Event Hubs endpoints that IoT hub routes messages to, based on the routing rules. This list does not include the built-in Event Hubs endpoint.
-	EventHubs *[]RoutingEventHubProperties `json:"eventHubs,omitempty"`
+	EventHubs        *[]RoutingEventHubProperties                `json:"eventHubs,omitempty"`
 }
 
-// RoutingEventHubProperties the properties related to an event hub endpoint.
+// RoutingEventHubProperties is the properties related to an event hub endpoint.
 type RoutingEventHubProperties struct {
-	// ConnectionString - The connection string of the event hub endpoint.
 	ConnectionString *string `json:"connectionString,omitempty"`
-	// Name - The name of the event hub endpoint. The name can only include alphanumeric characters, periods, underscores, hyphens and has a maximum length of 64 characters. The following names are reserved;  events, operationsMonitoringEvents, fileNotifications, $default. Endpoint names must be unique across endpoint types.
-	Name *string `json:"name,omitempty"`
-	// SubscriptionID - The subscription identifier of the event hub endpoint.
-	SubscriptionID *string `json:"subscriptionId,omitempty"`
-	// ResourceGroup - The name of the resource group of the event hub endpoint.
-	ResourceGroup *string `json:"resourceGroup,omitempty"`
+	Name             *string `json:"name,omitempty"`
+	SubscriptionID   *string `json:"subscriptionId,omitempty"`
+	ResourceGroup    *string `json:"resourceGroup,omitempty"`
 }
 
-// RoutingProperties the routing related properties of the IoT hub. See:
+// RoutingProperties is the routing related properties of the IoT hub. See:
 // https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-messaging
 type RoutingProperties struct {
-	Endpoints *RoutingEndpoints `json:"endpoints,omitempty"`
-	// Routes - The list of user-provided routing rules that the IoT hub uses to route messages to built-in and custom endpoints. A maximum of 100 routing rules are allowed for paid hubs and a maximum of 5 routing rules are allowed for free hubs.
-	Routes *[]RouteProperties `json:"routes,omitempty"`
-	// FallbackRoute - The properties of the route that is used as a fall-back route when none of the conditions specified in the 'routes' section are met. This is an optional parameter. When this property is not set, the messages which do not meet any of the conditions specified in the 'routes' section get routed to the built-in eventhub endpoint.
+	Endpoints     *RoutingEndpoints        `json:"endpoints,omitempty"`
+	Routes        *[]RouteProperties       `json:"routes,omitempty"`
 	FallbackRoute *FallbackRouteProperties `json:"fallbackRoute,omitempty"`
 }
 
-// RoutingServiceBusQueueEndpointProperties the properties related to service bus queue endpoint types.
+// RoutingServiceBusQueueEndpointProperties is the properties related to service bus queue endpoint types.
 type RoutingServiceBusQueueEndpointProperties struct {
-	// ConnectionString - The connection string of the service bus queue endpoint.
 	ConnectionString *string `json:"connectionString,omitempty"`
-	// Name - The name of the service bus queue endpoint. The name can only include alphanumeric characters, periods, underscores, hyphens and has a maximum length of 64 characters. The following names are reserved;  events, operationsMonitoringEvents, fileNotifications, $default. Endpoint names must be unique across endpoint types. The name need not be the same as the actual queue name.
-	Name *string `json:"name,omitempty"`
-	// SubscriptionID - The subscription identifier of the service bus queue endpoint.
-	SubscriptionID *string `json:"subscriptionId,omitempty"`
-	// ResourceGroup - The name of the resource group of the service bus queue endpoint.
-	ResourceGroup *string `json:"resourceGroup,omitempty"`
+	Name             *string `json:"name,omitempty"`
+	SubscriptionID   *string `json:"subscriptionId,omitempty"`
+	ResourceGroup    *string `json:"resourceGroup,omitempty"`
 }
 
-// RoutingServiceBusTopicEndpointProperties the properties related to service bus topic endpoint types.
+// RoutingServiceBusTopicEndpointProperties is the properties related to service bus topic endpoint types.
 type RoutingServiceBusTopicEndpointProperties struct {
-	// ConnectionString - The connection string of the service bus topic endpoint.
 	ConnectionString *string `json:"connectionString,omitempty"`
-	// Name - The name of the service bus topic endpoint. The name can only include alphanumeric characters, periods, underscores, hyphens and has a maximum length of 64 characters. The following names are reserved;  events, operationsMonitoringEvents, fileNotifications, $default. Endpoint names must be unique across endpoint types.  The name need not be the same as the actual topic name.
-	Name *string `json:"name,omitempty"`
-	// SubscriptionID - The subscription identifier of the service bus topic endpoint.
-	SubscriptionID *string `json:"subscriptionId,omitempty"`
-	// ResourceGroup - The name of the resource group of the service bus topic endpoint.
-	ResourceGroup *string `json:"resourceGroup,omitempty"`
+	Name             *string `json:"name,omitempty"`
+	SubscriptionID   *string `json:"subscriptionId,omitempty"`
+	ResourceGroup    *string `json:"resourceGroup,omitempty"`
 }
 
-// SetObject ...
+// SetObject is
 type SetObject struct {
 	autorest.Response `json:"-"`
 	Value             *map[string]interface{} `json:"value,omitempty"`
 }
 
-// SharedAccessSignatureAuthorizationRule the properties of an IoT hub shared access policy.
+// SharedAccessSignatureAuthorizationRule is the properties of an IoT hub shared access policy.
 type SharedAccessSignatureAuthorizationRule struct {
 	autorest.Response `json:"-"`
-	// KeyName - The name of the shared access policy.
-	KeyName *string `json:"keyName,omitempty"`
-	// PrimaryKey - The primary key.
-	PrimaryKey *string `json:"primaryKey,omitempty"`
-	// SecondaryKey - The secondary key.
-	SecondaryKey *string `json:"secondaryKey,omitempty"`
-	// Rights - The permissions assigned to the shared access policy. Possible values include: 'RegistryRead', 'RegistryWrite', 'ServiceConnect', 'DeviceConnect', 'RegistryReadRegistryWrite', 'RegistryReadServiceConnect', 'RegistryReadDeviceConnect', 'RegistryWriteServiceConnect', 'RegistryWriteDeviceConnect', 'ServiceConnectDeviceConnect', 'RegistryReadRegistryWriteServiceConnect', 'RegistryReadRegistryWriteDeviceConnect', 'RegistryReadServiceConnectDeviceConnect', 'RegistryWriteServiceConnectDeviceConnect', 'RegistryReadRegistryWriteServiceConnectDeviceConnect'
-	Rights AccessRights `json:"rights,omitempty"`
+	KeyName           *string      `json:"keyName,omitempty"`
+	PrimaryKey        *string      `json:"primaryKey,omitempty"`
+	SecondaryKey      *string      `json:"secondaryKey,omitempty"`
+	Rights            AccessRights `json:"rights,omitempty"`
 }
 
-// SharedAccessSignatureAuthorizationRuleListResult the list of shared access policies with a next link.
+// SharedAccessSignatureAuthorizationRuleListResult is the list of shared access policies with a next link.
 type SharedAccessSignatureAuthorizationRuleListResult struct {
 	autorest.Response `json:"-"`
-	// Value - The list of shared access policies.
-	Value *[]SharedAccessSignatureAuthorizationRule `json:"value,omitempty"`
-	// NextLink - The next link.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]SharedAccessSignatureAuthorizationRule `json:"value,omitempty"`
+	NextLink          *string                                   `json:"nextLink,omitempty"`
 }
 
-// SharedAccessSignatureAuthorizationRuleListResultIterator provides access to a complete listing of
-// SharedAccessSignatureAuthorizationRule values.
-type SharedAccessSignatureAuthorizationRuleListResultIterator struct {
-	i    int
-	page SharedAccessSignatureAuthorizationRuleListResultPage
-}
-
-// Next advances to the next value.  If there was an error making
-// the request the iterator does not advance and the error is returned.
-func (iter *SharedAccessSignatureAuthorizationRuleListResultIterator) Next() error {
-	iter.i++
-	if iter.i < len(iter.page.Values()) {
-		return nil
-	}
-	err := iter.page.Next()
-	if err != nil {
-		iter.i--
-		return err
-	}
-	iter.i = 0
-	return nil
-}
-
-// NotDone returns true if the enumeration should be started or is not yet complete.
-func (iter SharedAccessSignatureAuthorizationRuleListResultIterator) NotDone() bool {
-	return iter.page.NotDone() && iter.i < len(iter.page.Values())
-}
-
-// Response returns the raw server response from the last page request.
-func (iter SharedAccessSignatureAuthorizationRuleListResultIterator) Response() SharedAccessSignatureAuthorizationRuleListResult {
-	return iter.page.Response()
-}
-
-// Value returns the current value or a zero-initialized value if the
-// iterator has advanced beyond the end of the collection.
-func (iter SharedAccessSignatureAuthorizationRuleListResultIterator) Value() SharedAccessSignatureAuthorizationRule {
-	if !iter.page.NotDone() {
-		return SharedAccessSignatureAuthorizationRule{}
-	}
-	return iter.page.Values()[iter.i]
-}
-
-// IsEmpty returns true if the ListResult contains no values.
-func (sasarlr SharedAccessSignatureAuthorizationRuleListResult) IsEmpty() bool {
-	return sasarlr.Value == nil || len(*sasarlr.Value) == 0
-}
-
-// sharedAccessSignatureAuthorizationRuleListResultPreparer prepares a request to retrieve the next set of results.
-// It returns nil if no more results exist.
-func (sasarlr SharedAccessSignatureAuthorizationRuleListResult) sharedAccessSignatureAuthorizationRuleListResultPreparer() (*http.Request, error) {
-	if sasarlr.NextLink == nil || len(to.String(sasarlr.NextLink)) < 1 {
+// SharedAccessSignatureAuthorizationRuleListResultPreparer prepares a request to retrieve the next set of results. It returns
+// nil if no more results exist.
+func (client SharedAccessSignatureAuthorizationRuleListResult) SharedAccessSignatureAuthorizationRuleListResultPreparer() (*http.Request, error) {
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
 		return nil, nil
 	}
 	return autorest.Prepare(&http.Request{},
 		autorest.AsJSON(),
 		autorest.AsGet(),
-		autorest.WithBaseURL(to.String(sasarlr.NextLink)))
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
-// SharedAccessSignatureAuthorizationRuleListResultPage contains a page of SharedAccessSignatureAuthorizationRule
-// values.
-type SharedAccessSignatureAuthorizationRuleListResultPage struct {
-	fn      func(SharedAccessSignatureAuthorizationRuleListResult) (SharedAccessSignatureAuthorizationRuleListResult, error)
-	sasarlr SharedAccessSignatureAuthorizationRuleListResult
-}
-
-// Next advances to the next page of values.  If there was an error making
-// the request the page does not advance and the error is returned.
-func (page *SharedAccessSignatureAuthorizationRuleListResultPage) Next() error {
-	next, err := page.fn(page.sasarlr)
-	if err != nil {
-		return err
-	}
-	page.sasarlr = next
-	return nil
-}
-
-// NotDone returns true if the page enumeration should be started or is not yet complete.
-func (page SharedAccessSignatureAuthorizationRuleListResultPage) NotDone() bool {
-	return !page.sasarlr.IsEmpty()
-}
-
-// Response returns the raw server response from the last page request.
-func (page SharedAccessSignatureAuthorizationRuleListResultPage) Response() SharedAccessSignatureAuthorizationRuleListResult {
-	return page.sasarlr
-}
-
-// Values returns the slice of values for the current page or nil if there are no values.
-func (page SharedAccessSignatureAuthorizationRuleListResultPage) Values() []SharedAccessSignatureAuthorizationRule {
-	if page.sasarlr.IsEmpty() {
-		return nil
-	}
-	return *page.sasarlr.Value
-}
-
-// StorageEndpointProperties the properties of the Azure Storage endpoint for file upload.
+// StorageEndpointProperties is the properties of the Azure Storage endpoint for file upload.
 type StorageEndpointProperties struct {
-	// SasTTLAsIso8601 - The period of time for which the the SAS URI generated by IoT Hub for file upload is valid. See: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-file-upload#file-upload-notification-configuration-options.
-	SasTTLAsIso8601 *string `json:"sasTtlAsIso8601,omitempty"`
-	// ConnectionString - The connection string for the Azure Storage account to which files are uploaded.
+	SasTTLAsIso8601  *string `json:"sasTtlAsIso8601,omitempty"`
 	ConnectionString *string `json:"connectionString,omitempty"`
-	// ContainerName - The name of the root container where you upload files. The container need not exist but should be creatable using the connectionString specified.
-	ContainerName *string `json:"containerName,omitempty"`
+	ContainerName    *string `json:"containerName,omitempty"`
 }

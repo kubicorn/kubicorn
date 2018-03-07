@@ -59,7 +59,6 @@ func New(client *http.Client) (*Service, error) {
 		return nil, errors.New("client is nil")
 	}
 	s := &Service{client: client, BasePath: basePath}
-	s.ApplicationDetailService = NewApplicationDetailServiceService(s)
 	s.Projects = NewProjectsService(s)
 	s.TestEnvironmentCatalog = NewTestEnvironmentCatalogService(s)
 	return s, nil
@@ -69,8 +68,6 @@ type Service struct {
 	client    *http.Client
 	BasePath  string // API endpoint base URL
 	UserAgent string // optional additional User-Agent fragment
-
-	ApplicationDetailService *ApplicationDetailServiceService
 
 	Projects *ProjectsService
 
@@ -82,15 +79,6 @@ func (s *Service) userAgent() string {
 		return googleapi.UserAgent
 	}
 	return googleapi.UserAgent + " " + s.UserAgent
-}
-
-func NewApplicationDetailServiceService(s *Service) *ApplicationDetailServiceService {
-	rs := &ApplicationDetailServiceService{s: s}
-	return rs
-}
-
-type ApplicationDetailServiceService struct {
-	s *Service
 }
 
 func NewProjectsService(s *Service) *ProjectsService {
@@ -574,13 +562,6 @@ type AndroidRoboTest struct {
 	// Optional
 	RoboDirectives []*RoboDirective `json:"roboDirectives,omitempty"`
 
-	// StartingIntents: The intents used to launch the app for the crawl.
-	// If none are provided, then the main launcher activity is launched.
-	// If some are provided, then only those provided are launched (the
-	// main
-	// launcher activity must be provided explicitly).
-	StartingIntents []*RoboStartingIntent `json:"startingIntents,omitempty"`
-
 	// ForceSendFields is a list of field names (e.g. "AppApk") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
@@ -753,81 +734,6 @@ type AndroidVersion struct {
 
 func (s *AndroidVersion) MarshalJSON() ([]byte, error) {
 	type NoMethod AndroidVersion
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// ApkDetail: Android application details based on application manifest
-// and apk archive
-// contents
-type ApkDetail struct {
-	ApkManifest *ApkManifest `json:"apkManifest,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "ApkManifest") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "ApkManifest") to include
-	// in API requests with the JSON null value. By default, fields with
-	// empty values are omitted from API requests. However, any field with
-	// an empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *ApkDetail) MarshalJSON() ([]byte, error) {
-	type NoMethod ApkDetail
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// ApkManifest: An Android app manifest.
-// See
-// http://developer.android.com/guide/topics/manifest/manifest-intro.
-// html
-type ApkManifest struct {
-	// ApplicationLabel: User-readable name for the application.
-	ApplicationLabel string `json:"applicationLabel,omitempty"`
-
-	IntentFilters []*IntentFilter `json:"intentFilters,omitempty"`
-
-	// MaxSdkVersion: Maximum API level on which the application is designed
-	// to run.
-	MaxSdkVersion int64 `json:"maxSdkVersion,omitempty"`
-
-	// MinSdkVersion: Minimum API level required for the application to run.
-	MinSdkVersion int64 `json:"minSdkVersion,omitempty"`
-
-	// PackageName: Full Java-style package name for this application,
-	// e.g.
-	// "com.example.foo".
-	PackageName string `json:"packageName,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "ApplicationLabel") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "ApplicationLabel") to
-	// include in API requests with the JSON null value. By default, fields
-	// with empty values are omitted from API requests. However, any field
-	// with an empty value appearing in NullFields will be sent to the
-	// server as null. It is an error if a field in this list has a
-	// non-empty value. This may be used to include null fields in Patch
-	// requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *ApkManifest) MarshalJSON() ([]byte, error) {
-	type NoMethod ApkManifest
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
@@ -1238,39 +1144,6 @@ func (s *FileReference) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// GetApkDetailsResponse: Response containing the details of the
-// specified Android application APK.
-type GetApkDetailsResponse struct {
-	// ApkDetail: Details of the Android APK.
-	ApkDetail *ApkDetail `json:"apkDetail,omitempty"`
-
-	// ServerResponse contains the HTTP response code and headers from the
-	// server.
-	googleapi.ServerResponse `json:"-"`
-
-	// ForceSendFields is a list of field names (e.g. "ApkDetail") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "ApkDetail") to include in
-	// API requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *GetApkDetailsResponse) MarshalJSON() ([]byte, error) {
-	type NoMethod GetApkDetailsResponse
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
 // GoogleAuto: Enables automatic Google account login.
 // If set, the service will automatically generate a Google test account
 // and add
@@ -1317,48 +1190,6 @@ func (s *GoogleCloudStorage) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleCloudStorage
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// IntentFilter: The <intent-filter> section of an <activity>
-// tag.
-// https://developer.android.com/guide/topics/manifest/intent-filter
-// -element.html
-type IntentFilter struct {
-	// ActionNames: The android:name value of the <action> tag
-	ActionNames []string `json:"actionNames,omitempty"`
-
-	// CategoryNames: The android:name value of the <category> tag
-	CategoryNames []string `json:"categoryNames,omitempty"`
-
-	// MimeType: The android:mimeType value of the <data> tag
-	MimeType string `json:"mimeType,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "ActionNames") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "ActionNames") to include
-	// in API requests with the JSON null value. By default, fields with
-	// empty values are omitted from API requests. However, any field with
-	// an empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *IntentFilter) MarshalJSON() ([]byte, error) {
-	type NoMethod IntentFilter
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// LauncherActivityIntent: Specifies an intent that starts the main
-// launcher activity.
-type LauncherActivityIntent struct {
 }
 
 // Locale: A location/region designation for language.
@@ -1653,75 +1484,6 @@ func (s *RoboDirective) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// RoboStartingIntent: Message for specifying the start activities to
-// crawl
-type RoboStartingIntent struct {
-	LauncherActivity *LauncherActivityIntent `json:"launcherActivity,omitempty"`
-
-	StartActivity *StartActivityIntent `json:"startActivity,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "LauncherActivity") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "LauncherActivity") to
-	// include in API requests with the JSON null value. By default, fields
-	// with empty values are omitted from API requests. However, any field
-	// with an empty value appearing in NullFields will be sent to the
-	// server as null. It is an error if a field in this list has a
-	// non-empty value. This may be used to include null fields in Patch
-	// requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *RoboStartingIntent) MarshalJSON() ([]byte, error) {
-	type NoMethod RoboStartingIntent
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// StartActivityIntent: A starting intent specified by an action, uri,
-// and categories.
-type StartActivityIntent struct {
-	// Action: Action name.
-	// Required for START_ACTIVITY.
-	Action string `json:"action,omitempty"`
-
-	// Categories: Intent categories to set on the intent.
-	// Optional.
-	Categories []string `json:"categories,omitempty"`
-
-	// Uri: URI for the action.
-	// Optional.
-	Uri string `json:"uri,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Action") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Action") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *StartActivityIntent) MarshalJSON() ([]byte, error) {
-	type NoMethod StartActivityIntent
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
 // TestDetails: Additional details about the progress of the running
 // test.
 type TestDetails struct {
@@ -1985,12 +1747,6 @@ type TestMatrix struct {
 	//   "DEVICE_ADMIN_RECEIVER" - Device administrator applications are not
 	// allowed.
 	//   "TEST_ONLY_APK" - The APK is marked as "testOnly".
-	// NOT USED
-	//   "NO_CODE_APK" - APK contains no code.
-	// See
-	// also
-	// https://developer.android.com/guide/topics/manifest/application-e
-	// lement.html#code
 	InvalidMatrixDetails string `json:"invalidMatrixDetails,omitempty"`
 
 	// ProjectId: The cloud project that owns the test matrix.
@@ -2100,8 +1856,8 @@ func (s *TestMatrix) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// TestSetup: A description of how to set up the Android device prior to
-// running the test.
+// TestSetup: A description of how to set up the device prior to running
+// the test
 type TestSetup struct {
 	// Account: The device will be logged in on this account for the
 	// duration of the test.
@@ -2198,9 +1954,8 @@ type TestSpecification struct {
 	// latency.
 	DisableVideoRecording bool `json:"disableVideoRecording,omitempty"`
 
-	// TestSetup: Test setup requirements for Android e.g. files to install,
-	// bootstrap
-	// scripts.
+	// TestSetup: Test setup requirements e.g. files to install, bootstrap
+	// scripts
 	// Optional
 	TestSetup *TestSetup `json:"testSetup,omitempty"`
 
@@ -2412,126 +2167,6 @@ func (s *TrafficRule) UnmarshalJSON(data []byte) error {
 	s.PacketDuplicationRatio = float64(s1.PacketDuplicationRatio)
 	s.PacketLossRatio = float64(s1.PacketLossRatio)
 	return nil
-}
-
-// method id "testing.applicationDetailService.getApkDetails":
-
-type ApplicationDetailServiceGetApkDetailsCall struct {
-	s             *Service
-	filereference *FileReference
-	urlParams_    gensupport.URLParams
-	ctx_          context.Context
-	header_       http.Header
-}
-
-// GetApkDetails: Request the details of an Android application APK.
-func (r *ApplicationDetailServiceService) GetApkDetails(filereference *FileReference) *ApplicationDetailServiceGetApkDetailsCall {
-	c := &ApplicationDetailServiceGetApkDetailsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
-	c.filereference = filereference
-	return c
-}
-
-// Fields allows partial responses to be retrieved. See
-// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
-// for more information.
-func (c *ApplicationDetailServiceGetApkDetailsCall) Fields(s ...googleapi.Field) *ApplicationDetailServiceGetApkDetailsCall {
-	c.urlParams_.Set("fields", googleapi.CombineFields(s))
-	return c
-}
-
-// Context sets the context to be used in this call's Do method. Any
-// pending HTTP request will be aborted if the provided context is
-// canceled.
-func (c *ApplicationDetailServiceGetApkDetailsCall) Context(ctx context.Context) *ApplicationDetailServiceGetApkDetailsCall {
-	c.ctx_ = ctx
-	return c
-}
-
-// Header returns an http.Header that can be modified by the caller to
-// add HTTP headers to the request.
-func (c *ApplicationDetailServiceGetApkDetailsCall) Header() http.Header {
-	if c.header_ == nil {
-		c.header_ = make(http.Header)
-	}
-	return c.header_
-}
-
-func (c *ApplicationDetailServiceGetApkDetailsCall) doRequest(alt string) (*http.Response, error) {
-	reqHeaders := make(http.Header)
-	for k, v := range c.header_ {
-		reqHeaders[k] = v
-	}
-	reqHeaders.Set("User-Agent", c.s.userAgent())
-	var body io.Reader = nil
-	body, err := googleapi.WithoutDataWrapper.JSONReader(c.filereference)
-	if err != nil {
-		return nil, err
-	}
-	reqHeaders.Set("Content-Type", "application/json")
-	c.urlParams_.Set("alt", alt)
-	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/applicationDetailService/getApkDetails")
-	urls += "?" + c.urlParams_.Encode()
-	req, _ := http.NewRequest("POST", urls, body)
-	req.Header = reqHeaders
-	return gensupport.SendRequest(c.ctx_, c.s.client, req)
-}
-
-// Do executes the "testing.applicationDetailService.getApkDetails" call.
-// Exactly one of *GetApkDetailsResponse or error will be non-nil. Any
-// non-2xx status code is an error. Response headers are in either
-// *GetApkDetailsResponse.ServerResponse.Header or (if a response was
-// returned at all) in error.(*googleapi.Error).Header. Use
-// googleapi.IsNotModified to check whether the returned error was
-// because http.StatusNotModified was returned.
-func (c *ApplicationDetailServiceGetApkDetailsCall) Do(opts ...googleapi.CallOption) (*GetApkDetailsResponse, error) {
-	gensupport.SetOptions(c.urlParams_, opts...)
-	res, err := c.doRequest("json")
-	if res != nil && res.StatusCode == http.StatusNotModified {
-		if res.Body != nil {
-			res.Body.Close()
-		}
-		return nil, &googleapi.Error{
-			Code:   res.StatusCode,
-			Header: res.Header,
-		}
-	}
-	if err != nil {
-		return nil, err
-	}
-	defer googleapi.CloseBody(res)
-	if err := googleapi.CheckResponse(res); err != nil {
-		return nil, err
-	}
-	ret := &GetApkDetailsResponse{
-		ServerResponse: googleapi.ServerResponse{
-			Header:         res.Header,
-			HTTPStatusCode: res.StatusCode,
-		},
-	}
-	target := &ret
-	if err := gensupport.DecodeResponse(target, res); err != nil {
-		return nil, err
-	}
-	return ret, nil
-	// {
-	//   "description": "Request the details of an Android application APK.",
-	//   "flatPath": "v1/applicationDetailService/getApkDetails",
-	//   "httpMethod": "POST",
-	//   "id": "testing.applicationDetailService.getApkDetails",
-	//   "parameterOrder": [],
-	//   "parameters": {},
-	//   "path": "v1/applicationDetailService/getApkDetails",
-	//   "request": {
-	//     "$ref": "FileReference"
-	//   },
-	//   "response": {
-	//     "$ref": "GetApkDetailsResponse"
-	//   },
-	//   "scopes": [
-	//     "https://www.googleapis.com/auth/cloud-platform"
-	//   ]
-	// }
-
 }
 
 // method id "testing.projects.testMatrices.cancel":

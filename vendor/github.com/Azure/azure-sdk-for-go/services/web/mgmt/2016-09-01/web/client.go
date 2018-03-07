@@ -21,7 +21,6 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -33,21 +32,21 @@ const (
 	DefaultBaseURI = "https://management.azure.com"
 )
 
-// BaseClient is the base client for Web.
-type BaseClient struct {
+// ManagementClient is the base client for Web.
+type ManagementClient struct {
 	autorest.Client
 	BaseURI        string
 	SubscriptionID string
 }
 
-// New creates an instance of the BaseClient client.
-func New(subscriptionID string) BaseClient {
+// New creates an instance of the ManagementClient client.
+func New(subscriptionID string) ManagementClient {
 	return NewWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
-// NewWithBaseURI creates an instance of the BaseClient client.
-func NewWithBaseURI(baseURI string, subscriptionID string) BaseClient {
-	return BaseClient{
+// NewWithBaseURI creates an instance of the ManagementClient client.
+func NewWithBaseURI(baseURI string, subscriptionID string) ManagementClient {
+	return ManagementClient{
 		Client:         autorest.NewClientWithUserAgent(UserAgent()),
 		BaseURI:        baseURI,
 		SubscriptionID: subscriptionID,
@@ -57,36 +56,36 @@ func NewWithBaseURI(baseURI string, subscriptionID string) BaseClient {
 // CheckNameAvailability check if a resource name is available.
 //
 // request is name availability request.
-func (client BaseClient) CheckNameAvailability(ctx context.Context, request ResourceNameAvailabilityRequest) (result ResourceNameAvailability, err error) {
+func (client ManagementClient) CheckNameAvailability(request ResourceNameAvailabilityRequest) (result ResourceNameAvailability, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: request,
 			Constraints: []validation.Constraint{{Target: "request.Name", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.BaseClient", "CheckNameAvailability")
+		return result, validation.NewErrorWithValidationError(err, "web.ManagementClient", "CheckNameAvailability")
 	}
 
-	req, err := client.CheckNameAvailabilityPreparer(ctx, request)
+	req, err := client.CheckNameAvailabilityPreparer(request)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "CheckNameAvailability", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "CheckNameAvailability", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.CheckNameAvailabilitySender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "CheckNameAvailability", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "CheckNameAvailability", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.CheckNameAvailabilityResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "CheckNameAvailability", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "CheckNameAvailability", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // CheckNameAvailabilityPreparer prepares the CheckNameAvailability request.
-func (client BaseClient) CheckNameAvailabilityPreparer(ctx context.Context, request ResourceNameAvailabilityRequest) (*http.Request, error) {
+func (client ManagementClient) CheckNameAvailabilityPreparer(request ResourceNameAvailabilityRequest) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -103,19 +102,20 @@ func (client BaseClient) CheckNameAvailabilityPreparer(ctx context.Context, requ
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/checknameavailability", pathParameters),
 		autorest.WithJSON(request),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CheckNameAvailabilitySender sends the CheckNameAvailability request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) CheckNameAvailabilitySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) CheckNameAvailabilitySender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // CheckNameAvailabilityResponder handles the response to the CheckNameAvailability request. The method always
 // closes the http.Response Body.
-func (client BaseClient) CheckNameAvailabilityResponder(resp *http.Response) (result ResourceNameAvailability, err error) {
+func (client ManagementClient) CheckNameAvailabilityResponder(resp *http.Response) (result ResourceNameAvailability, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -127,30 +127,30 @@ func (client BaseClient) CheckNameAvailabilityResponder(resp *http.Response) (re
 }
 
 // GetPublishingUser gets publishing user
-func (client BaseClient) GetPublishingUser(ctx context.Context) (result User, err error) {
-	req, err := client.GetPublishingUserPreparer(ctx)
+func (client ManagementClient) GetPublishingUser() (result User, err error) {
+	req, err := client.GetPublishingUserPreparer()
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetPublishingUser", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetPublishingUser", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.GetPublishingUserSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetPublishingUser", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetPublishingUser", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.GetPublishingUserResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetPublishingUser", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetPublishingUser", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // GetPublishingUserPreparer prepares the GetPublishingUser request.
-func (client BaseClient) GetPublishingUserPreparer(ctx context.Context) (*http.Request, error) {
+func (client ManagementClient) GetPublishingUserPreparer() (*http.Request, error) {
 	const APIVersion = "2016-03-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -161,19 +161,20 @@ func (client BaseClient) GetPublishingUserPreparer(ctx context.Context) (*http.R
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPath("/providers/Microsoft.Web/publishingUsers/web"),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetPublishingUserSender sends the GetPublishingUser request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) GetPublishingUserSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) GetPublishingUserSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
 // GetPublishingUserResponder handles the response to the GetPublishingUser request. The method always
 // closes the http.Response Body.
-func (client BaseClient) GetPublishingUserResponder(resp *http.Response) (result User, err error) {
+func (client ManagementClient) GetPublishingUserResponder(resp *http.Response) (result User, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -187,30 +188,30 @@ func (client BaseClient) GetPublishingUserResponder(resp *http.Response) (result
 // GetSourceControl gets source control token
 //
 // sourceControlType is type of source control
-func (client BaseClient) GetSourceControl(ctx context.Context, sourceControlType string) (result SourceControl, err error) {
-	req, err := client.GetSourceControlPreparer(ctx, sourceControlType)
+func (client ManagementClient) GetSourceControl(sourceControlType string) (result SourceControl, err error) {
+	req, err := client.GetSourceControlPreparer(sourceControlType)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetSourceControl", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetSourceControl", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.GetSourceControlSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetSourceControl", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetSourceControl", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.GetSourceControlResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetSourceControl", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetSourceControl", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // GetSourceControlPreparer prepares the GetSourceControl request.
-func (client BaseClient) GetSourceControlPreparer(ctx context.Context, sourceControlType string) (*http.Request, error) {
+func (client ManagementClient) GetSourceControlPreparer(sourceControlType string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"sourceControlType": autorest.Encode("path", sourceControlType),
 	}
@@ -225,19 +226,20 @@ func (client BaseClient) GetSourceControlPreparer(ctx context.Context, sourceCon
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/providers/Microsoft.Web/sourcecontrols/{sourceControlType}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSourceControlSender sends the GetSourceControl request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) GetSourceControlSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) GetSourceControlSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
 // GetSourceControlResponder handles the response to the GetSourceControl request. The method always
 // closes the http.Response Body.
-func (client BaseClient) GetSourceControlResponder(resp *http.Response) (result SourceControl, err error) {
+func (client ManagementClient) GetSourceControlResponder(resp *http.Response) (result SourceControl, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -249,30 +251,30 @@ func (client BaseClient) GetSourceControlResponder(resp *http.Response) (result 
 }
 
 // GetSubscriptionDeploymentLocations gets list of available geo regions plus ministamps
-func (client BaseClient) GetSubscriptionDeploymentLocations(ctx context.Context) (result DeploymentLocations, err error) {
-	req, err := client.GetSubscriptionDeploymentLocationsPreparer(ctx)
+func (client ManagementClient) GetSubscriptionDeploymentLocations() (result DeploymentLocations, err error) {
+	req, err := client.GetSubscriptionDeploymentLocationsPreparer()
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetSubscriptionDeploymentLocations", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetSubscriptionDeploymentLocations", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.GetSubscriptionDeploymentLocationsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetSubscriptionDeploymentLocations", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetSubscriptionDeploymentLocations", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.GetSubscriptionDeploymentLocationsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "GetSubscriptionDeploymentLocations", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "GetSubscriptionDeploymentLocations", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // GetSubscriptionDeploymentLocationsPreparer prepares the GetSubscriptionDeploymentLocations request.
-func (client BaseClient) GetSubscriptionDeploymentLocationsPreparer(ctx context.Context) (*http.Request, error) {
+func (client ManagementClient) GetSubscriptionDeploymentLocationsPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -287,19 +289,20 @@ func (client BaseClient) GetSubscriptionDeploymentLocationsPreparer(ctx context.
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/deploymentLocations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSubscriptionDeploymentLocationsSender sends the GetSubscriptionDeploymentLocations request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) GetSubscriptionDeploymentLocationsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) GetSubscriptionDeploymentLocationsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // GetSubscriptionDeploymentLocationsResponder handles the response to the GetSubscriptionDeploymentLocations request. The method always
 // closes the http.Response Body.
-func (client BaseClient) GetSubscriptionDeploymentLocationsResponder(resp *http.Response) (result DeploymentLocations, err error) {
+func (client ManagementClient) GetSubscriptionDeploymentLocationsResponder(resp *http.Response) (result DeploymentLocations, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -314,31 +317,30 @@ func (client BaseClient) GetSubscriptionDeploymentLocationsResponder(resp *http.
 //
 // sku is name of SKU used to filter the regions. linuxWorkersEnabled is specify <code>true</code> if you want to
 // filter to only regions that support Linux workers.
-func (client BaseClient) ListGeoRegions(ctx context.Context, sku SkuName, linuxWorkersEnabled *bool) (result GeoRegionCollectionPage, err error) {
-	result.fn = client.listGeoRegionsNextResults
-	req, err := client.ListGeoRegionsPreparer(ctx, sku, linuxWorkersEnabled)
+func (client ManagementClient) ListGeoRegions(sku SkuName, linuxWorkersEnabled *bool) (result GeoRegionCollection, err error) {
+	req, err := client.ListGeoRegionsPreparer(sku, linuxWorkersEnabled)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListGeoRegions", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListGeoRegions", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.ListGeoRegionsSender(req)
 	if err != nil {
-		result.grc.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListGeoRegions", resp, "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListGeoRegions", resp, "Failure sending request")
 		return
 	}
 
-	result.grc, err = client.ListGeoRegionsResponder(resp)
+	result, err = client.ListGeoRegionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListGeoRegions", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListGeoRegions", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ListGeoRegionsPreparer prepares the ListGeoRegions request.
-func (client BaseClient) ListGeoRegionsPreparer(ctx context.Context, sku SkuName, linuxWorkersEnabled *bool) (*http.Request, error) {
+func (client ManagementClient) ListGeoRegionsPreparer(sku SkuName, linuxWorkersEnabled *bool) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -359,19 +361,20 @@ func (client BaseClient) ListGeoRegionsPreparer(ctx context.Context, sku SkuName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/geoRegions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListGeoRegionsSender sends the ListGeoRegions request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) ListGeoRegionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) ListGeoRegionsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // ListGeoRegionsResponder handles the response to the ListGeoRegions request. The method always
 // closes the http.Response Body.
-func (client BaseClient) ListGeoRegionsResponder(resp *http.Response) (result GeoRegionCollection, err error) {
+func (client ManagementClient) ListGeoRegionsResponder(resp *http.Response) (result GeoRegionCollection, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -382,59 +385,100 @@ func (client BaseClient) ListGeoRegionsResponder(resp *http.Response) (result Ge
 	return
 }
 
-// listGeoRegionsNextResults retrieves the next set of results, if any.
-func (client BaseClient) listGeoRegionsNextResults(lastResults GeoRegionCollection) (result GeoRegionCollection, err error) {
-	req, err := lastResults.geoRegionCollectionPreparer()
+// ListGeoRegionsNextResults retrieves the next set of results, if any.
+func (client ManagementClient) ListGeoRegionsNextResults(lastResults GeoRegionCollection) (result GeoRegionCollection, err error) {
+	req, err := lastResults.GeoRegionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.BaseClient", "listGeoRegionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.ManagementClient", "ListGeoRegions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListGeoRegionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.BaseClient", "listGeoRegionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.ManagementClient", "ListGeoRegions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListGeoRegionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "listGeoRegionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListGeoRegions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListGeoRegionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client BaseClient) ListGeoRegionsComplete(ctx context.Context, sku SkuName, linuxWorkersEnabled *bool) (result GeoRegionCollectionIterator, err error) {
-	result.page, err = client.ListGeoRegions(ctx, sku, linuxWorkersEnabled)
-	return
+// ListGeoRegionsComplete gets all elements from the list without paging.
+func (client ManagementClient) ListGeoRegionsComplete(sku SkuName, linuxWorkersEnabled *bool, cancel <-chan struct{}) (<-chan GeoRegion, <-chan error) {
+	resultChan := make(chan GeoRegion)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListGeoRegions(sku, linuxWorkersEnabled)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListGeoRegionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListPremierAddOnOffers list all premier add-on offers.
-func (client BaseClient) ListPremierAddOnOffers(ctx context.Context) (result PremierAddOnOfferCollectionPage, err error) {
-	result.fn = client.listPremierAddOnOffersNextResults
-	req, err := client.ListPremierAddOnOffersPreparer(ctx)
+func (client ManagementClient) ListPremierAddOnOffers() (result PremierAddOnOfferCollection, err error) {
+	req, err := client.ListPremierAddOnOffersPreparer()
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListPremierAddOnOffers", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListPremierAddOnOffers", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.ListPremierAddOnOffersSender(req)
 	if err != nil {
-		result.paooc.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListPremierAddOnOffers", resp, "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListPremierAddOnOffers", resp, "Failure sending request")
 		return
 	}
 
-	result.paooc, err = client.ListPremierAddOnOffersResponder(resp)
+	result, err = client.ListPremierAddOnOffersResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListPremierAddOnOffers", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListPremierAddOnOffers", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ListPremierAddOnOffersPreparer prepares the ListPremierAddOnOffers request.
-func (client BaseClient) ListPremierAddOnOffersPreparer(ctx context.Context) (*http.Request, error) {
+func (client ManagementClient) ListPremierAddOnOffersPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -449,19 +493,20 @@ func (client BaseClient) ListPremierAddOnOffersPreparer(ctx context.Context) (*h
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/premieraddonoffers", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListPremierAddOnOffersSender sends the ListPremierAddOnOffers request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) ListPremierAddOnOffersSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) ListPremierAddOnOffersSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // ListPremierAddOnOffersResponder handles the response to the ListPremierAddOnOffers request. The method always
 // closes the http.Response Body.
-func (client BaseClient) ListPremierAddOnOffersResponder(resp *http.Response) (result PremierAddOnOfferCollection, err error) {
+func (client ManagementClient) ListPremierAddOnOffersResponder(resp *http.Response) (result PremierAddOnOfferCollection, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -472,58 +517,100 @@ func (client BaseClient) ListPremierAddOnOffersResponder(resp *http.Response) (r
 	return
 }
 
-// listPremierAddOnOffersNextResults retrieves the next set of results, if any.
-func (client BaseClient) listPremierAddOnOffersNextResults(lastResults PremierAddOnOfferCollection) (result PremierAddOnOfferCollection, err error) {
-	req, err := lastResults.premierAddOnOfferCollectionPreparer()
+// ListPremierAddOnOffersNextResults retrieves the next set of results, if any.
+func (client ManagementClient) ListPremierAddOnOffersNextResults(lastResults PremierAddOnOfferCollection) (result PremierAddOnOfferCollection, err error) {
+	req, err := lastResults.PremierAddOnOfferCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.BaseClient", "listPremierAddOnOffersNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.ManagementClient", "ListPremierAddOnOffers", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListPremierAddOnOffersSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.BaseClient", "listPremierAddOnOffersNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.ManagementClient", "ListPremierAddOnOffers", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListPremierAddOnOffersResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "listPremierAddOnOffersNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListPremierAddOnOffers", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListPremierAddOnOffersComplete enumerates all values, automatically crossing page boundaries as required.
-func (client BaseClient) ListPremierAddOnOffersComplete(ctx context.Context) (result PremierAddOnOfferCollectionIterator, err error) {
-	result.page, err = client.ListPremierAddOnOffers(ctx)
-	return
+// ListPremierAddOnOffersComplete gets all elements from the list without paging.
+func (client ManagementClient) ListPremierAddOnOffersComplete(cancel <-chan struct{}) (<-chan PremierAddOnOffer, <-chan error) {
+	resultChan := make(chan PremierAddOnOffer)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListPremierAddOnOffers()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListPremierAddOnOffersNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListSkus list all SKUs.
-func (client BaseClient) ListSkus(ctx context.Context) (result SkuInfos, err error) {
-	req, err := client.ListSkusPreparer(ctx)
+func (client ManagementClient) ListSkus() (result SkuInfos, err error) {
+	req, err := client.ListSkusPreparer()
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListSkus", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListSkus", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.ListSkusSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListSkus", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListSkus", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.ListSkusResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListSkus", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListSkus", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ListSkusPreparer prepares the ListSkus request.
-func (client BaseClient) ListSkusPreparer(ctx context.Context) (*http.Request, error) {
+func (client ManagementClient) ListSkusPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -538,19 +625,20 @@ func (client BaseClient) ListSkusPreparer(ctx context.Context) (*http.Request, e
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/skus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSkusSender sends the ListSkus request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) ListSkusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) ListSkusSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // ListSkusResponder handles the response to the ListSkus request. The method always
 // closes the http.Response Body.
-func (client BaseClient) ListSkusResponder(resp *http.Response) (result SkuInfos, err error) {
+func (client ManagementClient) ListSkusResponder(resp *http.Response) (result SkuInfos, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -562,31 +650,30 @@ func (client BaseClient) ListSkusResponder(resp *http.Response) (result SkuInfos
 }
 
 // ListSourceControls gets the source controls available for Azure websites.
-func (client BaseClient) ListSourceControls(ctx context.Context) (result SourceControlCollectionPage, err error) {
-	result.fn = client.listSourceControlsNextResults
-	req, err := client.ListSourceControlsPreparer(ctx)
+func (client ManagementClient) ListSourceControls() (result SourceControlCollection, err error) {
+	req, err := client.ListSourceControlsPreparer()
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListSourceControls", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListSourceControls", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.ListSourceControlsSender(req)
 	if err != nil {
-		result.scc.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListSourceControls", resp, "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListSourceControls", resp, "Failure sending request")
 		return
 	}
 
-	result.scc, err = client.ListSourceControlsResponder(resp)
+	result, err = client.ListSourceControlsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ListSourceControls", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListSourceControls", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ListSourceControlsPreparer prepares the ListSourceControls request.
-func (client BaseClient) ListSourceControlsPreparer(ctx context.Context) (*http.Request, error) {
+func (client ManagementClient) ListSourceControlsPreparer() (*http.Request, error) {
 	const APIVersion = "2016-03-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -597,19 +684,20 @@ func (client BaseClient) ListSourceControlsPreparer(ctx context.Context) (*http.
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPath("/providers/Microsoft.Web/sourcecontrols"),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSourceControlsSender sends the ListSourceControls request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) ListSourceControlsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) ListSourceControlsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
 // ListSourceControlsResponder handles the response to the ListSourceControls request. The method always
 // closes the http.Response Body.
-func (client BaseClient) ListSourceControlsResponder(resp *http.Response) (result SourceControlCollection, err error) {
+func (client ManagementClient) ListSourceControlsResponder(resp *http.Response) (result SourceControlCollection, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -620,38 +708,80 @@ func (client BaseClient) ListSourceControlsResponder(resp *http.Response) (resul
 	return
 }
 
-// listSourceControlsNextResults retrieves the next set of results, if any.
-func (client BaseClient) listSourceControlsNextResults(lastResults SourceControlCollection) (result SourceControlCollection, err error) {
-	req, err := lastResults.sourceControlCollectionPreparer()
+// ListSourceControlsNextResults retrieves the next set of results, if any.
+func (client ManagementClient) ListSourceControlsNextResults(lastResults SourceControlCollection) (result SourceControlCollection, err error) {
+	req, err := lastResults.SourceControlCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.BaseClient", "listSourceControlsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.ManagementClient", "ListSourceControls", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSourceControlsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.BaseClient", "listSourceControlsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.ManagementClient", "ListSourceControls", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListSourceControlsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "listSourceControlsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ListSourceControls", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListSourceControlsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client BaseClient) ListSourceControlsComplete(ctx context.Context) (result SourceControlCollectionIterator, err error) {
-	result.page, err = client.ListSourceControls(ctx)
-	return
+// ListSourceControlsComplete gets all elements from the list without paging.
+func (client ManagementClient) ListSourceControlsComplete(cancel <-chan struct{}) (<-chan SourceControl, <-chan error) {
+	resultChan := make(chan SourceControl)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListSourceControls()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListSourceControlsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Move move resources between resource groups.
 //
 // resourceGroupName is name of the resource group to which the resource belongs. moveResourceEnvelope is object that
 // represents the resource to move.
-func (client BaseClient) Move(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (result autorest.Response, err error) {
+func (client ManagementClient) Move(resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -663,32 +793,32 @@ func (client BaseClient) Move(ctx context.Context, resourceGroupName string, mov
 					{Target: "moveResourceEnvelope.TargetResourceGroup", Name: validation.MinLength, Rule: 1, Chain: nil},
 					{Target: "moveResourceEnvelope.TargetResourceGroup", Name: validation.Pattern, Rule: ` ^[-\w\._\(\)]+[^\.]$`, Chain: nil},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.BaseClient", "Move")
+		return result, validation.NewErrorWithValidationError(err, "web.ManagementClient", "Move")
 	}
 
-	req, err := client.MovePreparer(ctx, resourceGroupName, moveResourceEnvelope)
+	req, err := client.MovePreparer(resourceGroupName, moveResourceEnvelope)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "Move", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "Move", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.MoveSender(req)
 	if err != nil {
 		result.Response = resp
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "Move", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "Move", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.MoveResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "Move", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "Move", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // MovePreparer prepares the Move request.
-func (client BaseClient) MovePreparer(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (*http.Request, error) {
+func (client ManagementClient) MovePreparer(resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -706,19 +836,20 @@ func (client BaseClient) MovePreparer(ctx context.Context, resourceGroupName str
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources", pathParameters),
 		autorest.WithJSON(moveResourceEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // MoveSender sends the Move request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) MoveSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) MoveSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // MoveResponder handles the response to the Move request. The method always
 // closes the http.Response Body.
-func (client BaseClient) MoveResponder(resp *http.Response) (result autorest.Response, err error) {
+func (client ManagementClient) MoveResponder(resp *http.Response) (result autorest.Response, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -731,37 +862,30 @@ func (client BaseClient) MoveResponder(resp *http.Response) (result autorest.Res
 // UpdatePublishingUser updates publishing user
 //
 // userDetails is details of publishing user
-func (client BaseClient) UpdatePublishingUser(ctx context.Context, userDetails User) (result User, err error) {
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: userDetails,
-			Constraints: []validation.Constraint{{Target: "userDetails.UserProperties", Name: validation.Null, Rule: false,
-				Chain: []validation.Constraint{{Target: "userDetails.UserProperties.PublishingUserName", Name: validation.Null, Rule: true, Chain: nil}}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.BaseClient", "UpdatePublishingUser")
-	}
-
-	req, err := client.UpdatePublishingUserPreparer(ctx, userDetails)
+func (client ManagementClient) UpdatePublishingUser(userDetails User) (result User, err error) {
+	req, err := client.UpdatePublishingUserPreparer(userDetails)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "UpdatePublishingUser", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "UpdatePublishingUser", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.UpdatePublishingUserSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "UpdatePublishingUser", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "UpdatePublishingUser", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.UpdatePublishingUserResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "UpdatePublishingUser", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "UpdatePublishingUser", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // UpdatePublishingUserPreparer prepares the UpdatePublishingUser request.
-func (client BaseClient) UpdatePublishingUserPreparer(ctx context.Context, userDetails User) (*http.Request, error) {
+func (client ManagementClient) UpdatePublishingUserPreparer(userDetails User) (*http.Request, error) {
 	const APIVersion = "2016-03-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -774,19 +898,20 @@ func (client BaseClient) UpdatePublishingUserPreparer(ctx context.Context, userD
 		autorest.WithPath("/providers/Microsoft.Web/publishingUsers/web"),
 		autorest.WithJSON(userDetails),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdatePublishingUserSender sends the UpdatePublishingUser request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) UpdatePublishingUserSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) UpdatePublishingUserSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
 // UpdatePublishingUserResponder handles the response to the UpdatePublishingUser request. The method always
 // closes the http.Response Body.
-func (client BaseClient) UpdatePublishingUserResponder(resp *http.Response) (result User, err error) {
+func (client ManagementClient) UpdatePublishingUserResponder(resp *http.Response) (result User, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -800,30 +925,30 @@ func (client BaseClient) UpdatePublishingUserResponder(resp *http.Response) (res
 // UpdateSourceControl updates source control token
 //
 // sourceControlType is type of source control requestMessage is source control token information
-func (client BaseClient) UpdateSourceControl(ctx context.Context, sourceControlType string, requestMessage SourceControl) (result SourceControl, err error) {
-	req, err := client.UpdateSourceControlPreparer(ctx, sourceControlType, requestMessage)
+func (client ManagementClient) UpdateSourceControl(sourceControlType string, requestMessage SourceControl) (result SourceControl, err error) {
+	req, err := client.UpdateSourceControlPreparer(sourceControlType, requestMessage)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "UpdateSourceControl", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "UpdateSourceControl", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.UpdateSourceControlSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "UpdateSourceControl", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "UpdateSourceControl", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.UpdateSourceControlResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "UpdateSourceControl", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "UpdateSourceControl", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // UpdateSourceControlPreparer prepares the UpdateSourceControl request.
-func (client BaseClient) UpdateSourceControlPreparer(ctx context.Context, sourceControlType string, requestMessage SourceControl) (*http.Request, error) {
+func (client ManagementClient) UpdateSourceControlPreparer(sourceControlType string, requestMessage SourceControl) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"sourceControlType": autorest.Encode("path", sourceControlType),
 	}
@@ -840,19 +965,20 @@ func (client BaseClient) UpdateSourceControlPreparer(ctx context.Context, source
 		autorest.WithPathParameters("/providers/Microsoft.Web/sourcecontrols/{sourceControlType}", pathParameters),
 		autorest.WithJSON(requestMessage),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSourceControlSender sends the UpdateSourceControl request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) UpdateSourceControlSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) UpdateSourceControlSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
 // UpdateSourceControlResponder handles the response to the UpdateSourceControl request. The method always
 // closes the http.Response Body.
-func (client BaseClient) UpdateSourceControlResponder(resp *http.Response) (result SourceControl, err error) {
+func (client ManagementClient) UpdateSourceControlResponder(resp *http.Response) (result SourceControl, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -867,7 +993,7 @@ func (client BaseClient) UpdateSourceControlResponder(resp *http.Response) (resu
 //
 // resourceGroupName is name of the resource group to which the resource belongs. validateRequest is request with the
 // resources to validate.
-func (client BaseClient) Validate(ctx context.Context, resourceGroupName string, validateRequest ValidateRequest) (result ValidateResponse, err error) {
+func (client ManagementClient) Validate(resourceGroupName string, validateRequest ValidateRequest) (result ValidateResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -880,32 +1006,32 @@ func (client BaseClient) Validate(ctx context.Context, resourceGroupName string,
 					Chain: []validation.Constraint{{Target: "validateRequest.ValidateProperties.Capacity", Name: validation.Null, Rule: false,
 						Chain: []validation.Constraint{{Target: "validateRequest.ValidateProperties.Capacity", Name: validation.InclusiveMinimum, Rule: 1, Chain: nil}}},
 					}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.BaseClient", "Validate")
+		return result, validation.NewErrorWithValidationError(err, "web.ManagementClient", "Validate")
 	}
 
-	req, err := client.ValidatePreparer(ctx, resourceGroupName, validateRequest)
+	req, err := client.ValidatePreparer(resourceGroupName, validateRequest)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "Validate", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "Validate", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.ValidateSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "Validate", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "Validate", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.ValidateResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "Validate", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "Validate", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ValidatePreparer prepares the Validate request.
-func (client BaseClient) ValidatePreparer(ctx context.Context, resourceGroupName string, validateRequest ValidateRequest) (*http.Request, error) {
+func (client ManagementClient) ValidatePreparer(resourceGroupName string, validateRequest ValidateRequest) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -923,19 +1049,20 @@ func (client BaseClient) ValidatePreparer(ctx context.Context, resourceGroupName
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/validate", pathParameters),
 		autorest.WithJSON(validateRequest),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ValidateSender sends the Validate request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) ValidateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) ValidateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // ValidateResponder handles the response to the Validate request. The method always
 // closes the http.Response Body.
-func (client BaseClient) ValidateResponder(resp *http.Response) (result ValidateResponse, err error) {
+func (client ManagementClient) ValidateResponder(resp *http.Response) (result ValidateResponse, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -950,7 +1077,7 @@ func (client BaseClient) ValidateResponder(resp *http.Response) (result Validate
 //
 // resourceGroupName is name of the resource group to which the resource belongs. moveResourceEnvelope is object that
 // represents the resource to move.
-func (client BaseClient) ValidateMove(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (result autorest.Response, err error) {
+func (client ManagementClient) ValidateMove(resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -962,32 +1089,32 @@ func (client BaseClient) ValidateMove(ctx context.Context, resourceGroupName str
 					{Target: "moveResourceEnvelope.TargetResourceGroup", Name: validation.MinLength, Rule: 1, Chain: nil},
 					{Target: "moveResourceEnvelope.TargetResourceGroup", Name: validation.Pattern, Rule: ` ^[-\w\._\(\)]+[^\.]$`, Chain: nil},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "web.BaseClient", "ValidateMove")
+		return result, validation.NewErrorWithValidationError(err, "web.ManagementClient", "ValidateMove")
 	}
 
-	req, err := client.ValidateMovePreparer(ctx, resourceGroupName, moveResourceEnvelope)
+	req, err := client.ValidateMovePreparer(resourceGroupName, moveResourceEnvelope)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ValidateMove", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ValidateMove", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.ValidateMoveSender(req)
 	if err != nil {
 		result.Response = resp
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ValidateMove", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ValidateMove", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.ValidateMoveResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "ValidateMove", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "ValidateMove", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ValidateMovePreparer prepares the ValidateMove request.
-func (client BaseClient) ValidateMovePreparer(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (*http.Request, error) {
+func (client ManagementClient) ValidateMovePreparer(resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -1005,19 +1132,20 @@ func (client BaseClient) ValidateMovePreparer(ctx context.Context, resourceGroup
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/validateMoveResources", pathParameters),
 		autorest.WithJSON(moveResourceEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ValidateMoveSender sends the ValidateMove request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) ValidateMoveSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) ValidateMoveSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // ValidateMoveResponder handles the response to the ValidateMove request. The method always
 // closes the http.Response Body.
-func (client BaseClient) ValidateMoveResponder(resp *http.Response) (result autorest.Response, err error) {
+func (client ManagementClient) ValidateMoveResponder(resp *http.Response) (result autorest.Response, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -1031,30 +1159,30 @@ func (client BaseClient) ValidateMoveResponder(resp *http.Response) (result auto
 // Network Security Group rules.
 //
 // parameters is VNET information
-func (client BaseClient) VerifyHostingEnvironmentVnet(ctx context.Context, parameters VnetParameters) (result VnetValidationFailureDetails, err error) {
-	req, err := client.VerifyHostingEnvironmentVnetPreparer(ctx, parameters)
+func (client ManagementClient) VerifyHostingEnvironmentVnet(parameters VnetParameters) (result VnetValidationFailureDetails, err error) {
+	req, err := client.VerifyHostingEnvironmentVnetPreparer(parameters)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "VerifyHostingEnvironmentVnet", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "VerifyHostingEnvironmentVnet", nil, "Failure preparing request")
 		return
 	}
 
 	resp, err := client.VerifyHostingEnvironmentVnetSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "VerifyHostingEnvironmentVnet", resp, "Failure sending request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "VerifyHostingEnvironmentVnet", resp, "Failure sending request")
 		return
 	}
 
 	result, err = client.VerifyHostingEnvironmentVnetResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.BaseClient", "VerifyHostingEnvironmentVnet", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "web.ManagementClient", "VerifyHostingEnvironmentVnet", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // VerifyHostingEnvironmentVnetPreparer prepares the VerifyHostingEnvironmentVnet request.
-func (client BaseClient) VerifyHostingEnvironmentVnetPreparer(ctx context.Context, parameters VnetParameters) (*http.Request, error) {
+func (client ManagementClient) VerifyHostingEnvironmentVnetPreparer(parameters VnetParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -1071,19 +1199,20 @@ func (client BaseClient) VerifyHostingEnvironmentVnetPreparer(ctx context.Contex
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Web/verifyHostingEnvironmentVnet", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // VerifyHostingEnvironmentVnetSender sends the VerifyHostingEnvironmentVnet request. The method will close the
 // http.Response Body if it receives an error.
-func (client BaseClient) VerifyHostingEnvironmentVnetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+func (client ManagementClient) VerifyHostingEnvironmentVnetSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
 // VerifyHostingEnvironmentVnetResponder handles the response to the VerifyHostingEnvironmentVnet request. The method always
 // closes the http.Response Body.
-func (client BaseClient) VerifyHostingEnvironmentVnetResponder(resp *http.Response) (result VnetValidationFailureDetails, err error) {
+func (client ManagementClient) VerifyHostingEnvironmentVnetResponder(resp *http.Response) (result VnetValidationFailureDetails, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),

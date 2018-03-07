@@ -125,8 +125,9 @@ func main() {
 	restful.DefaultContainer.Add(u.WebService())
 
 	config := restfulspec.Config{
-		WebServices: restful.RegisteredWebServices(), // you control what services are visible
-		APIPath:     "/apidocs.json",
+		WebServices:    restful.RegisteredWebServices(), // you control what services are visible
+		WebServicesURL: "http://localhost:8080",
+		APIPath:        "/apidocs.json",
 		PostBuildSwaggerObjectHandler: enrichSwaggerObject}
 	restful.DefaultContainer.Add(restfulspec.NewOpenAPIService(config))
 

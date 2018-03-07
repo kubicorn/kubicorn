@@ -172,15 +172,19 @@ func (s *ImportSshPublicKeyResponse) MarshalJSON() ([]byte, error) {
 // virtual machine on
 // Google Compute Engine.
 type LoginProfile struct {
-	// Name: A unique user ID.
+	// Name: A unique user ID for identifying the user.
 	Name string `json:"name,omitempty"`
 
-	// PosixAccounts: The list of POSIX accounts associated with the user.
+	// PosixAccounts: The list of POSIX accounts associated with the
+	// Directory API user.
 	PosixAccounts []*PosixAccount `json:"posixAccounts,omitempty"`
 
 	// SshPublicKeys: A map from SSH public key fingerprint to the
 	// associated key object.
 	SshPublicKeys map[string]SshPublicKey `json:"sshPublicKeys,omitempty"`
+
+	// Suspended: Indicates if the user is suspended.
+	Suspended bool `json:"suspended,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.

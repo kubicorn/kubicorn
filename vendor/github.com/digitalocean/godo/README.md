@@ -27,37 +27,25 @@ at the DigitalOcean Control Panel [Applications Page](https://cloud.digitalocean
 You can then use your token to create a new client:
 
 ```go
-package main
+import "golang.org/x/oauth2"
 
-import (
-	"github.com/digitalocean/godo"
-	"github.com/digitalocean/godo/context"
-	"golang.org/x/oauth2"
-)
-
-const (
-    pat = "mytoken"
-)
-
+pat := "mytoken"
 type TokenSource struct {
-	AccessToken string
+    AccessToken string
 }
 
 func (t *TokenSource) Token() (*oauth2.Token, error) {
-	token := &oauth2.Token{
-		AccessToken: t.AccessToken,
-	}
-	return token, nil
+    token := &oauth2.Token{
+        AccessToken: t.AccessToken,
+    }
+    return token, nil
 }
 
-func main() {
-	tokenSource := &TokenSource{
-		AccessToken: pat,
-	}
-
-	oauthClient := oauth2.NewClient(context.Background(), tokenSource)
-	client := godo.NewClient(oauthClient)
+tokenSource := &TokenSource{
+    AccessToken: pat,
 }
+oauthClient := oauth2.NewClient(context.Background(), tokenSource)
+client := godo.NewClient(oauthClient)
 ```
 
 ## Examples

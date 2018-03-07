@@ -18,7 +18,6 @@ package dtl
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // CostClient is the azure DevTest Labs REST API version 2015-05-21-preview.
 type CostClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCostClient creates an instance of the CostClient client.
@@ -42,8 +41,8 @@ func NewCostClientWithBaseURI(baseURI string, subscriptionID string) CostClient 
 // GetResource get cost.
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the cost.
-func (client CostClient) GetResource(ctx context.Context, resourceGroupName string, labName string, name string) (result Cost, err error) {
-	req, err := client.GetResourcePreparer(ctx, resourceGroupName, labName, name)
+func (client CostClient) GetResource(resourceGroupName string, labName string, name string) (result Cost, err error) {
+	req, err := client.GetResourcePreparer(resourceGroupName, labName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.CostClient", "GetResource", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client CostClient) GetResource(ctx context.Context, resourceGroupName stri
 }
 
 // GetResourcePreparer prepares the GetResource request.
-func (client CostClient) GetResourcePreparer(ctx context.Context, resourceGroupName string, labName string, name string) (*http.Request, error) {
+func (client CostClient) GetResourcePreparer(resourceGroupName string, labName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -83,13 +82,14 @@ func (client CostClient) GetResourcePreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/costs/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetResourceSender sends the GetResource request. The method will close the
 // http.Response Body if it receives an error.
 func (client CostClient) GetResourceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -110,9 +110,8 @@ func (client CostClient) GetResourceResponder(resp *http.Response) (result Cost,
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. filter is the filter to apply
 // on the operation.
-func (client CostClient) List(ctx context.Context, resourceGroupName string, labName string, filter string, top *int32, orderBy string) (result ResponseWithContinuationCostPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, labName, filter, top, orderBy)
+func (client CostClient) List(resourceGroupName string, labName string, filter string, top *int32, orderBy string) (result ResponseWithContinuationCost, err error) {
+	req, err := client.ListPreparer(resourceGroupName, labName, filter, top, orderBy)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.CostClient", "List", nil, "Failure preparing request")
 		return
@@ -120,12 +119,12 @@ func (client CostClient) List(ctx context.Context, resourceGroupName string, lab
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rwcc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "dtl.CostClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rwcc, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.CostClient", "List", resp, "Failure responding to request")
 	}
@@ -134,7 +133,7 @@ func (client CostClient) List(ctx context.Context, resourceGroupName string, lab
 }
 
 // ListPreparer prepares the List request.
-func (client CostClient) ListPreparer(ctx context.Context, resourceGroupName string, labName string, filter string, top *int32, orderBy string) (*http.Request, error) {
+func (client CostClient) ListPreparer(resourceGroupName string, labName string, filter string, top *int32, orderBy string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -160,13 +159,14 @@ func (client CostClient) ListPreparer(ctx context.Context, resourceGroupName str
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/costs", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client CostClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -183,54 +183,117 @@ func (client CostClient) ListResponder(resp *http.Response) (result ResponseWith
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client CostClient) listNextResults(lastResults ResponseWithContinuationCost) (result ResponseWithContinuationCost, err error) {
-	req, err := lastResults.responseWithContinuationCostPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client CostClient) ListNextResults(lastResults ResponseWithContinuationCost) (result ResponseWithContinuationCost, err error) {
+	req, err := lastResults.ResponseWithContinuationCostPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "dtl.CostClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.CostClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "dtl.CostClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.CostClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CostClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "dtl.CostClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client CostClient) ListComplete(ctx context.Context, resourceGroupName string, labName string, filter string, top *int32, orderBy string) (result ResponseWithContinuationCostIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, labName, filter, top, orderBy)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client CostClient) ListComplete(resourceGroupName string, labName string, filter string, top *int32, orderBy string, cancel <-chan struct{}) (<-chan Cost, <-chan error) {
+	resultChan := make(chan Cost)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, labName, filter, top, orderBy)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
-// RefreshData refresh Lab's Cost Data. This operation can take a while to complete.
+// RefreshData refresh Lab's Cost Data. This operation can take a while to complete. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the cost.
-func (client CostClient) RefreshData(ctx context.Context, resourceGroupName string, labName string, name string) (result CostRefreshDataFuture, err error) {
-	req, err := client.RefreshDataPreparer(ctx, resourceGroupName, labName, name)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CostClient", "RefreshData", nil, "Failure preparing request")
-		return
-	}
+func (client CostClient) RefreshData(resourceGroupName string, labName string, name string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.RefreshDataPreparer(resourceGroupName, labName, name, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.CostClient", "RefreshData", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.RefreshDataSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CostClient", "RefreshData", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.RefreshDataSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "dtl.CostClient", "RefreshData", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.RefreshDataResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.CostClient", "RefreshData", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // RefreshDataPreparer prepares the RefreshData request.
-func (client CostClient) RefreshDataPreparer(ctx context.Context, resourceGroupName string, labName string, name string) (*http.Request, error) {
+func (client CostClient) RefreshDataPreparer(resourceGroupName string, labName string, name string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -248,22 +311,16 @@ func (client CostClient) RefreshDataPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/costs/{name}/refreshData", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // RefreshDataSender sends the RefreshData request. The method will close the
 // http.Response Body if it receives an error.
-func (client CostClient) RefreshDataSender(req *http.Request) (future CostRefreshDataFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client CostClient) RefreshDataSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // RefreshDataResponder handles the response to the RefreshData request. The method always

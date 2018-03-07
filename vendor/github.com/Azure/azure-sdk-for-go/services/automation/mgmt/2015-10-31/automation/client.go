@@ -29,25 +29,23 @@ const (
 	DefaultBaseURI = "https://management.azure.com"
 )
 
-// BaseClient is the base client for Automation.
-type BaseClient struct {
+// ManagementClient is the base client for Automation.
+type ManagementClient struct {
 	autorest.Client
-	BaseURI           string
-	SubscriptionID    string
-	ResourceGroupName string
+	BaseURI        string
+	SubscriptionID string
 }
 
-// New creates an instance of the BaseClient client.
-func New(subscriptionID string, resourceGroupName string) BaseClient {
-	return NewWithBaseURI(DefaultBaseURI, subscriptionID, resourceGroupName)
+// New creates an instance of the ManagementClient client.
+func New(subscriptionID string) ManagementClient {
+	return NewWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
-// NewWithBaseURI creates an instance of the BaseClient client.
-func NewWithBaseURI(baseURI string, subscriptionID string, resourceGroupName string) BaseClient {
-	return BaseClient{
-		Client:            autorest.NewClientWithUserAgent(UserAgent()),
-		BaseURI:           baseURI,
-		SubscriptionID:    subscriptionID,
-		ResourceGroupName: resourceGroupName,
+// NewWithBaseURI creates an instance of the ManagementClient client.
+func NewWithBaseURI(baseURI string, subscriptionID string) ManagementClient {
+	return ManagementClient{
+		Client:         autorest.NewClientWithUserAgent(UserAgent()),
+		BaseURI:        baseURI,
+		SubscriptionID: subscriptionID,
 	}
 }

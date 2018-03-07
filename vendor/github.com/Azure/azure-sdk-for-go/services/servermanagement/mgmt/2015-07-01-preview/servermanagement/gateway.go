@@ -18,7 +18,6 @@ package servermanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // GatewayClient is the REST API for Azure Server Management Service.
 type GatewayClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewGatewayClient creates an instance of the GatewayClient client.
@@ -40,12 +39,16 @@ func NewGatewayClientWithBaseURI(baseURI string, subscriptionID string) GatewayC
 	return GatewayClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// Create creates or updates a ManagementService gateway.
+// Create creates or updates a ManagementService gateway. This method may poll for completion. Polling can be canceled
+// by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
 // gatewayName is the gateway name (256 characters maximum). gatewayParameters is parameters supplied to the
 // CreateOrUpdate operation.
-func (client GatewayClient) Create(ctx context.Context, resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters) (result GatewayCreateFuture, err error) {
+func (client GatewayClient) Create(resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters, cancel <-chan struct{}) (<-chan GatewayResource, <-chan error) {
+	resultChan := make(chan GatewayResource, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -54,26 +57,46 @@ func (client GatewayClient) Create(ctx context.Context, resourceGroupName string
 			Constraints: []validation.Constraint{{Target: "gatewayName", Name: validation.MaxLength, Rule: 256, Chain: nil},
 				{Target: "gatewayName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "gatewayName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9][a-zA-Z0-9_.-]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Create")
+		errChan <- validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Create")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreatePreparer(ctx, resourceGroupName, gatewayName, gatewayParameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Create", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result GatewayResource
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreatePreparer(resourceGroupName, gatewayName, gatewayParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Create", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Create", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Create", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Create", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreatePreparer prepares the Create request.
-func (client GatewayClient) CreatePreparer(ctx context.Context, resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters) (*http.Request, error) {
+func (client GatewayClient) CreatePreparer(resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"gatewayName":       autorest.Encode("path", gatewayName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -92,22 +115,16 @@ func (client GatewayClient) CreatePreparer(ctx context.Context, resourceGroupNam
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways/{gatewayName}", pathParameters),
 		autorest.WithJSON(gatewayParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
-func (client GatewayClient) CreateSender(req *http.Request) (future GatewayCreateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client GatewayClient) CreateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateResponder handles the response to the Create request. The method always
@@ -127,7 +144,7 @@ func (client GatewayClient) CreateResponder(resp *http.Response) (result Gateway
 //
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
 // gatewayName is the gateway name (256 characters maximum).
-func (client GatewayClient) Delete(ctx context.Context, resourceGroupName string, gatewayName string) (result autorest.Response, err error) {
+func (client GatewayClient) Delete(resourceGroupName string, gatewayName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -139,7 +156,7 @@ func (client GatewayClient) Delete(ctx context.Context, resourceGroupName string
 		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, gatewayName)
+	req, err := client.DeletePreparer(resourceGroupName, gatewayName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Delete", nil, "Failure preparing request")
 		return
@@ -161,7 +178,7 @@ func (client GatewayClient) Delete(ctx context.Context, resourceGroupName string
 }
 
 // DeletePreparer prepares the Delete request.
-func (client GatewayClient) DeletePreparer(ctx context.Context, resourceGroupName string, gatewayName string) (*http.Request, error) {
+func (client GatewayClient) DeletePreparer(resourceGroupName string, gatewayName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"gatewayName":       autorest.Encode("path", gatewayName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -178,13 +195,14 @@ func (client GatewayClient) DeletePreparer(ctx context.Context, resourceGroupNam
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways/{gatewayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client GatewayClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -205,7 +223,7 @@ func (client GatewayClient) DeleteResponder(resp *http.Response) (result autores
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
 // gatewayName is the gateway name (256 characters maximum). expand is gets subscription credentials which uniquely
 // identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
-func (client GatewayClient) Get(ctx context.Context, resourceGroupName string, gatewayName string, expand GatewayExpandOption) (result GatewayResource, err error) {
+func (client GatewayClient) Get(resourceGroupName string, gatewayName string, expand GatewayExpandOption) (result GatewayResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -217,7 +235,7 @@ func (client GatewayClient) Get(ctx context.Context, resourceGroupName string, g
 		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, gatewayName, expand)
+	req, err := client.GetPreparer(resourceGroupName, gatewayName, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Get", nil, "Failure preparing request")
 		return
@@ -239,7 +257,7 @@ func (client GatewayClient) Get(ctx context.Context, resourceGroupName string, g
 }
 
 // GetPreparer prepares the Get request.
-func (client GatewayClient) GetPreparer(ctx context.Context, resourceGroupName string, gatewayName string, expand GatewayExpandOption) (*http.Request, error) {
+func (client GatewayClient) GetPreparer(resourceGroupName string, gatewayName string, expand GatewayExpandOption) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"gatewayName":       autorest.Encode("path", gatewayName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -259,13 +277,14 @@ func (client GatewayClient) GetPreparer(ctx context.Context, resourceGroupName s
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways/{gatewayName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client GatewayClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -282,11 +301,14 @@ func (client GatewayClient) GetResponder(resp *http.Response) (result GatewayRes
 	return
 }
 
-// GetProfile gets a gateway profile.
+// GetProfile gets a gateway profile. This method may poll for completion. Polling can be canceled by passing the
+// cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
 // gatewayName is the gateway name (256 characters maximum).
-func (client GatewayClient) GetProfile(ctx context.Context, resourceGroupName string, gatewayName string) (result GatewayGetProfileFuture, err error) {
+func (client GatewayClient) GetProfile(resourceGroupName string, gatewayName string, cancel <-chan struct{}) (<-chan GatewayProfile, <-chan error) {
+	resultChan := make(chan GatewayProfile, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -295,26 +317,46 @@ func (client GatewayClient) GetProfile(ctx context.Context, resourceGroupName st
 			Constraints: []validation.Constraint{{Target: "gatewayName", Name: validation.MaxLength, Rule: 256, Chain: nil},
 				{Target: "gatewayName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "gatewayName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9][a-zA-Z0-9_.-]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "GetProfile")
+		errChan <- validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "GetProfile")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.GetProfilePreparer(ctx, resourceGroupName, gatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "GetProfile", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result GatewayProfile
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.GetProfilePreparer(resourceGroupName, gatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "GetProfile", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.GetProfileSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "GetProfile", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.GetProfileSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "GetProfile", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.GetProfileResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "GetProfile", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetProfilePreparer prepares the GetProfile request.
-func (client GatewayClient) GetProfilePreparer(ctx context.Context, resourceGroupName string, gatewayName string) (*http.Request, error) {
+func (client GatewayClient) GetProfilePreparer(resourceGroupName string, gatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"gatewayName":       autorest.Encode("path", gatewayName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -331,22 +373,16 @@ func (client GatewayClient) GetProfilePreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways/{gatewayName}/profile", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // GetProfileSender sends the GetProfile request. The method will close the
 // http.Response Body if it receives an error.
-func (client GatewayClient) GetProfileSender(req *http.Request) (future GatewayGetProfileFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client GatewayClient) GetProfileSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // GetProfileResponder handles the response to the GetProfile request. The method always
@@ -363,9 +399,8 @@ func (client GatewayClient) GetProfileResponder(resp *http.Response) (result Gat
 }
 
 // List lists gateways in a subscription.
-func (client GatewayClient) List(ctx context.Context) (result GatewayResourcesPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx)
+func (client GatewayClient) List() (result GatewayResources, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "List", nil, "Failure preparing request")
 		return
@@ -373,12 +408,12 @@ func (client GatewayClient) List(ctx context.Context) (result GatewayResourcesPa
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.gr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.gr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "List", resp, "Failure responding to request")
 	}
@@ -387,7 +422,7 @@ func (client GatewayClient) List(ctx context.Context) (result GatewayResourcesPa
 }
 
 // ListPreparer prepares the List request.
-func (client GatewayClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client GatewayClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -402,13 +437,14 @@ func (client GatewayClient) ListPreparer(ctx context.Context) (*http.Request, er
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.ServerManagement/gateways", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client GatewayClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -425,37 +461,79 @@ func (client GatewayClient) ListResponder(resp *http.Response) (result GatewayRe
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client GatewayClient) listNextResults(lastResults GatewayResources) (result GatewayResources, err error) {
-	req, err := lastResults.gatewayResourcesPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client GatewayClient) ListNextResults(lastResults GatewayResources) (result GatewayResources, err error) {
+	req, err := lastResults.GatewayResourcesPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GatewayClient) ListComplete(ctx context.Context) (result GatewayResourcesIterator, err error) {
-	result.page, err = client.List(ctx)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client GatewayClient) ListComplete(cancel <-chan struct{}) (<-chan GatewayResource, <-chan error) {
+	resultChan := make(chan GatewayResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListForResourceGroup returns gateways in a resource group.
 //
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
-func (client GatewayClient) ListForResourceGroup(ctx context.Context, resourceGroupName string) (result GatewayResourcesPage, err error) {
+func (client GatewayClient) ListForResourceGroup(resourceGroupName string) (result GatewayResources, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -463,8 +541,7 @@ func (client GatewayClient) ListForResourceGroup(ctx context.Context, resourceGr
 		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "ListForResourceGroup")
 	}
 
-	result.fn = client.listForResourceGroupNextResults
-	req, err := client.ListForResourceGroupPreparer(ctx, resourceGroupName)
+	req, err := client.ListForResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "ListForResourceGroup", nil, "Failure preparing request")
 		return
@@ -472,12 +549,12 @@ func (client GatewayClient) ListForResourceGroup(ctx context.Context, resourceGr
 
 	resp, err := client.ListForResourceGroupSender(req)
 	if err != nil {
-		result.gr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "ListForResourceGroup", resp, "Failure sending request")
 		return
 	}
 
-	result.gr, err = client.ListForResourceGroupResponder(resp)
+	result, err = client.ListForResourceGroupResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "ListForResourceGroup", resp, "Failure responding to request")
 	}
@@ -486,7 +563,7 @@ func (client GatewayClient) ListForResourceGroup(ctx context.Context, resourceGr
 }
 
 // ListForResourceGroupPreparer prepares the ListForResourceGroup request.
-func (client GatewayClient) ListForResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client GatewayClient) ListForResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -502,13 +579,14 @@ func (client GatewayClient) ListForResourceGroupPreparer(ctx context.Context, re
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListForResourceGroupSender sends the ListForResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client GatewayClient) ListForResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -525,38 +603,83 @@ func (client GatewayClient) ListForResourceGroupResponder(resp *http.Response) (
 	return
 }
 
-// listForResourceGroupNextResults retrieves the next set of results, if any.
-func (client GatewayClient) listForResourceGroupNextResults(lastResults GatewayResources) (result GatewayResources, err error) {
-	req, err := lastResults.gatewayResourcesPreparer()
+// ListForResourceGroupNextResults retrieves the next set of results, if any.
+func (client GatewayClient) ListForResourceGroupNextResults(lastResults GatewayResources) (result GatewayResources, err error) {
+	req, err := lastResults.GatewayResourcesPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "listForResourceGroupNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "ListForResourceGroup", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListForResourceGroupSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "listForResourceGroupNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "ListForResourceGroup", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListForResourceGroupResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "listForResourceGroupNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "ListForResourceGroup", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListForResourceGroupComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GatewayClient) ListForResourceGroupComplete(ctx context.Context, resourceGroupName string) (result GatewayResourcesIterator, err error) {
-	result.page, err = client.ListForResourceGroup(ctx, resourceGroupName)
-	return
+// ListForResourceGroupComplete gets all elements from the list without paging.
+func (client GatewayClient) ListForResourceGroupComplete(resourceGroupName string, cancel <-chan struct{}) (<-chan GatewayResource, <-chan error) {
+	resultChan := make(chan GatewayResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListForResourceGroup(resourceGroupName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListForResourceGroupNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
-// RegenerateProfile regenerates a gateway's profile
+// RegenerateProfile regenerates a gateway's profile This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
 // gatewayName is the gateway name (256 characters maximum).
-func (client GatewayClient) RegenerateProfile(ctx context.Context, resourceGroupName string, gatewayName string) (result GatewayRegenerateProfileFuture, err error) {
+func (client GatewayClient) RegenerateProfile(resourceGroupName string, gatewayName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -565,26 +688,46 @@ func (client GatewayClient) RegenerateProfile(ctx context.Context, resourceGroup
 			Constraints: []validation.Constraint{{Target: "gatewayName", Name: validation.MaxLength, Rule: 256, Chain: nil},
 				{Target: "gatewayName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "gatewayName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9][a-zA-Z0-9_.-]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "RegenerateProfile")
+		errChan <- validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "RegenerateProfile")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.RegenerateProfilePreparer(ctx, resourceGroupName, gatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "RegenerateProfile", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.RegenerateProfilePreparer(resourceGroupName, gatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "RegenerateProfile", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.RegenerateProfileSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "RegenerateProfile", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.RegenerateProfileSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "RegenerateProfile", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.RegenerateProfileResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "RegenerateProfile", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // RegenerateProfilePreparer prepares the RegenerateProfile request.
-func (client GatewayClient) RegenerateProfilePreparer(ctx context.Context, resourceGroupName string, gatewayName string) (*http.Request, error) {
+func (client GatewayClient) RegenerateProfilePreparer(resourceGroupName string, gatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"gatewayName":       autorest.Encode("path", gatewayName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -601,22 +744,16 @@ func (client GatewayClient) RegenerateProfilePreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways/{gatewayName}/regenerateprofile", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // RegenerateProfileSender sends the RegenerateProfile request. The method will close the
 // http.Response Body if it receives an error.
-func (client GatewayClient) RegenerateProfileSender(req *http.Request) (future GatewayRegenerateProfileFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client GatewayClient) RegenerateProfileSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // RegenerateProfileResponder handles the response to the RegenerateProfile request. The method always
@@ -631,12 +768,16 @@ func (client GatewayClient) RegenerateProfileResponder(resp *http.Response) (res
 	return
 }
 
-// Update updates a gateway belonging to a resource group.
+// Update updates a gateway belonging to a resource group. This method may poll for completion. Polling can be canceled
+// by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
 // gatewayName is the gateway name (256 characters maximum). gatewayParameters is parameters supplied to the Update
 // operation.
-func (client GatewayClient) Update(ctx context.Context, resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters) (result GatewayUpdateFuture, err error) {
+func (client GatewayClient) Update(resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters, cancel <-chan struct{}) (<-chan GatewayResource, <-chan error) {
+	resultChan := make(chan GatewayResource, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -645,26 +786,46 @@ func (client GatewayClient) Update(ctx context.Context, resourceGroupName string
 			Constraints: []validation.Constraint{{Target: "gatewayName", Name: validation.MaxLength, Rule: 256, Chain: nil},
 				{Target: "gatewayName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "gatewayName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9][a-zA-Z0-9_.-]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Update")
+		errChan <- validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Update")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, gatewayName, gatewayParameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Update", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result GatewayResource
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdatePreparer(resourceGroupName, gatewayName, gatewayParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Update", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Update", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Update", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Update", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdatePreparer prepares the Update request.
-func (client GatewayClient) UpdatePreparer(ctx context.Context, resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters) (*http.Request, error) {
+func (client GatewayClient) UpdatePreparer(resourceGroupName string, gatewayName string, gatewayParameters GatewayParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"gatewayName":       autorest.Encode("path", gatewayName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -683,22 +844,16 @@ func (client GatewayClient) UpdatePreparer(ctx context.Context, resourceGroupNam
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways/{gatewayName}", pathParameters),
 		autorest.WithJSON(gatewayParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
-func (client GatewayClient) UpdateSender(req *http.Request) (future GatewayUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client GatewayClient) UpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateResponder handles the response to the Update request. The method always
@@ -714,11 +869,14 @@ func (client GatewayClient) UpdateResponder(resp *http.Response) (result Gateway
 	return
 }
 
-// Upgrade upgrades a gateway.
+// Upgrade upgrades a gateway. This method may poll for completion. Polling can be canceled by passing the cancel
+// channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the resource group name uniquely identifies the resource group within the user subscriptionId.
 // gatewayName is the gateway name (256 characters maximum).
-func (client GatewayClient) Upgrade(ctx context.Context, resourceGroupName string, gatewayName string) (result GatewayUpgradeFuture, err error) {
+func (client GatewayClient) Upgrade(resourceGroupName string, gatewayName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MinLength, Rule: 3, Chain: nil},
@@ -727,26 +885,46 @@ func (client GatewayClient) Upgrade(ctx context.Context, resourceGroupName strin
 			Constraints: []validation.Constraint{{Target: "gatewayName", Name: validation.MaxLength, Rule: 256, Chain: nil},
 				{Target: "gatewayName", Name: validation.MinLength, Rule: 1, Chain: nil},
 				{Target: "gatewayName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9][a-zA-Z0-9_.-]*$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Upgrade")
+		errChan <- validation.NewErrorWithValidationError(err, "servermanagement.GatewayClient", "Upgrade")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.UpgradePreparer(ctx, resourceGroupName, gatewayName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Upgrade", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpgradePreparer(resourceGroupName, gatewayName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Upgrade", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpgradeSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Upgrade", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpgradeSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Upgrade", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpgradeResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "servermanagement.GatewayClient", "Upgrade", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpgradePreparer prepares the Upgrade request.
-func (client GatewayClient) UpgradePreparer(ctx context.Context, resourceGroupName string, gatewayName string) (*http.Request, error) {
+func (client GatewayClient) UpgradePreparer(resourceGroupName string, gatewayName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"gatewayName":       autorest.Encode("path", gatewayName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -763,22 +941,16 @@ func (client GatewayClient) UpgradePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServerManagement/gateways/{gatewayName}/upgradetolatest", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpgradeSender sends the Upgrade request. The method will close the
 // http.Response Body if it receives an error.
-func (client GatewayClient) UpgradeSender(req *http.Request) (future GatewayUpgradeFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client GatewayClient) UpgradeSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpgradeResponder handles the response to the Upgrade request. The method always

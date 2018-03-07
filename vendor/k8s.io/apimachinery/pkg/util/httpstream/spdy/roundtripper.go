@@ -110,7 +110,7 @@ func (s *SpdyRoundTripper) Dial(req *http.Request) (net.Conn, error) {
 func (s *SpdyRoundTripper) dial(req *http.Request) (net.Conn, error) {
 	proxier := s.proxier
 	if proxier == nil {
-		proxier = utilnet.NewProxierWithNoProxyCIDR(http.ProxyFromEnvironment)
+		proxier = http.ProxyFromEnvironment
 	}
 	proxyURL, err := proxier(req)
 	if err != nil {

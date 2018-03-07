@@ -17,9 +17,6 @@ package datastore
 import (
 	"reflect"
 	"testing"
-	"time"
-
-	"cloud.google.com/go/internal/testutil"
 
 	pb "google.golang.org/genproto/googleapis/datastore/v1"
 )
@@ -167,7 +164,7 @@ func TestLoadEntityNestedLegacy(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, dst) {
+		if !reflect.DeepEqual(tc.want, dst) {
 			t.Errorf("%s: compare:\ngot:  %#v\nwant: %#v", tc.desc, dst, tc.want)
 		}
 	}
@@ -410,7 +407,7 @@ func TestLoadEntityNested(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, dst) {
+		if !reflect.DeepEqual(tc.want, dst) {
 			t.Errorf("%s: compare:\ngot:  %#v\nwant: %#v", tc.desc, dst, tc.want)
 		}
 	}
@@ -506,7 +503,7 @@ func TestAlreadyPopulatedDst(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, tc.dst) {
+		if !reflect.DeepEqual(tc.want, tc.dst) {
 			t.Errorf("%s: compare:\ngot:  %#v\nwant: %#v", tc.desc, tc.dst, tc.want)
 		}
 	}
@@ -751,63 +748,8 @@ func TestKeyLoader(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, tc.dst) {
+		if !reflect.DeepEqual(tc.want, tc.dst) {
 			t.Errorf("%s: compare:\ngot:  %+v\nwant: %+v", tc.desc, tc.dst, tc.want)
-		}
-	}
-}
-
-func TestLoadPointers(t *testing.T) {
-	for _, test := range []struct {
-		desc string
-		in   []Property
-		want Pointers
-	}{
-		{
-			desc: "nil properties load as nil pointers",
-			in: []Property{
-				Property{Name: "Pi", Value: nil},
-				Property{Name: "Ps", Value: nil},
-				Property{Name: "Pb", Value: nil},
-				Property{Name: "Pf", Value: nil},
-				Property{Name: "Pg", Value: nil},
-				Property{Name: "Pt", Value: nil},
-			},
-			want: Pointers{},
-		},
-		{
-			desc: "missing properties load as nil pointers",
-			in:   []Property(nil),
-			want: Pointers{},
-		},
-		{
-			desc: "non-nil properties load as the appropriate values",
-			in: []Property{
-				Property{Name: "Pi", Value: int64(1)},
-				Property{Name: "Ps", Value: "x"},
-				Property{Name: "Pb", Value: true},
-				Property{Name: "Pf", Value: 3.14},
-				Property{Name: "Pg", Value: GeoPoint{Lat: 1, Lng: 2}},
-				Property{Name: "Pt", Value: time.Unix(100, 0)},
-			},
-			want: func() Pointers {
-				p := populatedPointers()
-				*p.Pi = 1
-				*p.Ps = "x"
-				*p.Pb = true
-				*p.Pf = 3.14
-				*p.Pg = GeoPoint{Lat: 1, Lng: 2}
-				*p.Pt = time.Unix(100, 0)
-				return *p
-			}(),
-		},
-	} {
-		var got Pointers
-		if err := LoadStruct(&got, test.in); err != nil {
-			t.Fatalf("%s: %v", test.desc, err)
-		}
-		if !testutil.Equal(got, test.want) {
-			t.Errorf("%s:\ngot  %+v\nwant %+v", test.desc, got, test.want)
 		}
 	}
 }

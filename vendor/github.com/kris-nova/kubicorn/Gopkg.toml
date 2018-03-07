@@ -66,12 +66,8 @@
   version = "0.2.1"
 
 [[constraint]]
-  name = "k8s.io/client-go"
-  revision = "9389c055a838d4f208b699b3c7c51b70f2368861"
-
-[[constraint]]
   name = "k8s.io/apimachinery"
-  revision = "68f9c3a1feb3140df59c67ced62d3a5df8e6c9c2"
+  branch = "release-1.8"
 
 [[constraint]]
   name = "k8s.io/api"
@@ -84,3 +80,7 @@
 [[constraint]]
   name = "github.com/rackspace/gophercloud"
   branch = "master"
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  branch = "release-5.0"

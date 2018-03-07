@@ -581,11 +581,10 @@
     "ConfigurationItemStatus":{
       "type":"string",
       "enum":[
-        "OK",
-        "ResourceDiscovered",
-        "ResourceNotRecorded",
-        "ResourceDeleted",
-        "ResourceDeletedNotRecorded"
+        "Ok",
+        "Failed",
+        "Discovered",
+        "Deleted"
       ]
     },
     "ConfigurationRecorder":{
@@ -1350,15 +1349,7 @@
         "AWS::AutoScaling::LaunchConfiguration",
         "AWS::AutoScaling::ScalingPolicy",
         "AWS::AutoScaling::ScheduledAction",
-        "AWS::CodeBuild::Project",
-        "AWS::WAF::RateBasedRule",
-        "AWS::WAF::Rule",
-        "AWS::WAF::WebACL",
-        "AWS::WAFRegional::RateBasedRule",
-        "AWS::WAFRegional::Rule",
-        "AWS::WAFRegional::WebACL",
-        "AWS::CloudFront::Distribution",
-        "AWS::CloudFront::StreamingDistribution"
+        "AWS::CodeBuild::Project"
       ]
     },
     "ResourceTypeList":{

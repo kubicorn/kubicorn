@@ -18,7 +18,6 @@ package storsimple
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // DeviceSettingsClient is the client for the DeviceSettings methods of the Storsimple service.
 type DeviceSettingsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDeviceSettingsClient creates an instance of the DeviceSettingsClient client.
@@ -40,37 +39,61 @@ func NewDeviceSettingsClientWithBaseURI(baseURI string, subscriptionID string) D
 	return DeviceSettingsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdateAlertSettings creates or updates the alert settings of the specified device.
+// CreateOrUpdateAlertSettings creates or updates the alert settings of the specified device. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // deviceName is the device name parameters is the alert settings to be added or updated. resourceGroupName is the
 // resource group name managerName is the manager name
-func (client DeviceSettingsClient) CreateOrUpdateAlertSettings(ctx context.Context, deviceName string, parameters AlertSettings, resourceGroupName string, managerName string) (result DeviceSettingsCreateOrUpdateAlertSettingsFuture, err error) {
+func (client DeviceSettingsClient) CreateOrUpdateAlertSettings(deviceName string, parameters AlertSettings, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan AlertSettings, <-chan error) {
+	resultChan := make(chan AlertSettings, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.AlertNotificationProperties", Name: validation.Null, Rule: true, Chain: nil}}},
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateAlertSettings")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateAlertSettings")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdateAlertSettingsPreparer(ctx, deviceName, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateAlertSettings", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result AlertSettings
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdateAlertSettingsPreparer(deviceName, parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateAlertSettings", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateAlertSettingsSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateAlertSettings", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateAlertSettingsSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateAlertSettings", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateAlertSettingsResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateAlertSettings", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdateAlertSettingsPreparer prepares the CreateOrUpdateAlertSettings request.
-func (client DeviceSettingsClient) CreateOrUpdateAlertSettingsPreparer(ctx context.Context, deviceName string, parameters AlertSettings, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) CreateOrUpdateAlertSettingsPreparer(deviceName string, parameters AlertSettings, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -90,22 +113,16 @@ func (client DeviceSettingsClient) CreateOrUpdateAlertSettingsPreparer(ctx conte
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/alertSettings/default", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateAlertSettingsSender sends the CreateOrUpdateAlertSettings request. The method will close the
 // http.Response Body if it receives an error.
-func (client DeviceSettingsClient) CreateOrUpdateAlertSettingsSender(req *http.Request) (future DeviceSettingsCreateOrUpdateAlertSettingsFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client DeviceSettingsClient) CreateOrUpdateAlertSettingsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateAlertSettingsResponder handles the response to the CreateOrUpdateAlertSettings request. The method always
@@ -121,11 +138,15 @@ func (client DeviceSettingsClient) CreateOrUpdateAlertSettingsResponder(resp *ht
 	return
 }
 
-// CreateOrUpdateTimeSettings creates or updates the time settings of the specified device.
+// CreateOrUpdateTimeSettings creates or updates the time settings of the specified device. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // deviceName is the device name parameters is the time settings to be added or updated. resourceGroupName is the
 // resource group name managerName is the manager name
-func (client DeviceSettingsClient) CreateOrUpdateTimeSettings(ctx context.Context, deviceName string, parameters TimeSettings, resourceGroupName string, managerName string) (result DeviceSettingsCreateOrUpdateTimeSettingsFuture, err error) {
+func (client DeviceSettingsClient) CreateOrUpdateTimeSettings(deviceName string, parameters TimeSettings, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan TimeSettings, <-chan error) {
+	resultChan := make(chan TimeSettings, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.TimeSettingsProperties", Name: validation.Null, Rule: true,
@@ -133,26 +154,46 @@ func (client DeviceSettingsClient) CreateOrUpdateTimeSettings(ctx context.Contex
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateTimeSettings")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateTimeSettings")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdateTimeSettingsPreparer(ctx, deviceName, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateTimeSettings", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result TimeSettings
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdateTimeSettingsPreparer(deviceName, parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateTimeSettings", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateTimeSettingsSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateTimeSettings", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateTimeSettingsSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateTimeSettings", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateTimeSettingsResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "CreateOrUpdateTimeSettings", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdateTimeSettingsPreparer prepares the CreateOrUpdateTimeSettings request.
-func (client DeviceSettingsClient) CreateOrUpdateTimeSettingsPreparer(ctx context.Context, deviceName string, parameters TimeSettings, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) CreateOrUpdateTimeSettingsPreparer(deviceName string, parameters TimeSettings, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -172,22 +213,16 @@ func (client DeviceSettingsClient) CreateOrUpdateTimeSettingsPreparer(ctx contex
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/timeSettings/default", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateTimeSettingsSender sends the CreateOrUpdateTimeSettings request. The method will close the
 // http.Response Body if it receives an error.
-func (client DeviceSettingsClient) CreateOrUpdateTimeSettingsSender(req *http.Request) (future DeviceSettingsCreateOrUpdateTimeSettingsFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client DeviceSettingsClient) CreateOrUpdateTimeSettingsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateTimeSettingsResponder handles the response to the CreateOrUpdateTimeSettings request. The method always
@@ -206,7 +241,7 @@ func (client DeviceSettingsClient) CreateOrUpdateTimeSettingsResponder(resp *htt
 // GetAlertSettings gets the alert settings of the specified device.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DeviceSettingsClient) GetAlertSettings(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result AlertSettings, err error) {
+func (client DeviceSettingsClient) GetAlertSettings(deviceName string, resourceGroupName string, managerName string) (result AlertSettings, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -214,7 +249,7 @@ func (client DeviceSettingsClient) GetAlertSettings(ctx context.Context, deviceN
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "GetAlertSettings")
 	}
 
-	req, err := client.GetAlertSettingsPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.GetAlertSettingsPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "GetAlertSettings", nil, "Failure preparing request")
 		return
@@ -236,7 +271,7 @@ func (client DeviceSettingsClient) GetAlertSettings(ctx context.Context, deviceN
 }
 
 // GetAlertSettingsPreparer prepares the GetAlertSettings request.
-func (client DeviceSettingsClient) GetAlertSettingsPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) GetAlertSettingsPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -254,13 +289,14 @@ func (client DeviceSettingsClient) GetAlertSettingsPreparer(ctx context.Context,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/alertSettings/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAlertSettingsSender sends the GetAlertSettings request. The method will close the
 // http.Response Body if it receives an error.
 func (client DeviceSettingsClient) GetAlertSettingsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -280,7 +316,7 @@ func (client DeviceSettingsClient) GetAlertSettingsResponder(resp *http.Response
 // GetNetworkSettings gets the network settings of the specified device.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DeviceSettingsClient) GetNetworkSettings(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result NetworkSettings, err error) {
+func (client DeviceSettingsClient) GetNetworkSettings(deviceName string, resourceGroupName string, managerName string) (result NetworkSettings, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -288,7 +324,7 @@ func (client DeviceSettingsClient) GetNetworkSettings(ctx context.Context, devic
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "GetNetworkSettings")
 	}
 
-	req, err := client.GetNetworkSettingsPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.GetNetworkSettingsPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "GetNetworkSettings", nil, "Failure preparing request")
 		return
@@ -310,7 +346,7 @@ func (client DeviceSettingsClient) GetNetworkSettings(ctx context.Context, devic
 }
 
 // GetNetworkSettingsPreparer prepares the GetNetworkSettings request.
-func (client DeviceSettingsClient) GetNetworkSettingsPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) GetNetworkSettingsPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -328,13 +364,14 @@ func (client DeviceSettingsClient) GetNetworkSettingsPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/networkSettings/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetNetworkSettingsSender sends the GetNetworkSettings request. The method will close the
 // http.Response Body if it receives an error.
 func (client DeviceSettingsClient) GetNetworkSettingsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -354,7 +391,7 @@ func (client DeviceSettingsClient) GetNetworkSettingsResponder(resp *http.Respon
 // GetSecuritySettings returns the Security properties of the specified device name.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DeviceSettingsClient) GetSecuritySettings(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result SecuritySettings, err error) {
+func (client DeviceSettingsClient) GetSecuritySettings(deviceName string, resourceGroupName string, managerName string) (result SecuritySettings, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -362,7 +399,7 @@ func (client DeviceSettingsClient) GetSecuritySettings(ctx context.Context, devi
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "GetSecuritySettings")
 	}
 
-	req, err := client.GetSecuritySettingsPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.GetSecuritySettingsPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "GetSecuritySettings", nil, "Failure preparing request")
 		return
@@ -384,7 +421,7 @@ func (client DeviceSettingsClient) GetSecuritySettings(ctx context.Context, devi
 }
 
 // GetSecuritySettingsPreparer prepares the GetSecuritySettings request.
-func (client DeviceSettingsClient) GetSecuritySettingsPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) GetSecuritySettingsPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -402,13 +439,14 @@ func (client DeviceSettingsClient) GetSecuritySettingsPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/securitySettings/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSecuritySettingsSender sends the GetSecuritySettings request. The method will close the
 // http.Response Body if it receives an error.
 func (client DeviceSettingsClient) GetSecuritySettingsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -428,7 +466,7 @@ func (client DeviceSettingsClient) GetSecuritySettingsResponder(resp *http.Respo
 // GetTimeSettings gets the time settings of the specified device.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DeviceSettingsClient) GetTimeSettings(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result TimeSettings, err error) {
+func (client DeviceSettingsClient) GetTimeSettings(deviceName string, resourceGroupName string, managerName string) (result TimeSettings, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -436,7 +474,7 @@ func (client DeviceSettingsClient) GetTimeSettings(ctx context.Context, deviceNa
 		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "GetTimeSettings")
 	}
 
-	req, err := client.GetTimeSettingsPreparer(ctx, deviceName, resourceGroupName, managerName)
+	req, err := client.GetTimeSettingsPreparer(deviceName, resourceGroupName, managerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "GetTimeSettings", nil, "Failure preparing request")
 		return
@@ -458,7 +496,7 @@ func (client DeviceSettingsClient) GetTimeSettings(ctx context.Context, deviceNa
 }
 
 // GetTimeSettingsPreparer prepares the GetTimeSettings request.
-func (client DeviceSettingsClient) GetTimeSettingsPreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) GetTimeSettingsPreparer(deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -476,13 +514,14 @@ func (client DeviceSettingsClient) GetTimeSettingsPreparer(ctx context.Context, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/timeSettings/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetTimeSettingsSender sends the GetTimeSettings request. The method will close the
 // http.Response Body if it receives an error.
 func (client DeviceSettingsClient) GetTimeSettingsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -499,34 +538,58 @@ func (client DeviceSettingsClient) GetTimeSettingsResponder(resp *http.Response)
 	return
 }
 
-// SyncRemotemanagementCertificate sync Remote management Certificate between appliance and Service
+// SyncRemotemanagementCertificate sync Remote management Certificate between appliance and Service This method may
+// poll for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to
+// cancel polling and any outstanding HTTP requests.
 //
 // deviceName is the device name resourceGroupName is the resource group name managerName is the manager name
-func (client DeviceSettingsClient) SyncRemotemanagementCertificate(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (result DeviceSettingsSyncRemotemanagementCertificateFuture, err error) {
+func (client DeviceSettingsClient) SyncRemotemanagementCertificate(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "SyncRemotemanagementCertificate")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "SyncRemotemanagementCertificate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.SyncRemotemanagementCertificatePreparer(ctx, deviceName, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "SyncRemotemanagementCertificate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.SyncRemotemanagementCertificatePreparer(deviceName, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "SyncRemotemanagementCertificate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.SyncRemotemanagementCertificateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "SyncRemotemanagementCertificate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.SyncRemotemanagementCertificateSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "SyncRemotemanagementCertificate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.SyncRemotemanagementCertificateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "SyncRemotemanagementCertificate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // SyncRemotemanagementCertificatePreparer prepares the SyncRemotemanagementCertificate request.
-func (client DeviceSettingsClient) SyncRemotemanagementCertificatePreparer(ctx context.Context, deviceName string, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) SyncRemotemanagementCertificatePreparer(deviceName string, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -544,22 +607,16 @@ func (client DeviceSettingsClient) SyncRemotemanagementCertificatePreparer(ctx c
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/securitySettings/default/syncRemoteManagementCertificate", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // SyncRemotemanagementCertificateSender sends the SyncRemotemanagementCertificate request. The method will close the
 // http.Response Body if it receives an error.
-func (client DeviceSettingsClient) SyncRemotemanagementCertificateSender(req *http.Request) (future DeviceSettingsSyncRemotemanagementCertificateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DeviceSettingsClient) SyncRemotemanagementCertificateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // SyncRemotemanagementCertificateResponder handles the response to the SyncRemotemanagementCertificate request. The method always
@@ -574,35 +631,59 @@ func (client DeviceSettingsClient) SyncRemotemanagementCertificateResponder(resp
 	return
 }
 
-// UpdateNetworkSettings updates the network settings on the specified device.
+// UpdateNetworkSettings updates the network settings on the specified device. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // deviceName is the device name parameters is the network settings to be updated. resourceGroupName is the resource
 // group name managerName is the manager name
-func (client DeviceSettingsClient) UpdateNetworkSettings(ctx context.Context, deviceName string, parameters NetworkSettingsPatch, resourceGroupName string, managerName string) (result DeviceSettingsUpdateNetworkSettingsFuture, err error) {
+func (client DeviceSettingsClient) UpdateNetworkSettings(deviceName string, parameters NetworkSettingsPatch, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan NetworkSettings, <-chan error) {
+	resultChan := make(chan NetworkSettings, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "UpdateNetworkSettings")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "UpdateNetworkSettings")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.UpdateNetworkSettingsPreparer(ctx, deviceName, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateNetworkSettings", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result NetworkSettings
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdateNetworkSettingsPreparer(deviceName, parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateNetworkSettings", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateNetworkSettingsSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateNetworkSettings", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateNetworkSettingsSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateNetworkSettings", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateNetworkSettingsResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateNetworkSettings", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdateNetworkSettingsPreparer prepares the UpdateNetworkSettings request.
-func (client DeviceSettingsClient) UpdateNetworkSettingsPreparer(ctx context.Context, deviceName string, parameters NetworkSettingsPatch, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) UpdateNetworkSettingsPreparer(deviceName string, parameters NetworkSettingsPatch, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -622,22 +703,16 @@ func (client DeviceSettingsClient) UpdateNetworkSettingsPreparer(ctx context.Con
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/networkSettings/default", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateNetworkSettingsSender sends the UpdateNetworkSettings request. The method will close the
 // http.Response Body if it receives an error.
-func (client DeviceSettingsClient) UpdateNetworkSettingsSender(req *http.Request) (future DeviceSettingsUpdateNetworkSettingsFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client DeviceSettingsClient) UpdateNetworkSettingsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateNetworkSettingsResponder handles the response to the UpdateNetworkSettings request. The method always
@@ -653,35 +728,59 @@ func (client DeviceSettingsClient) UpdateNetworkSettingsResponder(resp *http.Res
 	return
 }
 
-// UpdateSecuritySettings patch Security properties of the specified device name.
+// UpdateSecuritySettings patch Security properties of the specified device name. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // deviceName is the device name parameters is the security settings properties to be patched. resourceGroupName is the
 // resource group name managerName is the manager name
-func (client DeviceSettingsClient) UpdateSecuritySettings(ctx context.Context, deviceName string, parameters SecuritySettingsPatch, resourceGroupName string, managerName string) (result DeviceSettingsUpdateSecuritySettingsFuture, err error) {
+func (client DeviceSettingsClient) UpdateSecuritySettings(deviceName string, parameters SecuritySettingsPatch, resourceGroupName string, managerName string, cancel <-chan struct{}) (<-chan SecuritySettings, <-chan error) {
+	resultChan := make(chan SecuritySettings, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: managerName,
 			Constraints: []validation.Constraint{{Target: "managerName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "managerName", Name: validation.MinLength, Rule: 2, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "UpdateSecuritySettings")
+		errChan <- validation.NewErrorWithValidationError(err, "storsimple.DeviceSettingsClient", "UpdateSecuritySettings")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.UpdateSecuritySettingsPreparer(ctx, deviceName, parameters, resourceGroupName, managerName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateSecuritySettings", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result SecuritySettings
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdateSecuritySettingsPreparer(deviceName, parameters, resourceGroupName, managerName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateSecuritySettings", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateSecuritySettingsSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateSecuritySettings", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateSecuritySettingsSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateSecuritySettings", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateSecuritySettingsResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "storsimple.DeviceSettingsClient", "UpdateSecuritySettings", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdateSecuritySettingsPreparer prepares the UpdateSecuritySettings request.
-func (client DeviceSettingsClient) UpdateSecuritySettingsPreparer(ctx context.Context, deviceName string, parameters SecuritySettingsPatch, resourceGroupName string, managerName string) (*http.Request, error) {
+func (client DeviceSettingsClient) UpdateSecuritySettingsPreparer(deviceName string, parameters SecuritySettingsPatch, resourceGroupName string, managerName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"deviceName":        deviceName,
 		"managerName":       managerName,
@@ -701,22 +800,16 @@ func (client DeviceSettingsClient) UpdateSecuritySettingsPreparer(ctx context.Co
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorSimple/managers/{managerName}/devices/{deviceName}/securitySettings/default", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateSecuritySettingsSender sends the UpdateSecuritySettings request. The method will close the
 // http.Response Body if it receives an error.
-func (client DeviceSettingsClient) UpdateSecuritySettingsSender(req *http.Request) (future DeviceSettingsUpdateSecuritySettingsFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client DeviceSettingsClient) UpdateSecuritySettingsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateSecuritySettingsResponder handles the response to the UpdateSecuritySettings request. The method always

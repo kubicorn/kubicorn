@@ -18,7 +18,6 @@ package dtl
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // CustomImagesClient is the the DevTest Labs Client.
 type CustomImagesClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCustomImagesClient creates an instance of the CustomImagesClient client.
@@ -40,34 +39,58 @@ func NewCustomImagesClientWithBaseURI(baseURI string, subscriptionID string) Cus
 	return CustomImagesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate create or replace an existing custom image. This operation can take a while to complete.
+// CreateOrUpdate create or replace an existing custom image. This operation can take a while to complete. This method
+// may poll for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to
+// cancel polling and any outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the custom
 // image. customImage is a custom image.
-func (client CustomImagesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, labName string, name string, customImage CustomImage) (result CustomImagesCreateOrUpdateFuture, err error) {
+func (client CustomImagesClient) CreateOrUpdate(resourceGroupName string, labName string, name string, customImage CustomImage, cancel <-chan struct{}) (<-chan CustomImage, <-chan error) {
+	resultChan := make(chan CustomImage, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: customImage,
 			Constraints: []validation.Constraint{{Target: "customImage.CustomImageProperties", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "dtl.CustomImagesClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "dtl.CustomImagesClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, labName, name, customImage)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result CustomImage
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, labName, name, customImage, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client CustomImagesClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, labName string, name string, customImage CustomImage) (*http.Request, error) {
+func (client CustomImagesClient) CreateOrUpdatePreparer(resourceGroupName string, labName string, name string, customImage CustomImage, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -87,22 +110,16 @@ func (client CustomImagesClient) CreateOrUpdatePreparer(ctx context.Context, res
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/customimages/{name}", pathParameters),
 		autorest.WithJSON(customImage),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client CustomImagesClient) CreateOrUpdateSender(req *http.Request) (future CustomImagesCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated))
-	return
+func (client CustomImagesClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -118,28 +135,49 @@ func (client CustomImagesClient) CreateOrUpdateResponder(resp *http.Response) (r
 	return
 }
 
-// Delete delete custom image. This operation can take a while to complete.
+// Delete delete custom image. This operation can take a while to complete. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the custom
 // image.
-func (client CustomImagesClient) Delete(ctx context.Context, resourceGroupName string, labName string, name string) (result CustomImagesDeleteFuture, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, labName, name)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+func (client CustomImagesClient) Delete(resourceGroupName string, labName string, name string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, labName, name, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client CustomImagesClient) DeletePreparer(ctx context.Context, resourceGroupName string, labName string, name string) (*http.Request, error) {
+func (client CustomImagesClient) DeletePreparer(resourceGroupName string, labName string, name string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -157,22 +195,16 @@ func (client CustomImagesClient) DeletePreparer(ctx context.Context, resourceGro
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/customimages/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client CustomImagesClient) DeleteSender(req *http.Request) (future CustomImagesDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client CustomImagesClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -191,8 +223,8 @@ func (client CustomImagesClient) DeleteResponder(resp *http.Response) (result au
 //
 // resourceGroupName is the name of the resource group. labName is the name of the lab. name is the name of the custom
 // image. expand is specify the $expand query. Example: 'properties($select=vm)'
-func (client CustomImagesClient) Get(ctx context.Context, resourceGroupName string, labName string, name string, expand string) (result CustomImage, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, labName, name, expand)
+func (client CustomImagesClient) Get(resourceGroupName string, labName string, name string, expand string) (result CustomImage, err error) {
+	req, err := client.GetPreparer(resourceGroupName, labName, name, expand)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "Get", nil, "Failure preparing request")
 		return
@@ -214,7 +246,7 @@ func (client CustomImagesClient) Get(ctx context.Context, resourceGroupName stri
 }
 
 // GetPreparer prepares the Get request.
-func (client CustomImagesClient) GetPreparer(ctx context.Context, resourceGroupName string, labName string, name string, expand string) (*http.Request, error) {
+func (client CustomImagesClient) GetPreparer(resourceGroupName string, labName string, name string, expand string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"name":              autorest.Encode("path", name),
@@ -235,13 +267,14 @@ func (client CustomImagesClient) GetPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/customimages/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client CustomImagesClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -263,9 +296,8 @@ func (client CustomImagesClient) GetResponder(resp *http.Response) (result Custo
 // resourceGroupName is the name of the resource group. labName is the name of the lab. expand is specify the $expand
 // query. Example: 'properties($select=vm)' filter is the filter to apply to the operation. top is the maximum number
 // of resources to return from the operation. orderby is the ordering expression for the results, using OData notation.
-func (client CustomImagesClient) List(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationCustomImagePage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, labName, expand, filter, top, orderby)
+func (client CustomImagesClient) List(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationCustomImage, err error) {
+	req, err := client.ListPreparer(resourceGroupName, labName, expand, filter, top, orderby)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "List", nil, "Failure preparing request")
 		return
@@ -273,12 +305,12 @@ func (client CustomImagesClient) List(ctx context.Context, resourceGroupName str
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rwcci.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rwcci, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "List", resp, "Failure responding to request")
 	}
@@ -287,7 +319,7 @@ func (client CustomImagesClient) List(ctx context.Context, resourceGroupName str
 }
 
 // ListPreparer prepares the List request.
-func (client CustomImagesClient) ListPreparer(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
+func (client CustomImagesClient) ListPreparer(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"labName":           autorest.Encode("path", labName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -316,13 +348,14 @@ func (client CustomImagesClient) ListPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/customimages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client CustomImagesClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -339,29 +372,71 @@ func (client CustomImagesClient) ListResponder(resp *http.Response) (result Resp
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client CustomImagesClient) listNextResults(lastResults ResponseWithContinuationCustomImage) (result ResponseWithContinuationCustomImage, err error) {
-	req, err := lastResults.responseWithContinuationCustomImagePreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client CustomImagesClient) ListNextResults(lastResults ResponseWithContinuationCustomImage) (result ResponseWithContinuationCustomImage, err error) {
+	req, err := lastResults.ResponseWithContinuationCustomImagePreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "dtl.CustomImagesClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client CustomImagesClient) ListComplete(ctx context.Context, resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string) (result ResponseWithContinuationCustomImageIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, labName, expand, filter, top, orderby)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client CustomImagesClient) ListComplete(resourceGroupName string, labName string, expand string, filter string, top *int32, orderby string, cancel <-chan struct{}) (<-chan CustomImage, <-chan error) {
+	resultChan := make(chan CustomImage)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, labName, expand, filter, top, orderby)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

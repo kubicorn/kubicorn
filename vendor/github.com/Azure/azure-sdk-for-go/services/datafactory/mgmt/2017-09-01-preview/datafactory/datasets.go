@@ -18,7 +18,6 @@ package datafactory
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -28,7 +27,7 @@ import (
 // DatasetsClient is the the Azure Data Factory V2 management API provides a RESTful set of web services that interact
 // with Azure Data Factory V2 services.
 type DatasetsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDatasetsClient creates an instance of the DatasetsClient client.
@@ -46,7 +45,7 @@ func NewDatasetsClientWithBaseURI(baseURI string, subscriptionID string) Dataset
 // resourceGroupName is the resource group name. factoryName is the factory name. datasetName is the dataset name.
 // dataset is dataset resource definition. ifMatch is eTag of the dataset entity.  Should only be specified for update,
 // for which it should match existing entity or can be * for unconditional update.
-func (client DatasetsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, factoryName string, datasetName string, dataset DatasetResource, ifMatch string) (result DatasetResource, err error) {
+func (client DatasetsClient) CreateOrUpdate(resourceGroupName string, factoryName string, datasetName string, dataset DatasetResource, ifMatch string) (result DatasetResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -70,7 +69,7 @@ func (client DatasetsClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 		return result, validation.NewErrorWithValidationError(err, "datafactory.DatasetsClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, factoryName, datasetName, dataset, ifMatch)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, factoryName, datasetName, dataset, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -92,7 +91,7 @@ func (client DatasetsClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client DatasetsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, factoryName string, datasetName string, dataset DatasetResource, ifMatch string) (*http.Request, error) {
+func (client DatasetsClient) CreateOrUpdatePreparer(resourceGroupName string, factoryName string, datasetName string, dataset DatasetResource, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"datasetName":       autorest.Encode("path", datasetName),
 		"factoryName":       autorest.Encode("path", factoryName),
@@ -116,13 +115,14 @@ func (client DatasetsClient) CreateOrUpdatePreparer(ctx context.Context, resourc
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("If-Match", autorest.String(ifMatch)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatasetsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -142,7 +142,7 @@ func (client DatasetsClient) CreateOrUpdateResponder(resp *http.Response) (resul
 // Delete deletes a dataset.
 //
 // resourceGroupName is the resource group name. factoryName is the factory name. datasetName is the dataset name.
-func (client DatasetsClient) Delete(ctx context.Context, resourceGroupName string, factoryName string, datasetName string) (result autorest.Response, err error) {
+func (client DatasetsClient) Delete(resourceGroupName string, factoryName string, datasetName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -159,7 +159,7 @@ func (client DatasetsClient) Delete(ctx context.Context, resourceGroupName strin
 		return result, validation.NewErrorWithValidationError(err, "datafactory.DatasetsClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, factoryName, datasetName)
+	req, err := client.DeletePreparer(resourceGroupName, factoryName, datasetName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -181,7 +181,7 @@ func (client DatasetsClient) Delete(ctx context.Context, resourceGroupName strin
 }
 
 // DeletePreparer prepares the Delete request.
-func (client DatasetsClient) DeletePreparer(ctx context.Context, resourceGroupName string, factoryName string, datasetName string) (*http.Request, error) {
+func (client DatasetsClient) DeletePreparer(resourceGroupName string, factoryName string, datasetName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"datasetName":       autorest.Encode("path", datasetName),
 		"factoryName":       autorest.Encode("path", factoryName),
@@ -199,13 +199,14 @@ func (client DatasetsClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/datasets/{datasetName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatasetsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -224,7 +225,7 @@ func (client DatasetsClient) DeleteResponder(resp *http.Response) (result autore
 // Get gets a dataset.
 //
 // resourceGroupName is the resource group name. factoryName is the factory name. datasetName is the dataset name.
-func (client DatasetsClient) Get(ctx context.Context, resourceGroupName string, factoryName string, datasetName string) (result DatasetResource, err error) {
+func (client DatasetsClient) Get(resourceGroupName string, factoryName string, datasetName string) (result DatasetResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -241,7 +242,7 @@ func (client DatasetsClient) Get(ctx context.Context, resourceGroupName string, 
 		return result, validation.NewErrorWithValidationError(err, "datafactory.DatasetsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, factoryName, datasetName)
+	req, err := client.GetPreparer(resourceGroupName, factoryName, datasetName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "Get", nil, "Failure preparing request")
 		return
@@ -263,7 +264,7 @@ func (client DatasetsClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client DatasetsClient) GetPreparer(ctx context.Context, resourceGroupName string, factoryName string, datasetName string) (*http.Request, error) {
+func (client DatasetsClient) GetPreparer(resourceGroupName string, factoryName string, datasetName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"datasetName":       autorest.Encode("path", datasetName),
 		"factoryName":       autorest.Encode("path", factoryName),
@@ -281,13 +282,14 @@ func (client DatasetsClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/datasets/{datasetName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatasetsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -307,7 +309,7 @@ func (client DatasetsClient) GetResponder(resp *http.Response) (result DatasetRe
 // ListByFactory lists datasets.
 //
 // resourceGroupName is the resource group name. factoryName is the factory name.
-func (client DatasetsClient) ListByFactory(ctx context.Context, resourceGroupName string, factoryName string) (result DatasetListResponsePage, err error) {
+func (client DatasetsClient) ListByFactory(resourceGroupName string, factoryName string) (result DatasetListResponse, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -320,8 +322,7 @@ func (client DatasetsClient) ListByFactory(ctx context.Context, resourceGroupNam
 		return result, validation.NewErrorWithValidationError(err, "datafactory.DatasetsClient", "ListByFactory")
 	}
 
-	result.fn = client.listByFactoryNextResults
-	req, err := client.ListByFactoryPreparer(ctx, resourceGroupName, factoryName)
+	req, err := client.ListByFactoryPreparer(resourceGroupName, factoryName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "ListByFactory", nil, "Failure preparing request")
 		return
@@ -329,12 +330,12 @@ func (client DatasetsClient) ListByFactory(ctx context.Context, resourceGroupNam
 
 	resp, err := client.ListByFactorySender(req)
 	if err != nil {
-		result.dlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "ListByFactory", resp, "Failure sending request")
 		return
 	}
 
-	result.dlr, err = client.ListByFactoryResponder(resp)
+	result, err = client.ListByFactoryResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "ListByFactory", resp, "Failure responding to request")
 	}
@@ -343,7 +344,7 @@ func (client DatasetsClient) ListByFactory(ctx context.Context, resourceGroupNam
 }
 
 // ListByFactoryPreparer prepares the ListByFactory request.
-func (client DatasetsClient) ListByFactoryPreparer(ctx context.Context, resourceGroupName string, factoryName string) (*http.Request, error) {
+func (client DatasetsClient) ListByFactoryPreparer(resourceGroupName string, factoryName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"factoryName":       autorest.Encode("path", factoryName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -360,13 +361,14 @@ func (client DatasetsClient) ListByFactoryPreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/datasets", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByFactorySender sends the ListByFactory request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatasetsClient) ListByFactorySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -383,29 +385,71 @@ func (client DatasetsClient) ListByFactoryResponder(resp *http.Response) (result
 	return
 }
 
-// listByFactoryNextResults retrieves the next set of results, if any.
-func (client DatasetsClient) listByFactoryNextResults(lastResults DatasetListResponse) (result DatasetListResponse, err error) {
-	req, err := lastResults.datasetListResponsePreparer()
+// ListByFactoryNextResults retrieves the next set of results, if any.
+func (client DatasetsClient) ListByFactoryNextResults(lastResults DatasetListResponse) (result DatasetListResponse, err error) {
+	req, err := lastResults.DatasetListResponsePreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "listByFactoryNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "ListByFactory", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByFactorySender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "listByFactoryNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "ListByFactory", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByFactoryResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "listByFactoryNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "datafactory.DatasetsClient", "ListByFactory", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByFactoryComplete enumerates all values, automatically crossing page boundaries as required.
-func (client DatasetsClient) ListByFactoryComplete(ctx context.Context, resourceGroupName string, factoryName string) (result DatasetListResponseIterator, err error) {
-	result.page, err = client.ListByFactory(ctx, resourceGroupName, factoryName)
-	return
+// ListByFactoryComplete gets all elements from the list without paging.
+func (client DatasetsClient) ListByFactoryComplete(resourceGroupName string, factoryName string, cancel <-chan struct{}) (<-chan DatasetResource, <-chan error) {
+	resultChan := make(chan DatasetResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByFactory(resourceGroupName, factoryName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByFactoryNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

@@ -18,7 +18,6 @@ package storageimportexport
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // LocationsClient is the the Storage Import/Export Resource Provider API.
 type LocationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewLocationsClient creates an instance of the LocationsClient client.
@@ -43,8 +42,8 @@ func NewLocationsClientWithBaseURI(baseURI string, subscriptionID string, accept
 // location is an Azure region.
 //
 // locationName is the name of the location. For example, West US or westus.
-func (client LocationsClient) Get(ctx context.Context, locationName string) (result Location, err error) {
-	req, err := client.GetPreparer(ctx, locationName)
+func (client LocationsClient) Get(locationName string) (result Location, err error) {
+	req, err := client.GetPreparer(locationName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storageimportexport.LocationsClient", "Get", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client LocationsClient) Get(ctx context.Context, locationName string) (res
 }
 
 // GetPreparer prepares the Get request.
-func (client LocationsClient) GetPreparer(ctx context.Context, locationName string) (*http.Request, error) {
+func (client LocationsClient) GetPreparer(locationName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"locationName": autorest.Encode("path", locationName),
 	}
@@ -85,13 +84,14 @@ func (client LocationsClient) GetPreparer(ctx context.Context, locationName stri
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("Accept-Language", autorest.String(client.AcceptLanguage)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client LocationsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -110,8 +110,8 @@ func (client LocationsClient) GetResponder(resp *http.Response) (result Location
 
 // List returns a list of locations to which you can ship the disks associated with an import or export job. A location
 // is a Microsoft data center region.
-func (client LocationsClient) List(ctx context.Context) (result LocationsResponse, err error) {
-	req, err := client.ListPreparer(ctx)
+func (client LocationsClient) List() (result LocationsResponse, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storageimportexport.LocationsClient", "List", nil, "Failure preparing request")
 		return
@@ -133,7 +133,7 @@ func (client LocationsClient) List(ctx context.Context) (result LocationsRespons
 }
 
 // ListPreparer prepares the List request.
-func (client LocationsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client LocationsClient) ListPreparer() (*http.Request, error) {
 	const APIVersion = "2016-11-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -148,13 +148,14 @@ func (client LocationsClient) ListPreparer(ctx context.Context) (*http.Request, 
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("Accept-Language", autorest.String(client.AcceptLanguage)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client LocationsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

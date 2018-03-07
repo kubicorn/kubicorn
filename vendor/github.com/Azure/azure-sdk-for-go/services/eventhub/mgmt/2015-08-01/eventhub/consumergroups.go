@@ -18,7 +18,6 @@ package eventhub
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // ConsumerGroupsClient is the azure Event Hubs client
 type ConsumerGroupsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewConsumerGroupsClient creates an instance of the ConsumerGroupsClient client.
@@ -45,7 +44,7 @@ func NewConsumerGroupsClientWithBaseURI(baseURI string, subscriptionID string) C
 // resourceGroupName is name of the resource group within the azure subscription. namespaceName is the Namespace name
 // eventHubName is the Event Hub name consumerGroupName is the consumer group name parameters is parameters supplied to
 // create or update a consumer group resource.
-func (client ConsumerGroupsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string, parameters ConsumerGroupCreateOrUpdateParameters) (result ConsumerGroupResource, err error) {
+func (client ConsumerGroupsClient) CreateOrUpdate(resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string, parameters ConsumerGroupCreateOrUpdateParameters) (result ConsumerGroupResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -64,7 +63,7 @@ func (client ConsumerGroupsClient) CreateOrUpdate(ctx context.Context, resourceG
 		return result, validation.NewErrorWithValidationError(err, "eventhub.ConsumerGroupsClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, namespaceName, eventHubName, consumerGroupName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, namespaceName, eventHubName, consumerGroupName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -86,7 +85,7 @@ func (client ConsumerGroupsClient) CreateOrUpdate(ctx context.Context, resourceG
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client ConsumerGroupsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string, parameters ConsumerGroupCreateOrUpdateParameters) (*http.Request, error) {
+func (client ConsumerGroupsClient) CreateOrUpdatePreparer(resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string, parameters ConsumerGroupCreateOrUpdateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"consumerGroupName": autorest.Encode("path", consumerGroupName),
 		"eventHubName":      autorest.Encode("path", eventHubName),
@@ -107,13 +106,14 @@ func (client ConsumerGroupsClient) CreateOrUpdatePreparer(ctx context.Context, r
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/eventhubs/{eventHubName}/consumergroups/{consumerGroupName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConsumerGroupsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -134,7 +134,7 @@ func (client ConsumerGroupsClient) CreateOrUpdateResponder(resp *http.Response) 
 //
 // resourceGroupName is name of the resource group within the azure subscription. namespaceName is the Namespace name
 // eventHubName is the Event Hub name consumerGroupName is the consumer group name
-func (client ConsumerGroupsClient) Delete(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (result autorest.Response, err error) {
+func (client ConsumerGroupsClient) Delete(resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -151,7 +151,7 @@ func (client ConsumerGroupsClient) Delete(ctx context.Context, resourceGroupName
 		return result, validation.NewErrorWithValidationError(err, "eventhub.ConsumerGroupsClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, namespaceName, eventHubName, consumerGroupName)
+	req, err := client.DeletePreparer(resourceGroupName, namespaceName, eventHubName, consumerGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -173,7 +173,7 @@ func (client ConsumerGroupsClient) Delete(ctx context.Context, resourceGroupName
 }
 
 // DeletePreparer prepares the Delete request.
-func (client ConsumerGroupsClient) DeletePreparer(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (*http.Request, error) {
+func (client ConsumerGroupsClient) DeletePreparer(resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"consumerGroupName": autorest.Encode("path", consumerGroupName),
 		"eventHubName":      autorest.Encode("path", eventHubName),
@@ -192,13 +192,14 @@ func (client ConsumerGroupsClient) DeletePreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/eventhubs/{eventHubName}/consumergroups/{consumerGroupName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConsumerGroupsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -208,7 +209,7 @@ func (client ConsumerGroupsClient) DeleteResponder(resp *http.Response) (result 
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusNoContent),
+		azure.WithErrorUnlessStatusCode(http.StatusNoContent, http.StatusOK),
 		autorest.ByClosing())
 	result.Response = resp
 	return
@@ -218,7 +219,7 @@ func (client ConsumerGroupsClient) DeleteResponder(resp *http.Response) (result 
 //
 // resourceGroupName is name of the resource group within the azure subscription. namespaceName is the Namespace name
 // eventHubName is the Event Hub name consumerGroupName is the consumer group name
-func (client ConsumerGroupsClient) Get(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (result ConsumerGroupResource, err error) {
+func (client ConsumerGroupsClient) Get(resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (result ConsumerGroupResource, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -235,7 +236,7 @@ func (client ConsumerGroupsClient) Get(ctx context.Context, resourceGroupName st
 		return result, validation.NewErrorWithValidationError(err, "eventhub.ConsumerGroupsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, namespaceName, eventHubName, consumerGroupName)
+	req, err := client.GetPreparer(resourceGroupName, namespaceName, eventHubName, consumerGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "Get", nil, "Failure preparing request")
 		return
@@ -257,7 +258,7 @@ func (client ConsumerGroupsClient) Get(ctx context.Context, resourceGroupName st
 }
 
 // GetPreparer prepares the Get request.
-func (client ConsumerGroupsClient) GetPreparer(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (*http.Request, error) {
+func (client ConsumerGroupsClient) GetPreparer(resourceGroupName string, namespaceName string, eventHubName string, consumerGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"consumerGroupName": autorest.Encode("path", consumerGroupName),
 		"eventHubName":      autorest.Encode("path", eventHubName),
@@ -276,13 +277,14 @@ func (client ConsumerGroupsClient) GetPreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/eventhubs/{eventHubName}/consumergroups/{consumerGroupName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConsumerGroupsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -304,7 +306,7 @@ func (client ConsumerGroupsClient) GetResponder(resp *http.Response) (result Con
 //
 // resourceGroupName is name of the resource group within the azure subscription. namespaceName is the Namespace name
 // eventHubName is the Event Hub name
-func (client ConsumerGroupsClient) ListAll(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string) (result ConsumerGroupListResultPage, err error) {
+func (client ConsumerGroupsClient) ListAll(resourceGroupName string, namespaceName string, eventHubName string) (result ConsumerGroupListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -318,8 +320,7 @@ func (client ConsumerGroupsClient) ListAll(ctx context.Context, resourceGroupNam
 		return result, validation.NewErrorWithValidationError(err, "eventhub.ConsumerGroupsClient", "ListAll")
 	}
 
-	result.fn = client.listAllNextResults
-	req, err := client.ListAllPreparer(ctx, resourceGroupName, namespaceName, eventHubName)
+	req, err := client.ListAllPreparer(resourceGroupName, namespaceName, eventHubName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "ListAll", nil, "Failure preparing request")
 		return
@@ -327,12 +328,12 @@ func (client ConsumerGroupsClient) ListAll(ctx context.Context, resourceGroupNam
 
 	resp, err := client.ListAllSender(req)
 	if err != nil {
-		result.cglr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "ListAll", resp, "Failure sending request")
 		return
 	}
 
-	result.cglr, err = client.ListAllResponder(resp)
+	result, err = client.ListAllResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "ListAll", resp, "Failure responding to request")
 	}
@@ -341,7 +342,7 @@ func (client ConsumerGroupsClient) ListAll(ctx context.Context, resourceGroupNam
 }
 
 // ListAllPreparer prepares the ListAll request.
-func (client ConsumerGroupsClient) ListAllPreparer(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string) (*http.Request, error) {
+func (client ConsumerGroupsClient) ListAllPreparer(resourceGroupName string, namespaceName string, eventHubName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"eventHubName":      autorest.Encode("path", eventHubName),
 		"namespaceName":     autorest.Encode("path", namespaceName),
@@ -359,13 +360,14 @@ func (client ConsumerGroupsClient) ListAllPreparer(ctx context.Context, resource
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/eventhubs/{eventHubName}/consumergroups", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAllSender sends the ListAll request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConsumerGroupsClient) ListAllSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -382,29 +384,71 @@ func (client ConsumerGroupsClient) ListAllResponder(resp *http.Response) (result
 	return
 }
 
-// listAllNextResults retrieves the next set of results, if any.
-func (client ConsumerGroupsClient) listAllNextResults(lastResults ConsumerGroupListResult) (result ConsumerGroupListResult, err error) {
-	req, err := lastResults.consumerGroupListResultPreparer()
+// ListAllNextResults retrieves the next set of results, if any.
+func (client ConsumerGroupsClient) ListAllNextResults(lastResults ConsumerGroupListResult) (result ConsumerGroupListResult, err error) {
+	req, err := lastResults.ConsumerGroupListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "listAllNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "ListAll", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAllSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "listAllNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "ListAll", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAllResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "listAllNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "eventhub.ConsumerGroupsClient", "ListAll", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAllComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ConsumerGroupsClient) ListAllComplete(ctx context.Context, resourceGroupName string, namespaceName string, eventHubName string) (result ConsumerGroupListResultIterator, err error) {
-	result.page, err = client.ListAll(ctx, resourceGroupName, namespaceName, eventHubName)
-	return
+// ListAllComplete gets all elements from the list without paging.
+func (client ConsumerGroupsClient) ListAllComplete(resourceGroupName string, namespaceName string, eventHubName string, cancel <-chan struct{}) (<-chan ConsumerGroupResource, <-chan error) {
+	resultChan := make(chan ConsumerGroupResource)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAll(resourceGroupName, namespaceName, eventHubName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAllNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

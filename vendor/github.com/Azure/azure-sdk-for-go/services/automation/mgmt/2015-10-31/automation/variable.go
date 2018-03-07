@@ -18,7 +18,6 @@ package automation
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,34 +26,34 @@ import (
 
 // VariableClient is the automation Client
 type VariableClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewVariableClient creates an instance of the VariableClient client.
-func NewVariableClient(subscriptionID string, resourceGroupName string) VariableClient {
-	return NewVariableClientWithBaseURI(DefaultBaseURI, subscriptionID, resourceGroupName)
+func NewVariableClient(subscriptionID string) VariableClient {
+	return NewVariableClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewVariableClientWithBaseURI creates an instance of the VariableClient client.
-func NewVariableClientWithBaseURI(baseURI string, subscriptionID string, resourceGroupName string) VariableClient {
-	return VariableClient{NewWithBaseURI(baseURI, subscriptionID, resourceGroupName)}
+func NewVariableClientWithBaseURI(baseURI string, subscriptionID string) VariableClient {
+	return VariableClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
 // CreateOrUpdate create a variable.
 //
-// automationAccountName is the automation account name. variableName is the variable name. parameters is the
-// parameters supplied to the create or update variable operation.
-func (client VariableClient) CreateOrUpdate(ctx context.Context, automationAccountName string, variableName string, parameters VariableCreateOrUpdateParameters) (result Variable, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. variableName is
+// the variable name. parameters is the parameters supplied to the create or update variable operation.
+func (client VariableClient) CreateOrUpdate(resourceGroupName string, automationAccountName string, variableName string, parameters VariableCreateOrUpdateParameters) (result Variable, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}},
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}},
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Name", Name: validation.Null, Rule: true, Chain: nil},
 				{Target: "parameters.VariableCreateOrUpdateProperties", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.VariableClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, automationAccountName, variableName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, automationAccountName, variableName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.VariableClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -76,10 +75,10 @@ func (client VariableClient) CreateOrUpdate(ctx context.Context, automationAccou
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client VariableClient) CreateOrUpdatePreparer(ctx context.Context, automationAccountName string, variableName string, parameters VariableCreateOrUpdateParameters) (*http.Request, error) {
+func (client VariableClient) CreateOrUpdatePreparer(resourceGroupName string, automationAccountName string, variableName string, parameters VariableCreateOrUpdateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 		"variableName":          autorest.Encode("path", variableName),
 	}
@@ -96,13 +95,14 @@ func (client VariableClient) CreateOrUpdatePreparer(ctx context.Context, automat
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/variables/{variableName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client VariableClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -121,15 +121,16 @@ func (client VariableClient) CreateOrUpdateResponder(resp *http.Response) (resul
 
 // Delete delete the variable.
 //
-// automationAccountName is the automation account name. variableName is the name of variable.
-func (client VariableClient) Delete(ctx context.Context, automationAccountName string, variableName string) (result autorest.Response, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. variableName is
+// the name of variable.
+func (client VariableClient) Delete(resourceGroupName string, automationAccountName string, variableName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.VariableClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, automationAccountName, variableName)
+	req, err := client.DeletePreparer(resourceGroupName, automationAccountName, variableName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.VariableClient", "Delete", nil, "Failure preparing request")
 		return
@@ -151,10 +152,10 @@ func (client VariableClient) Delete(ctx context.Context, automationAccountName s
 }
 
 // DeletePreparer prepares the Delete request.
-func (client VariableClient) DeletePreparer(ctx context.Context, automationAccountName string, variableName string) (*http.Request, error) {
+func (client VariableClient) DeletePreparer(resourceGroupName string, automationAccountName string, variableName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 		"variableName":          autorest.Encode("path", variableName),
 	}
@@ -169,13 +170,14 @@ func (client VariableClient) DeletePreparer(ctx context.Context, automationAccou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/variables/{variableName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client VariableClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -193,15 +195,16 @@ func (client VariableClient) DeleteResponder(resp *http.Response) (result autore
 
 // Get retrieve the variable identified by variable name.
 //
-// automationAccountName is the automation account name. variableName is the name of variable.
-func (client VariableClient) Get(ctx context.Context, automationAccountName string, variableName string) (result Variable, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. variableName is
+// the name of variable.
+func (client VariableClient) Get(resourceGroupName string, automationAccountName string, variableName string) (result Variable, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.VariableClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, automationAccountName, variableName)
+	req, err := client.GetPreparer(resourceGroupName, automationAccountName, variableName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.VariableClient", "Get", nil, "Failure preparing request")
 		return
@@ -223,10 +226,10 @@ func (client VariableClient) Get(ctx context.Context, automationAccountName stri
 }
 
 // GetPreparer prepares the Get request.
-func (client VariableClient) GetPreparer(ctx context.Context, automationAccountName string, variableName string) (*http.Request, error) {
+func (client VariableClient) GetPreparer(resourceGroupName string, automationAccountName string, variableName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 		"variableName":          autorest.Encode("path", variableName),
 	}
@@ -241,13 +244,14 @@ func (client VariableClient) GetPreparer(ctx context.Context, automationAccountN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/variables/{variableName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client VariableClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -266,16 +270,15 @@ func (client VariableClient) GetResponder(resp *http.Response) (result Variable,
 
 // ListByAutomationAccount retrieve a list of variables.
 //
-// automationAccountName is the automation account name.
-func (client VariableClient) ListByAutomationAccount(ctx context.Context, automationAccountName string) (result VariableListResultPage, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name.
+func (client VariableClient) ListByAutomationAccount(resourceGroupName string, automationAccountName string) (result VariableListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.VariableClient", "ListByAutomationAccount")
 	}
 
-	result.fn = client.listByAutomationAccountNextResults
-	req, err := client.ListByAutomationAccountPreparer(ctx, automationAccountName)
+	req, err := client.ListByAutomationAccountPreparer(resourceGroupName, automationAccountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.VariableClient", "ListByAutomationAccount", nil, "Failure preparing request")
 		return
@@ -283,12 +286,12 @@ func (client VariableClient) ListByAutomationAccount(ctx context.Context, automa
 
 	resp, err := client.ListByAutomationAccountSender(req)
 	if err != nil {
-		result.vlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "automation.VariableClient", "ListByAutomationAccount", resp, "Failure sending request")
 		return
 	}
 
-	result.vlr, err = client.ListByAutomationAccountResponder(resp)
+	result, err = client.ListByAutomationAccountResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.VariableClient", "ListByAutomationAccount", resp, "Failure responding to request")
 	}
@@ -297,10 +300,10 @@ func (client VariableClient) ListByAutomationAccount(ctx context.Context, automa
 }
 
 // ListByAutomationAccountPreparer prepares the ListByAutomationAccount request.
-func (client VariableClient) ListByAutomationAccountPreparer(ctx context.Context, automationAccountName string) (*http.Request, error) {
+func (client VariableClient) ListByAutomationAccountPreparer(resourceGroupName string, automationAccountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
@@ -314,13 +317,14 @@ func (client VariableClient) ListByAutomationAccountPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/variables", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByAutomationAccountSender sends the ListByAutomationAccount request. The method will close the
 // http.Response Body if it receives an error.
 func (client VariableClient) ListByAutomationAccountSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -337,45 +341,87 @@ func (client VariableClient) ListByAutomationAccountResponder(resp *http.Respons
 	return
 }
 
-// listByAutomationAccountNextResults retrieves the next set of results, if any.
-func (client VariableClient) listByAutomationAccountNextResults(lastResults VariableListResult) (result VariableListResult, err error) {
-	req, err := lastResults.variableListResultPreparer()
+// ListByAutomationAccountNextResults retrieves the next set of results, if any.
+func (client VariableClient) ListByAutomationAccountNextResults(lastResults VariableListResult) (result VariableListResult, err error) {
+	req, err := lastResults.VariableListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "automation.VariableClient", "listByAutomationAccountNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "automation.VariableClient", "ListByAutomationAccount", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByAutomationAccountSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "automation.VariableClient", "listByAutomationAccountNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "automation.VariableClient", "ListByAutomationAccount", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByAutomationAccountResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "automation.VariableClient", "listByAutomationAccountNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "automation.VariableClient", "ListByAutomationAccount", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByAutomationAccountComplete enumerates all values, automatically crossing page boundaries as required.
-func (client VariableClient) ListByAutomationAccountComplete(ctx context.Context, automationAccountName string) (result VariableListResultIterator, err error) {
-	result.page, err = client.ListByAutomationAccount(ctx, automationAccountName)
-	return
+// ListByAutomationAccountComplete gets all elements from the list without paging.
+func (client VariableClient) ListByAutomationAccountComplete(resourceGroupName string, automationAccountName string, cancel <-chan struct{}) (<-chan Variable, <-chan error) {
+	resultChan := make(chan Variable)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByAutomationAccount(resourceGroupName, automationAccountName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByAutomationAccountNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update update a variable.
 //
-// automationAccountName is the automation account name. variableName is the variable name. parameters is the
-// parameters supplied to the update variable operation.
-func (client VariableClient) Update(ctx context.Context, automationAccountName string, variableName string, parameters VariableUpdateParameters) (result Variable, err error) {
+// resourceGroupName is the resource group name. automationAccountName is the automation account name. variableName is
+// the variable name. parameters is the parameters supplied to the update variable operation.
+func (client VariableClient) Update(resourceGroupName string, automationAccountName string, variableName string, parameters VariableUpdateParameters) (result Variable, err error) {
 	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.ResourceGroupName,
-			Constraints: []validation.Constraint{{Target: "client.ResourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "automation.VariableClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, automationAccountName, variableName, parameters)
+	req, err := client.UpdatePreparer(resourceGroupName, automationAccountName, variableName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "automation.VariableClient", "Update", nil, "Failure preparing request")
 		return
@@ -397,10 +443,10 @@ func (client VariableClient) Update(ctx context.Context, automationAccountName s
 }
 
 // UpdatePreparer prepares the Update request.
-func (client VariableClient) UpdatePreparer(ctx context.Context, automationAccountName string, variableName string, parameters VariableUpdateParameters) (*http.Request, error) {
+func (client VariableClient) UpdatePreparer(resourceGroupName string, automationAccountName string, variableName string, parameters VariableUpdateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"automationAccountName": autorest.Encode("path", automationAccountName),
-		"resourceGroupName":     autorest.Encode("path", client.ResourceGroupName),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 		"variableName":          autorest.Encode("path", variableName),
 	}
@@ -417,13 +463,14 @@ func (client VariableClient) UpdatePreparer(ctx context.Context, automationAccou
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/variables/{variableName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client VariableClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

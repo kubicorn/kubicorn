@@ -18,7 +18,6 @@ package batch
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // LocationClient is the client for the Location methods of the Batch service.
 type LocationClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewLocationClient creates an instance of the LocationClient client.
@@ -44,7 +43,7 @@ func NewLocationClientWithBaseURI(baseURI string, subscriptionID string) Locatio
 //
 // locationName is the desired region for the name check. parameters is properties needed to check the availability of
 // a name.
-func (client LocationClient) CheckNameAvailability(ctx context.Context, locationName string, parameters CheckNameAvailabilityParameters) (result CheckNameAvailabilityResult, err error) {
+func (client LocationClient) CheckNameAvailability(locationName string, parameters CheckNameAvailabilityParameters) (result CheckNameAvailabilityResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Name", Name: validation.Null, Rule: true, Chain: nil},
@@ -52,7 +51,7 @@ func (client LocationClient) CheckNameAvailability(ctx context.Context, location
 		return result, validation.NewErrorWithValidationError(err, "batch.LocationClient", "CheckNameAvailability")
 	}
 
-	req, err := client.CheckNameAvailabilityPreparer(ctx, locationName, parameters)
+	req, err := client.CheckNameAvailabilityPreparer(locationName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "batch.LocationClient", "CheckNameAvailability", nil, "Failure preparing request")
 		return
@@ -74,7 +73,7 @@ func (client LocationClient) CheckNameAvailability(ctx context.Context, location
 }
 
 // CheckNameAvailabilityPreparer prepares the CheckNameAvailability request.
-func (client LocationClient) CheckNameAvailabilityPreparer(ctx context.Context, locationName string, parameters CheckNameAvailabilityParameters) (*http.Request, error) {
+func (client LocationClient) CheckNameAvailabilityPreparer(locationName string, parameters CheckNameAvailabilityParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"locationName":   autorest.Encode("path", locationName),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -92,13 +91,14 @@ func (client LocationClient) CheckNameAvailabilityPreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Batch/locations/{locationName}/checkNameAvailability", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CheckNameAvailabilitySender sends the CheckNameAvailability request. The method will close the
 // http.Response Body if it receives an error.
 func (client LocationClient) CheckNameAvailabilitySender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -118,8 +118,8 @@ func (client LocationClient) CheckNameAvailabilityResponder(resp *http.Response)
 // GetQuotas gets the Batch service quotas for the specified subscription at the given location.
 //
 // locationName is the region for which to retrieve Batch service quotas.
-func (client LocationClient) GetQuotas(ctx context.Context, locationName string) (result LocationQuota, err error) {
-	req, err := client.GetQuotasPreparer(ctx, locationName)
+func (client LocationClient) GetQuotas(locationName string) (result LocationQuota, err error) {
+	req, err := client.GetQuotasPreparer(locationName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "batch.LocationClient", "GetQuotas", nil, "Failure preparing request")
 		return
@@ -141,7 +141,7 @@ func (client LocationClient) GetQuotas(ctx context.Context, locationName string)
 }
 
 // GetQuotasPreparer prepares the GetQuotas request.
-func (client LocationClient) GetQuotasPreparer(ctx context.Context, locationName string) (*http.Request, error) {
+func (client LocationClient) GetQuotasPreparer(locationName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"locationName":   autorest.Encode("path", locationName),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -157,13 +157,14 @@ func (client LocationClient) GetQuotasPreparer(ctx context.Context, locationName
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Batch/locations/{locationName}/quotas", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetQuotasSender sends the GetQuotas request. The method will close the
 // http.Response Body if it receives an error.
 func (client LocationClient) GetQuotasSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

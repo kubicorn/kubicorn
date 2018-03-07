@@ -16,6 +16,8 @@ import proto "github.com/gogo/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import github_com_gogo_protobuf_proto "github.com/gogo/protobuf/proto"
+
 import io "io"
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -79,7 +81,7 @@ func (m *A) MarshalTo(dAtA []byte) (int, error) {
 		i += copy(dAtA[i:], *m.Strings)
 	}
 	if m.Int == nil {
-		return 0, proto.NewRequiredNotSetError("Int")
+		return 0, github_com_gogo_protobuf_proto.NewRequiredNotSetError("Int")
 	} else {
 		dAtA[i] = 0x10
 		i++
@@ -227,7 +229,7 @@ func (m *A) Unmarshal(dAtA []byte) error {
 		}
 	}
 	if hasFields[0]&uint64(0x00000001) == 0 {
-		return proto.NewRequiredNotSetError("Int")
+		return github_com_gogo_protobuf_proto.NewRequiredNotSetError("Int")
 	}
 
 	if iNdEx > l {

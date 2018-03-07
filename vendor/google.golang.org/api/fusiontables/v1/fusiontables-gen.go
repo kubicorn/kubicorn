@@ -3805,12 +3805,11 @@ func (c *TableImportRowsCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
-	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"tableId": c.tableId,
 	})
@@ -4055,12 +4054,11 @@ func (c *TableImportTableCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
-	gensupport.SetGetBody(req, getBody)
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 

@@ -18,7 +18,6 @@ package mobileengagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // CampaignsClient is the microsoft Azure Mobile Engagement REST APIs.
 type CampaignsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewCampaignsClient creates an instance of the CampaignsClient client.
@@ -44,8 +43,8 @@ func NewCampaignsClientWithBaseURI(baseURI string, subscriptionID string) Campai
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. ID is campaign identifier.
-func (client CampaignsClient) Activate(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (result CampaignStateResult, err error) {
-	req, err := client.ActivatePreparer(ctx, resourceGroupName, appCollection, appName, kind, ID)
+func (client CampaignsClient) Activate(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (result CampaignStateResult, err error) {
+	req, err := client.ActivatePreparer(resourceGroupName, appCollection, appName, kind, ID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Activate", nil, "Failure preparing request")
 		return
@@ -67,7 +66,7 @@ func (client CampaignsClient) Activate(ctx context.Context, resourceGroupName st
 }
 
 // ActivatePreparer prepares the Activate request.
-func (client CampaignsClient) ActivatePreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (*http.Request, error) {
+func (client CampaignsClient) ActivatePreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -87,13 +86,14 @@ func (client CampaignsClient) ActivatePreparer(ctx context.Context, resourceGrou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}/activate", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ActivateSender sends the Activate request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) ActivateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -114,7 +114,7 @@ func (client CampaignsClient) ActivateResponder(resp *http.Response) (result Cam
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. parameters is parameters supplied to the Update Campaign operation.
-func (client CampaignsClient) Create(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters Campaign) (result CampaignStateResult, err error) {
+func (client CampaignsClient) Create(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters Campaign) (result CampaignStateResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Name", Name: validation.Null, Rule: false,
@@ -124,7 +124,7 @@ func (client CampaignsClient) Create(ctx context.Context, resourceGroupName stri
 		return result, validation.NewErrorWithValidationError(err, "mobileengagement.CampaignsClient", "Create")
 	}
 
-	req, err := client.CreatePreparer(ctx, resourceGroupName, appCollection, appName, kind, parameters)
+	req, err := client.CreatePreparer(resourceGroupName, appCollection, appName, kind, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Create", nil, "Failure preparing request")
 		return
@@ -146,7 +146,7 @@ func (client CampaignsClient) Create(ctx context.Context, resourceGroupName stri
 }
 
 // CreatePreparer prepares the Create request.
-func (client CampaignsClient) CreatePreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters Campaign) (*http.Request, error) {
+func (client CampaignsClient) CreatePreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters Campaign) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -167,13 +167,14 @@ func (client CampaignsClient) CreatePreparer(ctx context.Context, resourceGroupN
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -194,8 +195,8 @@ func (client CampaignsClient) CreateResponder(resp *http.Response) (result Campa
 //
 // kind is campaign kind. ID is campaign identifier. resourceGroupName is the name of the resource group. appCollection
 // is application collection. appName is application resource name.
-func (client CampaignsClient) Delete(ctx context.Context, kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, kind, ID, resourceGroupName, appCollection, appName)
+func (client CampaignsClient) Delete(kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(kind, ID, resourceGroupName, appCollection, appName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -217,7 +218,7 @@ func (client CampaignsClient) Delete(ctx context.Context, kind CampaignKinds, ID
 }
 
 // DeletePreparer prepares the Delete request.
-func (client CampaignsClient) DeletePreparer(ctx context.Context, kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
+func (client CampaignsClient) DeletePreparer(kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -237,13 +238,14 @@ func (client CampaignsClient) DeletePreparer(ctx context.Context, kind CampaignK
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -263,8 +265,8 @@ func (client CampaignsClient) DeleteResponder(resp *http.Response) (result autor
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. ID is campaign identifier.
-func (client CampaignsClient) Finish(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (result CampaignStateResult, err error) {
-	req, err := client.FinishPreparer(ctx, resourceGroupName, appCollection, appName, kind, ID)
+func (client CampaignsClient) Finish(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (result CampaignStateResult, err error) {
+	req, err := client.FinishPreparer(resourceGroupName, appCollection, appName, kind, ID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Finish", nil, "Failure preparing request")
 		return
@@ -286,7 +288,7 @@ func (client CampaignsClient) Finish(ctx context.Context, resourceGroupName stri
 }
 
 // FinishPreparer prepares the Finish request.
-func (client CampaignsClient) FinishPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (*http.Request, error) {
+func (client CampaignsClient) FinishPreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -306,13 +308,14 @@ func (client CampaignsClient) FinishPreparer(ctx context.Context, resourceGroupN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}/finish", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // FinishSender sends the Finish request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) FinishSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -333,8 +336,8 @@ func (client CampaignsClient) FinishResponder(resp *http.Response) (result Campa
 //
 // kind is campaign kind. ID is campaign identifier. resourceGroupName is the name of the resource group. appCollection
 // is application collection. appName is application resource name.
-func (client CampaignsClient) Get(ctx context.Context, kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (result CampaignResult, err error) {
-	req, err := client.GetPreparer(ctx, kind, ID, resourceGroupName, appCollection, appName)
+func (client CampaignsClient) Get(kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (result CampaignResult, err error) {
+	req, err := client.GetPreparer(kind, ID, resourceGroupName, appCollection, appName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Get", nil, "Failure preparing request")
 		return
@@ -356,7 +359,7 @@ func (client CampaignsClient) Get(ctx context.Context, kind CampaignKinds, ID in
 }
 
 // GetPreparer prepares the Get request.
-func (client CampaignsClient) GetPreparer(ctx context.Context, kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
+func (client CampaignsClient) GetPreparer(kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -376,13 +379,14 @@ func (client CampaignsClient) GetPreparer(ctx context.Context, kind CampaignKind
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -403,8 +407,8 @@ func (client CampaignsClient) GetResponder(resp *http.Response) (result Campaign
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. name is campaign name.
-func (client CampaignsClient) GetByName(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, name string) (result CampaignResult, err error) {
-	req, err := client.GetByNamePreparer(ctx, resourceGroupName, appCollection, appName, kind, name)
+func (client CampaignsClient) GetByName(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, name string) (result CampaignResult, err error) {
+	req, err := client.GetByNamePreparer(resourceGroupName, appCollection, appName, kind, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "GetByName", nil, "Failure preparing request")
 		return
@@ -426,7 +430,7 @@ func (client CampaignsClient) GetByName(ctx context.Context, resourceGroupName s
 }
 
 // GetByNamePreparer prepares the GetByName request.
-func (client CampaignsClient) GetByNamePreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, name string) (*http.Request, error) {
+func (client CampaignsClient) GetByNamePreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -446,13 +450,14 @@ func (client CampaignsClient) GetByNamePreparer(ctx context.Context, resourceGro
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaignsByName/{kind}/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetByNameSender sends the GetByName request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) GetByNameSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -473,8 +478,8 @@ func (client CampaignsClient) GetByNameResponder(resp *http.Response) (result Ca
 //
 // kind is campaign kind. ID is campaign identifier. resourceGroupName is the name of the resource group. appCollection
 // is application collection. appName is application resource name.
-func (client CampaignsClient) GetStatistics(ctx context.Context, kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (result CampaignStatisticsResult, err error) {
-	req, err := client.GetStatisticsPreparer(ctx, kind, ID, resourceGroupName, appCollection, appName)
+func (client CampaignsClient) GetStatistics(kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (result CampaignStatisticsResult, err error) {
+	req, err := client.GetStatisticsPreparer(kind, ID, resourceGroupName, appCollection, appName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "GetStatistics", nil, "Failure preparing request")
 		return
@@ -496,7 +501,7 @@ func (client CampaignsClient) GetStatistics(ctx context.Context, kind CampaignKi
 }
 
 // GetStatisticsPreparer prepares the GetStatistics request.
-func (client CampaignsClient) GetStatisticsPreparer(ctx context.Context, kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
+func (client CampaignsClient) GetStatisticsPreparer(kind CampaignKinds, ID int32, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -516,13 +521,14 @@ func (client CampaignsClient) GetStatisticsPreparer(ctx context.Context, kind Ca
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}/statistics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetStatisticsSender sends the GetStatistics request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) GetStatisticsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -555,9 +561,8 @@ func (client CampaignsClient) GetStatisticsResponder(resp *http.Response) (resul
 // sorting. search is restrict results to campaigns matching the optional `search` expression. This currently performs
 // the search based on the name on the campaign only, case insensitive. If the campaign contains the value of the
 // `search` parameter anywhere in the name, it matches.
-func (client CampaignsClient) List(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, skip *int32, top *int32, filter string, orderby string, search string) (result CampaignsListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceGroupName, appCollection, appName, kind, skip, top, filter, orderby, search)
+func (client CampaignsClient) List(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, skip *int32, top *int32, filter string, orderby string, search string) (result CampaignsListResult, err error) {
+	req, err := client.ListPreparer(resourceGroupName, appCollection, appName, kind, skip, top, filter, orderby, search)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "List", nil, "Failure preparing request")
 		return
@@ -565,12 +570,12 @@ func (client CampaignsClient) List(ctx context.Context, resourceGroupName string
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.clr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.clr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "List", resp, "Failure responding to request")
 	}
@@ -579,7 +584,7 @@ func (client CampaignsClient) List(ctx context.Context, resourceGroupName string
 }
 
 // ListPreparer prepares the List request.
-func (client CampaignsClient) ListPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, skip *int32, top *int32, filter string, orderby string, search string) (*http.Request, error) {
+func (client CampaignsClient) ListPreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, skip *int32, top *int32, filter string, orderby string, search string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -613,13 +618,14 @@ func (client CampaignsClient) ListPreparer(ctx context.Context, resourceGroupNam
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -636,31 +642,73 @@ func (client CampaignsClient) ListResponder(resp *http.Response) (result Campaig
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client CampaignsClient) listNextResults(lastResults CampaignsListResult) (result CampaignsListResult, err error) {
-	req, err := lastResults.campaignsListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client CampaignsClient) ListNextResults(lastResults CampaignsListResult) (result CampaignsListResult, err error) {
+	req, err := lastResults.CampaignsListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client CampaignsClient) ListComplete(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, skip *int32, top *int32, filter string, orderby string, search string) (result CampaignsListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceGroupName, appCollection, appName, kind, skip, top, filter, orderby, search)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client CampaignsClient) ListComplete(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, skip *int32, top *int32, filter string, orderby string, search string, cancel <-chan struct{}) (<-chan CampaignListResult, <-chan error) {
+	resultChan := make(chan CampaignListResult)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceGroupName, appCollection, appName, kind, skip, top, filter, orderby, search)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Push push a previously saved campaign (created with Create campaign) to a set of devices.
@@ -668,7 +716,7 @@ func (client CampaignsClient) ListComplete(ctx context.Context, resourceGroupNam
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. ID is campaign identifier. parameters is parameters supplied to the Push
 // Campaign operation.
-func (client CampaignsClient) Push(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignPushParameters) (result CampaignPushResult, err error) {
+func (client CampaignsClient) Push(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignPushParameters) (result CampaignPushResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.DeviceIds", Name: validation.Null, Rule: true, Chain: nil},
@@ -681,7 +729,7 @@ func (client CampaignsClient) Push(ctx context.Context, resourceGroupName string
 		return result, validation.NewErrorWithValidationError(err, "mobileengagement.CampaignsClient", "Push")
 	}
 
-	req, err := client.PushPreparer(ctx, resourceGroupName, appCollection, appName, kind, ID, parameters)
+	req, err := client.PushPreparer(resourceGroupName, appCollection, appName, kind, ID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Push", nil, "Failure preparing request")
 		return
@@ -703,7 +751,7 @@ func (client CampaignsClient) Push(ctx context.Context, resourceGroupName string
 }
 
 // PushPreparer prepares the Push request.
-func (client CampaignsClient) PushPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignPushParameters) (*http.Request, error) {
+func (client CampaignsClient) PushPreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignPushParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -725,13 +773,14 @@ func (client CampaignsClient) PushPreparer(ctx context.Context, resourceGroupNam
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}/push", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // PushSender sends the Push request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) PushSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -752,8 +801,8 @@ func (client CampaignsClient) PushResponder(resp *http.Response) (result Campaig
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. ID is campaign identifier.
-func (client CampaignsClient) Suspend(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (result CampaignStateResult, err error) {
-	req, err := client.SuspendPreparer(ctx, resourceGroupName, appCollection, appName, kind, ID)
+func (client CampaignsClient) Suspend(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (result CampaignStateResult, err error) {
+	req, err := client.SuspendPreparer(resourceGroupName, appCollection, appName, kind, ID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Suspend", nil, "Failure preparing request")
 		return
@@ -775,7 +824,7 @@ func (client CampaignsClient) Suspend(ctx context.Context, resourceGroupName str
 }
 
 // SuspendPreparer prepares the Suspend request.
-func (client CampaignsClient) SuspendPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (*http.Request, error) {
+func (client CampaignsClient) SuspendPreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -795,13 +844,14 @@ func (client CampaignsClient) SuspendPreparer(ctx context.Context, resourceGroup
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}/suspend", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // SuspendSender sends the Suspend request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) SuspendSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -822,7 +872,7 @@ func (client CampaignsClient) SuspendResponder(resp *http.Response) (result Camp
 //
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. parameters is parameters supplied to the Test Campaign operation.
-func (client CampaignsClient) TestNew(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters CampaignTestNewParameters) (result CampaignState, err error) {
+func (client CampaignsClient) TestNew(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters CampaignTestNewParameters) (result CampaignState, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Data", Name: validation.Null, Rule: true,
@@ -834,7 +884,7 @@ func (client CampaignsClient) TestNew(ctx context.Context, resourceGroupName str
 		return result, validation.NewErrorWithValidationError(err, "mobileengagement.CampaignsClient", "TestNew")
 	}
 
-	req, err := client.TestNewPreparer(ctx, resourceGroupName, appCollection, appName, kind, parameters)
+	req, err := client.TestNewPreparer(resourceGroupName, appCollection, appName, kind, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "TestNew", nil, "Failure preparing request")
 		return
@@ -856,7 +906,7 @@ func (client CampaignsClient) TestNew(ctx context.Context, resourceGroupName str
 }
 
 // TestNewPreparer prepares the TestNew request.
-func (client CampaignsClient) TestNewPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters CampaignTestNewParameters) (*http.Request, error) {
+func (client CampaignsClient) TestNewPreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, parameters CampaignTestNewParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -877,13 +927,14 @@ func (client CampaignsClient) TestNewPreparer(ctx context.Context, resourceGroup
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/test", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // TestNewSender sends the TestNew request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) TestNewSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -905,14 +956,14 @@ func (client CampaignsClient) TestNewResponder(resp *http.Response) (result Camp
 // resourceGroupName is the name of the resource group. appCollection is application collection. appName is application
 // resource name. kind is campaign kind. ID is campaign identifier. parameters is parameters supplied to the Test
 // Campaign operation.
-func (client CampaignsClient) TestSaved(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignTestSavedParameters) (result CampaignStateResult, err error) {
+func (client CampaignsClient) TestSaved(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignTestSavedParameters) (result CampaignStateResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.DeviceID", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "mobileengagement.CampaignsClient", "TestSaved")
 	}
 
-	req, err := client.TestSavedPreparer(ctx, resourceGroupName, appCollection, appName, kind, ID, parameters)
+	req, err := client.TestSavedPreparer(resourceGroupName, appCollection, appName, kind, ID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "TestSaved", nil, "Failure preparing request")
 		return
@@ -934,7 +985,7 @@ func (client CampaignsClient) TestSaved(ctx context.Context, resourceGroupName s
 }
 
 // TestSavedPreparer prepares the TestSaved request.
-func (client CampaignsClient) TestSavedPreparer(ctx context.Context, resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignTestSavedParameters) (*http.Request, error) {
+func (client CampaignsClient) TestSavedPreparer(resourceGroupName string, appCollection string, appName string, kind CampaignKinds, ID int32, parameters CampaignTestSavedParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -956,13 +1007,14 @@ func (client CampaignsClient) TestSavedPreparer(ctx context.Context, resourceGro
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}/test", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // TestSavedSender sends the TestSaved request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) TestSavedSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -984,7 +1036,7 @@ func (client CampaignsClient) TestSavedResponder(resp *http.Response) (result Ca
 // kind is campaign kind. ID is campaign identifier. parameters is parameters supplied to the Update Campaign
 // operation. resourceGroupName is the name of the resource group. appCollection is application collection. appName is
 // application resource name.
-func (client CampaignsClient) Update(ctx context.Context, kind CampaignKinds, ID int32, parameters Campaign, resourceGroupName string, appCollection string, appName string) (result CampaignStateResult, err error) {
+func (client CampaignsClient) Update(kind CampaignKinds, ID int32, parameters Campaign, resourceGroupName string, appCollection string, appName string) (result CampaignStateResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.Name", Name: validation.Null, Rule: false,
@@ -994,7 +1046,7 @@ func (client CampaignsClient) Update(ctx context.Context, kind CampaignKinds, ID
 		return result, validation.NewErrorWithValidationError(err, "mobileengagement.CampaignsClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, kind, ID, parameters, resourceGroupName, appCollection, appName)
+	req, err := client.UpdatePreparer(kind, ID, parameters, resourceGroupName, appCollection, appName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mobileengagement.CampaignsClient", "Update", nil, "Failure preparing request")
 		return
@@ -1016,7 +1068,7 @@ func (client CampaignsClient) Update(ctx context.Context, kind CampaignKinds, ID
 }
 
 // UpdatePreparer prepares the Update request.
-func (client CampaignsClient) UpdatePreparer(ctx context.Context, kind CampaignKinds, ID int32, parameters Campaign, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
+func (client CampaignsClient) UpdatePreparer(kind CampaignKinds, ID int32, parameters Campaign, resourceGroupName string, appCollection string, appName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"appCollection":     autorest.Encode("path", appCollection),
 		"appName":           autorest.Encode("path", appName),
@@ -1038,13 +1090,14 @@ func (client CampaignsClient) UpdatePreparer(ctx context.Context, kind CampaignK
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MobileEngagement/appcollections/{appCollection}/apps/{appName}/campaigns/{kind}/{id}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client CampaignsClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

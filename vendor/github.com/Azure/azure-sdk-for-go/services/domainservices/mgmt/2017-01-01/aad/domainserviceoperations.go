@@ -18,7 +18,6 @@ package aad
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // DomainServiceOperationsClient is the the AAD Domain Services API.
 type DomainServiceOperationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDomainServiceOperationsClient creates an instance of the DomainServiceOperationsClient client.
@@ -40,8 +39,8 @@ func NewDomainServiceOperationsClientWithBaseURI(baseURI string, subscriptionID 
 }
 
 // List lists all the available Domain Services operations.
-func (client DomainServiceOperationsClient) List(ctx context.Context) (result OperationEntityListResult, err error) {
-	req, err := client.ListPreparer(ctx)
+func (client DomainServiceOperationsClient) List() (result OperationEntityListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "aad.DomainServiceOperationsClient", "List", nil, "Failure preparing request")
 		return
@@ -63,7 +62,7 @@ func (client DomainServiceOperationsClient) List(ctx context.Context) (result Op
 }
 
 // ListPreparer prepares the List request.
-func (client DomainServiceOperationsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client DomainServiceOperationsClient) ListPreparer() (*http.Request, error) {
 	const APIVersion = "2017-01-01"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -74,13 +73,14 @@ func (client DomainServiceOperationsClient) ListPreparer(ctx context.Context) (*
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPath("/providers/Microsoft.AAD/operations"),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client DomainServiceOperationsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

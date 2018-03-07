@@ -16,6 +16,7 @@ package cluster
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 )
 
 const (
@@ -43,6 +44,9 @@ type Cluster struct {
 	KubernetesAPI     *KubernetesAPI `json:"kubernetesAPI,omitempty"`
 	GroupIdentifier   string         `json:"groupIdentifier,omitempty"`
 	Components        *Components    `json:"components,omitempty"`
+
+	// Add the official Kubernetes Cluster API for us to begin transitioning (lol) to the API
+	ClusterAPI *clusterv1.Cluster
 }
 
 func NewCluster(name string) *Cluster {

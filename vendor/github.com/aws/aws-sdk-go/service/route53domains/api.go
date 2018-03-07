@@ -2362,6 +2362,7 @@ func (c *Route53Domains) ViewBillingWithContext(ctx aws.Context, input *ViewBill
 }
 
 // Information for one billing record.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/BillingRecord
 type BillingRecord struct {
 	_ struct{} `type:"structure"`
 
@@ -2428,6 +2429,7 @@ func (s *BillingRecord) SetPrice(v float64) *BillingRecord {
 }
 
 // The CheckDomainAvailability request contains the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainAvailabilityRequest
 type CheckDomainAvailabilityInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2480,6 +2482,7 @@ func (s *CheckDomainAvailabilityInput) SetIdnLangCode(v string) *CheckDomainAvai
 }
 
 // The CheckDomainAvailability response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainAvailabilityResponse
 type CheckDomainAvailabilityOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2533,6 +2536,7 @@ func (s *CheckDomainAvailabilityOutput) SetAvailability(v string) *CheckDomainAv
 }
 
 // The CheckDomainTransferability request contains the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferabilityRequest
 type CheckDomainTransferabilityInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2587,6 +2591,7 @@ func (s *CheckDomainTransferabilityInput) SetDomainName(v string) *CheckDomainTr
 }
 
 // The CheckDomainTransferability response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferabilityResponse
 type CheckDomainTransferabilityOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2614,6 +2619,7 @@ func (s *CheckDomainTransferabilityOutput) SetTransferability(v *DomainTransfera
 }
 
 // ContactDetail includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ContactDetail
 type ContactDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -2785,6 +2791,7 @@ func (s *ContactDetail) SetZipCode(v string) *ContactDetail {
 }
 
 // The DeleteTagsForDomainRequest includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DeleteTagsForDomainRequest
 type DeleteTagsForDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2837,6 +2844,7 @@ func (s *DeleteTagsForDomainInput) SetTagsToDelete(v []*string) *DeleteTagsForDo
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DeleteTagsForDomainResponse
 type DeleteTagsForDomainOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2851,6 +2859,7 @@ func (s DeleteTagsForDomainOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DisableDomainAutoRenewRequest
 type DisableDomainAutoRenewInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2889,6 +2898,7 @@ func (s *DisableDomainAutoRenewInput) SetDomainName(v string) *DisableDomainAuto
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DisableDomainAutoRenewResponse
 type DisableDomainAutoRenewOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2904,6 +2914,7 @@ func (s DisableDomainAutoRenewOutput) GoString() string {
 }
 
 // The DisableDomainTransferLock request includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DisableDomainTransferLockRequest
 type DisableDomainTransferLockInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2943,6 +2954,7 @@ func (s *DisableDomainTransferLockInput) SetDomainName(v string) *DisableDomainT
 }
 
 // The DisableDomainTransferLock response includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DisableDomainTransferLockResponse
 type DisableDomainTransferLockOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2970,6 +2982,7 @@ func (s *DisableDomainTransferLockOutput) SetOperationId(v string) *DisableDomai
 }
 
 // Information about one suggested domain name.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DomainSuggestion
 type DomainSuggestion struct {
 	_ struct{} `type:"structure"`
 
@@ -3030,6 +3043,7 @@ func (s *DomainSuggestion) SetDomainName(v string) *DomainSuggestion {
 }
 
 // Summary information about one domain.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DomainSummary
 type DomainSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -3083,6 +3097,7 @@ func (s *DomainSummary) SetTransferLock(v bool) *DomainSummary {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DomainTransferability
 type DomainTransferability struct {
 	_ struct{} `type:"structure"`
 
@@ -3116,6 +3131,7 @@ func (s *DomainTransferability) SetTransferable(v string) *DomainTransferability
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/EnableDomainAutoRenewRequest
 type EnableDomainAutoRenewInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3154,6 +3170,7 @@ func (s *EnableDomainAutoRenewInput) SetDomainName(v string) *EnableDomainAutoRe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/EnableDomainAutoRenewResponse
 type EnableDomainAutoRenewOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3169,6 +3186,7 @@ func (s EnableDomainAutoRenewOutput) GoString() string {
 }
 
 // A request to set the transfer lock for the specified domain.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/EnableDomainTransferLockRequest
 type EnableDomainTransferLockInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3208,6 +3226,7 @@ func (s *EnableDomainTransferLockInput) SetDomainName(v string) *EnableDomainTra
 }
 
 // The EnableDomainTransferLock response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/EnableDomainTransferLockResponse
 type EnableDomainTransferLockOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3235,6 +3254,7 @@ func (s *EnableDomainTransferLockOutput) SetOperationId(v string) *EnableDomainT
 }
 
 // ExtraParam includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ExtraParam
 type ExtraParam struct {
 	_ struct{} `type:"structure"`
 
@@ -3288,6 +3308,7 @@ func (s *ExtraParam) SetValue(v string) *ExtraParam {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetContactReachabilityStatusRequest
 type GetContactReachabilityStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3312,6 +3333,7 @@ func (s *GetContactReachabilityStatusInput) SetDomainName(v string) *GetContactR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetContactReachabilityStatusResponse
 type GetContactReachabilityStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3351,6 +3373,7 @@ func (s *GetContactReachabilityStatusOutput) SetStatus(v string) *GetContactReac
 }
 
 // The GetDomainDetail request includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetDomainDetailRequest
 type GetDomainDetailInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3390,6 +3413,7 @@ func (s *GetDomainDetailInput) SetDomainName(v string) *GetDomainDetailInput {
 }
 
 // The GetDomainDetail response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetDomainDetailResponse
 type GetDomainDetailOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3633,6 +3657,7 @@ func (s *GetDomainDetailOutput) SetWhoIsServer(v string) *GetDomainDetailOutput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetDomainSuggestionsRequest
 type GetDomainSuggestionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3707,6 +3732,7 @@ func (s *GetDomainSuggestionsInput) SetSuggestionCount(v int64) *GetDomainSugges
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetDomainSuggestionsResponse
 type GetDomainSuggestionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3732,6 +3758,7 @@ func (s *GetDomainSuggestionsOutput) SetSuggestionsList(v []*DomainSuggestion) *
 }
 
 // The GetOperationDetail request includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetOperationDetailRequest
 type GetOperationDetailInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3772,6 +3799,7 @@ func (s *GetOperationDetailInput) SetOperationId(v string) *GetOperationDetailIn
 }
 
 // The GetOperationDetail response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetOperationDetailResponse
 type GetOperationDetailOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3841,6 +3869,7 @@ func (s *GetOperationDetailOutput) SetType(v string) *GetOperationDetailOutput {
 }
 
 // The ListDomains request includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListDomainsRequest
 type ListDomainsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3883,6 +3912,7 @@ func (s *ListDomainsInput) SetMaxItems(v int64) *ListDomainsInput {
 }
 
 // The ListDomains response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListDomainsResponse
 type ListDomainsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3920,6 +3950,7 @@ func (s *ListDomainsOutput) SetNextPageMarker(v string) *ListDomainsOutput {
 }
 
 // The ListOperations request includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListOperationsRequest
 type ListOperationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3960,6 +3991,7 @@ func (s *ListOperationsInput) SetMaxItems(v int64) *ListOperationsInput {
 }
 
 // The ListOperations response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListOperationsResponse
 type ListOperationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3997,6 +4029,7 @@ func (s *ListOperationsOutput) SetOperations(v []*OperationSummary) *ListOperati
 }
 
 // The ListTagsForDomainRequest includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListTagsForDomainRequest
 type ListTagsForDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4036,6 +4069,7 @@ func (s *ListTagsForDomainInput) SetDomainName(v string) *ListTagsForDomainInput
 }
 
 // The ListTagsForDomain response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ListTagsForDomainResponse
 type ListTagsForDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4062,6 +4096,7 @@ func (s *ListTagsForDomainOutput) SetTagList(v []*Tag) *ListTagsForDomainOutput 
 }
 
 // Nameserver includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/Nameserver
 type Nameserver struct {
 	_ struct{} `type:"structure"`
 
@@ -4117,6 +4152,7 @@ func (s *Nameserver) SetName(v string) *Nameserver {
 }
 
 // OperationSummary includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/OperationSummary
 type OperationSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -4176,6 +4212,7 @@ func (s *OperationSummary) SetType(v string) *OperationSummary {
 }
 
 // The RegisterDomain request includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/RegisterDomainRequest
 type RegisterDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4362,6 +4399,7 @@ func (s *RegisterDomainInput) SetTechContact(v *ContactDetail) *RegisterDomainIn
 }
 
 // The RegisterDomain response includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/RegisterDomainResponse
 type RegisterDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4390,6 +4428,7 @@ func (s *RegisterDomainOutput) SetOperationId(v string) *RegisterDomainOutput {
 
 // A RenewDomain request includes the number of years that you want to renew
 // for and the current expiration year.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/RenewDomainRequest
 type RenewDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4460,6 +4499,7 @@ func (s *RenewDomainInput) SetDurationInYears(v int64) *RenewDomainInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/RenewDomainResponse
 type RenewDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4486,6 +4526,7 @@ func (s *RenewDomainOutput) SetOperationId(v string) *RenewDomainOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ResendContactReachabilityEmailRequest
 type ResendContactReachabilityEmailInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4510,6 +4551,7 @@ func (s *ResendContactReachabilityEmailInput) SetDomainName(v string) *ResendCon
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ResendContactReachabilityEmailResponse
 type ResendContactReachabilityEmailOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4556,6 +4598,7 @@ func (s *ResendContactReachabilityEmailOutput) SetIsAlreadyVerified(v bool) *Res
 
 // A request for the authorization code for the specified domain. To transfer
 // a domain to another registrar, you provide this value to the new registrar.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/RetrieveDomainAuthCodeRequest
 type RetrieveDomainAuthCodeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4595,6 +4638,7 @@ func (s *RetrieveDomainAuthCodeInput) SetDomainName(v string) *RetrieveDomainAut
 }
 
 // The RetrieveDomainAuthCode response includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/RetrieveDomainAuthCodeResponse
 type RetrieveDomainAuthCodeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4621,6 +4665,7 @@ func (s *RetrieveDomainAuthCodeOutput) SetAuthCode(v string) *RetrieveDomainAuth
 }
 
 // Each tag includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/Tag
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -4662,6 +4707,7 @@ func (s *Tag) SetValue(v string) *Tag {
 }
 
 // The TransferDomain request includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/TransferDomainRequest
 type TransferDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4875,6 +4921,7 @@ func (s *TransferDomainInput) SetTechContact(v *ContactDetail) *TransferDomainIn
 }
 
 // The TranserDomain response includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/TransferDomainResponse
 type TransferDomainOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4902,6 +4949,7 @@ func (s *TransferDomainOutput) SetOperationId(v string) *TransferDomainOutput {
 }
 
 // The UpdateDomainContact request includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateDomainContactRequest
 type UpdateDomainContactInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4983,6 +5031,7 @@ func (s *UpdateDomainContactInput) SetTechContact(v *ContactDetail) *UpdateDomai
 }
 
 // The UpdateDomainContact response includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateDomainContactResponse
 type UpdateDomainContactOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5010,6 +5059,7 @@ func (s *UpdateDomainContactOutput) SetOperationId(v string) *UpdateDomainContac
 }
 
 // The UpdateDomainContactPrivacy request includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateDomainContactPrivacyRequest
 type UpdateDomainContactPrivacyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5085,6 +5135,7 @@ func (s *UpdateDomainContactPrivacyInput) SetTechPrivacy(v bool) *UpdateDomainCo
 }
 
 // The UpdateDomainContactPrivacy response includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateDomainContactPrivacyResponse
 type UpdateDomainContactPrivacyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5118,6 +5169,7 @@ func (s *UpdateDomainContactPrivacyOutput) SetOperationId(v string) *UpdateDomai
 // If successful, this operation returns an operation ID that you can use to
 // track the progress and completion of the action. If the request is not completed
 // successfully, the domain registrant will be notified by email.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateDomainNameserversRequest
 type UpdateDomainNameserversInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5190,6 +5242,7 @@ func (s *UpdateDomainNameserversInput) SetNameservers(v []*Nameserver) *UpdateDo
 }
 
 // The UpdateDomainNameservers response includes the following element.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateDomainNameserversResponse
 type UpdateDomainNameserversOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5217,6 +5270,7 @@ func (s *UpdateDomainNameserversOutput) SetOperationId(v string) *UpdateDomainNa
 }
 
 // The UpdateTagsForDomainRequest includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateTagsForDomainRequest
 type UpdateTagsForDomainInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5265,6 +5319,7 @@ func (s *UpdateTagsForDomainInput) SetTagsToUpdate(v []*Tag) *UpdateTagsForDomai
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/UpdateTagsForDomainResponse
 type UpdateTagsForDomainOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5280,6 +5335,7 @@ func (s UpdateTagsForDomainOutput) GoString() string {
 }
 
 // The ViewBilling request includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ViewBillingRequest
 type ViewBillingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5343,6 +5399,7 @@ func (s *ViewBillingInput) SetStart(v time.Time) *ViewBillingInput {
 }
 
 // The ViewBilling response includes the following elements.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/ViewBillingResponse
 type ViewBillingOutput struct {
 	_ struct{} `type:"structure"`
 

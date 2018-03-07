@@ -18,7 +18,6 @@ package advisor
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ConfigurationsClient is the REST APIs for Azure Advisor
 type ConfigurationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewConfigurationsClient creates an instance of the ConfigurationsClient client.
@@ -43,8 +42,8 @@ func NewConfigurationsClientWithBaseURI(baseURI string, subscriptionID string) C
 //
 // configContract is the Azure Advisor configuration data structure. resourceGroup is the name of the Azure resource
 // group.
-func (client ConfigurationsClient) CreateInResourceGroup(ctx context.Context, configContract ConfigData, resourceGroup string) (result ARMErrorResponseBody, err error) {
-	req, err := client.CreateInResourceGroupPreparer(ctx, configContract, resourceGroup)
+func (client ConfigurationsClient) CreateInResourceGroup(configContract ConfigData, resourceGroup string) (result ARMErrorResponseBody, err error) {
+	req, err := client.CreateInResourceGroupPreparer(configContract, resourceGroup)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.ConfigurationsClient", "CreateInResourceGroup", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client ConfigurationsClient) CreateInResourceGroup(ctx context.Context, co
 }
 
 // CreateInResourceGroupPreparer prepares the CreateInResourceGroup request.
-func (client ConfigurationsClient) CreateInResourceGroupPreparer(ctx context.Context, configContract ConfigData, resourceGroup string) (*http.Request, error) {
+func (client ConfigurationsClient) CreateInResourceGroupPreparer(configContract ConfigData, resourceGroup string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroup":  autorest.Encode("path", resourceGroup),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -84,13 +83,14 @@ func (client ConfigurationsClient) CreateInResourceGroupPreparer(ctx context.Con
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Advisor/configurations", pathParameters),
 		autorest.WithJSON(configContract),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateInResourceGroupSender sends the CreateInResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConfigurationsClient) CreateInResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -111,8 +111,8 @@ func (client ConfigurationsClient) CreateInResourceGroupResponder(resp *http.Res
 // resource groups.
 //
 // configContract is the Azure Advisor configuration data structure.
-func (client ConfigurationsClient) CreateInSubscription(ctx context.Context, configContract ConfigData) (result ARMErrorResponseBody, err error) {
-	req, err := client.CreateInSubscriptionPreparer(ctx, configContract)
+func (client ConfigurationsClient) CreateInSubscription(configContract ConfigData) (result ARMErrorResponseBody, err error) {
+	req, err := client.CreateInSubscriptionPreparer(configContract)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.ConfigurationsClient", "CreateInSubscription", nil, "Failure preparing request")
 		return
@@ -134,7 +134,7 @@ func (client ConfigurationsClient) CreateInSubscription(ctx context.Context, con
 }
 
 // CreateInSubscriptionPreparer prepares the CreateInSubscription request.
-func (client ConfigurationsClient) CreateInSubscriptionPreparer(ctx context.Context, configContract ConfigData) (*http.Request, error) {
+func (client ConfigurationsClient) CreateInSubscriptionPreparer(configContract ConfigData) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -151,13 +151,14 @@ func (client ConfigurationsClient) CreateInSubscriptionPreparer(ctx context.Cont
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/configurations", pathParameters),
 		autorest.WithJSON(configContract),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateInSubscriptionSender sends the CreateInSubscription request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConfigurationsClient) CreateInSubscriptionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -177,8 +178,8 @@ func (client ConfigurationsClient) CreateInSubscriptionResponder(resp *http.Resp
 // ListByResourceGroup sends the list by resource group request.
 //
 // resourceGroup is the name of the Azure resource group.
-func (client ConfigurationsClient) ListByResourceGroup(ctx context.Context, resourceGroup string) (result ConfigurationListResult, err error) {
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroup)
+func (client ConfigurationsClient) ListByResourceGroup(resourceGroup string) (result ConfigurationListResult, err error) {
+	req, err := client.ListByResourceGroupPreparer(resourceGroup)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.ConfigurationsClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -200,7 +201,7 @@ func (client ConfigurationsClient) ListByResourceGroup(ctx context.Context, reso
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client ConfigurationsClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroup string) (*http.Request, error) {
+func (client ConfigurationsClient) ListByResourceGroupPreparer(resourceGroup string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroup":  autorest.Encode("path", resourceGroup),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -216,13 +217,14 @@ func (client ConfigurationsClient) ListByResourceGroupPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Advisor/configurations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConfigurationsClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -241,8 +243,8 @@ func (client ConfigurationsClient) ListByResourceGroupResponder(resp *http.Respo
 
 // ListBySubscription retrieve Azure Advisor configurations and also retrieve configurations of contained resource
 // groups.
-func (client ConfigurationsClient) ListBySubscription(ctx context.Context) (result ConfigurationListResult, err error) {
-	req, err := client.ListBySubscriptionPreparer(ctx)
+func (client ConfigurationsClient) ListBySubscription() (result ConfigurationListResult, err error) {
+	req, err := client.ListBySubscriptionPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "advisor.ConfigurationsClient", "ListBySubscription", nil, "Failure preparing request")
 		return
@@ -264,7 +266,7 @@ func (client ConfigurationsClient) ListBySubscription(ctx context.Context) (resu
 }
 
 // ListBySubscriptionPreparer prepares the ListBySubscription request.
-func (client ConfigurationsClient) ListBySubscriptionPreparer(ctx context.Context) (*http.Request, error) {
+func (client ConfigurationsClient) ListBySubscriptionPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -279,13 +281,14 @@ func (client ConfigurationsClient) ListBySubscriptionPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Advisor/configurations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListBySubscriptionSender sends the ListBySubscription request. The method will close the
 // http.Response Body if it receives an error.
 func (client ConfigurationsClient) ListBySubscriptionSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

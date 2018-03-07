@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // PolicySnippetsClient is the apiManagement Client
 type PolicySnippetsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPolicySnippetsClient creates an instance of the PolicySnippetsClient client.
@@ -44,7 +43,7 @@ func NewPolicySnippetsClientWithBaseURI(baseURI string, subscriptionID string) P
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. scope is
 // policy scope.
-func (client PolicySnippetsClient) ListByService(ctx context.Context, resourceGroupName string, serviceName string, scope PolicyScopeContract) (result PolicySnippetsCollection, err error) {
+func (client PolicySnippetsClient) ListByService(resourceGroupName string, serviceName string, scope PolicyScopeContract) (result PolicySnippetsCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -53,7 +52,7 @@ func (client PolicySnippetsClient) ListByService(ctx context.Context, resourceGr
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.PolicySnippetsClient", "ListByService")
 	}
 
-	req, err := client.ListByServicePreparer(ctx, resourceGroupName, serviceName, scope)
+	req, err := client.ListByServicePreparer(resourceGroupName, serviceName, scope)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.PolicySnippetsClient", "ListByService", nil, "Failure preparing request")
 		return
@@ -75,7 +74,7 @@ func (client PolicySnippetsClient) ListByService(ctx context.Context, resourceGr
 }
 
 // ListByServicePreparer prepares the ListByService request.
-func (client PolicySnippetsClient) ListByServicePreparer(ctx context.Context, resourceGroupName string, serviceName string, scope PolicyScopeContract) (*http.Request, error) {
+func (client PolicySnippetsClient) ListByServicePreparer(resourceGroupName string, serviceName string, scope PolicyScopeContract) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -95,13 +94,14 @@ func (client PolicySnippetsClient) ListByServicePreparer(ctx context.Context, re
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/policySnippets", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServiceSender sends the ListByService request. The method will close the
 // http.Response Body if it receives an error.
 func (client PolicySnippetsClient) ListByServiceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -18,7 +18,6 @@ package documentdb
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,24 +26,24 @@ import (
 
 // DatabaseAccountsClient is the azure Cosmos DB Database Service Resource Provider REST API
 type DatabaseAccountsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewDatabaseAccountsClient creates an instance of the DatabaseAccountsClient client.
-func NewDatabaseAccountsClient(subscriptionID string, filter string, filter1 string, databaseRid string, collectionRid string, region string) DatabaseAccountsClient {
-	return NewDatabaseAccountsClientWithBaseURI(DefaultBaseURI, subscriptionID, filter, filter1, databaseRid, collectionRid, region)
+func NewDatabaseAccountsClient(subscriptionID string) DatabaseAccountsClient {
+	return NewDatabaseAccountsClientWithBaseURI(DefaultBaseURI, subscriptionID)
 }
 
 // NewDatabaseAccountsClientWithBaseURI creates an instance of the DatabaseAccountsClient client.
-func NewDatabaseAccountsClientWithBaseURI(baseURI string, subscriptionID string, filter string, filter1 string, databaseRid string, collectionRid string, region string) DatabaseAccountsClient {
-	return DatabaseAccountsClient{NewWithBaseURI(baseURI, subscriptionID, filter, filter1, databaseRid, collectionRid, region)}
+func NewDatabaseAccountsClientWithBaseURI(baseURI string, subscriptionID string) DatabaseAccountsClient {
+	return DatabaseAccountsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
 // CheckNameExists checks that the Azure Cosmos DB account name already exists. A valid account name may contain only
 // lowercase letters, numbers, and the '-' character, and must be between 3 and 50 characters.
 //
 // accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) CheckNameExists(ctx context.Context, accountName string) (result autorest.Response, err error) {
+func (client DatabaseAccountsClient) CheckNameExists(accountName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -52,7 +51,7 @@ func (client DatabaseAccountsClient) CheckNameExists(ctx context.Context, accoun
 		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "CheckNameExists")
 	}
 
-	req, err := client.CheckNameExistsPreparer(ctx, accountName)
+	req, err := client.CheckNameExistsPreparer(accountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "CheckNameExists", nil, "Failure preparing request")
 		return
@@ -74,7 +73,7 @@ func (client DatabaseAccountsClient) CheckNameExists(ctx context.Context, accoun
 }
 
 // CheckNameExistsPreparer prepares the CheckNameExists request.
-func (client DatabaseAccountsClient) CheckNameExistsPreparer(ctx context.Context, accountName string) (*http.Request, error) {
+func (client DatabaseAccountsClient) CheckNameExistsPreparer(accountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName": autorest.Encode("path", accountName),
 	}
@@ -89,13 +88,14 @@ func (client DatabaseAccountsClient) CheckNameExistsPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/providers/Microsoft.DocumentDB/databaseAccountNames/{accountName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CheckNameExistsSender sends the CheckNameExists request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabaseAccountsClient) CheckNameExistsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -111,11 +111,15 @@ func (client DatabaseAccountsClient) CheckNameExistsResponder(resp *http.Respons
 	return
 }
 
-// CreateOrUpdate creates or updates an Azure Cosmos DB database account.
+// CreateOrUpdate creates or updates an Azure Cosmos DB database account. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
 // createUpdateParameters is the parameters to provide for the current database account.
-func (client DatabaseAccountsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, createUpdateParameters DatabaseAccountCreateUpdateParameters) (result DatabaseAccountsCreateOrUpdateFuture, err error) {
+func (client DatabaseAccountsClient) CreateOrUpdate(resourceGroupName string, accountName string, createUpdateParameters DatabaseAccountCreateUpdateParameters, cancel <-chan struct{}) (<-chan DatabaseAccount, <-chan error) {
+	resultChan := make(chan DatabaseAccount, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -139,26 +143,46 @@ func (client DatabaseAccountsClient) CreateOrUpdate(ctx context.Context, resourc
 					{Target: "createUpdateParameters.DatabaseAccountCreateUpdateProperties.Locations", Name: validation.Null, Rule: true, Chain: nil},
 					{Target: "createUpdateParameters.DatabaseAccountCreateUpdateProperties.DatabaseAccountOfferType", Name: validation.Null, Rule: true, Chain: nil},
 				}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "CreateOrUpdate")
+		errChan <- validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "CreateOrUpdate")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, accountName, createUpdateParameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "CreateOrUpdate", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result DatabaseAccount
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdatePreparer(resourceGroupName, accountName, createUpdateParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "CreateOrUpdate", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "CreateOrUpdate", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "CreateOrUpdate", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "CreateOrUpdate", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client DatabaseAccountsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, accountName string, createUpdateParameters DatabaseAccountCreateUpdateParameters) (*http.Request, error) {
+func (client DatabaseAccountsClient) CreateOrUpdatePreparer(resourceGroupName string, accountName string, createUpdateParameters DatabaseAccountCreateUpdateParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -177,22 +201,16 @@ func (client DatabaseAccountsClient) CreateOrUpdatePreparer(ctx context.Context,
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}", pathParameters),
 		autorest.WithJSON(createUpdateParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) CreateOrUpdateSender(req *http.Request) (future DatabaseAccountsCreateOrUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK))
-	return
+func (client DatabaseAccountsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateResponder handles the response to the CreateOrUpdate request. The method always
@@ -208,10 +226,14 @@ func (client DatabaseAccountsClient) CreateOrUpdateResponder(resp *http.Response
 	return
 }
 
-// Delete deletes an existing Azure Cosmos DB database account.
+// Delete deletes an existing Azure Cosmos DB database account. This method may poll for completion. Polling can be
+// canceled by passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP
+// requests.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) Delete(ctx context.Context, resourceGroupName string, accountName string) (result DatabaseAccountsDeleteFuture, err error) {
+func (client DatabaseAccountsClient) Delete(resourceGroupName string, accountName string, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -220,26 +242,46 @@ func (client DatabaseAccountsClient) Delete(ctx context.Context, resourceGroupNa
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "accountName", Name: validation.MinLength, Rule: 3, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "Delete")
+		errChan <- validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "Delete")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, accountName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Delete", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeletePreparer(resourceGroupName, accountName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Delete", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Delete", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Delete", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Delete", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeletePreparer prepares the Delete request.
-func (client DatabaseAccountsClient) DeletePreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
+func (client DatabaseAccountsClient) DeletePreparer(resourceGroupName string, accountName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -256,22 +298,16 @@ func (client DatabaseAccountsClient) DeletePreparer(ctx context.Context, resourc
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) DeleteSender(req *http.Request) (future DatabaseAccountsDeleteFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DatabaseAccountsClient) DeleteSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -288,11 +324,15 @@ func (client DatabaseAccountsClient) DeleteResponder(resp *http.Response) (resul
 
 // FailoverPriorityChange changes the failover priority for the Azure Cosmos DB database account. A failover priority
 // of 0 indicates a write region. The maximum value for a failover priority = (total number of regions - 1). Failover
-// priority values must be unique for each of the regions in which the database account exists.
+// priority values must be unique for each of the regions in which the database account exists. This method may poll
+// for completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
 // failoverParameters is the new failover policies for the database account.
-func (client DatabaseAccountsClient) FailoverPriorityChange(ctx context.Context, resourceGroupName string, accountName string, failoverParameters FailoverPolicies) (result DatabaseAccountsFailoverPriorityChangeFuture, err error) {
+func (client DatabaseAccountsClient) FailoverPriorityChange(resourceGroupName string, accountName string, failoverParameters FailoverPolicies, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -301,26 +341,46 @@ func (client DatabaseAccountsClient) FailoverPriorityChange(ctx context.Context,
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "accountName", Name: validation.MinLength, Rule: 3, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "FailoverPriorityChange")
+		errChan <- validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "FailoverPriorityChange")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.FailoverPriorityChangePreparer(ctx, resourceGroupName, accountName, failoverParameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "FailoverPriorityChange", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.FailoverPriorityChangePreparer(resourceGroupName, accountName, failoverParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "FailoverPriorityChange", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.FailoverPriorityChangeSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "FailoverPriorityChange", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.FailoverPriorityChangeSender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "FailoverPriorityChange", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.FailoverPriorityChangeResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "FailoverPriorityChange", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // FailoverPriorityChangePreparer prepares the FailoverPriorityChange request.
-func (client DatabaseAccountsClient) FailoverPriorityChangePreparer(ctx context.Context, resourceGroupName string, accountName string, failoverParameters FailoverPolicies) (*http.Request, error) {
+func (client DatabaseAccountsClient) FailoverPriorityChangePreparer(resourceGroupName string, accountName string, failoverParameters FailoverPolicies, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -339,22 +399,16 @@ func (client DatabaseAccountsClient) FailoverPriorityChangePreparer(ctx context.
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/failoverPriorityChange", pathParameters),
 		autorest.WithJSON(failoverParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // FailoverPriorityChangeSender sends the FailoverPriorityChange request. The method will close the
 // http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) FailoverPriorityChangeSender(req *http.Request) (future DatabaseAccountsFailoverPriorityChangeFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client DatabaseAccountsClient) FailoverPriorityChangeSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // FailoverPriorityChangeResponder handles the response to the FailoverPriorityChange request. The method always
@@ -372,7 +426,7 @@ func (client DatabaseAccountsClient) FailoverPriorityChangeResponder(resp *http.
 // Get retrieves the properties of an existing Azure Cosmos DB database account.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) Get(ctx context.Context, resourceGroupName string, accountName string) (result DatabaseAccount, err error) {
+func (client DatabaseAccountsClient) Get(resourceGroupName string, accountName string) (result DatabaseAccount, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -384,7 +438,7 @@ func (client DatabaseAccountsClient) Get(ctx context.Context, resourceGroupName 
 		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, accountName)
+	req, err := client.GetPreparer(resourceGroupName, accountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Get", nil, "Failure preparing request")
 		return
@@ -406,7 +460,7 @@ func (client DatabaseAccountsClient) Get(ctx context.Context, resourceGroupName 
 }
 
 // GetPreparer prepares the Get request.
-func (client DatabaseAccountsClient) GetPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
+func (client DatabaseAccountsClient) GetPreparer(resourceGroupName string, accountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -423,13 +477,14 @@ func (client DatabaseAccountsClient) GetPreparer(ctx context.Context, resourceGr
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabaseAccountsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -447,8 +502,8 @@ func (client DatabaseAccountsClient) GetResponder(resp *http.Response) (result D
 }
 
 // List lists all the Azure Cosmos DB database accounts available under the subscription.
-func (client DatabaseAccountsClient) List(ctx context.Context) (result DatabaseAccountsListResult, err error) {
-	req, err := client.ListPreparer(ctx)
+func (client DatabaseAccountsClient) List() (result DatabaseAccountsListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "List", nil, "Failure preparing request")
 		return
@@ -470,7 +525,7 @@ func (client DatabaseAccountsClient) List(ctx context.Context) (result DatabaseA
 }
 
 // ListPreparer prepares the List request.
-func (client DatabaseAccountsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client DatabaseAccountsClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -485,13 +540,14 @@ func (client DatabaseAccountsClient) ListPreparer(ctx context.Context) (*http.Re
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.DocumentDB/databaseAccounts", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabaseAccountsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -511,7 +567,7 @@ func (client DatabaseAccountsClient) ListResponder(resp *http.Response) (result 
 // ListByResourceGroup lists all the Azure Cosmos DB database accounts available under the given resource group.
 //
 // resourceGroupName is name of an Azure resource group.
-func (client DatabaseAccountsClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result DatabaseAccountsListResult, err error) {
+func (client DatabaseAccountsClient) ListByResourceGroup(resourceGroupName string) (result DatabaseAccountsListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -520,7 +576,7 @@ func (client DatabaseAccountsClient) ListByResourceGroup(ctx context.Context, re
 		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "ListByResourceGroup")
 	}
 
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName)
+	req, err := client.ListByResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -542,7 +598,7 @@ func (client DatabaseAccountsClient) ListByResourceGroup(ctx context.Context, re
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client DatabaseAccountsClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client DatabaseAccountsClient) ListByResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -558,13 +614,14 @@ func (client DatabaseAccountsClient) ListByResourceGroupPreparer(ctx context.Con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByResourceGroupSender sends the ListByResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabaseAccountsClient) ListByResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -584,7 +641,7 @@ func (client DatabaseAccountsClient) ListByResourceGroupResponder(resp *http.Res
 // ListConnectionStrings lists the connection strings for the specified Azure Cosmos DB database account.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) ListConnectionStrings(ctx context.Context, resourceGroupName string, accountName string) (result DatabaseAccountListConnectionStringsResult, err error) {
+func (client DatabaseAccountsClient) ListConnectionStrings(resourceGroupName string, accountName string) (result DatabaseAccountListConnectionStringsResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -596,7 +653,7 @@ func (client DatabaseAccountsClient) ListConnectionStrings(ctx context.Context, 
 		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "ListConnectionStrings")
 	}
 
-	req, err := client.ListConnectionStringsPreparer(ctx, resourceGroupName, accountName)
+	req, err := client.ListConnectionStringsPreparer(resourceGroupName, accountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListConnectionStrings", nil, "Failure preparing request")
 		return
@@ -618,7 +675,7 @@ func (client DatabaseAccountsClient) ListConnectionStrings(ctx context.Context, 
 }
 
 // ListConnectionStringsPreparer prepares the ListConnectionStrings request.
-func (client DatabaseAccountsClient) ListConnectionStringsPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
+func (client DatabaseAccountsClient) ListConnectionStringsPreparer(resourceGroupName string, accountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -635,13 +692,14 @@ func (client DatabaseAccountsClient) ListConnectionStringsPreparer(ctx context.C
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/listConnectionStrings", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListConnectionStringsSender sends the ListConnectionStrings request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabaseAccountsClient) ListConnectionStringsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -661,7 +719,7 @@ func (client DatabaseAccountsClient) ListConnectionStringsResponder(resp *http.R
 // ListKeys lists the access keys for the specified Azure Cosmos DB database account.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) ListKeys(ctx context.Context, resourceGroupName string, accountName string) (result DatabaseAccountListKeysResult, err error) {
+func (client DatabaseAccountsClient) ListKeys(resourceGroupName string, accountName string) (result DatabaseAccountListKeysResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -673,7 +731,7 @@ func (client DatabaseAccountsClient) ListKeys(ctx context.Context, resourceGroup
 		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "ListKeys")
 	}
 
-	req, err := client.ListKeysPreparer(ctx, resourceGroupName, accountName)
+	req, err := client.ListKeysPreparer(resourceGroupName, accountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListKeys", nil, "Failure preparing request")
 		return
@@ -695,7 +753,7 @@ func (client DatabaseAccountsClient) ListKeys(ctx context.Context, resourceGroup
 }
 
 // ListKeysPreparer prepares the ListKeys request.
-func (client DatabaseAccountsClient) ListKeysPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
+func (client DatabaseAccountsClient) ListKeysPreparer(resourceGroupName string, accountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -712,13 +770,14 @@ func (client DatabaseAccountsClient) ListKeysPreparer(ctx context.Context, resou
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/listKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListKeysSender sends the ListKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabaseAccountsClient) ListKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -735,165 +794,10 @@ func (client DatabaseAccountsClient) ListKeysResponder(resp *http.Response) (res
 	return
 }
 
-// ListMetricDefinitions retrieves metric defintions for the given database account.
-//
-// resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) ListMetricDefinitions(ctx context.Context, resourceGroupName string, accountName string) (result MetricDefinitionsListResult, err error) {
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: resourceGroupName,
-			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}},
-		{TargetValue: accountName,
-			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
-				{Target: "accountName", Name: validation.MinLength, Rule: 3, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "ListMetricDefinitions")
-	}
-
-	req, err := client.ListMetricDefinitionsPreparer(ctx, resourceGroupName, accountName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListMetricDefinitions", nil, "Failure preparing request")
-		return
-	}
-
-	resp, err := client.ListMetricDefinitionsSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListMetricDefinitions", resp, "Failure sending request")
-		return
-	}
-
-	result, err = client.ListMetricDefinitionsResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListMetricDefinitions", resp, "Failure responding to request")
-	}
-
-	return
-}
-
-// ListMetricDefinitionsPreparer prepares the ListMetricDefinitions request.
-func (client DatabaseAccountsClient) ListMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"accountName":       autorest.Encode("path", accountName),
-		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
-	}
-
-	const APIVersion = "2015-04-08"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
-
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/metricDefinitions", pathParameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
-
-// ListMetricDefinitionsSender sends the ListMetricDefinitions request. The method will close the
-// http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) ListMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		azure.DoRetryWithRegistration(client.Client))
-}
-
-// ListMetricDefinitionsResponder handles the response to the ListMetricDefinitions request. The method always
-// closes the http.Response Body.
-func (client DatabaseAccountsClient) ListMetricDefinitionsResponder(resp *http.Response) (result MetricDefinitionsListResult, err error) {
-	err = autorest.Respond(
-		resp,
-		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
-
-// ListMetrics retrieves the metrics determined by the given filter for the given database account.
-//
-// resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) ListMetrics(ctx context.Context, resourceGroupName string, accountName string) (result MetricListResult, err error) {
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: resourceGroupName,
-			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}},
-		{TargetValue: accountName,
-			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
-				{Target: "accountName", Name: validation.MinLength, Rule: 3, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "ListMetrics")
-	}
-
-	req, err := client.ListMetricsPreparer(ctx, resourceGroupName, accountName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListMetrics", nil, "Failure preparing request")
-		return
-	}
-
-	resp, err := client.ListMetricsSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListMetrics", resp, "Failure sending request")
-		return
-	}
-
-	result, err = client.ListMetricsResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListMetrics", resp, "Failure responding to request")
-	}
-
-	return
-}
-
-// ListMetricsPreparer prepares the ListMetrics request.
-func (client DatabaseAccountsClient) ListMetricsPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"accountName":       autorest.Encode("path", accountName),
-		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
-	}
-
-	const APIVersion = "2015-04-08"
-	queryParameters := map[string]interface{}{
-		"$filter":     autorest.Encode("query", client.Filter),
-		"api-version": APIVersion,
-	}
-
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/metrics", pathParameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
-
-// ListMetricsSender sends the ListMetrics request. The method will close the
-// http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) ListMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		azure.DoRetryWithRegistration(client.Client))
-}
-
-// ListMetricsResponder handles the response to the ListMetrics request. The method always
-// closes the http.Response Body.
-func (client DatabaseAccountsClient) ListMetricsResponder(resp *http.Response) (result MetricListResult, err error) {
-	err = autorest.Respond(
-		resp,
-		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
-
 // ListReadOnlyKeys lists the read-only access keys for the specified Azure Cosmos DB database account.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) ListReadOnlyKeys(ctx context.Context, resourceGroupName string, accountName string) (result DatabaseAccountListReadOnlyKeysResult, err error) {
+func (client DatabaseAccountsClient) ListReadOnlyKeys(resourceGroupName string, accountName string) (result DatabaseAccountListReadOnlyKeysResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -905,7 +809,7 @@ func (client DatabaseAccountsClient) ListReadOnlyKeys(ctx context.Context, resou
 		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "ListReadOnlyKeys")
 	}
 
-	req, err := client.ListReadOnlyKeysPreparer(ctx, resourceGroupName, accountName)
+	req, err := client.ListReadOnlyKeysPreparer(resourceGroupName, accountName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListReadOnlyKeys", nil, "Failure preparing request")
 		return
@@ -927,7 +831,7 @@ func (client DatabaseAccountsClient) ListReadOnlyKeys(ctx context.Context, resou
 }
 
 // ListReadOnlyKeysPreparer prepares the ListReadOnlyKeys request.
-func (client DatabaseAccountsClient) ListReadOnlyKeysPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
+func (client DatabaseAccountsClient) ListReadOnlyKeysPreparer(resourceGroupName string, accountName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -944,13 +848,14 @@ func (client DatabaseAccountsClient) ListReadOnlyKeysPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/readonlykeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListReadOnlyKeysSender sends the ListReadOnlyKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client DatabaseAccountsClient) ListReadOnlyKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -967,91 +872,15 @@ func (client DatabaseAccountsClient) ListReadOnlyKeysResponder(resp *http.Respon
 	return
 }
 
-// ListUsages retrieves the usages (most recent data) for the given database account.
-//
-// resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
-func (client DatabaseAccountsClient) ListUsages(ctx context.Context, resourceGroupName string, accountName string) (result UsagesResult, err error) {
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: resourceGroupName,
-			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}},
-		{TargetValue: accountName,
-			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
-				{Target: "accountName", Name: validation.MinLength, Rule: 3, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "ListUsages")
-	}
-
-	req, err := client.ListUsagesPreparer(ctx, resourceGroupName, accountName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListUsages", nil, "Failure preparing request")
-		return
-	}
-
-	resp, err := client.ListUsagesSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListUsages", resp, "Failure sending request")
-		return
-	}
-
-	result, err = client.ListUsagesResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "ListUsages", resp, "Failure responding to request")
-	}
-
-	return
-}
-
-// ListUsagesPreparer prepares the ListUsages request.
-func (client DatabaseAccountsClient) ListUsagesPreparer(ctx context.Context, resourceGroupName string, accountName string) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"accountName":       autorest.Encode("path", accountName),
-		"resourceGroupName": autorest.Encode("path", resourceGroupName),
-		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
-	}
-
-	const APIVersion = "2015-04-08"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
-	if len(client.Filter) > 0 {
-		queryParameters["$filter"] = autorest.Encode("query", client.Filter)
-	}
-
-	preparer := autorest.CreatePreparer(
-		autorest.AsGet(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/usages", pathParameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
-
-// ListUsagesSender sends the ListUsages request. The method will close the
-// http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) ListUsagesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		azure.DoRetryWithRegistration(client.Client))
-}
-
-// ListUsagesResponder handles the response to the ListUsages request. The method always
-// closes the http.Response Body.
-func (client DatabaseAccountsClient) ListUsagesResponder(resp *http.Response) (result UsagesResult, err error) {
-	err = autorest.Respond(
-		resp,
-		client.ByInspecting(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
-
-// Patch patches the properties of an existing Azure Cosmos DB database account.
+// Patch patches the properties of an existing Azure Cosmos DB database account. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
 // updateParameters is the tags parameter to patch for the current database account.
-func (client DatabaseAccountsClient) Patch(ctx context.Context, resourceGroupName string, accountName string, updateParameters DatabaseAccountPatchParameters) (result DatabaseAccountsPatchFuture, err error) {
+func (client DatabaseAccountsClient) Patch(resourceGroupName string, accountName string, updateParameters DatabaseAccountPatchParameters, cancel <-chan struct{}) (<-chan DatabaseAccount, <-chan error) {
+	resultChan := make(chan DatabaseAccount, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1060,26 +889,46 @@ func (client DatabaseAccountsClient) Patch(ctx context.Context, resourceGroupNam
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "accountName", Name: validation.MinLength, Rule: 3, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "Patch")
+		errChan <- validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "Patch")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.PatchPreparer(ctx, resourceGroupName, accountName, updateParameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Patch", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result DatabaseAccount
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.PatchPreparer(resourceGroupName, accountName, updateParameters, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Patch", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.PatchSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Patch", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.PatchSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Patch", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.PatchResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "Patch", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // PatchPreparer prepares the Patch request.
-func (client DatabaseAccountsClient) PatchPreparer(ctx context.Context, resourceGroupName string, accountName string, updateParameters DatabaseAccountPatchParameters) (*http.Request, error) {
+func (client DatabaseAccountsClient) PatchPreparer(resourceGroupName string, accountName string, updateParameters DatabaseAccountPatchParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1098,22 +947,16 @@ func (client DatabaseAccountsClient) PatchPreparer(ctx context.Context, resource
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}", pathParameters),
 		autorest.WithJSON(updateParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // PatchSender sends the Patch request. The method will close the
 // http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) PatchSender(req *http.Request) (future DatabaseAccountsPatchFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK))
-	return
+func (client DatabaseAccountsClient) PatchSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // PatchResponder handles the response to the Patch request. The method always
@@ -1129,11 +972,15 @@ func (client DatabaseAccountsClient) PatchResponder(resp *http.Response) (result
 	return
 }
 
-// RegenerateKey regenerates an access key for the specified Azure Cosmos DB database account.
+// RegenerateKey regenerates an access key for the specified Azure Cosmos DB database account. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is name of an Azure resource group. accountName is cosmos DB database account name.
 // keyToRegenerate is the name of the key to regenerate.
-func (client DatabaseAccountsClient) RegenerateKey(ctx context.Context, resourceGroupName string, accountName string, keyToRegenerate DatabaseAccountRegenerateKeyParameters) (result DatabaseAccountsRegenerateKeyFuture, err error) {
+func (client DatabaseAccountsClient) RegenerateKey(resourceGroupName string, accountName string, keyToRegenerate DatabaseAccountRegenerateKeyParameters, cancel <-chan struct{}) (<-chan autorest.Response, <-chan error) {
+	resultChan := make(chan autorest.Response, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -1142,26 +989,46 @@ func (client DatabaseAccountsClient) RegenerateKey(ctx context.Context, resource
 		{TargetValue: accountName,
 			Constraints: []validation.Constraint{{Target: "accountName", Name: validation.MaxLength, Rule: 50, Chain: nil},
 				{Target: "accountName", Name: validation.MinLength, Rule: 3, Chain: nil}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "RegenerateKey")
+		errChan <- validation.NewErrorWithValidationError(err, "documentdb.DatabaseAccountsClient", "RegenerateKey")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.RegenerateKeyPreparer(ctx, resourceGroupName, accountName, keyToRegenerate)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "RegenerateKey", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result autorest.Response
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.RegenerateKeyPreparer(resourceGroupName, accountName, keyToRegenerate, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "RegenerateKey", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.RegenerateKeySender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "RegenerateKey", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.RegenerateKeySender(req)
+		if err != nil {
+			result.Response = resp
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "RegenerateKey", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.RegenerateKeyResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "documentdb.DatabaseAccountsClient", "RegenerateKey", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // RegenerateKeyPreparer prepares the RegenerateKey request.
-func (client DatabaseAccountsClient) RegenerateKeyPreparer(ctx context.Context, resourceGroupName string, accountName string, keyToRegenerate DatabaseAccountRegenerateKeyParameters) (*http.Request, error) {
+func (client DatabaseAccountsClient) RegenerateKeyPreparer(resourceGroupName string, accountName string, keyToRegenerate DatabaseAccountRegenerateKeyParameters, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"accountName":       autorest.Encode("path", accountName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1180,22 +1047,16 @@ func (client DatabaseAccountsClient) RegenerateKeyPreparer(ctx context.Context, 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/regenerateKey", pathParameters),
 		autorest.WithJSON(keyToRegenerate),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // RegenerateKeySender sends the RegenerateKey request. The method will close the
 // http.Response Body if it receives an error.
-func (client DatabaseAccountsClient) RegenerateKeySender(req *http.Request) (future DatabaseAccountsRegenerateKeyFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client DatabaseAccountsClient) RegenerateKeySender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // RegenerateKeyResponder handles the response to the RegenerateKey request. The method always

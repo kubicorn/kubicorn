@@ -154,7 +154,6 @@ func ExampleSnowball_CreateCluster_shared00() {
 			S3Resources: []*snowball.S3Resource{
 				{
 					BucketArn: aws.String("arn:aws:s3:::MyBucket"),
-					KeyRange:  &snowball.KeyRange{},
 				},
 			},
 		},
@@ -208,7 +207,6 @@ func ExampleSnowball_CreateJob_shared00() {
 			S3Resources: []*snowball.S3Resource{
 				{
 					BucketArn: aws.String("arn:aws:s3:::MyBucket"),
-					KeyRange:  &snowball.KeyRange{},
 				},
 			},
 		},

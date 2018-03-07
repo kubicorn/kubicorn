@@ -16,7 +16,6 @@
 package testutil
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -24,7 +23,6 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
-	"golang.org/x/oauth2/jwt"
 )
 
 const (
@@ -61,35 +59,13 @@ func TokenSourceEnv(ctx context.Context, envVar string, scopes ...string) oauth2
 		}
 		return ts
 	}
-	conf, err := jwtConfigFromFile(key, scopes)
+	jsonKey, err := ioutil.ReadFile(key)
 	if err != nil {
-		log.Fatal(err)
-	}
-	return conf.TokenSource(ctx)
-}
-
-// JWTConfig reads the JSON private key file whose name is in the default
-// environment variable, and returns the jwt.Config it contains. It ignores
-// scopes.
-// If the environment variable is empty, it returns (nil, nil).
-func JWTConfig() (*jwt.Config, error) {
-	return jwtConfigFromFile(os.Getenv(envPrivateKey), nil)
-}
-
-// jwtConfigFromFile reads the given JSON private key file, and returns the
-// jwt.Config it contains.
-// If the filename is empty, it returns (nil, nil).
-func jwtConfigFromFile(filename string, scopes []string) (*jwt.Config, error) {
-	if filename == "" {
-		return nil, nil
-	}
-	jsonKey, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, fmt.Errorf("Cannot read the JSON key file, err: %v", err)
+		log.Fatalf("Cannot read the JSON key file, err: %v", err)
 	}
 	conf, err := google.JWTConfigFromJSON(jsonKey, scopes...)
 	if err != nil {
-		return nil, fmt.Errorf("google.JWTConfigFromJSON: %v", err)
+		log.Fatalf("google.JWTConfigFromJSON: %v", err)
 	}
-	return conf, nil
+	return conf.TokenSource(ctx)
 }

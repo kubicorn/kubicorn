@@ -295,7 +295,10 @@ func (this *FieldMask) Compare(that interface{}) int {
 }
 func (this *FieldMask) Equal(that interface{}) bool {
 	if that == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	}
 
 	that1, ok := that.(*FieldMask)
@@ -308,7 +311,10 @@ func (this *FieldMask) Equal(that interface{}) bool {
 		}
 	}
 	if that1 == nil {
-		return this == nil
+		if this == nil {
+			return true
+		}
+		return false
 	} else if this == nil {
 		return false
 	}

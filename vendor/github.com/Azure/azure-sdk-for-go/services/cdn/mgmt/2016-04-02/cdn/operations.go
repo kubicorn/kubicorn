@@ -18,7 +18,6 @@ package cdn
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -28,7 +27,7 @@ import (
 // make sure that requests made to these resources are secure. For more information, see
 // https://msdn.microsoft.com/en-us/library/azure/dn790557.aspx.
 type OperationsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewOperationsClient creates an instance of the OperationsClient client.
@@ -42,8 +41,8 @@ func NewOperationsClientWithBaseURI(baseURI string, subscriptionID string) Opera
 }
 
 // List sends the list request.
-func (client OperationsClient) List(ctx context.Context) (result OperationListResult, err error) {
-	req, err := client.ListPreparer(ctx)
+func (client OperationsClient) List() (result OperationListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "cdn.OperationsClient", "List", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client OperationsClient) List(ctx context.Context) (result OperationListRe
 }
 
 // ListPreparer prepares the List request.
-func (client OperationsClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client OperationsClient) ListPreparer() (*http.Request, error) {
 	const APIVersion = "2016-04-02"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
@@ -76,13 +75,14 @@ func (client OperationsClient) ListPreparer(ctx context.Context) (*http.Request,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPath("/providers/Microsoft.Cdn/operations"),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client OperationsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

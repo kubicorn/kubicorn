@@ -390,6 +390,7 @@ func (c *IoTJobsDataPlane) UpdateJobExecutionWithContext(ctx aws.Context, input 
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/DescribeJobExecutionRequest
 type DescribeJobExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -465,6 +466,7 @@ func (s *DescribeJobExecutionInput) SetThingName(v string) *DescribeJobExecution
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/DescribeJobExecutionResponse
 type DescribeJobExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -488,6 +490,7 @@ func (s *DescribeJobExecutionOutput) SetExecution(v *JobExecution) *DescribeJobE
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/GetPendingJobExecutionsRequest
 type GetPendingJobExecutionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -529,6 +532,7 @@ func (s *GetPendingJobExecutionsInput) SetThingName(v string) *GetPendingJobExec
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/GetPendingJobExecutionsResponse
 type GetPendingJobExecutionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -562,6 +566,7 @@ func (s *GetPendingJobExecutionsOutput) SetQueuedJobs(v []*JobExecutionSummary) 
 }
 
 // Contains data about a job execution.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/JobExecution
 type JobExecution struct {
 	_ struct{} `type:"structure"`
 
@@ -671,6 +676,7 @@ func (s *JobExecution) SetVersionNumber(v int64) *JobExecution {
 }
 
 // Contains data about the state of a job execution.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/JobExecutionState
 type JobExecutionState struct {
 	_ struct{} `type:"structure"`
 
@@ -715,6 +721,7 @@ func (s *JobExecutionState) SetVersionNumber(v int64) *JobExecutionState {
 }
 
 // Contains a subset of information about a job execution.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/JobExecutionSummary
 type JobExecutionSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -785,6 +792,7 @@ func (s *JobExecutionSummary) SetVersionNumber(v int64) *JobExecutionSummary {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/StartNextPendingJobExecutionRequest
 type StartNextPendingJobExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -836,6 +844,7 @@ func (s *StartNextPendingJobExecutionInput) SetThingName(v string) *StartNextPen
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/StartNextPendingJobExecutionResponse
 type StartNextPendingJobExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -859,6 +868,7 @@ func (s *StartNextPendingJobExecutionOutput) SetExecution(v *JobExecution) *Star
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/UpdateJobExecutionRequest
 type UpdateJobExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -987,6 +997,7 @@ func (s *UpdateJobExecutionInput) SetThingName(v string) *UpdateJobExecutionInpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/iot-jobs-data-2017-09-29/UpdateJobExecutionResponse
 type UpdateJobExecutionOutput struct {
 	_ struct{} `type:"structure"`
 

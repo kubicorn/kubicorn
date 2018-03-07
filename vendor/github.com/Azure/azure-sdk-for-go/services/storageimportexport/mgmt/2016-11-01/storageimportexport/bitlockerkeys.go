@@ -18,7 +18,6 @@ package storageimportexport
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // BitLockerKeysClient is the the Storage Import/Export Resource Provider API.
 type BitLockerKeysClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewBitLockerKeysClient creates an instance of the BitLockerKeysClient client.
@@ -43,8 +42,8 @@ func NewBitLockerKeysClientWithBaseURI(baseURI string, subscriptionID string, ac
 //
 // jobName is the name of the import/export job. resourceGroupName is the resource group name uniquely identifies the
 // resource group within the user subscription.
-func (client BitLockerKeysClient) List(ctx context.Context, jobName string, resourceGroupName string) (result GetBitLockerKeysResponse, err error) {
-	req, err := client.ListPreparer(ctx, jobName, resourceGroupName)
+func (client BitLockerKeysClient) List(jobName string, resourceGroupName string) (result GetBitLockerKeysResponse, err error) {
+	req, err := client.ListPreparer(jobName, resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "storageimportexport.BitLockerKeysClient", "List", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client BitLockerKeysClient) List(ctx context.Context, jobName string, reso
 }
 
 // ListPreparer prepares the List request.
-func (client BitLockerKeysClient) ListPreparer(ctx context.Context, jobName string, resourceGroupName string) (*http.Request, error) {
+func (client BitLockerKeysClient) ListPreparer(jobName string, resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"jobName":           autorest.Encode("path", jobName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -87,13 +86,14 @@ func (client BitLockerKeysClient) ListPreparer(ctx context.Context, jobName stri
 		preparer = autorest.DecoratePreparer(preparer,
 			autorest.WithHeader("Accept-Language", autorest.String(client.AcceptLanguage)))
 	}
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client BitLockerKeysClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

@@ -1,10 +1,10 @@
-// Copyright 2018 Google LLC
+// Copyright 2017, Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     https://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -118,13 +118,7 @@ func TestVideoIntelligenceServiceAnnotateVideo(t *testing.T) {
 		Result: &longrunningpb.Operation_Response{Response: any},
 	})
 
-	var inputUri string = "gs://demomaker/cat.mp4"
-	var featuresElement videointelligencepb.Feature = videointelligencepb.Feature_LABEL_DETECTION
-	var features = []videointelligencepb.Feature{featuresElement}
-	var request = &videointelligencepb.AnnotateVideoRequest{
-		InputUri: inputUri,
-		Features: features,
-	}
+	var request *videointelligencepb.AnnotateVideoRequest = &videointelligencepb.AnnotateVideoRequest{}
 
 	c, err := NewClient(context.Background(), clientOpt)
 	if err != nil {
@@ -164,13 +158,7 @@ func TestVideoIntelligenceServiceAnnotateVideoError(t *testing.T) {
 		},
 	})
 
-	var inputUri string = "gs://demomaker/cat.mp4"
-	var featuresElement videointelligencepb.Feature = videointelligencepb.Feature_LABEL_DETECTION
-	var features = []videointelligencepb.Feature{featuresElement}
-	var request = &videointelligencepb.AnnotateVideoRequest{
-		InputUri: inputUri,
-		Features: features,
-	}
+	var request *videointelligencepb.AnnotateVideoRequest = &videointelligencepb.AnnotateVideoRequest{}
 
 	c, err := NewClient(context.Background(), clientOpt)
 	if err != nil {

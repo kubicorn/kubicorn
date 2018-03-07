@@ -22,19 +22,19 @@
 
 
 [[constraint]]
-  name = "github.com/c-bata/go-prompt"
-  version = "0.2.1"
-
-[[constraint]]
   name = "github.com/digitalocean/godo"
-  version = "1.1.2"
+  version = "1.1.0"
 
 [[constraint]]
   name = "github.com/fatih/color"
-  version = "1.6.0"
+  version = "1.5.0"
 
 [[constraint]]
   name = "github.com/ghodss/yaml"
+  version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/gravitational/trace"
   version = "1.0.0"
 
 [[constraint]]
@@ -42,45 +42,45 @@
   name = "github.com/kris-nova/lolgopher"
 
 [[constraint]]
-  name = "github.com/minio/minio-go"
-  version = "4.0.8"
-
-[[constraint]]
-  name = "github.com/packethost/packngo"
-  version = "0.1.0"
-
-[[constraint]]
   name = "github.com/pkg/errors"
   version = "0.8.0"
 
 [[constraint]]
+  branch = "master"
   name = "github.com/pkg/sftp"
-  version = "1.4.0"
-
-[[constraint]]
-  name = "github.com/rackspace/gophercloud"
-  version = "1.0.0"
-
-[[constraint]]
-  name = "github.com/spf13/cobra"
-  version = "0.0.1"
-
-[[constraint]]
-  name = "github.com/spf13/pflag"
-  version = "1.0.0"
-
-[[constraint]]
-  name = "github.com/tcnksm/go-gitconfig"
-  version = "0.1.2"
 
 [[constraint]]
   branch = "master"
-  name = "github.com/yuroyoro/swalker"
+  name = "github.com/spf13/cobra"
 
 [[constraint]]
   branch = "master"
   name = "golang.org/x/oauth2"
 
 [[constraint]]
-  name = "gopkg.in/src-d/go-git.v4"
-  version = "v4.0.0-rc5"
+  branch = "master"
+  name = "google.golang.org/api"
+
+[[constraint]]
+  name = "github.com/c-bata/go-prompt"
+  version = "0.2.1"
+
+[[constraint]]
+  name = "k8s.io/apimachinery"
+  branch = "release-1.8"
+
+[[constraint]]
+  name = "k8s.io/api"
+  revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"
+
+[[constraint]]
+  name = "github.com/spf13/viper"
+  version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/rackspace/gophercloud"
+  branch = "master"
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  branch = "release-5.0"

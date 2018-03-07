@@ -18,7 +18,6 @@ package servicefabric
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // NodeHealthsClient is the client for the NodeHealths methods of the Servicefabric service.
 type NodeHealthsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewNodeHealthsClient creates an instance of the NodeHealthsClient client.
@@ -42,8 +41,8 @@ func NewNodeHealthsClientWithBaseURI(baseURI string, timeout *int32) NodeHealths
 // Get get node healths
 //
 // nodeName is the name of the node eventsHealthStateFilter is the filter of the events health state
-func (client NodeHealthsClient) Get(ctx context.Context, nodeName string, eventsHealthStateFilter string) (result NodeHealth, err error) {
-	req, err := client.GetPreparer(ctx, nodeName, eventsHealthStateFilter)
+func (client NodeHealthsClient) Get(nodeName string, eventsHealthStateFilter string) (result NodeHealth, err error) {
+	req, err := client.GetPreparer(nodeName, eventsHealthStateFilter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.NodeHealthsClient", "Get", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client NodeHealthsClient) Get(ctx context.Context, nodeName string, events
 }
 
 // GetPreparer prepares the Get request.
-func (client NodeHealthsClient) GetPreparer(ctx context.Context, nodeName string, eventsHealthStateFilter string) (*http.Request, error) {
+func (client NodeHealthsClient) GetPreparer(nodeName string, eventsHealthStateFilter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"nodeName": autorest.Encode("path", nodeName),
 	}
@@ -86,13 +85,14 @@ func (client NodeHealthsClient) GetPreparer(ctx context.Context, nodeName string
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/Nodes/{nodeName}/$/GetHealth", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client NodeHealthsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -112,8 +112,8 @@ func (client NodeHealthsClient) GetResponder(resp *http.Response) (result NodeHe
 // Send send node health
 //
 // nodeName is the name of the node nodeHealthReport is the report of the node health
-func (client NodeHealthsClient) Send(ctx context.Context, nodeName string, nodeHealthReport NodeHealthReport) (result String, err error) {
-	req, err := client.SendPreparer(ctx, nodeName, nodeHealthReport)
+func (client NodeHealthsClient) Send(nodeName string, nodeHealthReport NodeHealthReport) (result String, err error) {
+	req, err := client.SendPreparer(nodeName, nodeHealthReport)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "servicefabric.NodeHealthsClient", "Send", nil, "Failure preparing request")
 		return
@@ -135,7 +135,7 @@ func (client NodeHealthsClient) Send(ctx context.Context, nodeName string, nodeH
 }
 
 // SendPreparer prepares the Send request.
-func (client NodeHealthsClient) SendPreparer(ctx context.Context, nodeName string, nodeHealthReport NodeHealthReport) (*http.Request, error) {
+func (client NodeHealthsClient) SendPreparer(nodeName string, nodeHealthReport NodeHealthReport) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"nodeName": autorest.Encode("path", nodeName),
 	}
@@ -155,13 +155,14 @@ func (client NodeHealthsClient) SendPreparer(ctx context.Context, nodeName strin
 		autorest.WithPathParameters("/Nodes/{nodeName}/$/ReportHealth", pathParameters),
 		autorest.WithJSON(nodeHealthReport),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // SendSender sends the Send request. The method will close the
 // http.Response Body if it receives an error.
 func (client NodeHealthsClient) SendSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 

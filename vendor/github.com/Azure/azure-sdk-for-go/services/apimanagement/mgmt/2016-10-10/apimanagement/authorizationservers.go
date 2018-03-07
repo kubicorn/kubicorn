@@ -18,7 +18,6 @@ package apimanagement
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // AuthorizationServersClient is the apiManagement Client
 type AuthorizationServersClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewAuthorizationServersClient creates an instance of the AuthorizationServersClient client.
@@ -44,7 +43,7 @@ func NewAuthorizationServersClientWithBaseURI(baseURI string, subscriptionID str
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. authsid
 // is identifier of the authorization server. parameters is create or update parameters.
-func (client AuthorizationServersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerContract) (result autorest.Response, err error) {
+func (client AuthorizationServersClient) CreateOrUpdate(resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerContract) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -65,7 +64,7 @@ func (client AuthorizationServersClient) CreateOrUpdate(ctx context.Context, res
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.AuthorizationServersClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serviceName, authsid, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, serviceName, authsid, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -87,7 +86,7 @@ func (client AuthorizationServersClient) CreateOrUpdate(ctx context.Context, res
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client AuthorizationServersClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerContract) (*http.Request, error) {
+func (client AuthorizationServersClient) CreateOrUpdatePreparer(resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerContract) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authsid":           autorest.Encode("path", authsid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -107,13 +106,14 @@ func (client AuthorizationServersClient) CreateOrUpdatePreparer(ctx context.Cont
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/authorizationServers/{authsid}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationServersClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -134,7 +134,7 @@ func (client AuthorizationServersClient) CreateOrUpdateResponder(resp *http.Resp
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. authsid
 // is identifier of the authorization server. ifMatch is the entity state (Etag) version of the authentication server
 // to delete. A value of "*" can be used for If-Match to unconditionally apply the operation.
-func (client AuthorizationServersClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, authsid string, ifMatch string) (result autorest.Response, err error) {
+func (client AuthorizationServersClient) Delete(resourceGroupName string, serviceName string, authsid string, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -146,7 +146,7 @@ func (client AuthorizationServersClient) Delete(ctx context.Context, resourceGro
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.AuthorizationServersClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, serviceName, authsid, ifMatch)
+	req, err := client.DeletePreparer(resourceGroupName, serviceName, authsid, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "Delete", nil, "Failure preparing request")
 		return
@@ -168,7 +168,7 @@ func (client AuthorizationServersClient) Delete(ctx context.Context, resourceGro
 }
 
 // DeletePreparer prepares the Delete request.
-func (client AuthorizationServersClient) DeletePreparer(ctx context.Context, resourceGroupName string, serviceName string, authsid string, ifMatch string) (*http.Request, error) {
+func (client AuthorizationServersClient) DeletePreparer(resourceGroupName string, serviceName string, authsid string, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authsid":           autorest.Encode("path", authsid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -187,13 +187,14 @@ func (client AuthorizationServersClient) DeletePreparer(ctx context.Context, res
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/authorizationServers/{authsid}", pathParameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationServersClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -213,7 +214,7 @@ func (client AuthorizationServersClient) DeleteResponder(resp *http.Response) (r
 //
 // resourceGroupName is the name of the resource group. serviceName is the name of the API Management service. authsid
 // is identifier of the authorization server.
-func (client AuthorizationServersClient) Get(ctx context.Context, resourceGroupName string, serviceName string, authsid string) (result OAuth2AuthorizationServerContract, err error) {
+func (client AuthorizationServersClient) Get(resourceGroupName string, serviceName string, authsid string) (result OAuth2AuthorizationServerContract, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -225,7 +226,7 @@ func (client AuthorizationServersClient) Get(ctx context.Context, resourceGroupN
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.AuthorizationServersClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, serviceName, authsid)
+	req, err := client.GetPreparer(resourceGroupName, serviceName, authsid)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "Get", nil, "Failure preparing request")
 		return
@@ -247,7 +248,7 @@ func (client AuthorizationServersClient) Get(ctx context.Context, resourceGroupN
 }
 
 // GetPreparer prepares the Get request.
-func (client AuthorizationServersClient) GetPreparer(ctx context.Context, resourceGroupName string, serviceName string, authsid string) (*http.Request, error) {
+func (client AuthorizationServersClient) GetPreparer(resourceGroupName string, serviceName string, authsid string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authsid":           autorest.Encode("path", authsid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -265,13 +266,14 @@ func (client AuthorizationServersClient) GetPreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/authorizationServers/{authsid}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationServersClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -296,7 +298,7 @@ func (client AuthorizationServersClient) GetResponder(resp *http.Response) (resu
 // | id    | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
 // | name  | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith | top is number of records to return.
 // skip is number of records to skip.
-func (client AuthorizationServersClient) ListByService(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result AuthorizationServerCollectionPage, err error) {
+func (client AuthorizationServersClient) ListByService(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result AuthorizationServerCollection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -311,8 +313,7 @@ func (client AuthorizationServersClient) ListByService(ctx context.Context, reso
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.AuthorizationServersClient", "ListByService")
 	}
 
-	result.fn = client.listByServiceNextResults
-	req, err := client.ListByServicePreparer(ctx, resourceGroupName, serviceName, filter, top, skip)
+	req, err := client.ListByServicePreparer(resourceGroupName, serviceName, filter, top, skip)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "ListByService", nil, "Failure preparing request")
 		return
@@ -320,12 +321,12 @@ func (client AuthorizationServersClient) ListByService(ctx context.Context, reso
 
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
-		result.asc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "ListByService", resp, "Failure sending request")
 		return
 	}
 
-	result.asc, err = client.ListByServiceResponder(resp)
+	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "ListByService", resp, "Failure responding to request")
 	}
@@ -334,7 +335,7 @@ func (client AuthorizationServersClient) ListByService(ctx context.Context, reso
 }
 
 // ListByServicePreparer prepares the ListByService request.
-func (client AuthorizationServersClient) ListByServicePreparer(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
+func (client AuthorizationServersClient) ListByServicePreparer(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"serviceName":       autorest.Encode("path", serviceName),
@@ -360,13 +361,14 @@ func (client AuthorizationServersClient) ListByServicePreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/authorizationServers", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByServiceSender sends the ListByService request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationServersClient) ListByServiceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -383,31 +385,73 @@ func (client AuthorizationServersClient) ListByServiceResponder(resp *http.Respo
 	return
 }
 
-// listByServiceNextResults retrieves the next set of results, if any.
-func (client AuthorizationServersClient) listByServiceNextResults(lastResults AuthorizationServerCollection) (result AuthorizationServerCollection, err error) {
-	req, err := lastResults.authorizationServerCollectionPreparer()
+// ListByServiceNextResults retrieves the next set of results, if any.
+func (client AuthorizationServersClient) ListByServiceNextResults(lastResults AuthorizationServerCollection) (result AuthorizationServerCollection, err error) {
+	req, err := lastResults.AuthorizationServerCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "listByServiceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "ListByService", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByServiceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "listByServiceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "ListByService", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByServiceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "listByServiceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "ListByService", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByServiceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client AuthorizationServersClient) ListByServiceComplete(ctx context.Context, resourceGroupName string, serviceName string, filter string, top *int32, skip *int32) (result AuthorizationServerCollectionIterator, err error) {
-	result.page, err = client.ListByService(ctx, resourceGroupName, serviceName, filter, top, skip)
-	return
+// ListByServiceComplete gets all elements from the list without paging.
+func (client AuthorizationServersClient) ListByServiceComplete(resourceGroupName string, serviceName string, filter string, top *int32, skip *int32, cancel <-chan struct{}) (<-chan OAuth2AuthorizationServerContract, <-chan error) {
+	resultChan := make(chan OAuth2AuthorizationServerContract)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByService(resourceGroupName, serviceName, filter, top, skip)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByServiceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Update updates the details of the authorization server specified by its identifier.
@@ -416,7 +460,7 @@ func (client AuthorizationServersClient) ListByServiceComplete(ctx context.Conte
 // is identifier of the authorization server. parameters is oAuth2 Server settings Update parameters. ifMatch is the
 // entity state (Etag) version of the authorization server to update. A value of "*" can be used for If-Match to
 // unconditionally apply the operation.
-func (client AuthorizationServersClient) Update(ctx context.Context, resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerUpdateContract, ifMatch string) (result autorest.Response, err error) {
+func (client AuthorizationServersClient) Update(resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerUpdateContract, ifMatch string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: serviceName,
 			Constraints: []validation.Constraint{{Target: "serviceName", Name: validation.MaxLength, Rule: 50, Chain: nil},
@@ -428,7 +472,7 @@ func (client AuthorizationServersClient) Update(ctx context.Context, resourceGro
 		return result, validation.NewErrorWithValidationError(err, "apimanagement.AuthorizationServersClient", "Update")
 	}
 
-	req, err := client.UpdatePreparer(ctx, resourceGroupName, serviceName, authsid, parameters, ifMatch)
+	req, err := client.UpdatePreparer(resourceGroupName, serviceName, authsid, parameters, ifMatch)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "apimanagement.AuthorizationServersClient", "Update", nil, "Failure preparing request")
 		return
@@ -450,7 +494,7 @@ func (client AuthorizationServersClient) Update(ctx context.Context, resourceGro
 }
 
 // UpdatePreparer prepares the Update request.
-func (client AuthorizationServersClient) UpdatePreparer(ctx context.Context, resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerUpdateContract, ifMatch string) (*http.Request, error) {
+func (client AuthorizationServersClient) UpdatePreparer(resourceGroupName string, serviceName string, authsid string, parameters OAuth2AuthorizationServerUpdateContract, ifMatch string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authsid":           autorest.Encode("path", authsid),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -471,13 +515,14 @@ func (client AuthorizationServersClient) UpdatePreparer(ctx context.Context, res
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters),
 		autorest.WithHeader("If-Match", autorest.String(ifMatch)))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
 func (client AuthorizationServersClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

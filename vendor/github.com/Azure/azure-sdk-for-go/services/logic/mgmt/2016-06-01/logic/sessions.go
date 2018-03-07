@@ -18,7 +18,6 @@ package logic
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // SessionsClient is the REST API for Azure Logic Apps.
 type SessionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewSessionsClient creates an instance of the SessionsClient client.
@@ -44,14 +43,14 @@ func NewSessionsClientWithBaseURI(baseURI string, subscriptionID string) Session
 //
 // resourceGroupName is the resource group name. integrationAccountName is the integration account name. sessionName is
 // the integration account session name. session is the integration account session.
-func (client SessionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, integrationAccountName string, sessionName string, session IntegrationAccountSession) (result IntegrationAccountSession, err error) {
+func (client SessionsClient) CreateOrUpdate(resourceGroupName string, integrationAccountName string, sessionName string, session IntegrationAccountSession) (result IntegrationAccountSession, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: session,
 			Constraints: []validation.Constraint{{Target: "session.IntegrationAccountSessionProperties", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "logic.SessionsClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, integrationAccountName, sessionName, session)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, integrationAccountName, sessionName, session)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -73,7 +72,7 @@ func (client SessionsClient) CreateOrUpdate(ctx context.Context, resourceGroupNa
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client SessionsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, integrationAccountName string, sessionName string, session IntegrationAccountSession) (*http.Request, error) {
+func (client SessionsClient) CreateOrUpdatePreparer(resourceGroupName string, integrationAccountName string, sessionName string, session IntegrationAccountSession) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"integrationAccountName": autorest.Encode("path", integrationAccountName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -93,13 +92,14 @@ func (client SessionsClient) CreateOrUpdatePreparer(ctx context.Context, resourc
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions/{sessionName}", pathParameters),
 		autorest.WithJSON(session),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client SessionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -120,8 +120,8 @@ func (client SessionsClient) CreateOrUpdateResponder(resp *http.Response) (resul
 //
 // resourceGroupName is the resource group name. integrationAccountName is the integration account name. sessionName is
 // the integration account session name.
-func (client SessionsClient) Delete(ctx context.Context, resourceGroupName string, integrationAccountName string, sessionName string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, resourceGroupName, integrationAccountName, sessionName)
+func (client SessionsClient) Delete(resourceGroupName string, integrationAccountName string, sessionName string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(resourceGroupName, integrationAccountName, sessionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -143,7 +143,7 @@ func (client SessionsClient) Delete(ctx context.Context, resourceGroupName strin
 }
 
 // DeletePreparer prepares the Delete request.
-func (client SessionsClient) DeletePreparer(ctx context.Context, resourceGroupName string, integrationAccountName string, sessionName string) (*http.Request, error) {
+func (client SessionsClient) DeletePreparer(resourceGroupName string, integrationAccountName string, sessionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"integrationAccountName": autorest.Encode("path", integrationAccountName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -161,13 +161,14 @@ func (client SessionsClient) DeletePreparer(ctx context.Context, resourceGroupNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions/{sessionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client SessionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -187,8 +188,8 @@ func (client SessionsClient) DeleteResponder(resp *http.Response) (result autore
 //
 // resourceGroupName is the resource group name. integrationAccountName is the integration account name. sessionName is
 // the integration account session name.
-func (client SessionsClient) Get(ctx context.Context, resourceGroupName string, integrationAccountName string, sessionName string) (result IntegrationAccountSession, err error) {
-	req, err := client.GetPreparer(ctx, resourceGroupName, integrationAccountName, sessionName)
+func (client SessionsClient) Get(resourceGroupName string, integrationAccountName string, sessionName string) (result IntegrationAccountSession, err error) {
+	req, err := client.GetPreparer(resourceGroupName, integrationAccountName, sessionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -210,7 +211,7 @@ func (client SessionsClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // GetPreparer prepares the Get request.
-func (client SessionsClient) GetPreparer(ctx context.Context, resourceGroupName string, integrationAccountName string, sessionName string) (*http.Request, error) {
+func (client SessionsClient) GetPreparer(resourceGroupName string, integrationAccountName string, sessionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"integrationAccountName": autorest.Encode("path", integrationAccountName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -228,13 +229,14 @@ func (client SessionsClient) GetPreparer(ctx context.Context, resourceGroupName 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions/{sessionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client SessionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -255,9 +257,8 @@ func (client SessionsClient) GetResponder(resp *http.Response) (result Integrati
 //
 // resourceGroupName is the resource group name. integrationAccountName is the integration account name. top is the
 // number of items to be included in the result. filter is the filter to apply on the operation.
-func (client SessionsClient) ListByIntegrationAccounts(ctx context.Context, resourceGroupName string, integrationAccountName string, top *int32, filter string) (result IntegrationAccountSessionListResultPage, err error) {
-	result.fn = client.listByIntegrationAccountsNextResults
-	req, err := client.ListByIntegrationAccountsPreparer(ctx, resourceGroupName, integrationAccountName, top, filter)
+func (client SessionsClient) ListByIntegrationAccounts(resourceGroupName string, integrationAccountName string, top *int32, filter string) (result IntegrationAccountSessionListResult, err error) {
+	req, err := client.ListByIntegrationAccountsPreparer(resourceGroupName, integrationAccountName, top, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "ListByIntegrationAccounts", nil, "Failure preparing request")
 		return
@@ -265,12 +266,12 @@ func (client SessionsClient) ListByIntegrationAccounts(ctx context.Context, reso
 
 	resp, err := client.ListByIntegrationAccountsSender(req)
 	if err != nil {
-		result.iaslr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "ListByIntegrationAccounts", resp, "Failure sending request")
 		return
 	}
 
-	result.iaslr, err = client.ListByIntegrationAccountsResponder(resp)
+	result, err = client.ListByIntegrationAccountsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "ListByIntegrationAccounts", resp, "Failure responding to request")
 	}
@@ -279,7 +280,7 @@ func (client SessionsClient) ListByIntegrationAccounts(ctx context.Context, reso
 }
 
 // ListByIntegrationAccountsPreparer prepares the ListByIntegrationAccounts request.
-func (client SessionsClient) ListByIntegrationAccountsPreparer(ctx context.Context, resourceGroupName string, integrationAccountName string, top *int32, filter string) (*http.Request, error) {
+func (client SessionsClient) ListByIntegrationAccountsPreparer(resourceGroupName string, integrationAccountName string, top *int32, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"integrationAccountName": autorest.Encode("path", integrationAccountName),
 		"resourceGroupName":      autorest.Encode("path", resourceGroupName),
@@ -302,13 +303,14 @@ func (client SessionsClient) ListByIntegrationAccountsPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByIntegrationAccountsSender sends the ListByIntegrationAccounts request. The method will close the
 // http.Response Body if it receives an error.
 func (client SessionsClient) ListByIntegrationAccountsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -325,29 +327,71 @@ func (client SessionsClient) ListByIntegrationAccountsResponder(resp *http.Respo
 	return
 }
 
-// listByIntegrationAccountsNextResults retrieves the next set of results, if any.
-func (client SessionsClient) listByIntegrationAccountsNextResults(lastResults IntegrationAccountSessionListResult) (result IntegrationAccountSessionListResult, err error) {
-	req, err := lastResults.integrationAccountSessionListResultPreparer()
+// ListByIntegrationAccountsNextResults retrieves the next set of results, if any.
+func (client SessionsClient) ListByIntegrationAccountsNextResults(lastResults IntegrationAccountSessionListResult) (result IntegrationAccountSessionListResult, err error) {
+	req, err := lastResults.IntegrationAccountSessionListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "logic.SessionsClient", "listByIntegrationAccountsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "logic.SessionsClient", "ListByIntegrationAccounts", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByIntegrationAccountsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "logic.SessionsClient", "listByIntegrationAccountsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "logic.SessionsClient", "ListByIntegrationAccounts", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByIntegrationAccountsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "listByIntegrationAccountsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "logic.SessionsClient", "ListByIntegrationAccounts", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByIntegrationAccountsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client SessionsClient) ListByIntegrationAccountsComplete(ctx context.Context, resourceGroupName string, integrationAccountName string, top *int32, filter string) (result IntegrationAccountSessionListResultIterator, err error) {
-	result.page, err = client.ListByIntegrationAccounts(ctx, resourceGroupName, integrationAccountName, top, filter)
-	return
+// ListByIntegrationAccountsComplete gets all elements from the list without paging.
+func (client SessionsClient) ListByIntegrationAccountsComplete(resourceGroupName string, integrationAccountName string, top *int32, filter string, cancel <-chan struct{}) (<-chan IntegrationAccountSession, <-chan error) {
+	resultChan := make(chan IntegrationAccountSession)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByIntegrationAccounts(resourceGroupName, integrationAccountName, top, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByIntegrationAccountsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

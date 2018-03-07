@@ -10,7 +10,6 @@ var testAtomList = []string{
 	"accept",
 	"accept-charset",
 	"accesskey",
-	"acronym",
 	"action",
 	"address",
 	"align",

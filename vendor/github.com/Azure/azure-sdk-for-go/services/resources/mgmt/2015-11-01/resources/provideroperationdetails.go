@@ -18,7 +18,6 @@ package resources
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ProviderOperationDetailsClient is the client for the ProviderOperationDetails methods of the Resources service.
 type ProviderOperationDetailsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewProviderOperationDetailsClient creates an instance of the ProviderOperationDetailsClient client.
@@ -42,9 +41,8 @@ func NewProviderOperationDetailsClientWithBaseURI(baseURI string, subscriptionID
 // List gets a list of resource providers.
 //
 // resourceProviderNamespace is resource identity.
-func (client ProviderOperationDetailsClient) List(ctx context.Context, resourceProviderNamespace string) (result ProviderOperationDetailListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, resourceProviderNamespace)
+func (client ProviderOperationDetailsClient) List(resourceProviderNamespace string) (result ProviderOperationDetailListResult, err error) {
+	req, err := client.ListPreparer(resourceProviderNamespace)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "List", nil, "Failure preparing request")
 		return
@@ -52,12 +50,12 @@ func (client ProviderOperationDetailsClient) List(ctx context.Context, resourceP
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.podlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.podlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "List", resp, "Failure responding to request")
 	}
@@ -66,9 +64,10 @@ func (client ProviderOperationDetailsClient) List(ctx context.Context, resourceP
 }
 
 // ListPreparer prepares the List request.
-func (client ProviderOperationDetailsClient) ListPreparer(ctx context.Context, resourceProviderNamespace string) (*http.Request, error) {
+func (client ProviderOperationDetailsClient) ListPreparer(resourceProviderNamespace string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceProviderNamespace": autorest.Encode("path", resourceProviderNamespace),
+		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
 	}
 
 	const APIVersion = "2015-11-01"
@@ -81,13 +80,14 @@ func (client ProviderOperationDetailsClient) ListPreparer(ctx context.Context, r
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/providers/{resourceProviderNamespace}/operations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProviderOperationDetailsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -104,29 +104,71 @@ func (client ProviderOperationDetailsClient) ListResponder(resp *http.Response) 
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ProviderOperationDetailsClient) listNextResults(lastResults ProviderOperationDetailListResult) (result ProviderOperationDetailListResult, err error) {
-	req, err := lastResults.providerOperationDetailListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ProviderOperationDetailsClient) ListNextResults(lastResults ProviderOperationDetailListResult) (result ProviderOperationDetailListResult, err error) {
+	req, err := lastResults.ProviderOperationDetailListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "resources.ProviderOperationDetailsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ProviderOperationDetailsClient) ListComplete(ctx context.Context, resourceProviderNamespace string) (result ProviderOperationDetailListResultIterator, err error) {
-	result.page, err = client.List(ctx, resourceProviderNamespace)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ProviderOperationDetailsClient) ListComplete(resourceProviderNamespace string, cancel <-chan struct{}) (<-chan ProviderOperationDefinition, <-chan error) {
+	resultChan := make(chan ProviderOperationDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(resourceProviderNamespace)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

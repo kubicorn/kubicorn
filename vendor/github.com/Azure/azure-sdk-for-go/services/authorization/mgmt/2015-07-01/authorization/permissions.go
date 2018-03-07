@@ -18,7 +18,6 @@ package authorization
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -29,7 +28,7 @@ import (
 // assignments. A role definition describes the set of actions that can be performed on resources. A role assignment
 // grants access to Azure Active Directory users.
 type PermissionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewPermissionsClient creates an instance of the PermissionsClient client.
@@ -48,9 +47,8 @@ func NewPermissionsClientWithBaseURI(baseURI string, subscriptionID string) Perm
 // resourceProviderNamespace is the namespace of the resource provider. parentResourcePath is the parent resource
 // identity. resourceType is the resource type of the resource. resourceName is the name of the resource to get the
 // permissions for.
-func (client PermissionsClient) ListForResource(ctx context.Context, resourceGroupName string, resourceProviderNamespace string, parentResourcePath string, resourceType string, resourceName string) (result PermissionGetResultPage, err error) {
-	result.fn = client.listForResourceNextResults
-	req, err := client.ListForResourcePreparer(ctx, resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName)
+func (client PermissionsClient) ListForResource(resourceGroupName string, resourceProviderNamespace string, parentResourcePath string, resourceType string, resourceName string) (result PermissionGetResult, err error) {
+	req, err := client.ListForResourcePreparer(resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResource", nil, "Failure preparing request")
 		return
@@ -58,12 +56,12 @@ func (client PermissionsClient) ListForResource(ctx context.Context, resourceGro
 
 	resp, err := client.ListForResourceSender(req)
 	if err != nil {
-		result.pgr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResource", resp, "Failure sending request")
 		return
 	}
 
-	result.pgr, err = client.ListForResourceResponder(resp)
+	result, err = client.ListForResourceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResource", resp, "Failure responding to request")
 	}
@@ -72,7 +70,7 @@ func (client PermissionsClient) ListForResource(ctx context.Context, resourceGro
 }
 
 // ListForResourcePreparer prepares the ListForResource request.
-func (client PermissionsClient) ListForResourcePreparer(ctx context.Context, resourceGroupName string, resourceProviderNamespace string, parentResourcePath string, resourceType string, resourceName string) (*http.Request, error) {
+func (client PermissionsClient) ListForResourcePreparer(resourceGroupName string, resourceProviderNamespace string, parentResourcePath string, resourceType string, resourceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"parentResourcePath":        parentResourcePath,
 		"resourceGroupName":         autorest.Encode("path", resourceGroupName),
@@ -92,13 +90,14 @@ func (client PermissionsClient) ListForResourcePreparer(ctx context.Context, res
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}/{resourceName}/providers/Microsoft.Authorization/permissions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListForResourceSender sends the ListForResource request. The method will close the
 // http.Response Body if it receives an error.
 func (client PermissionsClient) ListForResourceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -115,39 +114,80 @@ func (client PermissionsClient) ListForResourceResponder(resp *http.Response) (r
 	return
 }
 
-// listForResourceNextResults retrieves the next set of results, if any.
-func (client PermissionsClient) listForResourceNextResults(lastResults PermissionGetResult) (result PermissionGetResult, err error) {
-	req, err := lastResults.permissionGetResultPreparer()
+// ListForResourceNextResults retrieves the next set of results, if any.
+func (client PermissionsClient) ListForResourceNextResults(lastResults PermissionGetResult) (result PermissionGetResult, err error) {
+	req, err := lastResults.PermissionGetResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "listForResourceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResource", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListForResourceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "listForResourceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResource", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListForResourceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "listForResourceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResource", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListForResourceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client PermissionsClient) ListForResourceComplete(ctx context.Context, resourceGroupName string, resourceProviderNamespace string, parentResourcePath string, resourceType string, resourceName string) (result PermissionGetResultIterator, err error) {
-	result.page, err = client.ListForResource(ctx, resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName)
-	return
+// ListForResourceComplete gets all elements from the list without paging.
+func (client PermissionsClient) ListForResourceComplete(resourceGroupName string, resourceProviderNamespace string, parentResourcePath string, resourceType string, resourceName string, cancel <-chan struct{}) (<-chan Permission, <-chan error) {
+	resultChan := make(chan Permission)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListForResource(resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListForResourceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListForResourceGroup gets all permissions the caller has for a resource group.
 //
 // resourceGroupName is the name of the resource group to get the permissions for. The name is case insensitive.
-func (client PermissionsClient) ListForResourceGroup(ctx context.Context, resourceGroupName string) (result PermissionGetResultPage, err error) {
-	result.fn = client.listForResourceGroupNextResults
-	req, err := client.ListForResourceGroupPreparer(ctx, resourceGroupName)
+func (client PermissionsClient) ListForResourceGroup(resourceGroupName string) (result PermissionGetResult, err error) {
+	req, err := client.ListForResourceGroupPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResourceGroup", nil, "Failure preparing request")
 		return
@@ -155,12 +195,12 @@ func (client PermissionsClient) ListForResourceGroup(ctx context.Context, resour
 
 	resp, err := client.ListForResourceGroupSender(req)
 	if err != nil {
-		result.pgr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResourceGroup", resp, "Failure sending request")
 		return
 	}
 
-	result.pgr, err = client.ListForResourceGroupResponder(resp)
+	result, err = client.ListForResourceGroupResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResourceGroup", resp, "Failure responding to request")
 	}
@@ -169,7 +209,7 @@ func (client PermissionsClient) ListForResourceGroup(ctx context.Context, resour
 }
 
 // ListForResourceGroupPreparer prepares the ListForResourceGroup request.
-func (client PermissionsClient) ListForResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client PermissionsClient) ListForResourceGroupPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -185,13 +225,14 @@ func (client PermissionsClient) ListForResourceGroupPreparer(ctx context.Context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Authorization/permissions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListForResourceGroupSender sends the ListForResourceGroup request. The method will close the
 // http.Response Body if it receives an error.
 func (client PermissionsClient) ListForResourceGroupSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -208,29 +249,71 @@ func (client PermissionsClient) ListForResourceGroupResponder(resp *http.Respons
 	return
 }
 
-// listForResourceGroupNextResults retrieves the next set of results, if any.
-func (client PermissionsClient) listForResourceGroupNextResults(lastResults PermissionGetResult) (result PermissionGetResult, err error) {
-	req, err := lastResults.permissionGetResultPreparer()
+// ListForResourceGroupNextResults retrieves the next set of results, if any.
+func (client PermissionsClient) ListForResourceGroupNextResults(lastResults PermissionGetResult) (result PermissionGetResult, err error) {
+	req, err := lastResults.PermissionGetResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "listForResourceGroupNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResourceGroup", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListForResourceGroupSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "listForResourceGroupNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResourceGroup", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListForResourceGroupResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "listForResourceGroupNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "authorization.PermissionsClient", "ListForResourceGroup", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListForResourceGroupComplete enumerates all values, automatically crossing page boundaries as required.
-func (client PermissionsClient) ListForResourceGroupComplete(ctx context.Context, resourceGroupName string) (result PermissionGetResultIterator, err error) {
-	result.page, err = client.ListForResourceGroup(ctx, resourceGroupName)
-	return
+// ListForResourceGroupComplete gets all elements from the list without paging.
+func (client PermissionsClient) ListForResourceGroupComplete(resourceGroupName string, cancel <-chan struct{}) (<-chan Permission, <-chan error) {
+	resultChan := make(chan Permission)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListForResourceGroup(resourceGroupName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListForResourceGroupNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

@@ -4715,6 +4715,7 @@ func (c *ElastiCache) TestFailoverWithContext(ctx aws.Context, input *TestFailov
 }
 
 // Represents the input of an AddTagsToResource operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AddTagsToResourceMessage
 type AddTagsToResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4775,6 +4776,7 @@ func (s *AddTagsToResourceInput) SetTags(v []*Tag) *AddTagsToResourceInput {
 }
 
 // Represents the input of an AuthorizeCacheSecurityGroupIngress operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AuthorizeCacheSecurityGroupIngressMessage
 type AuthorizeCacheSecurityGroupIngressInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4844,6 +4846,7 @@ func (s *AuthorizeCacheSecurityGroupIngressInput) SetEC2SecurityGroupOwnerId(v s
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AuthorizeCacheSecurityGroupIngressResult
 type AuthorizeCacheSecurityGroupIngressOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4874,6 +4877,7 @@ func (s *AuthorizeCacheSecurityGroupIngressOutput) SetCacheSecurityGroup(v *Cach
 }
 
 // Describes an Availability Zone in which the cluster is launched.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AvailabilityZone
 type AvailabilityZone struct {
 	_ struct{} `type:"structure"`
 
@@ -4898,6 +4902,7 @@ func (s *AvailabilityZone) SetName(v string) *AvailabilityZone {
 }
 
 // Contains all of the attributes of a specific cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheCluster
 type CacheCluster struct {
 	_ struct{} `type:"structure"`
 
@@ -5253,6 +5258,7 @@ func (s *CacheCluster) SetTransitEncryptionEnabled(v bool) *CacheCluster {
 }
 
 // Provides all of the details about a particular cache engine version.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheEngineVersion
 type CacheEngineVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -5374,6 +5380,7 @@ func (s *CacheEngineVersion) SetEngineVersion(v string) *CacheEngineVersion {
 // Product Features and Details (http://aws.amazon.com/elasticache/details)
 // and either Cache Node Type-Specific Parameters for Memcached (http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific)
 // or Cache Node Type-Specific Parameters for Redis (http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheNode
 type CacheNode struct {
 	_ struct{} `type:"structure"`
 
@@ -5457,6 +5464,7 @@ func (s *CacheNode) SetSourceCacheNodeId(v string) *CacheNode {
 // A parameter that has a different value for each cache node type it is applied
 // to. For example, in a Redis cluster, a cache.m1.large cache node type would
 // have a larger maxmemory value than a cache.m1.small type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheNodeTypeSpecificParameter
 type CacheNodeTypeSpecificParameter struct {
 	_ struct{} `type:"structure"`
 
@@ -5558,6 +5566,7 @@ func (s *CacheNodeTypeSpecificParameter) SetSource(v string) *CacheNodeTypeSpeci
 }
 
 // A value that applies only to a certain cache node type.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheNodeTypeSpecificValue
 type CacheNodeTypeSpecificValue struct {
 	_ struct{} `type:"structure"`
 
@@ -5591,6 +5600,7 @@ func (s *CacheNodeTypeSpecificValue) SetValue(v string) *CacheNodeTypeSpecificVa
 }
 
 // Represents the output of a CreateCacheParameterGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheParameterGroup
 type CacheParameterGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -5640,6 +5650,7 @@ func (s *CacheParameterGroup) SetDescription(v string) *CacheParameterGroup {
 //    * ModifyCacheParameterGroup
 //
 //    * ResetCacheParameterGroup
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheParameterGroupNameMessage
 type CacheParameterGroupNameMessage struct {
 	_ struct{} `type:"structure"`
 
@@ -5664,6 +5675,7 @@ func (s *CacheParameterGroupNameMessage) SetCacheParameterGroupName(v string) *C
 }
 
 // Status of the cache parameter group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheParameterGroupStatus
 type CacheParameterGroupStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -5713,6 +5725,7 @@ func (s *CacheParameterGroupStatus) SetParameterApplyStatus(v string) *CachePara
 //    * CreateCacheSecurityGroup
 //
 //    * RevokeCacheSecurityGroupIngress
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheSecurityGroup
 type CacheSecurityGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -5765,6 +5778,7 @@ func (s *CacheSecurityGroup) SetOwnerId(v string) *CacheSecurityGroup {
 }
 
 // Represents a cluster's status within a particular cache security group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheSecurityGroupMembership
 type CacheSecurityGroupMembership struct {
 	_ struct{} `type:"structure"`
 
@@ -5804,6 +5818,7 @@ func (s *CacheSecurityGroupMembership) SetStatus(v string) *CacheSecurityGroupMe
 //    * CreateCacheSubnetGroup
 //
 //    * ModifyCacheSubnetGroup
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheSubnetGroup
 type CacheSubnetGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -5856,6 +5871,7 @@ func (s *CacheSubnetGroup) SetVpcId(v string) *CacheSubnetGroup {
 }
 
 // Represents the input of a CopySnapshotMessage operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CopySnapshotMessage
 type CopySnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5928,6 +5944,7 @@ func (s *CopySnapshotInput) SetTargetSnapshotName(v string) *CopySnapshotInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CopySnapshotResult
 type CopySnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5953,6 +5970,7 @@ func (s *CopySnapshotOutput) SetSnapshot(v *Snapshot) *CopySnapshotOutput {
 }
 
 // Represents the input of a CreateCacheCluster operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheClusterMessage
 type CreateCacheClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6399,6 +6417,7 @@ func (s *CreateCacheClusterInput) SetTags(v []*Tag) *CreateCacheClusterInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheClusterResult
 type CreateCacheClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6423,6 +6442,7 @@ func (s *CreateCacheClusterOutput) SetCacheCluster(v *CacheCluster) *CreateCache
 }
 
 // Represents the input of a CreateCacheParameterGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheParameterGroupMessage
 type CreateCacheParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6492,6 +6512,7 @@ func (s *CreateCacheParameterGroupInput) SetDescription(v string) *CreateCachePa
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheParameterGroupResult
 type CreateCacheParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6516,6 +6537,7 @@ func (s *CreateCacheParameterGroupOutput) SetCacheParameterGroup(v *CacheParamet
 }
 
 // Represents the input of a CreateCacheSecurityGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheSecurityGroupMessage
 type CreateCacheSecurityGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6574,6 +6596,7 @@ func (s *CreateCacheSecurityGroupInput) SetDescription(v string) *CreateCacheSec
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheSecurityGroupResult
 type CreateCacheSecurityGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6604,6 +6627,7 @@ func (s *CreateCacheSecurityGroupOutput) SetCacheSecurityGroup(v *CacheSecurityG
 }
 
 // Represents the input of a CreateCacheSubnetGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheSubnetGroupMessage
 type CreateCacheSubnetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6674,6 +6698,7 @@ func (s *CreateCacheSubnetGroupInput) SetSubnetIds(v []*string) *CreateCacheSubn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheSubnetGroupResult
 type CreateCacheSubnetGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6702,6 +6727,7 @@ func (s *CreateCacheSubnetGroupOutput) SetCacheSubnetGroup(v *CacheSubnetGroup) 
 }
 
 // Represents the input of a CreateReplicationGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateReplicationGroupMessage
 type CreateReplicationGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7227,6 +7253,7 @@ func (s *CreateReplicationGroupInput) SetTransitEncryptionEnabled(v bool) *Creat
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateReplicationGroupResult
 type CreateReplicationGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7251,6 +7278,7 @@ func (s *CreateReplicationGroupOutput) SetReplicationGroup(v *ReplicationGroup) 
 }
 
 // Represents the input of a CreateSnapshot operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateSnapshotMessage
 type CreateSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7309,6 +7337,7 @@ func (s *CreateSnapshotInput) SetSnapshotName(v string) *CreateSnapshotInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateSnapshotResult
 type CreateSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7334,6 +7363,7 @@ func (s *CreateSnapshotOutput) SetSnapshot(v *Snapshot) *CreateSnapshotOutput {
 }
 
 // Represents the input of a DeleteCacheCluster operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheClusterMessage
 type DeleteCacheClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7384,6 +7414,7 @@ func (s *DeleteCacheClusterInput) SetFinalSnapshotIdentifier(v string) *DeleteCa
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheClusterResult
 type DeleteCacheClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7408,6 +7439,7 @@ func (s *DeleteCacheClusterOutput) SetCacheCluster(v *CacheCluster) *DeleteCache
 }
 
 // Represents the input of a DeleteCacheParameterGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheParameterGroupMessage
 type DeleteCacheParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7448,6 +7480,7 @@ func (s *DeleteCacheParameterGroupInput) SetCacheParameterGroupName(v string) *D
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheParameterGroupOutput
 type DeleteCacheParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7463,6 +7496,7 @@ func (s DeleteCacheParameterGroupOutput) GoString() string {
 }
 
 // Represents the input of a DeleteCacheSecurityGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheSecurityGroupMessage
 type DeleteCacheSecurityGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7503,6 +7537,7 @@ func (s *DeleteCacheSecurityGroupInput) SetCacheSecurityGroupName(v string) *Del
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheSecurityGroupOutput
 type DeleteCacheSecurityGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7518,6 +7553,7 @@ func (s DeleteCacheSecurityGroupOutput) GoString() string {
 }
 
 // Represents the input of a DeleteCacheSubnetGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheSubnetGroupMessage
 type DeleteCacheSubnetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7558,6 +7594,7 @@ func (s *DeleteCacheSubnetGroupInput) SetCacheSubnetGroupName(v string) *DeleteC
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteCacheSubnetGroupOutput
 type DeleteCacheSubnetGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7573,6 +7610,7 @@ func (s DeleteCacheSubnetGroupOutput) GoString() string {
 }
 
 // Represents the input of a DeleteReplicationGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteReplicationGroupMessage
 type DeleteReplicationGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7634,6 +7672,7 @@ func (s *DeleteReplicationGroupInput) SetRetainPrimaryCluster(v bool) *DeleteRep
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteReplicationGroupResult
 type DeleteReplicationGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7658,6 +7697,7 @@ func (s *DeleteReplicationGroupOutput) SetReplicationGroup(v *ReplicationGroup) 
 }
 
 // Represents the input of a DeleteSnapshot operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteSnapshotMessage
 type DeleteSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7696,6 +7736,7 @@ func (s *DeleteSnapshotInput) SetSnapshotName(v string) *DeleteSnapshotInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteSnapshotResult
 type DeleteSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7721,6 +7762,7 @@ func (s *DeleteSnapshotOutput) SetSnapshot(v *Snapshot) *DeleteSnapshotOutput {
 }
 
 // Represents the input of a DescribeCacheClusters operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeCacheClustersMessage
 type DescribeCacheClustersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7794,6 +7836,7 @@ func (s *DescribeCacheClustersInput) SetShowCacheNodeInfo(v bool) *DescribeCache
 }
 
 // Represents the output of a DescribeCacheClusters operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheClusterMessage
 type DescribeCacheClustersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7828,6 +7871,7 @@ func (s *DescribeCacheClustersOutput) SetMarker(v string) *DescribeCacheClusters
 }
 
 // Represents the input of a DescribeCacheEngineVersions operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeCacheEngineVersionsMessage
 type DescribeCacheEngineVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7918,6 +7962,7 @@ func (s *DescribeCacheEngineVersionsInput) SetMaxRecords(v int64) *DescribeCache
 }
 
 // Represents the output of a DescribeCacheEngineVersions operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheEngineVersionMessage
 type DescribeCacheEngineVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7952,6 +7997,7 @@ func (s *DescribeCacheEngineVersionsOutput) SetMarker(v string) *DescribeCacheEn
 }
 
 // Represents the input of a DescribeCacheParameterGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeCacheParameterGroupsMessage
 type DescribeCacheParameterGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8002,6 +8048,7 @@ func (s *DescribeCacheParameterGroupsInput) SetMaxRecords(v int64) *DescribeCach
 }
 
 // Represents the output of a DescribeCacheParameterGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheParameterGroupsMessage
 type DescribeCacheParameterGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8036,6 +8083,7 @@ func (s *DescribeCacheParameterGroupsOutput) SetMarker(v string) *DescribeCacheP
 }
 
 // Represents the input of a DescribeCacheParameters operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeCacheParametersMessage
 type DescribeCacheParametersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8112,6 +8160,7 @@ func (s *DescribeCacheParametersInput) SetSource(v string) *DescribeCacheParamet
 }
 
 // Represents the output of a DescribeCacheParameters operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheParameterGroupDetails
 type DescribeCacheParametersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8155,6 +8204,7 @@ func (s *DescribeCacheParametersOutput) SetParameters(v []*Parameter) *DescribeC
 }
 
 // Represents the input of a DescribeCacheSecurityGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeCacheSecurityGroupsMessage
 type DescribeCacheSecurityGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8205,6 +8255,7 @@ func (s *DescribeCacheSecurityGroupsInput) SetMaxRecords(v int64) *DescribeCache
 }
 
 // Represents the output of a DescribeCacheSecurityGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheSecurityGroupMessage
 type DescribeCacheSecurityGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8239,6 +8290,7 @@ func (s *DescribeCacheSecurityGroupsOutput) SetMarker(v string) *DescribeCacheSe
 }
 
 // Represents the input of a DescribeCacheSubnetGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeCacheSubnetGroupsMessage
 type DescribeCacheSubnetGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8289,6 +8341,7 @@ func (s *DescribeCacheSubnetGroupsInput) SetMaxRecords(v int64) *DescribeCacheSu
 }
 
 // Represents the output of a DescribeCacheSubnetGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheSubnetGroupMessage
 type DescribeCacheSubnetGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8323,6 +8376,7 @@ func (s *DescribeCacheSubnetGroupsOutput) SetMarker(v string) *DescribeCacheSubn
 }
 
 // Represents the input of a DescribeEngineDefaultParameters operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeEngineDefaultParametersMessage
 type DescribeEngineDefaultParametersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8389,6 +8443,7 @@ func (s *DescribeEngineDefaultParametersInput) SetMaxRecords(v int64) *DescribeE
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeEngineDefaultParametersResult
 type DescribeEngineDefaultParametersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8413,6 +8468,7 @@ func (s *DescribeEngineDefaultParametersOutput) SetEngineDefaults(v *EngineDefau
 }
 
 // Represents the input of a DescribeEvents operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeEventsMessage
 type DescribeEventsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8507,6 +8563,7 @@ func (s *DescribeEventsInput) SetStartTime(v time.Time) *DescribeEventsInput {
 }
 
 // Represents the output of a DescribeEvents operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/EventsMessage
 type DescribeEventsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8541,6 +8598,7 @@ func (s *DescribeEventsOutput) SetMarker(v string) *DescribeEventsOutput {
 }
 
 // Represents the input of a DescribeReplicationGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeReplicationGroupsMessage
 type DescribeReplicationGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8595,6 +8653,7 @@ func (s *DescribeReplicationGroupsInput) SetReplicationGroupId(v string) *Descri
 }
 
 // Represents the output of a DescribeReplicationGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReplicationGroupMessage
 type DescribeReplicationGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8629,6 +8688,7 @@ func (s *DescribeReplicationGroupsOutput) SetReplicationGroups(v []*ReplicationG
 }
 
 // Represents the input of a DescribeReservedCacheNodes operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeReservedCacheNodesMessage
 type DescribeReservedCacheNodesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8791,6 +8851,7 @@ func (s *DescribeReservedCacheNodesInput) SetReservedCacheNodesOfferingId(v stri
 }
 
 // Represents the input of a DescribeReservedCacheNodesOfferings operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeReservedCacheNodesOfferingsMessage
 type DescribeReservedCacheNodesOfferingsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8945,6 +9006,7 @@ func (s *DescribeReservedCacheNodesOfferingsInput) SetReservedCacheNodesOffering
 }
 
 // Represents the output of a DescribeReservedCacheNodesOfferings operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReservedCacheNodesOfferingMessage
 type DescribeReservedCacheNodesOfferingsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8979,6 +9041,7 @@ func (s *DescribeReservedCacheNodesOfferingsOutput) SetReservedCacheNodesOfferin
 }
 
 // Represents the output of a DescribeReservedCacheNodes operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReservedCacheNodeMessage
 type DescribeReservedCacheNodesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9013,6 +9076,7 @@ func (s *DescribeReservedCacheNodesOutput) SetReservedCacheNodes(v []*ReservedCa
 }
 
 // Represents the input of a DescribeSnapshotsMessage operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeSnapshotsMessage
 type DescribeSnapshotsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9106,6 +9170,7 @@ func (s *DescribeSnapshotsInput) SetSnapshotSource(v string) *DescribeSnapshotsI
 }
 
 // Represents the output of a DescribeSnapshots operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeSnapshotsListMessage
 type DescribeSnapshotsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9142,6 +9207,7 @@ func (s *DescribeSnapshotsOutput) SetSnapshots(v []*Snapshot) *DescribeSnapshots
 }
 
 // Provides ownership and status information for an Amazon EC2 security group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/EC2SecurityGroup
 type EC2SecurityGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -9185,6 +9251,7 @@ func (s *EC2SecurityGroup) SetStatus(v string) *EC2SecurityGroup {
 
 // Represents the information required for client programs to connect to a cache
 // node.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Endpoint
 type Endpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -9218,6 +9285,7 @@ func (s *Endpoint) SetPort(v int64) *Endpoint {
 }
 
 // Represents the output of a DescribeEngineDefaultParameters operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/EngineDefaults
 type EngineDefaults struct {
 	_ struct{} `type:"structure"`
 
@@ -9275,6 +9343,7 @@ func (s *EngineDefaults) SetParameters(v []*Parameter) *EngineDefaults {
 // Represents a single occurrence of something interesting within the system.
 // Some examples of events are creating a cluster, adding or removing a cache
 // node, or rebooting a node.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Event
 type Event struct {
 	_ struct{} `type:"structure"`
 
@@ -9328,6 +9397,7 @@ func (s *Event) SetSourceType(v string) *Event {
 }
 
 // The input parameters for the ListAllowedNodeTypeModifications operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ListAllowedNodeTypeModificationsMessage
 type ListAllowedNodeTypeModificationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9371,6 +9441,7 @@ func (s *ListAllowedNodeTypeModificationsInput) SetReplicationGroupId(v string) 
 
 // Represents the allowed node types you can use to modify your cluster or replication
 // group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AllowedNodeTypeModificationsMessage
 type ListAllowedNodeTypeModificationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9400,6 +9471,7 @@ func (s *ListAllowedNodeTypeModificationsOutput) SetScaleUpModifications(v []*st
 }
 
 // The input parameters for the ListTagsForResource operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ListTagsForResourceMessage
 type ListTagsForResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9444,6 +9516,7 @@ func (s *ListTagsForResourceInput) SetResourceName(v string) *ListTagsForResourc
 }
 
 // Represents the input of a ModifyCacheCluster operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheClusterMessage
 type ModifyCacheClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9810,6 +9883,7 @@ func (s *ModifyCacheClusterInput) SetSnapshotWindow(v string) *ModifyCacheCluste
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheClusterResult
 type ModifyCacheClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9834,6 +9908,7 @@ func (s *ModifyCacheClusterOutput) SetCacheCluster(v *CacheCluster) *ModifyCache
 }
 
 // Represents the input of a ModifyCacheParameterGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheParameterGroupMessage
 type ModifyCacheParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9889,6 +9964,7 @@ func (s *ModifyCacheParameterGroupInput) SetParameterNameValues(v []*ParameterNa
 }
 
 // Represents the input of a ModifyCacheSubnetGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheSubnetGroupMessage
 type ModifyCacheSubnetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9950,6 +10026,7 @@ func (s *ModifyCacheSubnetGroupInput) SetSubnetIds(v []*string) *ModifyCacheSubn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheSubnetGroupResult
 type ModifyCacheSubnetGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9978,6 +10055,7 @@ func (s *ModifyCacheSubnetGroupOutput) SetCacheSubnetGroup(v *CacheSubnetGroup) 
 }
 
 // Represents the input of a ModifyReplicationGroups operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupMessage
 type ModifyReplicationGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10255,6 +10333,7 @@ func (s *ModifyReplicationGroupInput) SetSnapshottingClusterId(v string) *Modify
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupResult
 type ModifyReplicationGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10279,6 +10358,7 @@ func (s *ModifyReplicationGroupOutput) SetReplicationGroup(v *ReplicationGroup) 
 }
 
 // Represents the input for a ModifyReplicationGroupShardConfiguration operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfigurationMessage
 type ModifyReplicationGroupShardConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10377,6 +10457,7 @@ func (s *ModifyReplicationGroupShardConfigurationInput) SetReshardingConfigurati
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfigurationResult
 type ModifyReplicationGroupShardConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10403,6 +10484,7 @@ func (s *ModifyReplicationGroupShardConfigurationOutput) SetReplicationGroup(v *
 // Represents a collection of cache nodes in a replication group. One node in
 // the node group is the read/write primary node. All the other nodes are read-only
 // Replica nodes.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/NodeGroup
 type NodeGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -10469,6 +10551,7 @@ func (s *NodeGroup) SetStatus(v string) *NodeGroup {
 // Node group (shard) configuration options. Each node group (shard) configuration
 // has the following: Slots, PrimaryAvailabilityZone, ReplicaAvailabilityZones,
 // ReplicaCount.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/NodeGroupConfiguration
 type NodeGroupConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -10526,6 +10609,7 @@ func (s *NodeGroupConfiguration) SetSlots(v string) *NodeGroupConfiguration {
 }
 
 // Represents a single node within a node group (shard).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/NodeGroupMember
 type NodeGroupMember struct {
 	_ struct{} `type:"structure"`
 
@@ -10588,6 +10672,7 @@ func (s *NodeGroupMember) SetReadEndpoint(v *Endpoint) *NodeGroupMember {
 }
 
 // Represents an individual cache node in a snapshot of a cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/NodeSnapshot
 type NodeSnapshot struct {
 	_ struct{} `type:"structure"`
 
@@ -10669,6 +10754,7 @@ func (s *NodeSnapshot) SetSnapshotCreateTime(v time.Time) *NodeSnapshot {
 // Describes a notification topic and its status. Notification topics are used
 // for publishing ElastiCache events to subscribers using Amazon Simple Notification
 // Service (SNS).
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/NotificationConfiguration
 type NotificationConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -10703,6 +10789,7 @@ func (s *NotificationConfiguration) SetTopicStatus(v string) *NotificationConfig
 
 // Describes an individual setting that controls some aspect of ElastiCache
 // behavior.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Parameter
 type Parameter struct {
 	_ struct{} `type:"structure"`
 
@@ -10804,6 +10891,7 @@ func (s *Parameter) SetSource(v string) *Parameter {
 }
 
 // Describes a name-value pair that is used to update the value of a parameter.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ParameterNameValue
 type ParameterNameValue struct {
 	_ struct{} `type:"structure"`
 
@@ -10838,6 +10926,7 @@ func (s *ParameterNameValue) SetParameterValue(v string) *ParameterNameValue {
 
 // A group of settings that are applied to the cluster in the future, or that
 // are currently being applied.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/PendingModifiedValues
 type PendingModifiedValues struct {
 	_ struct{} `type:"structure"`
 
@@ -10893,6 +10982,7 @@ func (s *PendingModifiedValues) SetNumCacheNodes(v int64) *PendingModifiedValues
 }
 
 // Represents the input of a PurchaseReservedCacheNodesOffering operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/PurchaseReservedCacheNodesOfferingMessage
 type PurchaseReservedCacheNodesOfferingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10959,6 +11049,7 @@ func (s *PurchaseReservedCacheNodesOfferingInput) SetReservedCacheNodesOfferingI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/PurchaseReservedCacheNodesOfferingResult
 type PurchaseReservedCacheNodesOfferingOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10983,6 +11074,7 @@ func (s *PurchaseReservedCacheNodesOfferingOutput) SetReservedCacheNode(v *Reser
 }
 
 // Represents the input of a RebootCacheCluster operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RebootCacheClusterMessage
 type RebootCacheClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11036,6 +11128,7 @@ func (s *RebootCacheClusterInput) SetCacheNodeIdsToReboot(v []*string) *RebootCa
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RebootCacheClusterResult
 type RebootCacheClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11061,6 +11154,7 @@ func (s *RebootCacheClusterOutput) SetCacheCluster(v *CacheCluster) *RebootCache
 
 // Contains the specific price and frequency of a recurring charges for a reserved
 // cache node, or for a reserved cache node offering.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RecurringCharge
 type RecurringCharge struct {
 	_ struct{} `type:"structure"`
 
@@ -11094,6 +11188,7 @@ func (s *RecurringCharge) SetRecurringChargeFrequency(v string) *RecurringCharge
 }
 
 // Represents the input of a RemoveTagsFromResource operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RemoveTagsFromResourceMessage
 type RemoveTagsFromResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11152,6 +11247,7 @@ func (s *RemoveTagsFromResourceInput) SetTagKeys(v []*string) *RemoveTagsFromRes
 }
 
 // Contains all of the attributes of a specific Redis replication group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReplicationGroup
 type ReplicationGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -11361,6 +11457,7 @@ func (s *ReplicationGroup) SetTransitEncryptionEnabled(v bool) *ReplicationGroup
 
 // The settings to be applied to the Redis replication group, either immediately
 // or during the next maintenance window.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReplicationGroupPendingModifiedValues
 type ReplicationGroupPendingModifiedValues struct {
 	_ struct{} `type:"structure"`
 
@@ -11414,6 +11511,7 @@ func (s *ReplicationGroupPendingModifiedValues) SetResharding(v *ReshardingStatu
 }
 
 // Represents the output of a PurchaseReservedCacheNodesOffering operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReservedCacheNode
 type ReservedCacheNode struct {
 	_ struct{} `type:"structure"`
 
@@ -11594,6 +11692,7 @@ func (s *ReservedCacheNode) SetUsagePrice(v float64) *ReservedCacheNode {
 }
 
 // Describes all of the attributes of a reserved cache node offering.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReservedCacheNodesOffering
 type ReservedCacheNodesOffering struct {
 	_ struct{} `type:"structure"`
 
@@ -11738,6 +11837,7 @@ func (s *ReservedCacheNodesOffering) SetUsagePrice(v float64) *ReservedCacheNode
 }
 
 // Represents the input of a ResetCacheParameterGroup operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ResetCacheParameterGroupMessage
 type ResetCacheParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11802,6 +11902,7 @@ func (s *ResetCacheParameterGroupInput) SetResetAllParameters(v bool) *ResetCach
 
 // A list of PreferredAvailabilityZones objects that specifies the configuration
 // of a node group in the resharded cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReshardingConfiguration
 type ReshardingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -11826,6 +11927,7 @@ func (s *ReshardingConfiguration) SetPreferredAvailabilityZones(v []*string) *Re
 }
 
 // The status of an online resharding operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReshardingStatus
 type ReshardingStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -11850,6 +11952,7 @@ func (s *ReshardingStatus) SetSlotMigration(v *SlotMigration) *ReshardingStatus 
 }
 
 // Represents the input of a RevokeCacheSecurityGroupIngress operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RevokeCacheSecurityGroupIngressMessage
 type RevokeCacheSecurityGroupIngressInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11918,6 +12021,7 @@ func (s *RevokeCacheSecurityGroupIngressInput) SetEC2SecurityGroupOwnerId(v stri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RevokeCacheSecurityGroupIngressResult
 type RevokeCacheSecurityGroupIngressOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11948,6 +12052,7 @@ func (s *RevokeCacheSecurityGroupIngressOutput) SetCacheSecurityGroup(v *CacheSe
 }
 
 // Represents a single cache security group and its status.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/SecurityGroupMembership
 type SecurityGroupMembership struct {
 	_ struct{} `type:"structure"`
 
@@ -11983,6 +12088,7 @@ func (s *SecurityGroupMembership) SetStatus(v string) *SecurityGroupMembership {
 }
 
 // Represents the progress of an online resharding operation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/SlotMigration
 type SlotMigration struct {
 	_ struct{} `type:"structure"`
 
@@ -12008,6 +12114,7 @@ func (s *SlotMigration) SetProgressPercentage(v float64) *SlotMigration {
 
 // Represents a copy of an entire Redis cluster as of the time when the snapshot
 // was taken.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Snapshot
 type Snapshot struct {
 	_ struct{} `type:"structure"`
 
@@ -12348,6 +12455,7 @@ func (s *Snapshot) SetVpcId(v string) *Snapshot {
 // Represents the subnet associated with a cluster. This parameter refers to
 // subnets defined in Amazon Virtual Private Cloud (Amazon VPC) and used with
 // ElastiCache.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Subnet
 type Subnet struct {
 	_ struct{} `type:"structure"`
 
@@ -12383,6 +12491,7 @@ func (s *Subnet) SetSubnetIdentifier(v string) *Subnet {
 // A cost allocation Tag that can be added to an ElastiCache cluster or replication
 // group. Tags are composed of a Key/Value pair. A tag with a null Value is
 // permitted.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Tag
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -12417,6 +12526,7 @@ func (s *Tag) SetValue(v string) *Tag {
 
 // Represents the output from the AddTagsToResource, ListTagsForResource, and
 // RemoveTagsFromResource operations.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/TagListMessage
 type TagListMessage struct {
 	_ struct{} `type:"structure"`
 
@@ -12440,6 +12550,7 @@ func (s *TagListMessage) SetTagList(v []*Tag) *TagListMessage {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/TestFailoverMessage
 type TestFailoverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12495,6 +12606,7 @@ func (s *TestFailoverInput) SetReplicationGroupId(v string) *TestFailoverInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/TestFailoverResult
 type TestFailoverOutput struct {
 	_ struct{} `type:"structure"`
 

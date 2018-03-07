@@ -208,6 +208,7 @@ func (c *KinesisVideoArchivedMedia) ListFragmentsWithContext(ctx aws.Context, in
 }
 
 // Represents a segment of video or other time-delimited data.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/Fragment
 type Fragment struct {
 	_ struct{} `type:"structure"`
 
@@ -269,6 +270,7 @@ func (s *Fragment) SetServerTimestamp(v time.Time) *Fragment {
 }
 
 // Describes the time stamp range and time stamp origin of a range of fragments.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/FragmentSelector
 type FragmentSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -326,6 +328,7 @@ func (s *FragmentSelector) SetTimestampRange(v *TimestampRange) *FragmentSelecto
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentListInput
 type GetMediaForFragmentListInput struct {
 	_ struct{} `type:"structure"`
 
@@ -382,6 +385,7 @@ func (s *GetMediaForFragmentListInput) SetStreamName(v string) *GetMediaForFragm
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentListOutput
 type GetMediaForFragmentListOutput struct {
 	_ struct{} `type:"structure" payload:"Payload"`
 
@@ -434,6 +438,7 @@ func (s *GetMediaForFragmentListOutput) SetPayload(v io.ReadCloser) *GetMediaFor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragmentsInput
 type ListFragmentsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -517,6 +522,7 @@ func (s *ListFragmentsInput) SetStreamName(v string) *ListFragmentsInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragmentsOutput
 type ListFragmentsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -552,6 +558,7 @@ func (s *ListFragmentsOutput) SetNextToken(v string) *ListFragmentsOutput {
 }
 
 // The range of time stamps for which to return fragments.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/TimestampRange
 type TimestampRange struct {
 	_ struct{} `type:"structure"`
 

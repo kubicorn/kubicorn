@@ -55,7 +55,31 @@ func TestWriteBatch(t *testing.T) {
 						Delete: docPrefix + "c",
 					},
 				},
-				{ // Update
+				{ // UpdateMap
+					Operation: &pb.Write_Update{
+						Update: &pb.Document{
+							Name:   docPrefix + "d",
+							Fields: testFields,
+						},
+					},
+					UpdateMask: &pb.DocumentMask{[]string{"a"}},
+					CurrentDocument: &pb.Precondition{
+						ConditionType: &pb.Precondition_Exists{true},
+					},
+				},
+				{ // UpdateStruct
+					Operation: &pb.Write_Update{
+						Update: &pb.Document{
+							Name:   docPrefix + "e",
+							Fields: map[string]*pb.Value{"A": intval(3)},
+						},
+					},
+					UpdateMask: &pb.DocumentMask{[]string{"A"}},
+					CurrentDocument: &pb.Precondition{
+						ConditionType: &pb.Precondition_Exists{true},
+					},
+				},
+				{ // UpdatePaths
 					Operation: &pb.Write_Update{
 						Update: &pb.Document{
 							Name:   docPrefix + "f",
@@ -81,7 +105,9 @@ func TestWriteBatch(t *testing.T) {
 		Create(c.Doc("C/a"), testData).
 		Set(c.Doc("C/b"), testData).
 		Delete(c.Doc("C/c")).
-		Update(c.Doc("C/f"), []Update{{FieldPath: []string{"*"}, Value: 3}}).
+		UpdateMap(c.Doc("C/d"), testData).
+		UpdateStruct(c.Doc("C/e"), []string{"A"}, update{A: 3}).
+		UpdatePaths(c.Doc("C/f"), []FieldPathUpdate{{Path: []string{"*"}, Value: 3}}).
 		Commit(context.Background())
 	if err != nil {
 		t.Fatal(err)

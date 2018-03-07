@@ -7,44 +7,47 @@ const (
 	// ErrCodeCreationLimitExceededException for service response error code
 	// "CreationLimitExceededException".
 	//
-	// You've exceeded the notification or subscriber limit.
+	// The exception is thrown when customer tries to create a record (e.g. budget),
+	// but the number this record already exceeds the limitation.
 	ErrCodeCreationLimitExceededException = "CreationLimitExceededException"
 
 	// ErrCodeDuplicateRecordException for service response error code
 	// "DuplicateRecordException".
 	//
-	// The budget name already exists. Budget names must be unique within an account.
+	// The exception is thrown when customer tries to create a record (e.g. budget)
+	// that already exists.
 	ErrCodeDuplicateRecordException = "DuplicateRecordException"
 
 	// ErrCodeExpiredNextTokenException for service response error code
 	// "ExpiredNextTokenException".
 	//
-	// The pagination token expired.
+	// This exception is thrown if the paging token is expired - past its TTL
 	ErrCodeExpiredNextTokenException = "ExpiredNextTokenException"
 
 	// ErrCodeInternalErrorException for service response error code
 	// "InternalErrorException".
 	//
-	// An error on the server occurred during the processing of your request. Try
-	// again later.
+	// This exception is thrown on an unknown internal failure.
 	ErrCodeInternalErrorException = "InternalErrorException"
 
 	// ErrCodeInvalidNextTokenException for service response error code
 	// "InvalidNextTokenException".
 	//
-	// The pagination token is invalid.
+	// This exception is thrown if paging token signature didn't match the token,
+	// or the paging token isn't for this request
 	ErrCodeInvalidNextTokenException = "InvalidNextTokenException"
 
 	// ErrCodeInvalidParameterException for service response error code
 	// "InvalidParameterException".
 	//
-	// An error on the client occurred. Typically, the cause is an invalid input
-	// value.
+	// This exception is thrown if any request is given an invalid parameter. E.g.,
+	// if a required Date field is null.
 	ErrCodeInvalidParameterException = "InvalidParameterException"
 
 	// ErrCodeNotFoundException for service response error code
 	// "NotFoundException".
 	//
-	// We can’t locate the resource that you specified.
+	// This exception is thrown if a requested entity is not found. E.g., if a budget
+	// id doesn't exist for an account ID.
 	ErrCodeNotFoundException = "NotFoundException"
 )

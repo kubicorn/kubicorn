@@ -15,10 +15,11 @@ This represents a Kubernetes cluster.
 This is a representation of a Kubernetes cluster.
 This is cloud agnostic, and is defined by `struct{}`'s in Go.
 
-### The future
+# Cluster API
 
-There are several stakeholders in the open source community coming together to create an official cluster API to be used with deployment tools.
+We will be adopting the Kubernetes cluster API
 
-Kubicorn will use this in the future.
+For now we are vendoring it in from `kube-deploy` using the suggested `client-go` and `apimachinery` packages.
 
-More information can be found at [github.com/kris-nova/cluster-api](https://github.com/kris-nova/cluster-api)
+Ultimately we will vendor this in from the new repository as we begin to lean on it more.
+

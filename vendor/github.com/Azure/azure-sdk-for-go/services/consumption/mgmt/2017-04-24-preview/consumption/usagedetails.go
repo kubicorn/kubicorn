@@ -18,7 +18,6 @@ package consumption
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // Web-Direct subscriptions. Other subscription types which were not purchased directly through the Azure web portal
 // are not supported through this preview API.
 type UsageDetailsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewUsageDetailsClient creates an instance of the UsageDetailsClient client.
@@ -55,7 +54,7 @@ func NewUsageDetailsClientWithBaseURI(baseURI string, subscriptionID string) Usa
 // partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a
 // skiptoken parameter that specifies a starting point to use for subsequent calls. top is may be used to limit the
 // number of results to the most recent N usageDetails.
-func (client UsageDetailsClient) List(ctx context.Context, scope string, expand string, filter string, skiptoken string, top *int32) (result UsageDetailsListResultPage, err error) {
+func (client UsageDetailsClient) List(scope string, expand string, filter string, skiptoken string, top *int32) (result UsageDetailsListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: top,
 			Constraints: []validation.Constraint{{Target: "top", Name: validation.Null, Rule: false,
@@ -65,8 +64,7 @@ func (client UsageDetailsClient) List(ctx context.Context, scope string, expand 
 		return result, validation.NewErrorWithValidationError(err, "consumption.UsageDetailsClient", "List")
 	}
 
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, scope, expand, filter, skiptoken, top)
+	req, err := client.ListPreparer(scope, expand, filter, skiptoken, top)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "List", nil, "Failure preparing request")
 		return
@@ -74,12 +72,12 @@ func (client UsageDetailsClient) List(ctx context.Context, scope string, expand 
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.udlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.udlr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "List", resp, "Failure responding to request")
 	}
@@ -88,7 +86,7 @@ func (client UsageDetailsClient) List(ctx context.Context, scope string, expand 
 }
 
 // ListPreparer prepares the List request.
-func (client UsageDetailsClient) ListPreparer(ctx context.Context, scope string, expand string, filter string, skiptoken string, top *int32) (*http.Request, error) {
+func (client UsageDetailsClient) ListPreparer(scope string, expand string, filter string, skiptoken string, top *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"scope": scope,
 	}
@@ -115,13 +113,14 @@ func (client UsageDetailsClient) ListPreparer(ctx context.Context, scope string,
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{scope}/providers/Microsoft.Consumption/usageDetails", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client UsageDetailsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
 }
 
@@ -138,29 +137,71 @@ func (client UsageDetailsClient) ListResponder(resp *http.Response) (result Usag
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client UsageDetailsClient) listNextResults(lastResults UsageDetailsListResult) (result UsageDetailsListResult, err error) {
-	req, err := lastResults.usageDetailsListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client UsageDetailsClient) ListNextResults(lastResults UsageDetailsListResult) (result UsageDetailsListResult, err error) {
+	req, err := lastResults.UsageDetailsListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "consumption.UsageDetailsClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client UsageDetailsClient) ListComplete(ctx context.Context, scope string, expand string, filter string, skiptoken string, top *int32) (result UsageDetailsListResultIterator, err error) {
-	result.page, err = client.List(ctx, scope, expand, filter, skiptoken, top)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client UsageDetailsClient) ListComplete(scope string, expand string, filter string, skiptoken string, top *int32, cancel <-chan struct{}) (<-chan UsageDetail, <-chan error) {
+	resultChan := make(chan UsageDetail)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(scope, expand, filter, skiptoken, top)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

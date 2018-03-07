@@ -1501,17 +1501,20 @@ func (c *RDS) CreateDBInstanceReadReplicaRequest(input *CreateDBInstanceReadRepl
 //
 // Creates a new DB instance that acts as a Read Replica for an existing source
 // DB instance. You can create a Read Replica for a DB instance running MySQL,
-// MariaDB, or PostgreSQL. For more information, see Working with PostgreSQL,
-// MySQL, and MariaDB Read Replicas (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html).
+// MariaDB, or PostgreSQL.
 //
-// Amazon Aurora doesn't support this action. You must call the CreateDBInstance
+// Amazon Aurora does not support this action. You must call the CreateDBInstance
 // action to create a DB instance for an Aurora DB cluster.
 //
-// All Read Replica DB instances are created with backups disabled. All other
-// DB instance attributes (including DB security groups and DB parameter groups)
-// are inherited from the source DB instance, except as specified following.
+// All Read Replica DB instances are created as Single-AZ deployments with backups
+// disabled. All other DB instance attributes (including DB security groups
+// and DB parameter groups) are inherited from the source DB instance, except
+// as specified below.
 //
-// Your source DB instance must have backup retention enabled.
+// The source DB instance must have backup retention enabled.
+//
+// For more information, see Working with PostgreSQL, MySQL, and MariaDB Read
+// Replicas (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html).
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -3126,7 +3129,7 @@ func (c *RDS) DescribeAccountAttributesRequest(input *DescribeAccountAttributesI
 // The description for a quota includes the quota name, current usage toward
 // that quota, and the quota's maximum value.
 //
-// This command doesn't take any parameters.
+// This command does not take any parameters.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -7691,8 +7694,6 @@ func (c *RDS) PromoteReadReplicaRequest(input *PromoteReadReplicaInput) (req *re
 // promotion process. Once the instance is promoted to a primary instance, backups
 // are taken based on your backup settings.
 //
-// This command doesn't apply to Aurora MySQL and Aurora PostgreSQL.
-//
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -7940,16 +7941,23 @@ func (c *RDS) RebootDBInstanceRequest(input *RebootDBInstanceInput) (req *reques
 
 // RebootDBInstance API operation for Amazon Relational Database Service.
 //
-// You might need to reboot your DB instance, usually for maintenance reasons.
-// For example, if you make certain modifications, or if you change the DB parameter
-// group associated with the DB instance, you must reboot the instance for the
-// changes to take effect.
+// Rebooting a DB instance restarts the database engine service. A reboot also
+// applies to the DB instance any modifications to the associated DB parameter
+// group that were pending. Rebooting a DB instance results in a momentary outage
+// of the instance, during which the DB instance status is set to rebooting.
+// If the RDS instance is configured for MultiAZ, it is possible that the reboot
+// is conducted through a failover. An Amazon RDS event is created when the
+// reboot is completed.
 //
-// Rebooting a DB instance restarts the database engine service. Rebooting a
-// DB instance results in a momentary outage, during which the DB instance status
-// is set to rebooting.
+// If your DB instance is deployed in multiple Availability Zones, you can force
+// a failover from one AZ to the other during the reboot. You might force a
+// failover to test the availability of your DB instance deployment or to restore
+// operations to the original AZ after a failover occurs.
 //
-// For more information about rebooting, see Rebooting a DB Instance (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html).
+// The time required to reboot is a function of the specific database engine's
+// crash recovery process. To improve the reboot time, we recommend that you
+// reduce database activities as much as possible during the reboot process
+// to reduce rollback activity for in-transit transactions.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -8905,18 +8913,15 @@ func (c *RDS) RestoreDBInstanceFromDBSnapshotRequest(input *RestoreDBInstanceFro
 //
 // If your intent is to replace your original DB instance with the new, restored
 // DB instance, then rename your original DB instance before you call the RestoreDBInstanceFromDBSnapshot
-// action. RDS doesn't allow two DB instances with the same name. Once you have
-// renamed your original DB instance with a different identifier, then you can
-// pass the original name of the DB instance as the DBInstanceIdentifier in
-// the call to the RestoreDBInstanceFromDBSnapshot action. The result is that
-// you will replace the original DB instance with the DB instance created from
-// the snapshot.
+// action. RDS does not allow two DB instances with the same name. Once you
+// have renamed your original DB instance with a different identifier, then
+// you can pass the original name of the DB instance as the DBInstanceIdentifier
+// in the call to the RestoreDBInstanceFromDBSnapshot action. The result is
+// that you will replace the original DB instance with the DB instance created
+// from the snapshot.
 //
 // If you are restoring from a shared manual DB snapshot, the DBSnapshotIdentifier
 // must be the ARN of the shared DB snapshot.
-//
-// This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora,
-// use RestoreDBClusterFromSnapshot.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -9208,9 +9213,6 @@ func (c *RDS) RestoreDBInstanceToPointInTimeRequest(input *RestoreDBInstanceToPo
 // with mirroring; in this case, the instance becomes a mirrored deployment
 // and not a single-AZ deployment.
 //
-// This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora,
-// use RestoreDBClusterToPointInTime.
-//
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -9448,8 +9450,6 @@ func (c *RDS) StartDBInstanceRequest(input *StartDBInstanceInput) (req *request.
 // AWS CLI command, or the StopDBInstance action. For more information, see
 // Stopping and Starting a DB instance in the AWS RDS user guide.
 //
-// This command doesn't apply to Aurora MySQL and Aurora PostgreSQL.
-//
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -9571,8 +9571,6 @@ func (c *RDS) StopDBInstanceRequest(input *StopDBInstanceInput) (req *request.Re
 // do a point-in-time restore if necessary. For more information, see Stopping
 // and Starting a DB instance in the AWS RDS user guide.
 //
-// This command doesn't apply to Aurora MySQL and Aurora PostgreSQL.
-//
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -9620,6 +9618,7 @@ func (c *RDS) StopDBInstanceWithContext(ctx aws.Context, input *StopDBInstanceIn
 
 // Describes a quota for an AWS account, for example, the number of DB instances
 // allowed.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AccountQuota
 type AccountQuota struct {
 	_ struct{} `type:"structure"`
 
@@ -9661,6 +9660,7 @@ func (s *AccountQuota) SetUsed(v int64) *AccountQuota {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AddRoleToDBClusterMessage
 type AddRoleToDBClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9714,6 +9714,7 @@ func (s *AddRoleToDBClusterInput) SetRoleArn(v string) *AddRoleToDBClusterInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AddRoleToDBClusterOutput
 type AddRoleToDBClusterOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9728,6 +9729,7 @@ func (s AddRoleToDBClusterOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AddSourceIdentifierToSubscriptionMessage
 type AddSourceIdentifierToSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9795,6 +9797,7 @@ func (s *AddSourceIdentifierToSubscriptionInput) SetSubscriptionName(v string) *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AddSourceIdentifierToSubscriptionResult
 type AddSourceIdentifierToSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9819,6 +9822,7 @@ func (s *AddSourceIdentifierToSubscriptionOutput) SetEventSubscription(v *EventS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AddTagsToResourceMessage
 type AddTagsToResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9873,6 +9877,7 @@ func (s *AddTagsToResourceInput) SetTags(v []*Tag) *AddTagsToResourceInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AddTagsToResourceOutput
 type AddTagsToResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -9887,6 +9892,7 @@ func (s AddTagsToResourceOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ApplyPendingMaintenanceActionMessage
 type ApplyPendingMaintenanceActionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9967,6 +9973,7 @@ func (s *ApplyPendingMaintenanceActionInput) SetResourceIdentifier(v string) *Ap
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ApplyPendingMaintenanceActionResult
 type ApplyPendingMaintenanceActionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9990,6 +9997,7 @@ func (s *ApplyPendingMaintenanceActionOutput) SetResourcePendingMaintenanceActio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AuthorizeDBSecurityGroupIngressMessage
 type AuthorizeDBSecurityGroupIngressInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10072,6 +10080,7 @@ func (s *AuthorizeDBSecurityGroupIngressInput) SetEC2SecurityGroupOwnerId(v stri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AuthorizeDBSecurityGroupIngressResult
 type AuthorizeDBSecurityGroupIngressOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10103,6 +10112,7 @@ func (s *AuthorizeDBSecurityGroupIngressOutput) SetDBSecurityGroup(v *DBSecurity
 // This data type is used as an element in the following data type:
 //
 //    * OrderableDBInstanceOption
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AvailabilityZone
 type AvailabilityZone struct {
 	_ struct{} `type:"structure"`
 
@@ -10127,6 +10137,7 @@ func (s *AvailabilityZone) SetName(v string) *AvailabilityZone {
 }
 
 // A CA certificate for an AWS account.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Certificate
 type Certificate struct {
 	_ struct{} `type:"structure"`
 
@@ -10196,6 +10207,7 @@ func (s *Certificate) SetValidTill(v time.Time) *Certificate {
 }
 
 // This data type is used as a response element in the action DescribeDBEngineVersions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CharacterSet
 type CharacterSet struct {
 	_ struct{} `type:"structure"`
 
@@ -10228,40 +10240,7 @@ func (s *CharacterSet) SetCharacterSetName(v string) *CharacterSet {
 	return s
 }
 
-// The configuration setting for the log types to be enabled for export to CloudWatch
-// Logs for a specific DB instance or DB cluster.
-type CloudwatchLogsExportConfiguration struct {
-	_ struct{} `type:"structure"`
-
-	// The list of log types to disable.
-	DisableLogTypes []*string `type:"list"`
-
-	// The list of log types to enable.
-	EnableLogTypes []*string `type:"list"`
-}
-
-// String returns the string representation
-func (s CloudwatchLogsExportConfiguration) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CloudwatchLogsExportConfiguration) GoString() string {
-	return s.String()
-}
-
-// SetDisableLogTypes sets the DisableLogTypes field's value.
-func (s *CloudwatchLogsExportConfiguration) SetDisableLogTypes(v []*string) *CloudwatchLogsExportConfiguration {
-	s.DisableLogTypes = v
-	return s
-}
-
-// SetEnableLogTypes sets the EnableLogTypes field's value.
-func (s *CloudwatchLogsExportConfiguration) SetEnableLogTypes(v []*string) *CloudwatchLogsExportConfiguration {
-	s.EnableLogTypes = v
-	return s
-}
-
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBClusterParameterGroupMessage
 type CopyDBClusterParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10362,6 +10341,7 @@ func (s *CopyDBClusterParameterGroupInput) SetTargetDBClusterParameterGroupIdent
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBClusterParameterGroupResult
 type CopyDBClusterParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10388,6 +10368,7 @@ func (s *CopyDBClusterParameterGroupOutput) SetDBClusterParameterGroup(v *DBClus
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBClusterSnapshotMessage
 type CopyDBClusterSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10573,6 +10554,7 @@ func (s *CopyDBClusterSnapshotInput) SetTargetDBClusterSnapshotIdentifier(v stri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBClusterSnapshotResult
 type CopyDBClusterSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10599,6 +10581,7 @@ func (s *CopyDBClusterSnapshotOutput) SetDBClusterSnapshot(v *DBClusterSnapshot)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBParameterGroupMessage
 type CopyDBParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10695,6 +10678,7 @@ func (s *CopyDBParameterGroupInput) SetTargetDBParameterGroupIdentifier(v string
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBParameterGroupResult
 type CopyDBParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10721,6 +10705,7 @@ func (s *CopyDBParameterGroupOutput) SetDBParameterGroup(v *DBParameterGroup) *C
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBSnapshotMessage
 type CopyDBSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10936,6 +10921,7 @@ func (s *CopyDBSnapshotInput) SetTargetDBSnapshotIdentifier(v string) *CopyDBSna
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyDBSnapshotResult
 type CopyDBSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10961,6 +10947,7 @@ func (s *CopyDBSnapshotOutput) SetDBSnapshot(v *DBSnapshot) *CopyDBSnapshotOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyOptionGroupMessage
 type CopyOptionGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11060,6 +11047,7 @@ func (s *CopyOptionGroupInput) SetTargetOptionGroupIdentifier(v string) *CopyOpt
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CopyOptionGroupResult
 type CopyOptionGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11082,6 +11070,7 @@ func (s *CopyOptionGroupOutput) SetOptionGroup(v *OptionGroup) *CopyOptionGroupO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBClusterMessage
 type CreateDBClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11151,21 +11140,16 @@ type CreateDBClusterInput struct {
 
 	// The name of the database engine to be used for this DB cluster.
 	//
-	// Valid Values: aurora (for MySQL 5.6-compatible Aurora), aurora-mysql (for
-	// MySQL 5.7-compatible Aurora), and aurora-postgresql
+	// Valid Values: aurora, aurora-postgresql
 	//
 	// Engine is a required field
 	Engine *string `type:"string" required:"true"`
 
 	// The version number of the database engine to use.
 	//
-	// Aurora MySQL
+	// Aurora
 	//
-	// Example: 5.6.10a, 5.7.12
-	//
-	// Aurora PostgreSQL
-	//
-	// Example: 9.6.3
+	// Example: 5.6.10a
 	EngineVersion *string `type:"string"`
 
 	// The AWS KMS key identifier for an encrypted DB cluster.
@@ -11218,7 +11202,7 @@ type CreateDBClusterInput struct {
 
 	// The port number on which the instances in the DB cluster accept connections.
 	//
-	// Default: 3306 if engine is set as aurora or 5432 if set to aurora-postgresql.
+	// Default: 3306
 	Port *int64 `type:"integer"`
 
 	// A URL that contains a Signature Version 4 signed request for the CreateDBCluster
@@ -11476,6 +11460,7 @@ func (s *CreateDBClusterInput) SetVpcSecurityGroupIds(v []*string) *CreateDBClus
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBClusterResult
 type CreateDBClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11501,6 +11486,7 @@ func (s *CreateDBClusterOutput) SetDBCluster(v *DBCluster) *CreateDBClusterOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBClusterParameterGroupMessage
 type CreateDBClusterParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11519,14 +11505,6 @@ type CreateDBClusterParameterGroupInput struct {
 	// can be associated with one and only one DB cluster parameter group family,
 	// and can be applied only to a DB cluster running a database engine and engine
 	// version compatible with that DB cluster parameter group family.
-	//
-	// Aurora MySQL
-	//
-	// Example: aurora5.6, aurora-mysql5.7
-	//
-	// Aurora PostgreSQL
-	//
-	// Example: aurora-postgresql9.6
 	//
 	// DBParameterGroupFamily is a required field
 	DBParameterGroupFamily *string `type:"string" required:"true"`
@@ -11593,6 +11571,7 @@ func (s *CreateDBClusterParameterGroupInput) SetTags(v []*Tag) *CreateDBClusterP
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBClusterParameterGroupResult
 type CreateDBClusterParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11619,6 +11598,7 @@ func (s *CreateDBClusterParameterGroupOutput) SetDBClusterParameterGroup(v *DBCl
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBClusterSnapshotMessage
 type CreateDBClusterSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11698,6 +11678,7 @@ func (s *CreateDBClusterSnapshotInput) SetTags(v []*Tag) *CreateDBClusterSnapsho
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBClusterSnapshotResult
 type CreateDBClusterSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11724,10 +11705,12 @@ func (s *CreateDBClusterSnapshotOutput) SetDBClusterSnapshot(v *DBClusterSnapsho
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBInstanceMessage
 type CreateDBInstanceInput struct {
 	_ struct{} `type:"structure"`
 
-	// The amount of storage (in gibibytes) to allocate for the DB instance.
+	// The amount of storage (in gigabytes) to be initially allocated for the DB
+	// instance.
 	//
 	// Type: Integer
 	//
@@ -11741,9 +11724,9 @@ type CreateDBInstanceInput struct {
 	//
 	// Constraints to the amount of storage for each storage type are the following:
 	//
-	//    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 16384.
+	//    * General Purpose (SSD) storage (gp2): Must be an integer from 5 to 6144.
 	//
-	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 16384.
+	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 6144.
 	//
 	//    * Magnetic storage (standard): Must be an integer from 5 to 3072.
 	//
@@ -11751,9 +11734,9 @@ type CreateDBInstanceInput struct {
 	//
 	// Constraints to the amount of storage for each storage type are the following:
 	//
-	//    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 16384.
+	//    * General Purpose (SSD) storage (gp2): Must be an integer from 5 to 6144.
 	//
-	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 16384.
+	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 6144.
 	//
 	//    * Magnetic storage (standard): Must be an integer from 5 to 3072.
 	//
@@ -11761,9 +11744,9 @@ type CreateDBInstanceInput struct {
 	//
 	// Constraints to the amount of storage for each storage type are the following:
 	//
-	//    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 16384.
+	//    * General Purpose (SSD) storage (gp2): Must be an integer from 5 to 6144.
 	//
-	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 16384.
+	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 6144.
 	//
 	//    * Magnetic storage (standard): Must be an integer from 5 to 3072.
 	//
@@ -11771,9 +11754,9 @@ type CreateDBInstanceInput struct {
 	//
 	// Constraints to the amount of storage for each storage type are the following:
 	//
-	//    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 16384.
+	//    * General Purpose (SSD) storage (gp2): Must be an integer from 10 to 6144.
 	//
-	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 16384.
+	//    * Provisioned IOPS storage (io1): Must be an integer from 100 to 6144.
 	//
 	//    * Magnetic storage (standard): Must be an integer from 10 to 3072.
 	//
@@ -11983,10 +11966,6 @@ type CreateDBInstanceInput struct {
 	// Directory Service.
 	DomainIAMRoleName *string `type:"string"`
 
-	// The list of log types that need to be enabled for exporting to CloudWatch
-	// Logs.
-	EnableCloudwatchLogsExports []*string `type:"list"`
-
 	// True to enable mapping of AWS Identity and Access Management (IAM) accounts
 	// to database accounts, and otherwise false.
 	//
@@ -12015,9 +11994,7 @@ type CreateDBInstanceInput struct {
 	//
 	// Valid Values:
 	//
-	//    * aurora (for MySQL 5.6-compatible Aurora)
-	//
-	//    * aurora-mysql (for MySQL 5.7-compatible Aurora)
+	//    * aurora
 	//
 	//    * aurora-postgresql
 	//
@@ -12059,19 +12036,13 @@ type CreateDBInstanceInput struct {
 	//
 	// MariaDB
 	//
-	//    * 10.2.11 (supported in all AWS Regions)
-	//
-	// 10.1.26 (supported in all AWS Regions)
-	//
 	//    * 10.1.23 (supported in all AWS Regions)
 	//
 	//    * 10.1.19 (supported in all AWS Regions)
 	//
 	//    * 10.1.14 (supported in all AWS Regions except us-east-2)
 	//
-	//    * 10.0.32 (supported in all AWS Regions)
-	//
-	//    * 10.0.31 (supported in all AWS Regions)
+	// 10.0.31 (supported in all AWS Regions)
 	//
 	//    * 10.0.28 (supported in all AWS Regions)
 	//
@@ -12080,21 +12051,15 @@ type CreateDBInstanceInput struct {
 	//    * 10.0.17 (supported in all AWS Regions except us-east-2, ca-central-1,
 	//    eu-west-2)
 	//
-	// Microsoft SQL Server 2017
-	//
-	//    * 14.00.1000.169.v1 (supported for all editions, and all AWS Regions)
-	//
 	// Microsoft SQL Server 2016
 	//
-	//    * 13.00.4451.0.v1 (supported for all editions, and all AWS Regions)
-	//
-	//    * 13.00.4422.0.v1 (supported for all editions, and all AWS Regions)
+	// 13.00.4422.0.v1 (supported for all editions, and all AWS Regions)
 	//
 	//    * 13.00.2164.0.v1 (supported for all editions, and all AWS Regions)
 	//
 	// Microsoft SQL Server 2014
 	//
-	//    * 12.00.5546.0.v1 (supported for all editions, and all AWS Regions)
+	// 12.00.5546.0.v1 (supported for all editions, and all AWS Regions)
 	//
 	//    * 12.00.5000.0.v1 (supported for all editions, and all AWS Regions)
 	//
@@ -12103,7 +12068,7 @@ type CreateDBInstanceInput struct {
 	//
 	// Microsoft SQL Server 2012
 	//
-	//    * 11.00.6594.0.v1 (supported for all editions, and all AWS Regions)
+	// 11.00.6594.0.v1 (supported for all editions, and all AWS Regions)
 	//
 	//    * 11.00.6020.0.v1 (supported for all editions, and all AWS Regions)
 	//
@@ -12115,8 +12080,8 @@ type CreateDBInstanceInput struct {
 	//
 	// Microsoft SQL Server 2008 R2
 	//
-	//    * 10.50.6529.0.v1 (supported for all editions, and all AWS Regions except
-	//    us-east-2, ca-central-1, and eu-west-2)
+	// 10.50.6529.0.v1 (supported for all editions, and all AWS Regions except us-east-2,
+	// ca-central-1, and eu-west-2)
 	//
 	//    * 10.50.6000.34.v1 (supported for all editions, and all AWS Regions except
 	//    us-east-2, ca-central-1, and eu-west-2)
@@ -12126,21 +12091,86 @@ type CreateDBInstanceInput struct {
 	//
 	// MySQL
 	//
-	//    * 5.7.19 (supported in all AWS regions)
+	// 5.7.19 (supported in all AWS regions)
 	//
 	//    * 5.7.17 (supported in all AWS regions)
 	//
 	//    * 5.7.16 (supported in all AWS regions)
 	//
-	// 5.6.37(supported in all AWS Regions)
+	//    * 5.6.37 (supported in all AWS Regions)
 	//
-	// 5.6.35(supported in all AWS Regions)
+	//    * 5.6.35 (supported in all AWS Regions)
 	//
-	// 5.6.34(supported in all AWS Regions)
+	//    * 5.6.34 (supported in all AWS Regions)
 	//
-	// 5.6.29(supported in all AWS Regions)
+	//    * 5.6.29 (supported in all AWS Regions)
 	//
-	// 5.6.27
+	//    * 5.6.27 (supported in all AWS Regions except us-east-2, ca-central-1,
+	//    eu-west-2)
+	//
+	// 5.5.57(supported in all AWS Regions)
+	//
+	// 5.5.54(supported in all AWS Regions)
+	//
+	// 5.5.53(supported in all AWS Regions)
+	//
+	// 5.5.46(supported in all AWS Regions)
+	//
+	// Oracle 12c
+	//
+	// 12.1.0.2.v9(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v8(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v7(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v6(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v5(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v4(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v3(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v2(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// 12.1.0.2.v1(supported for EE in all AWS regions, and SE2 in all AWS regions except us-gov-west-1)
+	//
+	// Oracle 11g
+	//
+	// 11.2.0.4.v13(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v12(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v11(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v10(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v9(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v8(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v7(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v6(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v5(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v4(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v3(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// 11.2.0.4.v1(supported for EE, SE1, and SE, in all AWS regions)
+	//
+	// PostgreSQL
+	//
+	// Version 9.6.x: 9.6.5 | 9.6.3 | 9.6.2 | 9.6.1
+	//
+	// Version 9.5.x: 9.5.9 | 9.5.7 | 9.5.6 | 9.5.4 | 9.5.2
+	//
+	// Version 9.4.x: 9.4.14 | 9.4.12 | 9.4.11 | 9.4.9 | 9.4.7
+	//
+	// Version 9.3.x: 9.3.19 | 9.3.17 | 9.3.16 | 9.3.14 | 9.3.12
 	EngineVersion *string `type:"string"`
 
 	// The amount of Provisioned IOPS (input/output operations per second) to be
@@ -12148,9 +12178,9 @@ type CreateDBInstanceInput struct {
 	// values, see see Amazon RDS Provisioned IOPS Storage to Improve Performance
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS).
 	//
-	// Constraints: Must be a multiple between 1 and 50 of the storage amount for
+	// Constraints: Must be a multiple between 3 and 10 of the storage amount for
 	// the DB instance. Must also be an integer multiple of 1000. For example, if
-	// the size of your DB instance is 500 GiB, then your Iops value can be 2000,
+	// the size of your DB instance is 500 GB, then your Iops value can be 2000,
 	// 3000, 4000, or 5000.
 	Iops *int64 `type:"integer"`
 
@@ -12584,12 +12614,6 @@ func (s *CreateDBInstanceInput) SetDomainIAMRoleName(v string) *CreateDBInstance
 	return s
 }
 
-// SetEnableCloudwatchLogsExports sets the EnableCloudwatchLogsExports field's value.
-func (s *CreateDBInstanceInput) SetEnableCloudwatchLogsExports(v []*string) *CreateDBInstanceInput {
-	s.EnableCloudwatchLogsExports = v
-	return s
-}
-
 // SetEnableIAMDatabaseAuthentication sets the EnableIAMDatabaseAuthentication field's value.
 func (s *CreateDBInstanceInput) SetEnableIAMDatabaseAuthentication(v bool) *CreateDBInstanceInput {
 	s.EnableIAMDatabaseAuthentication = &v
@@ -12746,6 +12770,7 @@ func (s *CreateDBInstanceInput) SetVpcSecurityGroupIds(v []*string) *CreateDBIns
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBInstanceResult
 type CreateDBInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12771,6 +12796,7 @@ func (s *CreateDBInstanceOutput) SetDBInstance(v *DBInstance) *CreateDBInstanceO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBInstanceReadReplicaMessage
 type CreateDBInstanceReadReplicaInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12837,9 +12863,6 @@ type CreateDBInstanceReadReplicaInput struct {
 	// DestinationRegion is used for presigning the request to a given region.
 	DestinationRegion *string `type:"string"`
 
-	// The list of logs that the new DB instance is to export to CloudWatch Logs.
-	EnableCloudwatchLogsExports []*string `type:"list"`
-
 	// True to enable mapping of AWS Identity and Access Management (IAM) accounts
 	// to database accounts, and otherwise false.
 	//
@@ -12896,14 +12919,6 @@ type CreateDBInstanceReadReplicaInput struct {
 	// If MonitoringInterval is set to a value other than 0, then you must supply
 	// a MonitoringRoleArn value.
 	MonitoringRoleArn *string `type:"string"`
-
-	// Specifies whether the Read Replica is in a Multi-AZ deployment.
-	//
-	// You can create a Read Replica as a Multi-AZ DB instance. RDS creates a standby
-	// of your replica in another Availability Zone for failover support for the
-	// replica. Creating your Read Replica as a Multi-AZ DB instance is independent
-	// of whether the source database is a Multi-AZ DB instance.
-	MultiAZ *bool `type:"boolean"`
 
 	// The option group the DB instance is associated with. If omitted, the default
 	// option group for the engine specified is used.
@@ -13096,12 +13111,6 @@ func (s *CreateDBInstanceReadReplicaInput) SetDestinationRegion(v string) *Creat
 	return s
 }
 
-// SetEnableCloudwatchLogsExports sets the EnableCloudwatchLogsExports field's value.
-func (s *CreateDBInstanceReadReplicaInput) SetEnableCloudwatchLogsExports(v []*string) *CreateDBInstanceReadReplicaInput {
-	s.EnableCloudwatchLogsExports = v
-	return s
-}
-
 // SetEnableIAMDatabaseAuthentication sets the EnableIAMDatabaseAuthentication field's value.
 func (s *CreateDBInstanceReadReplicaInput) SetEnableIAMDatabaseAuthentication(v bool) *CreateDBInstanceReadReplicaInput {
 	s.EnableIAMDatabaseAuthentication = &v
@@ -13135,12 +13144,6 @@ func (s *CreateDBInstanceReadReplicaInput) SetMonitoringInterval(v int64) *Creat
 // SetMonitoringRoleArn sets the MonitoringRoleArn field's value.
 func (s *CreateDBInstanceReadReplicaInput) SetMonitoringRoleArn(v string) *CreateDBInstanceReadReplicaInput {
 	s.MonitoringRoleArn = &v
-	return s
-}
-
-// SetMultiAZ sets the MultiAZ field's value.
-func (s *CreateDBInstanceReadReplicaInput) SetMultiAZ(v bool) *CreateDBInstanceReadReplicaInput {
-	s.MultiAZ = &v
 	return s
 }
 
@@ -13198,6 +13201,7 @@ func (s *CreateDBInstanceReadReplicaInput) SetTags(v []*Tag) *CreateDBInstanceRe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBInstanceReadReplicaResult
 type CreateDBInstanceReadReplicaOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13223,6 +13227,7 @@ func (s *CreateDBInstanceReadReplicaOutput) SetDBInstance(v *DBInstance) *Create
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBParameterGroupMessage
 type CreateDBParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13311,6 +13316,7 @@ func (s *CreateDBParameterGroupInput) SetTags(v []*Tag) *CreateDBParameterGroupI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBParameterGroupResult
 type CreateDBParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13337,6 +13343,7 @@ func (s *CreateDBParameterGroupOutput) SetDBParameterGroup(v *DBParameterGroup) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBSecurityGroupMessage
 type CreateDBSecurityGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13410,6 +13417,7 @@ func (s *CreateDBSecurityGroupInput) SetTags(v []*Tag) *CreateDBSecurityGroupInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBSecurityGroupResult
 type CreateDBSecurityGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13436,6 +13444,7 @@ func (s *CreateDBSecurityGroupOutput) SetDBSecurityGroup(v *DBSecurityGroup) *Cr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBSnapshotMessage
 type CreateDBSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13513,6 +13522,7 @@ func (s *CreateDBSnapshotInput) SetTags(v []*Tag) *CreateDBSnapshotInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBSnapshotResult
 type CreateDBSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13538,6 +13548,7 @@ func (s *CreateDBSnapshotOutput) SetDBSnapshot(v *DBSnapshot) *CreateDBSnapshotO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBSubnetGroupMessage
 type CreateDBSubnetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13618,6 +13629,7 @@ func (s *CreateDBSubnetGroupInput) SetTags(v []*Tag) *CreateDBSubnetGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBSubnetGroupResult
 type CreateDBSubnetGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13644,6 +13656,7 @@ func (s *CreateDBSubnetGroupOutput) SetDBSubnetGroup(v *DBSubnetGroup) *CreateDB
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateEventSubscriptionMessage
 type CreateEventSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13774,6 +13787,7 @@ func (s *CreateEventSubscriptionInput) SetTags(v []*Tag) *CreateEventSubscriptio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateEventSubscriptionResult
 type CreateEventSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13798,6 +13812,7 @@ func (s *CreateEventSubscriptionOutput) SetEventSubscription(v *EventSubscriptio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateOptionGroupMessage
 type CreateOptionGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13899,6 +13914,7 @@ func (s *CreateOptionGroupInput) SetTags(v []*Tag) *CreateOptionGroupInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateOptionGroupResult
 type CreateOptionGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13924,11 +13940,12 @@ func (s *CreateOptionGroupOutput) SetOptionGroup(v *OptionGroup) *CreateOptionGr
 // Contains the details of an Amazon RDS DB cluster.
 //
 // This data type is used as a response element in the DescribeDBClusters action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBCluster
 type DBCluster struct {
 	_ struct{} `type:"structure"`
 
 	// For all database engines except Amazon Aurora, AllocatedStorage specifies
-	// the allocated storage size in gibibytes (GiB). For Aurora, AllocatedStorage
+	// the allocated storage size in gigabytes (GB). For Aurora, AllocatedStorage
 	// always returns 1, because Aurora DB cluster storage size is not fixed, but
 	// instead automatically adjusts as needed.
 	AllocatedStorage *int64 `type:"integer"`
@@ -14287,6 +14304,7 @@ func (s *DBCluster) SetVpcSecurityGroups(v []*VpcSecurityGroupMembership) *DBClu
 }
 
 // Contains information about an instance that is part of a DB cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterMember
 type DBClusterMember struct {
 	_ struct{} `type:"structure"`
 
@@ -14342,6 +14360,7 @@ func (s *DBClusterMember) SetPromotionTier(v int64) *DBClusterMember {
 }
 
 // Contains status information for a DB cluster option group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterOptionGroupStatus
 type DBClusterOptionGroupStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -14378,6 +14397,7 @@ func (s *DBClusterOptionGroupStatus) SetStatus(v string) *DBClusterOptionGroupSt
 //
 // This data type is used as a response element in the DescribeDBClusterParameterGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterParameterGroup
 type DBClusterParameterGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -14430,6 +14450,7 @@ func (s *DBClusterParameterGroup) SetDescription(v string) *DBClusterParameterGr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterParameterGroupNameMessage
 type DBClusterParameterGroupNameMessage struct {
 	_ struct{} `type:"structure"`
 
@@ -14465,6 +14486,7 @@ func (s *DBClusterParameterGroupNameMessage) SetDBClusterParameterGroupName(v st
 
 // Describes an AWS Identity and Access Management (IAM) role that is associated
 // with a DB cluster.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterRole
 type DBClusterRole struct {
 	_ struct{} `type:"structure"`
 
@@ -14512,10 +14534,11 @@ func (s *DBClusterRole) SetStatus(v string) *DBClusterRole {
 //
 // This data type is used as a response element in the DescribeDBClusterSnapshots
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterSnapshot
 type DBClusterSnapshot struct {
 	_ struct{} `type:"structure"`
 
-	// Specifies the allocated storage size in gibibytes (GiB).
+	// Specifies the allocated storage size in gigabytes (GB).
 	AllocatedStorage *int64 `type:"integer"`
 
 	// Provides the list of EC2 Availability Zones that instances in the DB cluster
@@ -14720,6 +14743,7 @@ func (s *DBClusterSnapshot) SetVpcId(v string) *DBClusterSnapshot {
 // Manual DB cluster snapshot attributes are used to authorize other AWS accounts
 // to restore a manual DB cluster snapshot. For more information, see the ModifyDBClusterSnapshotAttribute
 // API action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterSnapshotAttribute
 type DBClusterSnapshotAttribute struct {
 	_ struct{} `type:"structure"`
 
@@ -14768,6 +14792,7 @@ func (s *DBClusterSnapshotAttribute) SetAttributeValues(v []*string) *DBClusterS
 // Manual DB cluster snapshot attributes are used to authorize other AWS accounts
 // to copy or restore a manual DB cluster snapshot. For more information, see
 // the ModifyDBClusterSnapshotAttribute API action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterSnapshotAttributesResult
 type DBClusterSnapshotAttributesResult struct {
 	_ struct{} `type:"structure"`
 
@@ -14802,6 +14827,7 @@ func (s *DBClusterSnapshotAttributesResult) SetDBClusterSnapshotIdentifier(v str
 }
 
 // This data type is used as a response element in the action DescribeDBEngineVersions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBEngineVersion
 type DBEngineVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -14824,10 +14850,6 @@ type DBEngineVersion struct {
 	// The version number of the database engine.
 	EngineVersion *string `type:"string"`
 
-	// The types of logs that the database engine has available for export to CloudWatch
-	// Logs.
-	ExportableLogTypes []*string `type:"list"`
-
 	// A list of the character sets supported by this engine for the CharacterSetName
 	// parameter of the CreateDBInstance action.
 	SupportedCharacterSets []*CharacterSet `locationNameList:"CharacterSet" type:"list"`
@@ -14835,13 +14857,6 @@ type DBEngineVersion struct {
 	// A list of the time zones supported by this engine for the Timezone parameter
 	// of the CreateDBInstance action.
 	SupportedTimezones []*Timezone `locationNameList:"Timezone" type:"list"`
-
-	// A value that indicates whether the engine version supports exporting the
-	// log types specified by ExportableLogTypes to CloudWatch Logs.
-	SupportsLogExportsToCloudwatchLogs *bool `type:"boolean"`
-
-	// Indicates whether the database engine version supports read replicas.
-	SupportsReadReplica *bool `type:"boolean"`
 
 	// A list of engine versions that this database engine version can be upgraded
 	// to.
@@ -14894,12 +14909,6 @@ func (s *DBEngineVersion) SetEngineVersion(v string) *DBEngineVersion {
 	return s
 }
 
-// SetExportableLogTypes sets the ExportableLogTypes field's value.
-func (s *DBEngineVersion) SetExportableLogTypes(v []*string) *DBEngineVersion {
-	s.ExportableLogTypes = v
-	return s
-}
-
 // SetSupportedCharacterSets sets the SupportedCharacterSets field's value.
 func (s *DBEngineVersion) SetSupportedCharacterSets(v []*CharacterSet) *DBEngineVersion {
 	s.SupportedCharacterSets = v
@@ -14912,18 +14921,6 @@ func (s *DBEngineVersion) SetSupportedTimezones(v []*Timezone) *DBEngineVersion 
 	return s
 }
 
-// SetSupportsLogExportsToCloudwatchLogs sets the SupportsLogExportsToCloudwatchLogs field's value.
-func (s *DBEngineVersion) SetSupportsLogExportsToCloudwatchLogs(v bool) *DBEngineVersion {
-	s.SupportsLogExportsToCloudwatchLogs = &v
-	return s
-}
-
-// SetSupportsReadReplica sets the SupportsReadReplica field's value.
-func (s *DBEngineVersion) SetSupportsReadReplica(v bool) *DBEngineVersion {
-	s.SupportsReadReplica = &v
-	return s
-}
-
 // SetValidUpgradeTarget sets the ValidUpgradeTarget field's value.
 func (s *DBEngineVersion) SetValidUpgradeTarget(v []*UpgradeTarget) *DBEngineVersion {
 	s.ValidUpgradeTarget = v
@@ -14933,10 +14930,11 @@ func (s *DBEngineVersion) SetValidUpgradeTarget(v []*UpgradeTarget) *DBEngineVer
 // Contains the details of an Amazon RDS DB instance.
 //
 // This data type is used as a response element in the DescribeDBInstances action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBInstance
 type DBInstance struct {
 	_ struct{} `type:"structure"`
 
-	// Specifies the allocated storage size specified in gibibytes.
+	// Specifies the allocated storage size specified in gigabytes.
 	AllocatedStorage *int64 `type:"integer"`
 
 	// Indicates that minor version patches are applied automatically.
@@ -15017,10 +15015,6 @@ type DBInstance struct {
 
 	// The Active Directory Domain membership records associated with the DB instance.
 	DomainMemberships []*DomainMembership `locationNameList:"DomainMembership" type:"list"`
-
-	// A list of log types that this DB instance is configured to export to CloudWatch
-	// Logs.
-	EnabledCloudwatchLogsExports []*string `type:"list"`
 
 	// Specifies the connection endpoint.
 	Endpoint *Endpoint `type:"structure"`
@@ -15290,12 +15284,6 @@ func (s *DBInstance) SetDomainMemberships(v []*DomainMembership) *DBInstance {
 	return s
 }
 
-// SetEnabledCloudwatchLogsExports sets the EnabledCloudwatchLogsExports field's value.
-func (s *DBInstance) SetEnabledCloudwatchLogsExports(v []*string) *DBInstance {
-	s.EnabledCloudwatchLogsExports = v
-	return s
-}
-
 // SetEndpoint sets the Endpoint field's value.
 func (s *DBInstance) SetEndpoint(v *Endpoint) *DBInstance {
 	s.Endpoint = v
@@ -15489,6 +15477,7 @@ func (s *DBInstance) SetVpcSecurityGroups(v []*VpcSecurityGroupMembership) *DBIn
 }
 
 // Provides a list of status information for a DB instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBInstanceStatusInfo
 type DBInstanceStatusInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -15546,6 +15535,7 @@ func (s *DBInstanceStatusInfo) SetStatusType(v string) *DBInstanceStatusInfo {
 //
 // This data type is used as a response element in the DescribeDBParameterGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBParameterGroup
 type DBParameterGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -15599,6 +15589,7 @@ func (s *DBParameterGroup) SetDescription(v string) *DBParameterGroup {
 
 // Contains the result of a successful invocation of the ModifyDBParameterGroup
 // or ResetDBParameterGroup action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBParameterGroupNameMessage
 type DBParameterGroupNameMessage struct {
 	_ struct{} `type:"structure"`
 
@@ -15637,6 +15628,7 @@ func (s *DBParameterGroupNameMessage) SetDBParameterGroupName(v string) *DBParam
 //    * RebootDBInstance
 //
 //    * RestoreDBInstanceFromDBSnapshot
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBParameterGroupStatus
 type DBParameterGroupStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -15673,6 +15665,7 @@ func (s *DBParameterGroupStatus) SetParameterApplyStatus(v string) *DBParameterG
 //
 // This data type is used as a response element in the DescribeDBSecurityGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSecurityGroup
 type DBSecurityGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -15759,6 +15752,7 @@ func (s *DBSecurityGroup) SetVpcId(v string) *DBSecurityGroup {
 //    * RestoreDBInstanceFromDBSnapshot
 //
 //    * RestoreDBInstanceToPointInTime
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSecurityGroupMembership
 type DBSecurityGroupMembership struct {
 	_ struct{} `type:"structure"`
 
@@ -15794,10 +15788,11 @@ func (s *DBSecurityGroupMembership) SetStatus(v string) *DBSecurityGroupMembersh
 // Contains the details of an Amazon RDS DB snapshot.
 //
 // This data type is used as a response element in the DescribeDBSnapshots action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSnapshot
 type DBSnapshot struct {
 	_ struct{} `type:"structure"`
 
-	// Specifies the allocated storage size in gibibytes (GiB).
+	// Specifies the allocated storage size in gigabytes (GB).
 	AllocatedStorage *int64 `type:"integer"`
 
 	// Specifies the name of the Availability Zone the DB instance was located in
@@ -16057,6 +16052,7 @@ func (s *DBSnapshot) SetVpcId(v string) *DBSnapshot {
 // Manual DB snapshot attributes are used to authorize other AWS accounts to
 // restore a manual DB snapshot. For more information, see the ModifyDBSnapshotAttribute
 // API.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSnapshotAttribute
 type DBSnapshotAttribute struct {
 	_ struct{} `type:"structure"`
 
@@ -16104,6 +16100,7 @@ func (s *DBSnapshotAttribute) SetAttributeValues(v []*string) *DBSnapshotAttribu
 // Manual DB snapshot attributes are used to authorize other AWS accounts to
 // copy or restore a manual DB snapshot. For more information, see the ModifyDBSnapshotAttribute
 // API action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSnapshotAttributesResult
 type DBSnapshotAttributesResult struct {
 	_ struct{} `type:"structure"`
 
@@ -16140,6 +16137,7 @@ func (s *DBSnapshotAttributesResult) SetDBSnapshotIdentifier(v string) *DBSnapsh
 //
 // This data type is used as a response element in the DescribeDBSubnetGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSubnetGroup
 type DBSubnetGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -16208,6 +16206,7 @@ func (s *DBSubnetGroup) SetVpcId(v string) *DBSubnetGroup {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterMessage
 type DeleteDBClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16288,6 +16287,7 @@ func (s *DeleteDBClusterInput) SetSkipFinalSnapshot(v bool) *DeleteDBClusterInpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterResult
 type DeleteDBClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16313,6 +16313,7 @@ func (s *DeleteDBClusterOutput) SetDBCluster(v *DBCluster) *DeleteDBClusterOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterParameterGroupMessage
 type DeleteDBClusterParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16359,6 +16360,7 @@ func (s *DeleteDBClusterParameterGroupInput) SetDBClusterParameterGroupName(v st
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterParameterGroupOutput
 type DeleteDBClusterParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16373,6 +16375,7 @@ func (s DeleteDBClusterParameterGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterSnapshotMessage
 type DeleteDBClusterSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16414,6 +16417,7 @@ func (s *DeleteDBClusterSnapshotInput) SetDBClusterSnapshotIdentifier(v string) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBClusterSnapshotResult
 type DeleteDBClusterSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16440,6 +16444,7 @@ func (s *DeleteDBClusterSnapshotOutput) SetDBClusterSnapshot(v *DBClusterSnapsho
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBInstanceMessage
 type DeleteDBInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16528,6 +16533,7 @@ func (s *DeleteDBInstanceInput) SetSkipFinalSnapshot(v bool) *DeleteDBInstanceIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBInstanceResult
 type DeleteDBInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16553,6 +16559,7 @@ func (s *DeleteDBInstanceOutput) SetDBInstance(v *DBInstance) *DeleteDBInstanceO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBParameterGroupMessage
 type DeleteDBParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16599,6 +16606,7 @@ func (s *DeleteDBParameterGroupInput) SetDBParameterGroupName(v string) *DeleteD
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBParameterGroupOutput
 type DeleteDBParameterGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16613,6 +16621,7 @@ func (s DeleteDBParameterGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBSecurityGroupMessage
 type DeleteDBSecurityGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16663,6 +16672,7 @@ func (s *DeleteDBSecurityGroupInput) SetDBSecurityGroupName(v string) *DeleteDBS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBSecurityGroupOutput
 type DeleteDBSecurityGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16677,6 +16687,7 @@ func (s DeleteDBSecurityGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBSnapshotMessage
 type DeleteDBSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16718,6 +16729,7 @@ func (s *DeleteDBSnapshotInput) SetDBSnapshotIdentifier(v string) *DeleteDBSnaps
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBSnapshotResult
 type DeleteDBSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16743,6 +16755,7 @@ func (s *DeleteDBSnapshotOutput) SetDBSnapshot(v *DBSnapshot) *DeleteDBSnapshotO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBSubnetGroupMessage
 type DeleteDBSubnetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16790,6 +16803,7 @@ func (s *DeleteDBSubnetGroupInput) SetDBSubnetGroupName(v string) *DeleteDBSubne
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBSubnetGroupOutput
 type DeleteDBSubnetGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16804,6 +16818,7 @@ func (s DeleteDBSubnetGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteEventSubscriptionMessage
 type DeleteEventSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16842,6 +16857,7 @@ func (s *DeleteEventSubscriptionInput) SetSubscriptionName(v string) *DeleteEven
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteEventSubscriptionResult
 type DeleteEventSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16866,6 +16882,7 @@ func (s *DeleteEventSubscriptionOutput) SetEventSubscription(v *EventSubscriptio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteOptionGroupMessage
 type DeleteOptionGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16906,6 +16923,7 @@ func (s *DeleteOptionGroupInput) SetOptionGroupName(v string) *DeleteOptionGroup
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteOptionGroupOutput
 type DeleteOptionGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16920,6 +16938,7 @@ func (s DeleteOptionGroupOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeAccountAttributesMessage
 type DescribeAccountAttributesInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -16935,6 +16954,7 @@ func (s DescribeAccountAttributesInput) GoString() string {
 }
 
 // Data returned by the DescribeAccountAttributes action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/AccountAttributesMessage
 type DescribeAccountAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16959,6 +16979,7 @@ func (s *DescribeAccountAttributesOutput) SetAccountQuotas(v []*AccountQuota) *D
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeCertificatesMessage
 type DescribeCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17044,6 +17065,7 @@ func (s *DescribeCertificatesInput) SetMaxRecords(v int64) *DescribeCertificates
 }
 
 // Data returned by the DescribeCertificates action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CertificateMessage
 type DescribeCertificatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17078,6 +17100,7 @@ func (s *DescribeCertificatesOutput) SetMarker(v string) *DescribeCertificatesOu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterParameterGroupsMessage
 type DescribeDBClusterParameterGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17160,6 +17183,7 @@ func (s *DescribeDBClusterParameterGroupsInput) SetMaxRecords(v int64) *Describe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterParameterGroupsMessage
 type DescribeDBClusterParameterGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17194,6 +17218,7 @@ func (s *DescribeDBClusterParameterGroupsOutput) SetMarker(v string) *DescribeDB
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterParametersMessage
 type DescribeDBClusterParametersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17294,6 +17319,7 @@ func (s *DescribeDBClusterParametersInput) SetSource(v string) *DescribeDBCluste
 
 // Provides details about a DB cluster parameter group including the parameters
 // in the DB cluster parameter group.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterParameterGroupDetails
 type DescribeDBClusterParametersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17328,6 +17354,7 @@ func (s *DescribeDBClusterParametersOutput) SetParameters(v []*Parameter) *Descr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterSnapshotAttributesMessage
 type DescribeDBClusterSnapshotAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17366,6 +17393,7 @@ func (s *DescribeDBClusterSnapshotAttributesInput) SetDBClusterSnapshotIdentifie
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterSnapshotAttributesResult
 type DescribeDBClusterSnapshotAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17394,6 +17422,7 @@ func (s *DescribeDBClusterSnapshotAttributesOutput) SetDBClusterSnapshotAttribut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterSnapshotsMessage
 type DescribeDBClusterSnapshotsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17558,6 +17587,7 @@ func (s *DescribeDBClusterSnapshotsInput) SetSnapshotType(v string) *DescribeDBC
 
 // Provides a list of DB cluster snapshots for the user as the result of a call
 // to the DescribeDBClusterSnapshots action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterSnapshotMessage
 type DescribeDBClusterSnapshotsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17592,6 +17622,7 @@ func (s *DescribeDBClusterSnapshotsOutput) SetMarker(v string) *DescribeDBCluste
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClustersMessage
 type DescribeDBClustersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17684,6 +17715,7 @@ func (s *DescribeDBClustersInput) SetMaxRecords(v int64) *DescribeDBClustersInpu
 
 // Contains the result of a successful invocation of the DescribeDBClusters
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterMessage
 type DescribeDBClustersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17716,6 +17748,7 @@ func (s *DescribeDBClustersOutput) SetMarker(v string) *DescribeDBClustersOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBEngineVersionsMessage
 type DescribeDBEngineVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17852,6 +17885,7 @@ func (s *DescribeDBEngineVersionsInput) SetMaxRecords(v int64) *DescribeDBEngine
 
 // Contains the result of a successful invocation of the DescribeDBEngineVersions
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBEngineVersionMessage
 type DescribeDBEngineVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -17886,6 +17920,7 @@ func (s *DescribeDBEngineVersionsOutput) SetMarker(v string) *DescribeDBEngineVe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBInstancesMessage
 type DescribeDBInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17982,6 +18017,7 @@ func (s *DescribeDBInstancesInput) SetMaxRecords(v int64) *DescribeDBInstancesIn
 
 // Contains the result of a successful invocation of the DescribeDBInstances
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBInstanceMessage
 type DescribeDBInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18017,6 +18053,7 @@ func (s *DescribeDBInstancesOutput) SetMarker(v string) *DescribeDBInstancesOutp
 }
 
 // This data type is used as a response element to DescribeDBLogFiles.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBLogFilesDetails
 type DescribeDBLogFilesDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -18058,6 +18095,7 @@ func (s *DescribeDBLogFilesDetails) SetSize(v int64) *DescribeDBLogFilesDetails 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBLogFilesMessage
 type DescribeDBLogFilesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18172,6 +18210,7 @@ func (s *DescribeDBLogFilesInput) SetMaxRecords(v int64) *DescribeDBLogFilesInpu
 }
 
 // The response from a call to DescribeDBLogFiles.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBLogFilesResponse
 type DescribeDBLogFilesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18204,6 +18243,7 @@ func (s *DescribeDBLogFilesOutput) SetMarker(v string) *DescribeDBLogFilesOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBParameterGroupsMessage
 type DescribeDBParameterGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18288,6 +18328,7 @@ func (s *DescribeDBParameterGroupsInput) SetMaxRecords(v int64) *DescribeDBParam
 
 // Contains the result of a successful invocation of the DescribeDBParameterGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBParameterGroupsMessage
 type DescribeDBParameterGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18322,6 +18363,7 @@ func (s *DescribeDBParameterGroupsOutput) SetMarker(v string) *DescribeDBParamet
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBParametersMessage
 type DescribeDBParametersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18424,6 +18466,7 @@ func (s *DescribeDBParametersInput) SetSource(v string) *DescribeDBParametersInp
 
 // Contains the result of a successful invocation of the DescribeDBParameters
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBParameterGroupDetails
 type DescribeDBParametersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18458,6 +18501,7 @@ func (s *DescribeDBParametersOutput) SetParameters(v []*Parameter) *DescribeDBPa
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBSecurityGroupsMessage
 type DescribeDBSecurityGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18538,6 +18582,7 @@ func (s *DescribeDBSecurityGroupsInput) SetMaxRecords(v int64) *DescribeDBSecuri
 
 // Contains the result of a successful invocation of the DescribeDBSecurityGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSecurityGroupMessage
 type DescribeDBSecurityGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18572,6 +18617,7 @@ func (s *DescribeDBSecurityGroupsOutput) SetMarker(v string) *DescribeDBSecurity
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBSnapshotAttributesMessage
 type DescribeDBSnapshotAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18610,6 +18656,7 @@ func (s *DescribeDBSnapshotAttributesInput) SetDBSnapshotIdentifier(v string) *D
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBSnapshotAttributesResult
 type DescribeDBSnapshotAttributesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18638,6 +18685,7 @@ func (s *DescribeDBSnapshotAttributesOutput) SetDBSnapshotAttributesResult(v *DB
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBSnapshotsMessage
 type DescribeDBSnapshotsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18800,6 +18848,7 @@ func (s *DescribeDBSnapshotsInput) SetSnapshotType(v string) *DescribeDBSnapshot
 
 // Contains the result of a successful invocation of the DescribeDBSnapshots
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSnapshotMessage
 type DescribeDBSnapshotsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18834,6 +18883,7 @@ func (s *DescribeDBSnapshotsOutput) SetMarker(v string) *DescribeDBSnapshotsOutp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBSubnetGroupsMessage
 type DescribeDBSubnetGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -18914,6 +18964,7 @@ func (s *DescribeDBSubnetGroupsInput) SetMaxRecords(v int64) *DescribeDBSubnetGr
 
 // Contains the result of a successful invocation of the DescribeDBSubnetGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBSubnetGroupMessage
 type DescribeDBSubnetGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -18948,6 +18999,7 @@ func (s *DescribeDBSubnetGroupsOutput) SetMarker(v string) *DescribeDBSubnetGrou
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEngineDefaultClusterParametersMessage
 type DescribeEngineDefaultClusterParametersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19032,6 +19084,7 @@ func (s *DescribeEngineDefaultClusterParametersInput) SetMaxRecords(v int64) *De
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEngineDefaultClusterParametersResult
 type DescribeEngineDefaultClusterParametersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19056,6 +19109,7 @@ func (s *DescribeEngineDefaultClusterParametersOutput) SetEngineDefaults(v *Engi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEngineDefaultParametersMessage
 type DescribeEngineDefaultParametersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19139,6 +19193,7 @@ func (s *DescribeEngineDefaultParametersInput) SetMaxRecords(v int64) *DescribeE
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEngineDefaultParametersResult
 type DescribeEngineDefaultParametersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19163,6 +19218,7 @@ func (s *DescribeEngineDefaultParametersOutput) SetEngineDefaults(v *EngineDefau
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEventCategoriesMessage
 type DescribeEventCategoriesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19218,6 +19274,7 @@ func (s *DescribeEventCategoriesInput) SetSourceType(v string) *DescribeEventCat
 }
 
 // Data returned from the DescribeEventCategories action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EventCategoriesMessage
 type DescribeEventCategoriesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19241,6 +19298,7 @@ func (s *DescribeEventCategoriesOutput) SetEventCategoriesMapList(v []*EventCate
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEventSubscriptionsMessage
 type DescribeEventSubscriptionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19320,6 +19378,7 @@ func (s *DescribeEventSubscriptionsInput) SetSubscriptionName(v string) *Describ
 }
 
 // Data returned by the DescribeEventSubscriptions action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EventSubscriptionsMessage
 type DescribeEventSubscriptionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19354,6 +19413,7 @@ func (s *DescribeEventSubscriptionsOutput) SetMarker(v string) *DescribeEventSub
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeEventsMessage
 type DescribeEventsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19508,6 +19568,7 @@ func (s *DescribeEventsInput) SetStartTime(v time.Time) *DescribeEventsInput {
 }
 
 // Contains the result of a successful invocation of the DescribeEvents action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EventsMessage
 type DescribeEventsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19542,6 +19603,7 @@ func (s *DescribeEventsOutput) SetMarker(v string) *DescribeEventsOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeOptionGroupOptionsMessage
 type DescribeOptionGroupOptionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19635,6 +19697,7 @@ func (s *DescribeOptionGroupOptionsInput) SetMaxRecords(v int64) *DescribeOption
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionGroupOptionsMessage
 type DescribeOptionGroupOptionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19669,6 +19732,7 @@ func (s *DescribeOptionGroupOptionsOutput) SetOptionGroupOptions(v []*OptionGrou
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeOptionGroupsMessage
 type DescribeOptionGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19770,6 +19834,7 @@ func (s *DescribeOptionGroupsInput) SetOptionGroupName(v string) *DescribeOption
 }
 
 // List of option groups.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionGroups
 type DescribeOptionGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19804,6 +19869,7 @@ func (s *DescribeOptionGroupsOutput) SetOptionGroupsList(v []*OptionGroup) *Desc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeOrderableDBInstanceOptionsMessage
 type DescribeOrderableDBInstanceOptionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19929,6 +19995,7 @@ func (s *DescribeOrderableDBInstanceOptionsInput) SetVpc(v bool) *DescribeOrdera
 
 // Contains the result of a successful invocation of the DescribeOrderableDBInstanceOptions
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OrderableDBInstanceOptionsMessage
 type DescribeOrderableDBInstanceOptionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19964,6 +20031,7 @@ func (s *DescribeOrderableDBInstanceOptionsOutput) SetOrderableDBInstanceOptions
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribePendingMaintenanceActionsMessage
 type DescribePendingMaintenanceActionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20054,6 +20122,7 @@ func (s *DescribePendingMaintenanceActionsInput) SetResourceIdentifier(v string)
 }
 
 // Data returned from the DescribePendingMaintenanceActions action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PendingMaintenanceActionsMessage
 type DescribePendingMaintenanceActionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20088,6 +20157,7 @@ func (s *DescribePendingMaintenanceActionsOutput) SetPendingMaintenanceActions(v
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeReservedDBInstancesMessage
 type DescribeReservedDBInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20231,6 +20301,7 @@ func (s *DescribeReservedDBInstancesInput) SetReservedDBInstancesOfferingId(v st
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeReservedDBInstancesOfferingsMessage
 type DescribeReservedDBInstancesOfferingsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20368,6 +20439,7 @@ func (s *DescribeReservedDBInstancesOfferingsInput) SetReservedDBInstancesOfferi
 
 // Contains the result of a successful invocation of the DescribeReservedDBInstancesOfferings
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ReservedDBInstancesOfferingMessage
 type DescribeReservedDBInstancesOfferingsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20404,6 +20476,7 @@ func (s *DescribeReservedDBInstancesOfferingsOutput) SetReservedDBInstancesOffer
 
 // Contains the result of a successful invocation of the DescribeReservedDBInstances
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ReservedDBInstanceMessage
 type DescribeReservedDBInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20438,6 +20511,7 @@ func (s *DescribeReservedDBInstancesOutput) SetReservedDBInstances(v []*Reserved
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeSourceRegionsMessage
 type DescribeSourceRegionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20522,6 +20596,7 @@ func (s *DescribeSourceRegionsInput) SetRegionName(v string) *DescribeSourceRegi
 
 // Contains the result of a successful invocation of the DescribeSourceRegions
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SourceRegionMessage
 type DescribeSourceRegionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20557,6 +20632,7 @@ func (s *DescribeSourceRegionsOutput) SetSourceRegions(v []*SourceRegion) *Descr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModificationsMessage
 type DescribeValidDBInstanceModificationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20595,6 +20671,7 @@ func (s *DescribeValidDBInstanceModificationsInput) SetDBInstanceIdentifier(v st
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModificationsResult
 type DescribeValidDBInstanceModificationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20621,6 +20698,7 @@ func (s *DescribeValidDBInstanceModificationsOutput) SetValidDBInstanceModificat
 }
 
 // An Active Directory Domain membership record associated with the DB instance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DomainMembership
 type DomainMembership struct {
 	_ struct{} `type:"structure"`
 
@@ -20674,6 +20752,7 @@ func (s *DomainMembership) SetStatus(v string) *DomainMembership {
 }
 
 // A range of double values.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DoubleRange
 type DoubleRange struct {
 	_ struct{} `type:"structure"`
 
@@ -20706,6 +20785,7 @@ func (s *DoubleRange) SetTo(v float64) *DoubleRange {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DownloadDBLogFilePortionMessage
 type DownloadDBLogFilePortionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20805,6 +20885,7 @@ func (s *DownloadDBLogFilePortionInput) SetNumberOfLines(v int64) *DownloadDBLog
 }
 
 // This data type is used as a response element to DownloadDBLogFilePortion.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DownloadDBLogFilePortionDetails
 type DownloadDBLogFilePortionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20854,6 +20935,7 @@ func (s *DownloadDBLogFilePortionOutput) SetMarker(v string) *DownloadDBLogFileP
 //    * DescribeDBSecurityGroups
 //
 //    * RevokeDBSecurityGroupIngress
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EC2SecurityGroup
 type EC2SecurityGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -20913,6 +20995,7 @@ func (s *EC2SecurityGroup) SetStatus(v string) *EC2SecurityGroup {
 //    * DescribeDBInstances
 //
 //    * DeleteDBInstance
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Endpoint
 type Endpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -20956,6 +21039,7 @@ func (s *Endpoint) SetPort(v int64) *Endpoint {
 
 // Contains the result of a successful invocation of the DescribeEngineDefaultParameters
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EngineDefaults
 type EngineDefaults struct {
 	_ struct{} `type:"structure"`
 
@@ -21001,6 +21085,7 @@ func (s *EngineDefaults) SetParameters(v []*Parameter) *EngineDefaults {
 }
 
 // This data type is used as a response element in the DescribeEvents action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Event
 type Event struct {
 	_ struct{} `type:"structure"`
 
@@ -21071,6 +21156,7 @@ func (s *Event) SetSourceType(v string) *Event {
 
 // Contains the results of a successful invocation of the DescribeEventCategories
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EventCategoriesMap
 type EventCategoriesMap struct {
 	_ struct{} `type:"structure"`
 
@@ -21105,6 +21191,7 @@ func (s *EventCategoriesMap) SetSourceType(v string) *EventCategoriesMap {
 
 // Contains the results of a successful invocation of the DescribeEventSubscriptions
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/EventSubscription
 type EventSubscription struct {
 	_ struct{} `type:"structure"`
 
@@ -21219,6 +21306,7 @@ func (s *EventSubscription) SetSubscriptionCreationTime(v string) *EventSubscrip
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/FailoverDBClusterMessage
 type FailoverDBClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21258,6 +21346,7 @@ func (s *FailoverDBClusterInput) SetTargetDBInstanceIdentifier(v string) *Failov
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/FailoverDBClusterResult
 type FailoverDBClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21284,6 +21373,7 @@ func (s *FailoverDBClusterOutput) SetDBCluster(v *DBCluster) *FailoverDBClusterO
 }
 
 // This type is not currently supported.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Filter
 type Filter struct {
 	_ struct{} `type:"structure"`
 
@@ -21338,6 +21428,7 @@ func (s *Filter) SetValues(v []*string) *Filter {
 
 // This data type is used as a response element in the DescribeDBSecurityGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/IPRange
 type IPRange struct {
 	_ struct{} `type:"structure"`
 
@@ -21371,6 +21462,7 @@ func (s *IPRange) SetStatus(v string) *IPRange {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ListTagsForResourceMessage
 type ListTagsForResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21430,6 +21522,7 @@ func (s *ListTagsForResourceInput) SetResourceName(v string) *ListTagsForResourc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/TagListMessage
 type ListTagsForResourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21453,6 +21546,7 @@ func (s *ListTagsForResourceOutput) SetTagList(v []*Tag) *ListTagsForResourceOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBClusterMessage
 type ModifyDBClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21522,7 +21616,7 @@ type ModifyDBClusterInput struct {
 	NewDBClusterIdentifier *string `type:"string"`
 
 	// A value that indicates that the DB cluster should be associated with the
-	// specified option group. Changing this parameter doesn't result in an outage
+	// specified option group. Changing this parameter does not result in an outage
 	// except in the following case, and the change is applied during the next maintenance
 	// window unless the ApplyImmediately parameter is set to true for this request.
 	// If the parameter change results in an option group that enables OEM, this
@@ -21674,6 +21768,7 @@ func (s *ModifyDBClusterInput) SetVpcSecurityGroupIds(v []*string) *ModifyDBClus
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBClusterResult
 type ModifyDBClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21699,6 +21794,7 @@ func (s *ModifyDBClusterOutput) SetDBCluster(v *DBCluster) *ModifyDBClusterOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBClusterParameterGroupMessage
 type ModifyDBClusterParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21751,6 +21847,7 @@ func (s *ModifyDBClusterParameterGroupInput) SetParameters(v []*Parameter) *Modi
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBClusterSnapshotAttributeMessage
 type ModifyDBClusterSnapshotAttributeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21839,6 +21936,7 @@ func (s *ModifyDBClusterSnapshotAttributeInput) SetValuesToRemove(v []*string) *
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBClusterSnapshotAttributeResult
 type ModifyDBClusterSnapshotAttributeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -21867,22 +21965,81 @@ func (s *ModifyDBClusterSnapshotAttributeOutput) SetDBClusterSnapshotAttributesR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBInstanceMessage
 type ModifyDBInstanceInput struct {
 	_ struct{} `type:"structure"`
 
-	// The new amount of storage (in gibibytes) to allocate for the DB instance.
+	// The new storage capacity of the RDS instance. Changing this setting does
+	// not result in an outage and the change is applied during the next maintenance
+	// window unless ApplyImmediately is set to true for this request.
 	//
-	// For MariaDB, MySQL, Oracle, and PostgreSQL, the value supplied must be at
-	// least 10% greater than the current value. Values that are not at least 10%
-	// greater than the existing value are rounded up so that they are 10% greater
-	// than the current value.
+	// MySQL
 	//
-	// For the valid values for allocated storage for each engine, see CreateDBInstance.
+	// Default: Uses existing setting
+	//
+	// Valid Values: 5-6144
+	//
+	// Constraints: Value supplied must be at least 10% greater than the current
+	// value. Values that are not at least 10% greater than the existing value are
+	// rounded up so that they are 10% greater than the current value.
+	//
+	// Type: Integer
+	//
+	// MariaDB
+	//
+	// Default: Uses existing setting
+	//
+	// Valid Values: 5-6144
+	//
+	// Constraints: Value supplied must be at least 10% greater than the current
+	// value. Values that are not at least 10% greater than the existing value are
+	// rounded up so that they are 10% greater than the current value.
+	//
+	// Type: Integer
+	//
+	// PostgreSQL
+	//
+	// Default: Uses existing setting
+	//
+	// Valid Values: 5-6144
+	//
+	// Constraints: Value supplied must be at least 10% greater than the current
+	// value. Values that are not at least 10% greater than the existing value are
+	// rounded up so that they are 10% greater than the current value.
+	//
+	// Type: Integer
+	//
+	// Oracle
+	//
+	// Default: Uses existing setting
+	//
+	// Valid Values: 10-6144
+	//
+	// Constraints: Value supplied must be at least 10% greater than the current
+	// value. Values that are not at least 10% greater than the existing value are
+	// rounded up so that they are 10% greater than the current value.
+	//
+	// SQL Server
+	//
+	// Cannot be modified.
+	//
+	// If you choose to migrate your DB instance from using standard storage to
+	// using Provisioned IOPS, or from using Provisioned IOPS to using standard
+	// storage, the process can take time. The duration of the migration depends
+	// on several factors such as database load, storage size, storage type (standard
+	// or Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+	// of prior scale storage operations. Typical migration times are under 24 hours,
+	// but the process can take up to several days in some cases. During the migration,
+	// the DB instance is available for use, but might experience performance degradation.
+	// While the migration takes place, nightly backups for the instance are suspended.
+	// No other Amazon RDS operations can take place for the instance, including
+	// modifying the instance, rebooting the instance, deleting the instance, creating
+	// a Read Replica for the instance, and creating a DB snapshot of the instance.
 	AllocatedStorage *int64 `type:"integer"`
 
 	// Indicates that major version upgrades are allowed. Changing this parameter
-	// doesn't result in an outage and the change is asynchronously applied as soon
-	// as possible.
+	// does not result in an outage and the change is asynchronously applied as
+	// soon as possible.
 	//
 	// Constraints: This parameter must be set to true when specifying a value for
 	// the EngineVersion parameter that is a different major version than the DB
@@ -21905,8 +22062,8 @@ type ModifyDBInstanceInput struct {
 	ApplyImmediately *bool `type:"boolean"`
 
 	// Indicates that minor version upgrades are applied automatically to the DB
-	// instance during the maintenance window. Changing this parameter doesn't result
-	// in an outage except in the following case and the change is asynchronously
+	// instance during the maintenance window. Changing this parameter does not
+	// result in an outage except in the following case and the change is asynchronously
 	// applied as soon as possible. An outage will result if this parameter is set
 	// to true during the maintenance window, and a newer minor version is available,
 	// and RDS has enabled auto patching for that engine version.
@@ -21946,10 +22103,6 @@ type ModifyDBInstanceInput struct {
 	// Indicates the certificate that needs to be associated with the instance.
 	CACertificateIdentifier *string `type:"string"`
 
-	// The configuration setting for the log types to be enabled for export to CloudWatch
-	// Logs for a specific DB instance or DB cluster.
-	CloudwatchLogsExportConfiguration *CloudwatchLogsExportConfiguration `type:"structure"`
-
 	// True to copy all tags from the DB instance to snapshots of the DB instance,
 	// and otherwise false. The default is false.
 	CopyTagsToSnapshot *bool `type:"boolean"`
@@ -21977,7 +22130,7 @@ type ModifyDBInstanceInput struct {
 	DBInstanceIdentifier *string `type:"string" required:"true"`
 
 	// The name of the DB parameter group to apply to the DB instance. Changing
-	// this setting doesn't result in an outage. The parameter group name itself
+	// this setting does not result in an outage. The parameter group name itself
 	// is changed immediately, but the actual parameter changes are not applied
 	// until you reboot the instance without failover. The db instance will NOT
 	// be rebooted automatically and the parameter changes will NOT be applied during
@@ -22038,7 +22191,7 @@ type ModifyDBInstanceInput struct {
 	DBPortNumber *int64 `type:"integer"`
 
 	// A list of DB security groups to authorize on this DB instance. Changing this
-	// setting doesn't result in an outage and the change is asynchronously applied
+	// setting does not result in an outage and the change is asynchronously applied
 	// as soon as possible.
 	//
 	// Constraints:
@@ -22104,12 +22257,24 @@ type ModifyDBInstanceInput struct {
 	EngineVersion *string `type:"string"`
 
 	// The new Provisioned IOPS (I/O operations per second) value for the RDS instance.
-	//
-	// Changing this setting doesn't result in an outage and the change is applied
+	// Changing this setting does not result in an outage and the change is applied
 	// during the next maintenance window unless the ApplyImmediately parameter
-	// is set to true for this request. If you are migrating from Provisioned IOPS
-	// to standard storage, set this value to 0. The DB instance will require a
-	// reboot for the change in storage type to take effect.
+	// is set to true for this request.
+	//
+	// Default: Uses existing setting
+	//
+	// Constraints: Value supplied must be at least 10% greater than the current
+	// value. Values that are not at least 10% greater than the existing value are
+	// rounded up so that they are 10% greater than the current value. If you are
+	// migrating from Provisioned IOPS to standard storage, set this value to 0.
+	// The DB instance will require a reboot for the change in storage type to take
+	// effect.
+	//
+	// SQL Server
+	//
+	// Setting the IOPS value for the SQL Server database engine is not supported.
+	//
+	// Type: Integer
 	//
 	// If you choose to migrate your DB instance from using standard storage to
 	// using Provisioned IOPS, or from using Provisioned IOPS to using standard
@@ -22123,13 +22288,6 @@ type ModifyDBInstanceInput struct {
 	// No other Amazon RDS operations can take place for the instance, including
 	// modifying the instance, rebooting the instance, deleting the instance, creating
 	// a Read Replica for the instance, and creating a DB snapshot of the instance.
-	//
-	// Constraints: For MariaDB, MySQL, Oracle, and PostgreSQL, the value supplied
-	// must be at least 10% greater than the current value. Values that are not
-	// at least 10% greater than the existing value are rounded up so that they
-	// are 10% greater than the current value.
-	//
-	// Default: Uses existing setting
 	Iops *int64 `type:"integer"`
 
 	// The license model for the DB instance.
@@ -22140,7 +22298,7 @@ type ModifyDBInstanceInput struct {
 	// The new password for the master user. The password can include any printable
 	// ASCII character except "/", """, or "@".
 	//
-	// Changing this parameter doesn't result in an outage and the change is asynchronously
+	// Changing this parameter does not result in an outage and the change is asynchronously
 	// applied as soon as possible. Between the time of the request and the completion
 	// of the request, the MasterUserPassword element exists in the PendingModifiedValues
 	// element of the operation response.
@@ -22197,8 +22355,10 @@ type ModifyDBInstanceInput struct {
 	MonitoringRoleArn *string `type:"string"`
 
 	// Specifies if the DB instance is a Multi-AZ deployment. Changing this parameter
-	// doesn't result in an outage and the change is applied during the next maintenance
+	// does not result in an outage and the change is applied during the next maintenance
 	// window unless the ApplyImmediately parameter is set to true for this request.
+	//
+	// Constraints: Cannot be specified if the DB instance is a Read Replica.
 	MultiAZ *bool `type:"boolean"`
 
 	// The new DB instance identifier for the DB instance when renaming a DB instance.
@@ -22219,7 +22379,7 @@ type ModifyDBInstanceInput struct {
 	NewDBInstanceIdentifier *string `type:"string"`
 
 	// Indicates that the DB instance should be associated with the specified option
-	// group. Changing this parameter doesn't result in an outage except in the
+	// group. Changing this parameter does not result in an outage except in the
 	// following case and the change is applied during the next maintenance window
 	// unless the ApplyImmediately parameter is set to true for this request. If
 	// the parameter change results in an option group that enables OEM, this change
@@ -22238,7 +22398,7 @@ type ModifyDBInstanceInput struct {
 
 	// The daily time range during which automated backups are created if automated
 	// backups are enabled, as determined by the BackupRetentionPeriod parameter.
-	// Changing this parameter doesn't result in an outage and the change is asynchronously
+	// Changing this parameter does not result in an outage and the change is asynchronously
 	// applied as soon as possible.
 	//
 	// Amazon Aurora
@@ -22258,8 +22418,8 @@ type ModifyDBInstanceInput struct {
 	PreferredBackupWindow *string `type:"string"`
 
 	// The weekly time range (in UTC) during which system maintenance can occur,
-	// which might result in an outage. Changing this parameter doesn't result in
-	// an outage, except in the following situation, and the change is asynchronously
+	// which might result in an outage. Changing this parameter does not result
+	// in an outage, except in the following situation, and the change is asynchronously
 	// applied as soon as possible. If there are pending actions that cause a reboot,
 	// and the maintenance window is changed to include the current time, then changing
 	// this parameter will cause a reboot of the DB instance. If moving this window
@@ -22302,23 +22462,9 @@ type ModifyDBInstanceInput struct {
 
 	// Specifies the storage type to be associated with the DB instance.
 	//
-	// If you specify Provisioned IOPS (io1), you must also include a value for
-	// the Iops parameter.
-	//
-	// If you choose to migrate your DB instance from using standard storage to
-	// using Provisioned IOPS, or from using Provisioned IOPS to using standard
-	// storage, the process can take time. The duration of the migration depends
-	// on several factors such as database load, storage size, storage type (standard
-	// or Provisioned IOPS), amount of IOPS provisioned (if any), and the number
-	// of prior scale storage operations. Typical migration times are under 24 hours,
-	// but the process can take up to several days in some cases. During the migration,
-	// the DB instance is available for use, but might experience performance degradation.
-	// While the migration takes place, nightly backups for the instance are suspended.
-	// No other Amazon RDS operations can take place for the instance, including
-	// modifying the instance, rebooting the instance, deleting the instance, creating
-	// a Read Replica for the instance, and creating a DB snapshot of the instance.
-	//
 	// Valid values: standard | gp2 | io1
+	//
+	// If you specify io1, you must also include a value for the Iops parameter.
 	//
 	// Default: io1 if the Iops parameter is specified, otherwise standard
 	StorageType *string `type:"string"`
@@ -22400,12 +22546,6 @@ func (s *ModifyDBInstanceInput) SetBackupRetentionPeriod(v int64) *ModifyDBInsta
 // SetCACertificateIdentifier sets the CACertificateIdentifier field's value.
 func (s *ModifyDBInstanceInput) SetCACertificateIdentifier(v string) *ModifyDBInstanceInput {
 	s.CACertificateIdentifier = &v
-	return s
-}
-
-// SetCloudwatchLogsExportConfiguration sets the CloudwatchLogsExportConfiguration field's value.
-func (s *ModifyDBInstanceInput) SetCloudwatchLogsExportConfiguration(v *CloudwatchLogsExportConfiguration) *ModifyDBInstanceInput {
-	s.CloudwatchLogsExportConfiguration = v
 	return s
 }
 
@@ -22583,6 +22723,7 @@ func (s *ModifyDBInstanceInput) SetVpcSecurityGroupIds(v []*string) *ModifyDBIns
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBInstanceResult
 type ModifyDBInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22608,6 +22749,7 @@ func (s *ModifyDBInstanceOutput) SetDBInstance(v *DBInstance) *ModifyDBInstanceO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBParameterGroupMessage
 type ModifyDBParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22673,6 +22815,7 @@ func (s *ModifyDBParameterGroupInput) SetParameters(v []*Parameter) *ModifyDBPar
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSnapshotAttributeMessage
 type ModifyDBSnapshotAttributeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22759,6 +22902,7 @@ func (s *ModifyDBSnapshotAttributeInput) SetValuesToRemove(v []*string) *ModifyD
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSnapshotAttributeResult
 type ModifyDBSnapshotAttributeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22787,6 +22931,7 @@ func (s *ModifyDBSnapshotAttributeOutput) SetDBSnapshotAttributesResult(v *DBSna
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSnapshotMessage
 type ModifyDBSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22863,6 +23008,7 @@ func (s *ModifyDBSnapshotInput) SetOptionGroupName(v string) *ModifyDBSnapshotIn
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSnapshotResult
 type ModifyDBSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22888,6 +23034,7 @@ func (s *ModifyDBSnapshotOutput) SetDBSnapshot(v *DBSnapshot) *ModifyDBSnapshotO
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSubnetGroupMessage
 type ModifyDBSubnetGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22955,6 +23102,7 @@ func (s *ModifyDBSubnetGroupInput) SetSubnetIds(v []*string) *ModifyDBSubnetGrou
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSubnetGroupResult
 type ModifyDBSubnetGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22981,6 +23129,7 @@ func (s *ModifyDBSubnetGroupOutput) SetDBSubnetGroup(v *DBSubnetGroup) *ModifyDB
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyEventSubscriptionMessage
 type ModifyEventSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23065,6 +23214,7 @@ func (s *ModifyEventSubscriptionInput) SetSubscriptionName(v string) *ModifyEven
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyEventSubscriptionResult
 type ModifyEventSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -23089,6 +23239,7 @@ func (s *ModifyEventSubscriptionOutput) SetEventSubscription(v *EventSubscriptio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyOptionGroupMessage
 type ModifyOptionGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23170,6 +23321,7 @@ func (s *ModifyOptionGroupInput) SetOptionsToRemove(v []*string) *ModifyOptionGr
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyOptionGroupResult
 type ModifyOptionGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -23193,6 +23345,7 @@ func (s *ModifyOptionGroupOutput) SetOptionGroup(v *OptionGroup) *ModifyOptionGr
 }
 
 // Option details.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Option
 type Option struct {
 	_ struct{} `type:"structure"`
 
@@ -23291,6 +23444,7 @@ func (s *Option) SetVpcSecurityGroupMemberships(v []*VpcSecurityGroupMembership)
 }
 
 // A list of all available options
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionConfiguration
 type OptionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -23374,6 +23528,7 @@ func (s *OptionConfiguration) SetVpcSecurityGroupMemberships(v []*string) *Optio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionGroup
 type OptionGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -23467,6 +23622,7 @@ func (s *OptionGroup) SetVpcId(v string) *OptionGroup {
 }
 
 // Provides information on the option groups the DB instance is a member of.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionGroupMembership
 type OptionGroupMembership struct {
 	_ struct{} `type:"structure"`
 
@@ -23502,6 +23658,7 @@ func (s *OptionGroupMembership) SetStatus(v string) *OptionGroupMembership {
 }
 
 // Available option.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionGroupOption
 type OptionGroupOption struct {
 	_ struct{} `type:"structure"`
 
@@ -23672,6 +23829,7 @@ func (s *OptionGroupOption) SetVpcOnly(v bool) *OptionGroupOption {
 // Option group option settings are used to display settings available for each
 // option with their default values and other information. These values are
 // used with the DescribeOptionGroupOptions action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionGroupOptionSetting
 type OptionGroupOptionSetting struct {
 	_ struct{} `type:"structure"`
 
@@ -23745,6 +23903,7 @@ func (s *OptionGroupOptionSetting) SetSettingName(v string) *OptionGroupOptionSe
 // option. It is used when you modify an option group or describe option groups.
 // For example, the NATIVE_NETWORK_ENCRYPTION option has a setting called SQLNET.ENCRYPTION_SERVER
 // that can have several different values.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionSetting
 type OptionSetting struct {
 	_ struct{} `type:"structure"`
 
@@ -23843,6 +24002,7 @@ func (s *OptionSetting) SetValue(v string) *OptionSetting {
 
 // The version for an option. Option group option versions are returned by the
 // DescribeOptionGroupOptions action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OptionVersion
 type OptionVersion struct {
 	_ struct{} `type:"structure"`
 
@@ -23879,6 +24039,7 @@ func (s *OptionVersion) SetVersion(v string) *OptionVersion {
 //
 // This data type is used as a response element in the DescribeOrderableDBInstanceOptions
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/OrderableDBInstanceOption
 type OrderableDBInstanceOption struct {
 	_ struct{} `type:"structure"`
 
@@ -24079,6 +24240,7 @@ func (s *OrderableDBInstanceOption) SetVpc(v bool) *OrderableDBInstanceOption {
 //
 // This data type is used as a response element in the DescribeEngineDefaultParameters
 // and DescribeDBParameters actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Parameter
 type Parameter struct {
 	_ struct{} `type:"structure"`
 
@@ -24185,43 +24347,8 @@ func (s *Parameter) SetSource(v string) *Parameter {
 	return s
 }
 
-// A list of the log types whose configuration is still pending. In other words,
-// these log types are in the process of being activated or deactivated.
-type PendingCloudwatchLogsExports struct {
-	_ struct{} `type:"structure"`
-
-	// Log types that are in the process of being enabled. After they are enabled,
-	// these log types are exported to CloudWatch Logs.
-	LogTypesToDisable []*string `type:"list"`
-
-	// Log types that are in the process of being deactivated. After they are deactivated,
-	// these log types aren't exported to CloudWatch Logs.
-	LogTypesToEnable []*string `type:"list"`
-}
-
-// String returns the string representation
-func (s PendingCloudwatchLogsExports) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s PendingCloudwatchLogsExports) GoString() string {
-	return s.String()
-}
-
-// SetLogTypesToDisable sets the LogTypesToDisable field's value.
-func (s *PendingCloudwatchLogsExports) SetLogTypesToDisable(v []*string) *PendingCloudwatchLogsExports {
-	s.LogTypesToDisable = v
-	return s
-}
-
-// SetLogTypesToEnable sets the LogTypesToEnable field's value.
-func (s *PendingCloudwatchLogsExports) SetLogTypesToEnable(v []*string) *PendingCloudwatchLogsExports {
-	s.LogTypesToEnable = v
-	return s
-}
-
 // Provides information about a pending maintenance action for a resource.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PendingMaintenanceAction
 type PendingMaintenanceAction struct {
 	_ struct{} `type:"structure"`
 
@@ -24301,6 +24428,7 @@ func (s *PendingMaintenanceAction) SetOptInStatus(v string) *PendingMaintenanceA
 }
 
 // This data type is used as a response element in the ModifyDBInstance action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PendingModifiedValues
 type PendingModifiedValues struct {
 	_ struct{} `type:"structure"`
 
@@ -24343,10 +24471,6 @@ type PendingModifiedValues struct {
 
 	// Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.
 	MultiAZ *bool `type:"boolean"`
-
-	// A list of the log types whose configuration is still pending. In other words,
-	// these log types are in the process of being activated or deactivated.
-	PendingCloudwatchLogsExports *PendingCloudwatchLogsExports `type:"structure"`
 
 	// Specifies the pending port for the DB instance.
 	Port *int64 `type:"integer"`
@@ -24431,12 +24555,6 @@ func (s *PendingModifiedValues) SetMultiAZ(v bool) *PendingModifiedValues {
 	return s
 }
 
-// SetPendingCloudwatchLogsExports sets the PendingCloudwatchLogsExports field's value.
-func (s *PendingModifiedValues) SetPendingCloudwatchLogsExports(v *PendingCloudwatchLogsExports) *PendingModifiedValues {
-	s.PendingCloudwatchLogsExports = v
-	return s
-}
-
 // SetPort sets the Port field's value.
 func (s *PendingModifiedValues) SetPort(v int64) *PendingModifiedValues {
 	s.Port = &v
@@ -24449,6 +24567,7 @@ func (s *PendingModifiedValues) SetStorageType(v string) *PendingModifiedValues 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PromoteReadReplicaDBClusterMessage
 type PromoteReadReplicaDBClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24494,6 +24613,7 @@ func (s *PromoteReadReplicaDBClusterInput) SetDBClusterIdentifier(v string) *Pro
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PromoteReadReplicaDBClusterResult
 type PromoteReadReplicaDBClusterOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -24519,6 +24639,7 @@ func (s *PromoteReadReplicaDBClusterOutput) SetDBCluster(v *DBCluster) *PromoteR
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PromoteReadReplicaMessage
 type PromoteReadReplicaInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24605,6 +24726,7 @@ func (s *PromoteReadReplicaInput) SetPreferredBackupWindow(v string) *PromoteRea
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PromoteReadReplicaResult
 type PromoteReadReplicaOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -24630,6 +24752,7 @@ func (s *PromoteReadReplicaOutput) SetDBInstance(v *DBInstance) *PromoteReadRepl
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PurchaseReservedDBInstancesOfferingMessage
 type PurchaseReservedDBInstancesOfferingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24701,6 +24824,7 @@ func (s *PurchaseReservedDBInstancesOfferingInput) SetTags(v []*Tag) *PurchaseRe
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/PurchaseReservedDBInstancesOfferingResult
 type PurchaseReservedDBInstancesOfferingOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -24726,6 +24850,7 @@ func (s *PurchaseReservedDBInstancesOfferingOutput) SetReservedDBInstance(v *Res
 }
 
 // A range of integer values.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Range
 type Range struct {
 	_ struct{} `type:"structure"`
 
@@ -24770,6 +24895,7 @@ func (s *Range) SetTo(v int64) *Range {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBInstanceMessage
 type RebootDBInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24824,6 +24950,7 @@ func (s *RebootDBInstanceInput) SetForceFailover(v bool) *RebootDBInstanceInput 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBInstanceResult
 type RebootDBInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -24851,6 +24978,7 @@ func (s *RebootDBInstanceOutput) SetDBInstance(v *DBInstance) *RebootDBInstanceO
 
 // This data type is used as a response element in the DescribeReservedDBInstances
 // and DescribeReservedDBInstancesOfferings actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RecurringCharge
 type RecurringCharge struct {
 	_ struct{} `type:"structure"`
 
@@ -24883,6 +25011,7 @@ func (s *RecurringCharge) SetRecurringChargeFrequency(v string) *RecurringCharge
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RemoveRoleFromDBClusterMessage
 type RemoveRoleFromDBClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24936,6 +25065,7 @@ func (s *RemoveRoleFromDBClusterInput) SetRoleArn(v string) *RemoveRoleFromDBClu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RemoveRoleFromDBClusterOutput
 type RemoveRoleFromDBClusterOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -24950,6 +25080,7 @@ func (s RemoveRoleFromDBClusterOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RemoveSourceIdentifierFromSubscriptionMessage
 type RemoveSourceIdentifierFromSubscriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25004,6 +25135,7 @@ func (s *RemoveSourceIdentifierFromSubscriptionInput) SetSubscriptionName(v stri
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RemoveSourceIdentifierFromSubscriptionResult
 type RemoveSourceIdentifierFromSubscriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -25028,6 +25160,7 @@ func (s *RemoveSourceIdentifierFromSubscriptionOutput) SetEventSubscription(v *E
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RemoveTagsFromResourceMessage
 type RemoveTagsFromResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25082,6 +25215,7 @@ func (s *RemoveTagsFromResourceInput) SetTagKeys(v []*string) *RemoveTagsFromRes
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RemoveTagsFromResourceOutput
 type RemoveTagsFromResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -25098,6 +25232,7 @@ func (s RemoveTagsFromResourceOutput) GoString() string {
 
 // This data type is used as a response element in the DescribeReservedDBInstances
 // and PurchaseReservedDBInstancesOffering actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ReservedDBInstance
 type ReservedDBInstance struct {
 	_ struct{} `type:"structure"`
 
@@ -25249,6 +25384,7 @@ func (s *ReservedDBInstance) SetUsagePrice(v float64) *ReservedDBInstance {
 
 // This data type is used as a response element in the DescribeReservedDBInstancesOfferings
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ReservedDBInstancesOffering
 type ReservedDBInstancesOffering struct {
 	_ struct{} `type:"structure"`
 
@@ -25353,6 +25489,7 @@ func (s *ReservedDBInstancesOffering) SetUsagePrice(v float64) *ReservedDBInstan
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ResetDBClusterParameterGroupMessage
 type ResetDBClusterParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25413,6 +25550,7 @@ func (s *ResetDBClusterParameterGroupInput) SetResetAllParameters(v bool) *Reset
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ResetDBParameterGroupMessage
 type ResetDBParameterGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25500,6 +25638,7 @@ func (s *ResetDBParameterGroupInput) SetResetAllParameters(v bool) *ResetDBParam
 }
 
 // Describes the pending maintenance actions for a resource.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ResourcePendingMaintenanceActions
 type ResourcePendingMaintenanceActions struct {
 	_ struct{} `type:"structure"`
 
@@ -25533,6 +25672,7 @@ func (s *ResourcePendingMaintenanceActions) SetResourceIdentifier(v string) *Res
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBClusterFromS3Message
 type RestoreDBClusterFromS3Input struct {
 	_ struct{} `type:"structure"`
 
@@ -25603,13 +25743,9 @@ type RestoreDBClusterFromS3Input struct {
 
 	// The version number of the database engine to use.
 	//
-	// Aurora MySQL
+	// Aurora
 	//
 	// Example: 5.6.10a
-	//
-	// Aurora PostgreSQL
-	//
-	// Example: 9.6.3
 	EngineVersion *string `type:"string"`
 
 	// The AWS KMS key identifier for an encrypted DB cluster.
@@ -25934,6 +26070,7 @@ func (s *RestoreDBClusterFromS3Input) SetVpcSecurityGroupIds(v []*string) *Resto
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBClusterFromS3Result
 type RestoreDBClusterFromS3Output struct {
 	_ struct{} `type:"structure"`
 
@@ -25959,6 +26096,7 @@ func (s *RestoreDBClusterFromS3Output) SetDBCluster(v *DBCluster) *RestoreDBClus
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBClusterFromSnapshotMessage
 type RestoreDBClusterFromSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26166,6 +26304,7 @@ func (s *RestoreDBClusterFromSnapshotInput) SetVpcSecurityGroupIds(v []*string) 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBClusterFromSnapshotResult
 type RestoreDBClusterFromSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -26191,6 +26330,7 @@ func (s *RestoreDBClusterFromSnapshotOutput) SetDBCluster(v *DBCluster) *Restore
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBClusterToPointInTimeMessage
 type RestoreDBClusterToPointInTimeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26411,6 +26551,7 @@ func (s *RestoreDBClusterToPointInTimeInput) SetVpcSecurityGroupIds(v []*string)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBClusterToPointInTimeResult
 type RestoreDBClusterToPointInTimeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -26436,6 +26577,7 @@ func (s *RestoreDBClusterToPointInTimeOutput) SetDBCluster(v *DBCluster) *Restor
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromDBSnapshotMessage
 type RestoreDBInstanceFromDBSnapshotInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26513,10 +26655,6 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	// Directory Service.
 	DomainIAMRoleName *string `type:"string"`
 
-	// The list of logs that the restored DB instance is to export to CloudWatch
-	// Logs.
-	EnableCloudwatchLogsExports []*string `type:"list"`
-
 	// True to enable mapping of AWS Identity and Access Management (IAM) accounts
 	// to database accounts, and otherwise false.
 	//
@@ -26526,6 +26664,8 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	//
 	//    * For MySQL 5.7, minor version 5.7.16 or higher
 	//
+	//    * Aurora 5.6 or higher.
+	//
 	// Default: false
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
 
@@ -26533,10 +26673,14 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	//
 	// Default: The same as source
 	//
-	// Constraint: Must be compatible with the engine of the source. For example,
-	// you can restore a MariaDB 10.1 DB instance from a MySQL 5.6 snapshot.
+	// Constraint: Must be compatible with the engine of the source. You can restore
+	// a MariaDB 10.1 DB instance from a MySQL 5.6 snapshot.
 	//
 	// Valid Values:
+	//
+	//    * aurora
+	//
+	//    * aurora-postgresql
 	//
 	//    * mariadb
 	//
@@ -26726,12 +26870,6 @@ func (s *RestoreDBInstanceFromDBSnapshotInput) SetDomainIAMRoleName(v string) *R
 	return s
 }
 
-// SetEnableCloudwatchLogsExports sets the EnableCloudwatchLogsExports field's value.
-func (s *RestoreDBInstanceFromDBSnapshotInput) SetEnableCloudwatchLogsExports(v []*string) *RestoreDBInstanceFromDBSnapshotInput {
-	s.EnableCloudwatchLogsExports = v
-	return s
-}
-
 // SetEnableIAMDatabaseAuthentication sets the EnableIAMDatabaseAuthentication field's value.
 func (s *RestoreDBInstanceFromDBSnapshotInput) SetEnableIAMDatabaseAuthentication(v bool) *RestoreDBInstanceFromDBSnapshotInput {
 	s.EnableIAMDatabaseAuthentication = &v
@@ -26804,6 +26942,7 @@ func (s *RestoreDBInstanceFromDBSnapshotInput) SetTdeCredentialPassword(v string
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromDBSnapshotResult
 type RestoreDBInstanceFromDBSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -26829,6 +26968,7 @@ func (s *RestoreDBInstanceFromDBSnapshotOutput) SetDBInstance(v *DBInstance) *Re
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3Message
 type RestoreDBInstanceFromS3Input struct {
 	_ struct{} `type:"structure"`
 
@@ -26914,10 +27054,6 @@ type RestoreDBInstanceFromS3Input struct {
 
 	// A DB subnet group to associate with this DB instance.
 	DBSubnetGroupName *string `type:"string"`
-
-	// The list of logs that the restored DB instance is to export to CloudWatch
-	// Logs.
-	EnableCloudwatchLogsExports []*string `type:"list"`
 
 	// True to enable mapping of AWS Identity and Access Management (IAM) accounts
 	// to database accounts, and otherwise false.
@@ -27211,12 +27347,6 @@ func (s *RestoreDBInstanceFromS3Input) SetDBSubnetGroupName(v string) *RestoreDB
 	return s
 }
 
-// SetEnableCloudwatchLogsExports sets the EnableCloudwatchLogsExports field's value.
-func (s *RestoreDBInstanceFromS3Input) SetEnableCloudwatchLogsExports(v []*string) *RestoreDBInstanceFromS3Input {
-	s.EnableCloudwatchLogsExports = v
-	return s
-}
-
 // SetEnableIAMDatabaseAuthentication sets the EnableIAMDatabaseAuthentication field's value.
 func (s *RestoreDBInstanceFromS3Input) SetEnableIAMDatabaseAuthentication(v bool) *RestoreDBInstanceFromS3Input {
 	s.EnableIAMDatabaseAuthentication = &v
@@ -27379,6 +27509,7 @@ func (s *RestoreDBInstanceFromS3Input) SetVpcSecurityGroupIds(v []*string) *Rest
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3Result
 type RestoreDBInstanceFromS3Output struct {
 	_ struct{} `type:"structure"`
 
@@ -27404,6 +27535,7 @@ func (s *RestoreDBInstanceFromS3Output) SetDBInstance(v *DBInstance) *RestoreDBI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceToPointInTimeMessage
 type RestoreDBInstanceToPointInTimeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27453,10 +27585,6 @@ type RestoreDBInstanceToPointInTimeInput struct {
 	// Directory Service.
 	DomainIAMRoleName *string `type:"string"`
 
-	// The list of logs that the restored DB instance is to export to CloudWatch
-	// Logs.
-	EnableCloudwatchLogsExports []*string `type:"list"`
-
 	// True to enable mapping of AWS Identity and Access Management (IAM) accounts
 	// to database accounts, and otherwise false.
 	//
@@ -27465,6 +27593,8 @@ type RestoreDBInstanceToPointInTimeInput struct {
 	//    * For MySQL 5.6, minor version 5.6.34 or higher
 	//
 	//    * For MySQL 5.7, minor version 5.7.16 or higher
+	//
+	//    * Aurora 5.6 or higher.
 	//
 	// Default: false
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
@@ -27476,6 +27606,10 @@ type RestoreDBInstanceToPointInTimeInput struct {
 	// Constraint: Must be compatible with the engine of the source
 	//
 	// Valid Values:
+	//
+	//    * aurora
+	//
+	//    * aurora-postgresql
 	//
 	//    * mariadb
 	//
@@ -27572,7 +27706,7 @@ type RestoreDBInstanceToPointInTimeInput struct {
 	//
 	// Constraints:
 	//
-	//    * Must match the identifier of an existing DB instance.
+	//    * Must match the identifier of an existing DBInstance.
 	//
 	// SourceDBInstanceIdentifier is a required field
 	SourceDBInstanceIdentifier *string `type:"string" required:"true"`
@@ -27692,12 +27826,6 @@ func (s *RestoreDBInstanceToPointInTimeInput) SetDomainIAMRoleName(v string) *Re
 	return s
 }
 
-// SetEnableCloudwatchLogsExports sets the EnableCloudwatchLogsExports field's value.
-func (s *RestoreDBInstanceToPointInTimeInput) SetEnableCloudwatchLogsExports(v []*string) *RestoreDBInstanceToPointInTimeInput {
-	s.EnableCloudwatchLogsExports = v
-	return s
-}
-
 // SetEnableIAMDatabaseAuthentication sets the EnableIAMDatabaseAuthentication field's value.
 func (s *RestoreDBInstanceToPointInTimeInput) SetEnableIAMDatabaseAuthentication(v bool) *RestoreDBInstanceToPointInTimeInput {
 	s.EnableIAMDatabaseAuthentication = &v
@@ -27794,6 +27922,7 @@ func (s *RestoreDBInstanceToPointInTimeInput) SetUseLatestRestorableTime(v bool)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceToPointInTimeResult
 type RestoreDBInstanceToPointInTimeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -27819,6 +27948,7 @@ func (s *RestoreDBInstanceToPointInTimeOutput) SetDBInstance(v *DBInstance) *Res
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RevokeDBSecurityGroupIngressMessage
 type RevokeDBSecurityGroupIngressInput struct {
 	_ struct{} `type:"structure"`
 
@@ -27903,6 +28033,7 @@ func (s *RevokeDBSecurityGroupIngressInput) SetEC2SecurityGroupOwnerId(v string)
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RevokeDBSecurityGroupIngressResult
 type RevokeDBSecurityGroupIngressOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -27931,6 +28062,7 @@ func (s *RevokeDBSecurityGroupIngressOutput) SetDBSecurityGroup(v *DBSecurityGro
 
 // Contains an AWS Region name as the result of a successful call to the DescribeSourceRegions
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/SourceRegion
 type SourceRegion struct {
 	_ struct{} `type:"structure"`
 
@@ -27972,6 +28104,7 @@ func (s *SourceRegion) SetStatus(v string) *SourceRegion {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StartDBInstanceMessage
 type StartDBInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -28010,6 +28143,7 @@ func (s *StartDBInstanceInput) SetDBInstanceIdentifier(v string) *StartDBInstanc
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StartDBInstanceResult
 type StartDBInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -28035,6 +28169,7 @@ func (s *StartDBInstanceOutput) SetDBInstance(v *DBInstance) *StartDBInstanceOut
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StopDBInstanceMessage
 type StopDBInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -28083,6 +28218,7 @@ func (s *StopDBInstanceInput) SetDBSnapshotIdentifier(v string) *StopDBInstanceI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/StopDBInstanceResult
 type StopDBInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -28110,6 +28246,7 @@ func (s *StopDBInstanceOutput) SetDBInstance(v *DBInstance) *StopDBInstanceOutpu
 
 // This data type is used as a response element in the DescribeDBSubnetGroups
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Subnet
 type Subnet struct {
 	_ struct{} `type:"structure"`
 
@@ -28156,6 +28293,7 @@ func (s *Subnet) SetSubnetStatus(v string) *Subnet {
 }
 
 // Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Tag
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -28197,6 +28335,7 @@ func (s *Tag) SetValue(v string) *Tag {
 // A time zone associated with a DBInstance or a DBSnapshot. This data type
 // is an element in the response to the DescribeDBInstances, the DescribeDBSnapshots,
 // and the DescribeDBEngineVersions actions.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Timezone
 type Timezone struct {
 	_ struct{} `type:"structure"`
 
@@ -28221,6 +28360,7 @@ func (s *Timezone) SetTimezoneName(v string) *Timezone {
 }
 
 // The version of the database engine that a DB instance can be upgraded to.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/UpgradeTarget
 type UpgradeTarget struct {
 	_ struct{} `type:"structure"`
 
@@ -28284,6 +28424,7 @@ func (s *UpgradeTarget) SetIsMajorVersionUpgrade(v bool) *UpgradeTarget {
 // Information about valid modifications that you can make to your DB instance.
 // Contains the result of a successful call to the DescribeValidDBInstanceModifications
 // action. You can use this information when you call ModifyDBInstance.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ValidDBInstanceModificationsMessage
 type ValidDBInstanceModificationsMessage struct {
 	_ struct{} `type:"structure"`
 
@@ -28310,10 +28451,11 @@ func (s *ValidDBInstanceModificationsMessage) SetStorage(v []*ValidStorageOption
 // Information about valid modifications that you can make to your DB instance.
 // Contains the result of a successful call to the DescribeValidDBInstanceModifications
 // action.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ValidStorageOptions
 type ValidStorageOptions struct {
 	_ struct{} `type:"structure"`
 
-	// The valid range of Provisioned IOPS to gibibytes of storage multiplier. For
+	// The valid range of Provisioned IOPS to gigabytes of storage multiplier. For
 	// example, 3-10, which means that provisioned IOPS can be between 3 and 10
 	// times storage.
 	IopsToStorageRatio []*DoubleRange `locationNameList:"DoubleRange" type:"list"`
@@ -28321,7 +28463,7 @@ type ValidStorageOptions struct {
 	// The valid range of provisioned IOPS. For example, 1000-20000.
 	ProvisionedIops []*Range `locationNameList:"Range" type:"list"`
 
-	// The valid range of storage in gibibytes. For example, 100 to 16384.
+	// The valid range of storage in gigabytes. For example, 100 to 6144.
 	StorageSize []*Range `locationNameList:"Range" type:"list"`
 
 	// The valid storage types for your DB instance. For example, gp2, io1.
@@ -28364,6 +28506,7 @@ func (s *ValidStorageOptions) SetStorageType(v string) *ValidStorageOptions {
 
 // This data type is used as a response element for queries on VPC security
 // group membership.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/VpcSecurityGroupMembership
 type VpcSecurityGroupMembership struct {
 	_ struct{} `type:"structure"`
 

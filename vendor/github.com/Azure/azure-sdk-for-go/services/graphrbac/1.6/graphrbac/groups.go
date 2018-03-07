@@ -18,17 +18,15 @@ package graphrbac
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
-	"github.com/Azure/go-autorest/autorest/to"
 	"github.com/Azure/go-autorest/autorest/validation"
 	"net/http"
 )
 
 // GroupsClient is the the Graph RBAC Management Client
 type GroupsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewGroupsClient creates an instance of the GroupsClient client.
@@ -46,14 +44,14 @@ func NewGroupsClientWithBaseURI(baseURI string, tenantID string) GroupsClient {
 // groupObjectID is the object ID of the group to which to add the member. parameters is the URL of the member object,
 // such as
 // https://graph.windows.net/0b1f9851-1bf0-433f-aec3-cb9272f093dc/directoryObjects/f260bbc4-c254-447b-94cf-293b5ec434dd.
-func (client GroupsClient) AddMember(ctx context.Context, groupObjectID string, parameters GroupAddMemberParameters) (result autorest.Response, err error) {
+func (client GroupsClient) AddMember(groupObjectID string, parameters GroupAddMemberParameters) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.URL", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "graphrbac.GroupsClient", "AddMember")
 	}
 
-	req, err := client.AddMemberPreparer(ctx, groupObjectID, parameters)
+	req, err := client.AddMemberPreparer(groupObjectID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "AddMember", nil, "Failure preparing request")
 		return
@@ -75,7 +73,7 @@ func (client GroupsClient) AddMember(ctx context.Context, groupObjectID string, 
 }
 
 // AddMemberPreparer prepares the AddMember request.
-func (client GroupsClient) AddMemberPreparer(ctx context.Context, groupObjectID string, parameters GroupAddMemberParameters) (*http.Request, error) {
+func (client GroupsClient) AddMemberPreparer(groupObjectID string, parameters GroupAddMemberParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"groupObjectId": autorest.Encode("path", groupObjectID),
 		"tenantID":      autorest.Encode("path", client.TenantID),
@@ -93,14 +91,13 @@ func (client GroupsClient) AddMemberPreparer(ctx context.Context, groupObjectID 
 		autorest.WithPathParameters("/{tenantID}/groups/{groupObjectId}/$links/members", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // AddMemberSender sends the AddMember request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) AddMemberSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // AddMemberResponder handles the response to the AddMember request. The method always
@@ -118,7 +115,7 @@ func (client GroupsClient) AddMemberResponder(resp *http.Response) (result autor
 // Create create a group in the directory.
 //
 // parameters is the parameters for the group to create.
-func (client GroupsClient) Create(ctx context.Context, parameters GroupCreateParameters) (result ADGroup, err error) {
+func (client GroupsClient) Create(parameters GroupCreateParameters) (result ADGroup, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.DisplayName", Name: validation.Null, Rule: true, Chain: nil},
@@ -128,7 +125,7 @@ func (client GroupsClient) Create(ctx context.Context, parameters GroupCreatePar
 		return result, validation.NewErrorWithValidationError(err, "graphrbac.GroupsClient", "Create")
 	}
 
-	req, err := client.CreatePreparer(ctx, parameters)
+	req, err := client.CreatePreparer(parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "Create", nil, "Failure preparing request")
 		return
@@ -150,7 +147,7 @@ func (client GroupsClient) Create(ctx context.Context, parameters GroupCreatePar
 }
 
 // CreatePreparer prepares the Create request.
-func (client GroupsClient) CreatePreparer(ctx context.Context, parameters GroupCreateParameters) (*http.Request, error) {
+func (client GroupsClient) CreatePreparer(parameters GroupCreateParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"tenantID": autorest.Encode("path", client.TenantID),
 	}
@@ -167,14 +164,13 @@ func (client GroupsClient) CreatePreparer(ctx context.Context, parameters GroupC
 		autorest.WithPathParameters("/{tenantID}/groups", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // CreateResponder handles the response to the Create request. The method always
@@ -193,8 +189,8 @@ func (client GroupsClient) CreateResponder(resp *http.Response) (result ADGroup,
 // Delete delete a group from the directory.
 //
 // objectID is the object ID of the group to delete.
-func (client GroupsClient) Delete(ctx context.Context, objectID string) (result autorest.Response, err error) {
-	req, err := client.DeletePreparer(ctx, objectID)
+func (client GroupsClient) Delete(objectID string) (result autorest.Response, err error) {
+	req, err := client.DeletePreparer(objectID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -216,7 +212,7 @@ func (client GroupsClient) Delete(ctx context.Context, objectID string) (result 
 }
 
 // DeletePreparer prepares the Delete request.
-func (client GroupsClient) DeletePreparer(ctx context.Context, objectID string) (*http.Request, error) {
+func (client GroupsClient) DeletePreparer(objectID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"objectId": autorest.Encode("path", objectID),
 		"tenantID": autorest.Encode("path", client.TenantID),
@@ -232,14 +228,13 @@ func (client GroupsClient) DeletePreparer(ctx context.Context, objectID string) 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/groups/{objectId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // DeleteResponder handles the response to the Delete request. The method always
@@ -257,8 +252,8 @@ func (client GroupsClient) DeleteResponder(resp *http.Response) (result autorest
 // Get gets group information from the directory.
 //
 // objectID is the object ID of the user for which to get group information.
-func (client GroupsClient) Get(ctx context.Context, objectID string) (result ADGroup, err error) {
-	req, err := client.GetPreparer(ctx, objectID)
+func (client GroupsClient) Get(objectID string) (result ADGroup, err error) {
+	req, err := client.GetPreparer(objectID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "Get", nil, "Failure preparing request")
 		return
@@ -280,7 +275,7 @@ func (client GroupsClient) Get(ctx context.Context, objectID string) (result ADG
 }
 
 // GetPreparer prepares the Get request.
-func (client GroupsClient) GetPreparer(ctx context.Context, objectID string) (*http.Request, error) {
+func (client GroupsClient) GetPreparer(objectID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"objectId": autorest.Encode("path", objectID),
 		"tenantID": autorest.Encode("path", client.TenantID),
@@ -296,14 +291,13 @@ func (client GroupsClient) GetPreparer(ctx context.Context, objectID string) (*h
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/groups/{objectId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // GetResponder handles the response to the Get request. The method always
@@ -322,14 +316,8 @@ func (client GroupsClient) GetResponder(resp *http.Response) (result ADGroup, er
 // GetGroupMembers gets the members of a group.
 //
 // objectID is the object ID of the group whose members should be retrieved.
-func (client GroupsClient) GetGroupMembers(ctx context.Context, objectID string) (result GetObjectsResultPage, err error) {
-	result.fn = func(lastResult GetObjectsResult) (GetObjectsResult, error) {
-		if lastResult.OdataNextLink == nil || len(to.String(lastResult.OdataNextLink)) < 1 {
-			return GetObjectsResult{}, nil
-		}
-		return client.GetGroupMembersNext(ctx, *lastResult.OdataNextLink)
-	}
-	req, err := client.GetGroupMembersPreparer(ctx, objectID)
+func (client GroupsClient) GetGroupMembers(objectID string) (result GetObjectsResult, err error) {
+	req, err := client.GetGroupMembersPreparer(objectID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "GetGroupMembers", nil, "Failure preparing request")
 		return
@@ -337,12 +325,12 @@ func (client GroupsClient) GetGroupMembers(ctx context.Context, objectID string)
 
 	resp, err := client.GetGroupMembersSender(req)
 	if err != nil {
-		result.gor.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "GetGroupMembers", resp, "Failure sending request")
 		return
 	}
 
-	result.gor, err = client.GetGroupMembersResponder(resp)
+	result, err = client.GetGroupMembersResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "GetGroupMembers", resp, "Failure responding to request")
 	}
@@ -351,7 +339,7 @@ func (client GroupsClient) GetGroupMembers(ctx context.Context, objectID string)
 }
 
 // GetGroupMembersPreparer prepares the GetGroupMembers request.
-func (client GroupsClient) GetGroupMembersPreparer(ctx context.Context, objectID string) (*http.Request, error) {
+func (client GroupsClient) GetGroupMembersPreparer(objectID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"objectId": autorest.Encode("path", objectID),
 		"tenantID": autorest.Encode("path", client.TenantID),
@@ -367,14 +355,13 @@ func (client GroupsClient) GetGroupMembersPreparer(ctx context.Context, objectID
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/groups/{objectId}/members", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetGroupMembersSender sends the GetGroupMembers request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) GetGroupMembersSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // GetGroupMembersResponder handles the response to the GetGroupMembers request. The method always
@@ -390,17 +377,56 @@ func (client GroupsClient) GetGroupMembersResponder(resp *http.Response) (result
 	return
 }
 
-// GetGroupMembersComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GroupsClient) GetGroupMembersComplete(ctx context.Context, objectID string) (result GetObjectsResultIterator, err error) {
-	result.page, err = client.GetGroupMembers(ctx, objectID)
-	return
+// GetGroupMembersComplete gets all elements from the list without paging.
+func (client GroupsClient) GetGroupMembersComplete(objectID string, cancel <-chan struct{}) (<-chan AADObject, <-chan error) {
+	resultChan := make(chan AADObject)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetGroupMembers(objectID)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.OdataNextLink != nil {
+			list, err = client.GetGroupMembersNext(*list.OdataNextLink)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetGroupMembersNext gets the members of a group.
 //
 // nextLink is next link for the list operation.
-func (client GroupsClient) GetGroupMembersNext(ctx context.Context, nextLink string) (result GetObjectsResult, err error) {
-	req, err := client.GetGroupMembersNextPreparer(ctx, nextLink)
+func (client GroupsClient) GetGroupMembersNext(nextLink string) (result GetObjectsResult, err error) {
+	req, err := client.GetGroupMembersNextPreparer(nextLink)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "GetGroupMembersNext", nil, "Failure preparing request")
 		return
@@ -422,7 +448,7 @@ func (client GroupsClient) GetGroupMembersNext(ctx context.Context, nextLink str
 }
 
 // GetGroupMembersNextPreparer prepares the GetGroupMembersNext request.
-func (client GroupsClient) GetGroupMembersNextPreparer(ctx context.Context, nextLink string) (*http.Request, error) {
+func (client GroupsClient) GetGroupMembersNextPreparer(nextLink string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"nextLink": nextLink,
 		"tenantID": autorest.Encode("path", client.TenantID),
@@ -438,14 +464,13 @@ func (client GroupsClient) GetGroupMembersNextPreparer(ctx context.Context, next
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/{nextLink}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetGroupMembersNextSender sends the GetGroupMembersNext request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) GetGroupMembersNextSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // GetGroupMembersNextResponder handles the response to the GetGroupMembersNext request. The method always
@@ -464,14 +489,14 @@ func (client GroupsClient) GetGroupMembersNextResponder(resp *http.Response) (re
 // GetMemberGroups gets a collection of object IDs of groups of which the specified group is a member.
 //
 // objectID is the object ID of the group for which to get group membership. parameters is group filtering parameters.
-func (client GroupsClient) GetMemberGroups(ctx context.Context, objectID string, parameters GroupGetMemberGroupsParameters) (result GroupGetMemberGroupsResult, err error) {
+func (client GroupsClient) GetMemberGroups(objectID string, parameters GroupGetMemberGroupsParameters) (result GroupGetMemberGroupsResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.SecurityEnabledOnly", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
 		return result, validation.NewErrorWithValidationError(err, "graphrbac.GroupsClient", "GetMemberGroups")
 	}
 
-	req, err := client.GetMemberGroupsPreparer(ctx, objectID, parameters)
+	req, err := client.GetMemberGroupsPreparer(objectID, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "GetMemberGroups", nil, "Failure preparing request")
 		return
@@ -493,7 +518,7 @@ func (client GroupsClient) GetMemberGroups(ctx context.Context, objectID string,
 }
 
 // GetMemberGroupsPreparer prepares the GetMemberGroups request.
-func (client GroupsClient) GetMemberGroupsPreparer(ctx context.Context, objectID string, parameters GroupGetMemberGroupsParameters) (*http.Request, error) {
+func (client GroupsClient) GetMemberGroupsPreparer(objectID string, parameters GroupGetMemberGroupsParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"objectId": autorest.Encode("path", objectID),
 		"tenantID": autorest.Encode("path", client.TenantID),
@@ -511,14 +536,13 @@ func (client GroupsClient) GetMemberGroupsPreparer(ctx context.Context, objectID
 		autorest.WithPathParameters("/{tenantID}/groups/{objectId}/getMemberGroups", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMemberGroupsSender sends the GetMemberGroups request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) GetMemberGroupsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // GetMemberGroupsResponder handles the response to the GetMemberGroups request. The method always
@@ -538,7 +562,7 @@ func (client GroupsClient) GetMemberGroupsResponder(resp *http.Response) (result
 // of the specified group.
 //
 // parameters is the check group membership parameters.
-func (client GroupsClient) IsMemberOf(ctx context.Context, parameters CheckGroupMembershipParameters) (result CheckGroupMembershipResult, err error) {
+func (client GroupsClient) IsMemberOf(parameters CheckGroupMembershipParameters) (result CheckGroupMembershipResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.GroupID", Name: validation.Null, Rule: true, Chain: nil},
@@ -546,7 +570,7 @@ func (client GroupsClient) IsMemberOf(ctx context.Context, parameters CheckGroup
 		return result, validation.NewErrorWithValidationError(err, "graphrbac.GroupsClient", "IsMemberOf")
 	}
 
-	req, err := client.IsMemberOfPreparer(ctx, parameters)
+	req, err := client.IsMemberOfPreparer(parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "IsMemberOf", nil, "Failure preparing request")
 		return
@@ -568,7 +592,7 @@ func (client GroupsClient) IsMemberOf(ctx context.Context, parameters CheckGroup
 }
 
 // IsMemberOfPreparer prepares the IsMemberOf request.
-func (client GroupsClient) IsMemberOfPreparer(ctx context.Context, parameters CheckGroupMembershipParameters) (*http.Request, error) {
+func (client GroupsClient) IsMemberOfPreparer(parameters CheckGroupMembershipParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"tenantID": autorest.Encode("path", client.TenantID),
 	}
@@ -585,14 +609,13 @@ func (client GroupsClient) IsMemberOfPreparer(ctx context.Context, parameters Ch
 		autorest.WithPathParameters("/{tenantID}/isMemberOf", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // IsMemberOfSender sends the IsMemberOf request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) IsMemberOfSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // IsMemberOfResponder handles the response to the IsMemberOf request. The method always
@@ -611,14 +634,8 @@ func (client GroupsClient) IsMemberOfResponder(resp *http.Response) (result Chec
 // List gets list of groups for the current tenant.
 //
 // filter is the filter to apply to the operation.
-func (client GroupsClient) List(ctx context.Context, filter string) (result GroupListResultPage, err error) {
-	result.fn = func(lastResult GroupListResult) (GroupListResult, error) {
-		if lastResult.OdataNextLink == nil || len(to.String(lastResult.OdataNextLink)) < 1 {
-			return GroupListResult{}, nil
-		}
-		return client.ListNext(ctx, *lastResult.OdataNextLink)
-	}
-	req, err := client.ListPreparer(ctx, filter)
+func (client GroupsClient) List(filter string) (result GroupListResult, err error) {
+	req, err := client.ListPreparer(filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "List", nil, "Failure preparing request")
 		return
@@ -626,12 +643,12 @@ func (client GroupsClient) List(ctx context.Context, filter string) (result Grou
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.glr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.glr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "List", resp, "Failure responding to request")
 	}
@@ -640,7 +657,7 @@ func (client GroupsClient) List(ctx context.Context, filter string) (result Grou
 }
 
 // ListPreparer prepares the List request.
-func (client GroupsClient) ListPreparer(ctx context.Context, filter string) (*http.Request, error) {
+func (client GroupsClient) ListPreparer(filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"tenantID": autorest.Encode("path", client.TenantID),
 	}
@@ -658,14 +675,13 @@ func (client GroupsClient) ListPreparer(ctx context.Context, filter string) (*ht
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/groups", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // ListResponder handles the response to the List request. The method always
@@ -681,17 +697,56 @@ func (client GroupsClient) ListResponder(resp *http.Response) (result GroupListR
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client GroupsClient) ListComplete(ctx context.Context, filter string) (result GroupListResultIterator, err error) {
-	result.page, err = client.List(ctx, filter)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client GroupsClient) ListComplete(filter string, cancel <-chan struct{}) (<-chan ADGroup, <-chan error) {
+	resultChan := make(chan ADGroup)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.OdataNextLink != nil {
+			list, err = client.ListNext(*list.OdataNextLink)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListNext gets a list of groups for the current tenant.
 //
 // nextLink is next link for the list operation.
-func (client GroupsClient) ListNext(ctx context.Context, nextLink string) (result GroupListResult, err error) {
-	req, err := client.ListNextPreparer(ctx, nextLink)
+func (client GroupsClient) ListNext(nextLink string) (result GroupListResult, err error) {
+	req, err := client.ListNextPreparer(nextLink)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "ListNext", nil, "Failure preparing request")
 		return
@@ -713,7 +768,7 @@ func (client GroupsClient) ListNext(ctx context.Context, nextLink string) (resul
 }
 
 // ListNextPreparer prepares the ListNext request.
-func (client GroupsClient) ListNextPreparer(ctx context.Context, nextLink string) (*http.Request, error) {
+func (client GroupsClient) ListNextPreparer(nextLink string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"nextLink": nextLink,
 		"tenantID": autorest.Encode("path", client.TenantID),
@@ -729,14 +784,13 @@ func (client GroupsClient) ListNextPreparer(ctx context.Context, nextLink string
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/{nextLink}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListNextSender sends the ListNext request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) ListNextSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // ListNextResponder handles the response to the ListNext request. The method always
@@ -755,8 +809,8 @@ func (client GroupsClient) ListNextResponder(resp *http.Response) (result GroupL
 // RemoveMember remove a member from a group.
 //
 // groupObjectID is the object ID of the group from which to remove the member. memberObjectID is member object id
-func (client GroupsClient) RemoveMember(ctx context.Context, groupObjectID string, memberObjectID string) (result autorest.Response, err error) {
-	req, err := client.RemoveMemberPreparer(ctx, groupObjectID, memberObjectID)
+func (client GroupsClient) RemoveMember(groupObjectID string, memberObjectID string) (result autorest.Response, err error) {
+	req, err := client.RemoveMemberPreparer(groupObjectID, memberObjectID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "graphrbac.GroupsClient", "RemoveMember", nil, "Failure preparing request")
 		return
@@ -778,7 +832,7 @@ func (client GroupsClient) RemoveMember(ctx context.Context, groupObjectID strin
 }
 
 // RemoveMemberPreparer prepares the RemoveMember request.
-func (client GroupsClient) RemoveMemberPreparer(ctx context.Context, groupObjectID string, memberObjectID string) (*http.Request, error) {
+func (client GroupsClient) RemoveMemberPreparer(groupObjectID string, memberObjectID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"groupObjectId":  autorest.Encode("path", groupObjectID),
 		"memberObjectId": autorest.Encode("path", memberObjectID),
@@ -795,14 +849,13 @@ func (client GroupsClient) RemoveMemberPreparer(ctx context.Context, groupObject
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/{tenantID}/groups/{groupObjectId}/$links/members/{memberObjectId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RemoveMemberSender sends the RemoveMember request. The method will close the
 // http.Response Body if it receives an error.
 func (client GroupsClient) RemoveMemberSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	return autorest.SendWithSender(client, req)
 }
 
 // RemoveMemberResponder handles the response to the RemoveMember request. The method always

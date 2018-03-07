@@ -139,7 +139,6 @@ func NewParameterCodec(scheme *Scheme) ParameterCodec {
 		typer:     scheme,
 		convertor: scheme,
 		creator:   scheme,
-		defaulter: scheme,
 	}
 }
 
@@ -148,7 +147,6 @@ type parameterCodec struct {
 	typer     ObjectTyper
 	convertor ObjectConvertor
 	creator   ObjectCreater
-	defaulter ObjectDefaulter
 }
 
 var _ ParameterCodec = &parameterCodec{}
@@ -165,27 +163,15 @@ func (c *parameterCodec) DecodeParameters(parameters url.Values, from schema.Gro
 	}
 	for i := range targetGVKs {
 		if targetGVKs[i].GroupVersion() == from {
-			if err := c.convertor.Convert(&parameters, into, nil); err != nil {
-				return err
-			}
-			// in the case where we going into the same object we're receiving, default on the outbound object
-			if c.defaulter != nil {
-				c.defaulter.Default(into)
-			}
-			return nil
+			return c.convertor.Convert(&parameters, into, nil)
 		}
 	}
-
 	input, err := c.creator.New(from.WithKind(targetGVKs[0].Kind))
 	if err != nil {
 		return err
 	}
 	if err := c.convertor.Convert(&parameters, input, nil); err != nil {
 		return err
-	}
-	// if we have defaulter, default the input before converting to output
-	if c.defaulter != nil {
-		c.defaulter.Default(input)
 	}
 	return c.convertor.Convert(input, into, nil)
 }

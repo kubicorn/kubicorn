@@ -317,8 +317,8 @@ type DataSource struct {
 	// for the data source.
 	ManualRunsDisabled bool `json:"manualRunsDisabled,omitempty"`
 
-	// MinimumScheduleInterval: The minimum interval for scheduler to
-	// schedule runs.
+	// MinimumScheduleInterval: The minimum interval between two consecutive
+	// scheduled runs.
 	MinimumScheduleInterval string `json:"minimumScheduleInterval,omitempty"`
 
 	// Name: Data source resource name.
@@ -726,11 +726,6 @@ func (s *ListTransferRunsResponse) MarshalJSON() ([]byte, error) {
 
 // Location: A resource that represents Google Cloud Platform location.
 type Location struct {
-	// DisplayName: The friendly name for this location, typically a nearby
-	// city name.
-	// For example, "Tokyo".
-	DisplayName string `json:"displayName,omitempty"`
-
 	// Labels: Cross-service attributes for the location. For example
 	//
 	//     {"cloud.googleapis.com/region": "us-east1"}
@@ -754,7 +749,7 @@ type Location struct {
 	// server.
 	googleapi.ServerResponse `json:"-"`
 
-	// ForceSendFields is a list of field names (e.g. "DisplayName") to
+	// ForceSendFields is a list of field names (e.g. "Labels") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -762,10 +757,10 @@ type Location struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "DisplayName") to include
-	// in API requests with the JSON null value. By default, fields with
-	// empty values are omitted from API requests. However, any field with
-	// an empty value appearing in NullFields will be sent to the server as
+	// NullFields is a list of field names (e.g. "Labels") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
 	// null. It is an error if a field in this list has a non-empty value.
 	// This may be used to include null fields in Patch requests.
 	NullFields []string `json:"-"`
@@ -975,7 +970,6 @@ func (s *Status) MarshalJSON() ([]byte, error) {
 // `destination_dataset_id` is created when needed and shared with
 // the
 // appropriate data source service account.
-// Next id: 21
 type TransferConfig struct {
 	// DataRefreshWindowDays: The number of days to look back to
 	// automatically refresh the data.
@@ -1140,12 +1134,12 @@ func (s *TransferMessage) MarshalJSON() ([]byte, error) {
 }
 
 // TransferRun: Represents a data transfer run.
-// Next id: 27
+// Next id: 25
 type TransferRun struct {
 	// DataSourceId: Output only. Data source id.
 	DataSourceId string `json:"dataSourceId,omitempty"`
 
-	// DestinationDatasetId: Output only. The BigQuery target dataset id.
+	// DestinationDatasetId: The BigQuery target dataset id.
 	DestinationDatasetId string `json:"destinationDatasetId,omitempty"`
 
 	// EndTime: Output only. Time when transfer run ended.
@@ -1163,7 +1157,7 @@ type TransferRun struct {
 	// The name is ignored when creating a transfer run.
 	Name string `json:"name,omitempty"`
 
-	// Params: Output only. Data transfer specific parameters.
+	// Params: Data transfer specific parameters.
 	Params googleapi.RawMessage `json:"params,omitempty"`
 
 	// RunTime: For batch transfer runs, specifies the date and time

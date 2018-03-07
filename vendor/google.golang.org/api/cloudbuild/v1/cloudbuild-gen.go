@@ -1,4 +1,4 @@
-// Package cloudbuild provides access to the Cloud Container Builder API.
+// Package cloudbuild provides access to the Google Cloud Container Builder API.
 //
 // See https://cloud.google.com/container-builder/docs/
 //
@@ -122,13 +122,14 @@ type ProjectsTriggersService struct {
 
 // Build: A build resource in the Container Builder API.
 //
-// At a high level, a `Build` describes where to find source code, how
-// to build
-// it (for example, the builder image to run on the source), and where
-// to store
-// the built artifacts.
+// At a high level, a Build describes where to find source code, how to
+// build
+// it (for example, the builder image to run on the source), and what
+// tag to
+// apply to the built image when it is pushed to Google Container
+// Registry.
 //
-// Fields can include the following variables, which will be expanded
+// Fields can include the following variables which will be expanded
 // when the
 // build is created:
 //
@@ -142,8 +143,8 @@ type ProjectsTriggersService struct {
 //   resolved from the specified branch or tag.
 // - $SHORT_SHA: first 7 characters of $REVISION_ID or $COMMIT_SHA.
 type Build struct {
-	// BuildTriggerId: The ID of the `BuildTrigger` that triggered this
-	// build, if it was
+	// BuildTriggerId: The ID of the BuildTrigger that triggered this build,
+	// if it was
 	// triggered automatically.
 	// @OutputOnly
 	BuildTriggerId string `json:"buildTriggerId,omitempty"`
@@ -169,20 +170,18 @@ type Build struct {
 	// of all build
 	// steps.
 	//
-	// The images are pushed using the builder service account's
+	// The images will be pushed using the builder service account's
 	// credentials.
 	//
-	// The digests of the pushed images will be stored in the `Build`
+	// The digests of the pushed images will be stored in the Build
 	// resource's
 	// results field.
 	//
-	// If any of the images fail to be pushed, the build status is
-	// marked
-	// `FAILURE`.
+	// If any of the images fail to be pushed, the build is marked FAILURE.
 	Images []string `json:"images,omitempty"`
 
 	// LogUrl: URL to logs for this build in Google Cloud
-	// Console.
+	// Logging.
 	// @OutputOnly
 	LogUrl string `json:"logUrl,omitempty"`
 
@@ -207,10 +206,10 @@ type Build struct {
 	// @OutputOnly
 	Results *Results `json:"results,omitempty"`
 
-	// Secrets: Secrets to decrypt using Cloud Key Management Service.
+	// Secrets: Secrets to decrypt using Cloud KMS.
 	Secrets []*Secret `json:"secrets,omitempty"`
 
-	// Source: The location of the source files to build.
+	// Source: Describes where to find the source files to build.
 	Source *Source `json:"source,omitempty"`
 
 	// SourceProvenance: A permanent fixed identifier for
@@ -228,13 +227,13 @@ type Build struct {
 	//
 	// Possible values:
 	//   "STATUS_UNKNOWN" - Status of the build is unknown.
-	//   "QUEUED" - Build or step is queued; work has not yet begun.
-	//   "WORKING" - Build or step is being executed.
-	//   "SUCCESS" - Build or step finished successfully.
-	//   "FAILURE" - Build or step failed to complete successfully.
-	//   "INTERNAL_ERROR" - Build or step failed due to an internal cause.
-	//   "TIMEOUT" - Build or step took longer than was allowed.
-	//   "CANCELLED" - Build or step was canceled by a user.
+	//   "QUEUED" - Build is queued; work has not yet begun.
+	//   "WORKING" - Build is being executed.
+	//   "SUCCESS" - Build finished successfully.
+	//   "FAILURE" - Build failed to complete successfully.
+	//   "INTERNAL_ERROR" - Build failed due to an internal cause.
+	//   "TIMEOUT" - Build took longer than was allowed.
+	//   "CANCELLED" - Build was canceled by a user.
 	Status string `json:"status,omitempty"`
 
 	// StatusDetail: Customer-readable message about the current
@@ -242,35 +241,23 @@ type Build struct {
 	// @OutputOnly
 	StatusDetail string `json:"statusDetail,omitempty"`
 
-	// Steps: Required. The operations to be performed on the workspace.
+	// Steps: Describes the operations to be performed on the workspace.
 	Steps []*BuildStep `json:"steps,omitempty"`
 
-	// Substitutions: Substitutions data for `Build` resource.
+	// Substitutions: Substitutions data for Build resource.
 	Substitutions map[string]string `json:"substitutions,omitempty"`
 
-	// Tags: Tags for annotation of a `Build`. These are not docker tags.
+	// Tags: Tags for annotation of a Build. These are not docker tags.
 	Tags []string `json:"tags,omitempty"`
 
 	// Timeout: Amount of time that this build should be allowed to run, to
 	// second
 	// granularity. If this amount of time elapses, work on the build will
 	// cease
-	// and the build status will be `TIMEOUT`.
+	// and the build status will be TIMEOUT.
 	//
 	// Default time is ten minutes.
 	Timeout string `json:"timeout,omitempty"`
-
-	// Timing: Stores timing information for phases of the build. Valid keys
-	// are:
-	//
-	// * BUILD: time to execute all build steps
-	// * PUSH: time to push all specified images.
-	// * FETCHSOURCE: time to fetch source.
-	//
-	// If the build does not specify source or images,
-	// these keys will not be included.
-	// @OutputOnly
-	Timing map[string]TimeSpan `json:"timing,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -344,8 +331,8 @@ type BuildOptions struct {
 	// more than the maximum are rejected with an error.
 	DiskSizeGb int64 `json:"diskSizeGb,omitempty,string"`
 
-	// LogStreamingOption: Option to define build log streaming behavior to
-	// Google Cloud
+	// LogStreamingOption: LogStreamingOption to define build log streaming
+	// behavior to Google Cloud
 	// Storage.
 	//
 	// Possible values:
@@ -358,7 +345,7 @@ type BuildOptions struct {
 	// written when the build is completed.
 	LogStreamingOption string `json:"logStreamingOption,omitempty"`
 
-	// MachineType: Compute Engine machine type on which to run the build.
+	// MachineType: GCE VM size to run the build on.
 	//
 	// Possible values:
 	//   "UNSPECIFIED" - Standard machine type.
@@ -380,9 +367,8 @@ type BuildOptions struct {
 	//   "SHA256" - Use a sha256 hash.
 	SourceProvenanceHash []string `json:"sourceProvenanceHash,omitempty"`
 
-	// SubstitutionOption: Option to specify behavior when there is an error
-	// in the substitution
-	// checks.
+	// SubstitutionOption: SubstitutionOption to allow unmatch
+	// substitutions.
 	//
 	// Possible values:
 	//   "MUST_MATCH" - Fails the build if error in substitutions checks,
@@ -415,41 +401,29 @@ func (s *BuildOptions) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// BuildStep: A step in the build pipeline.
+// BuildStep: BuildStep describes a step to perform in the build
+// pipeline.
 type BuildStep struct {
 	// Args: A list of arguments that will be presented to the step when it
 	// is started.
 	//
-	// If the image used to run the step's container has an entrypoint, the
-	// `args`
-	// are used as arguments to that entrypoint. If the image does not
+	// If the image used to run the step's container has an entrypoint,
+	// these args
+	// will be used as arguments to that entrypoint. If the image does not
 	// define
-	// an entrypoint, the first element in args is used as the
+	// an entrypoint, the first element in args will be used as the
 	// entrypoint,
 	// and the remainder will be used as arguments.
 	Args []string `json:"args,omitempty"`
 
-	// Dir: Working directory to use when running this step's container.
-	//
-	// If this value is a relative path, it is relative to the build's
-	// working
-	// directory. If this value is absolute, it may be outside the build's
-	// working
-	// directory, in which case the contents of the path may not be
-	// persisted
-	// across build step executions, unless a `volume` for that path is
-	// specified.
-	//
-	// If the build specifies a `RepoSource` with `dir` and a step with a
-	// `dir`,
-	// which specifies an absolute path, the `RepoSource` `dir` is ignored
-	// for
-	// the step's execution.
+	// Dir: Working directory (relative to project source root) to use when
+	// running
+	// this operation's container.
 	Dir string `json:"dir,omitempty"`
 
-	// Entrypoint: Entrypoint to be used instead of the build step image's
-	// default entrypoint.
-	// If unset, the image's default entrypoint is used.
+	// Entrypoint: Optional entrypoint to be used instead of the build step
+	// image's default
+	// If unset, the image's default will be used.
 	Entrypoint string `json:"entrypoint,omitempty"`
 
 	// Env: A list of environment variable definitions to be used when
@@ -460,17 +434,16 @@ type BuildStep struct {
 	// being given the value "VALUE".
 	Env []string `json:"env,omitempty"`
 
-	// Id: Unique identifier for this build step, used in `wait_for`
+	// Id: Optional unique identifier for this build step, used in wait_for
 	// to
 	// reference this build step as a dependency.
 	Id string `json:"id,omitempty"`
 
-	// Name: Required. The name of the container image that will run this
-	// particular
+	// Name: The name of the container image that will run this particular
 	// build step.
 	//
-	// If the image is available in the host's Docker daemon's cache,
-	// it
+	// If the image is already available in the host's Docker daemon's
+	// cache, it
 	// will be run directly. If not, the host will attempt to pull the
 	// image
 	// first, using the builder service account's credentials if
@@ -496,41 +469,9 @@ type BuildStep struct {
 	Name string `json:"name,omitempty"`
 
 	// SecretEnv: A list of environment variables which are encrypted using
-	// a Cloud Key
-	// Management Service crypto key. These values must be specified in
-	// the
-	// build's `Secret`.
+	// a Cloud KMS
+	// crypto key. These values must be specified in the build's secrets.
 	SecretEnv []string `json:"secretEnv,omitempty"`
-
-	// Status: Status of the build step. At this time, build step status is
-	// only updated
-	// on build completion; step status is not updated in real-time as the
-	// build
-	// progresses.
-	// @OutputOnly
-	//
-	// Possible values:
-	//   "STATUS_UNKNOWN" - Status of the build is unknown.
-	//   "QUEUED" - Build or step is queued; work has not yet begun.
-	//   "WORKING" - Build or step is being executed.
-	//   "SUCCESS" - Build or step finished successfully.
-	//   "FAILURE" - Build or step failed to complete successfully.
-	//   "INTERNAL_ERROR" - Build or step failed due to an internal cause.
-	//   "TIMEOUT" - Build or step took longer than was allowed.
-	//   "CANCELLED" - Build or step was canceled by a user.
-	Status string `json:"status,omitempty"`
-
-	// Timeout: Time limit for executing this build step. If not defined,
-	// the step has no
-	// time limit and will be allowed to continue to run until either it
-	// completes
-	// or the build itself times out.
-	Timeout string `json:"timeout,omitempty"`
-
-	// Timing: Stores timing information for executing this build
-	// step.
-	// @OutputOnly
-	Timing *TimeSpan `json:"timing,omitempty"`
 
 	// Volumes: List of volumes to mount into the build step.
 	//
@@ -548,10 +489,10 @@ type BuildStep struct {
 	// WaitFor: The ID(s) of the step(s) that this build step depends
 	// on.
 	// This build step will not start until all the build steps in
-	// `wait_for`
-	// have completed successfully. If `wait_for` is empty, this build step
+	// wait_for
+	// have completed successfully. If wait_for is empty, this build step
 	// will
-	// start when all previous build steps in the `Build.Steps` list have
+	// start when all previous build steps in the Build.Steps list have
 	// completed
 	// successfully.
 	WaitFor []string `json:"waitFor,omitempty"`
@@ -647,7 +588,7 @@ func (s *BuildTrigger) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// BuiltImage: An image built by the pipeline.
+// BuiltImage: BuiltImage describes an image built by the pipeline.
 type BuiltImage struct {
 	// Digest: Docker Registry 2.0 digest.
 	Digest string `json:"digest,omitempty"`
@@ -656,11 +597,6 @@ type BuiltImage struct {
 	// Registry, as
 	// presented to `docker push`.
 	Name string `json:"name,omitempty"`
-
-	// PushTiming: Stores timing information for pushing the specified
-	// image.
-	// @OutputOnly
-	PushTiming *TimeSpan `json:"pushTiming,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Digest") to
 	// unconditionally include in API requests. By default, fields with
@@ -779,9 +715,9 @@ func (s *Hash) MarshalJSON() ([]byte, error) {
 }
 
 // ListBuildTriggersResponse: Response containing existing
-// `BuildTriggers`.
+// BuildTriggers.
 type ListBuildTriggersResponse struct {
-	// Triggers: `BuildTriggers` for the project, sorted by `create_time`
+	// Triggers: BuildTriggers for the project, sorted by create_time
 	// descending.
 	Triggers []*BuildTrigger `json:"triggers,omitempty"`
 
@@ -814,7 +750,7 @@ func (s *ListBuildTriggersResponse) MarshalJSON() ([]byte, error) {
 
 // ListBuildsResponse: Response including listed builds.
 type ListBuildsResponse struct {
-	// Builds: Builds will be sorted by `create_time`, descending.
+	// Builds: Builds will be sorted by create_time, descending.
 	Builds []*Build `json:"builds,omitempty"`
 
 	// NextPageToken: Token to receive the next page of results.
@@ -959,7 +895,8 @@ func (s *Operation) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// RepoSource: Location of the source in a Google Cloud Source
+// RepoSource: RepoSource describes the location of the source in a
+// Google Cloud Source
 // Repository.
 type RepoSource struct {
 	// BranchName: Name of the branch to build.
@@ -970,19 +907,14 @@ type RepoSource struct {
 
 	// Dir: Directory, relative to the source root, in which to run the
 	// build.
-	//
-	// This must be a relative path. If a step's `dir` is specified and is
-	// an
-	// absolute path, this value is ignored for that step's execution.
 	Dir string `json:"dir,omitempty"`
 
-	// ProjectId: ID of the project that owns the Cloud Source Repository.
-	// If omitted, the
-	// project ID requesting the build is assumed.
+	// ProjectId: ID of the project that owns the repo. If omitted, the
+	// project ID requesting
+	// the build is assumed.
 	ProjectId string `json:"projectId,omitempty"`
 
-	// RepoName: Name of the Cloud Source Repository. If omitted, the name
-	// "default" is
+	// RepoName: Name of the repo. If omitted, the name "default" is
 	// assumed.
 	RepoName string `json:"repoName,omitempty"`
 
@@ -1012,14 +944,14 @@ func (s *RepoSource) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// Results: Artifacts created by the build pipeline.
+// Results: Results describes the artifacts created by the build
+// pipeline.
 type Results struct {
-	// BuildStepImages: List of build step digests, in the order
-	// corresponding to build step
-	// indices.
+	// BuildStepImages: List of build step digests, in order corresponding
+	// to build step indices.
 	BuildStepImages []string `json:"buildStepImages,omitempty"`
 
-	// Images: Container images that were built as a part of the build.
+	// Images: Images that were built as a part of the build.
 	Images []*BuiltImage `json:"images,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "BuildStepImages") to
@@ -1046,11 +978,11 @@ func (s *Results) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// RetryBuildRequest: Specifies a build to retry.
+// RetryBuildRequest: RetryBuildRequest specifies a build to retry.
 type RetryBuildRequest struct {
 }
 
-// Secret: Pairs a set of secret environment variables containing
+// Secret: Secret pairs a set of secret environment variables containing
 // encrypted
 // values with the Cloud KMS key to use to decrypt the value.
 type Secret struct {
@@ -1092,11 +1024,12 @@ func (s *Secret) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// Source: Location of the source in a supported storage service.
+// Source: Source describes the location of the source in a supported
+// storage
+// service.
 type Source struct {
-	// RepoSource: If provided, get the source from this location in a Cloud
-	// Source
-	// Repository.
+	// RepoSource: If provided, get source from this location in a Cloud
+	// Repo.
 	RepoSource *RepoSource `json:"repoSource,omitempty"`
 
 	// StorageSource: If provided, get the source from this location in
@@ -1132,10 +1065,10 @@ func (s *Source) MarshalJSON() ([]byte, error) {
 type SourceProvenance struct {
 	// FileHashes: Hash(es) of the build source, which can be used to verify
 	// that the original
-	// source integrity was maintained in the build. Note that `FileHashes`
+	// source integrity was maintained in the build. Note that FileHashes
 	// will
-	// only be populated if `BuildOptions` has requested a
-	// `SourceProvenanceHash`.
+	// only be populated if BuildOptions has requested a
+	// SourceProvenanceHash.
 	//
 	// The keys to this map are file paths used as build source and the
 	// values
@@ -1143,17 +1076,17 @@ type SourceProvenance struct {
 	//
 	// If the build source came in a single package such as a gzipped
 	// tarfile
-	// (`.tar.gz`), the `FileHash` will be for the single path to that
+	// (.tar.gz), the FileHash will be for the single path to that
 	// file.
 	// @OutputOnly
 	FileHashes map[string]FileHashes `json:"fileHashes,omitempty"`
 
-	// ResolvedRepoSource: A copy of the build's `source.repo_source`, if
+	// ResolvedRepoSource: A copy of the build's source.repo_source, if
 	// exists, with any
 	// revisions resolved.
 	ResolvedRepoSource *RepoSource `json:"resolvedRepoSource,omitempty"`
 
-	// ResolvedStorageSource: A copy of the build's `source.storage_source`,
+	// ResolvedStorageSource: A copy of the build's source.storage_source,
 	// if exists, with any
 	// generations resolved.
 	ResolvedStorageSource *StorageSource `json:"resolvedStorageSource,omitempty"`
@@ -1300,11 +1233,11 @@ func (s *Status) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// StorageSource: Location of the source in an archive file in Google
-// Cloud Storage.
+// StorageSource: StorageSource describes the location of the source in
+// an archive file in
+// Google Cloud Storage.
 type StorageSource struct {
-	// Bucket: Google Cloud Storage bucket containing the source
-	// (see
+	// Bucket: Google Cloud Storage bucket containing source (see
 	// [Bucket
 	// Name
 	// Requirements](https://cloud.google.com/storage/docs/bucket-naming
@@ -1316,9 +1249,9 @@ type StorageSource struct {
 	// omitted, the latest generation will be used.
 	Generation int64 `json:"generation,omitempty,string"`
 
-	// Object: Google Cloud Storage object containing the source.
+	// Object: Google Cloud Storage object containing source.
 	//
-	// This object must be a gzipped archive file (`.tar.gz`) containing
+	// This object must be a gzipped archive file (.tar.gz) containing
 	// source to
 	// build.
 	Object string `json:"object,omitempty"`
@@ -1342,37 +1275,6 @@ type StorageSource struct {
 
 func (s *StorageSource) MarshalJSON() ([]byte, error) {
 	type NoMethod StorageSource
-	raw := NoMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// TimeSpan: Start and end times for a build execution phase.
-type TimeSpan struct {
-	// EndTime: End of time span.
-	EndTime string `json:"endTime,omitempty"`
-
-	// StartTime: Start of time span.
-	StartTime string `json:"startTime,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "EndTime") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "EndTime") to include in
-	// API requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *TimeSpan) MarshalJSON() ([]byte, error) {
-	type NoMethod TimeSpan
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
@@ -1939,7 +1841,7 @@ type ProjectsBuildsCancelCall struct {
 	header_            http.Header
 }
 
-// Cancel: Cancels a build in progress.
+// Cancel: Cancels a requested build in progress.
 func (r *ProjectsBuildsService) Cancel(projectId string, id string, cancelbuildrequest *CancelBuildRequest) *ProjectsBuildsCancelCall {
 	c := &ProjectsBuildsCancelCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
@@ -2035,7 +1937,7 @@ func (c *ProjectsBuildsCancelCall) Do(opts ...googleapi.CallOption) (*Build, err
 	}
 	return ret, nil
 	// {
-	//   "description": "Cancels a build in progress.",
+	//   "description": "Cancels a requested build in progress.",
 	//   "flatPath": "v1/projects/{projectId}/builds/{id}:cancel",
 	//   "httpMethod": "POST",
 	//   "id": "cloudbuild.projects.builds.cancel",
@@ -2084,10 +1986,11 @@ type ProjectsBuildsCreateCall struct {
 
 // Create: Starts a build with the specified configuration.
 //
-// This method returns a long-running `Operation`, which includes the
-// build ID.
-// Pass the build ID to `GetBuild` to determine the build status
-// (such as `SUCCESS` or `FAILURE`).
+// The long-running Operation returned by this method will include the
+// ID of
+// the build, which can be passed to GetBuild to determine its status
+// (e.g.,
+// success or failure).
 func (r *ProjectsBuildsService) Create(projectId string, build *Build) *ProjectsBuildsCreateCall {
 	c := &ProjectsBuildsCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
@@ -2181,7 +2084,7 @@ func (c *ProjectsBuildsCreateCall) Do(opts ...googleapi.CallOption) (*Operation,
 	}
 	return ret, nil
 	// {
-	//   "description": "Starts a build with the specified configuration.\n\nThis method returns a long-running `Operation`, which includes the build ID.\nPass the build ID to `GetBuild` to determine the build status\n(such as `SUCCESS` or `FAILURE`).",
+	//   "description": "Starts a build with the specified configuration.\n\nThe long-running Operation returned by this method will include the ID of\nthe build, which can be passed to GetBuild to determine its status (e.g.,\nsuccess or failure).",
 	//   "flatPath": "v1/projects/{projectId}/builds",
 	//   "httpMethod": "POST",
 	//   "id": "cloudbuild.projects.builds.create",
@@ -2224,9 +2127,9 @@ type ProjectsBuildsGetCall struct {
 
 // Get: Returns information about a previously requested build.
 //
-// The `Build` that is returned includes its status (such as
-// `SUCCESS`,
-// `FAILURE`, or `WORKING`), and timing information.
+// The Build that is returned includes its status (e.g., success or
+// failure,
+// or in-progress), and timing information.
 func (r *ProjectsBuildsService) Get(projectId string, id string) *ProjectsBuildsGetCall {
 	c := &ProjectsBuildsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
@@ -2329,7 +2232,7 @@ func (c *ProjectsBuildsGetCall) Do(opts ...googleapi.CallOption) (*Build, error)
 	}
 	return ret, nil
 	// {
-	//   "description": "Returns information about a previously requested build.\n\nThe `Build` that is returned includes its status (such as `SUCCESS`,\n`FAILURE`, or `WORKING`), and timing information.",
+	//   "description": "Returns information about a previously requested build.\n\nThe Build that is returned includes its status (e.g., success or failure,\nor in-progress), and timing information.",
 	//   "flatPath": "v1/projects/{projectId}/builds/{id}",
 	//   "httpMethod": "GET",
 	//   "id": "cloudbuild.projects.builds.get",
@@ -2574,20 +2477,19 @@ type ProjectsBuildsRetryCall struct {
 	header_           http.Header
 }
 
-// Retry: Creates a new build based on the specified build.
+// Retry: Creates a new build based on the given build.
 //
-// This method creates a new build using the original build request,
-// which may
+// This API creates a new build using the original build request,  which
+// may
 // or may not result in an identical build.
 //
 // For triggered builds:
 //
-// * Triggered builds resolve to a precise revision; therefore a retry
-// of a
-// triggered build will result in a build that uses the same
-// revision.
+// * Triggered builds resolve to a precise revision, so a retry of a
+// triggered
+// build will result in a build that uses the same revision.
 //
-// For non-triggered builds that specify `RepoSource`:
+// For non-triggered builds that specify RepoSource:
 //
 // * If the original build built from the tip of a branch, the retried
 // build
@@ -2598,13 +2500,13 @@ type ProjectsBuildsRetryCall struct {
 // retried
 // build will use the identical source.
 //
-// For builds that specify `StorageSource`:
+// For builds that specify StorageSource:
 //
-// * If the original build pulled source from Google Cloud Storage
-// without
-// specifying the generation of the object, the new build will use the
-// current
-// object, which may be different from the original build source.
+// * If the original build pulled source from Cloud Storage without
+// specifying
+// the generation of the object, the new build will use the current
+// object,
+// which may be different from the original build source.
 // * If the original build pulled source from Cloud Storage and
 // specified the
 // generation of the object, the new build will attempt to use the
@@ -2707,7 +2609,7 @@ func (c *ProjectsBuildsRetryCall) Do(opts ...googleapi.CallOption) (*Operation, 
 	}
 	return ret, nil
 	// {
-	//   "description": "Creates a new build based on the specified build.\n\nThis method creates a new build using the original build request, which may\nor may not result in an identical build.\n\nFor triggered builds:\n\n* Triggered builds resolve to a precise revision; therefore a retry of a\ntriggered build will result in a build that uses the same revision.\n\nFor non-triggered builds that specify `RepoSource`:\n\n* If the original build built from the tip of a branch, the retried build\nwill build from the tip of that branch, which may not be the same revision\nas the original build.\n* If the original build specified a commit sha or revision ID, the retried\nbuild will use the identical source.\n\nFor builds that specify `StorageSource`:\n\n* If the original build pulled source from Google Cloud Storage without\nspecifying the generation of the object, the new build will use the current\nobject, which may be different from the original build source.\n* If the original build pulled source from Cloud Storage and specified the\ngeneration of the object, the new build will attempt to use the same\nobject, which may or may not be available depending on the bucket's\nlifecycle management settings.",
+	//   "description": "Creates a new build based on the given build.\n\nThis API creates a new build using the original build request,  which may\nor may not result in an identical build.\n\nFor triggered builds:\n\n* Triggered builds resolve to a precise revision, so a retry of a triggered\nbuild will result in a build that uses the same revision.\n\nFor non-triggered builds that specify RepoSource:\n\n* If the original build built from the tip of a branch, the retried build\nwill build from the tip of that branch, which may not be the same revision\nas the original build.\n* If the original build specified a commit sha or revision ID, the retried\nbuild will use the identical source.\n\nFor builds that specify StorageSource:\n\n* If the original build pulled source from Cloud Storage without specifying\nthe generation of the object, the new build will use the current object,\nwhich may be different from the original build source.\n* If the original build pulled source from Cloud Storage and specified the\ngeneration of the object, the new build will attempt to use the same\nobject, which may or may not be available depending on the bucket's\nlifecycle management settings.",
 	//   "flatPath": "v1/projects/{projectId}/builds/{id}:retry",
 	//   "httpMethod": "POST",
 	//   "id": "cloudbuild.projects.builds.retry",
@@ -2754,7 +2656,7 @@ type ProjectsTriggersCreateCall struct {
 	header_      http.Header
 }
 
-// Create: Creates a new `BuildTrigger`.
+// Create: Creates a new BuildTrigger.
 //
 // This API is experimental.
 func (r *ProjectsTriggersService) Create(projectId string, buildtrigger *BuildTrigger) *ProjectsTriggersCreateCall {
@@ -2850,7 +2752,7 @@ func (c *ProjectsTriggersCreateCall) Do(opts ...googleapi.CallOption) (*BuildTri
 	}
 	return ret, nil
 	// {
-	//   "description": "Creates a new `BuildTrigger`.\n\nThis API is experimental.",
+	//   "description": "Creates a new BuildTrigger.\n\nThis API is experimental.",
 	//   "flatPath": "v1/projects/{projectId}/triggers",
 	//   "httpMethod": "POST",
 	//   "id": "cloudbuild.projects.triggers.create",
@@ -2890,7 +2792,7 @@ type ProjectsTriggersDeleteCall struct {
 	header_    http.Header
 }
 
-// Delete: Deletes a `BuildTrigger` by its project ID and trigger
+// Delete: Deletes an BuildTrigger by its project ID and trigger
 // ID.
 //
 // This API is experimental.
@@ -2983,7 +2885,7 @@ func (c *ProjectsTriggersDeleteCall) Do(opts ...googleapi.CallOption) (*Empty, e
 	}
 	return ret, nil
 	// {
-	//   "description": "Deletes a `BuildTrigger` by its project ID and trigger ID.\n\nThis API is experimental.",
+	//   "description": "Deletes an BuildTrigger by its project ID and trigger ID.\n\nThis API is experimental.",
 	//   "flatPath": "v1/projects/{projectId}/triggers/{triggerId}",
 	//   "httpMethod": "DELETE",
 	//   "id": "cloudbuild.projects.triggers.delete",
@@ -2999,7 +2901,7 @@ func (c *ProjectsTriggersDeleteCall) Do(opts ...googleapi.CallOption) (*Empty, e
 	//       "type": "string"
 	//     },
 	//     "triggerId": {
-	//       "description": "ID of the `BuildTrigger` to delete.",
+	//       "description": "ID of the BuildTrigger to delete.",
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"
@@ -3028,7 +2930,7 @@ type ProjectsTriggersGetCall struct {
 	header_      http.Header
 }
 
-// Get: Returns information about a `BuildTrigger`.
+// Get: Gets information about a BuildTrigger.
 //
 // This API is experimental.
 func (r *ProjectsTriggersService) Get(projectId string, triggerId string) *ProjectsTriggersGetCall {
@@ -3133,7 +3035,7 @@ func (c *ProjectsTriggersGetCall) Do(opts ...googleapi.CallOption) (*BuildTrigge
 	}
 	return ret, nil
 	// {
-	//   "description": "Returns information about a `BuildTrigger`.\n\nThis API is experimental.",
+	//   "description": "Gets information about a BuildTrigger.\n\nThis API is experimental.",
 	//   "flatPath": "v1/projects/{projectId}/triggers/{triggerId}",
 	//   "httpMethod": "GET",
 	//   "id": "cloudbuild.projects.triggers.get",
@@ -3149,7 +3051,7 @@ func (c *ProjectsTriggersGetCall) Do(opts ...googleapi.CallOption) (*BuildTrigge
 	//       "type": "string"
 	//     },
 	//     "triggerId": {
-	//       "description": "ID of the `BuildTrigger` to get.",
+	//       "description": "ID of the BuildTrigger to get.",
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"
@@ -3177,7 +3079,7 @@ type ProjectsTriggersListCall struct {
 	header_      http.Header
 }
 
-// List: Lists existing `BuildTrigger`s.
+// List: Lists existing BuildTrigger.
 //
 // This API is experimental.
 func (r *ProjectsTriggersService) List(projectId string) *ProjectsTriggersListCall {
@@ -3280,7 +3182,7 @@ func (c *ProjectsTriggersListCall) Do(opts ...googleapi.CallOption) (*ListBuildT
 	}
 	return ret, nil
 	// {
-	//   "description": "Lists existing `BuildTrigger`s.\n\nThis API is experimental.",
+	//   "description": "Lists existing BuildTrigger.\n\nThis API is experimental.",
 	//   "flatPath": "v1/projects/{projectId}/triggers",
 	//   "httpMethod": "GET",
 	//   "id": "cloudbuild.projects.triggers.list",
@@ -3318,7 +3220,7 @@ type ProjectsTriggersPatchCall struct {
 	header_      http.Header
 }
 
-// Patch: Updates a `BuildTrigger` by its project ID and trigger
+// Patch: Updates an BuildTrigger by its project ID and trigger
 // ID.
 //
 // This API is experimental.
@@ -3417,7 +3319,7 @@ func (c *ProjectsTriggersPatchCall) Do(opts ...googleapi.CallOption) (*BuildTrig
 	}
 	return ret, nil
 	// {
-	//   "description": "Updates a `BuildTrigger` by its project ID and trigger ID.\n\nThis API is experimental.",
+	//   "description": "Updates an BuildTrigger by its project ID and trigger ID.\n\nThis API is experimental.",
 	//   "flatPath": "v1/projects/{projectId}/triggers/{triggerId}",
 	//   "httpMethod": "PATCH",
 	//   "id": "cloudbuild.projects.triggers.patch",
@@ -3433,7 +3335,7 @@ func (c *ProjectsTriggersPatchCall) Do(opts ...googleapi.CallOption) (*BuildTrig
 	//       "type": "string"
 	//     },
 	//     "triggerId": {
-	//       "description": "ID of the `BuildTrigger` to update.",
+	//       "description": "ID of the BuildTrigger to update.",
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"
@@ -3465,7 +3367,7 @@ type ProjectsTriggersRunCall struct {
 	header_    http.Header
 }
 
-// Run: Runs a `BuildTrigger` at a particular source revision.
+// Run: Runs a BuildTrigger at a particular source revision.
 func (r *ProjectsTriggersService) Run(projectId string, triggerId string, reposource *RepoSource) *ProjectsTriggersRunCall {
 	c := &ProjectsTriggersRunCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.projectId = projectId
@@ -3561,7 +3463,7 @@ func (c *ProjectsTriggersRunCall) Do(opts ...googleapi.CallOption) (*Operation, 
 	}
 	return ret, nil
 	// {
-	//   "description": "Runs a `BuildTrigger` at a particular source revision.",
+	//   "description": "Runs a BuildTrigger at a particular source revision.",
 	//   "flatPath": "v1/projects/{projectId}/triggers/{triggerId}:run",
 	//   "httpMethod": "POST",
 	//   "id": "cloudbuild.projects.triggers.run",

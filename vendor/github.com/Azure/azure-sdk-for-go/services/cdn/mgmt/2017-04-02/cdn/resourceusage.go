@@ -18,7 +18,6 @@ package cdn
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -27,7 +26,7 @@ import (
 // ResourceUsageClient is the use these APIs to manage Azure CDN resources through the Azure Resource Manager. You must
 // make sure that requests made to these resources are secure.
 type ResourceUsageClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewResourceUsageClient creates an instance of the ResourceUsageClient client.
@@ -41,9 +40,8 @@ func NewResourceUsageClientWithBaseURI(baseURI string, subscriptionID string) Re
 }
 
 // List check the quota and actual usage of the CDN profiles under the given subscription.
-func (client ResourceUsageClient) List(ctx context.Context) (result ResourceUsageListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx)
+func (client ResourceUsageClient) List() (result ResourceUsageListResult, err error) {
+	req, err := client.ListPreparer()
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "List", nil, "Failure preparing request")
 		return
@@ -51,12 +49,12 @@ func (client ResourceUsageClient) List(ctx context.Context) (result ResourceUsag
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.rulr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.rulr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "List", resp, "Failure responding to request")
 	}
@@ -65,7 +63,7 @@ func (client ResourceUsageClient) List(ctx context.Context) (result ResourceUsag
 }
 
 // ListPreparer prepares the List request.
-func (client ResourceUsageClient) ListPreparer(ctx context.Context) (*http.Request, error) {
+func (client ResourceUsageClient) ListPreparer() (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -80,13 +78,14 @@ func (client ResourceUsageClient) ListPreparer(ctx context.Context) (*http.Reque
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Cdn/checkResourceUsage", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ResourceUsageClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -103,29 +102,71 @@ func (client ResourceUsageClient) ListResponder(resp *http.Response) (result Res
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ResourceUsageClient) listNextResults(lastResults ResourceUsageListResult) (result ResourceUsageListResult, err error) {
-	req, err := lastResults.resourceUsageListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ResourceUsageClient) ListNextResults(lastResults ResourceUsageListResult) (result ResourceUsageListResult, err error) {
+	req, err := lastResults.ResourceUsageListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "cdn.ResourceUsageClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ResourceUsageClient) ListComplete(ctx context.Context) (result ResourceUsageListResultIterator, err error) {
-	result.page, err = client.List(ctx)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ResourceUsageClient) ListComplete(cancel <-chan struct{}) (<-chan ResourceUsage, <-chan error) {
+	resultChan := make(chan ResourceUsage)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List()
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

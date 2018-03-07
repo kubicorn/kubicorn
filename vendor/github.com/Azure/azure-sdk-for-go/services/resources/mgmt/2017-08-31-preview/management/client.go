@@ -33,21 +33,21 @@ const (
 	DefaultBaseURI = "https://management.azure.com"
 )
 
-// BaseClient is the base client for Management.
-type BaseClient struct {
+// ManagementClient is the base client for Management.
+type ManagementClient struct {
 	autorest.Client
 	BaseURI string
 	GroupID uuid.UUID
 }
 
-// New creates an instance of the BaseClient client.
-func New(groupID uuid.UUID) BaseClient {
+// New creates an instance of the ManagementClient client.
+func New(groupID uuid.UUID) ManagementClient {
 	return NewWithBaseURI(DefaultBaseURI, groupID)
 }
 
-// NewWithBaseURI creates an instance of the BaseClient client.
-func NewWithBaseURI(baseURI string, groupID uuid.UUID) BaseClient {
-	return BaseClient{
+// NewWithBaseURI creates an instance of the ManagementClient client.
+func NewWithBaseURI(baseURI string, groupID uuid.UUID) ManagementClient {
+	return ManagementClient{
 		Client:  autorest.NewClientWithUserAgent(UserAgent()),
 		BaseURI: baseURI,
 		GroupID: groupID,

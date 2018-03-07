@@ -107,12 +107,11 @@ func main() {
 
 	// Create a scratch table.
 	log.Printf("Setting up scratch table...")
-	tblConf := bigtable.TableConf{
-		TableID:  *scratchTable,
-		Families: map[string]bigtable.GCPolicy{"f": bigtable.MaxVersionsPolicy(1)},
-	}
-	if err := adminClient.CreateTableFromConf(context.Background(), &tblConf); err != nil {
+	if err := adminClient.CreateTable(context.Background(), *scratchTable); err != nil {
 		log.Fatalf("Making scratch table %q: %v", *scratchTable, err)
+	}
+	if err := adminClient.CreateColumnFamily(context.Background(), *scratchTable, "f"); err != nil {
+		log.Fatalf("Making scratch table column family: %v", err)
 	}
 	// Upon a successful run, delete the table. Don't bother checking for errors.
 	defer adminClient.DeleteTable(context.Background(), *scratchTable)

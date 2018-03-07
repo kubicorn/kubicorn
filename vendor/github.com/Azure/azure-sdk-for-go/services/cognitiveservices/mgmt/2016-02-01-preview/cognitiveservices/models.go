@@ -18,7 +18,6 @@ package cognitiveservices
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"encoding/json"
 	"github.com/Azure/go-autorest/autorest"
 )
 
@@ -26,9 +25,9 @@ import (
 type KeyName string
 
 const (
-	// Key1 ...
+	// Key1 specifies the key 1 state for key name.
 	Key1 KeyName = "Key1"
-	// Key2 ...
+	// Key2 specifies the key 2 state for key name.
 	Key2 KeyName = "Key2"
 )
 
@@ -36,39 +35,39 @@ const (
 type Kind string
 
 const (
-	// Academic ...
+	// Academic specifies the academic state for kind.
 	Academic Kind = "Academic"
-	// BingAutosuggest ...
+	// BingAutosuggest specifies the bing autosuggest state for kind.
 	BingAutosuggest Kind = "Bing.Autosuggest"
-	// BingSearch ...
+	// BingSearch specifies the bing search state for kind.
 	BingSearch Kind = "Bing.Search"
-	// BingSpeech ...
+	// BingSpeech specifies the bing speech state for kind.
 	BingSpeech Kind = "Bing.Speech"
-	// BingSpellCheck ...
+	// BingSpellCheck specifies the bing spell check state for kind.
 	BingSpellCheck Kind = "Bing.SpellCheck"
-	// ComputerVision ...
+	// ComputerVision specifies the computer vision state for kind.
 	ComputerVision Kind = "ComputerVision"
-	// ContentModerator ...
+	// ContentModerator specifies the content moderator state for kind.
 	ContentModerator Kind = "ContentModerator"
-	// Emotion ...
+	// Emotion specifies the emotion state for kind.
 	Emotion Kind = "Emotion"
-	// Face ...
+	// Face specifies the face state for kind.
 	Face Kind = "Face"
-	// LUIS ...
+	// LUIS specifies the luis state for kind.
 	LUIS Kind = "LUIS"
-	// Recommendations ...
+	// Recommendations specifies the recommendations state for kind.
 	Recommendations Kind = "Recommendations"
-	// SpeakerRecognition ...
+	// SpeakerRecognition specifies the speaker recognition state for kind.
 	SpeakerRecognition Kind = "SpeakerRecognition"
-	// Speech ...
+	// Speech specifies the speech state for kind.
 	Speech Kind = "Speech"
-	// SpeechTranslation ...
+	// SpeechTranslation specifies the speech translation state for kind.
 	SpeechTranslation Kind = "SpeechTranslation"
-	// TextAnalytics ...
+	// TextAnalytics specifies the text analytics state for kind.
 	TextAnalytics Kind = "TextAnalytics"
-	// TextTranslation ...
+	// TextTranslation specifies the text translation state for kind.
 	TextTranslation Kind = "TextTranslation"
-	// WebLM ...
+	// WebLM specifies the web lm state for kind.
 	WebLM Kind = "WebLM"
 )
 
@@ -76,13 +75,13 @@ const (
 type ProvisioningState string
 
 const (
-	// Creating ...
+	// Creating specifies the creating state for provisioning state.
 	Creating ProvisioningState = "Creating"
-	// Failed ...
+	// Failed specifies the failed state for provisioning state.
 	Failed ProvisioningState = "Failed"
-	// ResolvingDNS ...
+	// ResolvingDNS specifies the resolving dns state for provisioning state.
 	ResolvingDNS ProvisioningState = "ResolvingDNS"
-	// Succeeded ...
+	// Succeeded specifies the succeeded state for provisioning state.
 	Succeeded ProvisioningState = "Succeeded"
 )
 
@@ -90,27 +89,27 @@ const (
 type SkuName string
 
 const (
-	// F0 ...
+	// F0 specifies the f0 state for sku name.
 	F0 SkuName = "F0"
-	// P0 ...
+	// P0 specifies the p0 state for sku name.
 	P0 SkuName = "P0"
-	// P1 ...
+	// P1 specifies the p1 state for sku name.
 	P1 SkuName = "P1"
-	// P2 ...
+	// P2 specifies the p2 state for sku name.
 	P2 SkuName = "P2"
-	// S0 ...
+	// S0 specifies the s0 state for sku name.
 	S0 SkuName = "S0"
-	// S1 ...
+	// S1 specifies the s1 state for sku name.
 	S1 SkuName = "S1"
-	// S2 ...
+	// S2 specifies the s2 state for sku name.
 	S2 SkuName = "S2"
-	// S3 ...
+	// S3 specifies the s3 state for sku name.
 	S3 SkuName = "S3"
-	// S4 ...
+	// S4 specifies the s4 state for sku name.
 	S4 SkuName = "S4"
-	// S5 ...
+	// S5 specifies the s5 state for sku name.
 	S5 SkuName = "S5"
-	// S6 ...
+	// S6 specifies the s6 state for sku name.
 	S6 SkuName = "S6"
 )
 
@@ -118,219 +117,93 @@ const (
 type SkuTier string
 
 const (
-	// Free ...
+	// Free specifies the free state for sku tier.
 	Free SkuTier = "Free"
-	// Premium ...
+	// Premium specifies the premium state for sku tier.
 	Premium SkuTier = "Premium"
-	// Standard ...
+	// Standard specifies the standard state for sku tier.
 	Standard SkuTier = "Standard"
 )
 
-// Account cognitive Services Account is an Azure resource representing the provisioned account, its type, location and
-// SKU.
+// Account is cognitive Services Account is an Azure resource representing the provisioned account, its type, location
+// and SKU.
 type Account struct {
-	autorest.Response `json:"-"`
-	// Etag - Entity Tag
-	Etag *string `json:"etag,omitempty"`
-	// ID - The id of the created account
-	ID *string `json:"id,omitempty"`
-	// Kind - Type of cognitive service account.
-	Kind *string `json:"kind,omitempty"`
-	// Location - The location of the resource
-	Location *string `json:"location,omitempty"`
-	// Name - The name of the created account
+	autorest.Response  `json:"-"`
+	Etag               *string `json:"etag,omitempty"`
+	ID                 *string `json:"id,omitempty"`
+	Kind               *string `json:"kind,omitempty"`
+	Location           *string `json:"location,omitempty"`
 	Name               *string `json:"name,omitempty"`
 	*AccountProperties `json:"properties,omitempty"`
-	Sku                *Sku `json:"sku,omitempty"`
-	// Tags - Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Type - Resource type
-	Type *string `json:"type,omitempty"`
+	Sku                *Sku                `json:"sku,omitempty"`
+	Tags               *map[string]*string `json:"tags,omitempty"`
+	Type               *string             `json:"type,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Account struct.
-func (a *Account) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["etag"]
-	if v != nil {
-		var etag string
-		err = json.Unmarshal(*m["etag"], &etag)
-		if err != nil {
-			return err
-		}
-		a.Etag = &etag
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		a.ID = &ID
-	}
-
-	v = m["kind"]
-	if v != nil {
-		var kind string
-		err = json.Unmarshal(*m["kind"], &kind)
-		if err != nil {
-			return err
-		}
-		a.Kind = &kind
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		a.Location = &location
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		a.Name = &name
-	}
-
-	v = m["properties"]
-	if v != nil {
-		var properties AccountProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		a.AccountProperties = &properties
-	}
-
-	v = m["sku"]
-	if v != nil {
-		var sku Sku
-		err = json.Unmarshal(*m["sku"], &sku)
-		if err != nil {
-			return err
-		}
-		a.Sku = &sku
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		a.Tags = &tags
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		a.Type = &typeVar
-	}
-
-	return nil
-}
-
-// AccountCreateParameters the parameters to provide for the account.
+// AccountCreateParameters is the parameters to provide for the account.
 type AccountCreateParameters struct {
-	Sku *Sku `json:"sku,omitempty"`
-	// Kind - Required. Indicates the type of cognitive service account. Possible values include: 'Academic', 'BingAutosuggest', 'BingSearch', 'BingSpeech', 'BingSpellCheck', 'ComputerVision', 'ContentModerator', 'Emotion', 'Face', 'LUIS', 'Recommendations', 'SpeakerRecognition', 'Speech', 'SpeechTranslation', 'TextAnalytics', 'TextTranslation', 'WebLM'
-	Kind Kind `json:"kind,omitempty"`
-	// Location - Required. Gets or sets the location of the resource. This will be one of the supported and registered Azure Geo Regions (e.g. West US, East US, Southeast Asia, etc.). The geo region of a resource cannot be changed once it is created, but if an identical geo region is specified on update the request will succeed.
-	Location *string `json:"location,omitempty"`
-	// Tags - Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// Properties - Must exist in the request. Must not be null.
+	Sku        *Sku                    `json:"sku,omitempty"`
+	Kind       Kind                    `json:"kind,omitempty"`
+	Location   *string                 `json:"location,omitempty"`
+	Tags       *map[string]*string     `json:"tags,omitempty"`
 	Properties *map[string]interface{} `json:"properties,omitempty"`
 }
 
-// AccountEnumerateSkusResult the list of cognitive services accounts operation response.
+// AccountEnumerateSkusResult is the list of cognitive services accounts operation response.
 type AccountEnumerateSkusResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets the list of Cognitive Services accounts and their properties.
-	Value *[]ResourceAndSku `json:"value,omitempty"`
+	Value             *[]ResourceAndSku `json:"value,omitempty"`
 }
 
-// AccountKeys the access keys for the cognitive services account.
+// AccountKeys is the access keys for the cognitive services account.
 type AccountKeys struct {
 	autorest.Response `json:"-"`
-	// Key1 - Gets the value of key 1.
-	Key1 *string `json:"key1,omitempty"`
-	// Key2 - Gets the value of key 2.
-	Key2 *string `json:"key2,omitempty"`
+	Key1              *string `json:"key1,omitempty"`
+	Key2              *string `json:"key2,omitempty"`
 }
 
-// AccountListResult the list of cognitive services accounts operation response.
+// AccountListResult is the list of cognitive services accounts operation response.
 type AccountListResult struct {
 	autorest.Response `json:"-"`
-	// Value - Gets the list of Cognitive Services accounts and their properties.
-	Value *[]Account `json:"value,omitempty"`
+	Value             *[]Account `json:"value,omitempty"`
 }
 
-// AccountProperties ...
+// AccountProperties is
 type AccountProperties struct {
-	// ProvisioningState - Gets the status of the cognitive services account at the time the operation was called. Possible values include: 'Creating', 'ResolvingDNS', 'Succeeded', 'Failed'
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
-	// Endpoint - Endpoint of the created account
-	Endpoint *string `json:"endpoint,omitempty"`
+	Endpoint          *string           `json:"endpoint,omitempty"`
 }
 
-// AccountUpdateParameters the parameters to provide for the account.
+// AccountUpdateParameters is the parameters to provide for the account.
 type AccountUpdateParameters struct {
-	Sku *Sku `json:"sku,omitempty"`
-	// Tags - Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters.
+	Sku  *Sku                `json:"sku,omitempty"`
 	Tags *map[string]*string `json:"tags,omitempty"`
 }
 
-// Error ...
+// Error is
 type Error struct {
 	Error *ErrorBody `json:"error,omitempty"`
 }
 
-// ErrorBody ...
+// ErrorBody is
 type ErrorBody struct {
-	// Code - error code
-	Code *string `json:"code,omitempty"`
-	// Message - error message
+	Code    *string `json:"code,omitempty"`
 	Message *string `json:"message,omitempty"`
 }
 
-// RegenerateKeyParameters regenerate key parameters.
+// RegenerateKeyParameters is regenerate key parameters.
 type RegenerateKeyParameters struct {
-	// KeyName - key name to generate (Key1|Key2). Possible values include: 'Key1', 'Key2'
 	KeyName KeyName `json:"keyName,omitempty"`
 }
 
-// ResourceAndSku ...
+// ResourceAndSku is
 type ResourceAndSku struct {
-	// ResourceType - Resource Namespace and Type
 	ResourceType *string `json:"resourceType,omitempty"`
 	Sku          *Sku    `json:"sku,omitempty"`
 }
 
-// Sku the SKU of the cognitive services account.
+// Sku is the SKU of the cognitive services account.
 type Sku struct {
-	// Name - Gets or sets the sku name. Required for account creation, optional for update. Possible values include: 'F0', 'P0', 'P1', 'P2', 'S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6'
 	Name SkuName `json:"name,omitempty"`
-	// Tier - Gets the sku tier. This is based on the SKU name. Possible values include: 'Free', 'Standard', 'Premium'
 	Tier SkuTier `json:"tier,omitempty"`
 }

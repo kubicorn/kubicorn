@@ -6,7 +6,6 @@
     "jsonVersion":"1.1",
     "protocol":"rest-json",
     "serviceFullName":"Amazon Lex Model Building Service",
-    "serviceId":"Lex Model Building Service",
     "signatureVersion":"v4",
     "signingName":"lex",
     "uid":"lex-models-2017-04-19"
@@ -388,22 +387,6 @@
         {"shape":"BadRequestException"}
       ]
     },
-    "GetImport":{
-      "name":"GetImport",
-      "http":{
-        "method":"GET",
-        "requestUri":"/imports/{importId}",
-        "responseCode":200
-      },
-      "input":{"shape":"GetImportRequest"},
-      "output":{"shape":"GetImportResponse"},
-      "errors":[
-        {"shape":"NotFoundException"},
-        {"shape":"LimitExceededException"},
-        {"shape":"InternalFailureException"},
-        {"shape":"BadRequestException"}
-      ]
-    },
     "GetIntent":{
       "name":"GetIntent",
       "http":{
@@ -582,21 +565,6 @@
         {"shape":"BadRequestException"},
         {"shape":"PreconditionFailedException"}
       ]
-    },
-    "StartImport":{
-      "name":"StartImport",
-      "http":{
-        "method":"POST",
-        "requestUri":"/imports/",
-        "responseCode":201
-      },
-      "input":{"shape":"StartImportRequest"},
-      "output":{"shape":"StartImportResponse"},
-      "errors":[
-        {"shape":"LimitExceededException"},
-        {"shape":"InternalFailureException"},
-        {"shape":"BadRequestException"}
-      ]
     }
   },
   "shapes":{
@@ -604,13 +572,13 @@
       "type":"string",
       "max":100,
       "min":1,
-      "pattern":"^([A-Za-z]_?)+$"
+      "pattern":"^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)"
     },
     "AliasNameOrListAll":{
       "type":"string",
       "max":100,
       "min":1,
-      "pattern":"^(-|^([A-Za-z]_?)+$)$"
+      "pattern":"^(-|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*))$"
     },
     "BadRequestException":{
       "type":"structure",
@@ -620,7 +588,6 @@
       "error":{"httpStatusCode":400},
       "exception":true
     },
-    "Blob":{"type":"blob"},
     "Boolean":{"type":"boolean"},
     "BotAliasMetadata":{
       "type":"structure",
@@ -647,9 +614,7 @@
         "botName":{"shape":"BotName"},
         "createdDate":{"shape":"Timestamp"},
         "type":{"shape":"ChannelType"},
-        "botConfiguration":{"shape":"ChannelConfigurationMap"},
-        "status":{"shape":"ChannelStatus"},
-        "failureReason":{"shape":"String"}
+        "botConfiguration":{"shape":"ChannelConfigurationMap"}
       }
     },
     "BotChannelAssociationList":{
@@ -660,7 +625,7 @@
       "type":"string",
       "max":100,
       "min":1,
-      "pattern":"^([A-Za-z]_?)+$"
+      "pattern":"^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)"
     },
     "BotMetadata":{
       "type":"structure",
@@ -681,7 +646,7 @@
       "type":"string",
       "max":50,
       "min":2,
-      "pattern":"^([A-Za-z]_?)+$"
+      "pattern":"^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)"
     },
     "BotVersions":{
       "type":"list",
@@ -731,21 +696,12 @@
       "min":1,
       "sensitive":true
     },
-    "ChannelStatus":{
-      "type":"string",
-      "enum":[
-        "IN_PROGRESS",
-        "CREATED",
-        "FAILED"
-      ]
-    },
     "ChannelType":{
       "type":"string",
       "enum":[
         "Facebook",
         "Slack",
-        "Twilio-Sms",
-        "Kik"
+        "Twilio-Sms"
       ]
     },
     "CodeHook":{
@@ -776,8 +732,7 @@
       "type":"string",
       "enum":[
         "PlainText",
-        "SSML",
-        "CustomPayload"
+        "SSML"
       ]
     },
     "Count":{"type":"integer"},
@@ -874,7 +829,7 @@
       "type":"string",
       "max":100,
       "min":1,
-      "pattern":"^((AMAZON\\.)_?|[A-Za-z]_?)+"
+      "pattern":"^([a-zA-Z]|AMAZON.)+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)"
     },
     "DeleteBotAliasRequest":{
       "type":"structure",
@@ -1058,10 +1013,7 @@
     },
     "ExportType":{
       "type":"string",
-      "enum":[
-        "ALEXA_SKILLS_KIT",
-        "LEX"
-      ]
+      "enum":["ALEXA_SKILLS_KIT"]
     },
     "FollowUpPrompt":{
       "type":"structure",
@@ -1187,9 +1139,7 @@
         "botName":{"shape":"BotName"},
         "createdDate":{"shape":"Timestamp"},
         "type":{"shape":"ChannelType"},
-        "botConfiguration":{"shape":"ChannelConfigurationMap"},
-        "status":{"shape":"ChannelStatus"},
-        "failureReason":{"shape":"String"}
+        "botConfiguration":{"shape":"ChannelConfigurationMap"}
       }
     },
     "GetBotChannelAssociationsRequest":{
@@ -1453,29 +1403,6 @@
         "url":{"shape":"String"}
       }
     },
-    "GetImportRequest":{
-      "type":"structure",
-      "required":["importId"],
-      "members":{
-        "importId":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"importId"
-        }
-      }
-    },
-    "GetImportResponse":{
-      "type":"structure",
-      "members":{
-        "name":{"shape":"Name"},
-        "resourceType":{"shape":"ResourceType"},
-        "mergeStrategy":{"shape":"MergeStrategy"},
-        "importId":{"shape":"String"},
-        "importStatus":{"shape":"ImportStatus"},
-        "failureReason":{"shape":"StringList"},
-        "createdDate":{"shape":"Timestamp"}
-      }
-    },
     "GetIntentRequest":{
       "type":"structure",
       "required":[
@@ -1689,20 +1616,6 @@
         "utterances":{"shape":"ListsOfUtterances"}
       }
     },
-    "GroupNumber":{
-      "type":"integer",
-      "box":true,
-      "max":5,
-      "min":1
-    },
-    "ImportStatus":{
-      "type":"string",
-      "enum":[
-        "IN_PROGRESS",
-        "COMPLETE",
-        "FAILED"
-      ]
-    },
     "Intent":{
       "type":"structure",
       "required":[
@@ -1736,7 +1649,7 @@
       "type":"string",
       "max":100,
       "min":1,
-      "pattern":"^([A-Za-z]_?)+$"
+      "pattern":"^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)"
     },
     "IntentUtteranceList":{
       "type":"list",
@@ -1782,11 +1695,7 @@
     },
     "Locale":{
       "type":"string",
-      "enum":[
-        "en-US",
-        "en-GB",
-        "de-DE"
-      ]
+      "enum":["en-US"]
     },
     "LocaleList":{
       "type":"list",
@@ -1798,13 +1707,6 @@
       "max":50,
       "min":1
     },
-    "MergeStrategy":{
-      "type":"string",
-      "enum":[
-        "OVERWRITE_LATEST",
-        "FAIL_ON_CONFLICT"
-      ]
-    },
     "Message":{
       "type":"structure",
       "required":[
@@ -1813,14 +1715,13 @@
       ],
       "members":{
         "contentType":{"shape":"ContentType"},
-        "content":{"shape":"ContentString"},
-        "groupNumber":{"shape":"GroupNumber"}
+        "content":{"shape":"ContentString"}
       }
     },
     "MessageList":{
       "type":"list",
       "member":{"shape":"Message"},
-      "max":15,
+      "max":5,
       "min":1
     },
     "MessageVersion":{
@@ -1830,7 +1731,7 @@
     },
     "Name":{
       "type":"string",
-      "max":100,
+      "max":64,
       "min":1,
       "pattern":"[a-zA-Z_]+"
     },
@@ -1943,8 +1844,7 @@
         "checksum":{"shape":"String"},
         "processBehavior":{"shape":"ProcessBehavior"},
         "locale":{"shape":"Locale"},
-        "childDirected":{"shape":"Boolean"},
-        "createVersion":{"shape":"Boolean"}
+        "childDirected":{"shape":"Boolean"}
       }
     },
     "PutBotResponse":{
@@ -1964,8 +1864,7 @@
         "checksum":{"shape":"String"},
         "version":{"shape":"Version"},
         "locale":{"shape":"Locale"},
-        "childDirected":{"shape":"Boolean"},
-        "createVersion":{"shape":"Boolean"}
+        "childDirected":{"shape":"Boolean"}
       }
     },
     "PutIntentRequest":{
@@ -1987,8 +1886,7 @@
         "dialogCodeHook":{"shape":"CodeHook"},
         "fulfillmentActivity":{"shape":"FulfillmentActivity"},
         "parentIntentSignature":{"shape":"BuiltinIntentSignature"},
-        "checksum":{"shape":"String"},
-        "createVersion":{"shape":"Boolean"}
+        "checksum":{"shape":"String"}
       }
     },
     "PutIntentResponse":{
@@ -2008,8 +1906,7 @@
         "lastUpdatedDate":{"shape":"Timestamp"},
         "createdDate":{"shape":"Timestamp"},
         "version":{"shape":"Version"},
-        "checksum":{"shape":"String"},
-        "createVersion":{"shape":"Boolean"}
+        "checksum":{"shape":"String"}
       }
     },
     "PutSlotTypeRequest":{
@@ -2024,8 +1921,7 @@
         "description":{"shape":"Description"},
         "enumerationValues":{"shape":"EnumerationValues"},
         "checksum":{"shape":"String"},
-        "valueSelectionStrategy":{"shape":"SlotValueSelectionStrategy"},
-        "createVersion":{"shape":"Boolean"}
+        "valueSelectionStrategy":{"shape":"SlotValueSelectionStrategy"}
       }
     },
     "PutSlotTypeResponse":{
@@ -2038,8 +1934,7 @@
         "createdDate":{"shape":"Timestamp"},
         "version":{"shape":"Version"},
         "checksum":{"shape":"String"},
-        "valueSelectionStrategy":{"shape":"SlotValueSelectionStrategy"},
-        "createVersion":{"shape":"Boolean"}
+        "valueSelectionStrategy":{"shape":"SlotValueSelectionStrategy"}
       }
     },
     "ReferenceType":{
@@ -2069,11 +1964,7 @@
     },
     "ResourceType":{
       "type":"string",
-      "enum":[
-        "BOT",
-        "INTENT",
-        "SLOT_TYPE"
-      ]
+      "enum":["BOT"]
     },
     "ResponseCard":{
       "type":"string",
@@ -2120,7 +2011,7 @@
       "type":"string",
       "max":100,
       "min":1,
-      "pattern":"^([A-Za-z](-|_|.)?)+$"
+      "pattern":"^[a-zA-Z]+(((_|.)[a-zA-Z]+)*|([a-zA-Z]+(_|.))*|(_|.))"
     },
     "SlotTypeMetadata":{
       "type":"structure",
@@ -2140,7 +2031,7 @@
       "type":"string",
       "max":100,
       "min":1,
-      "pattern":"^([A-Za-z]_?)+$"
+      "pattern":"^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)"
     },
     "SlotUtteranceList":{
       "type":"list",
@@ -2154,30 +2045,6 @@
         "ORIGINAL_VALUE",
         "TOP_RESOLUTION"
       ]
-    },
-    "StartImportRequest":{
-      "type":"structure",
-      "required":[
-        "payload",
-        "resourceType",
-        "mergeStrategy"
-      ],
-      "members":{
-        "payload":{"shape":"Blob"},
-        "resourceType":{"shape":"ResourceType"},
-        "mergeStrategy":{"shape":"MergeStrategy"}
-      }
-    },
-    "StartImportResponse":{
-      "type":"structure",
-      "members":{
-        "name":{"shape":"Name"},
-        "resourceType":{"shape":"ResourceType"},
-        "mergeStrategy":{"shape":"MergeStrategy"},
-        "importId":{"shape":"String"},
-        "importStatus":{"shape":"ImportStatus"},
-        "createdDate":{"shape":"Timestamp"}
-      }
     },
     "Statement":{
       "type":"structure",
@@ -2204,10 +2071,6 @@
       ]
     },
     "String":{"type":"string"},
-    "StringList":{
-      "type":"list",
-      "member":{"shape":"String"}
-    },
     "SynonymList":{
       "type":"list",
       "member":{"shape":"Value"}

@@ -18,7 +18,6 @@ package streamanalytics
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // SubscriptionsClient is the stream Analytics Client
 type SubscriptionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewSubscriptionsClient creates an instance of the SubscriptionsClient client.
@@ -43,8 +42,8 @@ func NewSubscriptionsClientWithBaseURI(baseURI string, subscriptionID string) Su
 //
 // location is the region in which to retrieve the subscription's quota information. You can find out which regions
 // Azure Stream Analytics is supported in here: https://azure.microsoft.com/en-us/regions/
-func (client SubscriptionsClient) ListQuotas(ctx context.Context, location string) (result SubscriptionQuotasListResult, err error) {
-	req, err := client.ListQuotasPreparer(ctx, location)
+func (client SubscriptionsClient) ListQuotas(location string) (result SubscriptionQuotasListResult, err error) {
+	req, err := client.ListQuotasPreparer(location)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "streamanalytics.SubscriptionsClient", "ListQuotas", nil, "Failure preparing request")
 		return
@@ -66,7 +65,7 @@ func (client SubscriptionsClient) ListQuotas(ctx context.Context, location strin
 }
 
 // ListQuotasPreparer prepares the ListQuotas request.
-func (client SubscriptionsClient) ListQuotasPreparer(ctx context.Context, location string) (*http.Request, error) {
+func (client SubscriptionsClient) ListQuotasPreparer(location string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"location":       autorest.Encode("path", location),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
@@ -82,13 +81,14 @@ func (client SubscriptionsClient) ListQuotasPreparer(ctx context.Context, locati
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.StreamAnalytics/locations/{location}/quotas", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListQuotasSender sends the ListQuotas request. The method will close the
 // http.Response Body if it receives an error.
 func (client SubscriptionsClient) ListQuotasSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

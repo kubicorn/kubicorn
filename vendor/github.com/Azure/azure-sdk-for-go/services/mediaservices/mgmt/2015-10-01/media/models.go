@@ -18,7 +18,6 @@ package media
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"encoding/json"
 	"github.com/Azure/go-autorest/autorest"
 )
 
@@ -26,11 +25,11 @@ import (
 type EntityNameUnavailabilityReason string
 
 const (
-	// AlreadyExists ...
+	// AlreadyExists specifies the already exists state for entity name unavailability reason.
 	AlreadyExists EntityNameUnavailabilityReason = "AlreadyExists"
-	// Invalid ...
+	// Invalid specifies the invalid state for entity name unavailability reason.
 	Invalid EntityNameUnavailabilityReason = "Invalid"
-	// None ...
+	// None specifies the none state for entity name unavailability reason.
 	None EntityNameUnavailabilityReason = "None"
 )
 
@@ -38,9 +37,9 @@ const (
 type KeyType string
 
 const (
-	// Primary ...
+	// Primary specifies the primary state for key type.
 	Primary KeyType = "Primary"
-	// Secondary ...
+	// Secondary specifies the secondary state for key type.
 	Secondary KeyType = "Secondary"
 )
 
@@ -48,228 +47,116 @@ const (
 type ResourceType string
 
 const (
-	// Mediaservices ...
+	// Mediaservices specifies the mediaservices state for resource type.
 	Mediaservices ResourceType = "mediaservices"
 )
 
-// APIEndpoint the properties for a Media Services REST API endpoint.
+// APIEndpoint is the properties for a Media Services REST API endpoint.
 type APIEndpoint struct {
-	// Endpoint - The Media Services REST endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// MajorVersion - The version of Media Services REST API.
+	Endpoint     *string `json:"endpoint,omitempty"`
 	MajorVersion *string `json:"majorVersion,omitempty"`
 }
 
-// APIError the error returned from a failed Media Services REST API call.
+// APIError is the error returned from a failed Media Services REST API call.
 type APIError struct {
-	// Code - Error code.
-	Code *string `json:"code,omitempty"`
-	// Message - Error message.
+	Code    *string `json:"code,omitempty"`
 	Message *string `json:"message,omitempty"`
 }
 
-// CheckNameAvailabilityInput the request body for CheckNameAvailability API.
+// CheckNameAvailabilityInput is the request body for CheckNameAvailability API.
 type CheckNameAvailabilityInput struct {
-	// Name - The name of the resource. A name must be globally unique.
 	Name *string `json:"name,omitempty"`
-	// Type - The type of the resource - mediaservices.
 	Type *string `json:"type,omitempty"`
 }
 
-// CheckNameAvailabilityOutput the response body for CheckNameAvailability API.
+// CheckNameAvailabilityOutput is the response body for CheckNameAvailability API.
 type CheckNameAvailabilityOutput struct {
 	autorest.Response `json:"-"`
-	// NameAvailable - Specifies if the name is available.
-	NameAvailable *bool `json:"nameAvailable,omitempty"`
-	// Reason - Specifies the reason if the name is not available. Possible values include: 'None', 'Invalid', 'AlreadyExists'
-	Reason EntityNameUnavailabilityReason `json:"reason,omitempty"`
-	// Message - Specifies the detailed reason if the name is not available.
-	Message *string `json:"message,omitempty"`
+	NameAvailable     *bool                          `json:"nameAvailable,omitempty"`
+	Reason            EntityNameUnavailabilityReason `json:"reason,omitempty"`
+	Message           *string                        `json:"message,omitempty"`
 }
 
-// Operation a Media Services REST API operation
+// Operation is a Media Services REST API operation
 type Operation struct {
-	// Name - Operation name: {provider}/{resource}/{operation}
-	Name *string `json:"name,omitempty"`
-	// Display - The object that represents the operation.
+	Name    *string           `json:"name,omitempty"`
 	Display *OperationDisplay `json:"display,omitempty"`
 }
 
-// OperationDisplay the object that represents the operation.
+// OperationDisplay is the object that represents the operation.
 type OperationDisplay struct {
-	// Provider - Service provider: Microsoft.Media
-	Provider *string `json:"provider,omitempty"`
-	// Resource - Resource on which the operation is performed: Invoice, etc.
-	Resource *string `json:"resource,omitempty"`
-	// Operation - Operation type: Read, write, delete, etc.
+	Provider  *string `json:"provider,omitempty"`
+	Resource  *string `json:"resource,omitempty"`
 	Operation *string `json:"operation,omitempty"`
 }
 
-// OperationListResult result of the request to list Media Services operations.
+// OperationListResult is result of the request to list Media Services operations.
 type OperationListResult struct {
 	autorest.Response `json:"-"`
-	// Value - List of Media Services operations supported by the Microsoft.Media resource provider.
-	Value *[]Operation `json:"value,omitempty"`
-	// NextLink - URL to get the next set of operation list results if there are any.
-	NextLink *string `json:"nextLink,omitempty"`
+	Value             *[]Operation `json:"value,omitempty"`
+	NextLink          *string      `json:"nextLink,omitempty"`
 }
 
-// RegenerateKeyInput the request body for a RegenerateKey API.
+// RegenerateKeyInput is the request body for a RegenerateKey API.
 type RegenerateKeyInput struct {
-	// KeyType - The keyType indicating which key you want to regenerate, Primary or Secondary. Possible values include: 'Primary', 'Secondary'
 	KeyType KeyType `json:"keyType,omitempty"`
 }
 
-// RegenerateKeyOutput the response body for a RegenerateKey API.
+// RegenerateKeyOutput is the response body for a RegenerateKey API.
 type RegenerateKeyOutput struct {
 	autorest.Response `json:"-"`
-	// Key - The new value of either the primary or secondary key.
-	Key *string `json:"key,omitempty"`
+	Key               *string `json:"key,omitempty"`
 }
 
-// Resource the Azure Resource Manager resource.
+// Resource is the Azure Resource Manager resource.
 type Resource struct {
-	// ID - The id of the resource.
-	ID *string `json:"id,omitempty"`
-	// Name - The name of the resource.
-	Name *string `json:"name,omitempty"`
-	// Type - The type of the resource
-	Type *string `json:"type,omitempty"`
-	// Location - The geographic location of the resource. This must be one of the supported and registered Azure Geo Regions (for example, West US, East US, Southeast Asia, and so forth).
-	Location *string `json:"location,omitempty"`
-	// Tags - Tags to help categorize the resource in the Azure portal.
-	Tags *map[string]*string `json:"tags,omitempty"`
+	ID       *string             `json:"id,omitempty"`
+	Name     *string             `json:"name,omitempty"`
+	Type     *string             `json:"type,omitempty"`
+	Location *string             `json:"location,omitempty"`
+	Tags     *map[string]*string `json:"tags,omitempty"`
 }
 
-// Service the properties of a Media Service resource.
+// Service is the properties of a Media Service resource.
 type Service struct {
-	autorest.Response `json:"-"`
-	// ID - The id of the resource.
-	ID *string `json:"id,omitempty"`
-	// Name - The name of the resource.
-	Name *string `json:"name,omitempty"`
-	// Type - The type of the resource
-	Type *string `json:"type,omitempty"`
-	// Location - The geographic location of the resource. This must be one of the supported and registered Azure Geo Regions (for example, West US, East US, Southeast Asia, and so forth).
-	Location *string `json:"location,omitempty"`
-	// Tags - Tags to help categorize the resource in the Azure portal.
-	Tags *map[string]*string `json:"tags,omitempty"`
-	// ServiceProperties - The additional properties of a Media Service resource.
+	autorest.Response  `json:"-"`
+	ID                 *string             `json:"id,omitempty"`
+	Name               *string             `json:"name,omitempty"`
+	Type               *string             `json:"type,omitempty"`
+	Location           *string             `json:"location,omitempty"`
+	Tags               *map[string]*string `json:"tags,omitempty"`
 	*ServiceProperties `json:"properties,omitempty"`
 }
 
-// UnmarshalJSON is the custom unmarshaler for Service struct.
-func (s *Service) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	var v *json.RawMessage
-
-	v = m["properties"]
-	if v != nil {
-		var properties ServiceProperties
-		err = json.Unmarshal(*m["properties"], &properties)
-		if err != nil {
-			return err
-		}
-		s.ServiceProperties = &properties
-	}
-
-	v = m["id"]
-	if v != nil {
-		var ID string
-		err = json.Unmarshal(*m["id"], &ID)
-		if err != nil {
-			return err
-		}
-		s.ID = &ID
-	}
-
-	v = m["name"]
-	if v != nil {
-		var name string
-		err = json.Unmarshal(*m["name"], &name)
-		if err != nil {
-			return err
-		}
-		s.Name = &name
-	}
-
-	v = m["type"]
-	if v != nil {
-		var typeVar string
-		err = json.Unmarshal(*m["type"], &typeVar)
-		if err != nil {
-			return err
-		}
-		s.Type = &typeVar
-	}
-
-	v = m["location"]
-	if v != nil {
-		var location string
-		err = json.Unmarshal(*m["location"], &location)
-		if err != nil {
-			return err
-		}
-		s.Location = &location
-	}
-
-	v = m["tags"]
-	if v != nil {
-		var tags map[string]*string
-		err = json.Unmarshal(*m["tags"], &tags)
-		if err != nil {
-			return err
-		}
-		s.Tags = &tags
-	}
-
-	return nil
-}
-
-// ServiceCollection the collection of Media Service resources.
+// ServiceCollection is the collection of Media Service resources.
 type ServiceCollection struct {
 	autorest.Response `json:"-"`
-	// Value - The collection of Media Service resources.
-	Value *[]Service `json:"value,omitempty"`
+	Value             *[]Service `json:"value,omitempty"`
 }
 
-// ServiceKeys the response body for a ListKeys API.
+// ServiceKeys is the response body for a ListKeys API.
 type ServiceKeys struct {
-	autorest.Response `json:"-"`
-	// PrimaryAuthEndpoint - The primary authorization endpoint.
-	PrimaryAuthEndpoint *string `json:"primaryAuthEndpoint,omitempty"`
-	// SecondaryAuthEndpoint - The secondary authorization endpoint.
+	autorest.Response     `json:"-"`
+	PrimaryAuthEndpoint   *string `json:"primaryAuthEndpoint,omitempty"`
 	SecondaryAuthEndpoint *string `json:"secondaryAuthEndpoint,omitempty"`
-	// PrimaryKey - The primary key for the Media Service resource.
-	PrimaryKey *string `json:"primaryKey,omitempty"`
-	// SecondaryKey - The secondary key for the Media Service resource.
-	SecondaryKey *string `json:"secondaryKey,omitempty"`
-	// Scope - The authorization scope.
-	Scope *string `json:"scope,omitempty"`
+	PrimaryKey            *string `json:"primaryKey,omitempty"`
+	SecondaryKey          *string `json:"secondaryKey,omitempty"`
+	Scope                 *string `json:"scope,omitempty"`
 }
 
-// ServiceProperties the additional properties of a Media Service resource.
+// ServiceProperties is the additional properties of a Media Service resource.
 type ServiceProperties struct {
-	// APIEndpoints - Read-only property that lists the Media Services REST API endpoints for this resource. If supplied on a PUT or PATCH, the value will be ignored.
-	APIEndpoints *[]APIEndpoint `json:"apiEndpoints,omitempty"`
-	// StorageAccounts - The storage accounts for this resource.
+	APIEndpoints    *[]APIEndpoint    `json:"apiEndpoints,omitempty"`
 	StorageAccounts *[]StorageAccount `json:"storageAccounts,omitempty"`
 }
 
-// StorageAccount the properties of a storage account associated with this resource.
+// StorageAccount is the properties of a storage account associated with this resource.
 type StorageAccount struct {
-	// ID - The id of the storage account resource. Media Services relies on tables and queues as well as blobs, so the primary storage account must be a Standard Storage account (either Microsoft.ClassicStorage or Microsoft.Storage). Blob only storage accounts can be added as secondary storage accounts (isPrimary false).
-	ID *string `json:"id,omitempty"`
-	// IsPrimary - Is this storage account resource the primary storage account for the Media Service resource. Blob only storage must set this to false.
-	IsPrimary *bool `json:"isPrimary,omitempty"`
+	ID        *string `json:"id,omitempty"`
+	IsPrimary *bool   `json:"isPrimary,omitempty"`
 }
 
-// SyncStorageKeysInput the request  body for a SyncStorageKeys API.
+// SyncStorageKeysInput is the request  body for a SyncStorageKeys API.
 type SyncStorageKeysInput struct {
-	// ID - The id of the storage account resource.
 	ID *string `json:"id,omitempty"`
 }

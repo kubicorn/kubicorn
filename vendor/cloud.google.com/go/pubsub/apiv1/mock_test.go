@@ -1,10 +1,10 @@
-// Copyright 2018 Google LLC
+// Copyright 2017, Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     https://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,6 @@ package pubsub
 
 import (
 	emptypb "github.com/golang/protobuf/ptypes/empty"
-	timestamppb "github.com/golang/protobuf/ptypes/timestamp"
 	iampb "google.golang.org/genproto/googleapis/iam/v1"
 	pubsubpb "google.golang.org/genproto/googleapis/pubsub/v1"
 	field_maskpb "google.golang.org/genproto/protobuf/field_mask"
@@ -451,7 +450,7 @@ func TestPublisherCreateTopic(t *testing.T) {
 
 	mockPublisher.resps = append(mockPublisher.resps[:0], expectedResponse)
 
-	var formattedName string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedName string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.Topic{
 		Name: formattedName,
 	}
@@ -480,7 +479,7 @@ func TestPublisherCreateTopicError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockPublisher.err = gstatus.Error(errCode, "test error")
 
-	var formattedName string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedName string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.Topic{
 		Name: formattedName,
 	}
@@ -574,7 +573,7 @@ func TestPublisherPublish(t *testing.T) {
 
 	mockPublisher.resps = append(mockPublisher.resps[:0], expectedResponse)
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var data []byte = []byte("-86")
 	var messagesElement = &pubsubpb.PubsubMessage{
 		Data: data,
@@ -609,7 +608,7 @@ func TestPublisherPublishError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockPublisher.err = gstatus.Error(errCode, "test error")
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var data []byte = []byte("-86")
 	var messagesElement = &pubsubpb.PubsubMessage{
 		Data: data,
@@ -645,7 +644,7 @@ func TestPublisherGetTopic(t *testing.T) {
 
 	mockPublisher.resps = append(mockPublisher.resps[:0], expectedResponse)
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.GetTopicRequest{
 		Topic: formattedTopic,
 	}
@@ -674,7 +673,7 @@ func TestPublisherGetTopicError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockPublisher.err = gstatus.Error(errCode, "test error")
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.GetTopicRequest{
 		Topic: formattedTopic,
 	}
@@ -707,7 +706,7 @@ func TestPublisherListTopics(t *testing.T) {
 
 	mockPublisher.resps = append(mockPublisher.resps[:0], expectedResponse)
 
-	var formattedProject string = fmt.Sprintf("projects/%s", "[PROJECT]")
+	var formattedProject string = PublisherProjectPath("[PROJECT]")
 	var request = &pubsubpb.ListTopicsRequest{
 		Project: formattedProject,
 	}
@@ -746,7 +745,7 @@ func TestPublisherListTopicsError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockPublisher.err = gstatus.Error(errCode, "test error")
 
-	var formattedProject string = fmt.Sprintf("projects/%s", "[PROJECT]")
+	var formattedProject string = PublisherProjectPath("[PROJECT]")
 	var request = &pubsubpb.ListTopicsRequest{
 		Project: formattedProject,
 	}
@@ -779,7 +778,7 @@ func TestPublisherListTopicSubscriptions(t *testing.T) {
 
 	mockPublisher.resps = append(mockPublisher.resps[:0], expectedResponse)
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.ListTopicSubscriptionsRequest{
 		Topic: formattedTopic,
 	}
@@ -818,7 +817,7 @@ func TestPublisherListTopicSubscriptionsError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockPublisher.err = gstatus.Error(errCode, "test error")
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.ListTopicSubscriptionsRequest{
 		Topic: formattedTopic,
 	}
@@ -845,7 +844,7 @@ func TestPublisherDeleteTopic(t *testing.T) {
 
 	mockPublisher.resps = append(mockPublisher.resps[:0], expectedResponse)
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.DeleteTopicRequest{
 		Topic: formattedTopic,
 	}
@@ -871,7 +870,7 @@ func TestPublisherDeleteTopicError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockPublisher.err = gstatus.Error(errCode, "test error")
 
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedTopic string = PublisherTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.DeleteTopicRequest{
 		Topic: formattedTopic,
 	}
@@ -906,8 +905,8 @@ func TestSubscriberCreateSubscription(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedName string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedName string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
+	var formattedTopic string = SubscriberTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.Subscription{
 		Name:  formattedName,
 		Topic: formattedTopic,
@@ -937,8 +936,8 @@ func TestSubscriberCreateSubscriptionError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedName string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
-	var formattedTopic string = fmt.Sprintf("projects/%s/topics/%s", "[PROJECT]", "[TOPIC]")
+	var formattedName string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
+	var formattedTopic string = SubscriberTopicPath("[PROJECT]", "[TOPIC]")
 	var request = &pubsubpb.Subscription{
 		Name:  formattedName,
 		Topic: formattedTopic,
@@ -975,7 +974,7 @@ func TestSubscriberGetSubscription(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.GetSubscriptionRequest{
 		Subscription: formattedSubscription,
 	}
@@ -1004,7 +1003,7 @@ func TestSubscriberGetSubscriptionError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.GetSubscriptionRequest{
 		Subscription: formattedSubscription,
 	}
@@ -1026,12 +1025,12 @@ func TestSubscriberGetSubscriptionError(t *testing.T) {
 func TestSubscriberUpdateSubscription(t *testing.T) {
 	var name string = "name3373707"
 	var topic string = "topic110546223"
-	var ackDeadlineSeconds2 int32 = 921632575
+	var ackDeadlineSeconds int32 = 2135351438
 	var retainAckedMessages bool = false
 	var expectedResponse = &pubsubpb.Subscription{
 		Name:                name,
 		Topic:               topic,
-		AckDeadlineSeconds:  ackDeadlineSeconds2,
+		AckDeadlineSeconds:  ackDeadlineSeconds,
 		RetainAckedMessages: retainAckedMessages,
 	}
 
@@ -1040,15 +1039,8 @@ func TestSubscriberUpdateSubscription(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var ackDeadlineSeconds int32 = 42
-	var subscription = &pubsubpb.Subscription{
-		AckDeadlineSeconds: ackDeadlineSeconds,
-	}
-	var pathsElement string = "ack_deadline_seconds"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var subscription *pubsubpb.Subscription = &pubsubpb.Subscription{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSubscriptionRequest{
 		Subscription: subscription,
 		UpdateMask:   updateMask,
@@ -1078,15 +1070,8 @@ func TestSubscriberUpdateSubscriptionError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var ackDeadlineSeconds int32 = 42
-	var subscription = &pubsubpb.Subscription{
-		AckDeadlineSeconds: ackDeadlineSeconds,
-	}
-	var pathsElement string = "ack_deadline_seconds"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var subscription *pubsubpb.Subscription = &pubsubpb.Subscription{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSubscriptionRequest{
 		Subscription: subscription,
 		UpdateMask:   updateMask,
@@ -1120,7 +1105,7 @@ func TestSubscriberListSubscriptions(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedProject string = fmt.Sprintf("projects/%s", "[PROJECT]")
+	var formattedProject string = SubscriberProjectPath("[PROJECT]")
 	var request = &pubsubpb.ListSubscriptionsRequest{
 		Project: formattedProject,
 	}
@@ -1159,7 +1144,7 @@ func TestSubscriberListSubscriptionsError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedProject string = fmt.Sprintf("projects/%s", "[PROJECT]")
+	var formattedProject string = SubscriberProjectPath("[PROJECT]")
 	var request = &pubsubpb.ListSubscriptionsRequest{
 		Project: formattedProject,
 	}
@@ -1186,7 +1171,7 @@ func TestSubscriberDeleteSubscription(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.DeleteSubscriptionRequest{
 		Subscription: formattedSubscription,
 	}
@@ -1212,7 +1197,7 @@ func TestSubscriberDeleteSubscriptionError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.DeleteSubscriptionRequest{
 		Subscription: formattedSubscription,
 	}
@@ -1238,7 +1223,7 @@ func TestSubscriberModifyAckDeadline(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var ackIds []string = nil
 	var ackDeadlineSeconds int32 = 2135351438
 	var request = &pubsubpb.ModifyAckDeadlineRequest{
@@ -1268,7 +1253,7 @@ func TestSubscriberModifyAckDeadlineError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var ackIds []string = nil
 	var ackDeadlineSeconds int32 = 2135351438
 	var request = &pubsubpb.ModifyAckDeadlineRequest{
@@ -1298,7 +1283,7 @@ func TestSubscriberAcknowledge(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var ackIds []string = nil
 	var request = &pubsubpb.AcknowledgeRequest{
 		Subscription: formattedSubscription,
@@ -1326,7 +1311,7 @@ func TestSubscriberAcknowledgeError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var ackIds []string = nil
 	var request = &pubsubpb.AcknowledgeRequest{
 		Subscription: formattedSubscription,
@@ -1354,7 +1339,7 @@ func TestSubscriberPull(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var maxMessages int32 = 496131527
 	var request = &pubsubpb.PullRequest{
 		Subscription: formattedSubscription,
@@ -1385,7 +1370,7 @@ func TestSubscriberPullError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var maxMessages int32 = 496131527
 	var request = &pubsubpb.PullRequest{
 		Subscription: formattedSubscription,
@@ -1418,7 +1403,7 @@ func TestSubscriberStreamingPull(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var streamAckDeadlineSeconds int32 = 1875467245
 	var request = &pubsubpb.StreamingPullRequest{
 		Subscription:             formattedSubscription,
@@ -1459,7 +1444,7 @@ func TestSubscriberStreamingPullError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var streamAckDeadlineSeconds int32 = 1875467245
 	var request = &pubsubpb.StreamingPullRequest{
 		Subscription:             formattedSubscription,
@@ -1498,7 +1483,7 @@ func TestSubscriberModifyPushConfig(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var pushConfig *pubsubpb.PushConfig = &pubsubpb.PushConfig{}
 	var request = &pubsubpb.ModifyPushConfigRequest{
 		Subscription: formattedSubscription,
@@ -1526,7 +1511,7 @@ func TestSubscriberModifyPushConfigError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var pushConfig *pubsubpb.PushConfig = &pubsubpb.PushConfig{}
 	var request = &pubsubpb.ModifyPushConfigRequest{
 		Subscription: formattedSubscription,
@@ -1560,7 +1545,7 @@ func TestSubscriberListSnapshots(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedProject string = fmt.Sprintf("projects/%s", "[PROJECT]")
+	var formattedProject string = SubscriberProjectPath("[PROJECT]")
 	var request = &pubsubpb.ListSnapshotsRequest{
 		Project: formattedProject,
 	}
@@ -1599,7 +1584,7 @@ func TestSubscriberListSnapshotsError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedProject string = fmt.Sprintf("projects/%s", "[PROJECT]")
+	var formattedProject string = SubscriberProjectPath("[PROJECT]")
 	var request = &pubsubpb.ListSnapshotsRequest{
 		Project: formattedProject,
 	}
@@ -1631,8 +1616,8 @@ func TestSubscriberCreateSnapshot(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedName string = fmt.Sprintf("projects/%s/snapshots/%s", "[PROJECT]", "[SNAPSHOT]")
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedName string = SubscriberSnapshotPath("[PROJECT]", "[SNAPSHOT]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.CreateSnapshotRequest{
 		Name:         formattedName,
 		Subscription: formattedSubscription,
@@ -1662,8 +1647,8 @@ func TestSubscriberCreateSnapshotError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedName string = fmt.Sprintf("projects/%s/snapshots/%s", "[PROJECT]", "[SNAPSHOT]")
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedName string = SubscriberSnapshotPath("[PROJECT]", "[SNAPSHOT]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.CreateSnapshotRequest{
 		Name:         formattedName,
 		Subscription: formattedSubscription,
@@ -1696,18 +1681,8 @@ func TestSubscriberUpdateSnapshot(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var seconds int64 = 123456
-	var expireTime = &timestamppb.Timestamp{
-		Seconds: seconds,
-	}
-	var snapshot = &pubsubpb.Snapshot{
-		ExpireTime: expireTime,
-	}
-	var pathsElement string = "expire_time"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var snapshot *pubsubpb.Snapshot = &pubsubpb.Snapshot{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSnapshotRequest{
 		Snapshot:   snapshot,
 		UpdateMask: updateMask,
@@ -1737,18 +1712,8 @@ func TestSubscriberUpdateSnapshotError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var seconds int64 = 123456
-	var expireTime = &timestamppb.Timestamp{
-		Seconds: seconds,
-	}
-	var snapshot = &pubsubpb.Snapshot{
-		ExpireTime: expireTime,
-	}
-	var pathsElement string = "expire_time"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var snapshot *pubsubpb.Snapshot = &pubsubpb.Snapshot{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSnapshotRequest{
 		Snapshot:   snapshot,
 		UpdateMask: updateMask,
@@ -1776,7 +1741,7 @@ func TestSubscriberDeleteSnapshot(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSnapshot string = fmt.Sprintf("projects/%s/snapshots/%s", "[PROJECT]", "[SNAPSHOT]")
+	var formattedSnapshot string = SubscriberSnapshotPath("[PROJECT]", "[SNAPSHOT]")
 	var request = &pubsubpb.DeleteSnapshotRequest{
 		Snapshot: formattedSnapshot,
 	}
@@ -1802,7 +1767,7 @@ func TestSubscriberDeleteSnapshotError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSnapshot string = fmt.Sprintf("projects/%s/snapshots/%s", "[PROJECT]", "[SNAPSHOT]")
+	var formattedSnapshot string = SubscriberSnapshotPath("[PROJECT]", "[SNAPSHOT]")
 	var request = &pubsubpb.DeleteSnapshotRequest{
 		Snapshot: formattedSnapshot,
 	}
@@ -1828,7 +1793,7 @@ func TestSubscriberSeek(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.SeekRequest{
 		Subscription: formattedSubscription,
 	}
@@ -1857,7 +1822,7 @@ func TestSubscriberSeekError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var formattedSubscription string = fmt.Sprintf("projects/%s/subscriptions/%s", "[PROJECT]", "[SUBSCRIPTION]")
+	var formattedSubscription string = SubscriberSubscriptionPath("[PROJECT]", "[SUBSCRIPTION]")
 	var request = &pubsubpb.SeekRequest{
 		Subscription: formattedSubscription,
 	}

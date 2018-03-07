@@ -18,7 +18,6 @@ package web
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // HostingEnvironmentsClient is the webSite Management Client
 type HostingEnvironmentsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewHostingEnvironmentsClient creates an instance of the HostingEnvironmentsClient client.
@@ -39,28 +38,49 @@ func NewHostingEnvironmentsClientWithBaseURI(baseURI string, subscriptionID stri
 	return HostingEnvironmentsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdateHostingEnvironment sends the create or update hosting environment request.
+// CreateOrUpdateHostingEnvironment sends the create or update hosting environment request. This method may poll for
+// completion. Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel
+// polling and any outstanding HTTP requests.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // hostingEnvironmentEnvelope is properties of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironment(ctx context.Context, resourceGroupName string, name string, hostingEnvironmentEnvelope HostingEnvironment) (result HostingEnvironmentsCreateOrUpdateHostingEnvironmentFuture, err error) {
-	req, err := client.CreateOrUpdateHostingEnvironmentPreparer(ctx, resourceGroupName, name, hostingEnvironmentEnvelope)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateHostingEnvironment", nil, "Failure preparing request")
-		return
-	}
+func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironment(resourceGroupName string, name string, hostingEnvironmentEnvelope HostingEnvironment, cancel <-chan struct{}) (<-chan HostingEnvironment, <-chan error) {
+	resultChan := make(chan HostingEnvironment, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result HostingEnvironment
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdateHostingEnvironmentPreparer(resourceGroupName, name, hostingEnvironmentEnvelope, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateHostingEnvironment", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateHostingEnvironmentSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateHostingEnvironment", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateHostingEnvironmentSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateHostingEnvironment", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateHostingEnvironmentResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateHostingEnvironment", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdateHostingEnvironmentPreparer prepares the CreateOrUpdateHostingEnvironment request.
-func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironmentPreparer(ctx context.Context, resourceGroupName string, name string, hostingEnvironmentEnvelope HostingEnvironment) (*http.Request, error) {
+func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironmentPreparer(resourceGroupName string, name string, hostingEnvironmentEnvelope HostingEnvironment, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -79,22 +99,16 @@ func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironmentPreparer
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}", pathParameters),
 		autorest.WithJSON(hostingEnvironmentEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateHostingEnvironmentSender sends the CreateOrUpdateHostingEnvironment request. The method will close the
 // http.Response Body if it receives an error.
-func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironmentSender(req *http.Request) (future HostingEnvironmentsCreateOrUpdateHostingEnvironmentFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironmentSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateHostingEnvironmentResponder handles the response to the CreateOrUpdateHostingEnvironment request. The method always
@@ -110,28 +124,49 @@ func (client HostingEnvironmentsClient) CreateOrUpdateHostingEnvironmentResponde
 	return
 }
 
-// CreateOrUpdateMultiRolePool sends the create or update multi role pool request.
+// CreateOrUpdateMultiRolePool sends the create or update multi role pool request. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // multiRolePoolEnvelope is properties of multiRole pool
-func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePool(ctx context.Context, resourceGroupName string, name string, multiRolePoolEnvelope WorkerPool) (result HostingEnvironmentsCreateOrUpdateMultiRolePoolFuture, err error) {
-	req, err := client.CreateOrUpdateMultiRolePoolPreparer(ctx, resourceGroupName, name, multiRolePoolEnvelope)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateMultiRolePool", nil, "Failure preparing request")
-		return
-	}
+func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePool(resourceGroupName string, name string, multiRolePoolEnvelope WorkerPool, cancel <-chan struct{}) (<-chan WorkerPool, <-chan error) {
+	resultChan := make(chan WorkerPool, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result WorkerPool
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdateMultiRolePoolPreparer(resourceGroupName, name, multiRolePoolEnvelope, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateMultiRolePool", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateMultiRolePoolSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateMultiRolePool", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateMultiRolePoolSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateMultiRolePool", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateMultiRolePoolResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateMultiRolePool", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdateMultiRolePoolPreparer prepares the CreateOrUpdateMultiRolePool request.
-func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePoolPreparer(ctx context.Context, resourceGroupName string, name string, multiRolePoolEnvelope WorkerPool) (*http.Request, error) {
+func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePoolPreparer(resourceGroupName string, name string, multiRolePoolEnvelope WorkerPool, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -150,22 +185,16 @@ func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePoolPreparer(ctx 
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default", pathParameters),
 		autorest.WithJSON(multiRolePoolEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateMultiRolePoolSender sends the CreateOrUpdateMultiRolePool request. The method will close the
 // http.Response Body if it receives an error.
-func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePoolSender(req *http.Request) (future HostingEnvironmentsCreateOrUpdateMultiRolePoolFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePoolSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateMultiRolePoolResponder handles the response to the CreateOrUpdateMultiRolePool request. The method always
@@ -181,28 +210,49 @@ func (client HostingEnvironmentsClient) CreateOrUpdateMultiRolePoolResponder(res
 	return
 }
 
-// CreateOrUpdateWorkerPool sends the create or update worker pool request.
+// CreateOrUpdateWorkerPool sends the create or update worker pool request. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // workerPoolName is name of worker pool workerPoolEnvelope is properties of worker pool
-func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPool(ctx context.Context, resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPool) (result HostingEnvironmentsCreateOrUpdateWorkerPoolFuture, err error) {
-	req, err := client.CreateOrUpdateWorkerPoolPreparer(ctx, resourceGroupName, name, workerPoolName, workerPoolEnvelope)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateWorkerPool", nil, "Failure preparing request")
-		return
-	}
+func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPool(resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPool, cancel <-chan struct{}) (<-chan WorkerPool, <-chan error) {
+	resultChan := make(chan WorkerPool, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result WorkerPool
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreateOrUpdateWorkerPoolPreparer(resourceGroupName, name, workerPoolName, workerPoolEnvelope, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateWorkerPool", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateOrUpdateWorkerPoolSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateWorkerPool", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateOrUpdateWorkerPoolSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateWorkerPool", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateOrUpdateWorkerPoolResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "CreateOrUpdateWorkerPool", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreateOrUpdateWorkerPoolPreparer prepares the CreateOrUpdateWorkerPool request.
-func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPoolPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPool) (*http.Request, error) {
+func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPoolPreparer(resourceGroupName string, name string, workerPoolName string, workerPoolEnvelope WorkerPool, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -222,22 +272,16 @@ func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPoolPreparer(ctx con
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}", pathParameters),
 		autorest.WithJSON(workerPoolEnvelope),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateOrUpdateWorkerPoolSender sends the CreateOrUpdateWorkerPool request. The method will close the
 // http.Response Body if it receives an error.
-func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPoolSender(req *http.Request) (future HostingEnvironmentsCreateOrUpdateWorkerPoolFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPoolSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateOrUpdateWorkerPoolResponder handles the response to the CreateOrUpdateWorkerPool request. The method always
@@ -253,28 +297,49 @@ func (client HostingEnvironmentsClient) CreateOrUpdateWorkerPoolResponder(resp *
 	return
 }
 
-// DeleteHostingEnvironment sends the delete hosting environment request.
+// DeleteHostingEnvironment sends the delete hosting environment request. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment) forceDelete
 // is delete even if the hostingEnvironment (App Service Environment) contains resources
-func (client HostingEnvironmentsClient) DeleteHostingEnvironment(ctx context.Context, resourceGroupName string, name string, forceDelete *bool) (result HostingEnvironmentsDeleteHostingEnvironmentFuture, err error) {
-	req, err := client.DeleteHostingEnvironmentPreparer(ctx, resourceGroupName, name, forceDelete)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "DeleteHostingEnvironment", nil, "Failure preparing request")
-		return
-	}
+func (client HostingEnvironmentsClient) DeleteHostingEnvironment(resourceGroupName string, name string, forceDelete *bool, cancel <-chan struct{}) (<-chan SetObject, <-chan error) {
+	resultChan := make(chan SetObject, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result SetObject
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeleteHostingEnvironmentPreparer(resourceGroupName, name, forceDelete, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "DeleteHostingEnvironment", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteHostingEnvironmentSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "DeleteHostingEnvironment", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteHostingEnvironmentSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "DeleteHostingEnvironment", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteHostingEnvironmentResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "DeleteHostingEnvironment", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeleteHostingEnvironmentPreparer prepares the DeleteHostingEnvironment request.
-func (client HostingEnvironmentsClient) DeleteHostingEnvironmentPreparer(ctx context.Context, resourceGroupName string, name string, forceDelete *bool) (*http.Request, error) {
+func (client HostingEnvironmentsClient) DeleteHostingEnvironmentPreparer(resourceGroupName string, name string, forceDelete *bool, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -294,22 +359,16 @@ func (client HostingEnvironmentsClient) DeleteHostingEnvironmentPreparer(ctx con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteHostingEnvironmentSender sends the DeleteHostingEnvironment request. The method will close the
 // http.Response Body if it receives an error.
-func (client HostingEnvironmentsClient) DeleteHostingEnvironmentSender(req *http.Request) (future HostingEnvironmentsDeleteHostingEnvironmentFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict))
-	return
+func (client HostingEnvironmentsClient) DeleteHostingEnvironmentSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteHostingEnvironmentResponder handles the response to the DeleteHostingEnvironment request. The method always
@@ -319,7 +378,7 @@ func (client HostingEnvironmentsClient) DeleteHostingEnvironmentResponder(resp *
 		resp,
 		client.ByInspecting(),
 		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusBadRequest, http.StatusNotFound, http.StatusConflict),
-		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByUnmarshallingJSON(&result.Value),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
@@ -328,8 +387,8 @@ func (client HostingEnvironmentsClient) DeleteHostingEnvironmentResponder(resp *
 // GetHostingEnvironment sends the get hosting environment request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironment(ctx context.Context, resourceGroupName string, name string) (result HostingEnvironment, err error) {
-	req, err := client.GetHostingEnvironmentPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironment(resourceGroupName string, name string) (result HostingEnvironment, err error) {
+	req, err := client.GetHostingEnvironmentPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironment", nil, "Failure preparing request")
 		return
@@ -351,7 +410,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironment(ctx context.Contex
 }
 
 // GetHostingEnvironmentPreparer prepares the GetHostingEnvironment request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -368,13 +427,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentPreparer(ctx contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentSender sends the GetHostingEnvironment request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -394,9 +454,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentResponder(resp *htt
 // GetHostingEnvironmentCapacities sends the get hosting environment capacities request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacities(ctx context.Context, resourceGroupName string, name string) (result StampCapacityCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentCapacitiesNextResults
-	req, err := client.GetHostingEnvironmentCapacitiesPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacities(resourceGroupName string, name string) (result StampCapacityCollection, err error) {
+	req, err := client.GetHostingEnvironmentCapacitiesPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentCapacities", nil, "Failure preparing request")
 		return
@@ -404,12 +463,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacities(ctx cont
 
 	resp, err := client.GetHostingEnvironmentCapacitiesSender(req)
 	if err != nil {
-		result.scc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentCapacities", resp, "Failure sending request")
 		return
 	}
 
-	result.scc, err = client.GetHostingEnvironmentCapacitiesResponder(resp)
+	result, err = client.GetHostingEnvironmentCapacitiesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentCapacities", resp, "Failure responding to request")
 	}
@@ -418,7 +477,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacities(ctx cont
 }
 
 // GetHostingEnvironmentCapacitiesPreparer prepares the GetHostingEnvironmentCapacities request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -435,13 +494,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesPreparer(
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/compute", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentCapacitiesSender sends the GetHostingEnvironmentCapacities request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -458,38 +518,80 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesResponder
 	return
 }
 
-// getHostingEnvironmentCapacitiesNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentCapacitiesNextResults(lastResults StampCapacityCollection) (result StampCapacityCollection, err error) {
-	req, err := lastResults.stampCapacityCollectionPreparer()
+// GetHostingEnvironmentCapacitiesNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesNextResults(lastResults StampCapacityCollection) (result StampCapacityCollection, err error) {
+	req, err := lastResults.StampCapacityCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentCapacitiesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentCapacities", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentCapacitiesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentCapacitiesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentCapacities", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentCapacitiesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentCapacitiesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentCapacities", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentCapacitiesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesComplete(ctx context.Context, resourceGroupName string, name string) (result StampCapacityCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentCapacities(ctx, resourceGroupName, name)
-	return
+// GetHostingEnvironmentCapacitiesComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentCapacitiesComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan StampCapacity, <-chan error) {
+	resultChan := make(chan StampCapacity)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentCapacities(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentCapacitiesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentDiagnostics sends the get hosting environment diagnostics request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnostics(ctx context.Context, resourceGroupName string, name string) (result ListHostingEnvironmentDiagnostics, err error) {
-	req, err := client.GetHostingEnvironmentDiagnosticsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnostics(resourceGroupName string, name string) (result ListHostingEnvironmentDiagnostics, err error) {
+	req, err := client.GetHostingEnvironmentDiagnosticsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentDiagnostics", nil, "Failure preparing request")
 		return
@@ -511,7 +613,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnostics(ctx con
 }
 
 // GetHostingEnvironmentDiagnosticsPreparer prepares the GetHostingEnvironmentDiagnostics request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -528,13 +630,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsPreparer
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentDiagnosticsSender sends the GetHostingEnvironmentDiagnostics request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -555,8 +658,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsResponde
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // diagnosticsName is name of the diagnostics
-func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItem(ctx context.Context, resourceGroupName string, name string, diagnosticsName string) (result HostingEnvironmentDiagnostics, err error) {
-	req, err := client.GetHostingEnvironmentDiagnosticsItemPreparer(ctx, resourceGroupName, name, diagnosticsName)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItem(resourceGroupName string, name string, diagnosticsName string) (result HostingEnvironmentDiagnostics, err error) {
+	req, err := client.GetHostingEnvironmentDiagnosticsItemPreparer(resourceGroupName, name, diagnosticsName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentDiagnosticsItem", nil, "Failure preparing request")
 		return
@@ -578,7 +681,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItem(ctx
 }
 
 // GetHostingEnvironmentDiagnosticsItemPreparer prepares the GetHostingEnvironmentDiagnosticsItem request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItemPreparer(ctx context.Context, resourceGroupName string, name string, diagnosticsName string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItemPreparer(resourceGroupName string, name string, diagnosticsName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"diagnosticsName":   autorest.Encode("path", diagnosticsName),
 		"name":              autorest.Encode("path", name),
@@ -596,13 +699,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItemPrep
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics/{diagnosticsName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentDiagnosticsItemSender sends the GetHostingEnvironmentDiagnosticsItem request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItemSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -622,8 +726,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentDiagnosticsItemResp
 // GetHostingEnvironmentMetricDefinitions sends the get hosting environment metric definitions request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitions(ctx context.Context, resourceGroupName string, name string) (result MetricDefinition, err error) {
-	req, err := client.GetHostingEnvironmentMetricDefinitionsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitions(resourceGroupName string, name string) (result MetricDefinition, err error) {
+	req, err := client.GetHostingEnvironmentMetricDefinitionsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -645,7 +749,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitions(c
 }
 
 // GetHostingEnvironmentMetricDefinitionsPreparer prepares the GetHostingEnvironmentMetricDefinitions request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitionsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -662,13 +766,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitionsPr
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentMetricDefinitionsSender sends the GetHostingEnvironmentMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -691,9 +796,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricDefinitionsRe
 // include instance details filter is return only usages/metrics specified in the filter. Filter conforms to odata
 // syntax. Example: $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq
 // '2014-01-01T00:00:00Z' and endTime eq '2014-12-31T23:59:59Z' and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMetrics(ctx context.Context, resourceGroupName string, name string, details *bool, filter string) (result ResourceMetricCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentMetricsNextResults
-	req, err := client.GetHostingEnvironmentMetricsPreparer(ctx, resourceGroupName, name, details, filter)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMetrics(resourceGroupName string, name string, details *bool, filter string) (result ResourceMetricCollection, err error) {
+	req, err := client.GetHostingEnvironmentMetricsPreparer(resourceGroupName, name, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMetrics", nil, "Failure preparing request")
 		return
@@ -701,12 +805,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMetrics(ctx context
 
 	resp, err := client.GetHostingEnvironmentMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.GetHostingEnvironmentMetricsResponder(resp)
+	result, err = client.GetHostingEnvironmentMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMetrics", resp, "Failure responding to request")
 	}
@@ -715,7 +819,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMetrics(ctx context
 }
 
 // GetHostingEnvironmentMetricsPreparer prepares the GetHostingEnvironmentMetrics request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsPreparer(ctx context.Context, resourceGroupName string, name string, details *bool, filter string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsPreparer(resourceGroupName string, name string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -738,13 +842,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsPreparer(ctx
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentMetricsSender sends the GetHostingEnvironmentMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -761,40 +866,81 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsResponder(re
 	return
 }
 
-// getHostingEnvironmentMetricsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// GetHostingEnvironmentMetricsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsComplete(ctx context.Context, resourceGroupName string, name string, details *bool, filter string) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentMetrics(ctx, resourceGroupName, name, details, filter)
-	return
+// GetHostingEnvironmentMetricsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMetricsComplete(resourceGroupName string, name string, details *bool, filter string, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentMetrics(resourceGroupName, name, details, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentMultiRoleMetricDefinitions sends the get hosting environment multi role metric definitions
 // request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitions(ctx context.Context, resourceGroupName string, name string) (result MetricDefinitionCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentMultiRoleMetricDefinitionsNextResults
-	req, err := client.GetHostingEnvironmentMultiRoleMetricDefinitionsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitions(resourceGroupName string, name string) (result MetricDefinitionCollection, err error) {
+	req, err := client.GetHostingEnvironmentMultiRoleMetricDefinitionsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -802,12 +948,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefi
 
 	resp, err := client.GetHostingEnvironmentMultiRoleMetricDefinitionsSender(req)
 	if err != nil {
-		result.mdc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetricDefinitions", resp, "Failure sending request")
 		return
 	}
 
-	result.mdc, err = client.GetHostingEnvironmentMultiRoleMetricDefinitionsResponder(resp)
+	result, err = client.GetHostingEnvironmentMultiRoleMetricDefinitionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetricDefinitions", resp, "Failure responding to request")
 	}
@@ -816,7 +962,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefi
 }
 
 // GetHostingEnvironmentMultiRoleMetricDefinitionsPreparer prepares the GetHostingEnvironmentMultiRoleMetricDefinitions request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitionsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -833,13 +979,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefi
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentMultiRoleMetricDefinitionsSender sends the GetHostingEnvironmentMultiRoleMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -856,31 +1003,73 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefi
 	return
 }
 
-// getHostingEnvironmentMultiRoleMetricDefinitionsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentMultiRoleMetricDefinitionsNextResults(lastResults MetricDefinitionCollection) (result MetricDefinitionCollection, err error) {
-	req, err := lastResults.metricDefinitionCollectionPreparer()
+// GetHostingEnvironmentMultiRoleMetricDefinitionsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitionsNextResults(lastResults MetricDefinitionCollection) (result MetricDefinitionCollection, err error) {
+	req, err := lastResults.MetricDefinitionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleMetricDefinitionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetricDefinitions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentMultiRoleMetricDefinitionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleMetricDefinitionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetricDefinitions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentMultiRoleMetricDefinitionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleMetricDefinitionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetricDefinitions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentMultiRoleMetricDefinitionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitionsComplete(ctx context.Context, resourceGroupName string, name string) (result MetricDefinitionCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentMultiRoleMetricDefinitions(ctx, resourceGroupName, name)
-	return
+// GetHostingEnvironmentMultiRoleMetricDefinitionsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefinitionsComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan MetricDefinition, <-chan error) {
+	resultChan := make(chan MetricDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentMultiRoleMetricDefinitions(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentMultiRoleMetricDefinitionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentMultiRoleMetrics sends the get hosting environment multi role metrics request.
@@ -890,9 +1079,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricDefi
 // query details is include instance details filter is return only usages/metrics specified in the filter. Filter
 // conforms to odata syntax. Example: $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq
 // '2014-01-01T00:00:00Z' and endTime eq '2014-12-31T23:59:59Z' and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetrics(ctx context.Context, resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (result ResourceMetricCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentMultiRoleMetricsNextResults
-	req, err := client.GetHostingEnvironmentMultiRoleMetricsPreparer(ctx, resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetrics(resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (result ResourceMetricCollection, err error) {
+	req, err := client.GetHostingEnvironmentMultiRoleMetricsPreparer(resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetrics", nil, "Failure preparing request")
 		return
@@ -900,12 +1088,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetrics(ct
 
 	resp, err := client.GetHostingEnvironmentMultiRoleMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.GetHostingEnvironmentMultiRoleMetricsResponder(resp)
+	result, err = client.GetHostingEnvironmentMultiRoleMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetrics", resp, "Failure responding to request")
 	}
@@ -914,7 +1102,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetrics(ct
 }
 
 // GetHostingEnvironmentMultiRoleMetricsPreparer prepares the GetHostingEnvironmentMultiRoleMetrics request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsPreparer(ctx context.Context, resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsPreparer(resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -946,13 +1134,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsPre
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentMultiRoleMetricsSender sends the GetHostingEnvironmentMultiRoleMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -969,39 +1158,80 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsRes
 	return
 }
 
-// getHostingEnvironmentMultiRoleMetricsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentMultiRoleMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// GetHostingEnvironmentMultiRoleMetricsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentMultiRoleMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentMultiRoleMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentMultiRoleMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsComplete(ctx context.Context, resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentMultiRoleMetrics(ctx, resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
-	return
+// GetHostingEnvironmentMultiRoleMetricsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleMetricsComplete(resourceGroupName string, name string, startTime string, endTime string, timeGrain string, details *bool, filter string, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentMultiRoleMetrics(resourceGroupName, name, startTime, endTime, timeGrain, details, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentMultiRoleMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentMultiRoleUsages sends the get hosting environment multi role usages request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsages(ctx context.Context, resourceGroupName string, name string) (result UsageCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentMultiRoleUsagesNextResults
-	req, err := client.GetHostingEnvironmentMultiRoleUsagesPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsages(resourceGroupName string, name string) (result UsageCollection, err error) {
+	req, err := client.GetHostingEnvironmentMultiRoleUsagesPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleUsages", nil, "Failure preparing request")
 		return
@@ -1009,12 +1239,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsages(ctx
 
 	resp, err := client.GetHostingEnvironmentMultiRoleUsagesSender(req)
 	if err != nil {
-		result.uc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleUsages", resp, "Failure sending request")
 		return
 	}
 
-	result.uc, err = client.GetHostingEnvironmentMultiRoleUsagesResponder(resp)
+	result, err = client.GetHostingEnvironmentMultiRoleUsagesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleUsages", resp, "Failure responding to request")
 	}
@@ -1023,7 +1253,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsages(ctx
 }
 
 // GetHostingEnvironmentMultiRoleUsagesPreparer prepares the GetHostingEnvironmentMultiRoleUsages request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1040,13 +1270,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesPrep
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/usages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentMultiRoleUsagesSender sends the GetHostingEnvironmentMultiRoleUsages request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1063,39 +1294,81 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesResp
 	return
 }
 
-// getHostingEnvironmentMultiRoleUsagesNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentMultiRoleUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
-	req, err := lastResults.usageCollectionPreparer()
+// GetHostingEnvironmentMultiRoleUsagesNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
+	req, err := lastResults.UsageCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleUsagesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleUsages", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentMultiRoleUsagesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleUsagesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleUsages", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentMultiRoleUsagesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentMultiRoleUsagesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentMultiRoleUsages", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentMultiRoleUsagesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesComplete(ctx context.Context, resourceGroupName string, name string) (result UsageCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentMultiRoleUsages(ctx, resourceGroupName, name)
-	return
+// GetHostingEnvironmentMultiRoleUsagesComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentMultiRoleUsagesComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan Usage, <-chan error) {
+	resultChan := make(chan Usage)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentMultiRoleUsages(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentMultiRoleUsagesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentOperation sends the get hosting environment operation request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment) operationID
 // is operation identifier GUID
-func (client HostingEnvironmentsClient) GetHostingEnvironmentOperation(ctx context.Context, resourceGroupName string, name string, operationID string) (result SetObject, err error) {
-	req, err := client.GetHostingEnvironmentOperationPreparer(ctx, resourceGroupName, name, operationID)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentOperation(resourceGroupName string, name string, operationID string) (result SetObject, err error) {
+	req, err := client.GetHostingEnvironmentOperationPreparer(resourceGroupName, name, operationID)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentOperation", nil, "Failure preparing request")
 		return
@@ -1117,7 +1390,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentOperation(ctx conte
 }
 
 // GetHostingEnvironmentOperationPreparer prepares the GetHostingEnvironmentOperation request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationPreparer(ctx context.Context, resourceGroupName string, name string, operationID string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationPreparer(resourceGroupName string, name string, operationID string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"operationId":       autorest.Encode("path", operationID),
@@ -1135,13 +1408,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationPreparer(c
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/operations/{operationId}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentOperationSender sends the GetHostingEnvironmentOperation request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1161,8 +1435,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationResponder(
 // GetHostingEnvironmentOperations sends the get hosting environment operations request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentOperations(ctx context.Context, resourceGroupName string, name string) (result SetObject, err error) {
-	req, err := client.GetHostingEnvironmentOperationsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentOperations(resourceGroupName string, name string) (result SetObject, err error) {
+	req, err := client.GetHostingEnvironmentOperationsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentOperations", nil, "Failure preparing request")
 		return
@@ -1184,7 +1458,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentOperations(ctx cont
 }
 
 // GetHostingEnvironmentOperationsPreparer prepares the GetHostingEnvironmentOperations request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1201,13 +1475,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationsPreparer(
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/operations", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentOperationsSender sends the GetHostingEnvironmentOperations request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1227,9 +1502,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentOperationsResponder
 // GetHostingEnvironments sends the get hosting environments request.
 //
 // resourceGroupName is name of resource group
-func (client HostingEnvironmentsClient) GetHostingEnvironments(ctx context.Context, resourceGroupName string) (result HostingEnvironmentCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentsNextResults
-	req, err := client.GetHostingEnvironmentsPreparer(ctx, resourceGroupName)
+func (client HostingEnvironmentsClient) GetHostingEnvironments(resourceGroupName string) (result HostingEnvironmentCollection, err error) {
+	req, err := client.GetHostingEnvironmentsPreparer(resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironments", nil, "Failure preparing request")
 		return
@@ -1237,12 +1511,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironments(ctx context.Conte
 
 	resp, err := client.GetHostingEnvironmentsSender(req)
 	if err != nil {
-		result.hec.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironments", resp, "Failure sending request")
 		return
 	}
 
-	result.hec, err = client.GetHostingEnvironmentsResponder(resp)
+	result, err = client.GetHostingEnvironmentsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironments", resp, "Failure responding to request")
 	}
@@ -1251,7 +1525,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironments(ctx context.Conte
 }
 
 // GetHostingEnvironmentsPreparer prepares the GetHostingEnvironments request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentsPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentsPreparer(resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -1267,13 +1541,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentsPreparer(ctx conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentsSender sends the GetHostingEnvironments request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1290,39 +1565,80 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentsResponder(resp *ht
 	return
 }
 
-// getHostingEnvironmentsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentsNextResults(lastResults HostingEnvironmentCollection) (result HostingEnvironmentCollection, err error) {
-	req, err := lastResults.hostingEnvironmentCollectionPreparer()
+// GetHostingEnvironmentsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentsNextResults(lastResults HostingEnvironmentCollection) (result HostingEnvironmentCollection, err error) {
+	req, err := lastResults.HostingEnvironmentCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironments", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironments", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironments", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentsComplete(ctx context.Context, resourceGroupName string) (result HostingEnvironmentCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironments(ctx, resourceGroupName)
-	return
+// GetHostingEnvironmentsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentsComplete(resourceGroupName string, cancel <-chan struct{}) (<-chan HostingEnvironment, <-chan error) {
+	resultChan := make(chan HostingEnvironment)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironments(resourceGroupName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentServerFarms sends the get hosting environment server farms request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarms(ctx context.Context, resourceGroupName string, name string) (result ServerFarmCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentServerFarmsNextResults
-	req, err := client.GetHostingEnvironmentServerFarmsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarms(resourceGroupName string, name string) (result ServerFarmCollection, err error) {
+	req, err := client.GetHostingEnvironmentServerFarmsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentServerFarms", nil, "Failure preparing request")
 		return
@@ -1330,12 +1646,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarms(ctx con
 
 	resp, err := client.GetHostingEnvironmentServerFarmsSender(req)
 	if err != nil {
-		result.sfc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentServerFarms", resp, "Failure sending request")
 		return
 	}
 
-	result.sfc, err = client.GetHostingEnvironmentServerFarmsResponder(resp)
+	result, err = client.GetHostingEnvironmentServerFarmsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentServerFarms", resp, "Failure responding to request")
 	}
@@ -1344,7 +1660,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarms(ctx con
 }
 
 // GetHostingEnvironmentServerFarmsPreparer prepares the GetHostingEnvironmentServerFarms request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1361,13 +1677,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsPreparer
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/serverfarms", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentServerFarmsSender sends the GetHostingEnvironmentServerFarms request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1384,40 +1701,81 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsResponde
 	return
 }
 
-// getHostingEnvironmentServerFarmsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentServerFarmsNextResults(lastResults ServerFarmCollection) (result ServerFarmCollection, err error) {
-	req, err := lastResults.serverFarmCollectionPreparer()
+// GetHostingEnvironmentServerFarmsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsNextResults(lastResults ServerFarmCollection) (result ServerFarmCollection, err error) {
+	req, err := lastResults.ServerFarmCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentServerFarmsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentServerFarms", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentServerFarmsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentServerFarmsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentServerFarms", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentServerFarmsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentServerFarmsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentServerFarms", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentServerFarmsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsComplete(ctx context.Context, resourceGroupName string, name string) (result ServerFarmCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentServerFarms(ctx, resourceGroupName, name)
-	return
+// GetHostingEnvironmentServerFarmsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentServerFarmsComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan ServerFarmWithRichSku, <-chan error) {
+	resultChan := make(chan ServerFarmWithRichSku)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentServerFarms(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentServerFarmsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentSites sends the get hosting environment sites request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // propertiesToInclude is comma separated list of site properties to include
-func (client HostingEnvironmentsClient) GetHostingEnvironmentSites(ctx context.Context, resourceGroupName string, name string, propertiesToInclude string) (result SiteCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentSitesNextResults
-	req, err := client.GetHostingEnvironmentSitesPreparer(ctx, resourceGroupName, name, propertiesToInclude)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentSites(resourceGroupName string, name string, propertiesToInclude string) (result SiteCollection, err error) {
+	req, err := client.GetHostingEnvironmentSitesPreparer(resourceGroupName, name, propertiesToInclude)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentSites", nil, "Failure preparing request")
 		return
@@ -1425,12 +1783,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentSites(ctx context.C
 
 	resp, err := client.GetHostingEnvironmentSitesSender(req)
 	if err != nil {
-		result.sc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentSites", resp, "Failure sending request")
 		return
 	}
 
-	result.sc, err = client.GetHostingEnvironmentSitesResponder(resp)
+	result, err = client.GetHostingEnvironmentSitesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentSites", resp, "Failure responding to request")
 	}
@@ -1439,7 +1797,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentSites(ctx context.C
 }
 
 // GetHostingEnvironmentSitesPreparer prepares the GetHostingEnvironmentSites request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesPreparer(ctx context.Context, resourceGroupName string, name string, propertiesToInclude string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesPreparer(resourceGroupName string, name string, propertiesToInclude string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1459,13 +1817,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesPreparer(ctx c
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/sites", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentSitesSender sends the GetHostingEnvironmentSites request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1482,31 +1841,73 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesResponder(resp
 	return
 }
 
-// getHostingEnvironmentSitesNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentSitesNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
-	req, err := lastResults.siteCollectionPreparer()
+// GetHostingEnvironmentSitesNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
+	req, err := lastResults.SiteCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentSitesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentSites", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentSitesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentSitesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentSites", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentSitesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentSitesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentSites", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentSitesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesComplete(ctx context.Context, resourceGroupName string, name string, propertiesToInclude string) (result SiteCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentSites(ctx, resourceGroupName, name, propertiesToInclude)
-	return
+// GetHostingEnvironmentSitesComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesComplete(resourceGroupName string, name string, propertiesToInclude string, cancel <-chan struct{}) (<-chan Site, <-chan error) {
+	resultChan := make(chan Site)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentSites(resourceGroupName, name, propertiesToInclude)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentSitesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentUsages sends the get hosting environment usages request.
@@ -1515,9 +1916,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentSitesComplete(ctx c
 // return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example: $filter=(name.value eq
 // 'Metric1' or name.value eq 'Metric2') and startTime eq '2014-01-01T00:00:00Z' and endTime eq '2014-12-31T23:59:59Z'
 // and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentUsages(ctx context.Context, resourceGroupName string, name string, filter string) (result CsmUsageQuotaCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentUsagesNextResults
-	req, err := client.GetHostingEnvironmentUsagesPreparer(ctx, resourceGroupName, name, filter)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentUsages(resourceGroupName string, name string, filter string) (result CsmUsageQuotaCollection, err error) {
+	req, err := client.GetHostingEnvironmentUsagesPreparer(resourceGroupName, name, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentUsages", nil, "Failure preparing request")
 		return
@@ -1525,12 +1925,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentUsages(ctx context.
 
 	resp, err := client.GetHostingEnvironmentUsagesSender(req)
 	if err != nil {
-		result.cuqc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentUsages", resp, "Failure sending request")
 		return
 	}
 
-	result.cuqc, err = client.GetHostingEnvironmentUsagesResponder(resp)
+	result, err = client.GetHostingEnvironmentUsagesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentUsages", resp, "Failure responding to request")
 	}
@@ -1539,7 +1939,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentUsages(ctx context.
 }
 
 // GetHostingEnvironmentUsagesPreparer prepares the GetHostingEnvironmentUsages request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesPreparer(ctx context.Context, resourceGroupName string, name string, filter string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesPreparer(resourceGroupName string, name string, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1559,13 +1959,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesPreparer(ctx 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/usages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentUsagesSender sends the GetHostingEnvironmentUsages request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1582,38 +1983,80 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesResponder(res
 	return
 }
 
-// getHostingEnvironmentUsagesNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentUsagesNextResults(lastResults CsmUsageQuotaCollection) (result CsmUsageQuotaCollection, err error) {
-	req, err := lastResults.csmUsageQuotaCollectionPreparer()
+// GetHostingEnvironmentUsagesNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesNextResults(lastResults CsmUsageQuotaCollection) (result CsmUsageQuotaCollection, err error) {
+	req, err := lastResults.CsmUsageQuotaCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentUsagesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentUsages", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentUsagesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentUsagesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentUsages", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentUsagesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentUsagesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentUsages", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentUsagesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesComplete(ctx context.Context, resourceGroupName string, name string, filter string) (result CsmUsageQuotaCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentUsages(ctx, resourceGroupName, name, filter)
-	return
+// GetHostingEnvironmentUsagesComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentUsagesComplete(resourceGroupName string, name string, filter string, cancel <-chan struct{}) (<-chan CsmUsageQuota, <-chan error) {
+	resultChan := make(chan CsmUsageQuota)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentUsages(resourceGroupName, name, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentUsagesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentVips sends the get hosting environment vips request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentVips(ctx context.Context, resourceGroupName string, name string) (result AddressResponse, err error) {
-	req, err := client.GetHostingEnvironmentVipsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentVips(resourceGroupName string, name string) (result AddressResponse, err error) {
+	req, err := client.GetHostingEnvironmentVipsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentVips", nil, "Failure preparing request")
 		return
@@ -1635,7 +2078,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentVips(ctx context.Co
 }
 
 // GetHostingEnvironmentVipsPreparer prepares the GetHostingEnvironmentVips request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentVipsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentVipsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1652,13 +2095,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentVipsPreparer(ctx co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/virtualip", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentVipsSender sends the GetHostingEnvironmentVips request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentVipsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1678,9 +2122,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentVipsResponder(resp 
 // GetHostingEnvironmentWebHostingPlans sends the get hosting environment web hosting plans request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlans(ctx context.Context, resourceGroupName string, name string) (result ServerFarmCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentWebHostingPlansNextResults
-	req, err := client.GetHostingEnvironmentWebHostingPlansPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlans(resourceGroupName string, name string) (result ServerFarmCollection, err error) {
+	req, err := client.GetHostingEnvironmentWebHostingPlansPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebHostingPlans", nil, "Failure preparing request")
 		return
@@ -1688,12 +2131,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlans(ctx
 
 	resp, err := client.GetHostingEnvironmentWebHostingPlansSender(req)
 	if err != nil {
-		result.sfc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebHostingPlans", resp, "Failure sending request")
 		return
 	}
 
-	result.sfc, err = client.GetHostingEnvironmentWebHostingPlansResponder(resp)
+	result, err = client.GetHostingEnvironmentWebHostingPlansResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebHostingPlans", resp, "Failure responding to request")
 	}
@@ -1702,7 +2145,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlans(ctx
 }
 
 // GetHostingEnvironmentWebHostingPlansPreparer prepares the GetHostingEnvironmentWebHostingPlans request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1719,13 +2162,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansPrep
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/webhostingplans", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentWebHostingPlansSender sends the GetHostingEnvironmentWebHostingPlans request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1742,31 +2186,73 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansResp
 	return
 }
 
-// getHostingEnvironmentWebHostingPlansNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentWebHostingPlansNextResults(lastResults ServerFarmCollection) (result ServerFarmCollection, err error) {
-	req, err := lastResults.serverFarmCollectionPreparer()
+// GetHostingEnvironmentWebHostingPlansNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansNextResults(lastResults ServerFarmCollection) (result ServerFarmCollection, err error) {
+	req, err := lastResults.ServerFarmCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebHostingPlansNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebHostingPlans", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentWebHostingPlansSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebHostingPlansNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebHostingPlans", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentWebHostingPlansResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebHostingPlansNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebHostingPlans", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentWebHostingPlansComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansComplete(ctx context.Context, resourceGroupName string, name string) (result ServerFarmCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentWebHostingPlans(ctx, resourceGroupName, name)
-	return
+// GetHostingEnvironmentWebHostingPlansComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan ServerFarmWithRichSku, <-chan error) {
+	resultChan := make(chan ServerFarmWithRichSku)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentWebHostingPlans(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentWebHostingPlansNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentWebWorkerMetricDefinitions sends the get hosting environment web worker metric definitions
@@ -1774,9 +2260,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebHostingPlansComp
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // workerPoolName is name of worker pool
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitions(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result MetricDefinitionCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentWebWorkerMetricDefinitionsNextResults
-	req, err := client.GetHostingEnvironmentWebWorkerMetricDefinitionsPreparer(ctx, resourceGroupName, name, workerPoolName)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitions(resourceGroupName string, name string, workerPoolName string) (result MetricDefinitionCollection, err error) {
+	req, err := client.GetHostingEnvironmentWebWorkerMetricDefinitionsPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -1784,12 +2269,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefi
 
 	resp, err := client.GetHostingEnvironmentWebWorkerMetricDefinitionsSender(req)
 	if err != nil {
-		result.mdc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetricDefinitions", resp, "Failure sending request")
 		return
 	}
 
-	result.mdc, err = client.GetHostingEnvironmentWebWorkerMetricDefinitionsResponder(resp)
+	result, err = client.GetHostingEnvironmentWebWorkerMetricDefinitionsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetricDefinitions", resp, "Failure responding to request")
 	}
@@ -1798,7 +2283,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefi
 }
 
 // GetHostingEnvironmentWebWorkerMetricDefinitionsPreparer prepares the GetHostingEnvironmentWebWorkerMetricDefinitions request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitionsPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1816,13 +2301,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefi
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentWebWorkerMetricDefinitionsSender sends the GetHostingEnvironmentWebWorkerMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1839,31 +2325,73 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefi
 	return
 }
 
-// getHostingEnvironmentWebWorkerMetricDefinitionsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentWebWorkerMetricDefinitionsNextResults(lastResults MetricDefinitionCollection) (result MetricDefinitionCollection, err error) {
-	req, err := lastResults.metricDefinitionCollectionPreparer()
+// GetHostingEnvironmentWebWorkerMetricDefinitionsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitionsNextResults(lastResults MetricDefinitionCollection) (result MetricDefinitionCollection, err error) {
+	req, err := lastResults.MetricDefinitionCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerMetricDefinitionsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetricDefinitions", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentWebWorkerMetricDefinitionsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerMetricDefinitionsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetricDefinitions", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentWebWorkerMetricDefinitionsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerMetricDefinitionsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetricDefinitions", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentWebWorkerMetricDefinitionsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitionsComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result MetricDefinitionCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentWebWorkerMetricDefinitions(ctx, resourceGroupName, name, workerPoolName)
-	return
+// GetHostingEnvironmentWebWorkerMetricDefinitionsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefinitionsComplete(resourceGroupName string, name string, workerPoolName string, cancel <-chan struct{}) (<-chan MetricDefinition, <-chan error) {
+	resultChan := make(chan MetricDefinition)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentWebWorkerMetricDefinitions(resourceGroupName, name, workerPoolName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentWebWorkerMetricDefinitionsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentWebWorkerMetrics sends the get hosting environment web worker metrics request.
@@ -1873,9 +2401,8 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricDefi
 // specified in the filter. Filter conforms to odata syntax. Example: $filter=(name.value eq 'Metric1' or name.value eq
 // 'Metric2') and startTime eq '2014-01-01T00:00:00Z' and endTime eq '2014-12-31T23:59:59Z' and timeGrain eq
 // duration'[Hour|Minute|Day]'.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetrics(ctx context.Context, resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (result ResourceMetricCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentWebWorkerMetricsNextResults
-	req, err := client.GetHostingEnvironmentWebWorkerMetricsPreparer(ctx, resourceGroupName, name, workerPoolName, details, filter)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetrics(resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (result ResourceMetricCollection, err error) {
+	req, err := client.GetHostingEnvironmentWebWorkerMetricsPreparer(resourceGroupName, name, workerPoolName, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetrics", nil, "Failure preparing request")
 		return
@@ -1883,12 +2410,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetrics(ct
 
 	resp, err := client.GetHostingEnvironmentWebWorkerMetricsSender(req)
 	if err != nil {
-		result.rmc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetrics", resp, "Failure sending request")
 		return
 	}
 
-	result.rmc, err = client.GetHostingEnvironmentWebWorkerMetricsResponder(resp)
+	result, err = client.GetHostingEnvironmentWebWorkerMetricsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetrics", resp, "Failure responding to request")
 	}
@@ -1897,7 +2424,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetrics(ct
 }
 
 // GetHostingEnvironmentWebWorkerMetricsPreparer prepares the GetHostingEnvironmentWebWorkerMetrics request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsPreparer(resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -1921,13 +2448,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsPre
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentWebWorkerMetricsSender sends the GetHostingEnvironmentWebWorkerMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -1944,40 +2472,81 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsRes
 	return
 }
 
-// getHostingEnvironmentWebWorkerMetricsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentWebWorkerMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
-	req, err := lastResults.resourceMetricCollectionPreparer()
+// GetHostingEnvironmentWebWorkerMetricsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsNextResults(lastResults ResourceMetricCollection) (result ResourceMetricCollection, err error) {
+	req, err := lastResults.ResourceMetricCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerMetricsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetrics", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentWebWorkerMetricsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerMetricsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetrics", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentWebWorkerMetricsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerMetricsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerMetrics", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentWebWorkerMetricsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string, details *bool, filter string) (result ResourceMetricCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentWebWorkerMetrics(ctx, resourceGroupName, name, workerPoolName, details, filter)
-	return
+// GetHostingEnvironmentWebWorkerMetricsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerMetricsComplete(resourceGroupName string, name string, workerPoolName string, details *bool, filter string, cancel <-chan struct{}) (<-chan ResourceMetric, <-chan error) {
+	resultChan := make(chan ResourceMetric)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentWebWorkerMetrics(resourceGroupName, name, workerPoolName, details, filter)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentWebWorkerMetricsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetHostingEnvironmentWebWorkerUsages sends the get hosting environment web worker usages request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // workerPoolName is name of worker pool
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsages(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result UsageCollectionPage, err error) {
-	result.fn = client.getHostingEnvironmentWebWorkerUsagesNextResults
-	req, err := client.GetHostingEnvironmentWebWorkerUsagesPreparer(ctx, resourceGroupName, name, workerPoolName)
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsages(resourceGroupName string, name string, workerPoolName string) (result UsageCollection, err error) {
+	req, err := client.GetHostingEnvironmentWebWorkerUsagesPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerUsages", nil, "Failure preparing request")
 		return
@@ -1985,12 +2554,12 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsages(ctx
 
 	resp, err := client.GetHostingEnvironmentWebWorkerUsagesSender(req)
 	if err != nil {
-		result.uc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerUsages", resp, "Failure sending request")
 		return
 	}
 
-	result.uc, err = client.GetHostingEnvironmentWebWorkerUsagesResponder(resp)
+	result, err = client.GetHostingEnvironmentWebWorkerUsagesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerUsages", resp, "Failure responding to request")
 	}
@@ -1999,7 +2568,7 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsages(ctx
 }
 
 // GetHostingEnvironmentWebWorkerUsagesPreparer prepares the GetHostingEnvironmentWebWorkerUsages request.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2017,13 +2586,14 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesPrep
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/usages", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetHostingEnvironmentWebWorkerUsagesSender sends the GetHostingEnvironmentWebWorkerUsages request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2040,38 +2610,80 @@ func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesResp
 	return
 }
 
-// getHostingEnvironmentWebWorkerUsagesNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getHostingEnvironmentWebWorkerUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
-	req, err := lastResults.usageCollectionPreparer()
+// GetHostingEnvironmentWebWorkerUsagesNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesNextResults(lastResults UsageCollection) (result UsageCollection, err error) {
+	req, err := lastResults.UsageCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerUsagesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerUsages", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetHostingEnvironmentWebWorkerUsagesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerUsagesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerUsages", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetHostingEnvironmentWebWorkerUsagesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getHostingEnvironmentWebWorkerUsagesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetHostingEnvironmentWebWorkerUsages", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetHostingEnvironmentWebWorkerUsagesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result UsageCollectionIterator, err error) {
-	result.page, err = client.GetHostingEnvironmentWebWorkerUsages(ctx, resourceGroupName, name, workerPoolName)
-	return
+// GetHostingEnvironmentWebWorkerUsagesComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetHostingEnvironmentWebWorkerUsagesComplete(resourceGroupName string, name string, workerPoolName string, cancel <-chan struct{}) (<-chan Usage, <-chan error) {
+	resultChan := make(chan Usage)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetHostingEnvironmentWebWorkerUsages(resourceGroupName, name, workerPoolName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetHostingEnvironmentWebWorkerUsagesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetMultiRolePool sends the get multi role pool request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetMultiRolePool(ctx context.Context, resourceGroupName string, name string) (result WorkerPool, err error) {
-	req, err := client.GetMultiRolePoolPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetMultiRolePool(resourceGroupName string, name string) (result WorkerPool, err error) {
+	req, err := client.GetMultiRolePoolPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePool", nil, "Failure preparing request")
 		return
@@ -2093,7 +2705,7 @@ func (client HostingEnvironmentsClient) GetMultiRolePool(ctx context.Context, re
 }
 
 // GetMultiRolePoolPreparer prepares the GetMultiRolePool request.
-func (client HostingEnvironmentsClient) GetMultiRolePoolPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetMultiRolePoolPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2110,13 +2722,14 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolPreparer(ctx context.Con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMultiRolePoolSender sends the GetMultiRolePool request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetMultiRolePoolSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2137,8 +2750,8 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolResponder(resp *http.Res
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment) instance is
 // name of instance in the multiRole pool&gt;
-func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinitions(ctx context.Context, resourceGroupName string, name string, instance string) (result SetObject, err error) {
-	req, err := client.GetMultiRolePoolInstanceMetricDefinitionsPreparer(ctx, resourceGroupName, name, instance)
+func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinitions(resourceGroupName string, name string, instance string) (result SetObject, err error) {
+	req, err := client.GetMultiRolePoolInstanceMetricDefinitionsPreparer(resourceGroupName, name, instance)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolInstanceMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -2160,7 +2773,7 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinition
 }
 
 // GetMultiRolePoolInstanceMetricDefinitionsPreparer prepares the GetMultiRolePoolInstanceMetricDefinitions request.
-func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string, instance string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinitionsPreparer(resourceGroupName string, name string, instance string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -2178,13 +2791,14 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinition
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/instances/{instance}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMultiRolePoolInstanceMetricDefinitionsSender sends the GetMultiRolePoolInstanceMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2205,8 +2819,8 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricDefinition
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment) instance is
 // name of instance in the multiRole pool details is include instance details
-func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetrics(ctx context.Context, resourceGroupName string, name string, instance string, details *bool) (result SetObject, err error) {
-	req, err := client.GetMultiRolePoolInstanceMetricsPreparer(ctx, resourceGroupName, name, instance, details)
+func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetrics(resourceGroupName string, name string, instance string, details *bool) (result SetObject, err error) {
+	req, err := client.GetMultiRolePoolInstanceMetricsPreparer(resourceGroupName, name, instance, details)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolInstanceMetrics", nil, "Failure preparing request")
 		return
@@ -2228,7 +2842,7 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetrics(ctx cont
 }
 
 // GetMultiRolePoolInstanceMetricsPreparer prepares the GetMultiRolePoolInstanceMetrics request.
-func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricsPreparer(ctx context.Context, resourceGroupName string, name string, instance string, details *bool) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricsPreparer(resourceGroupName string, name string, instance string, details *bool) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -2249,13 +2863,14 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricsPreparer(
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/instances/{instance}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMultiRolePoolInstanceMetricsSender sends the GetMultiRolePoolInstanceMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2275,9 +2890,8 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolInstanceMetricsResponder
 // GetMultiRolePools sends the get multi role pools request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetMultiRolePools(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionPage, err error) {
-	result.fn = client.getMultiRolePoolsNextResults
-	req, err := client.GetMultiRolePoolsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetMultiRolePools(resourceGroupName string, name string) (result WorkerPoolCollection, err error) {
+	req, err := client.GetMultiRolePoolsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePools", nil, "Failure preparing request")
 		return
@@ -2285,12 +2899,12 @@ func (client HostingEnvironmentsClient) GetMultiRolePools(ctx context.Context, r
 
 	resp, err := client.GetMultiRolePoolsSender(req)
 	if err != nil {
-		result.wpc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePools", resp, "Failure sending request")
 		return
 	}
 
-	result.wpc, err = client.GetMultiRolePoolsResponder(resp)
+	result, err = client.GetMultiRolePoolsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePools", resp, "Failure responding to request")
 	}
@@ -2299,7 +2913,7 @@ func (client HostingEnvironmentsClient) GetMultiRolePools(ctx context.Context, r
 }
 
 // GetMultiRolePoolsPreparer prepares the GetMultiRolePools request.
-func (client HostingEnvironmentsClient) GetMultiRolePoolsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetMultiRolePoolsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2316,13 +2930,14 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolsPreparer(ctx context.Co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMultiRolePoolsSender sends the GetMultiRolePools request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetMultiRolePoolsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2339,39 +2954,80 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolsResponder(resp *http.Re
 	return
 }
 
-// getMultiRolePoolsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getMultiRolePoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
-	req, err := lastResults.workerPoolCollectionPreparer()
+// GetMultiRolePoolsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetMultiRolePoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
+	req, err := lastResults.WorkerPoolCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getMultiRolePoolsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePools", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetMultiRolePoolsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getMultiRolePoolsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePools", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetMultiRolePoolsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getMultiRolePoolsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePools", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetMultiRolePoolsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetMultiRolePoolsComplete(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionIterator, err error) {
-	result.page, err = client.GetMultiRolePools(ctx, resourceGroupName, name)
-	return
+// GetMultiRolePoolsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetMultiRolePoolsComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan WorkerPool, <-chan error) {
+	resultChan := make(chan WorkerPool)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetMultiRolePools(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetMultiRolePoolsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetMultiRolePoolSkus sends the get multi role pool skus request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetMultiRolePoolSkus(ctx context.Context, resourceGroupName string, name string) (result SkuInfoCollectionPage, err error) {
-	result.fn = client.getMultiRolePoolSkusNextResults
-	req, err := client.GetMultiRolePoolSkusPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetMultiRolePoolSkus(resourceGroupName string, name string) (result SkuInfoCollection, err error) {
+	req, err := client.GetMultiRolePoolSkusPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolSkus", nil, "Failure preparing request")
 		return
@@ -2379,12 +3035,12 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolSkus(ctx context.Context
 
 	resp, err := client.GetMultiRolePoolSkusSender(req)
 	if err != nil {
-		result.sic.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolSkus", resp, "Failure sending request")
 		return
 	}
 
-	result.sic, err = client.GetMultiRolePoolSkusResponder(resp)
+	result, err = client.GetMultiRolePoolSkusResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolSkus", resp, "Failure responding to request")
 	}
@@ -2393,7 +3049,7 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolSkus(ctx context.Context
 }
 
 // GetMultiRolePoolSkusPreparer prepares the GetMultiRolePoolSkus request.
-func (client HostingEnvironmentsClient) GetMultiRolePoolSkusPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetMultiRolePoolSkusPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2410,13 +3066,14 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolSkusPreparer(ctx context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/skus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetMultiRolePoolSkusSender sends the GetMultiRolePoolSkus request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetMultiRolePoolSkusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2433,39 +3090,81 @@ func (client HostingEnvironmentsClient) GetMultiRolePoolSkusResponder(resp *http
 	return
 }
 
-// getMultiRolePoolSkusNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getMultiRolePoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
-	req, err := lastResults.skuInfoCollectionPreparer()
+// GetMultiRolePoolSkusNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetMultiRolePoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
+	req, err := lastResults.SkuInfoCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getMultiRolePoolSkusNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolSkus", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetMultiRolePoolSkusSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getMultiRolePoolSkusNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolSkus", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetMultiRolePoolSkusResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getMultiRolePoolSkusNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetMultiRolePoolSkus", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetMultiRolePoolSkusComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetMultiRolePoolSkusComplete(ctx context.Context, resourceGroupName string, name string) (result SkuInfoCollectionIterator, err error) {
-	result.page, err = client.GetMultiRolePoolSkus(ctx, resourceGroupName, name)
-	return
+// GetMultiRolePoolSkusComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetMultiRolePoolSkusComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan SkuInfo, <-chan error) {
+	resultChan := make(chan SkuInfo)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetMultiRolePoolSkus(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetMultiRolePoolSkusNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetWorkerPool sends the get worker pool request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // workerPoolName is name of worker pool
-func (client HostingEnvironmentsClient) GetWorkerPool(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result WorkerPool, err error) {
-	req, err := client.GetWorkerPoolPreparer(ctx, resourceGroupName, name, workerPoolName)
+func (client HostingEnvironmentsClient) GetWorkerPool(resourceGroupName string, name string, workerPoolName string) (result WorkerPool, err error) {
+	req, err := client.GetWorkerPoolPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPool", nil, "Failure preparing request")
 		return
@@ -2487,7 +3186,7 @@ func (client HostingEnvironmentsClient) GetWorkerPool(ctx context.Context, resou
 }
 
 // GetWorkerPoolPreparer prepares the GetWorkerPool request.
-func (client HostingEnvironmentsClient) GetWorkerPoolPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetWorkerPoolPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2505,13 +3204,14 @@ func (client HostingEnvironmentsClient) GetWorkerPoolPreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetWorkerPoolSender sends the GetWorkerPool request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetWorkerPoolSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2532,8 +3232,8 @@ func (client HostingEnvironmentsClient) GetWorkerPoolResponder(resp *http.Respon
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // workerPoolName is name of worker pool instance is name of instance in the worker pool
-func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitions(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string) (result SetObject, err error) {
-	req, err := client.GetWorkerPoolInstanceMetricDefinitionsPreparer(ctx, resourceGroupName, name, workerPoolName, instance)
+func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitions(resourceGroupName string, name string, workerPoolName string, instance string) (result SetObject, err error) {
+	req, err := client.GetWorkerPoolInstanceMetricDefinitionsPreparer(resourceGroupName, name, workerPoolName, instance)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolInstanceMetricDefinitions", nil, "Failure preparing request")
 		return
@@ -2555,7 +3255,7 @@ func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitions(c
 }
 
 // GetWorkerPoolInstanceMetricDefinitionsPreparer prepares the GetWorkerPoolInstanceMetricDefinitions request.
-func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitionsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitionsPreparer(resourceGroupName string, name string, workerPoolName string, instance string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -2574,13 +3274,14 @@ func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitionsPr
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/instances/{instance}/metricdefinitions", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetWorkerPoolInstanceMetricDefinitionsSender sends the GetWorkerPoolInstanceMetricDefinitions request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitionsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2604,8 +3305,8 @@ func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricDefinitionsRe
 // details filter is return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
 // $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq '2014-01-01T00:00:00Z' and endTime eq
 // '2014-12-31T23:59:59Z' and timeGrain eq duration'[Hour|Minute|Day]'.
-func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetrics(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (result SetObject, err error) {
-	req, err := client.GetWorkerPoolInstanceMetricsPreparer(ctx, resourceGroupName, name, workerPoolName, instance, details, filter)
+func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetrics(resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (result SetObject, err error) {
+	req, err := client.GetWorkerPoolInstanceMetricsPreparer(resourceGroupName, name, workerPoolName, instance, details, filter)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolInstanceMetrics", nil, "Failure preparing request")
 		return
@@ -2627,7 +3328,7 @@ func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetrics(ctx context
 }
 
 // GetWorkerPoolInstanceMetricsPreparer prepares the GetWorkerPoolInstanceMetrics request.
-func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricsPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricsPreparer(resourceGroupName string, name string, workerPoolName string, instance string, details *bool, filter string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"instance":          autorest.Encode("path", instance),
 		"name":              autorest.Encode("path", name),
@@ -2652,13 +3353,14 @@ func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricsPreparer(ctx
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/instances/{instance}/metrics", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetWorkerPoolInstanceMetricsSender sends the GetWorkerPoolInstanceMetrics request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2678,9 +3380,8 @@ func (client HostingEnvironmentsClient) GetWorkerPoolInstanceMetricsResponder(re
 // GetWorkerPools sends the get worker pools request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) GetWorkerPools(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionPage, err error) {
-	result.fn = client.getWorkerPoolsNextResults
-	req, err := client.GetWorkerPoolsPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) GetWorkerPools(resourceGroupName string, name string) (result WorkerPoolCollection, err error) {
+	req, err := client.GetWorkerPoolsPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPools", nil, "Failure preparing request")
 		return
@@ -2688,12 +3389,12 @@ func (client HostingEnvironmentsClient) GetWorkerPools(ctx context.Context, reso
 
 	resp, err := client.GetWorkerPoolsSender(req)
 	if err != nil {
-		result.wpc.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPools", resp, "Failure sending request")
 		return
 	}
 
-	result.wpc, err = client.GetWorkerPoolsResponder(resp)
+	result, err = client.GetWorkerPoolsResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPools", resp, "Failure responding to request")
 	}
@@ -2702,7 +3403,7 @@ func (client HostingEnvironmentsClient) GetWorkerPools(ctx context.Context, reso
 }
 
 // GetWorkerPoolsPreparer prepares the GetWorkerPools request.
-func (client HostingEnvironmentsClient) GetWorkerPoolsPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetWorkerPoolsPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2719,13 +3420,14 @@ func (client HostingEnvironmentsClient) GetWorkerPoolsPreparer(ctx context.Conte
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetWorkerPoolsSender sends the GetWorkerPools request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetWorkerPoolsSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2742,40 +3444,81 @@ func (client HostingEnvironmentsClient) GetWorkerPoolsResponder(resp *http.Respo
 	return
 }
 
-// getWorkerPoolsNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getWorkerPoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
-	req, err := lastResults.workerPoolCollectionPreparer()
+// GetWorkerPoolsNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetWorkerPoolsNextResults(lastResults WorkerPoolCollection) (result WorkerPoolCollection, err error) {
+	req, err := lastResults.WorkerPoolCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getWorkerPoolsNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPools", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetWorkerPoolsSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getWorkerPoolsNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPools", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetWorkerPoolsResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getWorkerPoolsNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPools", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetWorkerPoolsComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetWorkerPoolsComplete(ctx context.Context, resourceGroupName string, name string) (result WorkerPoolCollectionIterator, err error) {
-	result.page, err = client.GetWorkerPools(ctx, resourceGroupName, name)
-	return
+// GetWorkerPoolsComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetWorkerPoolsComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan WorkerPool, <-chan error) {
+	resultChan := make(chan WorkerPool)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetWorkerPools(resourceGroupName, name)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetWorkerPoolsNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // GetWorkerPoolSkus sends the get worker pool skus request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
 // workerPoolName is name of worker pool
-func (client HostingEnvironmentsClient) GetWorkerPoolSkus(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result SkuInfoCollectionPage, err error) {
-	result.fn = client.getWorkerPoolSkusNextResults
-	req, err := client.GetWorkerPoolSkusPreparer(ctx, resourceGroupName, name, workerPoolName)
+func (client HostingEnvironmentsClient) GetWorkerPoolSkus(resourceGroupName string, name string, workerPoolName string) (result SkuInfoCollection, err error) {
+	req, err := client.GetWorkerPoolSkusPreparer(resourceGroupName, name, workerPoolName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolSkus", nil, "Failure preparing request")
 		return
@@ -2783,12 +3526,12 @@ func (client HostingEnvironmentsClient) GetWorkerPoolSkus(ctx context.Context, r
 
 	resp, err := client.GetWorkerPoolSkusSender(req)
 	if err != nil {
-		result.sic.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolSkus", resp, "Failure sending request")
 		return
 	}
 
-	result.sic, err = client.GetWorkerPoolSkusResponder(resp)
+	result, err = client.GetWorkerPoolSkusResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolSkus", resp, "Failure responding to request")
 	}
@@ -2797,7 +3540,7 @@ func (client HostingEnvironmentsClient) GetWorkerPoolSkus(ctx context.Context, r
 }
 
 // GetWorkerPoolSkusPreparer prepares the GetWorkerPoolSkus request.
-func (client HostingEnvironmentsClient) GetWorkerPoolSkusPreparer(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) GetWorkerPoolSkusPreparer(resourceGroupName string, name string, workerPoolName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2815,13 +3558,14 @@ func (client HostingEnvironmentsClient) GetWorkerPoolSkusPreparer(ctx context.Co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/skus", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetWorkerPoolSkusSender sends the GetWorkerPoolSkus request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) GetWorkerPoolSkusSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2838,38 +3582,80 @@ func (client HostingEnvironmentsClient) GetWorkerPoolSkusResponder(resp *http.Re
 	return
 }
 
-// getWorkerPoolSkusNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) getWorkerPoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
-	req, err := lastResults.skuInfoCollectionPreparer()
+// GetWorkerPoolSkusNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) GetWorkerPoolSkusNextResults(lastResults SkuInfoCollection) (result SkuInfoCollection, err error) {
+	req, err := lastResults.SkuInfoCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getWorkerPoolSkusNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolSkus", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.GetWorkerPoolSkusSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getWorkerPoolSkusNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolSkus", resp, "Failure sending next results request")
 	}
+
 	result, err = client.GetWorkerPoolSkusResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "getWorkerPoolSkusNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "GetWorkerPoolSkus", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// GetWorkerPoolSkusComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) GetWorkerPoolSkusComplete(ctx context.Context, resourceGroupName string, name string, workerPoolName string) (result SkuInfoCollectionIterator, err error) {
-	result.page, err = client.GetWorkerPoolSkus(ctx, resourceGroupName, name, workerPoolName)
-	return
+// GetWorkerPoolSkusComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) GetWorkerPoolSkusComplete(resourceGroupName string, name string, workerPoolName string, cancel <-chan struct{}) (<-chan SkuInfo, <-chan error) {
+	resultChan := make(chan SkuInfo)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.GetWorkerPoolSkus(resourceGroupName, name, workerPoolName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.GetWorkerPoolSkusNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // RebootHostingEnvironment sends the reboot hosting environment request.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) RebootHostingEnvironment(ctx context.Context, resourceGroupName string, name string) (result SetObject, err error) {
-	req, err := client.RebootHostingEnvironmentPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) RebootHostingEnvironment(resourceGroupName string, name string) (result SetObject, err error) {
+	req, err := client.RebootHostingEnvironmentPreparer(resourceGroupName, name)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "RebootHostingEnvironment", nil, "Failure preparing request")
 		return
@@ -2891,7 +3677,7 @@ func (client HostingEnvironmentsClient) RebootHostingEnvironment(ctx context.Con
 }
 
 // RebootHostingEnvironmentPreparer prepares the RebootHostingEnvironment request.
-func (client HostingEnvironmentsClient) RebootHostingEnvironmentPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) RebootHostingEnvironmentPreparer(resourceGroupName string, name string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2908,13 +3694,14 @@ func (client HostingEnvironmentsClient) RebootHostingEnvironmentPreparer(ctx con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/reboot", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RebootHostingEnvironmentSender sends the RebootHostingEnvironment request. The method will close the
 // http.Response Body if it receives an error.
 func (client HostingEnvironmentsClient) RebootHostingEnvironmentSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -2931,27 +3718,35 @@ func (client HostingEnvironmentsClient) RebootHostingEnvironmentResponder(resp *
 	return
 }
 
-// ResumeHostingEnvironment sends the resume hosting environment request.
+// ResumeHostingEnvironment sends the resume hosting environment request. This method may poll for completion. Polling
+// can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) ResumeHostingEnvironment(ctx context.Context, resourceGroupName string, name string) (result HostingEnvironmentsResumeHostingEnvironmentFuture, err error) {
-	req, err := client.ResumeHostingEnvironmentPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) ResumeHostingEnvironment(resourceGroupName string, name string, cancel <-chan struct{}) (result SiteCollection, err error) {
+	req, err := client.ResumeHostingEnvironmentPreparer(resourceGroupName, name, cancel)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "ResumeHostingEnvironment", nil, "Failure preparing request")
 		return
 	}
 
-	result, err = client.ResumeHostingEnvironmentSender(req)
+	resp, err := client.ResumeHostingEnvironmentSender(req)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "ResumeHostingEnvironment", result.Response(), "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "ResumeHostingEnvironment", resp, "Failure sending request")
 		return
+	}
+
+	result, err = client.ResumeHostingEnvironmentResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "ResumeHostingEnvironment", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // ResumeHostingEnvironmentPreparer prepares the ResumeHostingEnvironment request.
-func (client HostingEnvironmentsClient) ResumeHostingEnvironmentPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) ResumeHostingEnvironmentPreparer(resourceGroupName string, name string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -2968,33 +3763,21 @@ func (client HostingEnvironmentsClient) ResumeHostingEnvironmentPreparer(ctx con
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/resume", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // ResumeHostingEnvironmentSender sends the ResumeHostingEnvironment request. The method will close the
 // http.Response Body if it receives an error.
-func (client HostingEnvironmentsClient) ResumeHostingEnvironmentSender(req *http.Request) (future HostingEnvironmentsResumeHostingEnvironmentFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client HostingEnvironmentsClient) ResumeHostingEnvironmentSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // ResumeHostingEnvironmentResponder handles the response to the ResumeHostingEnvironment request. The method always
 // closes the http.Response Body.
-func (client HostingEnvironmentsClient) ResumeHostingEnvironmentResponder(resp *http.Response) (result SiteCollectionPage, err error) {
-	result.sc, err = client.resumeHostingEnvironmentResponder(resp)
-	result.fn = client.resumeHostingEnvironmentNextResults
-	return
-}
-
-func (client HostingEnvironmentsClient) resumeHostingEnvironmentResponder(resp *http.Response) (result SiteCollection, err error) {
+func (client HostingEnvironmentsClient) ResumeHostingEnvironmentResponder(resp *http.Response) (result SiteCollection, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -3005,54 +3788,104 @@ func (client HostingEnvironmentsClient) resumeHostingEnvironmentResponder(resp *
 	return
 }
 
-// resumeHostingEnvironmentNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) resumeHostingEnvironmentNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
-	req, err := lastResults.siteCollectionPreparer()
+// ResumeHostingEnvironmentNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) ResumeHostingEnvironmentNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
+	req, err := lastResults.SiteCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "resumeHostingEnvironmentNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "ResumeHostingEnvironment", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
-	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "resumeHostingEnvironmentNextResults", resp, "Failure sending next results request")
-	}
-	return client.resumeHostingEnvironmentResponder(resp)
-}
 
-// ResumeHostingEnvironmentComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) ResumeHostingEnvironmentComplete(ctx context.Context, resourceGroupName string, name string) (result HostingEnvironmentsResumeHostingEnvironmentAllFuture, err error) {
-	var future HostingEnvironmentsResumeHostingEnvironmentFuture
-	future, err = client.ResumeHostingEnvironment(ctx, resourceGroupName, name)
-	result.Future = future.Future
-	result.req = future.req
+	resp, err := client.ResumeHostingEnvironmentSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "ResumeHostingEnvironment", resp, "Failure sending next results request")
+	}
+
+	result, err = client.ResumeHostingEnvironmentResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "ResumeHostingEnvironment", resp, "Failure responding to next results request")
+	}
+
 	return
 }
 
-// SuspendHostingEnvironment sends the suspend hosting environment request.
+// ResumeHostingEnvironmentComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) ResumeHostingEnvironmentComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan Site, <-chan error) {
+	resultChan := make(chan Site)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ResumeHostingEnvironment(resourceGroupName, name, cancel)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ResumeHostingEnvironmentNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
+}
+
+// SuspendHostingEnvironment sends the suspend hosting environment request. This method may poll for completion.
+// Polling can be canceled by passing the cancel channel argument. The channel will be used to cancel polling and any
+// outstanding HTTP requests.
 //
 // resourceGroupName is name of resource group name is name of hostingEnvironment (App Service Environment)
-func (client HostingEnvironmentsClient) SuspendHostingEnvironment(ctx context.Context, resourceGroupName string, name string) (result HostingEnvironmentsSuspendHostingEnvironmentFuture, err error) {
-	req, err := client.SuspendHostingEnvironmentPreparer(ctx, resourceGroupName, name)
+func (client HostingEnvironmentsClient) SuspendHostingEnvironment(resourceGroupName string, name string, cancel <-chan struct{}) (result SiteCollection, err error) {
+	req, err := client.SuspendHostingEnvironmentPreparer(resourceGroupName, name, cancel)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "SuspendHostingEnvironment", nil, "Failure preparing request")
 		return
 	}
 
-	result, err = client.SuspendHostingEnvironmentSender(req)
+	resp, err := client.SuspendHostingEnvironmentSender(req)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "SuspendHostingEnvironment", result.Response(), "Failure sending request")
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "SuspendHostingEnvironment", resp, "Failure sending request")
 		return
+	}
+
+	result, err = client.SuspendHostingEnvironmentResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "SuspendHostingEnvironment", resp, "Failure responding to request")
 	}
 
 	return
 }
 
 // SuspendHostingEnvironmentPreparer prepares the SuspendHostingEnvironment request.
-func (client HostingEnvironmentsClient) SuspendHostingEnvironmentPreparer(ctx context.Context, resourceGroupName string, name string) (*http.Request, error) {
+func (client HostingEnvironmentsClient) SuspendHostingEnvironmentPreparer(resourceGroupName string, name string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"name":              autorest.Encode("path", name),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -3069,33 +3902,21 @@ func (client HostingEnvironmentsClient) SuspendHostingEnvironmentPreparer(ctx co
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/suspend", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // SuspendHostingEnvironmentSender sends the SuspendHostingEnvironment request. The method will close the
 // http.Response Body if it receives an error.
-func (client HostingEnvironmentsClient) SuspendHostingEnvironmentSender(req *http.Request) (future HostingEnvironmentsSuspendHostingEnvironmentFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client HostingEnvironmentsClient) SuspendHostingEnvironmentSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // SuspendHostingEnvironmentResponder handles the response to the SuspendHostingEnvironment request. The method always
 // closes the http.Response Body.
-func (client HostingEnvironmentsClient) SuspendHostingEnvironmentResponder(resp *http.Response) (result SiteCollectionPage, err error) {
-	result.sc, err = client.suspendHostingEnvironmentResponder(resp)
-	result.fn = client.suspendHostingEnvironmentNextResults
-	return
-}
-
-func (client HostingEnvironmentsClient) suspendHostingEnvironmentResponder(resp *http.Response) (result SiteCollection, err error) {
+func (client HostingEnvironmentsClient) SuspendHostingEnvironmentResponder(resp *http.Response) (result SiteCollection, err error) {
 	err = autorest.Respond(
 		resp,
 		client.ByInspecting(),
@@ -3106,29 +3927,71 @@ func (client HostingEnvironmentsClient) suspendHostingEnvironmentResponder(resp 
 	return
 }
 
-// suspendHostingEnvironmentNextResults retrieves the next set of results, if any.
-func (client HostingEnvironmentsClient) suspendHostingEnvironmentNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
-	req, err := lastResults.siteCollectionPreparer()
+// SuspendHostingEnvironmentNextResults retrieves the next set of results, if any.
+func (client HostingEnvironmentsClient) SuspendHostingEnvironmentNextResults(lastResults SiteCollection) (result SiteCollection, err error) {
+	req, err := lastResults.SiteCollectionPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "suspendHostingEnvironmentNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "SuspendHostingEnvironment", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
-	var resp *http.Response
-	resp, err = autorest.SendWithSender(client, req,
-		autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+
+	resp, err := client.SuspendHostingEnvironmentSender(req)
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "suspendHostingEnvironmentNextResults", resp, "Failure sending next results request")
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "SuspendHostingEnvironment", resp, "Failure sending next results request")
 	}
-	return client.suspendHostingEnvironmentResponder(resp)
+
+	result, err = client.SuspendHostingEnvironmentResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "web.HostingEnvironmentsClient", "SuspendHostingEnvironment", resp, "Failure responding to next results request")
+	}
+
+	return
 }
 
-// SuspendHostingEnvironmentComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HostingEnvironmentsClient) SuspendHostingEnvironmentComplete(ctx context.Context, resourceGroupName string, name string) (result HostingEnvironmentsSuspendHostingEnvironmentAllFuture, err error) {
-	var future HostingEnvironmentsSuspendHostingEnvironmentFuture
-	future, err = client.SuspendHostingEnvironment(ctx, resourceGroupName, name)
-	result.Future = future.Future
-	result.req = future.req
-	return
+// SuspendHostingEnvironmentComplete gets all elements from the list without paging.
+func (client HostingEnvironmentsClient) SuspendHostingEnvironmentComplete(resourceGroupName string, name string, cancel <-chan struct{}) (<-chan Site, <-chan error) {
+	resultChan := make(chan Site)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.SuspendHostingEnvironment(resourceGroupName, name, cancel)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.SuspendHostingEnvironmentNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }

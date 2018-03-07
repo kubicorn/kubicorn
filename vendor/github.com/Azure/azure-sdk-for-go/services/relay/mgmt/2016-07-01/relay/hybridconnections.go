@@ -18,7 +18,6 @@ package relay
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -27,7 +26,7 @@ import (
 
 // HybridConnectionsClient is the use these API to manage Azure Relay resources through Azure Resources Manager.
 type HybridConnectionsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewHybridConnectionsClient creates an instance of the HybridConnectionsClient client.
@@ -44,7 +43,7 @@ func NewHybridConnectionsClientWithBaseURI(baseURI string, subscriptionID string
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name. parameters is parameters supplied to create a HybridConnection.
-func (client HybridConnectionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, parameters HybridConnection) (result HybridConnection, err error) {
+func (client HybridConnectionsClient) CreateOrUpdate(resourceGroupName string, namespaceName string, hybridConnectionName string, parameters HybridConnection) (result HybridConnection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -65,7 +64,7 @@ func (client HybridConnectionsClient) CreateOrUpdate(ctx context.Context, resour
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "CreateOrUpdate")
 	}
 
-	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName, parameters)
+	req, err := client.CreateOrUpdatePreparer(resourceGroupName, namespaceName, hybridConnectionName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "CreateOrUpdate", nil, "Failure preparing request")
 		return
@@ -87,7 +86,7 @@ func (client HybridConnectionsClient) CreateOrUpdate(ctx context.Context, resour
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client HybridConnectionsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, parameters HybridConnection) (*http.Request, error) {
+func (client HybridConnectionsClient) CreateOrUpdatePreparer(resourceGroupName string, namespaceName string, hybridConnectionName string, parameters HybridConnection) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hybridConnectionName": autorest.Encode("path", hybridConnectionName),
 		"namespaceName":        autorest.Encode("path", namespaceName),
@@ -107,13 +106,14 @@ func (client HybridConnectionsClient) CreateOrUpdatePreparer(ctx context.Context
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateSender sends the CreateOrUpdate request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) CreateOrUpdateSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -135,7 +135,7 @@ func (client HybridConnectionsClient) CreateOrUpdateResponder(resp *http.Respons
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name. authorizationRuleName is the authorizationRule name. parameters
 // is the authorization rule parameters
-func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRule(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters AuthorizationRule) (result AuthorizationRule, err error) {
+func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRule(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters AuthorizationRule) (result AuthorizationRule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -157,7 +157,7 @@ func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRule(ctx contex
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "CreateOrUpdateAuthorizationRule")
 	}
 
-	req, err := client.CreateOrUpdateAuthorizationRulePreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName, parameters)
+	req, err := client.CreateOrUpdateAuthorizationRulePreparer(resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "CreateOrUpdateAuthorizationRule", nil, "Failure preparing request")
 		return
@@ -179,7 +179,7 @@ func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRule(ctx contex
 }
 
 // CreateOrUpdateAuthorizationRulePreparer prepares the CreateOrUpdateAuthorizationRule request.
-func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRulePreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters AuthorizationRule) (*http.Request, error) {
+func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRulePreparer(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters AuthorizationRule) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"hybridConnectionName":  autorest.Encode("path", hybridConnectionName),
@@ -200,13 +200,14 @@ func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRulePreparer(ct
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}/authorizationRules/{authorizationRuleName}", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // CreateOrUpdateAuthorizationRuleSender sends the CreateOrUpdateAuthorizationRule request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRuleSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -227,7 +228,7 @@ func (client HybridConnectionsClient) CreateOrUpdateAuthorizationRuleResponder(r
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name.
-func (client HybridConnectionsClient) Delete(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string) (result autorest.Response, err error) {
+func (client HybridConnectionsClient) Delete(resourceGroupName string, namespaceName string, hybridConnectionName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -241,7 +242,7 @@ func (client HybridConnectionsClient) Delete(ctx context.Context, resourceGroupN
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "Delete")
 	}
 
-	req, err := client.DeletePreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName)
+	req, err := client.DeletePreparer(resourceGroupName, namespaceName, hybridConnectionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "Delete", nil, "Failure preparing request")
 		return
@@ -263,7 +264,7 @@ func (client HybridConnectionsClient) Delete(ctx context.Context, resourceGroupN
 }
 
 // DeletePreparer prepares the Delete request.
-func (client HybridConnectionsClient) DeletePreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string) (*http.Request, error) {
+func (client HybridConnectionsClient) DeletePreparer(resourceGroupName string, namespaceName string, hybridConnectionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hybridConnectionName": autorest.Encode("path", hybridConnectionName),
 		"namespaceName":        autorest.Encode("path", namespaceName),
@@ -281,13 +282,14 @@ func (client HybridConnectionsClient) DeletePreparer(ctx context.Context, resour
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteSender sends the Delete request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) DeleteSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -307,7 +309,7 @@ func (client HybridConnectionsClient) DeleteResponder(resp *http.Response) (resu
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name. authorizationRuleName is the authorizationRule name.
-func (client HybridConnectionsClient) DeleteAuthorizationRule(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (result autorest.Response, err error) {
+func (client HybridConnectionsClient) DeleteAuthorizationRule(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (result autorest.Response, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -324,7 +326,7 @@ func (client HybridConnectionsClient) DeleteAuthorizationRule(ctx context.Contex
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "DeleteAuthorizationRule")
 	}
 
-	req, err := client.DeleteAuthorizationRulePreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName)
+	req, err := client.DeleteAuthorizationRulePreparer(resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "DeleteAuthorizationRule", nil, "Failure preparing request")
 		return
@@ -346,7 +348,7 @@ func (client HybridConnectionsClient) DeleteAuthorizationRule(ctx context.Contex
 }
 
 // DeleteAuthorizationRulePreparer prepares the DeleteAuthorizationRule request.
-func (client HybridConnectionsClient) DeleteAuthorizationRulePreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (*http.Request, error) {
+func (client HybridConnectionsClient) DeleteAuthorizationRulePreparer(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"hybridConnectionName":  autorest.Encode("path", hybridConnectionName),
@@ -365,13 +367,14 @@ func (client HybridConnectionsClient) DeleteAuthorizationRulePreparer(ctx contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}/authorizationRules/{authorizationRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // DeleteAuthorizationRuleSender sends the DeleteAuthorizationRule request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) DeleteAuthorizationRuleSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -391,7 +394,7 @@ func (client HybridConnectionsClient) DeleteAuthorizationRuleResponder(resp *htt
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name.
-func (client HybridConnectionsClient) Get(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string) (result HybridConnection, err error) {
+func (client HybridConnectionsClient) Get(resourceGroupName string, namespaceName string, hybridConnectionName string) (result HybridConnection, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -405,7 +408,7 @@ func (client HybridConnectionsClient) Get(ctx context.Context, resourceGroupName
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "Get")
 	}
 
-	req, err := client.GetPreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName)
+	req, err := client.GetPreparer(resourceGroupName, namespaceName, hybridConnectionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "Get", nil, "Failure preparing request")
 		return
@@ -427,7 +430,7 @@ func (client HybridConnectionsClient) Get(ctx context.Context, resourceGroupName
 }
 
 // GetPreparer prepares the Get request.
-func (client HybridConnectionsClient) GetPreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string) (*http.Request, error) {
+func (client HybridConnectionsClient) GetPreparer(resourceGroupName string, namespaceName string, hybridConnectionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hybridConnectionName": autorest.Encode("path", hybridConnectionName),
 		"namespaceName":        autorest.Encode("path", namespaceName),
@@ -445,13 +448,14 @@ func (client HybridConnectionsClient) GetPreparer(ctx context.Context, resourceG
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -472,7 +476,7 @@ func (client HybridConnectionsClient) GetResponder(resp *http.Response) (result 
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name. authorizationRuleName is the authorizationRule name.
-func (client HybridConnectionsClient) GetAuthorizationRule(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (result AuthorizationRule, err error) {
+func (client HybridConnectionsClient) GetAuthorizationRule(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (result AuthorizationRule, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -489,7 +493,7 @@ func (client HybridConnectionsClient) GetAuthorizationRule(ctx context.Context, 
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "GetAuthorizationRule")
 	}
 
-	req, err := client.GetAuthorizationRulePreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName)
+	req, err := client.GetAuthorizationRulePreparer(resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "GetAuthorizationRule", nil, "Failure preparing request")
 		return
@@ -511,7 +515,7 @@ func (client HybridConnectionsClient) GetAuthorizationRule(ctx context.Context, 
 }
 
 // GetAuthorizationRulePreparer prepares the GetAuthorizationRule request.
-func (client HybridConnectionsClient) GetAuthorizationRulePreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (*http.Request, error) {
+func (client HybridConnectionsClient) GetAuthorizationRulePreparer(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"hybridConnectionName":  autorest.Encode("path", hybridConnectionName),
@@ -530,13 +534,14 @@ func (client HybridConnectionsClient) GetAuthorizationRulePreparer(ctx context.C
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}/authorizationRules/{authorizationRuleName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetAuthorizationRuleSender sends the GetAuthorizationRule request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) GetAuthorizationRuleSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -557,7 +562,7 @@ func (client HybridConnectionsClient) GetAuthorizationRuleResponder(resp *http.R
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name.
-func (client HybridConnectionsClient) ListAuthorizationRules(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string) (result AuthorizationRuleListResultPage, err error) {
+func (client HybridConnectionsClient) ListAuthorizationRules(resourceGroupName string, namespaceName string, hybridConnectionName string) (result AuthorizationRuleListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -571,8 +576,7 @@ func (client HybridConnectionsClient) ListAuthorizationRules(ctx context.Context
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "ListAuthorizationRules")
 	}
 
-	result.fn = client.listAuthorizationRulesNextResults
-	req, err := client.ListAuthorizationRulesPreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName)
+	req, err := client.ListAuthorizationRulesPreparer(resourceGroupName, namespaceName, hybridConnectionName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListAuthorizationRules", nil, "Failure preparing request")
 		return
@@ -580,12 +584,12 @@ func (client HybridConnectionsClient) ListAuthorizationRules(ctx context.Context
 
 	resp, err := client.ListAuthorizationRulesSender(req)
 	if err != nil {
-		result.arlr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListAuthorizationRules", resp, "Failure sending request")
 		return
 	}
 
-	result.arlr, err = client.ListAuthorizationRulesResponder(resp)
+	result, err = client.ListAuthorizationRulesResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListAuthorizationRules", resp, "Failure responding to request")
 	}
@@ -594,7 +598,7 @@ func (client HybridConnectionsClient) ListAuthorizationRules(ctx context.Context
 }
 
 // ListAuthorizationRulesPreparer prepares the ListAuthorizationRules request.
-func (client HybridConnectionsClient) ListAuthorizationRulesPreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string) (*http.Request, error) {
+func (client HybridConnectionsClient) ListAuthorizationRulesPreparer(resourceGroupName string, namespaceName string, hybridConnectionName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"hybridConnectionName": autorest.Encode("path", hybridConnectionName),
 		"namespaceName":        autorest.Encode("path", namespaceName),
@@ -612,13 +616,14 @@ func (client HybridConnectionsClient) ListAuthorizationRulesPreparer(ctx context
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}/authorizationRules", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListAuthorizationRulesSender sends the ListAuthorizationRules request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) ListAuthorizationRulesSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -635,37 +640,79 @@ func (client HybridConnectionsClient) ListAuthorizationRulesResponder(resp *http
 	return
 }
 
-// listAuthorizationRulesNextResults retrieves the next set of results, if any.
-func (client HybridConnectionsClient) listAuthorizationRulesNextResults(lastResults AuthorizationRuleListResult) (result AuthorizationRuleListResult, err error) {
-	req, err := lastResults.authorizationRuleListResultPreparer()
+// ListAuthorizationRulesNextResults retrieves the next set of results, if any.
+func (client HybridConnectionsClient) ListAuthorizationRulesNextResults(lastResults AuthorizationRuleListResult) (result AuthorizationRuleListResult, err error) {
+	req, err := lastResults.AuthorizationRuleListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "listAuthorizationRulesNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListAuthorizationRules", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListAuthorizationRulesSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "listAuthorizationRulesNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListAuthorizationRules", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListAuthorizationRulesResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "listAuthorizationRulesNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListAuthorizationRules", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListAuthorizationRulesComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HybridConnectionsClient) ListAuthorizationRulesComplete(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string) (result AuthorizationRuleListResultIterator, err error) {
-	result.page, err = client.ListAuthorizationRules(ctx, resourceGroupName, namespaceName, hybridConnectionName)
-	return
+// ListAuthorizationRulesComplete gets all elements from the list without paging.
+func (client HybridConnectionsClient) ListAuthorizationRulesComplete(resourceGroupName string, namespaceName string, hybridConnectionName string, cancel <-chan struct{}) (<-chan AuthorizationRule, <-chan error) {
+	resultChan := make(chan AuthorizationRule)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListAuthorizationRules(resourceGroupName, namespaceName, hybridConnectionName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListAuthorizationRulesNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListByNamespace lists the HybridConnection within the namespace.
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
-func (client HybridConnectionsClient) ListByNamespace(ctx context.Context, resourceGroupName string, namespaceName string) (result HybridConnectionListResultPage, err error) {
+func (client HybridConnectionsClient) ListByNamespace(resourceGroupName string, namespaceName string) (result HybridConnectionListResult, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -676,8 +723,7 @@ func (client HybridConnectionsClient) ListByNamespace(ctx context.Context, resou
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "ListByNamespace")
 	}
 
-	result.fn = client.listByNamespaceNextResults
-	req, err := client.ListByNamespacePreparer(ctx, resourceGroupName, namespaceName)
+	req, err := client.ListByNamespacePreparer(resourceGroupName, namespaceName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListByNamespace", nil, "Failure preparing request")
 		return
@@ -685,12 +731,12 @@ func (client HybridConnectionsClient) ListByNamespace(ctx context.Context, resou
 
 	resp, err := client.ListByNamespaceSender(req)
 	if err != nil {
-		result.hclr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListByNamespace", resp, "Failure sending request")
 		return
 	}
 
-	result.hclr, err = client.ListByNamespaceResponder(resp)
+	result, err = client.ListByNamespaceResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListByNamespace", resp, "Failure responding to request")
 	}
@@ -699,7 +745,7 @@ func (client HybridConnectionsClient) ListByNamespace(ctx context.Context, resou
 }
 
 // ListByNamespacePreparer prepares the ListByNamespace request.
-func (client HybridConnectionsClient) ListByNamespacePreparer(ctx context.Context, resourceGroupName string, namespaceName string) (*http.Request, error) {
+func (client HybridConnectionsClient) ListByNamespacePreparer(resourceGroupName string, namespaceName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"namespaceName":     autorest.Encode("path", namespaceName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -716,13 +762,14 @@ func (client HybridConnectionsClient) ListByNamespacePreparer(ctx context.Contex
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByNamespaceSender sends the ListByNamespace request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) ListByNamespaceSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -739,38 +786,80 @@ func (client HybridConnectionsClient) ListByNamespaceResponder(resp *http.Respon
 	return
 }
 
-// listByNamespaceNextResults retrieves the next set of results, if any.
-func (client HybridConnectionsClient) listByNamespaceNextResults(lastResults HybridConnectionListResult) (result HybridConnectionListResult, err error) {
-	req, err := lastResults.hybridConnectionListResultPreparer()
+// ListByNamespaceNextResults retrieves the next set of results, if any.
+func (client HybridConnectionsClient) ListByNamespaceNextResults(lastResults HybridConnectionListResult) (result HybridConnectionListResult, err error) {
+	req, err := lastResults.HybridConnectionListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "listByNamespaceNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListByNamespace", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListByNamespaceSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "listByNamespaceNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListByNamespace", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListByNamespaceResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "listByNamespaceNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListByNamespace", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListByNamespaceComplete enumerates all values, automatically crossing page boundaries as required.
-func (client HybridConnectionsClient) ListByNamespaceComplete(ctx context.Context, resourceGroupName string, namespaceName string) (result HybridConnectionListResultIterator, err error) {
-	result.page, err = client.ListByNamespace(ctx, resourceGroupName, namespaceName)
-	return
+// ListByNamespaceComplete gets all elements from the list without paging.
+func (client HybridConnectionsClient) ListByNamespaceComplete(resourceGroupName string, namespaceName string, cancel <-chan struct{}) (<-chan HybridConnection, <-chan error) {
+	resultChan := make(chan HybridConnection)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.ListByNamespace(resourceGroupName, namespaceName)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListByNamespaceNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // ListKeys primary and Secondary ConnectionStrings to the HybridConnection.
 //
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name. authorizationRuleName is the authorizationRule name.
-func (client HybridConnectionsClient) ListKeys(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (result AuthorizationRuleKeys, err error) {
+func (client HybridConnectionsClient) ListKeys(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (result AuthorizationRuleKeys, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -787,7 +876,7 @@ func (client HybridConnectionsClient) ListKeys(ctx context.Context, resourceGrou
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "ListKeys")
 	}
 
-	req, err := client.ListKeysPreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName)
+	req, err := client.ListKeysPreparer(resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "ListKeys", nil, "Failure preparing request")
 		return
@@ -809,7 +898,7 @@ func (client HybridConnectionsClient) ListKeys(ctx context.Context, resourceGrou
 }
 
 // ListKeysPreparer prepares the ListKeys request.
-func (client HybridConnectionsClient) ListKeysPreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (*http.Request, error) {
+func (client HybridConnectionsClient) ListKeysPreparer(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"hybridConnectionName":  autorest.Encode("path", hybridConnectionName),
@@ -828,13 +917,14 @@ func (client HybridConnectionsClient) ListKeysPreparer(ctx context.Context, reso
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}/authorizationRules/{authorizationRuleName}/ListKeys", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListKeysSender sends the ListKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) ListKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -856,7 +946,7 @@ func (client HybridConnectionsClient) ListKeysResponder(resp *http.Response) (re
 // resourceGroupName is name of the Resource group within the Azure subscription. namespaceName is the Namespace Name
 // hybridConnectionName is the hybrid connection name. authorizationRuleName is the authorizationRule name. parameters
 // is parameters supplied to regenerate Auth Rule.
-func (client HybridConnectionsClient) RegenerateKeys(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters RegenerateKeysParameters) (result AuthorizationRuleKeys, err error) {
+func (client HybridConnectionsClient) RegenerateKeys(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters RegenerateKeysParameters) (result AuthorizationRuleKeys, err error) {
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
@@ -873,7 +963,7 @@ func (client HybridConnectionsClient) RegenerateKeys(ctx context.Context, resour
 		return result, validation.NewErrorWithValidationError(err, "relay.HybridConnectionsClient", "RegenerateKeys")
 	}
 
-	req, err := client.RegenerateKeysPreparer(ctx, resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName, parameters)
+	req, err := client.RegenerateKeysPreparer(resourceGroupName, namespaceName, hybridConnectionName, authorizationRuleName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "relay.HybridConnectionsClient", "RegenerateKeys", nil, "Failure preparing request")
 		return
@@ -895,7 +985,7 @@ func (client HybridConnectionsClient) RegenerateKeys(ctx context.Context, resour
 }
 
 // RegenerateKeysPreparer prepares the RegenerateKeys request.
-func (client HybridConnectionsClient) RegenerateKeysPreparer(ctx context.Context, resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters RegenerateKeysParameters) (*http.Request, error) {
+func (client HybridConnectionsClient) RegenerateKeysPreparer(resourceGroupName string, namespaceName string, hybridConnectionName string, authorizationRuleName string, parameters RegenerateKeysParameters) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"authorizationRuleName": autorest.Encode("path", authorizationRuleName),
 		"hybridConnectionName":  autorest.Encode("path", hybridConnectionName),
@@ -916,13 +1006,14 @@ func (client HybridConnectionsClient) RegenerateKeysPreparer(ctx context.Context
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Relay/namespaces/{namespaceName}/HybridConnections/{hybridConnectionName}/authorizationRules/{authorizationRuleName}/regenerateKeys", pathParameters),
 		autorest.WithJSON(parameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegenerateKeysSender sends the RegenerateKeys request. The method will close the
 // http.Response Body if it receives an error.
 func (client HybridConnectionsClient) RegenerateKeysSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

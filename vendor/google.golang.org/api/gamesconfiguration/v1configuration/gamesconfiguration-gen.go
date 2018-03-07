@@ -1539,12 +1539,11 @@ func (c *ImageConfigurationsUploadCall) doRequest(alt string) (*http.Response, e
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
-	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"resourceId": c.resourceId,
 		"imageType":  c.imageType,

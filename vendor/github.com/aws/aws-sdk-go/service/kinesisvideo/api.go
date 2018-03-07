@@ -1009,6 +1009,7 @@ func (c *KinesisVideo) UpdateStreamWithContext(ctx aws.Context, input *UpdateStr
 	return out, req.Send()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/CreateStreamInput
 type CreateStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1119,6 +1120,7 @@ func (s *CreateStreamInput) SetStreamName(v string) *CreateStreamInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/CreateStreamOutput
 type CreateStreamOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1142,6 +1144,7 @@ func (s *CreateStreamOutput) SetStreamARN(v string) *CreateStreamOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/DeleteStreamInput
 type DeleteStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1200,6 +1203,7 @@ func (s *DeleteStreamInput) SetStreamARN(v string) *DeleteStreamInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/DeleteStreamOutput
 type DeleteStreamOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1214,6 +1218,7 @@ func (s DeleteStreamOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/DescribeStreamInput
 type DescribeStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1262,6 +1267,7 @@ func (s *DescribeStreamInput) SetStreamName(v string) *DescribeStreamInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/DescribeStreamOutput
 type DescribeStreamOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1285,6 +1291,7 @@ func (s *DescribeStreamOutput) SetStreamInfo(v *StreamInfo) *DescribeStreamOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/GetDataEndpointInput
 type GetDataEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1349,6 +1356,7 @@ func (s *GetDataEndpointInput) SetStreamName(v string) *GetDataEndpointInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/GetDataEndpointOutput
 type GetDataEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1373,6 +1381,7 @@ func (s *GetDataEndpointOutput) SetDataEndpoint(v string) *GetDataEndpointOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/ListStreamsInput
 type ListStreamsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1435,6 +1444,7 @@ func (s *ListStreamsInput) SetStreamNameCondition(v *StreamNameCondition) *ListS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/ListStreamsOutput
 type ListStreamsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1468,6 +1478,7 @@ func (s *ListStreamsOutput) SetStreamInfoList(v []*StreamInfo) *ListStreamsOutpu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/ListTagsForStreamInput
 type ListTagsForStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1527,6 +1538,7 @@ func (s *ListTagsForStreamInput) SetStreamName(v string) *ListTagsForStreamInput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/ListTagsForStreamOutput
 type ListTagsForStreamOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1562,6 +1574,7 @@ func (s *ListTagsForStreamOutput) SetTags(v map[string]*string) *ListTagsForStre
 }
 
 // An object describing a Kinesis video stream.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/StreamInfo
 type StreamInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -1662,6 +1675,7 @@ func (s *StreamInfo) SetVersion(v string) *StreamInfo {
 // list streams (see the ListStreams API). A condition has a comparison operation
 // and a value. Currently, you can specify only the BEGINS_WITH operator, which
 // finds streams whose names start with a given prefix.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/StreamNameCondition
 type StreamNameCondition struct {
 	_ struct{} `type:"structure"`
 
@@ -1708,6 +1722,7 @@ func (s *StreamNameCondition) SetComparisonValue(v string) *StreamNameCondition 
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/TagStreamInput
 type TagStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1775,6 +1790,7 @@ func (s *TagStreamInput) SetTags(v map[string]*string) *TagStreamInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/TagStreamOutput
 type TagStreamOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1789,6 +1805,7 @@ func (s TagStreamOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/UntagStreamInput
 type UntagStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1855,6 +1872,7 @@ func (s *UntagStreamInput) SetTagKeyList(v []*string) *UntagStreamInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/UntagStreamOutput
 type UntagStreamOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1869,6 +1887,7 @@ func (s UntagStreamOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/UpdateDataRetentionInput
 type UpdateDataRetentionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1968,6 +1987,7 @@ func (s *UpdateDataRetentionInput) SetStreamName(v string) *UpdateDataRetentionI
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/UpdateDataRetentionOutput
 type UpdateDataRetentionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1982,6 +2002,7 @@ func (s UpdateDataRetentionOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/UpdateStreamInput
 type UpdateStreamInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2082,6 +2103,7 @@ func (s *UpdateStreamInput) SetStreamName(v string) *UpdateStreamInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisvideo-2017-09-30/UpdateStreamOutput
 type UpdateStreamOutput struct {
 	_ struct{} `type:"structure"`
 }

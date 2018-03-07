@@ -18,7 +18,6 @@ package resources
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"net/http"
@@ -26,7 +25,7 @@ import (
 
 // ProvidersClient is the client for the Providers methods of the Resources service.
 type ProvidersClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewProvidersClient creates an instance of the ProvidersClient client.
@@ -42,8 +41,8 @@ func NewProvidersClientWithBaseURI(baseURI string, subscriptionID string) Provid
 // Get gets a resource provider.
 //
 // resourceProviderNamespace is namespace of the resource provider.
-func (client ProvidersClient) Get(ctx context.Context, resourceProviderNamespace string) (result Provider, err error) {
-	req, err := client.GetPreparer(ctx, resourceProviderNamespace)
+func (client ProvidersClient) Get(resourceProviderNamespace string) (result Provider, err error) {
+	req, err := client.GetPreparer(resourceProviderNamespace)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "Get", nil, "Failure preparing request")
 		return
@@ -65,7 +64,7 @@ func (client ProvidersClient) Get(ctx context.Context, resourceProviderNamespace
 }
 
 // GetPreparer prepares the Get request.
-func (client ProvidersClient) GetPreparer(ctx context.Context, resourceProviderNamespace string) (*http.Request, error) {
+func (client ProvidersClient) GetPreparer(resourceProviderNamespace string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceProviderNamespace": autorest.Encode("path", resourceProviderNamespace),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -81,13 +80,14 @@ func (client ProvidersClient) GetPreparer(ctx context.Context, resourceProviderN
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/{resourceProviderNamespace}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProvidersClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -107,9 +107,8 @@ func (client ProvidersClient) GetResponder(resp *http.Response) (result Provider
 // List gets a list of resource providers.
 //
 // top is query parameters. If null is passed returns all deployments.
-func (client ProvidersClient) List(ctx context.Context, top *int32) (result ProviderListResultPage, err error) {
-	result.fn = client.listNextResults
-	req, err := client.ListPreparer(ctx, top)
+func (client ProvidersClient) List(top *int32) (result ProviderListResult, err error) {
+	req, err := client.ListPreparer(top)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "List", nil, "Failure preparing request")
 		return
@@ -117,12 +116,12 @@ func (client ProvidersClient) List(ctx context.Context, top *int32) (result Prov
 
 	resp, err := client.ListSender(req)
 	if err != nil {
-		result.plr.Response = autorest.Response{Response: resp}
+		result.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result.plr, err = client.ListResponder(resp)
+	result, err = client.ListResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "List", resp, "Failure responding to request")
 	}
@@ -131,7 +130,7 @@ func (client ProvidersClient) List(ctx context.Context, top *int32) (result Prov
 }
 
 // ListPreparer prepares the List request.
-func (client ProvidersClient) ListPreparer(ctx context.Context, top *int32) (*http.Request, error) {
+func (client ProvidersClient) ListPreparer(top *int32) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
@@ -149,13 +148,14 @@ func (client ProvidersClient) ListPreparer(ctx context.Context, top *int32) (*ht
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProvidersClient) ListSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -172,38 +172,80 @@ func (client ProvidersClient) ListResponder(resp *http.Response) (result Provide
 	return
 }
 
-// listNextResults retrieves the next set of results, if any.
-func (client ProvidersClient) listNextResults(lastResults ProviderListResult) (result ProviderListResult, err error) {
-	req, err := lastResults.providerListResultPreparer()
+// ListNextResults retrieves the next set of results, if any.
+func (client ProvidersClient) ListNextResults(lastResults ProviderListResult) (result ProviderListResult, err error) {
+	req, err := lastResults.ProviderListResultPreparer()
 	if err != nil {
-		return result, autorest.NewErrorWithError(err, "resources.ProvidersClient", "listNextResults", nil, "Failure preparing next results request")
+		return result, autorest.NewErrorWithError(err, "resources.ProvidersClient", "List", nil, "Failure preparing next results request")
 	}
 	if req == nil {
 		return
 	}
+
 	resp, err := client.ListSender(req)
 	if err != nil {
 		result.Response = autorest.Response{Response: resp}
-		return result, autorest.NewErrorWithError(err, "resources.ProvidersClient", "listNextResults", resp, "Failure sending next results request")
+		return result, autorest.NewErrorWithError(err, "resources.ProvidersClient", "List", resp, "Failure sending next results request")
 	}
+
 	result, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "listNextResults", resp, "Failure responding to next results request")
+		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "List", resp, "Failure responding to next results request")
 	}
+
 	return
 }
 
-// ListComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ProvidersClient) ListComplete(ctx context.Context, top *int32) (result ProviderListResultIterator, err error) {
-	result.page, err = client.List(ctx, top)
-	return
+// ListComplete gets all elements from the list without paging.
+func (client ProvidersClient) ListComplete(top *int32, cancel <-chan struct{}) (<-chan Provider, <-chan error) {
+	resultChan := make(chan Provider)
+	errChan := make(chan error, 1)
+	go func() {
+		defer func() {
+			close(resultChan)
+			close(errChan)
+		}()
+		list, err := client.List(top)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		if list.Value != nil {
+			for _, item := range *list.Value {
+				select {
+				case <-cancel:
+					return
+				case resultChan <- item:
+					// Intentionally left blank
+				}
+			}
+		}
+		for list.NextLink != nil {
+			list, err = client.ListNextResults(list)
+			if err != nil {
+				errChan <- err
+				return
+			}
+			if list.Value != nil {
+				for _, item := range *list.Value {
+					select {
+					case <-cancel:
+						return
+					case resultChan <- item:
+						// Intentionally left blank
+					}
+				}
+			}
+		}
+	}()
+	return resultChan, errChan
 }
 
 // Register registers provider to be used with a subscription.
 //
 // resourceProviderNamespace is namespace of the resource provider.
-func (client ProvidersClient) Register(ctx context.Context, resourceProviderNamespace string) (result Provider, err error) {
-	req, err := client.RegisterPreparer(ctx, resourceProviderNamespace)
+func (client ProvidersClient) Register(resourceProviderNamespace string) (result Provider, err error) {
+	req, err := client.RegisterPreparer(resourceProviderNamespace)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "Register", nil, "Failure preparing request")
 		return
@@ -225,7 +267,7 @@ func (client ProvidersClient) Register(ctx context.Context, resourceProviderName
 }
 
 // RegisterPreparer prepares the Register request.
-func (client ProvidersClient) RegisterPreparer(ctx context.Context, resourceProviderNamespace string) (*http.Request, error) {
+func (client ProvidersClient) RegisterPreparer(resourceProviderNamespace string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceProviderNamespace": autorest.Encode("path", resourceProviderNamespace),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -241,13 +283,14 @@ func (client ProvidersClient) RegisterPreparer(ctx context.Context, resourceProv
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/{resourceProviderNamespace}/register", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // RegisterSender sends the Register request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProvidersClient) RegisterSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -267,8 +310,8 @@ func (client ProvidersClient) RegisterResponder(resp *http.Response) (result Pro
 // Unregister unregisters provider from a subscription.
 //
 // resourceProviderNamespace is namespace of the resource provider.
-func (client ProvidersClient) Unregister(ctx context.Context, resourceProviderNamespace string) (result Provider, err error) {
-	req, err := client.UnregisterPreparer(ctx, resourceProviderNamespace)
+func (client ProvidersClient) Unregister(resourceProviderNamespace string) (result Provider, err error) {
+	req, err := client.UnregisterPreparer(resourceProviderNamespace)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "resources.ProvidersClient", "Unregister", nil, "Failure preparing request")
 		return
@@ -290,7 +333,7 @@ func (client ProvidersClient) Unregister(ctx context.Context, resourceProviderNa
 }
 
 // UnregisterPreparer prepares the Unregister request.
-func (client ProvidersClient) UnregisterPreparer(ctx context.Context, resourceProviderNamespace string) (*http.Request, error) {
+func (client ProvidersClient) UnregisterPreparer(resourceProviderNamespace string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceProviderNamespace": autorest.Encode("path", resourceProviderNamespace),
 		"subscriptionId":            autorest.Encode("path", client.SubscriptionID),
@@ -306,13 +349,14 @@ func (client ProvidersClient) UnregisterPreparer(ctx context.Context, resourcePr
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/{resourceProviderNamespace}/unregister", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // UnregisterSender sends the Unregister request. The method will close the
 // http.Response Body if it receives an error.
 func (client ProvidersClient) UnregisterSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 

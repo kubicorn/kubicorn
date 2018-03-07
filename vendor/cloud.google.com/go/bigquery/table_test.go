@@ -51,9 +51,7 @@ func TestBQToTableMetadata(t *testing.T) {
 				TimePartitioning: &bq.TimePartitioning{
 					ExpirationMs: 7890,
 					Type:         "DAY",
-					Field:        "pfield",
 				},
-				EncryptionConfiguration: &bq.EncryptionConfiguration{KmsKeyName: "keyName"},
 				Type:   "EXTERNAL",
 				View:   &bq.ViewDefinition{Query: "view-query"},
 				Labels: map[string]string{"a": "b"},
@@ -74,17 +72,13 @@ func TestBQToTableMetadata(t *testing.T) {
 				LastModifiedTime:   aTime.Truncate(time.Millisecond),
 				NumBytes:           123,
 				NumRows:            7,
-				TimePartitioning: &TimePartitioning{
-					Expiration: 7890 * time.Millisecond,
-					Field:      "pfield",
-				},
+				TimePartitioning:   &TimePartitioning{Expiration: 7890 * time.Millisecond},
 				StreamingBuffer: &StreamingBuffer{
 					EstimatedBytes:  11,
 					EstimatedRows:   3,
 					OldestEntryTime: aTime,
 				},
-				EncryptionConfig: &EncryptionConfig{KMSKeyName: "keyName"},
-				ETag:             "etag",
+				ETag: "etag",
 			},
 		},
 	} {
@@ -117,7 +111,6 @@ func TestTableMetadataToBQ(t *testing.T) {
 				ExpirationTime:     aTime,
 				Labels:             map[string]string{"a": "b"},
 				ExternalDataConfig: &ExternalDataConfig{SourceFormat: Bigtable},
-				EncryptionConfig:   &EncryptionConfig{KMSKeyName: "keyName"},
 			},
 			&bq.Table{
 				FriendlyName: "n",
@@ -130,7 +123,6 @@ func TestTableMetadataToBQ(t *testing.T) {
 				ExpirationTime: aTimeMillis,
 				Labels:         map[string]string{"a": "b"},
 				ExternalDataConfiguration: &bq.ExternalDataConfiguration{SourceFormat: "BIGTABLE"},
-				EncryptionConfiguration:   &bq.EncryptionConfiguration{KmsKeyName: "keyName"},
 			},
 		},
 		{
@@ -162,12 +154,9 @@ func TestTableMetadataToBQ(t *testing.T) {
 		},
 		{
 			&TableMetadata{
-				ViewQuery:      "q",
-				UseStandardSQL: true,
-				TimePartitioning: &TimePartitioning{
-					Expiration: time.Second,
-					Field:      "ofDreams",
-				},
+				ViewQuery:        "q",
+				UseStandardSQL:   true,
+				TimePartitioning: &TimePartitioning{time.Second},
 			},
 			&bq.Table{
 				View: &bq.ViewDefinition{
@@ -178,7 +167,6 @@ func TestTableMetadataToBQ(t *testing.T) {
 				TimePartitioning: &bq.TimePartitioning{
 					Type:         "DAY",
 					ExpirationMs: 1000,
-					Field:        "ofDreams",
 				},
 			},
 		},

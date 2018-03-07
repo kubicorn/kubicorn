@@ -296,19 +296,6 @@
         {"shape":"ResourceNotFoundFault"}
       ]
     },
-    "DescribeReplicationInstanceTaskLogs":{
-      "name":"DescribeReplicationInstanceTaskLogs",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"DescribeReplicationInstanceTaskLogsMessage"},
-      "output":{"shape":"DescribeReplicationInstanceTaskLogsResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundFault"},
-        {"shape":"InvalidResourceStateFault"}
-      ]
-    },
     "DescribeReplicationInstances":{
       "name":"DescribeReplicationInstances",
       "http":{
@@ -393,8 +380,7 @@
       "output":{"shape":"ImportCertificateResponse"},
       "errors":[
         {"shape":"ResourceAlreadyExistsFault"},
-        {"shape":"InvalidCertificateFault"},
-        {"shape":"ResourceQuotaExceededFault"}
+        {"shape":"InvalidCertificateFault"}
       ]
     },
     "ListTagsForResource":{
@@ -487,19 +473,6 @@
         {"shape":"ResourceNotFoundFault"},
         {"shape":"ResourceAlreadyExistsFault"},
         {"shape":"KMSKeyNotAccessibleFault"}
-      ]
-    },
-    "RebootReplicationInstance":{
-      "name":"RebootReplicationInstance",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"RebootReplicationInstanceMessage"},
-      "output":{"shape":"RebootReplicationInstanceResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundFault"},
-        {"shape":"InvalidResourceStateFault"}
       ]
     },
     "RefreshSchemas":{
@@ -1053,23 +1026,6 @@
         "RefreshSchemasStatus":{"shape":"RefreshSchemasStatus"}
       }
     },
-    "DescribeReplicationInstanceTaskLogsMessage":{
-      "type":"structure",
-      "required":["ReplicationInstanceArn"],
-      "members":{
-        "ReplicationInstanceArn":{"shape":"String"},
-        "MaxRecords":{"shape":"IntegerOptional"},
-        "Marker":{"shape":"String"}
-      }
-    },
-    "DescribeReplicationInstanceTaskLogsResponse":{
-      "type":"structure",
-      "members":{
-        "ReplicationInstanceArn":{"shape":"String"},
-        "ReplicationInstanceTaskLogs":{"shape":"ReplicationInstanceTaskLogsList"},
-        "Marker":{"shape":"String"}
-      }
-    },
     "DescribeReplicationInstancesMessage":{
       "type":"structure",
       "members":{
@@ -1495,20 +1451,6 @@
       "type":"list",
       "member":{"shape":"OrderableReplicationInstance"}
     },
-    "RebootReplicationInstanceMessage":{
-      "type":"structure",
-      "required":["ReplicationInstanceArn"],
-      "members":{
-        "ReplicationInstanceArn":{"shape":"String"},
-        "ForceFailover":{"shape":"BooleanOptional"}
-      }
-    },
-    "RebootReplicationInstanceResponse":{
-      "type":"structure",
-      "members":{
-        "ReplicationInstance":{"shape":"ReplicationInstance"}
-      }
-    },
     "RefreshSchemasMessage":{
       "type":"structure",
       "required":[
@@ -1627,18 +1569,6 @@
     "ReplicationInstancePublicIpAddressList":{
       "type":"list",
       "member":{"shape":"String"}
-    },
-    "ReplicationInstanceTaskLog":{
-      "type":"structure",
-      "members":{
-        "ReplicationTaskName":{"shape":"String"},
-        "ReplicationTaskArn":{"shape":"String"},
-        "ReplicationInstanceTaskLogSize":{"shape":"Long"}
-      }
-    },
-    "ReplicationInstanceTaskLogsList":{
-      "type":"list",
-      "member":{"shape":"ReplicationInstanceTaskLog"}
     },
     "ReplicationPendingModifiedValues":{
       "type":"structure",

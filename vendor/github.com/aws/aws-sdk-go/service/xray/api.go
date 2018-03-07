@@ -795,6 +795,7 @@ func (c *XRay) PutTraceSegmentsWithContext(ctx aws.Context, input *PutTraceSegme
 }
 
 // An alias for an edge.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/Alias
 type Alias struct {
 	_ struct{} `type:"structure"`
 
@@ -838,6 +839,7 @@ func (s *Alias) SetType(v string) *Alias {
 
 // Value of a segment annotation. Has one of three value types: Number, Boolean
 // or String.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/AnnotationValue
 type AnnotationValue struct {
 	_ struct{} `type:"structure"`
 
@@ -879,6 +881,7 @@ func (s *AnnotationValue) SetStringValue(v string) *AnnotationValue {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/BackendConnectionErrors
 type BackendConnectionErrors struct {
 	_ struct{} `type:"structure"`
 
@@ -941,6 +944,7 @@ func (s *BackendConnectionErrors) SetUnknownHostCount(v int64) *BackendConnectio
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/BatchGetTracesRequest
 type BatchGetTracesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -988,6 +992,7 @@ func (s *BatchGetTracesInput) SetTraceIds(v []*string) *BatchGetTracesInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/BatchGetTracesResult
 type BatchGetTracesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1030,6 +1035,7 @@ func (s *BatchGetTracesOutput) SetUnprocessedTraceIds(v []*string) *BatchGetTrac
 }
 
 // Information about a connection between two services.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/Edge
 type Edge struct {
 	_ struct{} `type:"structure"`
 
@@ -1099,6 +1105,7 @@ func (s *Edge) SetSummaryStatistics(v *EdgeStatistics) *Edge {
 }
 
 // Response statistics for an edge.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/EdgeStatistics
 type EdgeStatistics struct {
 	_ struct{} `type:"structure"`
 
@@ -1159,6 +1166,7 @@ func (s *EdgeStatistics) SetTotalResponseTime(v float64) *EdgeStatistics {
 }
 
 // Information about requests that failed with a 4xx Client Error status code.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ErrorStatistics
 type ErrorStatistics struct {
 	_ struct{} `type:"structure"`
 
@@ -1202,6 +1210,7 @@ func (s *ErrorStatistics) SetTotalCount(v int64) *ErrorStatistics {
 }
 
 // Information about requests that failed with a 5xx Server Error status code.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/FaultStatistics
 type FaultStatistics struct {
 	_ struct{} `type:"structure"`
 
@@ -1235,6 +1244,7 @@ func (s *FaultStatistics) SetTotalCount(v int64) *FaultStatistics {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetServiceGraphRequest
 type GetServiceGraphInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1296,6 +1306,7 @@ func (s *GetServiceGraphInput) SetStartTime(v time.Time) *GetServiceGraphInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetServiceGraphResult
 type GetServiceGraphOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1347,6 +1358,7 @@ func (s *GetServiceGraphOutput) SetStartTime(v time.Time) *GetServiceGraphOutput
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetTraceGraphRequest
 type GetTraceGraphInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1394,6 +1406,7 @@ func (s *GetTraceGraphInput) SetTraceIds(v []*string) *GetTraceGraphInput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetTraceGraphResult
 type GetTraceGraphOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1426,6 +1439,7 @@ func (s *GetTraceGraphOutput) SetServices(v []*Service) *GetTraceGraphOutput {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetTraceSummariesRequest
 type GetTraceSummariesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1510,6 +1524,7 @@ func (s *GetTraceSummariesInput) SetStartTime(v time.Time) *GetTraceSummariesInp
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/GetTraceSummariesResult
 type GetTraceSummariesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1564,6 +1579,7 @@ func (s *GetTraceSummariesOutput) SetTracesProcessedCount(v int64) *GetTraceSumm
 
 // An entry in a histogram for a statistic. A histogram maps the range of observed
 // values on the X axis, and the prevalence of each value on the Y axis.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/HistogramEntry
 type HistogramEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -1597,6 +1613,7 @@ func (s *HistogramEntry) SetValue(v float64) *HistogramEntry {
 }
 
 // Information about an HTTP request.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/Http
 type Http struct {
 	_ struct{} `type:"structure"`
 
@@ -1656,6 +1673,7 @@ func (s *Http) SetUserAgent(v string) *Http {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutTelemetryRecordsRequest
 type PutTelemetryRecordsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1726,6 +1744,7 @@ func (s *PutTelemetryRecordsInput) SetTelemetryRecords(v []*TelemetryRecord) *Pu
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutTelemetryRecordsResult
 type PutTelemetryRecordsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1740,6 +1759,7 @@ func (s PutTelemetryRecordsOutput) GoString() string {
 	return s.String()
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutTraceSegmentsRequest
 type PutTraceSegmentsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1778,6 +1798,7 @@ func (s *PutTraceSegmentsInput) SetTraceSegmentDocuments(v []*string) *PutTraceS
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutTraceSegmentsResult
 type PutTraceSegmentsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1805,6 +1826,7 @@ func (s *PutTraceSegmentsOutput) SetUnprocessedTraceSegments(v []*UnprocessedTra
 // can be compiled from documents uploaded with PutTraceSegments, or an inferred
 // segment for a downstream service, generated from a subsegment sent by the
 // service that called it.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/Segment
 type Segment struct {
 	_ struct{} `type:"structure"`
 
@@ -1840,6 +1862,7 @@ func (s *Segment) SetId(v string) *Segment {
 // Information about an application that processed requests, users that made
 // requests, or downstream services, resources and applications that an application
 // used.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/Service
 type Service struct {
 	_ struct{} `type:"structure"`
 
@@ -1983,6 +2006,7 @@ func (s *Service) SetType(v string) *Service {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ServiceId
 type ServiceId struct {
 	_ struct{} `type:"structure"`
 
@@ -2030,6 +2054,7 @@ func (s *ServiceId) SetType(v string) *ServiceId {
 }
 
 // Response statistics for a service.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ServiceStatistics
 type ServiceStatistics struct {
 	_ struct{} `type:"structure"`
 
@@ -2089,6 +2114,7 @@ func (s *ServiceStatistics) SetTotalResponseTime(v float64) *ServiceStatistics {
 	return s
 }
 
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/TelemetryRecord
 type TelemetryRecord struct {
 	_ struct{} `type:"structure"`
 
@@ -2166,6 +2192,7 @@ func (s *TelemetryRecord) SetTimestamp(v time.Time) *TelemetryRecord {
 }
 
 // A collection of segment documents with matching trace IDs.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/Trace
 type Trace struct {
 	_ struct{} `type:"structure"`
 
@@ -2210,6 +2237,7 @@ func (s *Trace) SetSegments(v []*Segment) *Trace {
 }
 
 // Metadata generated from the segment documents in a trace.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/TraceSummary
 type TraceSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -2329,6 +2357,7 @@ func (s *TraceSummary) SetUsers(v []*TraceUser) *TraceSummary {
 }
 
 // Information about a user recorded in segment documents.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/TraceUser
 type TraceUser struct {
 	_ struct{} `type:"structure"`
 
@@ -2362,6 +2391,7 @@ func (s *TraceUser) SetUserName(v string) *TraceUser {
 }
 
 // Information about a segment that failed processing.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/UnprocessedTraceSegment
 type UnprocessedTraceSegment struct {
 	_ struct{} `type:"structure"`
 
@@ -2404,6 +2434,7 @@ func (s *UnprocessedTraceSegment) SetMessage(v string) *UnprocessedTraceSegment 
 }
 
 // Information about a segment annotation.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/ValueWithServiceIds
 type ValueWithServiceIds struct {
 	_ struct{} `type:"structure"`
 

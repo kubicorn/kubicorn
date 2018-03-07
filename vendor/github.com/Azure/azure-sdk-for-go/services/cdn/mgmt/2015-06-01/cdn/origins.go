@@ -18,7 +18,6 @@ package cdn
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/Azure/go-autorest/autorest/validation"
@@ -29,7 +28,7 @@ import (
 // sure that requests made to these resources are secure. For more information, see
 // https://msdn.microsoft.com/en-us/library/azure/dn790557.aspx.
 type OriginsClient struct {
-	BaseClient
+	ManagementClient
 }
 
 // NewOriginsClient creates an instance of the OriginsClient client.
@@ -42,36 +41,59 @@ func NewOriginsClientWithBaseURI(baseURI string, subscriptionID string) OriginsC
 	return OriginsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// Create sends the create request.
+// Create sends the create request. This method may poll for completion. Polling can be canceled by passing the cancel
+// channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // originName is name of the origin, an arbitrary value but it needs to be unique under endpoint originProperties is
 // origin properties endpointName is name of the endpoint within the CDN profile. profileName is name of the CDN
 // profile within the resource group. resourceGroupName is name of the resource group within the Azure subscription.
-func (client OriginsClient) Create(ctx context.Context, originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string) (result OriginsCreateFuture, err error) {
+func (client OriginsClient) Create(originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string, cancel <-chan struct{}) (<-chan Origin, <-chan error) {
+	resultChan := make(chan Origin, 1)
+	errChan := make(chan error, 1)
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: originProperties,
 			Constraints: []validation.Constraint{{Target: "originProperties.OriginPropertiesParameters", Name: validation.Null, Rule: false,
 				Chain: []validation.Constraint{{Target: "originProperties.OriginPropertiesParameters.HostName", Name: validation.Null, Rule: true, Chain: nil}}}}}}); err != nil {
-		return result, validation.NewErrorWithValidationError(err, "cdn.OriginsClient", "Create")
+		errChan <- validation.NewErrorWithValidationError(err, "cdn.OriginsClient", "Create")
+		close(errChan)
+		close(resultChan)
+		return resultChan, errChan
 	}
 
-	req, err := client.CreatePreparer(ctx, originName, originProperties, endpointName, profileName, resourceGroupName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Create", nil, "Failure preparing request")
-		return
-	}
+	go func() {
+		var err error
+		var result Origin
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.CreatePreparer(originName, originProperties, endpointName, profileName, resourceGroupName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Create", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.CreateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Create", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.CreateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Create", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.CreateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Create", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // CreatePreparer prepares the Create request.
-func (client OriginsClient) CreatePreparer(ctx context.Context, originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string) (*http.Request, error) {
+func (client OriginsClient) CreatePreparer(originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"originName":        autorest.Encode("path", originName),
@@ -92,22 +114,16 @@ func (client OriginsClient) CreatePreparer(ctx context.Context, originName strin
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}", pathParameters),
 		autorest.WithJSON(originProperties),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
-func (client OriginsClient) CreateSender(req *http.Request) (future OriginsCreateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated, http.StatusAccepted))
-	return
+func (client OriginsClient) CreateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // CreateResponder handles the response to the Create request. The method always
@@ -123,29 +139,49 @@ func (client OriginsClient) CreateResponder(resp *http.Response) (result Origin,
 	return
 }
 
-// DeleteIfExists sends the delete if exists request.
+// DeleteIfExists sends the delete if exists request. This method may poll for completion. Polling can be canceled by
+// passing the cancel channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // originName is name of the origin. Must be unique within endpoint. endpointName is name of the endpoint within the
 // CDN profile. profileName is name of the CDN profile within the resource group. resourceGroupName is name of the
 // resource group within the Azure subscription.
-func (client OriginsClient) DeleteIfExists(ctx context.Context, originName string, endpointName string, profileName string, resourceGroupName string) (result OriginsDeleteIfExistsFuture, err error) {
-	req, err := client.DeleteIfExistsPreparer(ctx, originName, endpointName, profileName, resourceGroupName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "DeleteIfExists", nil, "Failure preparing request")
-		return
-	}
+func (client OriginsClient) DeleteIfExists(originName string, endpointName string, profileName string, resourceGroupName string, cancel <-chan struct{}) (<-chan Origin, <-chan error) {
+	resultChan := make(chan Origin, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result Origin
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.DeleteIfExistsPreparer(originName, endpointName, profileName, resourceGroupName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "DeleteIfExists", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.DeleteIfExistsSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "DeleteIfExists", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.DeleteIfExistsSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "DeleteIfExists", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.DeleteIfExistsResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "DeleteIfExists", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // DeleteIfExistsPreparer prepares the DeleteIfExists request.
-func (client OriginsClient) DeleteIfExistsPreparer(ctx context.Context, originName string, endpointName string, profileName string, resourceGroupName string) (*http.Request, error) {
+func (client OriginsClient) DeleteIfExistsPreparer(originName string, endpointName string, profileName string, resourceGroupName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"originName":        autorest.Encode("path", originName),
@@ -164,22 +200,16 @@ func (client OriginsClient) DeleteIfExistsPreparer(ctx context.Context, originNa
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // DeleteIfExistsSender sends the DeleteIfExists request. The method will close the
 // http.Response Body if it receives an error.
-func (client OriginsClient) DeleteIfExistsSender(req *http.Request) (future OriginsDeleteIfExistsFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted, http.StatusNoContent))
-	return
+func (client OriginsClient) DeleteIfExistsSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // DeleteIfExistsResponder handles the response to the DeleteIfExists request. The method always
@@ -200,8 +230,8 @@ func (client OriginsClient) DeleteIfExistsResponder(resp *http.Response) (result
 // originName is name of the origin, an arbitrary value but it needs to be unique under endpoint endpointName is name
 // of the endpoint within the CDN profile. profileName is name of the CDN profile within the resource group.
 // resourceGroupName is name of the resource group within the Azure subscription.
-func (client OriginsClient) Get(ctx context.Context, originName string, endpointName string, profileName string, resourceGroupName string) (result Origin, err error) {
-	req, err := client.GetPreparer(ctx, originName, endpointName, profileName, resourceGroupName)
+func (client OriginsClient) Get(originName string, endpointName string, profileName string, resourceGroupName string) (result Origin, err error) {
+	req, err := client.GetPreparer(originName, endpointName, profileName, resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Get", nil, "Failure preparing request")
 		return
@@ -223,7 +253,7 @@ func (client OriginsClient) Get(ctx context.Context, originName string, endpoint
 }
 
 // GetPreparer prepares the Get request.
-func (client OriginsClient) GetPreparer(ctx context.Context, originName string, endpointName string, profileName string, resourceGroupName string) (*http.Request, error) {
+func (client OriginsClient) GetPreparer(originName string, endpointName string, profileName string, resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"originName":        autorest.Encode("path", originName),
@@ -242,13 +272,14 @@ func (client OriginsClient) GetPreparer(ctx context.Context, originName string, 
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // GetSender sends the Get request. The method will close the
 // http.Response Body if it receives an error.
 func (client OriginsClient) GetSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -269,8 +300,8 @@ func (client OriginsClient) GetResponder(resp *http.Response) (result Origin, er
 //
 // endpointName is name of the endpoint within the CDN profile. profileName is name of the CDN profile within the
 // resource group. resourceGroupName is name of the resource group within the Azure subscription.
-func (client OriginsClient) ListByEndpoint(ctx context.Context, endpointName string, profileName string, resourceGroupName string) (result OriginListResult, err error) {
-	req, err := client.ListByEndpointPreparer(ctx, endpointName, profileName, resourceGroupName)
+func (client OriginsClient) ListByEndpoint(endpointName string, profileName string, resourceGroupName string) (result OriginListResult, err error) {
+	req, err := client.ListByEndpointPreparer(endpointName, profileName, resourceGroupName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "ListByEndpoint", nil, "Failure preparing request")
 		return
@@ -292,7 +323,7 @@ func (client OriginsClient) ListByEndpoint(ctx context.Context, endpointName str
 }
 
 // ListByEndpointPreparer prepares the ListByEndpoint request.
-func (client OriginsClient) ListByEndpointPreparer(ctx context.Context, endpointName string, profileName string, resourceGroupName string) (*http.Request, error) {
+func (client OriginsClient) ListByEndpointPreparer(endpointName string, profileName string, resourceGroupName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"profileName":       autorest.Encode("path", profileName),
@@ -310,13 +341,14 @@ func (client OriginsClient) ListByEndpointPreparer(ctx context.Context, endpoint
 		autorest.WithBaseURL(client.BaseURI),
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins", pathParameters),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{})
 }
 
 // ListByEndpointSender sends the ListByEndpoint request. The method will close the
 // http.Response Body if it receives an error.
 func (client OriginsClient) ListByEndpointSender(req *http.Request) (*http.Response, error) {
-	return autorest.SendWithSender(client, req,
+	return autorest.SendWithSender(client,
+		req,
 		azure.DoRetryWithRegistration(client.Client))
 }
 
@@ -333,29 +365,49 @@ func (client OriginsClient) ListByEndpointResponder(resp *http.Response) (result
 	return
 }
 
-// Update sends the update request.
+// Update sends the update request. This method may poll for completion. Polling can be canceled by passing the cancel
+// channel argument. The channel will be used to cancel polling and any outstanding HTTP requests.
 //
 // originName is name of the origin. Must be unique within endpoint. originProperties is origin properties endpointName
 // is name of the endpoint within the CDN profile. profileName is name of the CDN profile within the resource group.
 // resourceGroupName is name of the resource group within the Azure subscription.
-func (client OriginsClient) Update(ctx context.Context, originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string) (result OriginsUpdateFuture, err error) {
-	req, err := client.UpdatePreparer(ctx, originName, originProperties, endpointName, profileName, resourceGroupName)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Update", nil, "Failure preparing request")
-		return
-	}
+func (client OriginsClient) Update(originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string, cancel <-chan struct{}) (<-chan Origin, <-chan error) {
+	resultChan := make(chan Origin, 1)
+	errChan := make(chan error, 1)
+	go func() {
+		var err error
+		var result Origin
+		defer func() {
+			if err != nil {
+				errChan <- err
+			}
+			resultChan <- result
+			close(resultChan)
+			close(errChan)
+		}()
+		req, err := client.UpdatePreparer(originName, originProperties, endpointName, profileName, resourceGroupName, cancel)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Update", nil, "Failure preparing request")
+			return
+		}
 
-	result, err = client.UpdateSender(req)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Update", result.Response(), "Failure sending request")
-		return
-	}
+		resp, err := client.UpdateSender(req)
+		if err != nil {
+			result.Response = autorest.Response{Response: resp}
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Update", resp, "Failure sending request")
+			return
+		}
 
-	return
+		result, err = client.UpdateResponder(resp)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "cdn.OriginsClient", "Update", resp, "Failure responding to request")
+		}
+	}()
+	return resultChan, errChan
 }
 
 // UpdatePreparer prepares the Update request.
-func (client OriginsClient) UpdatePreparer(ctx context.Context, originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string) (*http.Request, error) {
+func (client OriginsClient) UpdatePreparer(originName string, originProperties OriginParameters, endpointName string, profileName string, resourceGroupName string, cancel <-chan struct{}) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"originName":        autorest.Encode("path", originName),
@@ -376,22 +428,16 @@ func (client OriginsClient) UpdatePreparer(ctx context.Context, originName strin
 		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}", pathParameters),
 		autorest.WithJSON(originProperties),
 		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+	return preparer.Prepare(&http.Request{Cancel: cancel})
 }
 
 // UpdateSender sends the Update request. The method will close the
 // http.Response Body if it receives an error.
-func (client OriginsClient) UpdateSender(req *http.Request) (future OriginsUpdateFuture, err error) {
-	sender := autorest.DecorateSender(client, azure.DoRetryWithRegistration(client.Client))
-	future.Future = azure.NewFuture(req)
-	future.req = req
-	_, err = future.Done(sender)
-	if err != nil {
-		return
-	}
-	err = autorest.Respond(future.Response(),
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted))
-	return
+func (client OriginsClient) UpdateSender(req *http.Request) (*http.Response, error) {
+	return autorest.SendWithSender(client,
+		req,
+		azure.DoRetryWithRegistration(client.Client),
+		azure.DoPollForAsynchronous(client.PollingDelay))
 }
 
 // UpdateResponder handles the response to the Update request. The method always

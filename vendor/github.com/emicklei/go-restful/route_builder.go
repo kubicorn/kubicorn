@@ -24,7 +24,7 @@ type RouteBuilder struct {
 	httpMethod  string        // required
 	function    RouteFunction // required
 	filters     []FilterFunction
-	conditions  []RouteSelectionConditionFunction
+	conditions []RouteSelectionConditionFunction
 
 	typeNameHandleFunc TypeNameHandleFunction // required
 
@@ -36,7 +36,6 @@ type RouteBuilder struct {
 	parameters              []*Parameter
 	errorMap                map[int]ResponseError
 	metadata                map[string]interface{}
-	deprecated              bool
 }
 
 // Do evaluates each argument with the RouteBuilder itself.
@@ -99,18 +98,15 @@ func (b *RouteBuilder) Notes(notes string) *RouteBuilder {
 
 // Reads tells what resource type will be read from the request payload. Optional.
 // A parameter of type "body" is added ,required is set to true and the dataType is set to the qualified name of the sample's type.
-func (b *RouteBuilder) Reads(sample interface{}, optionalDescription ...string) *RouteBuilder {
+func (b *RouteBuilder) Reads(sample interface{}) *RouteBuilder {
 	fn := b.typeNameHandleFunc
 	if fn == nil {
 		fn = reflectTypeName
 	}
 	typeAsName := fn(sample)
-	description := ""
-	if len(optionalDescription) > 0 {
-		description = optionalDescription[0]
-	}
+
 	b.readSample = sample
-	bodyParameter := &Parameter{&ParameterData{Name: "body", Description: description}}
+	bodyParameter := &Parameter{&ParameterData{Name: "body"}}
 	bodyParameter.beBody()
 	bodyParameter.Required(true)
 	bodyParameter.DataType(typeAsName)
@@ -195,12 +191,6 @@ func (b *RouteBuilder) Metadata(key string, value interface{}) *RouteBuilder {
 		b.metadata = map[string]interface{}{}
 	}
 	b.metadata[key] = value
-	return b
-}
-
-// Deprecate sets the value of deprecated to true.  Deprecated routes have a special UI treatment to warn against use
-func (b *RouteBuilder) Deprecate() *RouteBuilder {
-	b.deprecated = true
 	return b
 }
 
@@ -290,8 +280,7 @@ func (b *RouteBuilder) Build() Route {
 		ResponseErrors: b.errorMap,
 		ReadSample:     b.readSample,
 		WriteSample:    b.writeSample,
-		Metadata:       b.metadata,
-		Deprecated:     b.deprecated}
+		Metadata:       b.metadata}
 	route.postBuild()
 	return route
 }
