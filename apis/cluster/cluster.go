@@ -46,7 +46,7 @@ type Cluster struct {
 	Components        *Components    `json:"components,omitempty"`
 
 	// Add the official Kubernetes Cluster API for us to begin transitioning (lol) to the API
-	ClusterAPI        *clusterv1.Cluster
+	ClusterAPI *clusterv1.Cluster
 }
 
 func NewCluster(name string) *Cluster {
