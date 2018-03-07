@@ -22,8 +22,8 @@ import (
 	"testing"
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
-	"github.com/kubicorn/kubicorn/profiles/amazon"
 	"github.com/kubicorn/kubicorn/pkg/state"
+	"github.com/kubicorn/kubicorn/profiles/amazon"
 )
 
 func TestJsonFileSystem(t *testing.T) {
