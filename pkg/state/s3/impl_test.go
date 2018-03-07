@@ -20,7 +20,7 @@ import (
 	"reflect"
 
 	"github.com/kubicorn/kubicorn/profiles/amazon"
-	"github.com/minio/minio-go"
+	"github.com/kubicorn/kubicorn/vendor/github.com/minio/minio-go"
 )
 
 func TestJsonFileSystem(t *testing.T) {

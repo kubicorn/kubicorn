@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package git
+package jsonfs
 
 import (
 	"encoding/json"
@@ -23,33 +23,28 @@ import (
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/profiles/amazon"
-	"github.com/kubicorn/kubicorn/state"
+	"github.com/kubicorn/kubicorn/pkg/state"
 )
 
-func TestJsonGit(t *testing.T) {
+func TestJsonFileSystem(t *testing.T) {
 	testFilePath := ".test/"
-	clusterName := "git-test"
+	clusterName := "jsonfs-test"
 	c := amazon.NewUbuntuCluster(clusterName)
-	o := &JSONGitStoreOptions{
+	o := &JSONFileSystemStoreOptions{
 		BasePath:    testFilePath,
 		ClusterName: c.Name,
-		CommitConfig: &JSONGitCommitConfig{
-			Name:   "Dummy Cluster",
-			Email:  "dummy@clustermail.co",
-			Remote: "https://github.com/kubicorn/kubicorn",
-		},
 	}
-	git := NewJSONGitStore(o)
-	if err := git.Destroy(); err != nil {
+	fs := NewJSONFileSystemStore(o)
+	if err := fs.Destroy(); err != nil {
 		t.Fatalf("Error destroying any existing state: %v", err)
 	}
-	if git.Exists() {
+	if fs.Exists() {
 		t.Fatalf("State shouldn't exist because we just destroyed it, but Exists() returned true")
 	}
-	if err := git.Commit(c); err != nil {
+	if err := fs.Commit(c); err != nil {
 		t.Fatalf("Error committing cluster: %v", err)
 	}
-	files, err := git.List()
+	files, err := fs.List()
 	if err != nil {
 		t.Fatalf("Error listing files: %v", err)
 	}
@@ -59,7 +54,7 @@ func TestJsonGit(t *testing.T) {
 	if files[0] != state.ClusterJSONFile {
 		t.Fatalf("Expected file name to be %v, got %v", state.ClusterJSONFile, files[0])
 	}
-	read, err := git.GetCluster()
+	read, err := fs.GetCluster()
 	if err != nil {
 		t.Fatalf("Error getting cluster: %v", err)
 	}
@@ -77,7 +72,7 @@ func TestJsonGit(t *testing.T) {
 	if !reflect.DeepEqual(unmarshalled, c) {
 		t.Fatalf("Cluster read directly from json file doesn't equal cluster inputted: %v", unmarshalled)
 	}
-	if err = git.Destroy(); err != nil {
+	if err = fs.Destroy(); err != nil {
 		t.Fatalf("Error cleaning up state: %v", err)
 	}
 }

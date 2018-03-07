@@ -20,10 +20,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/ghodss/yaml"
+	"github.com/kubicorn/kubicorn/vendor/github.com/ghodss/yaml"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/profiles/amazon"
-	"github.com/kubicorn/kubicorn/state"
+	"github.com/kubicorn/kubicorn/pkg/state"
 )
 
 func TestStateFileSystem(t *testing.T) {
