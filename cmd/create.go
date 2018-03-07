@@ -62,7 +62,7 @@ func CreateCmd() *cobra.Command {
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", cli.StrEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
 	createCmd.Flags().StringVarP(&co.CloudID, "cloudid", "c", cli.StrEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
-	createCmd.Flags().StringVarP(&co.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "set cluster setting")
+	createCmd.Flags().StringVarP(&co.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "Override values in the default profile. EX: --set=ssh.publicKey=~/.ssh/my_key.pub")
 
 	// git flags
 	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
