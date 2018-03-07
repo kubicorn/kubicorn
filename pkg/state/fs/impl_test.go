@@ -12,54 +12,51 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package git
+package fs
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"path/filepath"
 	"reflect"
 	"testing"
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/state"
 	"github.com/kubicorn/kubicorn/profiles/amazon"
-	"github.com/kubicorn/kubicorn/state"
+	"github.com/kubicorn/kubicorn/vendor/github.com/ghodss/yaml"
 )
 
-func TestJsonGit(t *testing.T) {
-	testFilePath := ".test/"
-	clusterName := "git-test"
+func TestStateFileSystem(t *testing.T) {
+	testFilePath := ".test"
+	clusterName := "fstest"
+
 	c := amazon.NewUbuntuCluster(clusterName)
-	o := &JSONGitStoreOptions{
+	o := &FileSystemStoreOptions{
 		BasePath:    testFilePath,
 		ClusterName: c.Name,
-		CommitConfig: &JSONGitCommitConfig{
-			Name:   "Dummy Cluster",
-			Email:  "dummy@clustermail.co",
-			Remote: "https://github.com/kubicorn/kubicorn",
-		},
 	}
-	git := NewJSONGitStore(o)
-	if err := git.Destroy(); err != nil {
+	fs := NewFileSystemStore(o)
+	if err := fs.Destroy(); err != nil {
 		t.Fatalf("Error destroying any existing state: %v", err)
 	}
-	if git.Exists() {
+	if fs.Exists() {
 		t.Fatalf("State shouldn't exist because we just destroyed it, but Exists() returned true")
 	}
-	if err := git.Commit(c); err != nil {
+	if err := fs.Commit(c); err != nil {
 		t.Fatalf("Error committing cluster: %v", err)
 	}
-	files, err := git.List()
+	files, err := fs.List()
 	if err != nil {
 		t.Fatalf("Error listing files: %v", err)
 	}
 	if len(files) < 1 {
 		t.Fatalf("Expected at least one cluster, got: %v", len(files))
 	}
-	if files[0] != state.ClusterJSONFile {
-		t.Fatalf("Expected file name to be %v, got %v", state.ClusterJSONFile, files[0])
+
+	if filepath.Join(files[0], "cluster.yaml") != filepath.Join(clusterName, state.ClusterYamlFile) {
+		t.Fatalf("Expected file name to be %v, got %v", state.ClusterYamlFile, files[0])
 	}
-	read, err := git.GetCluster()
+	read, err := fs.GetCluster()
 	if err != nil {
 		t.Fatalf("Error getting cluster: %v", err)
 	}
@@ -67,17 +64,17 @@ func TestJsonGit(t *testing.T) {
 		t.Fatalf("Cluster in doesn't equal cluster out")
 	}
 	unmarshalled := &cluster.Cluster{}
-	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterJSONFile))
+	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterYamlFile))
 	if err != nil {
-		t.Fatalf("Error reading json file: %v", err)
+		t.Fatalf("Error reading yaml file: %v", err)
 	}
-	if err := json.Unmarshal(bytes, unmarshalled); err != nil {
-		t.Fatalf("Error unmarshalling json: %v", err)
+	if err := yaml.Unmarshal(bytes, unmarshalled); err != nil {
+		t.Fatalf("Error unmarshalling yaml: %v", err)
 	}
 	if !reflect.DeepEqual(unmarshalled, c) {
-		t.Fatalf("Cluster read directly from json file doesn't equal cluster inputted: %v", unmarshalled)
+		t.Fatalf("Cluster read directly from yaml file doesn't equal cluster inputted: %v", unmarshalled)
 	}
-	if err = git.Destroy(); err != nil {
+	if err = fs.Destroy(); err != nil {
 		t.Fatalf("Error cleaning up state: %v", err)
 	}
 }

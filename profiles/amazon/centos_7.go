@@ -16,6 +16,7 @@ package amazon
 
 import (
 	"fmt"
+
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/kubeadm"
 	"github.com/kubicorn/kubicorn/pkg/uuid"

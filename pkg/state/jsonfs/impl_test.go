@@ -12,30 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package fs
+package jsonfs
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"path/filepath"
 	"reflect"
 	"testing"
 
-	"github.com/ghodss/yaml"
 	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/state"
 	"github.com/kubicorn/kubicorn/profiles/amazon"
-	"github.com/kubicorn/kubicorn/state"
 )
 
-func TestStateFileSystem(t *testing.T) {
-	testFilePath := ".test"
-	clusterName := "fstest"
-
+func TestJsonFileSystem(t *testing.T) {
+	testFilePath := ".test/"
+	clusterName := "jsonfs-test"
 	c := amazon.NewUbuntuCluster(clusterName)
-	o := &FileSystemStoreOptions{
+	o := &JSONFileSystemStoreOptions{
 		BasePath:    testFilePath,
 		ClusterName: c.Name,
 	}
-	fs := NewFileSystemStore(o)
+	fs := NewJSONFileSystemStore(o)
 	if err := fs.Destroy(); err != nil {
 		t.Fatalf("Error destroying any existing state: %v", err)
 	}
@@ -52,9 +51,8 @@ func TestStateFileSystem(t *testing.T) {
 	if len(files) < 1 {
 		t.Fatalf("Expected at least one cluster, got: %v", len(files))
 	}
-
-	if filepath.Join(files[0], "cluster.yaml") != filepath.Join(clusterName, state.ClusterYamlFile) {
-		t.Fatalf("Expected file name to be %v, got %v", state.ClusterYamlFile, files[0])
+	if files[0] != state.ClusterJSONFile {
+		t.Fatalf("Expected file name to be %v, got %v", state.ClusterJSONFile, files[0])
 	}
 	read, err := fs.GetCluster()
 	if err != nil {
@@ -64,15 +62,15 @@ func TestStateFileSystem(t *testing.T) {
 		t.Fatalf("Cluster in doesn't equal cluster out")
 	}
 	unmarshalled := &cluster.Cluster{}
-	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterYamlFile))
+	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterJSONFile))
 	if err != nil {
-		t.Fatalf("Error reading yaml file: %v", err)
+		t.Fatalf("Error reading json file: %v", err)
 	}
-	if err := yaml.Unmarshal(bytes, unmarshalled); err != nil {
-		t.Fatalf("Error unmarshalling yaml: %v", err)
+	if err := json.Unmarshal(bytes, unmarshalled); err != nil {
+		t.Fatalf("Error unmarshalling json: %v", err)
 	}
 	if !reflect.DeepEqual(unmarshalled, c) {
-		t.Fatalf("Cluster read directly from yaml file doesn't equal cluster inputted: %v", unmarshalled)
+		t.Fatalf("Cluster read directly from json file doesn't equal cluster inputted: %v", unmarshalled)
 	}
 	if err = fs.Destroy(); err != nil {
 		t.Fatalf("Error cleaning up state: %v", err)

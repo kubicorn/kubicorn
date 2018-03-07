@@ -26,7 +26,7 @@ import (
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/kubicorn/kubicorn/state"
+	"github.com/kubicorn/kubicorn/pkg/state"
 )
 
 type JSONFileSystemStoreOptions struct {

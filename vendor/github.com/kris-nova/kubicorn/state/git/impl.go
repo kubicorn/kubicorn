@@ -26,7 +26,7 @@ import (
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/kubicorn/kubicorn/state"
+	"github.com/kubicorn/kubicorn/pkg/state"
 
 	g "gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/config"
