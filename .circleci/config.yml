@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    machine: true
     docker:
       # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
       - image: circleci/golang:1.8
@@ -10,6 +9,7 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Check headers
           command: make check-headers
