@@ -22,5 +22,4 @@ jobs:
       - run:
           name: CI
           command: |
-            make ci-req
-            make ci
+            make ci-req && make ci
