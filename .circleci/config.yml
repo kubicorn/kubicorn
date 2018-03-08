@@ -5,6 +5,12 @@ jobs:
       # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
       - image: circleci/golang:1.10
 
+      - image: minio/minio
+        command: [server, /data]
+        environment:
+          MINIO_ACCESS_KEY=KubicornAccess
+          MINIO_SECRET_KEY=KubicornSecret
+
     working_directory: /go/src/github.com/kubicorn/kubicorn
 
     steps:
@@ -21,6 +27,4 @@ jobs:
           command: make compile
       - run:
           name: CI
-          command: |
-            make ci-req
-            make ci
+          command: make ci
