@@ -1,7 +1,0 @@
-_state*
-.idea*
-.DS_Store
-bin/*
-.vscode
-.sass-cache/
-_site/
