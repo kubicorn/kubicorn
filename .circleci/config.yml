@@ -20,4 +20,6 @@ jobs:
           command: make compile
       - run:
           name: CI
-          command: make ci
+          command: |
+            make ci-req
+            make ci

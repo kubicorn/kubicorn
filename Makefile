@@ -101,6 +101,11 @@ test: ## Run the INTEGRATION TESTS. This will create cloud resources and potenti
 ci: ## Run the CI TESTS. This will never cost money, and will never communicate with a cloud API.
 	go test -timeout 20m -v $(CI_PKGS)
 
+ci-req:
+	docker build -t eg_sshd test
+	docker run --rm -p 6666:22 -d --name test_sshd eg_sshd
+	docker run -d -p 9000:9000 --name minio-test -e "MINIO_ACCESS_KEY=KubicornAccess" -e "MINIO_SECRET_KEY=KubicornSecret" minio/minio server /data
+
 .PHONY: check-code
 check-code: install-tools ## Run code checks
 	PKGS="${FMT_PKGS}" GOFMT="gofmt" GOLINT="golint" ./scripts/ci-checks.sh
