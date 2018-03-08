@@ -1,7 +1,7 @@
 <p align="center"><img src="docs/img/kubicorn-trans.png" width="360"></p>
 <p align="center"><b>Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.</b></p>
 <p align="center">
-  <a href="https://travis-ci.org/kubicorn/kubicorn"><img src="https://travis-ci.org/kubicorn/kubicorn.svg?branch=master" alt="Build Status"></img></a>
+  <a href="https://circleci.com/gh/kubicorn/kubicorn/"><img src="https://circleci.com/gh/kubicorn/kubicorn.svg?style=shield" alt="Build Status"></img></a>
   <a href="https://goreportcard.com/report/github.com/kubicorn/kubicorn"><img src="https://goreportcard.com/badge/github.com/kubicorn/kubicorn" alt="Go Report Card"></img></a>
 </p>
 
