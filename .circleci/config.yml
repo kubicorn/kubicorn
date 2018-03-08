@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    machine: true
     docker:
       # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
       - image: circleci/golang:1.8
