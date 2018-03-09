@@ -8,8 +8,13 @@ jobs:
       - image: minio/minio
         command: [server, /data]
         environment:
-        - MINIO_ACCESS_KEY=KubicornAccess
-        - MINIO_SECRET_KEY=KubicornSecret
+          MINIO_ACCESS_KEY: KubicornAccess
+          MINIO_SECRET_KEY: KubicornSecret
+
+      - image: kubicorn/ci-ssh-test
+
+    environment:
+      KUBICORN_TEST_SSH_PORT: 22
 
     working_directory: /go/src/github.com/kubicorn/kubicorn
 
