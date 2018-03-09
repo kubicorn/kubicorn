@@ -19,9 +19,9 @@ import (
 )
 
 var (
-	GitSha  string
-	Version string
-	Unicorn string = fmt.Sprintf(`-----------------------------------------------------------------------------------
+	gitSha  string
+	version string
+	Unicorn = fmt.Sprintf(`-----------------------------------------------------------------------------------
                                                          ,/
                                                         //
                                                       ,//
@@ -64,5 +64,5 @@ var (
 ----[ %s ]--------------------------------------------
 
 Create, Manage, Image, and Scale Kubernetes infrastructure in the cloud.
-`, Version, GitSha)
+`, version, gitSha)
 )

@@ -27,43 +27,44 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/state/s3"
 	"github.com/minio/minio-go"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
-var (
-	lo        = &cli.ListOptions{}
-	noHeaders bool
-)
+var noHeaders bool
 
 // ListCmd represents the list command
 func ListCmd() *cobra.Command {
+	var lo = &cli.ListOptions{}
 	var cmd = &cobra.Command{
 		Use:   "list",
 		Short: "List available states",
 		Long:  `List the states available in the _state directory`,
 		Run: func(cmd *cobra.Command, args []string) {
-			err := RunList(lo)
-			if err != nil {
+			if err := runList(lo); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
 		},
 	}
 
-	cmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	cmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	cmd.Flags().BoolVarP(&noHeaders, "no-headers", "n", false, "Show the list containing names only")
+	fs := cmd.Flags()
 
-	// s3 flags
-	cmd.Flags().StringVar(&lo.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
-	cmd.Flags().StringVar(&lo.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
-	cmd.Flags().StringVar(&lo.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
-	cmd.Flags().BoolVar(&lo.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
-	cmd.Flags().StringVar(&lo.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+	fs.StringVarP(&lo.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&lo.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+
+	fs.StringVar(&lo.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&lo.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&lo.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&lo.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVarP(&noHeaders, keyNoHeaders, "n", viper.GetBool(keyNoHeaders), desNoHeaders)
+
+	fs.BoolVar(&lo.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return cmd
 }
 
-func RunList(options *cli.ListOptions) error {
+func runList(options *cli.ListOptions) error {
 	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	var stateStore state.ClusterStorer
@@ -91,7 +92,7 @@ func RunList(options *cli.ListOptions) error {
 			BasePath: options.StateStorePath,
 		})
 	case "s3":
-		client, err := minio.New(lo.BucketEndpointURL, lo.S3AccessKey, lo.S3SecretKey, lo.BucketSSL)
+		client, err := minio.New(options.BucketEndpointURL, options.S3AccessKey, options.S3SecretKey, options.BucketSSL)
 		if err != nil {
 			return err
 		}
@@ -101,8 +102,8 @@ func RunList(options *cli.ListOptions) error {
 			Client:   client,
 			BasePath: options.StateStorePath,
 			BucketOptions: &s3.S3BucketOptions{
-				EndpointURL: lo.BucketEndpointURL,
-				BucketName:  lo.BucketName,
+				EndpointURL: options.BucketEndpointURL,
+				BucketName:  options.BucketName,
 			},
 		})
 	}

@@ -25,12 +25,12 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/task"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
-
-var do = &cli.DeleteOptions{}
 
 // DeleteCmd represents the delete command
 func DeleteCmd() *cobra.Command {
+	var do = &cli.DeleteOptions{}
 	var deleteCmd = &cobra.Command{
 		Use:   "delete <NAME>",
 		Short: "Delete a Kubernetes cluster",
@@ -42,17 +42,17 @@ func DeleteCmd() *cobra.Command {
 	
 	To delete the resource AND the API model in the state store, use --purge.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				do.Name = cli.StrEnvDef("KUBICORN_NAME", "")
-			} else if len(args) > 1 {
+			switch len(args) {
+			case 0:
+				do.Name = viper.GetString(keyKubicornName)
+			case 1:
+				do.Name = args[0]
+			default:
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
-			} else {
-				do.Name = args[0]
 			}
 
-			err := RunDelete(do)
-			if err != nil {
+			if err := runDelete(do); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
@@ -60,26 +60,26 @@ func DeleteCmd() *cobra.Command {
 		},
 	}
 
-	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
-	deleteCmd.Flags().StringVar(&do.AwsProfile, "aws-profile", cli.StrEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
+	fs := deleteCmd.Flags()
 
-	// git flags
-	deleteCmd.Flags().StringVar(&do.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	fs.StringVarP(&do.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&do.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
 
-	// s3 flags
-	deleteCmd.Flags().StringVar(&do.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
-	deleteCmd.Flags().StringVar(&do.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
-	deleteCmd.Flags().StringVar(&do.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
-	deleteCmd.Flags().BoolVar(&do.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
-	deleteCmd.Flags().StringVar(&do.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+	fs.StringVar(&do.AwsProfile, keyAwsProfile, viper.GetString(keyAwsProfile), descAwsProfile)
+	fs.StringVar(&do.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
+	fs.StringVar(&do.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&do.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&do.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&do.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVar(&do.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
+
+	fs.BoolVarP(&do.Purge, keyPurge, "p", viper.GetBool(keyPurge), descPurge)
 
 	return deleteCmd
 }
 
-func RunDelete(options *cli.DeleteOptions) error {
-
+func runDelete(options *cli.DeleteOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
@@ -104,8 +104,8 @@ func RunDelete(options *cli.DeleteOptions) error {
 
 	runtimeParams := &pkg.RuntimeParameters{}
 
-	if len(do.AwsProfile) > 0 {
-		runtimeParams.AwsProfile = do.AwsProfile
+	if len(options.AwsProfile) > 0 {
+		runtimeParams.AwsProfile = options.AwsProfile
 	}
 
 	reconciler, err := pkg.GetReconciler(expectedCluster, runtimeParams)
@@ -123,8 +123,7 @@ func RunDelete(options *cli.DeleteOptions) error {
 		return fmt.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
 	}
 
-	err = stateStore.Commit(deleteCluster)
-	if err != nil {
+	if err = stateStore.Commit(deleteCluster); err != nil {
 		return fmt.Errorf("Unable to save state store: %v", err)
 	}
 

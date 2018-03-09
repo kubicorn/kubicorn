@@ -24,28 +24,28 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/initapi"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
-
-var eo = &cli.EditOptions{}
 
 // EditCmd represents edit command
 func EditCmd() *cobra.Command {
+	var eo = &cli.EditOptions{}
 	var editCmd = &cobra.Command{
 		Use:   "edit <NAME>",
 		Short: "Edit a cluster state",
 		Long:  `Use this command to edit a state.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				ao.Name = cli.StrEnvDef("KUBICORN_NAME", "")
-			} else if len(args) > 1 {
+			switch len(args) {
+			case 0:
+				eo.Name = viper.GetString(keyKubicornName)
+			case 1:
+				eo.Name = args[0]
+			default:
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
-			} else {
-				eo.Name = args[0]
 			}
 
-			err := RunEdit(eo)
-			if err != nil {
+			if err := runEdit(eo); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
@@ -53,24 +53,24 @@ func EditCmd() *cobra.Command {
 		},
 	}
 
-	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", cli.StrEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
+	fs := editCmd.Flags()
 
-	// git flags
-	editCmd.Flags().StringVar(&eo.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	fs.StringVarP(&eo.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&eo.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	fs.StringVarP(&eo.Editor, keyEditor, "e", viper.GetString(keyEditor), descEditor)
 
-	// s3 flags
-	editCmd.Flags().StringVar(&eo.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
-	editCmd.Flags().StringVar(&eo.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
-	editCmd.Flags().StringVar(&eo.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
-	editCmd.Flags().BoolVar(&eo.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
-	editCmd.Flags().StringVar(&eo.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+	fs.StringVar(&eo.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
+	fs.StringVar(&eo.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&eo.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&eo.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&eo.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVar(&eo.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return editCmd
 }
 
-func RunEdit(options *cli.EditOptions) error {
+func runEdit(options *cli.EditOptions) error {
 	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	name := options.Name
@@ -112,9 +112,9 @@ func RunEdit(options *cli.EditOptions) error {
 		logger.Debug("Error while editing. Error: %v", err)
 		os.Remove(fpath)
 		return err
-	} else {
-		logger.Info("Cluster edited")
 	}
+
+	logger.Info("Cluster edited")
 
 	data, err := ioutil.ReadFile(fpath)
 	if err != nil {

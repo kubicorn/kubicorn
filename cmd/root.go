@@ -20,6 +20,7 @@ import (
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 const (
@@ -62,7 +63,7 @@ var RootCmd = &cobra.Command{
 		if logger.Fabulous {
 			cmd.SetOutput(logger.FabulousWriter)
 		}
-		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+		if viper.GetString(keyTrueColor) != "" {
 			cmd.SetOutput(logger.FabulousTrueWriter)
 		}
 		cmd.Help()
@@ -70,23 +71,7 @@ var RootCmd = &cobra.Command{
 	BashCompletionFunction: bashCompletionFunc,
 }
 
-type Options struct {
-	StateStore     string
-	StateStorePath string
-	Name           string
-	CloudId        string
-	Set            string
-	AwsProfile     string
-
-	GitRemote string
-
-	S3AccessKey       string
-	S3SecretKey       string
-	BucketEndpointURL string
-	BucketSSL         bool
-	BucketName        string
-}
-
+// Execute performs root command task.
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -99,6 +84,12 @@ func init() {
 	RootCmd.PersistentFlags().IntVarP(&logger.Level, "verbose", "v", 3, "Log level")
 	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "C", true, "Toggle colorized logs")
 	RootCmd.PersistentFlags().BoolVarP(&logger.Fabulous, "fab", "f", false, "Toggle colorized logs")
+
+	// bind environment vars
+	bindEnvVars()
+
+	// init viper defaults
+	initEnvDefaults()
 
 	// add commands
 	addCommands()

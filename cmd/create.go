@@ -24,13 +24,13 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/namer"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"github.com/yuroyoro/swalker"
 )
 
-var co = &cli.CreateOptions{}
-
 // CreateCmd represents create command
 func CreateCmd() *cobra.Command {
+	var co = &cli.CreateOptions{}
 	var createCmd = &cobra.Command{
 		Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
 		Short: "Create a Kubicorn API model from a profile",
@@ -40,17 +40,20 @@ func CreateCmd() *cobra.Command {
 	Once the API model has been created, a user can optionally change the model to their liking.
 	After a model is defined and configured properly, the user can then apply the model.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				co.Name = cli.StrEnvDef("KUBICORN_NAME", namer.RandomName())
-			} else if len(args) > 1 {
+			switch len(args) {
+			case 0:
+				co.Name = viper.GetString(keyKubicornName)
+				if co.Name == "" {
+					co.Name = namer.RandomName()
+				}
+			case 1:
+				co.Name = args[0]
+			default:
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
-			} else {
-				co.Name = args[0]
 			}
 
-			err := RunCreate(co)
-			if err != nil {
+			if err := RunCreate(co); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
@@ -58,21 +61,21 @@ func CreateCmd() *cobra.Command {
 		},
 	}
 
-	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", cli.StrEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
-	createCmd.Flags().StringVarP(&co.CloudID, "cloudid", "c", cli.StrEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
-	createCmd.Flags().StringVarP(&co.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "Override values in the default profile. EX: --set=ssh.publicKey=~/.ssh/my_key.pub")
+	fs := createCmd.Flags()
 
-	// git flags
-	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	fs.StringVarP(&co.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&co.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	fs.StringVarP(&co.Profile, keyProfile, "p", viper.GetString(keyProfile), descProfile)
+	fs.StringVarP(&co.CloudID, keyCloudID, "c", viper.GetString(keyCloudID), descCloudID)
+	fs.StringVarP(&co.Set, keySet, "e", viper.GetString(keySet), descSet)
+	fs.StringVarP(&co.GitRemote, keyGitConfig, "g", viper.GetString(keyGitConfig), descGitConfig)
 
-	// s3 flags
-	createCmd.Flags().StringVar(&co.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
-	createCmd.Flags().StringVar(&co.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
-	createCmd.Flags().StringVar(&co.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
-	createCmd.Flags().BoolVar(&co.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
-	createCmd.Flags().StringVar(&co.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+	fs.StringVar(&co.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&co.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&co.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&co.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVar(&co.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
@@ -84,7 +87,6 @@ func CreateCmd() *cobra.Command {
 
 // RunCreate is the starting point when a user runs the create command.
 func RunCreate(options *cli.CreateOptions) error {
-
 	// Create our cluster resource
 	name := options.Name
 	var newCluster *cluster.Cluster
