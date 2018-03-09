@@ -17,11 +17,11 @@ package cmd
 import (
 	"bytes"
 	"fmt"
-	"os"
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 const license = `# Copyright © 2017 The Kubicorn Authors
@@ -64,27 +64,29 @@ func CompletionCmd() *cobra.Command {
 			if logger.Fabulous {
 				cmd.SetOutput(logger.FabulousWriter)
 			}
-			if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+
+			if viper.GetString(keyTrueColor) != "" {
 				cmd.SetOutput(logger.FabulousWriter)
 			}
 
-			if len(args) != 1 {
+			switch len(args) {
+			case 0:
 				return fmt.Errorf("shell argument is not specified")
-			}
-			shell := args[0]
-
-			if shell == "bash" {
-				return RunBashGeneration()
-			} else if shell == "zsh" {
-				return RunZshGeneration()
-			} else {
-				return fmt.Errorf("invalid shell argument")
+			default:
+				switch args[0] {
+				case "bash":
+					return runBashGeneration()
+				case "zsh":
+					return runZshGeneration()
+				default:
+					return fmt.Errorf("invalid shell argument")
+				}
 			}
 		},
 	}
 }
 
-func RunBashGeneration() error {
+func runBashGeneration() error {
 	var buf bytes.Buffer
 
 	_, err := buf.Write([]byte(license))
@@ -102,7 +104,7 @@ func RunBashGeneration() error {
 	return nil
 }
 
-func RunZshGeneration() error {
+func runZshGeneration() error {
 	var buf bytes.Buffer
 
 	// zshInit converts appropriate bash to zsh code.

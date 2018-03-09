@@ -29,13 +29,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	versionFile = "/src/github.com/kubicorn/kubicorn/VERSION"
-	vo          = &cli.VersionOptions{}
-)
+var versionFile = "/src/github.com/kubicorn/kubicorn/VERSION"
 
 // VersionCmd represents the version command
 func VersionCmd() *cobra.Command {
+	var vo = &cli.VersionOptions{}
 	return &cobra.Command{
 		Use:   "version",
 		Short: "Verify Kubicorn version",
@@ -43,26 +41,22 @@ func VersionCmd() *cobra.Command {
 	
 	This command will return the version of the Kubicorn binary.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			err := RunVersion(vo)
-			if err != nil {
+			if err := runVersion(vo); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
-
 		},
 	}
 }
 
-// RunVersion populates VersionOptions and prints to stdout
-func RunVersion(vo *cli.VersionOptions) error {
-
-	vo.Version = getVersion()
-	vo.GitCommit = getGitCommit()
-	vo.BuildDate = time.Now().UTC().String()
-	vo.GOVersion = runtime.Version()
-	vo.GOARCH = runtime.GOARCH
-	vo.GOOS = runtime.GOOS
-	voBytes, err := json.Marshal(vo)
+func runVersion(options *cli.VersionOptions) error {
+	options.Version = getVersion()
+	options.GitCommit = getGitCommit()
+	options.BuildDate = time.Now().UTC().String()
+	options.GOVersion = runtime.Version()
+	options.GOARCH = runtime.GOARCH
+	options.GOOS = runtime.GOOS
+	voBytes, err := json.Marshal(options)
 	if err != nil {
 		return err
 	}

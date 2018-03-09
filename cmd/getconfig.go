@@ -24,12 +24,12 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
-
-var cro = &cli.GetConfigOptions{}
 
 // GetConfigCmd represents the apply command
 func GetConfigCmd() *cobra.Command {
+	var cro = &cli.GetConfigOptions{}
 	var getConfigCmd = &cobra.Command{
 		Use:   "getconfig <NAME>",
 		Short: "Manage Kubernetes configuration",
@@ -37,17 +37,17 @@ func GetConfigCmd() *cobra.Command {
 	
 	This command will attempt to find a cluster, and append a local kubeconfig file with a kubeconfig `,
 		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				cro.Name = cli.StrEnvDef("KUBICORN_NAME", "")
-			} else if len(args) > 1 {
+			switch len(args) {
+			case 0:
+				cro.Name = viper.GetString(keyKubicornName)
+			case 1:
+				cro.Name = args[0]
+			default:
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
-			} else {
-				cro.Name = args[0]
 			}
 
-			err := RunGetConfig(cro)
-			if err != nil {
+			if err := runGetConfig(cro); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
@@ -55,23 +55,23 @@ func GetConfigCmd() *cobra.Command {
 		},
 	}
 
-	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	fs := getConfigCmd.Flags()
 
-	// git flags
-	getConfigCmd.Flags().StringVar(&cro.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	fs.StringVarP(&cro.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&cro.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
 
-	// s3 flags
-	getConfigCmd.Flags().StringVar(&cro.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
-	getConfigCmd.Flags().StringVar(&cro.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
-	getConfigCmd.Flags().StringVar(&cro.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
-	getConfigCmd.Flags().BoolVar(&cro.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
-	getConfigCmd.Flags().StringVar(&cro.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+	fs.StringVar(&cro.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
+	fs.StringVar(&cro.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&cro.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&cro.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&cro.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVar(&cro.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return getConfigCmd
 }
 
-func RunGetConfig(options *cli.GetConfigOptions) error {
+func runGetConfig(options *cli.GetConfigOptions) error {
 
 	// Ensure we have a name
 	name := options.Name
@@ -100,8 +100,7 @@ func RunGetConfig(options *cli.GetConfigOptions) error {
 		return err
 	}
 
-	err = kubeconfig.GetConfig(cluster)
-	if err != nil {
+	if err = kubeconfig.GetConfig(cluster); err != nil {
 		return err
 	}
 	logger.Always("Applied kubeconfig")
