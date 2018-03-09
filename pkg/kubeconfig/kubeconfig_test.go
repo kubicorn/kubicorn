@@ -58,11 +58,15 @@ func TestSdkHappy(t *testing.T) {
 func TestGetConfigHappy(t *testing.T) {
 	dir, err := os.Getwd()
 	dir, err = filepath.Abs(dir + "/../../test")
+	port, ok := os.LookupEnv("KUBICORN_TEST_SSH_PORT")
+	if !ok {
+		port = "6666"
+	}
 	testCluster := &cluster.Cluster{
 		SSH: &cluster.SSH{
 			User:          "root",
 			PublicKeyPath: dir + "/credentials/id_rsa.pub",
-			Port:          "6666",
+			Port:          port,
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Endpoint: "localhost",
