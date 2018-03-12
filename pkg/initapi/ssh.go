@@ -27,16 +27,18 @@ import (
 
 func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if initCluster.ProviderConfig().SSH.PublicKeyPath != "" {
+		providerConfig := initCluster.ProviderConfig()
 		bytes, err := ioutil.ReadFile(local.Expand(initCluster.ProviderConfig().SSH.PublicKeyPath))
 		if err != nil {
 			return nil, err
 		}
-		initCluster.ProviderConfig().SSH.PublicKeyData = bytes
+		providerConfig.SSH.PublicKeyData = bytes
 		fp, err := publicKeyFingerprint(bytes)
 		if err != nil {
 			return nil, err
 		}
-		initCluster.ProviderConfig().SSH.PublicKeyFingerprint = fp
+		providerConfig.SSH.PublicKeyFingerprint = fp
+		initCluster.SetProviderConfig(providerConfig)
 	}
 
 	return initCluster, nil

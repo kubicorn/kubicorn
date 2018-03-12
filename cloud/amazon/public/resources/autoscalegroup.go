@@ -209,19 +209,23 @@ func (r *Asg) immutableRender(newResource cloud.Resource, inaccurateCluster *clu
 
 	found := false
 
-	for i := 0; i < len(newCluster.ServerPools()); i++ {
-		if newCluster.ServerPools()[i].Name == newResource.(*Asg).Name {
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		if machineProviderConfig.ServerPool.Name == newResource.(*Asg).Name {
 			if newResource.(*Asg).ServerPool != nil {
-				newCluster.ServerPools()[i].MaxCount = newResource.(*Asg).ServerPool.MaxCount
-				newCluster.ServerPools()[i].MinCount = newResource.(*Asg).ServerPool.MinCount
+				machineProviderConfigs[i].ServerPool.MaxCount = newResource.(*Asg).ServerPool.MaxCount
+				machineProviderConfigs[i].ServerPool.MinCount = newResource.(*Asg).ServerPool.MinCount
 			} else {
-				newCluster.ServerPools()[i].MaxCount = newResource.(*Asg).MaxCount
-				newCluster.ServerPools()[i].MinCount = newResource.(*Asg).MinCount
+				machineProviderConfigs[i].ServerPool.MaxCount = newResource.(*Asg).MaxCount
+				machineProviderConfigs[i].ServerPool.MinCount = newResource.(*Asg).MinCount
 			}
-			newCluster.ServerPools()[i].Name = newResource.(*Asg).Name
-			newCluster.ServerPools()[i].Identifier = newResource.(*Asg).Identifier
+			machineProviderConfigs[i].ServerPool.Name = newResource.(*Asg).Name
+			machineProviderConfigs[i].ServerPool.Identifier = newResource.(*Asg).Identifier
 			found = true
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 		}
+
 	}
 	if !found {
 		providerConfig := []*cluster.MachineProviderConfig{
@@ -230,8 +234,6 @@ func (r *Asg) immutableRender(newResource cloud.Resource, inaccurateCluster *clu
 			},
 		}
 		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
-
-		//newCluster.ServerPools() = append(newCluster.ServerPools(), serverPool)
 	}
 
 	return newCluster

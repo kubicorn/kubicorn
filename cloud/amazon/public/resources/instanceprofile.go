@@ -22,7 +22,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -223,16 +222,19 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 		Description:              S("Kubicorn Role"),
 		Path:                     S("/"),
 	}
+	irName := ""
 	outInstanceRole, err := Sdk.IAM.CreateRole(roleinput)
 	if err != nil {
 		logger.Debug("CreateRole error: %v", err)
 		if err.(awserr.Error).Code() != iam.ErrCodeEntityAlreadyExistsException {
-			return nil, nil, err
+			irName = expected.(*InstanceProfile).Role.Name
 		}
+	}else {
+		irName = *outInstanceRole.Role.RoleName
 	}
 	newIamRole := &IAMRole{
 		Shared: Shared{
-			Name: *outInstanceRole.Role.RoleName,
+			Name: irName,
 			Tags: map[string]string{
 				"Name":              r.Name,
 				"KubernetesCluster": immutable.Name,
@@ -337,7 +339,7 @@ func (r *InstanceProfile) Delete(actual cloud.Resource, immutable *cluster.Clust
 
 func (r *InstanceProfile) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("instanceprofile.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	instanceProfile := &cluster.IAMInstanceProfile{}
 	instanceProfile.Name = newResource.(*InstanceProfile).Name
 	instanceProfile.Identifier = newResource.(*InstanceProfile).Identifier
@@ -356,9 +358,12 @@ func (r *InstanceProfile) immutableRender(newResource cloud.Resource, inaccurate
 		}
 	}
 	found := false
-	for i := 0; i < len(newCluster.ServerPools()); i++ {
-		if newResource.(*InstanceProfile).ServerPool != nil && newCluster.ServerPools()[i].Name == newResource.(*InstanceProfile).ServerPool.Name {
-			newCluster.ServerPools()[i].InstanceProfile = instanceProfile
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		if newResource.(*InstanceProfile).ServerPool != nil && machineProviderConfig.Name == newResource.(*InstanceProfile).ServerPool.Name {
+			machineProviderConfigs[i].ServerPool.InstanceProfile = instanceProfile
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			found = true
 		}
 	}

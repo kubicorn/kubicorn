@@ -42,6 +42,7 @@ func NewClusterDefaults(c *cluster.Cluster) *cluster.Cluster {
 		// @kris-nova
 		// We might need to call a method here as we are just blindly translating
 		MachineSets: c.MachineSets,
+		ClusterAPI: c.ClusterAPI,
 	}
 	new.SetProviderConfig(providerConfig)
 	return new
