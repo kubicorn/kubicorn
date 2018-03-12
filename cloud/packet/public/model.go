@@ -47,8 +47,8 @@ func (m *Model) Resources() map[int]cloud.Resource {
 
 	// ---- [Project] ----
 	projectName := ""
-	if known.Project != nil {
-		projectName = known.Project.Name
+	if known.ProviderConfig().Project != nil {
+		projectName = known.ProviderConfig().Project.Name
 	}
 	r[i] = &resources.Project{
 		Shared: resources.Shared{
@@ -67,7 +67,9 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	i++
 
 	//
-	for _, serverPool := range known.ServerPools {
+	machineConfigs := known.MachineProviderConfigs()
+	for _, machineConfig := range machineConfigs {
+		serverPool := machineConfig.ServerPool
 		name := serverPool.Name
 
 		// ---- [Device] ----

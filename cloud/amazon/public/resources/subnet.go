@@ -92,7 +92,7 @@ func (r *Subnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 			Name:       r.Name,
 		},
 		CIDR:  r.ClusterSubnet.CIDR,
-		VpcID: immutable.Network.Identifier,
+		VpcID: immutable.ProviderConfig().Network.Identifier,
 		Zone:  r.ClusterSubnet.Zone,
 	}
 
@@ -112,7 +112,7 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, immutable *cluster.Clust
 
 	input := &ec2.CreateSubnetInput{
 		CidrBlock:        &expected.(*Subnet).CIDR,
-		VpcId:            &immutable.Network.Identifier,
+		VpcId:            &immutable.ProviderConfig().Network.Identifier,
 		AvailabilityZone: &expected.(*Subnet).Zone,
 	}
 	output, err := Sdk.Ec2.CreateSubnet(input)
@@ -167,33 +167,38 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 	subnet.Identifier = newResource.(*Subnet).Identifier
 	found := false
 
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Subnets); j++ {
-			if newCluster.ServerPools[i].Subnets[j].Name == newResource.(*Subnet).Name {
-				newCluster.ServerPools[i].Subnets[j].CIDR = newResource.(*Subnet).CIDR
-				newCluster.ServerPools[i].Subnets[j].Zone = newResource.(*Subnet).Zone
-				newCluster.ServerPools[i].Subnets[j].Identifier = newResource.(*Subnet).Identifier
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		for j := 0; j < len(newCluster.ServerPools()[i].Subnets); j++ {
+			if newCluster.ServerPools()[i].Subnets[j].Name == newResource.(*Subnet).Name {
+				newCluster.ServerPools()[i].Subnets[j].CIDR = newResource.(*Subnet).CIDR
+				newCluster.ServerPools()[i].Subnets[j].Zone = newResource.(*Subnet).Zone
+				newCluster.ServerPools()[i].Subnets[j].Identifier = newResource.(*Subnet).Identifier
 				found = true
 			}
 		}
 	}
 
 	if !found {
-		for i := 0; i < len(newCluster.ServerPools); i++ {
-			if newCluster.ServerPools[i].Name == newResource.(*Subnet).Name {
-				newCluster.ServerPools[i].Subnets = append(newCluster.ServerPools[i].Subnets, subnet)
+		for i := 0; i < len(newCluster.ServerPools()); i++ {
+			if newCluster.ServerPools()[i].Name == newResource.(*Subnet).Name {
+				newCluster.ServerPools()[i].Subnets = append(newCluster.ServerPools()[i].Subnets, subnet)
 				found = true
 			}
 		}
 	}
 
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name: newResource.(*Subnet).Name,
-			Subnets: []*cluster.Subnet{
-				subnet,
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name: newResource.(*Subnet).Name,
+					Subnets: []*cluster.Subnet{
+						subnet,
+					},
+				},
 			},
-		})
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 	return newCluster
 }

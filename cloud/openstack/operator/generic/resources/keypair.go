@@ -42,15 +42,15 @@ func (r *KeyPair) Actual(immutable *cluster.Cluster) (actual *cluster.Cluster, r
 		Shared: Shared{
 			Name: r.Name,
 		},
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
-		User:                 immutable.SSH.User,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
+		User:                 immutable.ProviderConfig().SSH.User,
 	}
 
-	if immutable.SSH.Identifier != "" {
+	if immutable.ProviderConfig().SSH.Identifier != "" {
 		// Find the keypair by name
-		keypair, err := keypairs.Get(Sdk.Compute, immutable.SSH.User).Extract()
+		keypair, err := keypairs.Get(Sdk.Compute, immutable.ProviderConfig().SSH.User).Extract()
 		if err != nil {
 			if !strings.Contains(err.Error(), "not found") {
 				return nil, nil, err
@@ -67,13 +67,13 @@ func (r *KeyPair) Expected(immutable *cluster.Cluster) (expected *cluster.Cluste
 	logger.Debug("keypair.Expected")
 	newResource := &KeyPair{
 		Shared: Shared{
-			Identifier: immutable.SSH.Identifier,
+			Identifier: immutable.ProviderConfig().SSH.Identifier,
 			Name:       r.Name,
 		},
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
-		User:                 immutable.SSH.User,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
+		User:                 immutable.ProviderConfig().SSH.User,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -145,11 +145,11 @@ func (r *KeyPair) immutableRender(newResource cloud.Resource, inaccurateCluster 
 	logger.Debug("keypair.Render")
 	keypair := newResource.(*KeyPair)
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.SSH.PublicKeyData = []byte(keypair.PublicKeyData)
-	newCluster.SSH.PublicKeyPath = keypair.PublicKeyPath
-	newCluster.SSH.PublicKeyFingerprint = keypair.PublicKeyFingerprint
-	newCluster.SSH.User = keypair.User
-	newCluster.SSH.Name = keypair.Name
-	newCluster.SSH.Identifier = keypair.Name
+	newCluster.ProviderConfig().SSH.PublicKeyData = []byte(keypair.PublicKeyData)
+	newCluster.ProviderConfig().SSH.PublicKeyPath = keypair.PublicKeyPath
+	newCluster.ProviderConfig().SSH.PublicKeyFingerprint = keypair.PublicKeyFingerprint
+	newCluster.ProviderConfig().SSH.User = keypair.User
+	newCluster.ProviderConfig().SSH.Name = keypair.Name
+	newCluster.ProviderConfig().SSH.Identifier = keypair.Name
 	return newCluster
 }

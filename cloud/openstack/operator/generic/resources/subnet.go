@@ -75,7 +75,7 @@ func (r *Subnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 			Identifier: r.ClusterSubnet.Identifier,
 		},
 		CIDR:      r.ClusterSubnet.CIDR,
-		NetworkID: immutable.Network.Identifier,
+		NetworkID: immutable.ProviderConfig().Network.Identifier,
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -148,10 +148,10 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 	subnet.Identifier = newSubnet.Identifier
 	found := false
 
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Subnets); j++ {
-			if newCluster.ServerPools[i].Subnets[j].Name == newSubnet.Name {
-				s := newCluster.ServerPools[i].Subnets[j]
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		for j := 0; j < len(newCluster.ServerPools()[i].Subnets); j++ {
+			if newCluster.ServerPools()[i].Subnets[j].Name == newSubnet.Name {
+				s := newCluster.ServerPools()[i].Subnets[j]
 				s.CIDR = newSubnet.CIDR
 				s.Identifier = newSubnet.Identifier
 				found = true
@@ -159,20 +159,27 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 		}
 	}
 	if !found {
-		for i := 0; i < len(newCluster.ServerPools); i++ {
-			if newCluster.ServerPools[i].Name == newResource.(*Subnet).Name {
-				newCluster.ServerPools[i].Subnets = append(newCluster.ServerPools[i].Subnets, subnet)
+		for i := 0; i < len(newCluster.ServerPools()); i++ {
+			if newCluster.ServerPools()[i].Name == newResource.(*Subnet).Name {
+				newCluster.ServerPools()[i].Subnets = append(newCluster.ServerPools()[i].Subnets, subnet)
 				found = true
 			}
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name: newSubnet.Name,
-			Subnets: []*cluster.Subnet{
-				subnet,
+
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name: newSubnet.Name,
+					Subnets: []*cluster.Subnet{
+						subnet,
+					},
+				},
 			},
-		})
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
+
 	}
 
 	return newCluster

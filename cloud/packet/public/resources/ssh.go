@@ -42,15 +42,15 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 		Shared: Shared{
 			Name: r.Name,
 		},
-		User:                 immutable.SSH.User,
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
+		User:                 immutable.ProviderConfig().SSH.User,
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
 	}
 
 	// we need to get the project ID first - because there is no way in kubicorn to pass these things around
-	logger.Debug("ssh.Actual finding project ID by name %s", immutable.Project.Name)
-	project, err := GetProjectByName(immutable.Project.Name)
+	logger.Debug("ssh.Actual finding project ID by name %s", immutable.ProviderConfig().Project.Name)
+	project, err := GetProjectByName(immutable.ProviderConfig().Project.Name)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -60,7 +60,7 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 		return newCluster, newResource, nil
 	}
 	logger.Debug("ssh.Actual project keys %v", project.SSHKeys)
-	logger.Debug("ssh.Actual target fingerprint %v", immutable.SSH.PublicKeyFingerprint)
+	logger.Debug("ssh.Actual target fingerprint %v", immutable.ProviderConfig().SSH.PublicKeyFingerprint)
 	var key packngo.SSHKey
 	for _, k := range project.SSHKeys {
 		// get the url to check - because Project.SSHKeys does not actually contain the data
@@ -71,7 +71,7 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 			return nil, nil, err
 		}
 		logger.Debug("keyData found '%v'", keyData)
-		if keyData != nil && keyData.FingerPrint == immutable.SSH.PublicKeyFingerprint {
+		if keyData != nil && keyData.FingerPrint == immutable.ProviderConfig().SSH.PublicKeyFingerprint {
 			key = *keyData
 			break
 		}
@@ -80,7 +80,7 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 	if key.ID != "" {
 		logger.Debug("ssh.Actual found key %v", key)
 		newResource.Name = key.Label
-		newResource.User = immutable.SSH.User
+		newResource.User = immutable.ProviderConfig().SSH.User
 		newResource.PublicKeyData = key.Key
 		newResource.PublicKeyFingerprint = key.FingerPrint
 		newResource.Identifier = key.ID
@@ -96,10 +96,10 @@ func (r *SSH) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Reso
 		Shared: Shared{
 			Name: r.Name,
 		},
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		User:                 immutable.SSH.User,
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		User:                 immutable.ProviderConfig().SSH.User,
 	}
 	logger.Debug("ssh.Expected newResource %v", newResource)
 	newCluster := r.immutableRender(newResource, immutable)
@@ -120,7 +120,7 @@ func (r *SSH) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 	request := &packngo.SSHKeyCreateRequest{
 		Label:     expectedResource.Name,
 		Key:       expectedResource.PublicKeyData,
-		ProjectID: immutable.Project.Identifier,
+		ProjectID: immutable.ProviderConfig().Project.Identifier,
 	}
 	logger.Debug("ssh.Apply creating key %v", request)
 	key, _, err := Sdk.Client.SSHKeys.Create(request)
@@ -174,10 +174,10 @@ func (r *SSH) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 func (r *SSH) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("ssh.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
-	newCluster.SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
-	newCluster.SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
-	newCluster.SSH.Identifier = newResource.(*SSH).Identifier
-	newCluster.SSH.User = newResource.(*SSH).User
+	newCluster.ProviderConfig().SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
+	newCluster.ProviderConfig().SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
+	newCluster.ProviderConfig().SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
+	newCluster.ProviderConfig().SSH.Identifier = newResource.(*SSH).Identifier
+	newCluster.ProviderConfig().SSH.User = newResource.(*SSH).User
 	return newCluster
 }

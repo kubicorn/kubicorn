@@ -19,12 +19,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
-	new := &cluster.Cluster{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: base.ObjectMeta.Annotations,
-		},
-		Name:          base.Name,
+func NewClusterDefaults(c *cluster.Cluster) *cluster.Cluster {
+	base := c.ProviderConfig()
+	providerConfig := &cluster.ControlPlaneProviderConfig{
 		CloudId:       base.CloudId,
 		Cloud:         base.Cloud,
 		Location:      base.Location,
@@ -32,9 +29,20 @@ func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 		SSH:           base.SSH,
 		Values:        base.Values,
 		KubernetesAPI: base.KubernetesAPI,
-		ServerPools:   base.ServerPools,
+		//ServerPools:   base.ServerPools,
 		Project:       base.Project,
 		Components:    base.Components,
 	}
+	new := &cluster.Cluster{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: c.ObjectMeta.Annotations,
+		},
+		Name:          c.Name,
+		// TODO
+		// @kris-nova
+		// We might need to call a method here as we are just blindly translating
+		MachineSets: c.MachineSets,
+	}
+	new.SetProviderConfig(providerConfig)
 	return new
 }

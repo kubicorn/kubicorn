@@ -105,7 +105,7 @@ func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		return immutable, applyResource, nil
 	}
 	subnetID := ""
-	for _, sp := range immutable.ServerPools {
+	for _, sp := range immutable.ServerPools(){
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {
@@ -209,22 +209,29 @@ func (r *Asg) immutableRender(newResource cloud.Resource, inaccurateCluster *clu
 
 	found := false
 
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		if newCluster.ServerPools[i].Name == newResource.(*Asg).Name {
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		if newCluster.ServerPools()[i].Name == newResource.(*Asg).Name {
 			if newResource.(*Asg).ServerPool != nil {
-				newCluster.ServerPools[i].MaxCount = newResource.(*Asg).ServerPool.MaxCount
-				newCluster.ServerPools[i].MinCount = newResource.(*Asg).ServerPool.MinCount
+				newCluster.ServerPools()[i].MaxCount = newResource.(*Asg).ServerPool.MaxCount
+				newCluster.ServerPools()[i].MinCount = newResource.(*Asg).ServerPool.MinCount
 			} else {
-				newCluster.ServerPools[i].MaxCount = newResource.(*Asg).MaxCount
-				newCluster.ServerPools[i].MinCount = newResource.(*Asg).MinCount
+				newCluster.ServerPools()[i].MaxCount = newResource.(*Asg).MaxCount
+				newCluster.ServerPools()[i].MinCount = newResource.(*Asg).MinCount
 			}
-			newCluster.ServerPools[i].Name = newResource.(*Asg).Name
-			newCluster.ServerPools[i].Identifier = newResource.(*Asg).Identifier
+			newCluster.ServerPools()[i].Name = newResource.(*Asg).Name
+			newCluster.ServerPools()[i].Identifier = newResource.(*Asg).Identifier
 			found = true
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, serverPool)
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: serverPool,
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
+
+		//newCluster.ServerPools() = append(newCluster.ServerPools(), serverPool)
 	}
 
 	return newCluster

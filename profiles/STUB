@@ -1,0 +1,17 @@
+	controlPlaneProviderConfig := &cluster.ControlPlaneProviderConfig{}
+	machineSetsProviderConfigs := []*cluster.MachineProviderConfig{
+		{
+			ServerPool: &cluster.ServerPool{
+
+			},
+		},
+		{
+			ServerPool: &cluster.ServerPool{
+
+			},
+		},
+	}
+	c := cluster.NewCluster(name)
+	c.SetProviderConfig(controlPlaneProviderConfig)
+	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
+	return c

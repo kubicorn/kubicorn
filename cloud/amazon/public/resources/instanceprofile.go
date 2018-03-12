@@ -356,9 +356,9 @@ func (r *InstanceProfile) immutableRender(newResource cloud.Resource, inaccurate
 		}
 	}
 	found := false
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		if newResource.(*InstanceProfile).ServerPool != nil && newCluster.ServerPools[i].Name == newResource.(*InstanceProfile).ServerPool.Name {
-			newCluster.ServerPools[i].InstanceProfile = instanceProfile
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		if newResource.(*InstanceProfile).ServerPool != nil && newCluster.ServerPools()[i].Name == newResource.(*InstanceProfile).ServerPool.Name {
+			newCluster.ServerPools()[i].InstanceProfile = instanceProfile
 			found = true
 		}
 	}

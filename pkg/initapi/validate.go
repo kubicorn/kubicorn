@@ -20,15 +20,17 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 )
 
-func validateAtLeastOneServerPool(initCluster *cluster.Cluster) error {
-	if len(initCluster.ServerPools) < 1 {
-		return fmt.Errorf("cluster %v must have at least one server pool", initCluster.Name)
+func validateAtLeastOneMachineSet(initCluster *cluster.Cluster) error {
+	if len(initCluster.MachineSets) < 1 {
+		return fmt.Errorf("cluster %v must have at least one machine set", initCluster.Name)
 	}
 	return nil
 }
 
-func validateServerPoolMaxCountGreaterThan1(initCluster *cluster.Cluster) error {
-	for _, p := range initCluster.ServerPools {
+func validateMachineSetMaxCountGreaterThan1(initCluster *cluster.Cluster) error {
+	providerConfigs := initCluster.MachineProviderConfigs()
+	for _, providerConfig := range providerConfigs {
+		p := providerConfig.ServerPool
 		if p.MaxCount < 1 {
 			return fmt.Errorf("server pool %v in cluster %v must have a maximum count greater than 0", p.Name, initCluster.Name)
 		}
@@ -37,8 +39,10 @@ func validateServerPoolMaxCountGreaterThan1(initCluster *cluster.Cluster) error 
 }
 
 func validateSpotPriceOnlyForAwsCluster(initCluster *cluster.Cluster) error {
-	for _, p := range initCluster.ServerPools {
-		if p.AwsConfiguration != nil && p.AwsConfiguration.SpotPrice != "" && initCluster.Cloud != cluster.CloudAmazon {
+	providerConfigs := initCluster.MachineProviderConfigs()
+	for _, providerConfig := range providerConfigs {
+		p := providerConfig.ServerPool
+		if p.AwsConfiguration != nil && p.AwsConfiguration.SpotPrice != "" && initCluster.ProviderConfig().Cloud != cluster.CloudAmazon {
 			return fmt.Errorf("Spot price provided for server pool %v can only be used with AWS", p.Name)
 		}
 	}

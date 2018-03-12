@@ -49,7 +49,9 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	}
 	i++
 
-	for _, serverPool := range m.known.ServerPools {
+	machineConfigs := m.known.MachineProviderConfigs()
+	for _, machineConfig := range machineConfigs {
+		serverPool := machineConfig.ServerPool
 		// ---- [Droplet] ----
 		r[i] = &resources.Droplet{
 			Shared: resources.Shared{
@@ -60,7 +62,8 @@ func (m *Model) Resources() map[int]cloud.Resource {
 		i++
 	}
 
-	for _, serverPool := range m.known.ServerPools {
+	for _, machineConfig := range machineConfigs {
+		serverPool := machineConfig.ServerPool
 		for _, firewall := range serverPool.Firewalls {
 			// ---- [Firewall] ----
 			f := &resources.Firewall{

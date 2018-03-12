@@ -59,11 +59,19 @@ func newConfigLoader(existing *cluster.Cluster) (*configLoader, error) {
 	sshConfig := &ssh.ClientConfig{
 		User:            existing.SSH.User,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+=======
+func GetConfig(existing *cluster.Cluster) error {
+	user := existing.ProviderConfig().SSH.User
+	pubKeyPath := local.Expand(existing.ProviderConfig().SSH.PublicKeyPath)
+	if existing.ProviderConfig().SSH.Port == "" {
+		existing.ProviderConfig().SSH.Port = "22"
+>>>>>>> Okay - this won't work but at least it will compile. Time for the big refactor
 	}
 	sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
 	sshConfig.Auth = append(sshConfig.Auth, sshAgentWithKey.GetAgent())
 	sshConfig.SetDefaults()
 
+<<<<<<< HEAD
 	return &configLoader{
 		existing:  existing,
 		sshconfig: sshConfig,
@@ -77,6 +85,10 @@ func (cfg *configLoader) GetConfig() error {
 
 	address := fmt.Sprintf("%s:%s", cfg.existing.KubernetesAPI.Endpoint, cfg.existing.SSH.Port)
 	localPath, localPathAnnotationDefined := cfg.existing.Annotations[ClusterAnnotationKubeconfigLocalFile]
+=======
+	address := fmt.Sprintf("%s:%s", existing.ProviderConfig().KubernetesAPI.Endpoint, existing.ProviderConfig().SSH.Port)
+	localPath, localPathAnnotationDefined := existing.Annotations[ClusterAnnotationKubeconfigLocalFile]
+>>>>>>> Okay - this won't work but at least it will compile. Time for the big refactor
 	if localPathAnnotationDefined {
 		localPath = local.Expand(localPath)
 	} else {

@@ -101,7 +101,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 
 	// --- Create Route Table
 	rtInput := &ec2.CreateRouteTableInput{
-		VpcId: &immutable.Network.Identifier,
+		VpcId: &immutable.ProviderConfig().Network.Identifier,
 	}
 	rtOutput, err := Sdk.Ec2.CreateRouteTable(rtInput)
 	if err != nil {
@@ -141,7 +141,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	}
 
 	subnetID := ""
-	for _, sp := range immutable.ServerPools {
+	for _, sp := range immutable.ServerPools(){
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {

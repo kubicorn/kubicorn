@@ -80,7 +80,7 @@ func (r *Droplet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Re
 		newResource.Region = droplet.Region.Slug
 	}
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
-	newResource.SSHFingerprint = immutable.SSH.PublicKeyFingerprint
+	newResource.SSHFingerprint = immutable.ProviderConfig().SSH.PublicKeyFingerprint
 	newResource.Name = r.ServerPool.Name
 	newResource.Count = r.ServerPool.MaxCount
 	newResource.Image = r.ServerPool.Image
@@ -98,10 +98,10 @@ func (r *Droplet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.
 			CloudID: r.ServerPool.Identifier,
 		},
 		Size:             r.ServerPool.Size,
-		Region:           immutable.Location,
+		Region:           immutable.ProviderConfig().Location,
 		Image:            r.ServerPool.Image,
 		Count:            r.ServerPool.MaxCount,
-		SSHFingerprint:   immutable.SSH.PublicKeyFingerprint,
+		SSHFingerprint:   immutable.ProviderConfig().SSH.PublicKeyFingerprint,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 
@@ -128,7 +128,9 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		found := false
 		for i := 0; i < MasterIPAttempts; i++ {
 			masterTag := ""
-			for _, serverPool := range immutable.ServerPools {
+			machineConfigs := immutable.MachineProviderConfigs()
+			for _, machineConfig := range machineConfigs {
+				serverPool := machineConfig.ServerPool
 				if serverPool.Type == cluster.ServerPoolTypeMaster {
 					masterTag = serverPool.Name
 				}
@@ -160,7 +162,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				continue
 			}
 
-			if !immutable.Components.ComponentVPN {
+			if !immutable.ProviderConfig().Components.ComponentVPN {
 				logger.Info("Waiting for Private IP address...")
 				masterIpPrivate, err = droplet.PrivateIPv4()
 				if err != nil || masterIpPrivate == "" {
@@ -169,9 +171,9 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				found = true
 			} else {
 				logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
-				pubPath := local.Expand(immutable.SSH.PublicKeyPath)
+				pubPath := local.Expand(immutable.ProviderConfig().SSH.PublicKeyPath)
 				privPath := strings.Replace(pubPath, ".pub", "", 1)
-				scp := scp.NewSecureCopier(immutable.SSH.User, masterIPPublic, "22", privPath, agent)
+				scp := scp.NewSecureCopier(immutable.ProviderConfig().SSH.User, masterIPPublic, "22", privPath, agent)
 				masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
 				if err != nil {
 					logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
@@ -187,13 +189,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				}
 
 				openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
-				immutable.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
+				immutable.ProviderConfig().Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 
 				found = true
 			}
 
 			// Todo (@kris-nova) this is obviously not immutable
-			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, immutable.KubernetesAPI.Port)
+			immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, immutable.ProviderConfig().KubernetesAPI.Port)
 
 			break
 		}
@@ -202,14 +204,14 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		}
 	}
 
-	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
 
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	sshID, err := strconv.Atoi(immutable.SSH.Identifier)
+	sshID, err := strconv.Atoi(immutable.ProviderConfig().SSH.Identifier)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -253,7 +255,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 	}
 
 	// todo (@kris-nova) this is obviously not immutable
-	immutable.KubernetesAPI.Endpoint = masterIPPublic
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = masterIPPublic
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -301,7 +303,7 @@ func (r *Droplet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 
 	// Kubernetes API
 	// todo (@kris-nova) this is obviously not immutable
-	immutable.KubernetesAPI.Endpoint = ""
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = ""
 
 	newResource := &Droplet{}
 	newResource.Name = actual.(*Droplet).Name
@@ -327,18 +329,23 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 	serverPool.MaxCount = newResource.(*Droplet).Count
 	serverPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
 	found := false
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		if newCluster.ServerPools[i].Name == newResource.(*Droplet).Name {
-			newCluster.ServerPools[i].Image = newResource.(*Droplet).Image
-			newCluster.ServerPools[i].Size = newResource.(*Droplet).Size
-			newCluster.ServerPools[i].MaxCount = newResource.(*Droplet).Count
-			newCluster.ServerPools[i].BootstrapScripts = newResource.(*Droplet).BootstrapScripts
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		if newCluster.ServerPools()[i].Name == newResource.(*Droplet).Name {
+			newCluster.ServerPools()[i].Image = newResource.(*Droplet).Image
+			newCluster.ServerPools()[i].Size = newResource.(*Droplet).Size
+			newCluster.ServerPools()[i].MaxCount = newResource.(*Droplet).Count
+			newCluster.ServerPools()[i].BootstrapScripts = newResource.(*Droplet).BootstrapScripts
 			found = true
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, serverPool)
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: serverPool,
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
-	newCluster.Location = newResource.(*Droplet).Region
+	newCluster.ProviderConfig().Location = newResource.(*Droplet).Region
 	return newCluster
 }

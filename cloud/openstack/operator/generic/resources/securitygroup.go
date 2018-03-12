@@ -192,21 +192,21 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 		})
 	}
 
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
-			if newCluster.ServerPools[i].Firewalls[j].Name == secgroup.Name {
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		for j := 0; j < len(newCluster.ServerPools()[i].Firewalls); j++ {
+			if newCluster.ServerPools()[i].Firewalls[j].Name == secgroup.Name {
 				found = true
-				newCluster.ServerPools[i].Firewalls[j].Identifier = secgroup.Identifier
-				newCluster.ServerPools[i].Firewalls[j].IngressRules = ingressRules
-				newCluster.ServerPools[i].Firewalls[j].EgressRules = egressRules
+				newCluster.ServerPools()[i].Firewalls[j].Identifier = secgroup.Identifier
+				newCluster.ServerPools()[i].Firewalls[j].IngressRules = ingressRules
+				newCluster.ServerPools()[i].Firewalls[j].EgressRules = egressRules
 			}
 		}
 	}
 	if !found {
-		for i := 0; i < len(newCluster.ServerPools); i++ {
-			if newCluster.ServerPools[i].Name == r.ServerPool.Name {
+		for i := 0; i < len(newCluster.ServerPools()); i++ {
+			if newCluster.ServerPools()[i].Name == r.ServerPool.Name {
 				found = true
-				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls, &cluster.Firewall{
+				newCluster.ServerPools()[i].Firewalls = append(newCluster.ServerPools()[i].Firewalls, &cluster.Firewall{
 					Name:         secgroup.Name,
 					Identifier:   secgroup.Identifier,
 					IngressRules: ingressRules,
@@ -216,16 +216,22 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name:       r.ServerPool.Name,
-			Identifier: r.ServerPool.Identifier,
-			Firewalls: []*cluster.Firewall{&cluster.Firewall{
-				Name:         secgroup.Name,
-				Identifier:   secgroup.Identifier,
-				IngressRules: ingressRules,
-				EgressRules:  egressRules,
-			}},
-		})
+
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name:       r.ServerPool.Name,
+					Identifier: r.ServerPool.Identifier,
+					Firewalls: []*cluster.Firewall{&cluster.Firewall{
+						Name:         secgroup.Name,
+						Identifier:   secgroup.Identifier,
+						IngressRules: ingressRules,
+						EgressRules:  egressRules,
+					}},
+				},
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 
 	return newCluster
