@@ -101,10 +101,12 @@ func RunCreate(options *cli.CreateOptions) error {
 			if len(parts) == 1 {
 				continue
 			}
-			err := swalker.Write(strings.Title(parts[0]), newCluster, parts[1])
+			providerConfig := newCluster.ProviderConfig()
+			err := swalker.Write(strings.Title(parts[0]), providerConfig, parts[1])
 			if err != nil {
-				println(err)
+				return fmt.Errorf("Invalid --set: %v", err)
 			}
+			newCluster.SetProviderConfig(providerConfig)
 		}
 	}
 
