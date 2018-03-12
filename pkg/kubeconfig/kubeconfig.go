@@ -36,15 +36,47 @@ const (
 	ClusterAnnotationKubeconfigLocalFile = "cluster.alpha.kubicorn.io/kubeconfig-local-file"
 )
 
-func GetConfig(existing *cluster.Cluster) error {
-	user := existing.SSH.User
+type configLoader struct {
+	existing  *cluster.Cluster
+	sshconfig *ssh.ClientConfig
+}
+
+func newConfigLoader(existing *cluster.Cluster) (*configLoader, error) {
 	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
-	if existing.SSH.Port == "" {
-		existing.SSH.Port = "22"
+	// --------------------------------------------------------------------------------
+	//
+	// @kris-nova
+	//
+	// We don't need to check a key first, because SSH can support multiple auth implementations
+	// So here we just add BOTH a key based auth, and an arbitrary agent. Please don't touch this
+	// without talking to @kris-nova first OR unless something is just completely fucked
+	//
+	sshAgent := agent.NewAgent()
+	sshAgentWithKey, err := sshAgent.AddKey(pubKeyPath)
+	if err != nil {
+		return nil, fmt.Errorf("Unable to add key: %v", err)
+	}
+	sshConfig := &ssh.ClientConfig{
+		User:            existing.SSH.User,
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	}
+	sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
+	sshConfig.Auth = append(sshConfig.Auth, sshAgentWithKey.GetAgent())
+	sshConfig.SetDefaults()
+
+	return &configLoader{
+		existing:  existing,
+		sshconfig: sshConfig,
+	}, nil
+}
+func (cfg *configLoader) GetConfig() error {
+	user := cfg.existing.SSH.User
+	if cfg.existing.SSH.Port == "" {
+		cfg.existing.SSH.Port = "22"
 	}
 
-	address := fmt.Sprintf("%s:%s", existing.KubernetesAPI.Endpoint, existing.SSH.Port)
-	localPath, localPathAnnotationDefined := existing.Annotations[ClusterAnnotationKubeconfigLocalFile]
+	address := fmt.Sprintf("%s:%s", cfg.existing.KubernetesAPI.Endpoint, cfg.existing.SSH.Port)
+	localPath, localPathAnnotationDefined := cfg.existing.Annotations[ClusterAnnotationKubeconfigLocalFile]
 	if localPathAnnotationDefined {
 		localPath = local.Expand(localPath)
 	} else {
@@ -63,30 +95,7 @@ func GetConfig(existing *cluster.Cluster) error {
 		remotePath = filepath.Join("/home", user, ".kube/config")
 	}
 
-	// --------------------------------------------------------------------------------
-	//
-	// @kris-nova
-	//
-	// We don't need to check a key first, because SSH can support multiple auth implementations
-	// So here we just add BOTH a key based auth, and an arbitrary agent. Please don't touch this
-	// without talking to @kris-nova first OR unless something is just completely fucked
-	//
-	sshAgent := agent.NewAgent()
-	sshAgentWithKey, err := sshAgent.AddKey(pubKeyPath)
-	if err != nil {
-		return fmt.Errorf("Unable to add key: %v", err)
-	}
-	sshConfig := &ssh.ClientConfig{
-		User:            user,
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-	}
-	sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
-	sshConfig.Auth = append(sshConfig.Auth, sshAgentWithKey.GetAgent())
-	sshConfig.SetDefaults()
-	//
-	// --------------------------------------------------------------------------------
-
-	conn, err := ssh.Dial("tcp", address, sshConfig)
+	conn, err := ssh.Dial("tcp", address, cfg.sshconfig)
 	if err != nil {
 		return err
 	}
@@ -134,9 +143,21 @@ const (
 	RetrySleepSeconds = 5
 )
 
+func GetConfig(existing *cluster.Cluster) error {
+	loader, err := newConfigLoader(existing)
+	if err != nil {
+		return fmt.Errorf("cannot create a config loader: %v", err)
+	}
+	return loader.GetConfig()
+}
+
 func RetryGetConfig(existing *cluster.Cluster) error {
+	loader, err := newConfigLoader(existing)
+	if err != nil {
+		return fmt.Errorf("cannot create a config loader: %v", err)
+	}
 	for i := 0; i <= RetryAttempts; i++ {
-		err := GetConfig(existing)
+		err := loader.GetConfig()
 		if err != nil {
 			logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
 			time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
