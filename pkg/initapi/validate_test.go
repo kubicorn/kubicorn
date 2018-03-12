@@ -70,7 +70,7 @@ func TestValidateServerPoolMaxCountGreaterThan1Sad(t *testing.T) {
 	machineProviderConfig := &cluster.MachineProviderConfig{
 		ServerPool: &cluster.ServerPool{
 			MaxCount: 0,
-			Name: "p",
+			Name:     "p",
 		},
 	}
 	c := &cluster.Cluster{
@@ -99,7 +99,7 @@ func TestValidateSpotPriceOnlyForAwsClusterHappy(t *testing.T) {
 		},
 	}
 	c := &cluster.Cluster{
-		Name:  "c",
+		Name: "c",
 	}
 	providerConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud: "amazon",
@@ -124,7 +124,7 @@ func TestValidateSpotPriceOnlyForAwsClusterSad(t *testing.T) {
 		},
 	}
 	c := &cluster.Cluster{
-		Name:  "c",
+		Name: "c",
 	}
 	providerConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud: "azure",

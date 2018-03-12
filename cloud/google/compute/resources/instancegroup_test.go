@@ -37,8 +37,7 @@ func TestExpectedHappy(t *testing.T) {
 	}
 
 	knownCluster := &cluster.Cluster{
-		Name:    "ClusterName",
-
+		Name: "ClusterName",
 	}
 	providerConfig := &cluster.ControlPlaneProviderConfig{
 		CloudId: "test-123",
