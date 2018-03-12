@@ -18,6 +18,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"sort"
 
 	"github.com/digitalocean/godo"
 	"github.com/kubicorn/kubicorn/apis/cluster"
@@ -106,6 +107,9 @@ func (r *Firewall) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 			}
 		}
 	}
+	newResource.Status = ""
+	newResource.Created = ""
+	newResource.Finish()
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -116,8 +120,7 @@ func (r *Firewall) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 	logger.Debug("firewall.Expected")
 	newResource := &Firewall{
 		Shared: Shared{
-			Name:    r.Name,
-			CloudID: r.ServerPool.Identifier,
+			Name: r.Name,
 		},
 		InboundRules:  r.InboundRules,
 		OutboundRules: r.OutboundRules,
@@ -128,7 +131,6 @@ func (r *Firewall) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 		Created:       r.Created,
 	}
 
-	//logger.Info("Expected firewall returned is %+v", immutable)
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 
@@ -189,7 +191,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 			if newCluster.ServerPools[i].Firewalls[j].Name == firewall.Name {
 				found = true
 				newCluster.ServerPools[i].Firewalls[j].Name = firewall.Name
-				newCluster.ServerPools[i].Firewalls[j].Identifier = firewall.CloudID
+				newCluster.ServerPools[i].Firewalls[j].Identifier = firewall.FirewallID
 				newCluster.ServerPools[i].Firewalls[j].IngressRules = make([]*cluster.IngressRule, len(firewall.InboundRules))
 				for k, renderRule := range firewall.InboundRules {
 					newCluster.ServerPools[i].Firewalls[j].IngressRules[k] = &cluster.IngressRule{
@@ -315,6 +317,22 @@ func (r *Firewall) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*c
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
+}
+
+// Finish sorts the inbound and outbound rules by protocol and portrange. This must be
+// done so different firewalls can be compared: Firewalls are equal if the have the same
+// ruleset independet of the order of the rule array.
+func (r *Firewall) Finish() {
+	sort.Slice(r.OutboundRules, func(i, j int) bool {
+		r1 := r.OutboundRules[i]
+		r2 := r.OutboundRules[j]
+		return r1.Protocol+r1.PortRange <= r2.Protocol+r2.PortRange
+	})
+	sort.Slice(r.InboundRules, func(i, j int) bool {
+		r1 := r.InboundRules[i]
+		r2 := r.InboundRules[j]
+		return r1.Protocol+r1.PortRange <= r2.Protocol+r2.PortRange
+	})
 }
 
 func defaultFirewallStruct() *Firewall {
