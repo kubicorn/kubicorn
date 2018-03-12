@@ -134,7 +134,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	machineConfigs := immutable.MachineProviderConfigs()
 	for _, machineConfig := range machineConfigs {
 		serverPool := machineConfig.ServerPool
-		if serverPool.Name == expected.(*Lc).Name || machineConfig.Name == expected.(*Lc).Name{
+		if serverPool.Name == expected.(*Lc).Name || machineConfig.Name == expected.(*Lc).Name {
 			for _, firewall := range serverPool.Firewalls {
 				sgs = append(sgs, &firewall.Identifier)
 			}
@@ -181,7 +181,6 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 					if instance.PublicIpAddress != nil {
 						privip = *instance.PrivateIpAddress
 						pubip = *instance.PublicIpAddress
-
 
 						providerConfig := immutable.ProviderConfig()
 						providerConfig.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, immutable.ProviderConfig().KubernetesAPI.Port)

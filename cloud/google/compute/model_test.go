@@ -22,16 +22,21 @@ import (
 )
 
 func TestClusterModelHappy(t *testing.T) {
-	result := NewGoogleComputeModel(&cluster.Cluster{
-		ServerPools: []*cluster.ServerPool{
-			{
+	machineProviderConfig := []*cluster.MachineProviderConfig{
+		{
+			ServerPool: &cluster.ServerPool{
 				Name: "ServerPool1",
 			},
-			{
+		},
+		{
+			ServerPool: &cluster.ServerPool{
 				Name: "ServerPool2",
 			},
 		},
-	})
+	}
+	c := &cluster.Cluster{}
+	c.SetMachineProviderConfigs(machineProviderConfig)
+	result := NewGoogleComputeModel(c)
 
 	if len(result.Resources()) != 2 {
 		t.Fatalf("Amount of serverpools is incorrect")

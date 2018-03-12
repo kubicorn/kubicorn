@@ -229,7 +229,7 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 		if err.(awserr.Error).Code() != iam.ErrCodeEntityAlreadyExistsException {
 			irName = expected.(*InstanceProfile).Role.Name
 		}
-	}else {
+	} else {
 		irName = *outInstanceRole.Role.RoleName
 	}
 	newIamRole := &IAMRole{

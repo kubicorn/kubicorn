@@ -15,10 +15,11 @@
 package cluster
 
 import (
+	"encoding/json"
+
+	"github.com/kubicorn/kubicorn/pkg/logger"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-	"encoding/json"
-	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 const (
@@ -52,7 +53,6 @@ type Cluster struct {
 
 	// MachineSets are a subset of worker machines
 	MachineSets []*clusterv1.MachineSet
-
 }
 
 // ProviderConfig is a convenience method that will attempt
@@ -74,7 +74,7 @@ func (c *Cluster) ProviderConfig() *ControlPlaneProviderConfig {
 // SetProviderConfig is a convenience method that will attempt
 // to set a provider config on a particular cluster. Just like
 // it's counterpart ProviderConfig this makes working with the legacy API much easier.
-func (c *Cluster) SetProviderConfig(config *ControlPlaneProviderConfig) (error) {
+func (c *Cluster) SetProviderConfig(config *ControlPlaneProviderConfig) error {
 	bytes, err := json.Marshal(config)
 	if err != nil {
 		logger.Critical("Unable to marshal provider config: %v", err)
@@ -152,7 +152,6 @@ func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachinePr
 			}
 		}
 
-
 		logger.Debug("Creating new MachineSet: %v", name)
 		bytes, err := json.Marshal(providerConfig)
 		if err != nil {
@@ -164,11 +163,6 @@ func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachinePr
 		// TODO
 		// @kris-nova
 		// We probably should a have a function/method for this - this seems like common logic.
-
-
-
-
-
 
 		// -------------------------------------------------
 		//
@@ -188,11 +182,6 @@ func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachinePr
 		//
 		// -------------------------------------------------
 
-
-
-
-
-
 		c.MachineSets = append(c.MachineSets, machineSet)
 	}
 }
@@ -202,17 +191,17 @@ func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachinePr
 // into fields in the official cluster API
 type ControlPlaneProviderConfig struct {
 	//Name              string         `json:"name,omitempty"`
-	Project           *Project       `json:"project,omitempty"`
-	CloudId           string         `json:"cloudId,omitempty"`
+	Project *Project `json:"project,omitempty"`
+	CloudId string   `json:"cloudId,omitempty"`
 	//ServerPools       []*ServerPool  `json:"serverPools,omitempty"`
-	Cloud             string         `json:"cloud,omitempty"`
-	Location          string         `json:"location,omitempty"`
-	SSH               *SSH           `json:"SSH,omitempty"`
-	Network           *Network       `json:"network,omitempty"`
-	Values            *Values        `json:"values,omitempty"`
-	KubernetesAPI     *KubernetesAPI `json:"kubernetesAPI,omitempty"`
-	GroupIdentifier   string         `json:"groupIdentifier,omitempty"`
-	Components        *Components    `json:"components,omitempty"`
+	Cloud           string         `json:"cloud,omitempty"`
+	Location        string         `json:"location,omitempty"`
+	SSH             *SSH           `json:"SSH,omitempty"`
+	Network         *Network       `json:"network,omitempty"`
+	Values          *Values        `json:"values,omitempty"`
+	KubernetesAPI   *KubernetesAPI `json:"kubernetesAPI,omitempty"`
+	GroupIdentifier string         `json:"groupIdentifier,omitempty"`
+	Components      *Components    `json:"components,omitempty"`
 }
 
 // ControlPlaneProviderConfig is less exciting ProviderConfig, but
@@ -235,6 +224,5 @@ func NewCluster(name string) *Cluster {
 			Spec: clusterv1.ClusterSpec{},
 		},
 		ControlPlane: &clusterv1.MachineSet{},
-
 	}
 }

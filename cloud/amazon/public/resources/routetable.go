@@ -140,7 +140,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	}
 
 	subnetID := ""
-	for _, sp := range immutable.ServerPools(){
+	for _, sp := range immutable.ServerPools() {
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {

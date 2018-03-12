@@ -125,27 +125,26 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 					},
 				},
 			},
-
 		},
 		{
-		 ServerPool: &cluster.ServerPool{
-			 Type:     cluster.ServerPoolTypeNode,
-			 Name:     fmt.Sprintf("%s.node", name),
-			 MaxCount: 1,
-			 MinCount: 1,
-			 Image:    "ami-79873901",
-			 Size:     "t2.medium",
-			 BootstrapScripts: []string{
-				 "bootstrap/amazon_k8s_ubuntu_16.04_node.sh",
-			 },
-			 InstanceProfile: &cluster.IAMInstanceProfile{
-				 Name: fmt.Sprintf("%s-KubicornNodeInstanceProfile", name),
-				 Role: &cluster.IAMRole{
-					 Name: fmt.Sprintf("%s-KubicornNodeRole", name),
-					 Policies: []*cluster.IAMPolicy{
-						 {
-							 Name: "NodePolicy",
-							 Document: `{
+			ServerPool: &cluster.ServerPool{
+				Type:     cluster.ServerPoolTypeNode,
+				Name:     fmt.Sprintf("%s.node", name),
+				MaxCount: 1,
+				MinCount: 1,
+				Image:    "ami-79873901",
+				Size:     "t2.medium",
+				BootstrapScripts: []string{
+					"bootstrap/amazon_k8s_ubuntu_16.04_node.sh",
+				},
+				InstanceProfile: &cluster.IAMInstanceProfile{
+					Name: fmt.Sprintf("%s-KubicornNodeInstanceProfile", name),
+					Role: &cluster.IAMRole{
+						Name: fmt.Sprintf("%s-KubicornNodeRole", name),
+						Policies: []*cluster.IAMPolicy{
+							{
+								Name: "NodePolicy",
+								Document: `{
 								  "Version": "2012-10-17",
 								  "Statement": [
 									 {
@@ -168,38 +167,38 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 									 }
 								  ]
 								}`,
-						 },
-					 },
-				 },
-			 },
-			 Subnets: []*cluster.Subnet{
-				 {
-					 Name: fmt.Sprintf("%s.node", name),
-					 CIDR: "10.0.100.0/24",
-					 Zone: "us-west-2b",
-				 },
-			 },
-			 AwsConfiguration: &cluster.AwsConfiguration{},
-			 Firewalls: []*cluster.Firewall{
-				 {
-					 Name: fmt.Sprintf("%s.node-external-%s", name, uuid.TimeOrderedUUID()),
-					 IngressRules: []*cluster.IngressRule{
-						 {
-							 IngressFromPort: "22",
-							 IngressToPort:   "22",
-							 IngressSource:   "0.0.0.0/0",
-							 IngressProtocol: "tcp",
-						 },
-						 {
-							 IngressFromPort: "0",
-							 IngressToPort:   "65535",
-							 IngressSource:   "10.0.0.0/24",
-							 IngressProtocol: "-1",
-						 },
-					 },
-				 },
-			 },
-		 },
+							},
+						},
+					},
+				},
+				Subnets: []*cluster.Subnet{
+					{
+						Name: fmt.Sprintf("%s.node", name),
+						CIDR: "10.0.100.0/24",
+						Zone: "us-west-2b",
+					},
+				},
+				AwsConfiguration: &cluster.AwsConfiguration{},
+				Firewalls: []*cluster.Firewall{
+					{
+						Name: fmt.Sprintf("%s.node-external-%s", name, uuid.TimeOrderedUUID()),
+						IngressRules: []*cluster.IngressRule{
+							{
+								IngressFromPort: "22",
+								IngressToPort:   "22",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "tcp",
+							},
+							{
+								IngressFromPort: "0",
+								IngressToPort:   "65535",
+								IngressSource:   "10.0.0.0/24",
+								IngressProtocol: "-1",
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 	c := cluster.NewCluster(name)

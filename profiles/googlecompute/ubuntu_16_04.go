@@ -24,7 +24,6 @@ import (
 // NewUbuntuCluster creates a basic Ubuntu Google Compute cluster.
 func NewUbuntuCluster(name string) *cluster.Cluster {
 
-
 	controlPlaneProviderConfig := &cluster.ControlPlaneProviderConfig{
 		CloudId:  "example-id",
 		Cloud:    cluster.CloudGoogle,
@@ -56,7 +55,7 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 			},
 		},
 		{
-			ServerPool: &cluster.ServerPool			{
+			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
 				MaxCount: 2,

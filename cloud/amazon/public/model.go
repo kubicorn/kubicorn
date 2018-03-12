@@ -71,7 +71,6 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	i++
 	//
 
-
 	machineConfigs := known.MachineProviderConfigs()
 	for _, machineConfig := range machineConfigs {
 		serverPool := machineConfig.ServerPool

@@ -311,7 +311,6 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 
-
 	return newCluster
 }
 

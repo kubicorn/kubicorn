@@ -25,7 +25,6 @@ import (
 // NewCentosCluster creates a simple CentOS Amazon cluster
 func NewCentosCluster(name string) *cluster.Cluster {
 
-
 	controlPlaneProviderConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud:    cluster.CloudAmazon,
 		Location: "us-west-2",
