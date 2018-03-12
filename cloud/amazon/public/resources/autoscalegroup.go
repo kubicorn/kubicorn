@@ -104,7 +104,7 @@ func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		return immutable, applyResource, nil
 	}
 	subnetID := ""
-	for _, sp := range immutable.ServerPools(){
+	for _, sp := range immutable.ServerPools() {
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {

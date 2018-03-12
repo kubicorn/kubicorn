@@ -333,7 +333,7 @@ func (r *InstanceGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 
 func getMasterIPs(immutable *cluster.Cluster) (string, string, error) {
 	var masterName string
-	for _, pool := range immutable.ServerPools(){
+	for _, pool := range immutable.ServerPools() {
 		if pool.Type == cluster.ServerPoolTypeMaster {
 			masterName = pool.Name
 			break

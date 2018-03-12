@@ -297,7 +297,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 				machineProviderConfig.ServerPool.Firewalls = append(machineProviderConfig.ServerPool.Firewalls[:j], machineProviderConfig.ServerPool.Firewalls[j+1:]...)
 				machineProviderConfigs[i] = machineProviderConfig
 				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
-				}
+			}
 		}
 	}
 
