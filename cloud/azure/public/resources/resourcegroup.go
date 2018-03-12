@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -132,7 +131,7 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 func (r *ResourceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("resourcegroup.Render")
 	resourceGroup := newResource.(*ResourceGroup)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	providerConfig := &cluster.ControlPlaneProviderConfig{}
 	providerConfig.GroupIdentifier = resourceGroup.Identifier
 	providerConfig.Location = resourceGroup.Location

@@ -27,7 +27,6 @@ import (
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/agent"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/scp"
 	"github.com/kubicorn/kubicorn/pkg/script"
@@ -320,7 +319,7 @@ func (r *Droplet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 
 func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("droplet.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	serverPool := &cluster.ServerPool{}
 	serverPool.Type = r.ServerPool.Type
 	serverPool.Image = newResource.(*Droplet).Image
@@ -329,13 +328,19 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 	serverPool.MaxCount = newResource.(*Droplet).Count
 	serverPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
 	found := false
-	for i := 0; i < len(newCluster.ServerPools()); i++ {
-		if newCluster.ServerPools()[i].Name == newResource.(*Droplet).Name {
-			newCluster.ServerPools()[i].Image = newResource.(*Droplet).Image
-			newCluster.ServerPools()[i].Size = newResource.(*Droplet).Size
-			newCluster.ServerPools()[i].MaxCount = newResource.(*Droplet).Count
-			newCluster.ServerPools()[i].BootstrapScripts = newResource.(*Droplet).BootstrapScripts
+
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+
+		if machineProviderConfig.ServerPool.Name == newResource.(*Droplet).Name {
+			machineProviderConfig.ServerPool.Image = newResource.(*Droplet).Image
+			machineProviderConfig.ServerPool.Size = newResource.(*Droplet).Size
+			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
+			machineProviderConfig.ServerPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
 			found = true
+			machineProviderConfigs[i] = machineProviderConfig
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 		}
 	}
 	if !found {
@@ -346,6 +351,8 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 		}
 		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
-	newCluster.ProviderConfig().Location = newResource.(*Droplet).Region
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.Location = newResource.(*Droplet).Region
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

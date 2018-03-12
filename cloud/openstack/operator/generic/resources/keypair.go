@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/keypairs"
 )
@@ -144,12 +143,14 @@ func (r *KeyPair) Delete(actual cloud.Resource, immutable *cluster.Cluster) (upd
 func (r *KeyPair) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("keypair.Render")
 	keypair := newResource.(*KeyPair)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.ProviderConfig().SSH.PublicKeyData = []byte(keypair.PublicKeyData)
-	newCluster.ProviderConfig().SSH.PublicKeyPath = keypair.PublicKeyPath
-	newCluster.ProviderConfig().SSH.PublicKeyFingerprint = keypair.PublicKeyFingerprint
-	newCluster.ProviderConfig().SSH.User = keypair.User
-	newCluster.ProviderConfig().SSH.Name = keypair.Name
-	newCluster.ProviderConfig().SSH.Identifier = keypair.Name
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.SSH.PublicKeyData = []byte(keypair.PublicKeyData)
+	providerConfig.SSH.PublicKeyPath = keypair.PublicKeyPath
+	providerConfig.SSH.PublicKeyFingerprint = keypair.PublicKeyFingerprint
+	providerConfig.SSH.User = keypair.User
+	providerConfig.SSH.Name = keypair.Name
+	providerConfig.SSH.Identifier = keypair.Identifier
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

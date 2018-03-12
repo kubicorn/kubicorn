@@ -21,7 +21,6 @@ import (
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/packethost/packngo"
 )
@@ -131,11 +130,13 @@ func (r *Project) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 
 func (r *Project) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("project.Render %v", newResource)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.ProviderConfig().Project = &cluster.Project{
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.Project = &cluster.Project{
 		Name:       newResource.(*Project).Name,
 		Identifier: newResource.(*Project).Identifier,
 	}
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }
 

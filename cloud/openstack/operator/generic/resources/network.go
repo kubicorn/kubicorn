@@ -20,7 +20,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/rackspace/gophercloud/openstack/networking/v2/networks"
 	"github.com/rackspace/gophercloud/pagination"
@@ -133,8 +132,10 @@ func (r *Network) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 func (r *Network) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("network.Render")
 	network := newResource.(*Network)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.ProviderConfig().Network.Identifier = network.Identifier
-	newCluster.ProviderConfig().Network.Name = network.Name
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.Network.Identifier = network.Identifier
+	providerConfig.Network.Name = network.Name
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }
