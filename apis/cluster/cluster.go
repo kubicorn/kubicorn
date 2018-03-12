@@ -108,7 +108,7 @@ func (c *Cluster) SetMachineProviderConfigs(providerConfigs []*MachineProviderCo
 		found := false
 		for _, machineSet := range c.MachineSets {
 			if machineSet.Name == name {
-				logger.Info("Matched machine set to provider config: %s", name)
+				logger.Debug("Matched machine set to provider config: %s", name)
 				bytes, err := json.Marshal(providerConfig)
 				if err != nil {
 					logger.Critical("unable to marshal machine provider config: %v")
@@ -153,7 +153,7 @@ func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachinePr
 		}
 
 
-		logger.Info("Creating new MachineSet: %v", name)
+		logger.Debug("Creating new MachineSet: %v", name)
 		bytes, err := json.Marshal(providerConfig)
 		if err != nil {
 			logger.Critical("unable to marshal machine provider config: %v")

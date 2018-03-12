@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
 	"github.com/packethost/packngo"
@@ -283,7 +282,7 @@ func (r *Device) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clu
 func (r *Device) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("device.Render")
 
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	serverPool := &cluster.ServerPool{}
 	serverPool.Type = r.ServerPool.Type
 	serverPool.Image = newResource.(*Device).OS
@@ -291,12 +290,16 @@ func (r *Device) immutableRender(newResource cloud.Resource, inaccurateCluster *
 	serverPool.Name = newResource.(*Device).Name
 	serverPool.BootstrapScripts = newResource.(*Device).BootstrapScripts
 	found := false
-	for i := 0; i < len(newCluster.ServerPools()); i++ {
-		if newCluster.ServerPools()[i].Name == newResource.(*Device).Name {
-			newCluster.ServerPools()[i].Image = newResource.(*Device).OS
-			newCluster.ServerPools()[i].Size = newResource.(*Device).Type
-			newCluster.ServerPools()[i].BootstrapScripts = newResource.(*Device).BootstrapScripts
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		if machineProviderConfig.Name == newResource.(*Device).Name {
+			machineProviderConfig.ServerPool.Image = newResource.(*Device).OS
+			machineProviderConfig.ServerPool.Size = newResource.(*Device).Type
+			machineProviderConfig.ServerPool.BootstrapScripts = newResource.(*Device).BootstrapScripts
 			found = true
+			machineProviderConfigs[i] = machineProviderConfig
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 		}
 	}
 	if !found {
@@ -307,7 +310,9 @@ func (r *Device) immutableRender(newResource cloud.Resource, inaccurateCluster *
 		}
 		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
-	newCluster.ProviderConfig().Location = newResource.(*Device).Location
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.Location = newResource.(*Device).Location
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }
 

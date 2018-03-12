@@ -37,6 +37,10 @@ func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 		if err != nil {
 			return nil, err
 		}
+		if providerConfig.SSH.Port == "" {
+			// Default to port 22
+			providerConfig.SSH.Port = "22"
+		}
 		providerConfig.SSH.PublicKeyFingerprint = fp
 		initCluster.SetProviderConfig(providerConfig)
 	}

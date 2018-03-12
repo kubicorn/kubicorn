@@ -23,7 +23,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
 	"google.golang.org/api/compute/v1"
@@ -377,7 +376,5 @@ func (r *InstanceGroup) retryDeleteInstanceTemplate(immutable *cluster.Cluster) 
 
 func (r *InstanceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("instanceGroup.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-
-	return newCluster, nil
+	return inaccurateCluster, nil
 }

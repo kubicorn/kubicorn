@@ -20,7 +20,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -85,6 +84,6 @@ func (r *Vnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clust
 
 func (r *Vnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("vnet.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	return newCluster
 }

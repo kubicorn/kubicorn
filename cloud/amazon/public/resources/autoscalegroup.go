@@ -22,7 +22,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -199,7 +198,7 @@ func (r *Asg) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 
 func (r *Asg) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("asg.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	serverPool := &cluster.ServerPool{}
 
 	serverPool.MaxCount = newResource.(*Asg).MaxCount

@@ -23,7 +23,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -182,11 +181,13 @@ func (r *SSH) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 
 func (r *SSH) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("ssh.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.ProviderConfig().SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
-	newCluster.ProviderConfig().SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
-	newCluster.ProviderConfig().SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
-	newCluster.ProviderConfig().SSH.Identifier = newResource.(*SSH).CloudID
-	newCluster.ProviderConfig().SSH.User = newResource.(*SSH).User
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
+	providerConfig.SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
+	providerConfig.SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
+	providerConfig.SSH.Identifier = newResource.(*SSH).CloudID
+	providerConfig.SSH.User = newResource.(*SSH).User
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

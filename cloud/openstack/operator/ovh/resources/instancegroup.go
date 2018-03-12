@@ -22,7 +22,6 @@ import (
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/cloud/openstack/operator/generic/resources"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/keypairs"
@@ -300,15 +299,20 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 func (r *InstanceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("instanceGroup.Render")
 	instanceGroup := newResource.(*InstanceGroup)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	found := false
-	for i := 0; i < len(newCluster.ServerPools()); i++ {
-		pool := newCluster.ServerPools()[i]
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		pool := machineProviderConfig.ServerPool
 		if pool.Name == instanceGroup.Name {
 			pool.Image = instanceGroup.Image
 			pool.Size = instanceGroup.Flavor
 			pool.BootstrapScripts = instanceGroup.BootstrapScripts
 			found = true
+			machineProviderConfig.ServerPool = pool
+			machineProviderConfigs[i] = machineProviderConfig
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 		}
 	}
 	if !found {
