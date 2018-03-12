@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -187,8 +186,10 @@ func (r *InternetGateway) Delete(actual cloud.Resource, immutable *cluster.Clust
 
 func (r *InternetGateway) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("internetgateway.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.ProviderConfig().Network.InternetGW.Identifier = newResource.(*InternetGateway).Identifier
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.Network.InternetGW.Identifier = newResource.(*InternetGateway).Identifier
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }
 

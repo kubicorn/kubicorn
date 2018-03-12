@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -248,6 +247,5 @@ func (r *RouteTable) tag(tags map[string]string) error {
 
 func (r *RouteTable) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("subnet.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	return newCluster
+	return inaccurateCluster
 }

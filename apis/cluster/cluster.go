@@ -104,7 +104,7 @@ func (c *Cluster) MachineProviderConfigs() []*MachineProviderConfig {
 // on the "Name" field. If a match cannot be made we warn and move on.
 func (c *Cluster) SetMachineProviderConfigs(providerConfigs []*MachineProviderConfig) {
 	for _, providerConfig := range providerConfigs {
-		name := providerConfig.Name
+		name := providerConfig.ServerPool.Name
 		found := false
 		for _, machineSet := range c.MachineSets {
 			if machineSet.Name == name {
@@ -144,7 +144,7 @@ func (c *Cluster) ServerPools() []*ServerPool {
 
 func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachineProviderConfig) {
 	for _, providerConfig := range providerConfigs {
-		name := providerConfig.Name
+		name := providerConfig.ServerPool.Name
 		for _, machineSet := range c.MachineSets {
 			if machineSet.Name == name {
 				logger.Info("MachineSet already exists with name: %s", name)

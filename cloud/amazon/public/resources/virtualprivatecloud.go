@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -178,11 +177,12 @@ func (r *Vpc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 
 func (r *Vpc) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("vpc.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.ProviderConfig().Network.CIDR = newResource.(*Vpc).CIDR
-	newCluster.ProviderConfig().Network.Identifier = newResource.(*Vpc).Identifier
-	newCluster.ProviderConfig().Network.Name = newResource.(*Vpc).Name
-	return newCluster
+	providerConfig := inaccurateCluster.ProviderConfig()
+	providerConfig.Network.CIDR = newResource.(*Vpc).CIDR
+	providerConfig.Network.Identifier = newResource.(*Vpc).Identifier
+	providerConfig.Network.Name = newResource.(*Vpc).Name
+	inaccurateCluster.SetProviderConfig(providerConfig)
+	return inaccurateCluster
 }
 
 func (r *Vpc) tag(tags map[string]string) error {
