@@ -28,8 +28,8 @@ var preProcessors = []preProcessorFunc{
 type validationFunc func(initCluster *cluster.Cluster) error
 
 var validations = []validationFunc{
-	validateAtLeastOneServerPool,
-	validateServerPoolMaxCountGreaterThan1,
+	validateAtLeastOneMachineSet,
+	validateMachineSetMaxCountGreaterThan1,
 	validateSpotPriceOnlyForAwsCluster,
 }
 

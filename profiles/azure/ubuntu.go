@@ -23,8 +23,8 @@ import (
 
 // NewUbuntuCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
 func NewUbuntuCluster(name string) *cluster.Cluster {
-	return &cluster.Cluster{
-		Name:     name,
+
+	controlPlaneProviderConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud:    cluster.CloudAzure,
 		Location: "eastus",
 		SSH: &cluster.SSH{
@@ -39,8 +39,10 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
 			},
 		},
-		ServerPools: []*cluster.ServerPool{
-			{
+	}
+	machineSetsProviderConfigs := []*cluster.MachineProviderConfig{
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:             cluster.ServerPoolTypeMaster,
 				Name:             fmt.Sprintf("%s-master", name),
 				MaxCount:         1,
@@ -82,7 +84,9 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 					},
 				},
 			},
-			{
+		},
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:             cluster.ServerPoolTypeNode,
 				Name:             fmt.Sprintf("%s-node", name),
 				MaxCount:         1,
@@ -121,4 +125,8 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 			},
 		},
 	}
+	c := cluster.NewCluster(name)
+	c.SetProviderConfig(controlPlaneProviderConfig)
+	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
+	return c
 }

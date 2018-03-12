@@ -23,8 +23,8 @@ import (
 
 // NewCentosCluster creates a basic CentOS DigitalOcean cluster.
 func NewCentosCluster(name string) *cluster.Cluster {
-	return &cluster.Cluster{
-		Name:     name,
+
+	controlPlaneProviderConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud:    cluster.CloudDigitalOcean,
 		Location: "sfo2",
 		SSH: &cluster.SSH{
@@ -42,8 +42,10 @@ func NewCentosCluster(name string) *cluster.Cluster {
 		Components: &cluster.Components{
 			ComponentVPN: false,
 		},
-		ServerPools: []*cluster.ServerPool{
-			{
+	}
+	machineSetsProviderConfigs := []*cluster.MachineProviderConfig{
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeMaster,
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
@@ -93,7 +95,9 @@ func NewCentosCluster(name string) *cluster.Cluster {
 					},
 				},
 			},
-			{
+		},
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
 				MaxCount: 2,
@@ -140,4 +144,8 @@ func NewCentosCluster(name string) *cluster.Cluster {
 			},
 		},
 	}
+	c := cluster.NewCluster(name)
+	c.SetProviderConfig(controlPlaneProviderConfig)
+	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
+	return c
 }

@@ -58,7 +58,7 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	}
 	i++
 
-	for _, pool := range known.ServerPools {
+	for _, pool := range known.ServerPools(){
 		// ---- [Subnet] ----
 		for _, subnet := range pool.Subnets {
 			r[i] = &resources.Subnet{

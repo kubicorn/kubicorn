@@ -27,8 +27,7 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 		masterName = fmt.Sprintf("%s-master", name)
 		nodeName   = fmt.Sprintf("%s-node", name)
 	)
-	return &cluster.Cluster{
-		Name:     name,
+	controlPlaneProviderConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud:    cluster.CloudOVH,
 		Location: "BHS1",
 		SSH: &cluster.SSH{
@@ -46,8 +45,10 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 		Network: &cluster.Network{
 			Type: cluster.NetworkTypePrivate,
 		},
-		ServerPools: []*cluster.ServerPool{
-			{
+	}
+	machineSetsProviderConfigs := []*cluster.MachineProviderConfig{
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeMaster,
 				Name:     masterName,
 				MaxCount: 1,
@@ -85,7 +86,9 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 					},
 				},
 			},
-			{
+		},
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     nodeName,
 				MaxCount: 2,
@@ -113,4 +116,8 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 			},
 		},
 	}
+	c := cluster.NewCluster(name)
+	c.SetProviderConfig(controlPlaneProviderConfig)
+	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
+	return c
 }

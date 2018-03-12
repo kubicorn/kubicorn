@@ -56,8 +56,8 @@ func (r *Device) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 	}
 
 	var valid []packngo.Device
-	logger.Debug("device.Actual finding project ID by name %s", immutable.Project.Name)
-	project, err := GetProjectByName(immutable.Project.Name)
+	logger.Debug("device.Actual finding project ID by name %s", immutable.ProviderConfig().Project.Name)
+	project, err := GetProjectByName(immutable.ProviderConfig().Project.Name)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -79,7 +79,7 @@ func (r *Device) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 		newResource.OS = device.OS.Slug
 		newResource.Location = device.Facility.Code
 		newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
-		newResource.SSHFingerprint = immutable.SSH.PublicKeyFingerprint
+		newResource.SSHFingerprint = immutable.ProviderConfig().SSH.PublicKeyFingerprint
 		newResource.Tags = device.Tags
 		newResource.ProjectID = project.ID
 
@@ -89,7 +89,7 @@ func (r *Device) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 		newResource.OS = r.ServerPool.Image
 		newResource.Location = r.Location
 		newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
-		newResource.SSHFingerprint = immutable.SSH.PublicKeyFingerprint
+		newResource.SSHFingerprint = immutable.ProviderConfig().SSH.PublicKeyFingerprint
 		newResource.Name = r.ServerPool.Name
 		newResource.Tags = r.Tags
 	}
@@ -107,9 +107,9 @@ func (r *Device) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 			Name: r.Name,
 		},
 		Type:             r.ServerPool.Size,
-		Location:         immutable.Location,
+		Location:         immutable.ProviderConfig().Location,
 		OS:               r.ServerPool.Image,
-		SSHFingerprint:   immutable.SSH.PublicKeyFingerprint,
+		SSHFingerprint:   immutable.ProviderConfig().SSH.PublicKeyFingerprint,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 		Count:            r.ServerPool.MaxCount,
 		Tags:             []string{r.ServerPool.Type},
@@ -129,8 +129,8 @@ func (r *Device) Apply(actual, expected cloud.Resource, immutable *cluster.Clust
 	projectID := actualResource.ProjectID
 	logger.Debug("device.Apply project ID from actual [%s]", projectID)
 	if projectID == "" {
-		logger.Debug("device.Apply retrieving project ID for [%s]", immutable.Project.Name)
-		project, err := GetProjectByName(immutable.Project.Name)
+		logger.Debug("device.Apply retrieving project ID for [%s]", immutable.ProviderConfig().Project.Name)
+		project, err := GetProjectByName(immutable.ProviderConfig().Project.Name)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -172,8 +172,8 @@ func (r *Device) Apply(actual, expected cloud.Resource, immutable *cluster.Clust
 			return nil, nil, fmt.Errorf("Unable to find master IP addresses")
 		}
 
-		immutable.KubernetesAPI.Endpoint = masterIPs[0]
-		immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPs[2], immutable.KubernetesAPI.Port)
+		immutable.ProviderConfig().KubernetesAPI.Endpoint = masterIPs[0]
+		immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPs[2], immutable.ProviderConfig().KubernetesAPI.Port)
 	}
 
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
@@ -217,7 +217,7 @@ func (r *Device) Apply(actual, expected cloud.Resource, immutable *cluster.Clust
 			return nil, nil, fmt.Errorf("Unable to find master IP addresses")
 		}
 
-		immutable.KubernetesAPI.Endpoint = masterIPs[0]
+		immutable.ProviderConfig().KubernetesAPI.Endpoint = masterIPs[0]
 
 	}
 
@@ -265,7 +265,7 @@ func (r *Device) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clu
 
 	// Kubernetes API
 	// todo (@kris-nova) this is obviously not immutable
-	immutable.KubernetesAPI.Endpoint = ""
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = ""
 
 	newResource := &Device{
 		OS:               deleteResource.OS,
@@ -291,18 +291,23 @@ func (r *Device) immutableRender(newResource cloud.Resource, inaccurateCluster *
 	serverPool.Name = newResource.(*Device).Name
 	serverPool.BootstrapScripts = newResource.(*Device).BootstrapScripts
 	found := false
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		if newCluster.ServerPools[i].Name == newResource.(*Device).Name {
-			newCluster.ServerPools[i].Image = newResource.(*Device).OS
-			newCluster.ServerPools[i].Size = newResource.(*Device).Type
-			newCluster.ServerPools[i].BootstrapScripts = newResource.(*Device).BootstrapScripts
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		if newCluster.ServerPools()[i].Name == newResource.(*Device).Name {
+			newCluster.ServerPools()[i].Image = newResource.(*Device).OS
+			newCluster.ServerPools()[i].Size = newResource.(*Device).Type
+			newCluster.ServerPools()[i].BootstrapScripts = newResource.(*Device).BootstrapScripts
 			found = true
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, serverPool)
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: serverPool,
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
-	newCluster.Location = newResource.(*Device).Location
+	newCluster.ProviderConfig().Location = newResource.(*Device).Location
 	return newCluster
 }
 

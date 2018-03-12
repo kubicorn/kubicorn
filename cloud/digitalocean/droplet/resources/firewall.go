@@ -183,24 +183,24 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 
 	found := false
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		for j := 0; j < len(newCluster.ServerPools()[i].Firewalls); j++ {
 			firewall := newResource.(*Firewall)
-			if newCluster.ServerPools[i].Firewalls[j].Name == firewall.Name {
+			if newCluster.ServerPools()[i].Firewalls[j].Name == firewall.Name {
 				found = true
-				newCluster.ServerPools[i].Firewalls[j].Name = firewall.Name
-				newCluster.ServerPools[i].Firewalls[j].Identifier = firewall.CloudID
-				newCluster.ServerPools[i].Firewalls[j].IngressRules = make([]*cluster.IngressRule, len(firewall.InboundRules))
+				newCluster.ServerPools()[i].Firewalls[j].Name = firewall.Name
+				newCluster.ServerPools()[i].Firewalls[j].Identifier = firewall.CloudID
+				newCluster.ServerPools()[i].Firewalls[j].IngressRules = make([]*cluster.IngressRule, len(firewall.InboundRules))
 				for k, renderRule := range firewall.InboundRules {
-					newCluster.ServerPools[i].Firewalls[j].IngressRules[k] = &cluster.IngressRule{
+					newCluster.ServerPools()[i].Firewalls[j].IngressRules[k] = &cluster.IngressRule{
 						IngressProtocol: renderRule.Protocol,
 						IngressToPort:   renderRule.PortRange,
 						IngressSource:   convertInRuleDest(renderRule),
 					}
 				}
-				newCluster.ServerPools[i].Firewalls[j].EgressRules = make([]*cluster.EgressRule, len(firewall.OutboundRules))
+				newCluster.ServerPools()[i].Firewalls[j].EgressRules = make([]*cluster.EgressRule, len(firewall.OutboundRules))
 				for k, renderRule := range firewall.OutboundRules {
-					newCluster.ServerPools[i].Firewalls[j].EgressRules[k] = &cluster.EgressRule{
+					newCluster.ServerPools()[i].Firewalls[j].EgressRules[k] = &cluster.EgressRule{
 						EgressProtocol:    renderRule.Protocol,
 						EgressToPort:      renderRule.PortRange,
 						EgressDestination: convertOutRuleDest(renderRule),
@@ -211,8 +211,8 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 	}
 
 	if !found {
-		for i := 0; i < len(newCluster.ServerPools); i++ {
-			if newCluster.ServerPools[i].Name == r.ServerPool.Name {
+		for i := 0; i < len(newCluster.ServerPools()); i++ {
+			if newCluster.ServerPools()[i].Name == r.ServerPool.Name {
 				found = true
 				var inRules []*cluster.IngressRule
 				var egRules []*cluster.EgressRule
@@ -231,7 +231,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 						EgressDestination: convertOutRuleDest(renderRule),
 					})
 				}
-				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls, &cluster.Firewall{
+				newCluster.ServerPools()[i].Firewalls = append(newCluster.ServerPools()[i].Firewalls, &cluster.Firewall{
 					Name:         firewall.Name,
 					Identifier:   firewall.CloudID,
 					IngressRules: inRules,
@@ -266,20 +266,27 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 				EgressRules:  egRules,
 			},
 		}
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name:       r.ServerPool.Name,
-			Identifier: r.ServerPool.Identifier,
-			Firewalls:  firewalls,
-		})
+
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name:       r.ServerPool.Name,
+					Identifier: r.ServerPool.Identifier,
+					Firewalls:  firewalls,
+				},
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
+
 	}
 
 	// Todo (@kris-nova) Figure out what is setting empty firewalls and fix the original bug
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
+	for i := 0; i < len(newCluster.ServerPools()); i++ {
+		for j := 0; j < len(newCluster.ServerPools()[i].Firewalls); j++ {
 			firewall := newResource.(*Firewall)
 			if firewall.Name == "" {
 				logger.Debug("Found empty firewill, will not save!")
-				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls[:j], newCluster.ServerPools[i].Firewalls[j+1:]...)
+				newCluster.ServerPools()[i].Firewalls = append(newCluster.ServerPools()[i].Firewalls[:j], newCluster.ServerPools()[i].Firewalls[j+1:]...)
 			}
 		}
 	}

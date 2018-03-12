@@ -166,8 +166,8 @@ func RunApply(options *cli.ApplyOptions) error {
 		logger.Always("  export KUBECONFIG=\"${KUBECONFIG}:%s\"", path)
 	}
 	logger.Always("You can now `kubectl get nodes`")
-	privKeyPath := strings.Replace(cluster.SSH.PublicKeyPath, ".pub", "", 1)
-	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.SSH.User, newCluster.KubernetesAPI.Endpoint)
+	privKeyPath := strings.Replace(cluster.ProviderConfig().SSH.PublicKeyPath, ".pub", "", 1)
+	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.ProviderConfig().SSH.User, newCluster.ProviderConfig().KubernetesAPI.Endpoint)
 
 	return nil
 }

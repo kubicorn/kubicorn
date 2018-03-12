@@ -44,9 +44,9 @@ func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 	}
 
 	// Query for resource if we have an Identifier
-	if immutable.Network.Identifier != "" {
+	if immutable.ProviderConfig().Network.Identifier != "" {
 		input := &ec2.DescribeVpcsInput{
-			VpcIds: []*string{&immutable.Network.Identifier},
+			VpcIds: []*string{&immutable.ProviderConfig().Network.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeVpcs(input)
 		if err != nil {
@@ -54,7 +54,7 @@ func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 		}
 		lvpc := len(output.Vpcs)
 		if lvpc != 1 {
-			return nil, nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lvpc, immutable.Network.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lvpc, immutable.ProviderConfig().Network.Identifier)
 		}
 		newResource.Identifier = *output.Vpcs[0].VpcId
 		newResource.CIDR = *output.Vpcs[0].CidrBlock
@@ -64,8 +64,8 @@ func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 			newResource.Tags[key] = val
 		}
 	} else {
-		newResource.CIDR = immutable.Network.CIDR
-		newResource.Name = immutable.Network.Name
+		newResource.CIDR = immutable.ProviderConfig().Network.CIDR
+		newResource.Name = immutable.ProviderConfig().Network.Name
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -78,10 +78,10 @@ func (r *Vpc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Reso
 				"Name":              r.Name,
 				"KubernetesCluster": immutable.Name,
 			},
-			Identifier: immutable.Network.Identifier,
+			Identifier: immutable.ProviderConfig().Network.Identifier,
 			Name:       r.Name,
 		},
-		CIDR: immutable.Network.CIDR,
+		CIDR: immutable.ProviderConfig().Network.CIDR,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -179,9 +179,9 @@ func (r *Vpc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 func (r *Vpc) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("vpc.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.Network.CIDR = newResource.(*Vpc).CIDR
-	newCluster.Network.Identifier = newResource.(*Vpc).Identifier
-	newCluster.Network.Name = newResource.(*Vpc).Name
+	newCluster.ProviderConfig().Network.CIDR = newResource.(*Vpc).CIDR
+	newCluster.ProviderConfig().Network.Identifier = newResource.(*Vpc).Identifier
+	newCluster.ProviderConfig().Network.Name = newResource.(*Vpc).Name
 	return newCluster
 }
 
