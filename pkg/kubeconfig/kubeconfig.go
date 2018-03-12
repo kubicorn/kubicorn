@@ -42,7 +42,7 @@ type configLoader struct {
 }
 
 func newConfigLoader(existing *cluster.Cluster) (*configLoader, error) {
-	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
+	pubKeyPath := local.Expand(existing.ProviderConfig().SSH.PublicKeyPath)
 	// --------------------------------------------------------------------------------
 	//
 	// @kris-nova
@@ -57,38 +57,28 @@ func newConfigLoader(existing *cluster.Cluster) (*configLoader, error) {
 		return nil, fmt.Errorf("Unable to add key: %v", err)
 	}
 	sshConfig := &ssh.ClientConfig{
-		User:            existing.SSH.User,
+		User:            existing.ProviderConfig().SSH.User,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-=======
-func GetConfig(existing *cluster.Cluster) error {
-	user := existing.ProviderConfig().SSH.User
-	pubKeyPath := local.Expand(existing.ProviderConfig().SSH.PublicKeyPath)
-	if existing.ProviderConfig().SSH.Port == "" {
-		existing.ProviderConfig().SSH.Port = "22"
->>>>>>> Okay - this won't work but at least it will compile. Time for the big refactor
 	}
 	sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
 	sshConfig.Auth = append(sshConfig.Auth, sshAgentWithKey.GetAgent())
 	sshConfig.SetDefaults()
 
-<<<<<<< HEAD
 	return &configLoader{
 		existing:  existing,
 		sshconfig: sshConfig,
 	}, nil
 }
 func (cfg *configLoader) GetConfig() error {
-	user := cfg.existing.SSH.User
-	if cfg.existing.SSH.Port == "" {
-		cfg.existing.SSH.Port = "22"
+	user := cfg.existing.ProviderConfig().SSH.User
+	if cfg.existing.ProviderConfig().SSH.Port == "" {
+		providerConfig := cfg.existing.ProviderConfig()
+		providerConfig.SSH.Port = "22"
+		cfg.existing.SetProviderConfig(providerConfig)
 	}
 
-	address := fmt.Sprintf("%s:%s", cfg.existing.KubernetesAPI.Endpoint, cfg.existing.SSH.Port)
+	address := fmt.Sprintf("%s:%s", cfg.existing.ProviderConfig().KubernetesAPI.Endpoint, cfg.existing.ProviderConfig().SSH.Port)
 	localPath, localPathAnnotationDefined := cfg.existing.Annotations[ClusterAnnotationKubeconfigLocalFile]
-=======
-	address := fmt.Sprintf("%s:%s", existing.ProviderConfig().KubernetesAPI.Endpoint, existing.ProviderConfig().SSH.Port)
-	localPath, localPathAnnotationDefined := existing.Annotations[ClusterAnnotationKubeconfigLocalFile]
->>>>>>> Okay - this won't work but at least it will compile. Time for the big refactor
 	if localPathAnnotationDefined {
 		localPath = local.Expand(localPath)
 	} else {
