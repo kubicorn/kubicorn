@@ -27,8 +27,6 @@ import (
 func ReadFromResource(r string) (string, error) {
 	env := os.Getenv("KUBICORN_ENVIRONMENT")
 
-
-
 	// Hack in here for local bootstrap override
 	devMode := os.Getenv("KUBICORN_FORCE_LOCAL_BOOTSTRAP")
 	if devMode != "" {
@@ -37,7 +35,6 @@ func ReadFromResource(r string) (string, error) {
 	}
 
 	switch {
-
 
 	// -----------------------------------------------------------------------------------------------------------------
 	//
