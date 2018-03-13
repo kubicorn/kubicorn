@@ -23,7 +23,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -42,9 +41,9 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 	newResource := &SSH{
 		Shared: Shared{
 			Name:    r.Name,
-			CloudID: immutable.SSH.Identifier,
+			CloudID: immutable.ProviderConfig().SSH.Identifier,
 		},
-		User: immutable.SSH.User,
+		User: immutable.ProviderConfig().SSH.User,
 	}
 
 	if r.CloudID != "" {
@@ -69,21 +68,21 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 			return nil, nil, err
 		}
 		for _, key := range keys {
-			if key.Fingerprint == immutable.SSH.PublicKeyFingerprint {
+			if key.Fingerprint == immutable.ProviderConfig().SSH.PublicKeyFingerprint {
 				found = true
 				newResource.Name = key.Name
 				newResource.CloudID = strconv.Itoa(key.ID)
 				newResource.PublicKeyData = key.PublicKey
 				newResource.PublicKeyFingerprint = key.Fingerprint
-				newResource.PublicKeyPath = immutable.SSH.PublicKeyPath
+				newResource.PublicKeyPath = immutable.ProviderConfig().SSH.PublicKeyPath
 			}
 		}
 		if !found {
-			newResource.PublicKeyPath = immutable.SSH.PublicKeyPath
-			newResource.PublicKeyFingerprint = immutable.SSH.PublicKeyFingerprint
-			newResource.PublicKeyData = string(immutable.SSH.PublicKeyData)
-			newResource.User = immutable.SSH.User
-			newResource.CloudID = immutable.SSH.Identifier
+			newResource.PublicKeyPath = immutable.ProviderConfig().SSH.PublicKeyPath
+			newResource.PublicKeyFingerprint = immutable.ProviderConfig().SSH.PublicKeyFingerprint
+			newResource.PublicKeyData = string(immutable.ProviderConfig().SSH.PublicKeyData)
+			newResource.User = immutable.ProviderConfig().SSH.User
+			newResource.CloudID = immutable.ProviderConfig().SSH.Identifier
 		}
 	}
 
@@ -96,12 +95,12 @@ func (r *SSH) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Reso
 	newResource := &SSH{
 		Shared: Shared{
 			Name:    r.Name,
-			CloudID: immutable.SSH.Identifier,
+			CloudID: immutable.ProviderConfig().SSH.Identifier,
 		},
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		User:                 immutable.SSH.User,
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		User:                 immutable.ProviderConfig().SSH.User,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -158,7 +157,7 @@ func (r *SSH) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 		if deleteResource.CloudID == "" {
 			return nil, nil, fmt.Errorf("Unable to delete ssh resource without Id [%s]", deleteResource.Name)
 		}
-		id, err := strconv.Atoi(immutable.SSH.Identifier)
+		id, err := strconv.Atoi(immutable.ProviderConfig().SSH.Identifier)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -182,11 +181,13 @@ func (r *SSH) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 
 func (r *SSH) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("ssh.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
-	newCluster.SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
-	newCluster.SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
-	newCluster.SSH.Identifier = newResource.(*SSH).CloudID
-	newCluster.SSH.User = newResource.(*SSH).User
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
+	providerConfig.SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
+	providerConfig.SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
+	providerConfig.SSH.Identifier = newResource.(*SSH).CloudID
+	providerConfig.SSH.User = newResource.(*SSH).User
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

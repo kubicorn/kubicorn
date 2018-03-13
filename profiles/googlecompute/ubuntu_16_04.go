@@ -23,8 +23,8 @@ import (
 
 // NewUbuntuCluster creates a basic Ubuntu Google Compute cluster.
 func NewUbuntuCluster(name string) *cluster.Cluster {
-	return &cluster.Cluster{
-		Name:     name,
+
+	controlPlaneProviderConfig := &cluster.ControlPlaneProviderConfig{
 		CloudId:  "example-id",
 		Cloud:    cluster.CloudGoogle,
 		Location: "us-central1-a",
@@ -40,8 +40,10 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
 			},
 		},
-		ServerPools: []*cluster.ServerPool{
-			{
+	}
+	machineSetsProviderConfigs := []*cluster.MachineProviderConfig{
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeMaster,
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
@@ -51,7 +53,9 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 					"bootstrap/google_compute_k8s_ubuntu_16.04_master.sh",
 				},
 			},
-			{
+		},
+		{
+			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
 				MaxCount: 2,
@@ -63,4 +67,8 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 			},
 		},
 	}
+	c := cluster.NewCluster(name)
+	c.SetProviderConfig(controlPlaneProviderConfig)
+	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
+	return c
 }

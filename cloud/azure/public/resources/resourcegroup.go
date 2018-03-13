@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -39,7 +38,7 @@ func (r *ResourceGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cl
 		Shared: Shared{
 			Name:       r.Name,
 			Tags:       r.Tags,
-			Identifier: immutable.GroupIdentifier,
+			Identifier: immutable.ProviderConfig().GroupIdentifier,
 		},
 		Location: r.Location,
 	}
@@ -65,9 +64,9 @@ func (r *ResourceGroup) Expected(immutable *cluster.Cluster) (*cluster.Cluster, 
 		Shared: Shared{
 			Name:       immutable.Name,
 			Tags:       r.Tags,
-			Identifier: immutable.GroupIdentifier,
+			Identifier: immutable.ProviderConfig().GroupIdentifier,
 		},
-		Location: immutable.Location,
+		Location: immutable.ProviderConfig().Location,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -85,7 +84,7 @@ func (r *ResourceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	}
 
 	group, err := Sdk.ResourceGroup.CreateOrUpdate(immutable.Name, resources.Group{
-		Location: &immutable.Location,
+		Location: &immutable.ProviderConfig().Location,
 	})
 	if err != nil {
 		return nil, nil, err
@@ -109,7 +108,7 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
 
-	autorestChan, errorChan := Sdk.ResourceGroup.Delete(immutable.ClusterName, make(chan struct{}))
+	autorestChan, errorChan := Sdk.ResourceGroup.Delete(immutable.Name, make(chan struct{}))
 	select {
 	case <-autorestChan:
 		logger.Success("Successfully deleted resource group [%s]", deleteResource.Identifier)
@@ -122,7 +121,7 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 			Name: immutable.Name,
 			Tags: r.Tags,
 		},
-		Location: immutable.Location,
+		Location: immutable.ProviderConfig().Location,
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -132,9 +131,11 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 func (r *ResourceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("resourcegroup.Render")
 	resourceGroup := newResource.(*ResourceGroup)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.GroupIdentifier = resourceGroup.Identifier
-	newCluster.Location = resourceGroup.Location
+	newCluster := inaccurateCluster
+	providerConfig := &cluster.ControlPlaneProviderConfig{}
+	providerConfig.GroupIdentifier = resourceGroup.Identifier
+	providerConfig.Location = resourceGroup.Location
 	newCluster.Name = resourceGroup.Name
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

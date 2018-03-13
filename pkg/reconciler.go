@@ -48,7 +48,7 @@ type RuntimeParameters struct {
 
 // GetReconciler gets the correct Reconciler for the cloud provider currenty used.
 func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters) (reconciler cloud.Reconciler, err error) {
-	switch known.Cloud {
+	switch known.ProviderConfig().Cloud {
 	case cluster.CloudGoogle:
 		sdk, err := googleSDK.NewSdk()
 		if err != nil {
@@ -64,7 +64,7 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		dr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, droplet.NewDigitalOceanDropletModel(known)), nil
 	case cluster.CloudAmazon:
-		sdk, err := awsSdkGo.NewSdk(known.Location, runtimeParameters.AwsProfile)
+		sdk, err := awsSdkGo.NewSdk(known.ProviderConfig().Location, runtimeParameters.AwsProfile)
 		if err != nil {
 			return nil, err
 		}
@@ -78,7 +78,7 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		azr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, azpub.NewAzurePublicModel(known)), nil
 	case cluster.CloudOVH:
-		sdk, err := openstackSdk.NewSdk(known.Location)
+		sdk, err := openstackSdk.NewSdk(known.ProviderConfig().Location)
 		if err != nil {
 			return nil, err
 		}
@@ -92,6 +92,6 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		packetr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, packetpub.NewPacketPublicModel(known)), nil
 	default:
-		return nil, fmt.Errorf("Invalid cloud type: %s", known.Cloud)
+		return nil, fmt.Errorf("Invalid cloud type: %s", known.ProviderConfig().Cloud)
 	}
 }

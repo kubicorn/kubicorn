@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/rackspace/gophercloud/openstack/networking/v2/extensions/security/groups"
 	"github.com/rackspace/gophercloud/openstack/networking/v2/extensions/security/rules"
@@ -175,7 +174,7 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("secgroup.Render")
 	secgroup := newResource.(*SecurityGroup)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	found := false
 
 	var (
@@ -191,41 +190,53 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 			IngressProtocol: ingressRule.Protocol,
 		})
 	}
-
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
-			if newCluster.ServerPools[i].Firewalls[j].Name == secgroup.Name {
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		for j := 0; j < len(machineProviderConfig.ServerPool.Firewalls); j++ {
+			if machineProviderConfig.ServerPool.Firewalls[j].Name == secgroup.Name {
 				found = true
-				newCluster.ServerPools[i].Firewalls[j].Identifier = secgroup.Identifier
-				newCluster.ServerPools[i].Firewalls[j].IngressRules = ingressRules
-				newCluster.ServerPools[i].Firewalls[j].EgressRules = egressRules
+				machineProviderConfig.ServerPool.Firewalls[j].Identifier = secgroup.Identifier
+				machineProviderConfig.ServerPool.Firewalls[j].IngressRules = ingressRules
+				machineProviderConfig.ServerPool.Firewalls[j].EgressRules = egressRules
+				machineProviderConfigs[i] = machineProviderConfig
+				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
 	if !found {
-		for i := 0; i < len(newCluster.ServerPools); i++ {
-			if newCluster.ServerPools[i].Name == r.ServerPool.Name {
+		for i := 0; i < len(machineProviderConfigs); i++ {
+			machineProviderConfig := machineProviderConfigs[i]
+			if machineProviderConfig.Name == r.ServerPool.Name {
 				found = true
-				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls, &cluster.Firewall{
+				machineProviderConfig.ServerPool.Firewalls = append(newCluster.ServerPools()[i].Firewalls, &cluster.Firewall{
 					Name:         secgroup.Name,
 					Identifier:   secgroup.Identifier,
 					IngressRules: ingressRules,
 					EgressRules:  egressRules,
 				})
+				machineProviderConfigs[i] = machineProviderConfig
+				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name:       r.ServerPool.Name,
-			Identifier: r.ServerPool.Identifier,
-			Firewalls: []*cluster.Firewall{&cluster.Firewall{
-				Name:         secgroup.Name,
-				Identifier:   secgroup.Identifier,
-				IngressRules: ingressRules,
-				EgressRules:  egressRules,
-			}},
-		})
+
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name:       r.ServerPool.Name,
+					Identifier: r.ServerPool.Identifier,
+					Firewalls: []*cluster.Firewall{&cluster.Firewall{
+						Name:         secgroup.Name,
+						Identifier:   secgroup.Identifier,
+						IngressRules: ingressRules,
+						EgressRules:  egressRules,
+					}},
+				},
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 
 	return newCluster

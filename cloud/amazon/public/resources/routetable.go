@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -101,7 +100,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 
 	// --- Create Route Table
 	rtInput := &ec2.CreateRouteTableInput{
-		VpcId: &immutable.Network.Identifier,
+		VpcId: &immutable.ProviderConfig().Network.Identifier,
 	}
 	rtOutput, err := Sdk.Ec2.CreateRouteTable(rtInput)
 	if err != nil {
@@ -141,7 +140,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	}
 
 	subnetID := ""
-	for _, sp := range immutable.ServerPools {
+	for _, sp := range immutable.ServerPools() {
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {
@@ -248,6 +247,5 @@ func (r *RouteTable) tag(tags map[string]string) error {
 
 func (r *RouteTable) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("subnet.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	return newCluster
+	return inaccurateCluster
 }

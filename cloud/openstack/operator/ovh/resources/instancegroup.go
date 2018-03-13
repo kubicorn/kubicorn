@@ -22,7 +22,6 @@ import (
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/cloud/openstack/operator/generic/resources"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/keypairs"
@@ -130,14 +129,14 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 				time.Sleep(InstancePollingInterval)
 				continue
 			}
-			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterPrivateIP, immutable.KubernetesAPI.Port)
+			immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterPrivateIP, immutable.ProviderConfig().KubernetesAPI.Port)
 		}
-		if _, ok := immutable.Values.ItemMap["INJECTEDMASTER"]; !ok {
+		if _, ok := immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"]; !ok {
 			return nil, nil, fmt.Errorf("Unable to find Master IP")
 		}
 	}
 
-	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
 
 	// Build scripts to inject in instance user-data
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
@@ -159,7 +158,7 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 
 	// Networks instances will be attached to
 	networks = append(networks, servers.Network{
-		UUID: immutable.Network.Identifier,
+		UUID: immutable.ProviderConfig().Network.Identifier,
 	})
 
 	// Create instances for this group
@@ -174,7 +173,7 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 				SecurityGroups: secgroups,
 				Networks:       networks,
 			},
-			KeyName: immutable.SSH.Name,
+			KeyName: immutable.ProviderConfig().SSH.Name,
 		})
 		instance, err := res.Extract()
 		if err != nil {
@@ -216,7 +215,7 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 	}
 
 	logger.Debug("Cluster endpoint is %s", masterPublicIP)
-	immutable.KubernetesAPI.Endpoint = masterPublicIP
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = masterPublicIP
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -282,7 +281,7 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 
 	logger.Success("Deleted InstanceGroup [%s]", instanceGroup.Name)
 
-	immutable.KubernetesAPI.Endpoint = ""
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = ""
 
 	newResource := &InstanceGroup{
 		Shared: resources.Shared{
@@ -300,31 +299,41 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 func (r *InstanceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("instanceGroup.Render")
 	instanceGroup := newResource.(*InstanceGroup)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	found := false
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		pool := newCluster.ServerPools[i]
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		pool := machineProviderConfig.ServerPool
 		if pool.Name == instanceGroup.Name {
 			pool.Image = instanceGroup.Image
 			pool.Size = instanceGroup.Flavor
 			pool.BootstrapScripts = instanceGroup.BootstrapScripts
 			found = true
+			machineProviderConfig.ServerPool = pool
+			machineProviderConfigs[i] = machineProviderConfig
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name:             instanceGroup.Name,
-			BootstrapScripts: instanceGroup.BootstrapScripts,
-			Image:            instanceGroup.Image,
-			Size:             instanceGroup.Flavor,
-		})
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name:             instanceGroup.Name,
+					BootstrapScripts: instanceGroup.BootstrapScripts,
+					Image:            instanceGroup.Image,
+					Size:             instanceGroup.Flavor,
+				},
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 	return newCluster
 }
 
 func getMasterIPs(immutable *cluster.Cluster) (string, string, error) {
 	var masterName string
-	for _, pool := range immutable.ServerPools {
+	for _, pool := range immutable.ServerPools() {
 		if pool.Type == cluster.ServerPoolTypeMaster {
 			masterName = pool.Name
 			break
@@ -339,7 +348,7 @@ func getMasterIPs(immutable *cluster.Cluster) (string, string, error) {
 	}
 
 	publicIP := getNetworkIP(instances[0], OperatorPublicNet, IPv4)
-	privateIP := getNetworkIP(instances[0], immutable.Network.Name, IPv4)
+	privateIP := getNetworkIP(instances[0], immutable.ProviderConfig().Network.Name, IPv4)
 
 	return publicIP, privateIP, err
 }

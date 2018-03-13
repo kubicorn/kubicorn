@@ -38,7 +38,9 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	r := make(map[int]cloud.Resource)
 	i := 0
 
-	for _, serverPool := range m.known.ServerPools {
+	machineConfigs := m.known.MachineProviderConfigs()
+	for _, machineConfig := range machineConfigs {
+		serverPool := machineConfig.ServerPool
 		// ---- [Engine] ----
 		r[i] = &resources.InstanceGroup{
 			Shared: resources.Shared{

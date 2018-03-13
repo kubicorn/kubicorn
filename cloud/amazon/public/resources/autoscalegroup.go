@@ -22,7 +22,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -105,7 +104,7 @@ func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		return immutable, applyResource, nil
 	}
 	subnetID := ""
-	for _, sp := range immutable.ServerPools {
+	for _, sp := range immutable.ServerPools() {
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {
@@ -199,7 +198,7 @@ func (r *Asg) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 
 func (r *Asg) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("asg.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	serverPool := &cluster.ServerPool{}
 
 	serverPool.MaxCount = newResource.(*Asg).MaxCount
@@ -209,22 +208,31 @@ func (r *Asg) immutableRender(newResource cloud.Resource, inaccurateCluster *clu
 
 	found := false
 
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		if newCluster.ServerPools[i].Name == newResource.(*Asg).Name {
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		if machineProviderConfig.ServerPool.Name == newResource.(*Asg).Name {
 			if newResource.(*Asg).ServerPool != nil {
-				newCluster.ServerPools[i].MaxCount = newResource.(*Asg).ServerPool.MaxCount
-				newCluster.ServerPools[i].MinCount = newResource.(*Asg).ServerPool.MinCount
+				machineProviderConfigs[i].ServerPool.MaxCount = newResource.(*Asg).ServerPool.MaxCount
+				machineProviderConfigs[i].ServerPool.MinCount = newResource.(*Asg).ServerPool.MinCount
 			} else {
-				newCluster.ServerPools[i].MaxCount = newResource.(*Asg).MaxCount
-				newCluster.ServerPools[i].MinCount = newResource.(*Asg).MinCount
+				machineProviderConfigs[i].ServerPool.MaxCount = newResource.(*Asg).MaxCount
+				machineProviderConfigs[i].ServerPool.MinCount = newResource.(*Asg).MinCount
 			}
-			newCluster.ServerPools[i].Name = newResource.(*Asg).Name
-			newCluster.ServerPools[i].Identifier = newResource.(*Asg).Identifier
+			machineProviderConfigs[i].ServerPool.Name = newResource.(*Asg).Name
+			machineProviderConfigs[i].ServerPool.Identifier = newResource.(*Asg).Identifier
 			found = true
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 		}
+
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, serverPool)
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: serverPool,
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 
 	return newCluster

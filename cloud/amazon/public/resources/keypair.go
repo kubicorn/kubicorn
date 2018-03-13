@@ -23,7 +23,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -44,21 +43,21 @@ func (r *KeyPair) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Re
 			Name: r.Name,
 			Tags: make(map[string]string),
 		},
-		User:                 immutable.SSH.User,
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
+		User:                 immutable.ProviderConfig().SSH.User,
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
 	}
 
-	if immutable.SSH.Identifier != "" {
+	if immutable.ProviderConfig().SSH.Identifier != "" {
 		input := &ec2.DescribeKeyPairsInput{
-			KeyNames: []*string{&immutable.SSH.Identifier},
+			KeyNames: []*string{&immutable.ProviderConfig().SSH.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeKeyPairs(input)
 		if err == nil {
 			lsn := len(output.KeyPairs)
 			if lsn != 1 {
-				return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, immutable.SSH.Identifier)
+				return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, immutable.ProviderConfig().SSH.Identifier)
 			}
 			keypair := output.KeyPairs[0]
 			newResource.Identifier = *keypair.KeyName
@@ -82,13 +81,13 @@ func (r *KeyPair) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.
 				"Name":              r.Name,
 				"KubernetesCluster": immutable.Name,
 			},
-			Identifier: immutable.SSH.Identifier,
+			Identifier: immutable.ProviderConfig().SSH.Identifier,
 			Name:       r.Name,
 		},
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		User:                 immutable.SSH.User,
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		User:                 immutable.ProviderConfig().SSH.User,
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -159,12 +158,14 @@ func (r *KeyPair) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 
 func (r *KeyPair) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("keypair.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.SSH.Name = newResource.(*KeyPair).Name
-	newCluster.SSH.Identifier = newResource.(*KeyPair).Name
-	newCluster.SSH.PublicKeyData = []byte(newResource.(*KeyPair).PublicKeyData)
-	newCluster.SSH.PublicKeyFingerprint = newResource.(*KeyPair).PublicKeyFingerprint
-	newCluster.SSH.PublicKeyPath = newResource.(*KeyPair).PublicKeyPath
-	newCluster.SSH.User = newResource.(*KeyPair).User
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.SSH.Name = newResource.(*KeyPair).Name
+	providerConfig.SSH.Identifier = newResource.(*KeyPair).Name
+	providerConfig.SSH.PublicKeyData = []byte(newResource.(*KeyPair).PublicKeyData)
+	providerConfig.SSH.PublicKeyFingerprint = newResource.(*KeyPair).PublicKeyFingerprint
+	providerConfig.SSH.PublicKeyPath = newResource.(*KeyPair).PublicKeyPath
+	providerConfig.SSH.User = newResource.(*KeyPair).User
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

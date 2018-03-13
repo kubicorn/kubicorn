@@ -20,7 +20,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/rackspace/gophercloud/openstack/networking/v2/subnets"
 	"github.com/rackspace/gophercloud/pagination"
@@ -75,7 +74,7 @@ func (r *Subnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 			Identifier: r.ClusterSubnet.Identifier,
 		},
 		CIDR:      r.ClusterSubnet.CIDR,
-		NetworkID: immutable.Network.Identifier,
+		NetworkID: immutable.ProviderConfig().Network.Identifier,
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -140,7 +139,7 @@ func (r *Subnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clu
 
 func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("subnet.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster := inaccurateCluster
 	newSubnet := newResource.(*Subnet)
 	subnet := new(cluster.Subnet)
 	subnet.CIDR = newSubnet.CIDR
@@ -148,31 +147,44 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 	subnet.Identifier = newSubnet.Identifier
 	found := false
 
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Subnets); j++ {
-			if newCluster.ServerPools[i].Subnets[j].Name == newSubnet.Name {
-				s := newCluster.ServerPools[i].Subnets[j]
-				s.CIDR = newSubnet.CIDR
-				s.Identifier = newSubnet.Identifier
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		for j := 0; j < len(machineProviderConfig.ServerPool.Subnets); j++ {
+			if machineProviderConfig.ServerPool.Subnets[j].Name == newSubnet.Name {
+				machineProviderConfig.ServerPool.Subnets[j].CIDR = newSubnet.CIDR
+				machineProviderConfig.ServerPool.Subnets[j].Identifier = newSubnet.Identifier
 				found = true
+				machineProviderConfigs[i] = machineProviderConfig
+				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
 	if !found {
-		for i := 0; i < len(newCluster.ServerPools); i++ {
-			if newCluster.ServerPools[i].Name == newResource.(*Subnet).Name {
-				newCluster.ServerPools[i].Subnets = append(newCluster.ServerPools[i].Subnets, subnet)
+		for i := 0; i < len(machineProviderConfigs); i++ {
+			machineProviderConfig := machineProviderConfigs[i]
+			if machineProviderConfig.Name == newResource.(*Subnet).Name {
+				machineProviderConfig.ServerPool.Subnets = append(newCluster.ServerPools()[i].Subnets, subnet)
 				found = true
+				machineProviderConfigs[i] = machineProviderConfig
+				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name: newSubnet.Name,
-			Subnets: []*cluster.Subnet{
-				subnet,
+
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name: newSubnet.Name,
+					Subnets: []*cluster.Subnet{
+						subnet,
+					},
+				},
 			},
-		})
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
+
 	}
 
 	return newCluster

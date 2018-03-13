@@ -20,7 +20,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/rackspace/gophercloud/openstack/networking/v2/networks"
 	"github.com/rackspace/gophercloud/pagination"
@@ -36,7 +35,7 @@ func (r *Network) Actual(immutable *cluster.Cluster) (actual *cluster.Cluster, r
 	logger.Debug("network.Actual")
 	newResource := new(Network)
 
-	if immutable.Network.Identifier != "" {
+	if immutable.ProviderConfig().Network.Identifier != "" {
 		// Find the network by name
 		res := networks.List(Sdk.Network, networks.ListOpts{
 			Name: r.Name,
@@ -72,7 +71,7 @@ func (r *Network) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.
 	newResource := &Network{
 		Shared: Shared{
 			Name:       r.Name,
-			Identifier: immutable.Network.Identifier,
+			Identifier: immutable.ProviderConfig().Network.Identifier,
 		},
 	}
 	newCluster := r.immutableRender(newResource, immutable)
@@ -133,8 +132,10 @@ func (r *Network) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 func (r *Network) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("network.Render")
 	network := newResource.(*Network)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.Network.Identifier = network.Identifier
-	newCluster.Network.Name = network.Name
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.Network.Identifier = network.Identifier
+	providerConfig.Network.Name = network.Name
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

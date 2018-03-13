@@ -21,7 +21,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/keypairs"
 )
@@ -42,15 +41,15 @@ func (r *KeyPair) Actual(immutable *cluster.Cluster) (actual *cluster.Cluster, r
 		Shared: Shared{
 			Name: r.Name,
 		},
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
-		User:                 immutable.SSH.User,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
+		User:                 immutable.ProviderConfig().SSH.User,
 	}
 
-	if immutable.SSH.Identifier != "" {
+	if immutable.ProviderConfig().SSH.Identifier != "" {
 		// Find the keypair by name
-		keypair, err := keypairs.Get(Sdk.Compute, immutable.SSH.User).Extract()
+		keypair, err := keypairs.Get(Sdk.Compute, immutable.ProviderConfig().SSH.User).Extract()
 		if err != nil {
 			if !strings.Contains(err.Error(), "not found") {
 				return nil, nil, err
@@ -67,13 +66,13 @@ func (r *KeyPair) Expected(immutable *cluster.Cluster) (expected *cluster.Cluste
 	logger.Debug("keypair.Expected")
 	newResource := &KeyPair{
 		Shared: Shared{
-			Identifier: immutable.SSH.Identifier,
+			Identifier: immutable.ProviderConfig().SSH.Identifier,
 			Name:       r.Name,
 		},
-		PublicKeyData:        string(immutable.SSH.PublicKeyData),
-		PublicKeyPath:        immutable.SSH.PublicKeyPath,
-		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
-		User:                 immutable.SSH.User,
+		PublicKeyData:        string(immutable.ProviderConfig().SSH.PublicKeyData),
+		PublicKeyPath:        immutable.ProviderConfig().SSH.PublicKeyPath,
+		PublicKeyFingerprint: immutable.ProviderConfig().SSH.PublicKeyFingerprint,
+		User:                 immutable.ProviderConfig().SSH.User,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -144,12 +143,14 @@ func (r *KeyPair) Delete(actual cloud.Resource, immutable *cluster.Cluster) (upd
 func (r *KeyPair) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("keypair.Render")
 	keypair := newResource.(*KeyPair)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.SSH.PublicKeyData = []byte(keypair.PublicKeyData)
-	newCluster.SSH.PublicKeyPath = keypair.PublicKeyPath
-	newCluster.SSH.PublicKeyFingerprint = keypair.PublicKeyFingerprint
-	newCluster.SSH.User = keypair.User
-	newCluster.SSH.Name = keypair.Name
-	newCluster.SSH.Identifier = keypair.Name
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.SSH.PublicKeyData = []byte(keypair.PublicKeyData)
+	providerConfig.SSH.PublicKeyPath = keypair.PublicKeyPath
+	providerConfig.SSH.PublicKeyFingerprint = keypair.PublicKeyFingerprint
+	providerConfig.SSH.User = keypair.User
+	providerConfig.SSH.Name = keypair.Name
+	providerConfig.SSH.Identifier = keypair.Identifier
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

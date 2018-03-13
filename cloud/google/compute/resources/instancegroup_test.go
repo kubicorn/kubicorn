@@ -37,14 +37,16 @@ func TestExpectedHappy(t *testing.T) {
 	}
 
 	knownCluster := &cluster.Cluster{
-		Name:    "ClusterName",
+		Name: "ClusterName",
+	}
+	providerConfig := &cluster.ControlPlaneProviderConfig{
 		CloudId: "test-123",
 		SSH: &cluster.SSH{
 			PublicKeyFingerprint: "fingerprint",
 		},
 		Location: "Location-us",
 	}
-
+	knownCluster.SetProviderConfig(providerConfig)
 	_, resource, err := instance.Expected(knownCluster)
 	if err != nil {
 		t.Fatalf("Error while creating resource %v", err)

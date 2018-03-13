@@ -22,7 +22,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
@@ -164,7 +163,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 
 	input := &ec2.CreateSecurityGroupInput{
 		GroupName:   &expected.(*SecurityGroup).Name,
-		VpcId:       &immutable.Network.Identifier,
+		VpcId:       &immutable.ProviderConfig().Network.Identifier,
 		Description: S(fmt.Sprintf(KubicornAutoCreatedGroup, immutable.Name)),
 	}
 	output, err := Sdk.Ec2.CreateSecurityGroup(input)
@@ -227,13 +226,17 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 
 func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("securitygroup.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+
+	newCluster := inaccurateCluster
 	found := false
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
-			if newCluster.ServerPools[i].Firewalls[j].Name == newResource.(*SecurityGroup).Name {
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		for j := 0; j < len(machineProviderConfig.ServerPool.Firewalls); j++ {
+			firewall := machineProviderConfig.ServerPool.Firewalls[j]
+			if firewall.Name == newResource.(*SecurityGroup).Name {
 				found = true
-				newCluster.ServerPools[i].Firewalls[j].Identifier = newResource.(*SecurityGroup).Identifier
+				firewall.Identifier = newResource.(*SecurityGroup).Identifier
 				var ingressRules []*cluster.IngressRule
 				for _, renderRule := range newResource.(*SecurityGroup).Rules {
 					ingressRules = append(ingressRules, &cluster.IngressRule{
@@ -243,14 +246,20 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 						IngressProtocol: renderRule.IngressProtocol,
 					})
 				}
-				newCluster.ServerPools[i].Firewalls[j].IngressRules = ingressRules
+				firewall.IngressRules = ingressRules
+				machineProviderConfig.ServerPool.Firewalls[j] = firewall
+				machineProviderConfigs[i] = machineProviderConfig
+				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
 
+	//
 	if !found {
-		for i := 0; i < len(newCluster.ServerPools); i++ {
-			if newCluster.ServerPools[i].Name == r.ServerPool.Name {
+		machineProviderConfigs := newCluster.MachineProviderConfigs()
+		for i := 0; i < len(machineProviderConfigs); i++ {
+			machineProviderConfig := machineProviderConfigs[i]
+			if machineProviderConfig.Name == r.ServerPool.Name {
 				found = true
 				var rules []*cluster.IngressRule
 				for _, renderRule := range newResource.(*SecurityGroup).Rules {
@@ -261,12 +270,13 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 						IngressProtocol: renderRule.IngressProtocol,
 					})
 				}
-				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls, &cluster.Firewall{
+				fw := &cluster.Firewall{
 					Name:         newResource.(*SecurityGroup).Name,
 					Identifier:   newResource.(*SecurityGroup).Identifier,
 					IngressRules: rules,
-				})
-
+				}
+				machineProviderConfig.ServerPool.Firewalls = []*cluster.Firewall{fw}
+				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
@@ -288,11 +298,17 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 				IngressRules: rules,
 			},
 		}
-		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
-			Name:       r.ServerPool.Name,
-			Identifier: r.ServerPool.Identifier,
-			Firewalls:  firewalls,
-		})
+
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: &cluster.ServerPool{
+					Name:       r.ServerPool.Name,
+					Identifier: r.ServerPool.Identifier,
+					Firewalls:  firewalls,
+				},
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 
 	return newCluster

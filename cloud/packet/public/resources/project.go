@@ -21,7 +21,6 @@ import (
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/packethost/packngo"
 )
@@ -40,11 +39,11 @@ func (r *Project) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Re
 		},
 	}
 
-	if immutable.Project == nil || immutable.Project.Name == "" {
+	if immutable.ProviderConfig().Project == nil || immutable.ProviderConfig().Project.Name == "" {
 		return nil, nil, fmt.Errorf("Cannot work with empty project")
 	}
-	logger.Debug("project.Actual searching for project %s", immutable.Project.Name)
-	project, err := GetProjectByName(immutable.Project.Name)
+	logger.Debug("project.Actual searching for project %s", immutable.ProviderConfig().Project.Name)
+	project, err := GetProjectByName(immutable.ProviderConfig().Project.Name)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -79,7 +78,7 @@ func (r *Project) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 	if expectedResource.Name == actualResource.Name && actualResource.Identifier != "" {
 		logger.Debug("already equal")
 		newCluster := r.immutableRender(actualResource, immutable)
-		logger.Debug("newCluster.Project %v", newCluster.Project)
+		logger.Debug("newCluster.Project %v", newCluster.ProviderConfig().Project)
 		return newCluster, actualResource, nil
 	}
 
@@ -131,11 +130,13 @@ func (r *Project) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 
 func (r *Project) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("project.Render %v", newResource)
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	newCluster.Project = &cluster.Project{
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.Project = &cluster.Project{
 		Name:       newResource.(*Project).Name,
 		Identifier: newResource.(*Project).Identifier,
 	}
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }
 

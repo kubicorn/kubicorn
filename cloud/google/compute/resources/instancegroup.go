@@ -23,7 +23,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
 	"google.golang.org/api/compute/v1"
@@ -68,9 +67,9 @@ func (r *InstanceGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cl
 		},
 	}
 
-	project, err := Sdk.Service.Projects.Get(immutable.CloudId).Do()
+	project, err := Sdk.Service.Projects.Get(immutable.ProviderConfig().CloudId).Do()
 	if err != nil && project != nil {
-		instances, err := Sdk.Service.Instances.List(immutable.CloudId, immutable.Location).Do()
+		instances, err := Sdk.Service.Instances.List(immutable.ProviderConfig().CloudId, immutable.ProviderConfig().Location).Do()
 		if err != nil {
 			return nil, nil, err
 		}
@@ -89,7 +88,7 @@ func (r *InstanceGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cl
 	}
 
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
-	newResource.SSHFingerprint = immutable.SSH.PublicKeyFingerprint
+	newResource.SSHFingerprint = immutable.ProviderConfig().SSH.PublicKeyFingerprint
 	newResource.Name = r.Name
 	r.CachedActual = newResource
 	return immutable, newResource, nil
@@ -108,10 +107,10 @@ func (r *InstanceGroup) Expected(immutable *cluster.Cluster) (*cluster.Cluster, 
 			CloudID: r.ServerPool.Identifier,
 		},
 		Size:             r.ServerPool.Size,
-		Location:         immutable.Location,
+		Location:         immutable.ProviderConfig().Location,
 		Image:            r.ServerPool.Image,
 		Count:            r.ServerPool.MaxCount,
-		SSHFingerprint:   immutable.SSH.PublicKeyFingerprint,
+		SSHFingerprint:   immutable.ProviderConfig().SSH.PublicKeyFingerprint,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 	r.CachedExpected = expected
@@ -136,7 +135,9 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		found := false
 		for i := 0; i < MasterIPAttempts; i++ {
 			masterTag := ""
-			for _, serverPool := range immutable.ServerPools {
+			machineConfigs := immutable.MachineProviderConfigs()
+			for _, machineConfig := range machineConfigs {
+				serverPool := machineConfig.ServerPool
 				if serverPool.Type == cluster.ServerPoolTypeMaster {
 					masterTag = serverPool.Name
 				}
@@ -145,7 +146,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 				return nil, nil, fmt.Errorf("Unable to find master tag")
 			}
 
-			instanceGroupManager, err := Sdk.Service.InstanceGroupManagers.ListManagedInstances(immutable.CloudId, expected.(*InstanceGroup).Location, strings.ToLower(masterTag)).Do()
+			instanceGroupManager, err := Sdk.Service.InstanceGroupManagers.ListManagedInstances(immutable.ProviderConfig().CloudId, expected.(*InstanceGroup).Location, strings.ToLower(masterTag)).Do()
 			if err != nil {
 				return nil, nil, err
 			}
@@ -157,7 +158,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 			}
 
 			parts := strings.Split(instanceGroupManager.ManagedInstances[0].Instance, "/")
-			instance, err := Sdk.Service.Instances.Get(immutable.CloudId, expected.(*InstanceGroup).Location, parts[len(parts)-1]).Do()
+			instance, err := Sdk.Service.Instances.Get(immutable.ProviderConfig().CloudId, expected.(*InstanceGroup).Location, parts[len(parts)-1]).Do()
 			if err != nil {
 				logger.Debug("Hanging for master IP.. (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
@@ -180,7 +181,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 			}
 
 			found = true
-			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPPrivate, immutable.KubernetesAPI.Port)
+			immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPPrivate, immutable.ProviderConfig().KubernetesAPI.Port)
 			break
 		}
 		if !found {
@@ -188,7 +189,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		}
 	}
 
-	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
 
 	scripts, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
@@ -202,11 +203,11 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 
 	tags := []string{}
 	if r.ServerPool.Type == cluster.ServerPoolTypeMaster {
-		if immutable.KubernetesAPI.Port == "443" {
+		if immutable.ProviderConfig().KubernetesAPI.Port == "443" {
 			tags = append(tags, "https-server")
 		}
 
-		if immutable.KubernetesAPI.Port == "80" {
+		if immutable.ProviderConfig().KubernetesAPI.Port == "80" {
 			tags = append(tags, "http-server")
 		}
 
@@ -217,12 +218,12 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		tags = append(tags, "kubicorn-node")
 	}
 
-	prefix := "https://www.googleapis.com/compute/v1/projects/" + immutable.CloudId
+	prefix := "https://www.googleapis.com/compute/v1/projects/" + immutable.ProviderConfig().CloudId
 	imageURL := "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/" + expected.(*InstanceGroup).Image
 
-	templateInstance, err := Sdk.Service.InstanceTemplates.Get(immutable.CloudId, strings.ToLower(expected.(*InstanceGroup).Name)).Do()
+	templateInstance, err := Sdk.Service.InstanceTemplates.Get(immutable.ProviderConfig().CloudId, strings.ToLower(expected.(*InstanceGroup).Name)).Do()
 	if err != nil {
-		sshPublicKeyValue := fmt.Sprintf("%s:%s", immutable.SSH.User, string(immutable.SSH.PublicKeyData))
+		sshPublicKeyValue := fmt.Sprintf("%s:%s", immutable.ProviderConfig().SSH.User, string(immutable.ProviderConfig().SSH.PublicKeyData))
 
 		templateInstance = &compute.InstanceTemplate{
 			Name: strings.ToLower(expected.(*InstanceGroup).Name),
@@ -277,13 +278,13 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 			},
 		}
 
-		_, err = Sdk.Service.InstanceTemplates.Insert(immutable.CloudId, templateInstance).Do()
+		_, err = Sdk.Service.InstanceTemplates.Insert(immutable.ProviderConfig().CloudId, templateInstance).Do()
 		if err != nil {
 			return nil, nil, err
 		}
 	}
 
-	_, err = Sdk.Service.InstanceGroupManagers.Get(immutable.CloudId, expected.(*InstanceGroup).Location, strings.ToLower(expected.(*InstanceGroup).Name)).Do()
+	_, err = Sdk.Service.InstanceGroupManagers.Get(immutable.ProviderConfig().CloudId, expected.(*InstanceGroup).Location, strings.ToLower(expected.(*InstanceGroup).Name)).Do()
 	if err != nil {
 		instanceGroupManager := &compute.InstanceGroupManager{
 			Name:             templateInstance.Name,
@@ -294,7 +295,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 
 		for i := 0; i < MasterIPAttempts; i++ {
 			logger.Debug("Creating instance group manager")
-			_, err = Sdk.Service.InstanceGroupManagers.Insert(immutable.CloudId, expected.(*InstanceGroup).Location, instanceGroupManager).Do()
+			_, err = Sdk.Service.InstanceGroupManagers.Insert(immutable.ProviderConfig().CloudId, expected.(*InstanceGroup).Location, instanceGroupManager).Do()
 			if err == nil {
 				break
 			}
@@ -317,7 +318,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		Count:            expected.(*InstanceGroup).Count,
 		BootstrapScripts: expected.(*InstanceGroup).BootstrapScripts,
 	}
-	immutable.KubernetesAPI.Endpoint = masterIPPublic
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = masterIPPublic
 
 	renderedCluster, err := r.immutableRender(newResource, immutable)
 	if err != nil {
@@ -335,15 +336,15 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 	}
 
 	logger.Success("Deleting InstanceGroup manager [%s]", r.ServerPool.Name)
-	_, err := Sdk.Service.InstanceGroupManagers.Get(immutable.CloudId, immutable.Location, strings.ToLower(r.ServerPool.Name)).Do()
+	_, err := Sdk.Service.InstanceGroupManagers.Get(immutable.ProviderConfig().CloudId, immutable.ProviderConfig().Location, strings.ToLower(r.ServerPool.Name)).Do()
 	if err == nil {
-		_, err := Sdk.Service.InstanceGroupManagers.Delete(immutable.CloudId, immutable.Location, strings.ToLower(r.ServerPool.Name)).Do()
+		_, err := Sdk.Service.InstanceGroupManagers.Delete(immutable.ProviderConfig().CloudId, immutable.ProviderConfig().Location, strings.ToLower(r.ServerPool.Name)).Do()
 		if err != nil {
 			return nil, nil, err
 		}
 	}
 
-	_, err = Sdk.Service.InstanceTemplates.Get(immutable.CloudId, strings.ToLower(r.ServerPool.Name)).Do()
+	_, err = Sdk.Service.InstanceTemplates.Get(immutable.ProviderConfig().CloudId, strings.ToLower(r.ServerPool.Name)).Do()
 	if err == nil {
 		err := r.retryDeleteInstanceTemplate(immutable)
 		if err != nil {
@@ -352,7 +353,7 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 	}
 
 	// Kubernetes API
-	immutable.KubernetesAPI.Endpoint = ""
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = ""
 	renderedCluster, err := r.immutableRender(actual, immutable)
 	if err != nil {
 		return nil, nil, err
@@ -362,7 +363,7 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 
 func (r *InstanceGroup) retryDeleteInstanceTemplate(immutable *cluster.Cluster) error {
 	for i := 0; i <= DeleteAttempts; i++ {
-		_, err := Sdk.Service.InstanceTemplates.Delete(immutable.CloudId, strings.ToLower(r.ServerPool.Name)).Do()
+		_, err := Sdk.Service.InstanceTemplates.Delete(immutable.ProviderConfig().CloudId, strings.ToLower(r.ServerPool.Name)).Do()
 		if err != nil {
 			logger.Debug("Waiting for InstanceTemplates.Delete to complete...")
 			time.Sleep(time.Duration(DeleteSleepSeconds) * time.Second)
@@ -375,7 +376,5 @@ func (r *InstanceGroup) retryDeleteInstanceTemplate(immutable *cluster.Cluster) 
 
 func (r *InstanceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("instanceGroup.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-
-	return newCluster, nil
+	return inaccurateCluster, nil
 }

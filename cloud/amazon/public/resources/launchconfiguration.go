@@ -27,7 +27,6 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
-	"github.com/kubicorn/kubicorn/pkg/defaults"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
 )
@@ -130,12 +129,12 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-	logger.Debug("Actual: %#v", actual)
-	logger.Debug("Expectd: %#v", expected)
 	var sgs []*string
 	found := false
-	for _, serverPool := range immutable.ServerPools {
-		if serverPool.Name == expected.(*Lc).Name {
+	machineConfigs := immutable.MachineProviderConfigs()
+	for _, machineConfig := range machineConfigs {
+		serverPool := machineConfig.ServerPool
+		if serverPool.Name == expected.(*Lc).Name || machineConfig.Name == expected.(*Lc).Name {
 			for _, firewall := range serverPool.Firewalls {
 				sgs = append(sgs, &firewall.Identifier)
 			}
@@ -182,9 +181,12 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 					if instance.PublicIpAddress != nil {
 						privip = *instance.PrivateIpAddress
 						pubip = *instance.PublicIpAddress
-						immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, immutable.KubernetesAPI.Port)
-						immutable.KubernetesAPI.Endpoint = pubip
+
+						providerConfig := immutable.ProviderConfig()
+						providerConfig.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, immutable.ProviderConfig().KubernetesAPI.Port)
+						providerConfig.KubernetesAPI.Endpoint = pubip
 						logger.Info("Found public IP for master: [%s]", pubip)
+						immutable.SetProviderConfig(providerConfig)
 						found = true
 					}
 				}
@@ -199,7 +201,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		}
 	}
 
-	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
 
 	newResource := &Lc{}
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
@@ -213,7 +215,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		LaunchConfigurationName:  &expected.(*Lc).Name,
 		ImageId:                  &expected.(*Lc).Image,
 		InstanceType:             &expected.(*Lc).InstanceType,
-		KeyName:                  &immutable.SSH.Identifier,
+		KeyName:                  &immutable.ProviderConfig().SSH.Identifier,
 		SecurityGroups:           sgs,
 		UserData:                 &b64data,
 	}
@@ -237,10 +239,10 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 				case autoscaling.ErrCodeResourceContentionFault:
 					logger.Debug(autoscaling.ErrCodeResourceContentionFault, awserr.Error())
 				default:
-					logger.Debug(awserr.Error())
+					logger.Debug("%v\n", awserr)
 				}
 			} else {
-				logger.Debug(err.Error())
+				logger.Debug("%v\n", err)
 			}
 			if strings.Contains(err.Error(), "Invalid IamInstanceProfile") {
 				logger.Debug("InstanceProfile missing waiting...")
@@ -282,7 +284,7 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 
 	// Kubernetes API
 	// Todo (@kris-nova) this obviously isn't immutable
-	immutable.KubernetesAPI.Endpoint = ""
+	immutable.ProviderConfig().KubernetesAPI.Endpoint = ""
 
 	newResource := &Lc{}
 	newResource.Name = actual.(*Lc).Name
@@ -298,22 +300,33 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 
 func (r *Lc) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("lc.Render")
-	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+
+	newCluster := inaccurateCluster
 	serverPool := &cluster.ServerPool{}
 	serverPool.Image = newResource.(*Lc).Image
 	serverPool.Size = newResource.(*Lc).InstanceType
 	serverPool.BootstrapScripts = newResource.(*Lc).BootstrapScripts
 	found := false
-	for i := 0; i < len(newCluster.ServerPools); i++ {
-		if newCluster.ServerPools[i].Name == newResource.(*Lc).Name {
-			newCluster.ServerPools[i].Image = newResource.(*Lc).Image
-			newCluster.ServerPools[i].Size = newResource.(*Lc).InstanceType
-			newCluster.ServerPools[i].BootstrapScripts = newResource.(*Lc).BootstrapScripts
+
+	machineProviderConfigs := newCluster.MachineProviderConfigs()
+	for i := 0; i < len(machineProviderConfigs); i++ {
+		machineProviderConfig := machineProviderConfigs[i]
+		if machineProviderConfig.ServerPool.Name == newResource.(*Lc).Name {
+			machineProviderConfig.ServerPool.Image = newResource.(*Lc).Image
+			machineProviderConfig.ServerPool.Size = newResource.(*Lc).InstanceType
+			machineProviderConfig.ServerPool.BootstrapScripts = newResource.(*Lc).BootstrapScripts
+			machineProviderConfigs[i] = machineProviderConfig
+			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			found = true
 		}
 	}
 	if !found {
-		newCluster.ServerPools = append(newCluster.ServerPools, serverPool)
+		providerConfig := []*cluster.MachineProviderConfig{
+			{
+				ServerPool: serverPool,
+			},
+		}
+		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 
 	return newCluster

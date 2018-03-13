@@ -62,7 +62,8 @@ func TestGetConfigHappy(t *testing.T) {
 	if !ok {
 		port = "6666"
 	}
-	testCluster := &cluster.Cluster{
+	testCluster := &cluster.Cluster{}
+	providerConfig := &cluster.ControlPlaneProviderConfig{
 		SSH: &cluster.SSH{
 			User:          "root",
 			PublicKeyPath: dir + "/credentials/id_rsa.pub",
@@ -72,6 +73,7 @@ func TestGetConfigHappy(t *testing.T) {
 			Endpoint: "localhost",
 		},
 	}
+	testCluster.SetProviderConfig(providerConfig)
 	os.Setenv(local.TestHome, dir+"/tmp")
 
 	// ignore this error, its expected to do so, however, we should have a config file.
