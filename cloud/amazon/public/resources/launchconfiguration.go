@@ -201,7 +201,9 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		}
 	}
 
-	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	providerConfig := immutable.ProviderConfig()
+	providerConfig.Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	immutable.SetProviderConfig(providerConfig)
 
 	newResource := &Lc{}
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)

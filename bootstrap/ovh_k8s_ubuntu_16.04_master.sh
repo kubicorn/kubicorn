@@ -50,8 +50,8 @@ systemctl daemon-reload
 systemctl restart kubelet
 
 # Parse kubicorn configuration file.
-TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
-PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDPORT | tonumber')
+TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
+PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDPORT | tonumber')
 
 # Create kubeadm configuration file.
 touch /etc/kubicorn/kubeadm-config.yaml

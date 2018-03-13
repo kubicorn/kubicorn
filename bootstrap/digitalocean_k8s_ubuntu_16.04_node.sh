@@ -43,8 +43,8 @@ systemctl daemon-reload
 systemctl restart kubelet
 
 # Parse kubicorn configuration file.
-TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
-MASTER=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDMASTER')
+TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
+MASTER=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDMASTER')
 
 # Join node a cluster.
 kubeadm reset

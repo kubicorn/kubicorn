@@ -1,5 +1,14 @@
 # Bootstrap
 
+## Developing bootstrap scripts
+
+If you are running `kubicorn` in the though level directory of the repository set the following environmental variable to force parse the bootstrap scripts locally.
+
+```bash
+$ KUBICORN_FORCE_LOCAL_BOOTSTRAP=1 kubicorn apply mycluster -v 4
+
+```
+
 These are the bootstrap scripts that ship with the default `kubicorn` profiles.
 
 Feel free to add your own, or modify these at any time.
