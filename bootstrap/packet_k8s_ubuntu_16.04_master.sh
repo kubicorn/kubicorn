@@ -38,8 +38,8 @@ swapoff -a
 
 PUBLICIP=$(curl --silent  https://metadata.packet.net/metadata | jq '.network.addresses[] | select(.address_family == 4 and .public == true) .address')
 PRIVATEIP=$(curl --silent  https://metadata.packet.net/metadata | jq '.network.addresses[] | select(.address_family == 4 and .public == false) .address')
-TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
-PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.kubernetesAPI.port | tonumber')
+TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
+PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.kubernetesAPI.port | tonumber')
 
 kubeadm reset
 kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}
