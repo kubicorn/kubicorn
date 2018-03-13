@@ -18,6 +18,7 @@ KUBICORN_TRUECOLOR | bool | Always run `kubicorn` with lolgopher truecolor
 KUBICORN_ENVIRONMENT | string | If it's set to `LOCAL`, `kubicorn` will use bootstrap local bootstrap scripts instead of remote ones. 
 KUBICORN_OUTPUT | string | Set output format for command
 KUBICORN_FORCE_DELETE_KEY | bool | Force delete key for AWS or Packet
+KUBICORN_FORCE_LOCAL_BOOTSTRAP | bool | Force read bootstrap scripts from local dir / bootstrap
 --- | --- | ---
 KUBICORN_S3_ACCESS_KEY | string | Access key for S3-compatible object storage
 KUBICORN_S3_SECRET_KEY | string | Secret key for S3-compatible object storage

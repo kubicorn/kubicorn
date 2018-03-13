@@ -51,8 +51,8 @@ sudo systemctl start docker
 sysctl -w net.bridge.bridge-nf-call-iptables=1
 sysctl -p
 
-TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
-MASTER=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDMASTER')
+TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
+MASTER=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDMASTER')
 # Necessary for joining a cluster with the AWS information
 HOSTNAME=$(hostname -f)
 

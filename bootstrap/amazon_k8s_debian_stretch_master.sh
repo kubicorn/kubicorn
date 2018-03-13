@@ -43,8 +43,8 @@ apt-get install -y \
 
 PUBLICIP=$(ec2metadata --public-ipv4 | cut -d " " -f 2)
 PRIVATEIP=$(ec2metadata --local-ipv4 | cut -d " " -f 2)
-TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
-PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.ClusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDPORT | tonumber')
+TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
+PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDPORT | tonumber')
 
 mkdir -p /etc/kubicorn
 

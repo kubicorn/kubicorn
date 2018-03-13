@@ -46,13 +46,13 @@ type Cluster struct {
 	// ClusterAPI is the official Kubernetes cluster API
 	// We have this wrapped in a larger struct to support the transition
 	// and possibly allow for more values downstream
-	ClusterAPI *clusterv1.Cluster
+	ClusterAPI *clusterv1.Cluster   `json:"clusterAPI,omitempty"`
 
 	// ControlPlane is the control plane MachineSet
-	ControlPlane *clusterv1.MachineSet
+	ControlPlane *clusterv1.MachineSet   `json:"controlPlane,omitempty"`
 
 	// MachineSets are a subset of worker machines
-	MachineSets []*clusterv1.MachineSet
+	MachineSets []*clusterv1.MachineSet   `json:"machineSets,omitempty"`
 }
 
 // ProviderConfig is a convenience method that will attempt

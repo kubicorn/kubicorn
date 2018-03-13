@@ -27,8 +27,23 @@ import (
 func ReadFromResource(r string) (string, error) {
 	env := os.Getenv("KUBICORN_ENVIRONMENT")
 
+
+
+	// Hack in here for local bootstrap override
+	devMode := os.Getenv("KUBICORN_FORCE_LOCAL_BOOTSTRAP")
+	if devMode != "" {
+		logger.Info("Parsing bootstrap script from filesystem [%s]", r)
+		return readFromFS(r)
+	}
+
 	switch {
 
+
+	// -----------------------------------------------------------------------------------------------------------------
+	//
+	//
+	// starts with bootstrap/
+	//
 	case strings.HasPrefix(strings.ToLower(r), "bootstrap/") && env != "LOCAL":
 
 		// If we start with bootstrap/ we know this is a resource we should pull from github.com
@@ -41,7 +56,12 @@ func ReadFromResource(r string) (string, error) {
 		}
 		return readFromHTTP(url)
 
-	case strings.HasPrefix(strings.ToLower(r), "http://") || strings.HasPrefix(strings.ToLower(r), "https://"):
+	// -----------------------------------------------------------------------------------------------------------------
+	//
+	//
+	// starts with http(s)://
+	//
+	case strings.HasPrefix(strings.ToLower(r), "http://") || strings.HasPrefix(strings.ToLower(r), "https://") && env != "LOCAL":
 		url, err := url.ParseRequestURI(r)
 		logger.Info("Parsing bootstrap script from url [%s]", url)
 		if err != nil {
@@ -49,6 +69,11 @@ func ReadFromResource(r string) (string, error) {
 		}
 		return readFromHTTP(url)
 
+	// -----------------------------------------------------------------------------------------------------------------
+	//
+	//
+	// pull from local
+	//
 	default:
 		logger.Info("Parsing bootstrap script from filesystem [%s]", r)
 		return readFromFS(r)
