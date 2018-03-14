@@ -43,25 +43,28 @@ type configLoader struct {
 
 func newConfigLoader(existing *cluster.Cluster) (*configLoader, error) {
 	pubKeyPath := local.Expand(existing.ProviderConfig().SSH.PublicKeyPath)
-	// --------------------------------------------------------------------------------
-	//
-	// @kris-nova
-	//
-	// We don't need to check a key first, because SSH can support multiple auth implementations
-	// So here we just add BOTH a key based auth, and an arbitrary agent. Please don't touch this
-	// without talking to @kris-nova first OR unless something is just completely fucked
-	//
+
+	// create an agent, either a connection to the one of the environment of the user or
+	// (if there is none) a go-implementation of a simple keyring
 	sshAgent := agent.NewAgent()
-	sshAgentWithKey, err := sshAgent.AddKey(pubKeyPath)
-	if err != nil {
-		return nil, fmt.Errorf("Unable to add key: %v", err)
-	}
 	sshConfig := &ssh.ClientConfig{
 		User:            existing.ProviderConfig().SSH.User,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
 	sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
-	sshConfig.Auth = append(sshConfig.Auth, sshAgentWithKey.GetAgent())
+
+	// check if pubkey is already in the agent. if it is already loaded
+	// in the agent the user does not need to enter the passphrase
+	if err := sshAgent.CheckKey(pubKeyPath); err != nil {
+		// add the key to the agent.
+		// THIS HAS A SIDEEFFECT: if the agent is the user's agent, the key will
+		// be appended to the list of keys. so the agent will have an additional
+		// key in it's ring. i don't see a big problem here.
+		_, err := sshAgent.AddKey(pubKeyPath)
+		if err != nil {
+			return nil, fmt.Errorf("Unable to add key: %v", err)
+		}
+	}
 	sshConfig.SetDefaults()
 
 	return &configLoader{
