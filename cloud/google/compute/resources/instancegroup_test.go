@@ -36,9 +36,7 @@ func TestExpectedHappy(t *testing.T) {
 		},
 	}
 
-	knownCluster := &cluster.Cluster{
-		Name: "ClusterName",
-	}
+	knownCluster := cluster.NewCluster("ClusterName")
 	providerConfig := &cluster.ControlPlaneProviderConfig{
 		CloudId: "test-123",
 		SSH: &cluster.SSH{

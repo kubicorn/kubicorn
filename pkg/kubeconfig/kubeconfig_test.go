@@ -58,11 +58,11 @@ func TestSdkHappy(t *testing.T) {
 func TestGetConfigHappy(t *testing.T) {
 	dir, err := os.Getwd()
 	dir, err = filepath.Abs(dir + "/../../test")
-	port, ok := os.LookupEnv("KUBICORN_TEST_SSH_PORT")
+	port, ok := os.LookupEnv(local.TestPort)
 	if !ok {
 		port = "6666"
 	}
-	testCluster := &cluster.Cluster{}
+	testCluster := cluster.NewCluster("test_cluster")
 	providerConfig := &cluster.ControlPlaneProviderConfig{
 		SSH: &cluster.SSH{
 			User:          "root",

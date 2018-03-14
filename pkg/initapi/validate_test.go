@@ -24,10 +24,8 @@ func TestValidateAtLeastOneServerPoolHappy(t *testing.T) {
 	machineProviderConfig := &cluster.MachineProviderConfig{
 		ServerPool: &cluster.ServerPool{},
 	}
-	c := &cluster.Cluster{
-		Name: "c",
-	}
-	c.SetMachineProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
+	c := cluster.NewCluster("c")
+	c.NewMachineSetsFromProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
 	err := validateAtLeastOneMachineSet(c)
 	if err != nil {
 		t.Fatalf("error message incorrect\n"+
@@ -38,7 +36,7 @@ func TestValidateAtLeastOneServerPoolHappy(t *testing.T) {
 
 func TestValidateAtLeastOneServerPoolSad(t *testing.T) {
 	c := cluster.NewCluster("c")
-	expected := "cluster c must have at least one server pool"
+	expected := "cluster c must have at least one machine set"
 	err := validateAtLeastOneMachineSet(c)
 	if err == nil {
 		t.Fatalf("expected an error")
@@ -52,12 +50,13 @@ func TestValidateAtLeastOneServerPoolSad(t *testing.T) {
 
 func TestValidateServerPoolMaxCountGreaterThan1Happy(t *testing.T) {
 	machineProviderConfig := &cluster.MachineProviderConfig{
-		ServerPool: &cluster.ServerPool{},
+		ServerPool: &cluster.ServerPool{
+			MaxCount: 1,
+			Name:     "p",
+		},
 	}
-	c := &cluster.Cluster{
-		Name: "c",
-	}
-	c.SetMachineProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
+	c := cluster.NewCluster("c")
+	c.NewMachineSetsFromProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
 	err := validateMachineSetMaxCountGreaterThan1(c)
 	if err != nil {
 		t.Fatalf("error message incorrect\n"+
@@ -73,10 +72,8 @@ func TestValidateServerPoolMaxCountGreaterThan1Sad(t *testing.T) {
 			Name:     "p",
 		},
 	}
-	c := &cluster.Cluster{
-		Name: "c",
-	}
-	c.SetMachineProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
+	c := cluster.NewCluster("c")
+	c.NewMachineSetsFromProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
 	expected := "server pool p in cluster c must have a maximum count greater than 0"
 	err := validateMachineSetMaxCountGreaterThan1(c)
 	if err == nil {
@@ -98,13 +95,11 @@ func TestValidateSpotPriceOnlyForAwsClusterHappy(t *testing.T) {
 			},
 		},
 	}
-	c := &cluster.Cluster{
-		Name: "c",
-	}
+	c := cluster.NewCluster("c")
 	providerConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud: "amazon",
 	}
-	c.SetMachineProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
+	c.NewMachineSetsFromProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
 	c.SetProviderConfig(providerConfig)
 	err := validateSpotPriceOnlyForAwsCluster(c)
 	if err != nil {
@@ -123,13 +118,11 @@ func TestValidateSpotPriceOnlyForAwsClusterSad(t *testing.T) {
 			},
 		},
 	}
-	c := &cluster.Cluster{
-		Name: "c",
-	}
+	c := cluster.NewCluster("c")
 	providerConfig := &cluster.ControlPlaneProviderConfig{
 		Cloud: "azure",
 	}
-	c.SetMachineProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
+	c.NewMachineSetsFromProviderConfigs([]*cluster.MachineProviderConfig{machineProviderConfig})
 	c.SetProviderConfig(providerConfig)
 	expected := "Spot price provided for server pool p can only be used with AWS"
 	err := validateSpotPriceOnlyForAwsCluster(c)
