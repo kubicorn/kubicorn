@@ -34,8 +34,8 @@ func TestClusterModelHappy(t *testing.T) {
 			},
 		},
 	}
-	c := &cluster.Cluster{}
-	c.SetMachineProviderConfigs(machineProviderConfig)
+	c := cluster.NewCluster("test_cluster")
+	c.NewMachineSetsFromProviderConfigs(machineProviderConfig)
 	result := NewGoogleComputeModel(c)
 
 	if len(result.Resources()) != 2 {

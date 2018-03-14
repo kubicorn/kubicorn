@@ -23,7 +23,8 @@ import (
 )
 
 const (
-	TestHome string = "KUBICORN_TEST_HOME_DIRECTORY"
+	TestHome = "KUBICORN_TEST_HOME_DIRECTORY"
+	TestPort = "KUBICORN_TEST_SSH_PORT"
 )
 
 func Home() string {
