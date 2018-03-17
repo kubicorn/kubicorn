@@ -46,6 +46,14 @@ type Device struct {
 	ProjectID        string
 }
 
+func (r *Device) String() string {
+	return fmt.Sprintf(
+		"shared:%v location:%s type:%s os:%s sshfingerprint:%s bootstrap:%s count:%d tags:%s projectid:%s",
+		r.Shared,
+		r.Location,
+		r.Type, r.OS, r.SSHFingerprint, r.BootstrapScripts, r.Count, r.Tags, r.ProjectID)
+}
+
 func (r *Device) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("device.Actual")
 	newResource := &Device{
@@ -86,7 +94,7 @@ func (r *Device) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 		newResource.Count = 0
 		newResource.Type = r.ServerPool.Size
 		newResource.OS = r.ServerPool.Image
-		newResource.Location = r.Location
+		newResource.Location = immutable.ProviderConfig().Location
 		newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
 		newResource.SSHFingerprint = immutable.ProviderConfig().SSH.PublicKeyFingerprint
 		newResource.Name = r.ServerPool.Name
