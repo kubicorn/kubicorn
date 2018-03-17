@@ -27,6 +27,7 @@ import (
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 type OutputData struct {
@@ -34,50 +35,50 @@ type OutputData struct {
 	Expected *cluster.Cluster
 }
 
-var exo = &cli.ExplainOptions{}
-
 // ExplainCmd represents the explain command
 func ExplainCmd() *cobra.Command {
+	var exo = &cli.ExplainOptions{}
+
 	var cmd = &cobra.Command{
 		Use:   "explain",
 		Short: "Explain cluster",
 		Long:  `Output expected and actual state of the given cluster`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				exo.Name = cli.StrEnvDef("KUBICORN_NAME", "")
-			} else if len(args) > 1 {
+			switch len(args) {
+			case 0:
+				exo.Name = viper.GetString(keyKubicornName)
+			case 1:
+				exo.Name = args[0]
+			default:
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
-			} else {
-				exo.Name = args[0]
 			}
 
-			err := RunExplain(exo)
-			if err != nil {
+			if err := runExplain(exo); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
 		},
 	}
 
-	cmd.Flags().StringVarP(&exo.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	cmd.Flags().StringVarP(&exo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	cmd.Flags().StringVarP(&exo.Output, "output", "o", cli.StrEnvDef("KUBICORN_OUTPUT", "json"), "Output format (currently only JSON supported)")
+	fs := cmd.Flags()
 
-	// git flags
-	cmd.Flags().StringVar(&exo.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	fs.StringVarP(&exo.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&exo.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	fs.StringVarP(&exo.Output, keyOutput, "o", viper.GetString(keyOutput), descOutput)
 
-	// s3 flags
-	cmd.Flags().StringVar(&exo.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
-	cmd.Flags().StringVar(&exo.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
-	cmd.Flags().StringVar(&exo.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
-	cmd.Flags().BoolVar(&exo.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
-	cmd.Flags().StringVar(&exo.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+	fs.StringVar(&exo.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
+	fs.StringVar(&exo.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&exo.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&exo.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&exo.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVar(&exo.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return cmd
 }
 
-func RunExplain(options *cli.ExplainOptions) error {
+func runExplain(options *cli.ExplainOptions) error {
 
 	// Ensure we have a name
 	name := options.Name
@@ -108,8 +109,8 @@ func RunExplain(options *cli.ExplainOptions) error {
 
 	runtimeParams := &pkg.RuntimeParameters{}
 
-	if len(ao.AwsProfile) > 0 {
-		runtimeParams.AwsProfile = ao.AwsProfile
+	if len(options.AwsProfile) > 0 {
+		runtimeParams.AwsProfile = options.AwsProfile
 	}
 
 	reconciler, err := pkg.GetReconciler(cluster, runtimeParams)
@@ -127,7 +128,7 @@ func RunExplain(options *cli.ExplainOptions) error {
 		return fmt.Errorf("Unable to get expected cluster: %v", err)
 	}
 
-	if exo.Output == "json" {
+	if options.Output == "json" {
 		o, err := json.MarshalIndent(d, "", "\t")
 		if err != nil {
 			return fmt.Errorf("Unable to parse cluster: %v", err)

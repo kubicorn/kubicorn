@@ -49,8 +49,8 @@ func PromptCmd() *cobra.Command {
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
 			}
-			err := RunPrompt()
-			if err != nil {
+
+			if err := runPrompt(); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
@@ -62,7 +62,7 @@ func PromptCmd() *cobra.Command {
 	return promptCmd
 }
 
-func RunPrompt() error {
+func runPrompt() error {
 	fmt.Println("Please input your kubicorn commands.")
 	defer fmt.Println("Bye!")
 

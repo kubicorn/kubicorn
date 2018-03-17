@@ -27,13 +27,13 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/local"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"github.com/yuroyoro/swalker"
 )
 
-var ao = &cli.ApplyOptions{}
-
 // ApplyCmd represents the apply command
 func ApplyCmd() *cobra.Command {
+	var ao = &cli.ApplyOptions{}
 	var applyCmd = &cobra.Command{
 		Use:   "apply <NAME>",
 		Short: "Apply a cluster resource to a cloud",
@@ -42,41 +42,42 @@ func ApplyCmd() *cobra.Command {
 	This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
 	The apply will run once, and ultimately time out if something goes wrong.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) == 0 {
-				ao.Name = cli.StrEnvDef("KUBICORN_NAME", "")
-			} else if len(args) > 1 {
+			switch len(args) {
+			case 0:
+				ao.Name = viper.GetString(keyKubicornName)
+			case 1:
+				ao.Name = args[0]
+			default:
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
-			} else {
-				ao.Name = args[0]
 			}
 
-			err := RunApply(ao)
-			if err != nil {
+			if err := runApply(ao); err != nil {
 				logger.Critical(err.Error())
 				os.Exit(1)
 			}
-
 		},
 	}
 
-	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	applyCmd.Flags().StringVarP(&ao.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "set cluster setting")
-	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", cli.StrEnvDef("AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
-	applyCmd.Flags().StringVar(&ao.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to be used for saving the git state for the cluster.")
+	fs := applyCmd.Flags()
 
-	// s3 flags
-	applyCmd.Flags().StringVar(&ao.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
-	applyCmd.Flags().StringVar(&ao.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
-	applyCmd.Flags().StringVar(&ao.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
-	applyCmd.Flags().BoolVar(&ao.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
-	applyCmd.Flags().StringVar(&ao.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the git state for the cluster.")
+	fs.StringVarP(&ao.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&ao.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	fs.StringVarP(&ao.Set, keyKubicornSet, "e", viper.GetString(keyKubicornSet), descSet)
+
+	fs.StringVar(&ao.AwsProfile, keyAwsProfile, viper.GetString(keyAwsProfile), descAwsProfile)
+	fs.StringVar(&ao.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
+	fs.StringVar(&ao.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&ao.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&ao.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&ao.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVar(&ao.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return applyCmd
 }
 
-func RunApply(options *cli.ApplyOptions) error {
+func runApply(options *cli.ApplyOptions) error {
 
 	// Ensure we have a name
 	name := options.Name
@@ -121,8 +122,8 @@ func RunApply(options *cli.ApplyOptions) error {
 
 	runtimeParams := &pkg.RuntimeParameters{}
 
-	if len(ao.AwsProfile) > 0 {
-		runtimeParams.AwsProfile = ao.AwsProfile
+	if len(options.AwsProfile) > 0 {
+		runtimeParams.AwsProfile = options.AwsProfile
 	}
 
 	reconciler, err := pkg.GetReconciler(cluster, runtimeParams)
@@ -147,15 +148,13 @@ func RunApply(options *cli.ApplyOptions) error {
 		return fmt.Errorf("Unable to reconcile cluster: %v", err)
 	}
 
-	err = stateStore.Commit(newCluster)
-	if err != nil {
+	if err = stateStore.Commit(newCluster); err != nil {
 		return fmt.Errorf("Unable to commit state store: %v", err)
 	}
 
 	logger.Info("Updating state store for cluster [%s]", options.Name)
 
-	err = kubeconfig.RetryGetConfig(newCluster)
-	if err != nil {
+	if err = kubeconfig.RetryGetConfig(newCluster); err != nil {
 		return fmt.Errorf("Unable to write kubeconfig: %v", err)
 	}
 
