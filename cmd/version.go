@@ -15,21 +15,16 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
-	"os/exec"
-	"path/filepath"
-	"runtime"
-	"time"
 
 	"github.com/kubicorn/kubicorn/pkg/cli"
 	"github.com/kubicorn/kubicorn/pkg/logger"
+	ver "github.com/kubicorn/kubicorn/pkg/version"
 	"github.com/spf13/cobra"
 )
 
-var versionFile = "/src/github.com/kubicorn/kubicorn/VERSION"
+
 
 // VersionCmd represents the version command
 func VersionCmd() *cobra.Command {
@@ -50,36 +45,7 @@ func VersionCmd() *cobra.Command {
 }
 
 func runVersion(options *cli.VersionOptions) error {
-	options.Version = getVersion()
-	options.GitCommit = getGitCommit()
-	options.BuildDate = time.Now().UTC().String()
-	options.GOVersion = runtime.Version()
-	options.GOARCH = runtime.GOARCH
-	options.GOOS = runtime.GOOS
-	voBytes, err := json.Marshal(options)
-	if err != nil {
-		return err
-	}
-	fmt.Println("Kubicorn version: ", string(voBytes))
+	fmt.Println("Kubicorn version: ", ver.GetVersionJSONStr())
 	return nil
 }
 
-func getVersion() string {
-	path := filepath.Join(os.Getenv("GOPATH") + versionFile)
-	vBytes, err := ioutil.ReadFile(path)
-	if err != nil {
-		// ignore error
-		return ""
-	}
-	return string(vBytes)
-}
-
-func getGitCommit() string {
-	cmd := exec.Command("git", "rev-parse", "--verify", "HEAD")
-	output, err := cmd.Output()
-	if err != nil {
-		// ignore error
-		return ""
-	}
-	return string(output)
-}
