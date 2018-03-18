@@ -78,12 +78,12 @@ func (r *Droplet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Re
 		newResource.Image = droplet.Image.Slug
 		newResource.Region = droplet.Region.Slug
 	}
+
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
 	newResource.SSHFingerprint = immutable.ProviderConfig().SSH.PublicKeyFingerprint
 	newResource.Name = r.ServerPool.Name
 	newResource.Count = r.ServerPool.MaxCount
-	newResource.Image = r.ServerPool.Image
-	newResource.Size = r.ServerPool.Size
+	newResource.Region = immutable.ProviderConfig().Location
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -123,6 +123,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 
 	masterIpPrivate := ""
 	masterIPPublic := ""
+	providerConfig := immutable.ProviderConfig()
 	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
 		found := false
 		for i := 0; i < MasterIPAttempts; i++ {
@@ -188,14 +189,11 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				}
 
 				openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
-				immutable.ProviderConfig().Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
-
+				providerConfig.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 				found = true
 			}
 
-			// Todo (@kris-nova) this is obviously not immutable
-			immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, immutable.ProviderConfig().KubernetesAPI.Port)
-
+			providerConfig.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, immutable.ProviderConfig().KubernetesAPI.Port)
 			break
 		}
 		if !found {
@@ -203,7 +201,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		}
 	}
 
-	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	providerConfig.Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	immutable.SetProviderConfig(providerConfig)
 
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
@@ -253,8 +252,9 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		BootstrapScripts: expected.(*Droplet).BootstrapScripts,
 	}
 
-	// todo (@kris-nova) this is obviously not immutable
-	immutable.ProviderConfig().KubernetesAPI.Endpoint = masterIPPublic
+	providerConfig = immutable.ProviderConfig()
+	providerConfig.KubernetesAPI.Endpoint = masterIPPublic
+	immutable.SetProviderConfig(providerConfig)
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -338,6 +338,7 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 			machineProviderConfig.ServerPool.Size = newResource.(*Droplet).Size
 			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
 			machineProviderConfig.ServerPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
+			machineProviderConfig.ServerPool.Type = serverPool.Type
 			found = true
 			machineProviderConfigs[i] = machineProviderConfig
 			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
