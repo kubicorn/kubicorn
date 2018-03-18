@@ -29,23 +29,23 @@ import (
 var versionFile = "/src/github.com/kubicorn/kubicorn/VERSION"
 
 type Version struct {
-	Version string
+	Version   string
 	GitCommit string
 	BuildDate string
 	GoVersion string
-	GoArch string
-	GoOS string
+	GoArch    string
+	GoOS      string
 }
 
 // GetVersion returns Kubicorn version as a Version struct.
 func GetVersion() *Version {
 	return &Version{
-		Version: parseVersionFile(),
+		Version:   parseVersionFile(),
 		GitCommit: getGitCommit(),
 		BuildDate: time.Now().UTC().String(),
 		GoVersion: runtime.Version(),
-		GoArch: runtime.GOARCH,
-		GoOS: runtime.GOOS,
+		GoArch:    runtime.GOARCH,
+		GoOS:      runtime.GOOS,
 	}
 }
 

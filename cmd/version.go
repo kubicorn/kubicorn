@@ -24,8 +24,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-
-
 // VersionCmd represents the version command
 func VersionCmd() *cobra.Command {
 	var vo = &cli.VersionOptions{}
@@ -48,4 +46,3 @@ func runVersion(options *cli.VersionOptions) error {
 	fmt.Println("Kubicorn version: ", ver.GetVersionJSONStr())
 	return nil
 }
-
