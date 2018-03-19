@@ -14,18 +14,22 @@
 
 package fileresource
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/kubicorn/kubicorn/pkg/version"
+)
 
 const (
 	githubProtocol = "https://"
-	githubRepo     = "raw.githubusercontent.com/kubicorn/kubicorn"
-	githubBranch   = "master"
+	githubRepo     = "raw.githubusercontent.com/kubicorn/bootstrap"
 )
 
 // getGitHubUrl will build a query-able URL from a bootstrap script that we can parse in at runtime.
 // Example URL:
 // https://raw.githubusercontent.com/kubicorn/kubicorn/master/bootstrap/amazon_k8s_centos_7_master.sh
 func getGitHubUrl(bootstrapScript string) string {
+	githubBranch := version.GetVersion().Version
 	gitHubUrl := fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript)
 	return gitHubUrl
 }

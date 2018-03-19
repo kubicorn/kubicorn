@@ -15,12 +15,16 @@ package fileresource
 
 import (
 	"testing"
+
+	"github.com/kubicorn/kubicorn/pkg/version"
 )
 
 func TestGithubUrl(t *testing.T) {
 
+	githubBranch := version.GetVersion().Version
+
 	testData := map[string]string{
-		"bootstrap/myscript.sh": "https://raw.githubusercontent.com/kubicorn/kubicorn/master/bootstrap/myscript.sh",
+		"bootstrap/myscript.sh": "https://raw.githubusercontent.com/kubicorn/bootstrap/" + githubBranch + "/bootstrap/myscript.sh",
 	}
 
 	for input, expectedOutput := range testData {

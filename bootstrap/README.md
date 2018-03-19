@@ -1,5 +1,11 @@
 # Bootstrap
 
+## Deprecation
+
+This directory has been moved to the [`kubicorn/boostrap`](https://github.com/kubicorn/bootstrap) repository. This directory is here to support backwards compatibility for users running older versions of Kubicorn.
+
+Changes made to scripts in this directory will be rejected. Instead, create a Pull Request in the [`kubicorn/boostrap`](https://github.com/kubicorn/bootstrap) repository.
+
 ## Developing bootstrap scripts
 
 If you are running `kubicorn` in the though level directory of the repository set the following environmental variable to force parse the bootstrap scripts locally.
