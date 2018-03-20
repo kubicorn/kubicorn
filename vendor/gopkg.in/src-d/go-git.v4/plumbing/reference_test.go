@@ -10,8 +10,22 @@ const (
 	ExampleReferenceName ReferenceName = "refs/heads/v4"
 )
 
+func (s *ReferenceSuite) TestReferenceTypeString(c *C) {
+	c.Assert(SymbolicReference.String(), Equals, "symbolic-reference")
+}
+
 func (s *ReferenceSuite) TestReferenceNameShort(c *C) {
 	c.Assert(ExampleReferenceName.Short(), Equals, "v4")
+}
+
+func (s *ReferenceSuite) TestReferenceNameWithSlash(c *C) {
+	r := ReferenceName("refs/remotes/origin/feature/AllowSlashes")
+	c.Assert(r.Short(), Equals, "origin/feature/AllowSlashes")
+}
+
+func (s *ReferenceSuite) TestReferenceNameNote(c *C) {
+	r := ReferenceName("refs/notes/foo")
+	c.Assert(r.Short(), Equals, "notes/foo")
 }
 
 func (s *ReferenceSuite) TestNewReferenceFromStrings(c *C) {
@@ -41,21 +55,21 @@ func (s *ReferenceSuite) TestNewHashReference(c *C) {
 }
 
 func (s *ReferenceSuite) TestIsBranch(c *C) {
-	r := NewHashReference(ExampleReferenceName, ZeroHash)
+	r := ExampleReferenceName
 	c.Assert(r.IsBranch(), Equals, true)
 }
 
 func (s *ReferenceSuite) TestIsNote(c *C) {
-	r := NewHashReference(ReferenceName("refs/notes/foo"), ZeroHash)
+	r := ReferenceName("refs/notes/foo")
 	c.Assert(r.IsNote(), Equals, true)
 }
 
 func (s *ReferenceSuite) TestIsRemote(c *C) {
-	r := NewHashReference(ReferenceName("refs/remotes/origin/master"), ZeroHash)
+	r := ReferenceName("refs/remotes/origin/master")
 	c.Assert(r.IsRemote(), Equals, true)
 }
 
 func (s *ReferenceSuite) TestIsTag(c *C) {
-	r := NewHashReference(ReferenceName("refs/tags/v3.1."), ZeroHash)
+	r := ReferenceName("refs/tags/v3.1.")
 	c.Assert(r.IsTag(), Equals, true)
 }

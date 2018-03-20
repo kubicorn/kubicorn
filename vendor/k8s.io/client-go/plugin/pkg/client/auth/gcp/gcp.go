@@ -30,7 +30,6 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
-	"k8s.io/apimachinery/pkg/util/net"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	restclient "k8s.io/client-go/rest"
 	"k8s.io/client-go/util/jsonpath"
@@ -288,8 +287,6 @@ type conditionalTransport struct {
 	persister      restclient.AuthProviderConfigPersister
 }
 
-var _ net.RoundTripperWrapper = &conditionalTransport{}
-
 func (t *conditionalTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if len(req.Header.Get("Authorization")) != 0 {
 		return t.oauthTransport.Base.RoundTrip(req)
@@ -309,5 +306,3 @@ func (t *conditionalTransport) RoundTrip(req *http.Request) (*http.Response, err
 
 	return res, nil
 }
-
-func (t *conditionalTransport) WrappedRoundTripper() http.RoundTripper { return t.oauthTransport.Base }

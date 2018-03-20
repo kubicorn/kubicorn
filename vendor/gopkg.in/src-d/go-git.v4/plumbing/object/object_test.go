@@ -6,12 +6,13 @@ import (
 	"testing"
 	"time"
 
-	"gopkg.in/src-d/go-git.v4/fixtures"
 	"gopkg.in/src-d/go-git.v4/plumbing"
+	"gopkg.in/src-d/go-git.v4/plumbing/filemode"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
 	"gopkg.in/src-d/go-git.v4/storage/filesystem"
 
 	. "gopkg.in/check.v1"
+	"gopkg.in/src-d/go-git-fixtures.v3"
 )
 
 func Test(t *testing.T) { TestingT(t) }
@@ -91,7 +92,7 @@ func (s *ObjectsSuite) TestParseTree(c *C) {
 	tree.buildMap()
 	c.Assert(tree.m, HasLen, 8)
 	c.Assert(tree.m[".gitignore"].Name, Equals, ".gitignore")
-	c.Assert(tree.m[".gitignore"].Mode.String(), Equals, "-rw-r--r--")
+	c.Assert(tree.m[".gitignore"].Mode, Equals, filemode.Regular)
 	c.Assert(tree.m[".gitignore"].Hash.String(), Equals, "32858aad3c383ed1ff0a0f9bdf231d54a00c9e88")
 
 	count := 0
@@ -136,6 +137,16 @@ func (s *ObjectsSuite) TestParseSignature(c *C) {
 		`Foo Bar <foo@bar.com>`: {
 			Name:  "Foo Bar",
 			Email: "foo@bar.com",
+			When:  time.Time{},
+		},
+		`crap> <foo@bar.com> 1257894000 +1000`: {
+			Name:  "crap>",
+			Email: "foo@bar.com",
+			When:  MustParseTime("2009-11-11 09:00:00 +1000"),
+		},
+		`><`: {
+			Name:  "",
+			Email: "",
 			When:  time.Time{},
 		},
 		``: {

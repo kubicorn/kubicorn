@@ -3,6 +3,7 @@
 package binary
 
 import (
+	"bufio"
 	"encoding/binary"
 	"io"
 
@@ -27,7 +28,7 @@ func ReadUntil(r io.Reader, delim byte) ([]byte, error) {
 	var buf [1]byte
 	value := make([]byte, 0, 16)
 	for {
-		if _, err := r.Read(buf[:]); err != nil {
+		if _, err := io.ReadFull(r, buf[:]); err != nil {
 			if err == io.EOF {
 				return nil, err
 			}
@@ -93,7 +94,17 @@ const (
 	lengthBits   = uint8(7)   // subsequent bytes has 7 bits to store the length
 )
 
-// ReadUint32 reads 4 bytes and returns them as a Big ndian uint32
+// ReadUint64 reads 8 bytes and returns them as a BigEndian uint32
+func ReadUint64(r io.Reader) (uint64, error) {
+	var v uint64
+	if err := binary.Read(r, binary.BigEndian, &v); err != nil {
+		return 0, err
+	}
+
+	return v, nil
+}
+
+// ReadUint32 reads 4 bytes and returns them as a BigEndian uint32
 func ReadUint32(r io.Reader) (uint32, error) {
 	var v uint32
 	if err := binary.Read(r, binary.BigEndian, &v); err != nil {
@@ -121,4 +132,34 @@ func ReadHash(r io.Reader) (plumbing.Hash, error) {
 	}
 
 	return h, nil
+}
+
+const sniffLen = 8000
+
+// IsBinary detects if data is a binary value based on:
+// http://git.kernel.org/cgit/git/git.git/tree/xdiff-interface.c?id=HEAD#n198
+func IsBinary(r io.Reader) (bool, error) {
+	reader := bufio.NewReader(r)
+	c := 0
+	for {
+		if c == sniffLen {
+			break
+		}
+
+		b, err := reader.ReadByte()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return false, err
+		}
+
+		if b == byte(0) {
+			return true, nil
+		}
+
+		c++
+	}
+
+	return false, nil
 }

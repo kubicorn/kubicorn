@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"fmt"
 
-	"gopkg.in/src-d/go-git.v4/fixtures"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"gopkg.in/src-d/go-git.v4/storage/memory"
 
 	. "gopkg.in/check.v1"
+	"gopkg.in/src-d/go-git-fixtures.v3"
 )
 
 type ReferencesSuite struct {
@@ -287,20 +288,40 @@ var referencesTests = [...]struct {
 	*/
 }
 
+func (s *ReferencesSuite) TestObjectNotFoundError(c *C) {
+	h1 := plumbing.NewHash("af2d6a6954d532f8ffb47615169c8fdf9d383a1a")
+	hParent := plumbing.NewHash("1669dce138d9b841a518c64b10914d88f5e488ea")
+
+	url := fixtures.ByURL("https://github.com/git-fixtures/basic.git").One().DotGit().Root()
+	storer := memory.NewStorage()
+	r, err := Clone(storer, nil, &CloneOptions{
+		URL: url,
+	})
+	c.Assert(err, IsNil)
+
+	delete(storer.Objects, hParent)
+
+	commit, err := r.CommitObject(h1)
+	c.Assert(err, IsNil)
+
+	_, err = references(commit, "LICENSE")
+	c.Assert(err, Equals, plumbing.ErrObjectNotFound)
+}
+
 func (s *ReferencesSuite) TestRevList(c *C) {
 	for _, t := range referencesTests {
 		r := s.NewRepositoryFromPackfile(fixtures.ByURL(t.repo).One())
 
-		commit, err := r.Commit(plumbing.NewHash(t.commit))
+		commit, err := r.CommitObject(plumbing.NewHash(t.commit))
 		c.Assert(err, IsNil)
 
-		revs, err := References(commit, t.path)
+		revs, err := references(commit, t.path)
 		c.Assert(err, IsNil)
 		c.Assert(len(revs), Equals, len(t.revs))
 
 		for i := range revs {
 			if revs[i].Hash.String() != t.revs[i] {
-				commit, err := s.Repository.Commit(plumbing.NewHash(t.revs[i]))
+				commit, err := s.Repository.CommitObject(plumbing.NewHash(t.revs[i]))
 				c.Assert(err, IsNil)
 				equiv, err := equivalent(t.path, revs[i], commit)
 				c.Assert(err, IsNil)
@@ -358,7 +379,7 @@ func (s *ReferencesSuite) commits(c *C, repo string, hs ...string) []*object.Com
 
 	result := make([]*object.Commit, 0, len(hs))
 	for _, h := range hs {
-		commit, err := r.Commit(plumbing.NewHash(h))
+		commit, err := r.CommitObject(plumbing.NewHash(h))
 		c.Assert(err, IsNil)
 
 		result = append(result, commit)

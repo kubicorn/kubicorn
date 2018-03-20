@@ -109,3 +109,12 @@ func (tty *TTY) ReadPasswordClear() (string, error) {
 			strings.Repeat("\b", len(s)))
 	return s, err
 }
+
+type WINSIZE struct {
+	W int
+	H int
+}
+
+func (tty *TTY) SIGWINCH() chan WINSIZE {
+	return tty.sigwinch()
+}

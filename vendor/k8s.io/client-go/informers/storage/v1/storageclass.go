@@ -19,13 +19,13 @@ limitations under the License.
 package v1
 
 import (
-	storage_v1 "k8s.io/api/storage/v1"
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	internalinterfaces "k8s.io/client-go/informers/internalinterfaces"
 	kubernetes "k8s.io/client-go/kubernetes"
 	v1 "k8s.io/client-go/listers/storage/v1"
+	storage_v1 "k8s.io/client-go/pkg/apis/storage/v1"
 	cache "k8s.io/client-go/tools/cache"
 	time "time"
 )
@@ -41,11 +41,8 @@ type storageClassInformer struct {
 	factory internalinterfaces.SharedInformerFactory
 }
 
-// NewStorageClassInformer constructs a new informer for StorageClass type.
-// Always prefer using an informer factory to get a shared informer instead of getting an independent
-// one. This reduces memory footprint and number of connections to the server.
-func NewStorageClassInformer(client kubernetes.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return cache.NewSharedIndexInformer(
+func newStorageClassInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	sharedIndexInformer := cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
 				return client.StorageV1().StorageClasses().List(options)
@@ -56,16 +53,14 @@ func NewStorageClassInformer(client kubernetes.Interface, resyncPeriod time.Dura
 		},
 		&storage_v1.StorageClass{},
 		resyncPeriod,
-		indexers,
+		cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc},
 	)
-}
 
-func defaultStorageClassInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewStorageClassInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
+	return sharedIndexInformer
 }
 
 func (f *storageClassInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&storage_v1.StorageClass{}, defaultStorageClassInformer)
+	return f.factory.InformerFor(&storage_v1.StorageClass{}, newStorageClassInformer)
 }
 
 func (f *storageClassInformer) Lister() v1.StorageClassLister {

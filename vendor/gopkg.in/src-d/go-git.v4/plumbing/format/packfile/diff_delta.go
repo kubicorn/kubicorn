@@ -1,7 +1,7 @@
 package packfile
 
 import (
-	"io/ioutil"
+	"bytes"
 
 	"gopkg.in/src-d/go-git.v4/plumbing"
 )
@@ -11,32 +11,53 @@ import (
 // for more info
 
 const (
-	maxCopyLen = 0xffff
+	// Standard chunk size used to generate fingerprints
+	s = 16
+
+	// https://github.com/git/git/blob/f7466e94375b3be27f229c78873f0acf8301c0a5/diff-delta.c#L428
+	// Max size of a copy operation (64KB)
+	maxCopySize = 64 * 1024
 )
 
-// GetDelta returns an offset delta that knows the way of how to transform
-// base object to target object
+// GetDelta returns an EncodedObject of type OFSDeltaObject. Base and Target object,
+// will be loaded into memory to be able to create the delta object.
+// To generate target again, you will need the obtained object and "base" one.
+// Error will be returned if base or target object cannot be read.
 func GetDelta(base, target plumbing.EncodedObject) (plumbing.EncodedObject, error) {
+	return getDelta(new(deltaIndex), base, target)
+}
+
+func getDelta(index *deltaIndex, base, target plumbing.EncodedObject) (plumbing.EncodedObject, error) {
 	br, err := base.Reader()
 	if err != nil {
 		return nil, err
 	}
+	defer br.Close()
 	tr, err := target.Reader()
 	if err != nil {
 		return nil, err
 	}
+	defer tr.Close()
 
-	bb, err := ioutil.ReadAll(br)
+	bb := bufPool.Get().(*bytes.Buffer)
+	bb.Reset()
+	defer bufPool.Put(bb)
+
+	_, err = bb.ReadFrom(br)
 	if err != nil {
 		return nil, err
 	}
 
-	tb, err := ioutil.ReadAll(tr)
+	tb := bufPool.Get().(*bytes.Buffer)
+	tb.Reset()
+	defer bufPool.Put(tb)
+
+	_, err = tb.ReadFrom(tr)
 	if err != nil {
 		return nil, err
 	}
 
-	db := DiffDelta(bb, tb)
+	db := diffDelta(index, bb.Bytes(), tb.Bytes())
 	delta := &plumbing.MemoryObject{}
 	_, err = delta.Write(db)
 	if err != nil {
@@ -49,52 +70,92 @@ func GetDelta(base, target plumbing.EncodedObject) (plumbing.EncodedObject, erro
 	return delta, nil
 }
 
-// DiffDelta returns the way of how to transform baseBuf to targetBuf
-func DiffDelta(baseBuf []byte, targetBuf []byte) []byte {
-	var outBuff []byte
+// DiffDelta returns the delta that transforms src into tgt.
+func DiffDelta(src, tgt []byte) []byte {
+	return diffDelta(new(deltaIndex), src, tgt)
+}
 
-	outBuff = append(outBuff, deltaEncodeSize(len(baseBuf))...)
-	outBuff = append(outBuff, deltaEncodeSize(len(targetBuf))...)
+func diffDelta(index *deltaIndex, src []byte, tgt []byte) []byte {
+	buf := bufPool.Get().(*bytes.Buffer)
+	buf.Reset()
+	buf.Write(deltaEncodeSize(len(src)))
+	buf.Write(deltaEncodeSize(len(tgt)))
 
-	sm := newMatcher(baseBuf, targetBuf)
-	for _, op := range sm.GetOpCodes() {
-		switch {
-		case op.Tag == tagEqual:
-			copyStart := op.I1
-			copyLen := op.I2 - op.I1
+	if len(index.entries) == 0 {
+		index.init(src)
+	}
+
+	ibuf := bufPool.Get().(*bytes.Buffer)
+	ibuf.Reset()
+	for i := 0; i < len(tgt); i++ {
+		offset, l := index.findMatch(src, tgt, i)
+
+		if l == 0 {
+			// couldn't find a match, just write the current byte and continue
+			ibuf.WriteByte(tgt[i])
+		} else if l < 0 {
+			// src is less than blksz, copy the rest of the target to avoid
+			// calls to findMatch
+			for ; i < len(tgt); i++ {
+				ibuf.WriteByte(tgt[i])
+			}
+		} else if l < s {
+			// remaining target is less than blksz, copy what's left of it
+			// and avoid calls to findMatch
+			for j := i; j < i+l; j++ {
+				ibuf.WriteByte(tgt[j])
+			}
+			i += l - 1
+		} else {
+			encodeInsertOperation(ibuf, buf)
+
+			rl := l
+			aOffset := offset
 			for {
-				if copyLen <= 0 {
+				if rl < maxCopySize {
+					buf.Write(encodeCopyOperation(aOffset, rl))
 					break
 				}
-				var toCopy int
-				if copyLen < maxCopyLen {
-					toCopy = copyLen
-				} else {
-					toCopy = maxCopyLen
-				}
 
-				outBuff = append(outBuff, encodeCopyOperation(copyStart, toCopy)...)
-				copyStart += toCopy
-				copyLen -= toCopy
+				buf.Write(encodeCopyOperation(aOffset, maxCopySize))
+				rl -= maxCopySize
+				aOffset += maxCopySize
 			}
-		case op.Tag == tagReplace || op.Tag == tagInsert:
-			s := op.J2 - op.J1
-			o := op.J1
-			for {
-				if s <= 127 {
-					break
-				}
-				outBuff = append(outBuff, byte(127))
-				outBuff = append(outBuff, targetBuf[o:o+127]...)
-				s -= 127
-				o += 127
-			}
-			outBuff = append(outBuff, byte(s))
-			outBuff = append(outBuff, targetBuf[o:o+s]...)
+
+			i += l - 1
 		}
 	}
 
-	return outBuff
+	encodeInsertOperation(ibuf, buf)
+	bytes := buf.Bytes()
+
+	bufPool.Put(buf)
+	bufPool.Put(ibuf)
+
+	return bytes
+}
+
+func encodeInsertOperation(ibuf, buf *bytes.Buffer) {
+	if ibuf.Len() == 0 {
+		return
+	}
+
+	b := ibuf.Bytes()
+	s := ibuf.Len()
+	o := 0
+	for {
+		if s <= 127 {
+			break
+		}
+		buf.WriteByte(byte(127))
+		buf.Write(b[o : o+127])
+		s -= 127
+		o += 127
+	}
+	buf.WriteByte(byte(s))
+	buf.Write(b[o : o+s])
+
+	ibuf.Reset()
 }
 
 func deltaEncodeSize(size int) []byte {

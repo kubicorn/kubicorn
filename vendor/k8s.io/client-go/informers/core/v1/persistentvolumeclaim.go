@@ -19,13 +19,13 @@ limitations under the License.
 package v1
 
 import (
-	core_v1 "k8s.io/api/core/v1"
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	internalinterfaces "k8s.io/client-go/informers/internalinterfaces"
 	kubernetes "k8s.io/client-go/kubernetes"
 	v1 "k8s.io/client-go/listers/core/v1"
+	api_v1 "k8s.io/client-go/pkg/api/v1"
 	cache "k8s.io/client-go/tools/cache"
 	time "time"
 )
@@ -41,31 +41,26 @@ type persistentVolumeClaimInformer struct {
 	factory internalinterfaces.SharedInformerFactory
 }
 
-// NewPersistentVolumeClaimInformer constructs a new informer for PersistentVolumeClaim type.
-// Always prefer using an informer factory to get a shared informer instead of getting an independent
-// one. This reduces memory footprint and number of connections to the server.
-func NewPersistentVolumeClaimInformer(client kubernetes.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return cache.NewSharedIndexInformer(
+func newPersistentVolumeClaimInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	sharedIndexInformer := cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
-				return client.CoreV1().PersistentVolumeClaims(namespace).List(options)
+				return client.CoreV1().PersistentVolumeClaims(meta_v1.NamespaceAll).List(options)
 			},
 			WatchFunc: func(options meta_v1.ListOptions) (watch.Interface, error) {
-				return client.CoreV1().PersistentVolumeClaims(namespace).Watch(options)
+				return client.CoreV1().PersistentVolumeClaims(meta_v1.NamespaceAll).Watch(options)
 			},
 		},
-		&core_v1.PersistentVolumeClaim{},
+		&api_v1.PersistentVolumeClaim{},
 		resyncPeriod,
-		indexers,
+		cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc},
 	)
-}
 
-func defaultPersistentVolumeClaimInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewPersistentVolumeClaimInformer(client, meta_v1.NamespaceAll, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
+	return sharedIndexInformer
 }
 
 func (f *persistentVolumeClaimInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&core_v1.PersistentVolumeClaim{}, defaultPersistentVolumeClaimInformer)
+	return f.factory.InformerFor(&api_v1.PersistentVolumeClaim{}, newPersistentVolumeClaimInformer)
 }
 
 func (f *persistentVolumeClaimInformer) Lister() v1.PersistentVolumeClaimLister {

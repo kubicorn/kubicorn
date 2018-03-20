@@ -55,8 +55,15 @@ type SchemaVisitor interface {
 	VisitMap(*Map)
 	VisitPrimitive(*Primitive)
 	VisitKind(*Kind)
-	VisitArbitrary(*Arbitrary)
 	VisitReference(Reference)
+}
+
+// SchemaVisitorArbitrary is an additional visitor interface which handles
+// arbitrary types. For backwards compatability, it's a separate interface
+// which is checked for at runtime.
+type SchemaVisitorArbitrary interface {
+	SchemaVisitor
+	VisitArbitrary(*Arbitrary)
 }
 
 // Schema is the base definition of an openapi type.
@@ -251,7 +258,9 @@ type Arbitrary struct {
 var _ Schema = &Arbitrary{}
 
 func (a *Arbitrary) Accept(v SchemaVisitor) {
-	v.VisitArbitrary(a)
+	if visitor, ok := v.(SchemaVisitorArbitrary); ok {
+		visitor.VisitArbitrary(a)
+	}
 }
 
 func (a *Arbitrary) GetName() string {

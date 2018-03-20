@@ -7,22 +7,24 @@ package common
 
 import (
 	"bufio"
+	"context"
 	"errors"
 	"fmt"
 	"io"
+	stdioutil "io/ioutil"
 	"strings"
 	"time"
 
 	"gopkg.in/src-d/go-git.v4/plumbing/format/pktline"
 	"gopkg.in/src-d/go-git.v4/plumbing/protocol/packp"
 	"gopkg.in/src-d/go-git.v4/plumbing/protocol/packp/capability"
+	"gopkg.in/src-d/go-git.v4/plumbing/protocol/packp/sideband"
 	"gopkg.in/src-d/go-git.v4/plumbing/transport"
 	"gopkg.in/src-d/go-git.v4/utils/ioutil"
 )
 
 const (
 	readErrorSecondsTimeout = 10
-	errLinesBuffer          = 1000
 )
 
 var (
@@ -37,15 +39,13 @@ type Commander interface {
 	// error should be returned if the endpoint is not supported or the
 	// command cannot be created (e.g. binary does not exist, connection
 	// cannot be established).
-	Command(cmd string, ep transport.Endpoint) (Command, error)
+	Command(cmd string, ep *transport.Endpoint, auth transport.AuthMethod) (Command, error)
 }
 
 // Command is used for a single command execution.
 // This interface is modeled after exec.Cmd and ssh.Session in the standard
 // library.
 type Command interface {
-	// SetAuth sets the authentication method.
-	SetAuth(transport.AuthMethod) error
 	// StderrPipe returns a pipe that will be connected to the command's
 	// standard error when the command starts. It should not be called after
 	// Start.
@@ -61,15 +61,16 @@ type Command interface {
 	// Start starts the specified command. It does not wait for it to
 	// complete.
 	Start() error
-	// Wait waits for the command to exit. It must have been started by
-	// Start. The returned error is nil if the command runs, has no
-	// problems copying stdin, stdout, and stderr, and exits with a zero
-	// exit status.
-	Wait() error
 	// Close closes the command and releases any resources used by it. It
-	// can be called to forcibly finish the command without calling to Wait
-	// or to release resources after calling Wait.
+	// will block until the command exits.
 	Close() error
+}
+
+// CommandKiller expands the Command interface, enableing it for being killed.
+type CommandKiller interface {
+	// Kill and close the session whatever the state it is. It will block until
+	// the command is terminated.
+	Kill() error
 }
 
 type client struct {
@@ -77,22 +78,22 @@ type client struct {
 }
 
 // NewClient creates a new client using the given Commander.
-func NewClient(runner Commander) transport.Client {
+func NewClient(runner Commander) transport.Transport {
 	return &client{runner}
 }
 
-// NewFetchPackSession creates a new FetchPackSession.
-func (c *client) NewFetchPackSession(ep transport.Endpoint) (
-	transport.FetchPackSession, error) {
+// NewUploadPackSession creates a new UploadPackSession.
+func (c *client) NewUploadPackSession(ep *transport.Endpoint, auth transport.AuthMethod) (
+	transport.UploadPackSession, error) {
 
-	return c.newSession(transport.UploadPackServiceName, ep)
+	return c.newSession(transport.UploadPackServiceName, ep, auth)
 }
 
-// NewSendPackSession creates a new SendPackSession.
-func (c *client) NewSendPackSession(ep transport.Endpoint) (
-	transport.SendPackSession, error) {
+// NewReceivePackSession creates a new ReceivePackSession.
+func (c *client) NewReceivePackSession(ep *transport.Endpoint, auth transport.AuthMethod) (
+	transport.ReceivePackSession, error) {
 
-	return c.newSession(transport.ReceivePackServiceName, ep)
+	return c.newSession(transport.ReceivePackServiceName, ep, auth)
 }
 
 type session struct {
@@ -104,11 +105,11 @@ type session struct {
 	advRefs       *packp.AdvRefs
 	packRun       bool
 	finished      bool
-	errLines      chan string
+	firstErrLine  chan string
 }
 
-func (c *client) newSession(s string, ep transport.Endpoint) (*session, error) {
-	cmd, err := c.cmdr.Command(s, ep)
+func (c *client) newSession(s string, ep *transport.Endpoint, auth transport.AuthMethod) (*session, error) {
+	cmd, err := c.cmdr.Command(s, ep, auth)
 	if err != nil {
 		return nil, err
 	}
@@ -136,31 +137,29 @@ func (c *client) newSession(s string, ep transport.Endpoint) (*session, error) {
 		Stdin:         stdin,
 		Stdout:        stdout,
 		Command:       cmd,
-		errLines:      c.listenErrors(stderr),
+		firstErrLine:  c.listenFirstError(stderr),
 		isReceivePack: s == transport.ReceivePackServiceName,
 	}, nil
 }
 
-func (c *client) listenErrors(r io.Reader) chan string {
+func (c *client) listenFirstError(r io.Reader) chan string {
 	if r == nil {
 		return nil
 	}
 
-	errLines := make(chan string, errLinesBuffer)
+	errLine := make(chan string, 1)
 	go func() {
 		s := bufio.NewScanner(r)
-		for s.Scan() {
-			line := string(s.Bytes())
-			errLines <- line
+		if s.Scan() {
+			errLine <- s.Text()
+		} else {
+			close(errLine)
 		}
+
+		_, _ = io.Copy(stdioutil.Discard, r)
 	}()
 
-	return errLines
-}
-
-// SetAuth delegates to the command's SetAuth.
-func (s *session) SetAuth(auth transport.AuthMethod) error {
-	return s.Command.SetAuth(auth)
+	return errLine
 }
 
 // AdvertisedReferences retrieves the advertised references from the server.
@@ -185,6 +184,7 @@ func (s *session) handleAdvRefDecodeError(err error) error {
 	// If repository is not found, we get empty stdout and server writes an
 	// error to stderr.
 	if err == packp.ErrEmptyInput {
+		s.finished = true
 		if err := s.checkNotFoundError(); err != nil {
 			return err
 		}
@@ -219,9 +219,9 @@ func (s *session) handleAdvRefDecodeError(err error) error {
 	return err
 }
 
-// FetchPack performs a request to the server to fetch a packfile. A reader is
+// UploadPack performs a request to the server to fetch a packfile. A reader is
 // returned with the packfile content. The reader must be closed after reading.
-func (s *session) FetchPack(req *packp.UploadPackRequest) (*packp.UploadPackResponse, error) {
+func (s *session) UploadPack(ctx context.Context, req *packp.UploadPackRequest) (*packp.UploadPackResponse, error) {
 	if req.IsEmpty() {
 		return nil, transport.ErrEmptyUploadPackRequest
 	}
@@ -236,11 +236,14 @@ func (s *session) FetchPack(req *packp.UploadPackRequest) (*packp.UploadPackResp
 
 	s.packRun = true
 
-	if err := fetchPack(s.Stdin, s.Stdout, req); err != nil {
+	in := s.StdinContext(ctx)
+	out := s.StdoutContext(ctx)
+
+	if err := uploadPack(in, out, req); err != nil {
 		return nil, err
 	}
 
-	r, err := ioutil.NonEmptyReader(s.Stdout)
+	r, err := ioutil.NonEmptyReader(out)
 	if err == ioutil.ErrEmptyReader {
 		if c, ok := s.Stdout.(io.Closer); ok {
 			_ = c.Close()
@@ -253,39 +256,78 @@ func (s *session) FetchPack(req *packp.UploadPackRequest) (*packp.UploadPackResp
 		return nil, err
 	}
 
-	wc := &waitCloser{s.Command}
-	rc := ioutil.NewReadCloser(r, wc)
-
+	rc := ioutil.NewReadCloser(r, s)
 	return DecodeUploadPackResponse(rc, req)
 }
 
-func (s *session) SendPack(req *packp.ReferenceUpdateRequest) (*packp.ReportStatus, error) {
+func (s *session) StdinContext(ctx context.Context) io.WriteCloser {
+	return ioutil.NewWriteCloserOnError(
+		ioutil.NewContextWriteCloser(ctx, s.Stdin),
+		s.onError,
+	)
+}
+
+func (s *session) StdoutContext(ctx context.Context) io.Reader {
+	return ioutil.NewReaderOnError(
+		ioutil.NewContextReader(ctx, s.Stdout),
+		s.onError,
+	)
+}
+
+func (s *session) onError(err error) {
+	if k, ok := s.Command.(CommandKiller); ok {
+		_ = k.Kill()
+	}
+
+	_ = s.Close()
+}
+
+func (s *session) ReceivePack(ctx context.Context, req *packp.ReferenceUpdateRequest) (*packp.ReportStatus, error) {
 	if _, err := s.AdvertisedReferences(); err != nil {
 		return nil, err
 	}
 
 	s.packRun = true
 
-	if err := req.Encode(s.Stdin); err != nil {
+	w := s.StdinContext(ctx)
+	if err := req.Encode(w); err != nil {
+		return nil, err
+	}
+
+	if err := w.Close(); err != nil {
 		return nil, err
 	}
 
 	if !req.Capabilities.Supports(capability.ReportStatus) {
-		// If we have neither report-status or sideband, we can only
+		// If we don't have report-status, we can only
 		// check return value error.
-		return nil, s.Command.Wait()
+		return nil, s.Command.Close()
+	}
+
+	r := s.StdoutContext(ctx)
+
+	var d *sideband.Demuxer
+	if req.Capabilities.Supports(capability.Sideband64k) {
+		d = sideband.NewDemuxer(sideband.Sideband64k, r)
+	} else if req.Capabilities.Supports(capability.Sideband) {
+		d = sideband.NewDemuxer(sideband.Sideband, r)
+	}
+	if d != nil {
+		d.Progress = req.Progress
+		r = d
 	}
 
 	report := packp.NewReportStatus()
-	if err := report.Decode(s.Stdout); err != nil {
+	if err := report.Decode(r); err != nil {
 		return nil, err
 	}
 
-	if !report.Ok() {
-		return report, fmt.Errorf("report status: %s", report.UnpackStatus)
+	if err := report.Error(); err != nil {
+		defer s.Close()
+		return report, err
 	}
 
-	return report, s.Command.Wait()
+	return report, s.Command.Close()
 }
 
 func (s *session) finish() error {
@@ -295,7 +337,7 @@ func (s *session) finish() error {
 
 	s.finished = true
 
-	// If we did not run fetch-pack or send-pack, we close the connection
+	// If we did not run a upload/receive-pack, we close the connection
 	// gracefully by sending a flush packet to the server. If the server
 	// operates correctly, it will exit with status 0.
 	if !s.packRun {
@@ -306,13 +348,11 @@ func (s *session) finish() error {
 	return nil
 }
 
-func (s *session) Close() error {
-	if err := s.finish(); err != nil {
-		_ = s.Command.Close()
-		return nil
-	}
+func (s *session) Close() (err error) {
+	err = s.finish()
 
-	return s.Command.Close()
+	defer ioutil.CheckClose(s.Command, &err)
+	return
 }
 
 func (s *session) checkNotFoundError() error {
@@ -322,7 +362,7 @@ func (s *session) checkNotFoundError() error {
 	select {
 	case <-t.C:
 		return ErrTimeoutExceeded
-	case line, ok := <-s.errLines:
+	case line, ok := <-s.firstErrLine:
 		if !ok {
 			return nil
 		}
@@ -336,10 +376,12 @@ func (s *session) checkNotFoundError() error {
 }
 
 var (
-	githubRepoNotFoundErr    = "ERROR: Repository not found."
-	bitbucketRepoNotFoundErr = "conq: repository does not exist."
-	localRepoNotFoundErr     = "does not appear to be a git repository"
-	gitProtocolNotFoundErr   = "ERR \n  Repository not found."
+	githubRepoNotFoundErr      = "ERROR: Repository not found."
+	bitbucketRepoNotFoundErr   = "conq: repository does not exist."
+	localRepoNotFoundErr       = "does not appear to be a git repository"
+	gitProtocolNotFoundErr     = "ERR \n  Repository not found."
+	gitProtocolNoSuchErr       = "ERR no such repository"
+	gitProtocolAccessDeniedErr = "ERR access denied"
 )
 
 func isRepoNotFoundError(s string) bool {
@@ -359,6 +401,14 @@ func isRepoNotFoundError(s string) bool {
 		return true
 	}
 
+	if strings.HasPrefix(s, gitProtocolNoSuchErr) {
+		return true
+	}
+
+	if strings.HasPrefix(s, gitProtocolAccessDeniedErr) {
+		return true
+	}
+
 	return false
 }
 
@@ -367,18 +417,18 @@ var (
 	eol = []byte("\n")
 )
 
-// fetchPack implements the git-fetch-pack protocol.
-//
-// TODO support multi_ack mode
-// TODO support multi_ack_detailed mode
-// TODO support acks for common objects
-// TODO build a proper state machine for all these processing options
-func fetchPack(w io.WriteCloser, r io.Reader, req *packp.UploadPackRequest) error {
+// uploadPack implements the git-upload-pack protocol.
+func uploadPack(w io.WriteCloser, r io.Reader, req *packp.UploadPackRequest) error {
+	// TODO support multi_ack mode
+	// TODO support multi_ack_detailed mode
+	// TODO support acks for common objects
+	// TODO build a proper state machine for all these processing options
+
 	if err := req.UploadRequest.Encode(w); err != nil {
 		return fmt.Errorf("sending upload-req message: %s", err)
 	}
 
-	if err := req.UploadHaves.Encode(w); err != nil {
+	if err := req.UploadHaves.Encode(w, true); err != nil {
 		return fmt.Errorf("sending haves message: %s", err)
 	}
 
@@ -409,13 +459,4 @@ func DecodeUploadPackResponse(r io.ReadCloser, req *packp.UploadPackRequest) (
 	}
 
 	return res, nil
-}
-
-type waitCloser struct {
-	Command Command
-}
-
-// Close waits until the command exits and returns error, if any.
-func (c *waitCloser) Close() error {
-	return c.Command.Wait()
 }

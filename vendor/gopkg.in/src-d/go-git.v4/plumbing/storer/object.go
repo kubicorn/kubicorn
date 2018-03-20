@@ -3,6 +3,7 @@ package storer
 import (
 	"errors"
 	"io"
+	"time"
 
 	"gopkg.in/src-d/go-git.v4/plumbing"
 )
@@ -36,6 +37,17 @@ type EncodedObjectStorer interface {
 	//
 	// Valid plumbing.ObjectType values are CommitObject, BlobObject, TagObject,
 	IterEncodedObjects(plumbing.ObjectType) (EncodedObjectIter, error)
+	// HasEncodedObject returns ErrObjNotFound if the object doesn't
+	// exist.  If the object does exist, it returns nil.
+	HasEncodedObject(plumbing.Hash) error
+}
+
+// DeltaObjectStorer is an EncodedObjectStorer that can return delta
+// objects.
+type DeltaObjectStorer interface {
+	// DeltaObject is the same as EncodedObject but without resolving deltas.
+	// Deltas will be returned as plumbing.DeltaObject instances.
+	DeltaObject(plumbing.ObjectType, plumbing.Hash) (plumbing.EncodedObject, error)
 }
 
 // Transactioner is a optional method for ObjectStorer, it enable transaction
@@ -43,6 +55,34 @@ type EncodedObjectStorer interface {
 type Transactioner interface {
 	// Begin starts a transaction.
 	Begin() Transaction
+}
+
+// LooseObjectStorer is an optional interface for managing "loose"
+// objects, i.e. those not in packfiles.
+type LooseObjectStorer interface {
+	// ForEachObjectHash iterates over all the (loose) object hashes
+	// in the repository without necessarily having to read those objects.
+	// Objects only inside pack files may be omitted.
+	// If ErrStop is sent the iteration is stop but no error is returned.
+	ForEachObjectHash(func(plumbing.Hash) error) error
+	// LooseObjectTime looks up the (m)time associated with the
+	// loose object (that is not in a pack file). Some
+	// implementations (e.g. without loose objects)
+	// always return an error.
+	LooseObjectTime(plumbing.Hash) (time.Time, error)
+	// DeleteLooseObject deletes a loose object if it exists.
+	DeleteLooseObject(plumbing.Hash) error
+}
+
+// PackedObjectStorer is an optional interface for managing objects in
+// packfiles.
+type PackedObjectStorer interface {
+	// ObjectPacks returns hashes of object packs if the underlying
+	// implementation has pack files.
+	ObjectPacks() ([]plumbing.Hash, error)
+	// DeleteOldObjectPackAndIndex deletes an object pack and the corresponding index file if they exist.
+	// Deletion is only performed if the pack is older than the supplied time (or the time is zero).
+	DeleteOldObjectPackAndIndex(plumbing.Hash, time.Time) error
 }
 
 // PackfileWriter is a optional method for ObjectStorer, it enable direct write
@@ -115,7 +155,7 @@ func (iter *EncodedObjectLookupIter) Next() (plumbing.EncodedObject, error) {
 }
 
 // ForEach call the cb function for each object contained on this iter until
-// an error happends or the end of the iter is reached. If ErrStop is sent
+// an error happens or the end of the iter is reached. If ErrStop is sent
 // the iteration is stop but no error is returned. The iterator is closed.
 func (iter *EncodedObjectLookupIter) ForEach(cb func(plumbing.EncodedObject) error) error {
 	return ForEachIterator(iter, cb)
@@ -134,7 +174,6 @@ func (iter *EncodedObjectLookupIter) Close() {
 // no longer needed.
 type EncodedObjectSliceIter struct {
 	series []plumbing.EncodedObject
-	pos    int
 }
 
 // NewEncodedObjectSliceIter returns an object iterator for the given slice of
@@ -160,7 +199,7 @@ func (iter *EncodedObjectSliceIter) Next() (plumbing.EncodedObject, error) {
 }
 
 // ForEach call the cb function for each object contained on this iter until
-// an error happends or the end of the iter is reached. If ErrStop is sent
+// an error happens or the end of the iter is reached. If ErrStop is sent
 // the iteration is stop but no error is returned. The iterator is closed.
 func (iter *EncodedObjectSliceIter) ForEach(cb func(plumbing.EncodedObject) error) error {
 	return ForEachIterator(iter, cb)
@@ -178,7 +217,6 @@ func (iter *EncodedObjectSliceIter) Close() {
 // longer needed.
 type MultiEncodedObjectIter struct {
 	iters []EncodedObjectIter
-	pos   int
 }
 
 // NewMultiEncodedObjectIter returns an object iterator for the given slice of
@@ -205,7 +243,7 @@ func (iter *MultiEncodedObjectIter) Next() (plumbing.EncodedObject, error) {
 }
 
 // ForEach call the cb function for each object contained on this iter until
-// an error happends or the end of the iter is reached. If ErrStop is sent
+// an error happens or the end of the iter is reached. If ErrStop is sent
 // the iteration is stop but no error is returned. The iterator is closed.
 func (iter *MultiEncodedObjectIter) ForEach(cb func(plumbing.EncodedObject) error) error {
 	return ForEachIterator(iter, cb)

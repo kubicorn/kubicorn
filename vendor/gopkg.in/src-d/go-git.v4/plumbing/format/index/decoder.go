@@ -37,7 +37,7 @@ const (
 	skipWorkTreeMask  = 1 << 14
 )
 
-// A Decoder reads and decodes idx files from an input stream.
+// A Decoder reads and decodes index files from an input stream.
 type Decoder struct {
 	r         io.Reader
 	hash      hash.Hash
@@ -82,7 +82,7 @@ func (d *Decoder) readEntries(idx *Index, count int) error {
 		}
 
 		d.lastEntry = e
-		idx.Entries = append(idx.Entries, *e)
+		idx.Entries = append(idx.Entries, e)
 	}
 
 	return nil
@@ -112,8 +112,15 @@ func (d *Decoder) readEntry(idx *Index) (*Entry, error) {
 	}
 
 	read := entryHeaderLength
-	e.CreatedAt = time.Unix(int64(sec), int64(nsec))
-	e.ModifiedAt = time.Unix(int64(msec), int64(mnsec))
+
+	if sec != 0 || nsec != 0 {
+		e.CreatedAt = time.Unix(int64(sec), int64(nsec))
+	}
+
+	if msec != 0 || mnsec != 0 {
+		e.ModifiedAt = time.Unix(int64(msec), int64(mnsec))
+	}
+
 	e.Stage = Stage(flags>>12) & 0x3
 
 	if flags&entryExtended != 0 {
@@ -193,16 +200,14 @@ func (d *Decoder) padEntry(idx *Index, e *Entry, read int) error {
 
 	entrySize := read + len(e.Name)
 	padLen := 8 - entrySize%8
-	if _, err := io.CopyN(ioutil.Discard, d.r, int64(padLen)); err != nil {
-		return err
-	}
-
-	return nil
+	_, err := io.CopyN(ioutil.Discard, d.r, int64(padLen))
+	return err
 }
 
-// TODO: support 'Split index' and 'Untracked cache' extensions, take in count
-//       that they are not supported by jgit or libgit
 func (d *Decoder) readExtensions(idx *Index) error {
+	// TODO: support 'Split index' and 'Untracked cache' extensions, take in
+	// count that they are not supported by jgit or libgit
+
 	var expected []byte
 	var err error
 
@@ -280,7 +285,7 @@ func (d *Decoder) readChecksum(expected []byte, alreadyRead [4]byte) error {
 		return err
 	}
 
-	if bytes.Compare(h[:], expected) != 0 {
+	if !bytes.Equal(h[:], expected) {
 		return ErrInvalidChecksum
 	}
 
@@ -399,7 +404,7 @@ func (d *resolveUndoDecoder) Decode(ru *ResolveUndo) error {
 
 func (d *resolveUndoDecoder) readEntry() (*ResolveUndoEntry, error) {
 	e := &ResolveUndoEntry{
-		Stages: make(map[Stage]plumbing.Hash, 0),
+		Stages: make(map[Stage]plumbing.Hash),
 	}
 
 	path, err := binary.ReadUntil(d.r, '\x00')

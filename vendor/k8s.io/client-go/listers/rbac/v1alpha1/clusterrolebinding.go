@@ -19,9 +19,10 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "k8s.io/api/rbac/v1alpha1"
 	"k8s.io/apimachinery/pkg/api/errors"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
+	v1alpha1 "k8s.io/client-go/pkg/apis/rbac/v1alpha1"
 	"k8s.io/client-go/tools/cache"
 )
 
@@ -54,7 +55,8 @@ func (s *clusterRoleBindingLister) List(selector labels.Selector) (ret []*v1alph
 
 // Get retrieves the ClusterRoleBinding from the index for a given name.
 func (s *clusterRoleBindingLister) Get(name string) (*v1alpha1.ClusterRoleBinding, error) {
-	obj, exists, err := s.indexer.GetByKey(name)
+	key := &v1alpha1.ClusterRoleBinding{ObjectMeta: v1.ObjectMeta{Name: name}}
+	obj, exists, err := s.indexer.Get(key)
 	if err != nil {
 		return nil, err
 	}

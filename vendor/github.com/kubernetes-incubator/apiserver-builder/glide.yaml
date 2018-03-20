@@ -1,0 +1,15 @@
+package: github.com/kubernetes-incubator/apiserver-builder
+import:
+- package: github.com/go-openapi/spec
+- package: github.com/golang/glog
+- package: github.com/pkg/errors
+- package: github.com/spf13/cobra
+- package: github.com/spf13/pflag
+  version: d90f37a48761fe767528f31db1955e4f795d652f
+- package: k8s.io/apimachinery
+- package: k8s.io/apiserver
+- package: k8s.io/client-go
+- package: k8s.io/gengo
+ignore:
+- github.com/kubernetes-incubator/apiserver-builder/example/pkg/apis/innsmouth/install
+- github.com/kubernetes-incubator/apiserver-builder/example/pkg/apis/miskatonic/install

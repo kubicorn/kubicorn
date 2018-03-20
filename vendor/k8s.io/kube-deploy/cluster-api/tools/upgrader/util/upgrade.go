@@ -20,18 +20,20 @@ import (
 	"time"
 
 	"github.com/golang/glog"
+	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-	clusapiclnt "k8s.io/kube-deploy/cluster-api/client"
+	clusterv1 "k8s.io/kube-deploy/cluster-api/pkg/apis/cluster/v1alpha1"
+	clientv1alpha1 "k8s.io/kube-deploy/cluster-api/pkg/client/clientset_generated/clientset/typed/cluster/v1alpha1"
 	"k8s.io/kube-deploy/cluster-api/util"
 )
 
 var (
 	kubeClientSet *kubernetes.Clientset
-	client        *clusapiclnt.ClusterAPIV1Alpha1Client
+	client        *clientv1alpha1.ClusterV1alpha1Client
+	machInterface clientv1alpha1.MachineInterface
 )
 
 func initClient(kubeconfig string) error {
@@ -49,17 +51,18 @@ func initClient(kubeconfig string) error {
 		glog.Fatalf("error creating kube client set: %v", err)
 	}
 
-	client, err = clusapiclnt.NewForConfig(config)
+	client, err = clientv1alpha1.NewForConfig(config)
 	if err != nil {
 		glog.Fatalf("error creating cluster api client: %v", err)
 		return err
 	}
+	machInterface = client.Machines(v1.NamespaceDefault)
 
 	return nil
 }
 
 func checkMachineReady(machineName string, kubeVersion string) (bool, error) {
-	machine, err := client.Machines().Get(machineName, metav1.GetOptions{})
+	machine, err := machInterface.Get(machineName, metav1.GetOptions{})
 	if err != nil {
 		return false, err
 	}
@@ -93,7 +96,7 @@ func UpgradeCluster(kubeversion string, kubeconfig string) error {
 		return err
 	}
 
-	machine_list, err := client.Machines().List(metav1.ListOptions{})
+	machine_list, err := machInterface.List(metav1.ListOptions{})
 	if err != nil {
 		return err
 	}
@@ -114,7 +117,7 @@ func UpgradeCluster(kubeversion string, kubeconfig string) error {
 	} else {
 		master.Spec.Versions.Kubelet = kubeversion
 		master.Spec.Versions.ControlPlane = kubeversion
-		new_machine, err := client.Machines().Update(master)
+		new_machine, err := machInterface.Update(master)
 		if err == nil {
 			err = wait.Poll(5*time.Second, 10*time.Minute, func() (bool, error) {
 				ready, err := checkMachineReady(new_machine.Name, kubeversion)
@@ -142,10 +145,10 @@ func UpgradeCluster(kubeversion string, kubeconfig string) error {
 		if !util.IsMaster(&machine_list.Items[i]) {
 			go func(mach *clusterv1.Machine) {
 				glog.Infof("Upgrading %s.", mach.Name)
-				mach, err = client.Machines().Get(mach.Name, metav1.GetOptions{})
+				mach, err = machInterface.Get(mach.Name, metav1.GetOptions{})
 				if err == nil {
 					mach.Spec.Versions.Kubelet = kubeversion
-					new_machine, err := client.Machines().Update(mach)
+					new_machine, err := machInterface.Update(mach)
 					if err == nil {
 						// Polling the cluster until nodes are updated.
 						err = wait.Poll(5*time.Second, 10*time.Minute, func() (bool, error) {

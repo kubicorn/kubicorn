@@ -2,7 +2,7 @@
 
 Go clients for talking to a [kubernetes](http://kubernetes.io/) cluster.
 
-We currently recommend using the v4.0.0 tag. See [INSTALL.md](/INSTALL.md) for
+We currently recommend using the v2.0.0 tag. See [INSTALL.md](/INSTALL.md) for
 detailed installation instructions. `go get k8s.io/client-go/...` works, but
 will give you head and doesn't handle the dependencies well.
 
@@ -10,7 +10,7 @@ will give you head and doesn't handle the dependencies well.
 [![GoDoc](https://godoc.org/k8s.io/client-go?status.svg)](https://godoc.org/k8s.io/client-go)
 
 ## Table of Contents
-
+ 
 - [What's included](#whats-included)
 - [Versioning](#versioning)
   - [Compatibility: your code <-> client-go](#compatibility-your-code---client-go)
@@ -80,25 +80,20 @@ We will backport bugfixes--but not new features--into older versions of
 
 #### Compatibility matrix
 
-|                     | Kubernetes 1.3 | Kubernetes 1.4 | Kubernetes 1.5 | Kubernetes 1.6 | Kubernetes 1.7 |
-|---------------------|----------------|----------------|----------------|----------------|----------------|
-| client-go 1.4       | +              | ✓              | -              | -              | -              |
-| client-go 1.5       | +              | +              | -              | -              | -              |
-| client-go 2.0       | +              | +              | ✓              | -              | -              |
-| client-go 3.0       | †              | †              | †              | ✓              | -              |
-| client-go 4.0       | †              | †              | †              | +              | ✓              |
-| client-go HEAD      | †              | †              | †              | +              | +              |
+|                     | Kubernetes 1.3 | Kubernetes 1.4 | Kubernetes 1.5 | Kubernetes 1.6 |
+|---------------------|----------------|----------------|----------------|----------------|
+| client-go 1.4       | +              | ✓              | -              | -              |
+| client-go 1.5       | +              | +              | -              | -              |
+| client-go 2.0       | +              | +              | ✓              | -              |
+| client-go 3.0 beta  | +              | +              | +              | ✓              |
+| client-go HEAD      | +              | +              | +              | +              |
 
 Key:
 
 * `✓` Exactly the same features / API objects in both client-go and the Kubernetes
   version.
 * `+` client-go has features or api objects that may not be present in the
-  Kubernetes cluster, but everything they have in common will work. Please
-  note that alpha APIs may vanish or change significantly in a single release.
-* `†` client-go has new features or api objects, and some APIs running in the
-  cluster may have been deprecated and removed from client-go. But everything
-  they share in common (i.e., most APIs) will work.
+  Kubernetes cluster, but everything they have in common will work.
 * `-` The Kubernetes cluster has features the client-go library can't use
   (additional API objects, etc).
 
@@ -111,7 +106,6 @@ between client-go versions.
 | client-go 1.5  | Kubernetes main repo, 1.5 branch     | = -                           |
 | client-go 2.0  | Kubernetes main repo, 1.5 branch     | ✓                             |
 | client-go 3.0  | Kubernetes main repo, 1.6 branch     | ✓                             |
-| client-go 4.0  | Kubernetes main repo, 1.7 branch     | ✓                             |
 | client-go HEAD | Kubernetes main repo, master branch  | ✓                             |
 
 Key:
@@ -143,9 +137,7 @@ management system. See [INSTALL.md](/INSTALL.md) for detailed instructions.
 
 ### How to use it
 
-If your application runs in a Pod in the cluster, please refer to the
-in-cluster [example](examples/in-cluster-client-configuration), otherwise please
-refer to the out-of-cluster [example](examples/out-of-cluster-client-configuration).
+If your application runs in a Pod in the cluster, please refer to the in-cluster [example](examples/in-cluster/main.go), otherwise please refer to the out-of-cluster [example](examples/out-of-cluster/main.go).
 
 ### Dependency management
 
@@ -154,4 +146,4 @@ If your application depends on a package that client-go depends on, and you let 
 * or run `godep save` in your application folder to flatten all dependencies.
 
 ### Contributing code
-Please send pull requests against the client packages in the Kubernetes main [repository](https://github.com/kubernetes/kubernetes). Changes in the staging area will be published to this repository every day.
+Please send pull requests against the client packages in the Kubernetes main [repository](https://github.com/kubernetes/kubernetes), and run the `/staging/copy.sh` script to update the staging area in the main repository. Changes in the staging area will be published to this repository every day.

@@ -1,12 +1,16 @@
 package sftp
 
 import (
-	"testing"
+	"io"
 	"os"
 	"regexp"
-	"time"
-	"io"
 	"sync"
+	"syscall"
+	"testing"
+	"time"
+
+	"github.com/pkg/errors"
+	"github.com/stretchr/testify/assert"
 )
 
 const (
@@ -61,7 +65,7 @@ func TestRunLsWithLicensesFile(t *testing.T) {
 
    where `id' is the request identifier, and `attrs' is the returned
    file attributes as described in Section ``File Attributes''.
- */
+*/
 func runLsTestHelper(t *testing.T, result, expectedType, path string) {
 	// using regular expressions to make tests work on all systems
 	// a virtual file system (like afero) would be needed to mock valid filesystem checks
@@ -194,24 +198,29 @@ func (p sshFxpTestBadExtendedPacket) MarshalBinary() ([]byte, error) {
 }
 
 // test that errors are sent back when we request an invalid extended packet operation
+// this validates the following rfc draft is followed https://tools.ietf.org/html/draft-ietf-secsh-filexfer-extensions-00
 func TestInvalidExtendedPacket(t *testing.T) {
 	client, server := clientServerPair(t)
 	defer client.Close()
 	defer server.Close()
 
 	badPacket := sshFxpTestBadExtendedPacket{client.nextID(), "thisDoesn'tExist", "foobar"}
-	_, _, err := client.clientConn.sendPacket(badPacket)
-	if err == nil {
-		t.Fatal("expected error from bad packet")
+	typ, data, err := client.clientConn.sendPacket(badPacket)
+	if err != nil {
+		t.Fatalf("unexpected error from sendPacket: %s", err)
+	}
+	if typ != ssh_FXP_STATUS {
+		t.Fatalf("received non-FPX_STATUS packet: %v", typ)
 	}
 
-	// try to stat a file; the client should have shut down.
-	filePath := "/etc/passwd"
-	_, err = client.Stat(filePath)
-	if err == nil {
-		t.Fatal("expected error from closed connection")
+	err = unmarshalStatus(badPacket.id(), data)
+	statusErr, ok := err.(*StatusError)
+	if !ok {
+		t.Fatal("failed to convert error from unmarshalStatus to *StatusError")
 	}
-
+	if statusErr.Code != ssh_FX_OP_UNSUPPORTED {
+		t.Errorf("statusErr.Code => %d, wanted %d", statusErr.Code, ssh_FX_OP_UNSUPPORTED)
+	}
 }
 
 // test that server handles concurrent requests correctly
@@ -240,4 +249,32 @@ func TestConcurrentRequests(t *testing.T) {
 		}()
 	}
 	wg.Wait()
+}
+
+// Test error conversion
+func TestStatusFromError(t *testing.T) {
+	type test struct {
+		err error
+		pkt sshFxpStatusPacket
+	}
+	tpkt := func(id, code uint32) sshFxpStatusPacket {
+		return sshFxpStatusPacket{
+			ID:          id,
+			StatusError: StatusError{Code: code},
+		}
+	}
+	test_cases := []test{
+		test{syscall.ENOENT, tpkt(1, ssh_FX_NO_SUCH_FILE)},
+		test{&os.PathError{Err: syscall.ENOENT},
+			tpkt(2, ssh_FX_NO_SUCH_FILE)},
+		test{&os.PathError{Err: errors.New("foo")}, tpkt(3, ssh_FX_FAILURE)},
+		test{ErrSshFxEof, tpkt(4, ssh_FX_EOF)},
+		test{ErrSshFxOpUnsupported, tpkt(5, ssh_FX_OP_UNSUPPORTED)},
+		test{io.EOF, tpkt(6, ssh_FX_EOF)},
+		test{os.ErrNotExist, tpkt(7, ssh_FX_NO_SUCH_FILE)},
+	}
+	for _, tc := range test_cases {
+		tc.pkt.StatusError.msg = tc.err.Error()
+		assert.Equal(t, tc.pkt, statusFromError(tc.pkt, tc.err))
+	}
 }

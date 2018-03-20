@@ -2,18 +2,29 @@ package http
 
 import (
 	"crypto/tls"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net"
 	"net/http"
+	"net/http/cgi"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"gopkg.in/src-d/go-git.v4/plumbing/transport"
 
 	. "gopkg.in/check.v1"
+	"gopkg.in/src-d/go-git-fixtures.v3"
 )
 
 func Test(t *testing.T) { TestingT(t) }
 
 type ClientSuite struct {
-	Endpoint transport.Endpoint
+	Endpoint  *transport.Endpoint
+	EmptyAuth transport.AuthMethod
 }
 
 var _ = Suite(&ClientSuite{})
@@ -26,7 +37,7 @@ func (s *ClientSuite) SetUpSuite(c *C) {
 	c.Assert(err, IsNil)
 }
 
-func (s *FetchPackSuite) TestNewClient(c *C) {
+func (s *UploadPackSuite) TestNewClient(c *C) {
 	roundTripper := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -37,7 +48,7 @@ func (s *FetchPackSuite) TestNewClient(c *C) {
 }
 
 func (s *ClientSuite) TestNewBasicAuth(c *C) {
-	a := NewBasicAuth("foo", "qux")
+	a := &BasicAuth{"foo", "qux"}
 
 	c.Assert(a.Name(), Equals, "http-basic-auth")
 	c.Assert(a.String(), Equals, "http-basic-auth - foo:*******")
@@ -50,7 +61,11 @@ func (s *ClientSuite) TestNewErrOK(c *C) {
 }
 
 func (s *ClientSuite) TestNewErrUnauthorized(c *C) {
-	s.testNewHTTPError(c, http.StatusUnauthorized, "authorization required")
+	s.testNewHTTPError(c, http.StatusUnauthorized, "authentication required")
+}
+
+func (s *ClientSuite) TestNewErrForbidden(c *C) {
+	s.testNewHTTPError(c, http.StatusForbidden, "authorization failed")
 }
 
 func (s *ClientSuite) TestNewErrNotFound(c *C) {
@@ -76,10 +91,9 @@ func (s *ClientSuite) testNewHTTPError(c *C, code int, msg string) {
 
 func (s *ClientSuite) TestSetAuth(c *C) {
 	auth := &BasicAuth{}
-	r, err := DefaultClient.NewFetchPackSession(s.Endpoint)
+	r, err := DefaultClient.NewUploadPackSession(s.Endpoint, auth)
 	c.Assert(err, IsNil)
-	r.SetAuth(auth)
-	c.Assert(auth, Equals, r.(*fetchPackSession).auth)
+	c.Assert(auth, Equals, r.(*upSession).auth)
 }
 
 type mockAuth struct{}
@@ -88,7 +102,67 @@ func (*mockAuth) Name() string   { return "" }
 func (*mockAuth) String() string { return "" }
 
 func (s *ClientSuite) TestSetAuthWrongType(c *C) {
-	r, err := DefaultClient.NewFetchPackSession(s.Endpoint)
+	_, err := DefaultClient.NewUploadPackSession(s.Endpoint, &mockAuth{})
+	c.Assert(err, Equals, transport.ErrInvalidAuthMethod)
+}
+
+type BaseSuite struct {
+	fixtures.Suite
+
+	base string
+	host string
+	port int
+}
+
+func (s *BaseSuite) SetUpTest(c *C) {
+	l, err := net.Listen("tcp", "localhost:0")
 	c.Assert(err, IsNil)
-	c.Assert(r.SetAuth(&mockAuth{}), Equals, transport.ErrInvalidAuthMethod)
+
+	base, err := ioutil.TempDir(os.TempDir(), fmt.Sprintf("go-git-http-%d", s.port))
+	c.Assert(err, IsNil)
+
+	s.port = l.Addr().(*net.TCPAddr).Port
+	s.base = filepath.Join(base, s.host)
+
+	err = os.MkdirAll(s.base, 0755)
+	c.Assert(err, IsNil)
+
+	cmd := exec.Command("git", "--exec-path")
+	out, err := cmd.CombinedOutput()
+	c.Assert(err, IsNil)
+
+	server := &http.Server{
+		Handler: &cgi.Handler{
+			Path: filepath.Join(strings.Trim(string(out), "\n"), "git-http-backend"),
+			Env:  []string{"GIT_HTTP_EXPORT_ALL=true", fmt.Sprintf("GIT_PROJECT_ROOT=%s", s.base)},
+		},
+	}
+	go func() {
+		log.Fatal(server.Serve(l))
+	}()
+}
+
+func (s *BaseSuite) prepareRepository(c *C, f *fixtures.Fixture, name string) *transport.Endpoint {
+	fs := f.DotGit()
+
+	err := fixtures.EnsureIsBare(fs)
+	c.Assert(err, IsNil)
+
+	path := filepath.Join(s.base, name)
+	err = os.Rename(fs.Root(), path)
+	c.Assert(err, IsNil)
+
+	return s.newEndpoint(c, name)
+}
+
+func (s *BaseSuite) newEndpoint(c *C, name string) *transport.Endpoint {
+	ep, err := transport.NewEndpoint(fmt.Sprintf("http://localhost:%d/%s", s.port, name))
+	c.Assert(err, IsNil)
+
+	return ep
+}
+
+func (s *BaseSuite) TearDownTest(c *C) {
+	err := os.RemoveAll(s.base)
+	c.Assert(err, IsNil)
 }

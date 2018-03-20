@@ -19,7 +19,7 @@ import (
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
+	clusterv1 "k8s.io/kube-deploy/cluster-api/pkg/apis/cluster/v1alpha1"
 )
 
 const (
