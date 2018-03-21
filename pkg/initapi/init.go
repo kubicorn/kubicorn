@@ -28,11 +28,18 @@ var preProcessors = []preProcessorFunc{
 type validationFunc func(initCluster *cluster.Cluster) error
 
 var validations = []validationFunc{
-	validateAtLeastOneMachineSet,
-	validateMachineSetMaxCountGreaterThan1,
+
+	// @kris-nova
+	//
+	// Turning these off as we are migrating to the new API and this check
+	// will no longer work
+	//
+	//validateAtLeastOneServerPool,
+	//validateServerPoolMaxCountGreaterThan1,
+
+
 	validateSpotPriceOnlyForAwsCluster,
 }
-
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("Running preprocessors")
 	for _, f := range preProcessors {
