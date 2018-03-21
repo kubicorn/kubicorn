@@ -37,9 +37,9 @@ var validations = []validationFunc{
 	//validateAtLeastOneServerPool,
 	//validateServerPoolMaxCountGreaterThan1,
 
-
 	validateSpotPriceOnlyForAwsCluster,
 }
+
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("Running preprocessors")
 	for _, f := range preProcessors {
