@@ -26,7 +26,7 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 Previously, we mainly used a channel in the [Gophers Slack community](https://invite.slack.golangbridge.org/), which is still active, but we're moving to the Kubernetes Slack.
 You can also get involved and send your questions to our [public mailing list](https://groups.google.com/forum/#!forum/kubicorn-users-and-developers).
 
-We hold developer calls on every 3rd Friday of the month. By joining the [mailing list](https://groups.google.com/forum/#!forum/kubicorn-users-and-developers), you'll get a calendar invite.
+We hold developer calls biweekly on Tuesdays, 1pm Pacific Time. By joining the [mailing list](https://groups.google.com/forum/#!forum/kubicorn-users-and-developers), you'll get a calendar invite.
 
 <img src="https://github.com/ashleymcnamara/gophers/blob/master/NERDY.png" width="60"> Proudly packaged with Golang [dep](https://github.com/golang/dep)
 
