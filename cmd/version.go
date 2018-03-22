@@ -29,13 +29,13 @@ import (
 var (
 	versionFile = "/src/github.com/kubicorn/kubicorn/VERSION"
 
-
 	// The GitSha of the current commit (automatically set at compile time)
-	GitSha  string
+	GitSha string
 
 	// The Version of the program from the VERSION file (automatically set at compile time)
 	Version string
 )
+
 // VersionCmd represents the version command
 func VersionCmd() *cobra.Command {
 	var vo = &cli.VersionOptions{}
