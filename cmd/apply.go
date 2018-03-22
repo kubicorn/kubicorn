@@ -29,6 +29,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/yuroyoro/swalker"
+	"github.com/kubicorn/kubicorn/pkg/resourcedeploy"
 )
 
 // ApplyCmd represents the apply command
@@ -156,6 +157,14 @@ func runApply(options *cli.ApplyOptions) error {
 
 	if err = kubeconfig.RetryGetConfig(newCluster); err != nil {
 		return fmt.Errorf("Unable to write kubeconfig: %v", err)
+	}
+
+	if newCluster.ControllerDeployment != nil {
+		logger.Info("Deploying cluster controller: %s", newCluster.ControllerDeployment.Spec.Template.Spec.Containers[0].Image)
+		err := resourcedeploy.DeployClusterControllerDeployment(newCluster)
+		if err != nil {
+			return fmt.Errorf("Unable to deploy cluster controller: %v", err)
+		}
 	}
 
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)
