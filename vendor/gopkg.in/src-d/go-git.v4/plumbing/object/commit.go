@@ -3,33 +3,49 @@ package object
 import (
 	"bufio"
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
-	"sort"
 	"strings"
+
+	"golang.org/x/crypto/openpgp"
 
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
 	"gopkg.in/src-d/go-git.v4/utils/ioutil"
 )
 
-// Hash hash of an object
+const (
+	beginpgp string = "-----BEGIN PGP SIGNATURE-----"
+	endpgp   string = "-----END PGP SIGNATURE-----"
+)
+
+// Hash represents the hash of an object
 type Hash plumbing.Hash
 
 // Commit points to a single tree, marking it as what the project looked like
 // at a certain point in time. It contains meta-information about that point
 // in time, such as a timestamp, the author of the changes since the last
 // commit, a pointer to the previous commit(s), etc.
-// http://schacon.github.io/gitbook/1_the_git_object_model.html
+// http://shafiulazam.com/gitbook/1_the_git_object_model.html
 type Commit struct {
-	Hash      plumbing.Hash
-	Author    Signature
+	// Hash of the commit object.
+	Hash plumbing.Hash
+	// Author is the original author of the commit.
+	Author Signature
+	// Committer is the one performing the commit, might be different from
+	// Author.
 	Committer Signature
-	Message   string
+	// PGPSignature is the PGP signature of the commit.
+	PGPSignature string
+	// Message is the commit message, contains arbitrary text.
+	Message string
+	// TreeHash is the hash of the root tree of the commit.
+	TreeHash plumbing.Hash
+	// ParentHashes are the hashes of the parent commits of the commit.
+	ParentHashes []plumbing.Hash
 
-	tree    plumbing.Hash
-	parents []plumbing.Hash
-	s       storer.EncodedObjectStorer
+	s storer.EncodedObjectStorer
 }
 
 // GetCommit gets a commit from an object storer and decodes it.
@@ -53,21 +69,47 @@ func DecodeCommit(s storer.EncodedObjectStorer, o plumbing.EncodedObject) (*Comm
 	return c, nil
 }
 
-// Tree returns the Tree from the commit
+// Tree returns the Tree from the commit.
 func (c *Commit) Tree() (*Tree, error) {
-	return GetTree(c.s, c.tree)
+	return GetTree(c.s, c.TreeHash)
 }
 
-// Parents return a CommitIter to the parent Commits
-func (c *Commit) Parents() *CommitIter {
+// Patch returns the Patch between the actual commit and the provided one.
+func (c *Commit) Patch(to *Commit) (*Patch, error) {
+	fromTree, err := c.Tree()
+	if err != nil {
+		return nil, err
+	}
+
+	toTree, err := to.Tree()
+	if err != nil {
+		return nil, err
+	}
+
+	return fromTree.Patch(toTree)
+}
+
+// Parents return a CommitIter to the parent Commits.
+func (c *Commit) Parents() CommitIter {
 	return NewCommitIter(c.s,
-		storer.NewEncodedObjectLookupIter(c.s, plumbing.CommitObject, c.parents),
+		storer.NewEncodedObjectLookupIter(c.s, plumbing.CommitObject, c.ParentHashes),
 	)
 }
 
 // NumParents returns the number of parents in a commit.
 func (c *Commit) NumParents() int {
-	return len(c.parents)
+	return len(c.ParentHashes)
+}
+
+var ErrParentNotFound = errors.New("commit parent not found")
+
+// Parent returns the ith parent of a commit.
+func (c *Commit) Parent(i int) (*Commit, error) {
+	if len(c.ParentHashes) == 0 || i > len(c.ParentHashes)-1 {
+		return nil, ErrParentNotFound
+	}
+
+	return GetCommit(c.s, c.ParentHashes[i])
 }
 
 // File returns the file with the specified "path" in the commit and a
@@ -124,10 +166,31 @@ func (c *Commit) Decode(o plumbing.EncodedObject) (err error) {
 	r := bufio.NewReader(reader)
 
 	var message bool
+	var pgpsig bool
 	for {
-		line, err := r.ReadSlice('\n')
+		line, err := r.ReadBytes('\n')
 		if err != nil && err != io.EOF {
 			return err
+		}
+
+		if pgpsig {
+			// Check if it's the end of a PGP signature.
+			if bytes.Contains(line, []byte(endpgp)) {
+				c.PGPSignature += endpgp + "\n"
+				pgpsig = false
+			} else {
+				// Trim the left padding.
+				line = bytes.TrimLeft(line, " ")
+				c.PGPSignature += string(line)
+			}
+			continue
+		}
+
+		// Check if it's the beginning of a PGP signature.
+		if bytes.Contains(line, []byte(beginpgp)) {
+			c.PGPSignature += beginpgp + "\n"
+			pgpsig = true
+			continue
 		}
 
 		if !message {
@@ -140,9 +203,9 @@ func (c *Commit) Decode(o plumbing.EncodedObject) (err error) {
 			split := bytes.SplitN(line, []byte{' '}, 2)
 			switch string(split[0]) {
 			case "tree":
-				c.tree = plumbing.NewHash(string(split[1]))
+				c.TreeHash = plumbing.NewHash(string(split[1]))
 			case "parent":
-				c.parents = append(c.parents, plumbing.NewHash(string(split[1])))
+				c.ParentHashes = append(c.ParentHashes, plumbing.NewHash(string(split[1])))
 			case "author":
 				c.Author.Decode(split[1])
 			case "committer":
@@ -158,50 +221,92 @@ func (c *Commit) Decode(o plumbing.EncodedObject) (err error) {
 	}
 }
 
-// History return a slice with the previous commits in the history of this commit
-func (c *Commit) History() ([]*Commit, error) {
-	var commits []*Commit
-	err := WalkCommitHistory(c, func(commit *Commit) error {
-		commits = append(commits, commit)
-		return nil
-	})
-
-	ReverseSortCommits(commits)
-	return commits, err
-}
-
 // Encode transforms a Commit into a plumbing.EncodedObject.
 func (b *Commit) Encode(o plumbing.EncodedObject) error {
+	return b.encode(o, true)
+}
+
+func (b *Commit) encode(o plumbing.EncodedObject, includeSig bool) error {
 	o.SetType(plumbing.CommitObject)
 	w, err := o.Writer()
 	if err != nil {
 		return err
 	}
+
 	defer ioutil.CheckClose(w, &err)
-	if _, err = fmt.Fprintf(w, "tree %s\n", b.tree.String()); err != nil {
+
+	if _, err = fmt.Fprintf(w, "tree %s\n", b.TreeHash.String()); err != nil {
 		return err
 	}
-	for _, parent := range b.parents {
+
+	for _, parent := range b.ParentHashes {
 		if _, err = fmt.Fprintf(w, "parent %s\n", parent.String()); err != nil {
 			return err
 		}
 	}
+
 	if _, err = fmt.Fprint(w, "author "); err != nil {
 		return err
 	}
+
 	if err = b.Author.Encode(w); err != nil {
 		return err
 	}
+
 	if _, err = fmt.Fprint(w, "\ncommitter "); err != nil {
 		return err
 	}
+
 	if err = b.Committer.Encode(w); err != nil {
 		return err
 	}
+
+	if b.PGPSignature != "" && includeSig {
+		if _, err = fmt.Fprint(w, "pgpsig"); err != nil {
+			return err
+		}
+
+		// Split all the signature lines and write with a left padding and
+		// newline at the end.
+		lines := strings.Split(b.PGPSignature, "\n")
+		for _, line := range lines {
+			if _, err = fmt.Fprintf(w, " %s\n", line); err != nil {
+				return err
+			}
+		}
+	}
+
 	if _, err = fmt.Fprintf(w, "\n\n%s", b.Message); err != nil {
 		return err
 	}
+
 	return err
+}
+
+// Stats shows the status of commit.
+func (c *Commit) Stats() (FileStats, error) {
+	// Get the previous commit.
+	ci := c.Parents()
+	parentCommit, err := ci.Next()
+	if err != nil {
+		if err == io.EOF {
+			emptyNoder := treeNoder{}
+			parentCommit = &Commit{
+				Hash: emptyNoder.hash,
+				// TreeHash: emptyNoder.parent.Hash,
+				s: c.s,
+			}
+		} else {
+			return nil, err
+		}
+	}
+
+	patch, err := parentCommit.Patch(c)
+	if err != nil {
+		return nil, err
+	}
+
+	return getFileStatsFromFilePatches(patch.FilePatches()), nil
 }
 
 func (c *Commit) String() string {
@@ -210,6 +315,31 @@ func (c *Commit) String() string {
 		plumbing.CommitObject, c.Hash, c.Author.String(),
 		c.Author.When.Format(DateFormat), indent(c.Message),
 	)
+}
+
+// Verify performs PGP verification of the commit with a provided armored
+// keyring and returns openpgp.Entity associated with verifying key on success.
+func (c *Commit) Verify(armoredKeyRing string) (*openpgp.Entity, error) {
+	keyRingReader := strings.NewReader(armoredKeyRing)
+	keyring, err := openpgp.ReadArmoredKeyRing(keyRingReader)
+	if err != nil {
+		return nil, err
+	}
+
+	// Extract signature.
+	signature := strings.NewReader(c.PGPSignature)
+
+	encoded := &plumbing.MemoryObject{}
+	// Encode commit components, excluding signature and get a reader object.
+	if err := c.encode(encoded, false); err != nil {
+		return nil, err
+	}
+	er, err := encoded.Reader()
+	if err != nil {
+		return nil, err
+	}
+
+	return openpgp.CheckArmoredDetachedSignature(keyring, er, signature)
 }
 
 func indent(t string) string {
@@ -225,23 +355,31 @@ func indent(t string) string {
 	return strings.Join(output, "\n")
 }
 
-// CommitIter provides an iterator for a set of commits.
-type CommitIter struct {
+// CommitIter is a generic closable interface for iterating over commits.
+type CommitIter interface {
+	Next() (*Commit, error)
+	ForEach(func(*Commit) error) error
+	Close()
+}
+
+// storerCommitIter provides an iterator from commits in an EncodedObjectStorer.
+type storerCommitIter struct {
 	storer.EncodedObjectIter
 	s storer.EncodedObjectStorer
 }
 
-// NewCommitIter returns a CommitIter for the given object storer and underlying
-// object iterator.
+// NewCommitIter takes a storer.EncodedObjectStorer and a
+// storer.EncodedObjectIter and returns a CommitIter that iterates over all
+// commits contained in the storer.EncodedObjectIter.
 //
-// The returned CommitIter will automatically skip over non-commit objects.
-func NewCommitIter(s storer.EncodedObjectStorer, iter storer.EncodedObjectIter) *CommitIter {
-	return &CommitIter{iter, s}
+// Any non-commit object returned by the storer.EncodedObjectIter is skipped.
+func NewCommitIter(s storer.EncodedObjectStorer, iter storer.EncodedObjectIter) CommitIter {
+	return &storerCommitIter{iter, s}
 }
 
-// Next moves the iterator to the next commit and returns a pointer to it. If it
-// has reached the end of the set it will return io.EOF.
-func (iter *CommitIter) Next() (*Commit, error) {
+// Next moves the iterator to the next commit and returns a pointer to it. If
+// there are no more commits, it returns io.EOF.
+func (iter *storerCommitIter) Next() (*Commit, error) {
 	obj, err := iter.EncodedObjectIter.Next()
 	if err != nil {
 		return nil, err
@@ -252,8 +390,8 @@ func (iter *CommitIter) Next() (*Commit, error) {
 
 // ForEach call the cb function for each commit contained on this iter until
 // an error appends or the end of the iter is reached. If ErrStop is sent
-// the iteration is stop but no error is returned. The iterator is closed.
-func (iter *CommitIter) ForEach(cb func(*Commit) error) error {
+// the iteration is stopped but no error is returned. The iterator is closed.
+func (iter *storerCommitIter) ForEach(cb func(*Commit) error) error {
 	return iter.EncodedObjectIter.ForEach(func(obj plumbing.EncodedObject) error {
 		c, err := DecodeCommit(iter.s, obj)
 		if err != nil {
@@ -264,30 +402,6 @@ func (iter *CommitIter) ForEach(cb func(*Commit) error) error {
 	})
 }
 
-type commitSorterer struct {
-	l []*Commit
-}
-
-func (s commitSorterer) Len() int {
-	return len(s.l)
-}
-
-func (s commitSorterer) Less(i, j int) bool {
-	return s.l[i].Committer.When.Before(s.l[j].Committer.When)
-}
-
-func (s commitSorterer) Swap(i, j int) {
-	s.l[i], s.l[j] = s.l[j], s.l[i]
-}
-
-// SortCommits sort a commit list by commit date, from older to newer.
-func SortCommits(l []*Commit) {
-	s := &commitSorterer{l}
-	sort.Sort(s)
-}
-
-// ReverseSortCommits sort a commit list by commit date, from newer to older.
-func ReverseSortCommits(l []*Commit) {
-	s := &commitSorterer{l}
-	sort.Sort(sort.Reverse(s))
+func (iter *storerCommitIter) Close() {
+	iter.EncodedObjectIter.Close()
 }

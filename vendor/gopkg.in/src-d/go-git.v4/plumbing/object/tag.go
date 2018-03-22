@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io"
 	stdioutil "io/ioutil"
+	"strings"
+
+	"golang.org/x/crypto/openpgp"
 
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
@@ -18,14 +21,24 @@ import (
 // contains meta-information about the tag, including the tagger, tag date and
 // message.
 //
+// Note that this is not used for lightweight tags.
+//
 // https://git-scm.com/book/en/v2/Git-Internals-Git-References#Tags
 type Tag struct {
-	Hash       plumbing.Hash
-	Name       string
-	Tagger     Signature
-	Message    string
+	// Hash of the tag.
+	Hash plumbing.Hash
+	// Name of the tag.
+	Name string
+	// Tagger is the one who created the tag.
+	Tagger Signature
+	// Message is an arbitrary text message.
+	Message string
+	// PGPSignature is the PGP signature of the tag.
+	PGPSignature string
+	// TargetType is the object type of the target.
 	TargetType plumbing.ObjectType
-	Target     plumbing.Hash
+	// Target is the hash of the target object.
+	Target plumbing.Hash
 
 	s storer.EncodedObjectStorer
 }
@@ -82,7 +95,7 @@ func (t *Tag) Decode(o plumbing.EncodedObject) (err error) {
 
 	r := bufio.NewReader(reader)
 	for {
-		line, err := r.ReadSlice('\n')
+		line, err := r.ReadBytes('\n')
 		if err != nil && err != io.EOF {
 			return err
 		}
@@ -116,13 +129,46 @@ func (t *Tag) Decode(o plumbing.EncodedObject) (err error) {
 	if err != nil {
 		return err
 	}
-	t.Message = string(data)
+
+	var pgpsig bool
+	// Check if data contains PGP signature.
+	if bytes.Contains(data, []byte(beginpgp)) {
+		// Split the lines at newline.
+		messageAndSig := bytes.Split(data, []byte("\n"))
+
+		for _, l := range messageAndSig {
+			if pgpsig {
+				if bytes.Contains(l, []byte(endpgp)) {
+					t.PGPSignature += endpgp + "\n"
+					pgpsig = false
+				} else {
+					t.PGPSignature += string(l) + "\n"
+				}
+				continue
+			}
+
+			// Check if it's the beginning of a PGP signature.
+			if bytes.Contains(l, []byte(beginpgp)) {
+				t.PGPSignature += beginpgp + "\n"
+				pgpsig = true
+				continue
+			}
+
+			t.Message += string(l) + "\n"
+		}
+	} else {
+		t.Message = string(data)
+	}
 
 	return nil
 }
 
 // Encode transforms a Tag into a plumbing.EncodedObject.
 func (t *Tag) Encode(o plumbing.EncodedObject) error {
+	return t.encode(o, true)
+}
+
+func (t *Tag) encode(o plumbing.EncodedObject, includeSig bool) error {
 	o.SetType(plumbing.TagObject)
 	w, err := o.Writer()
 	if err != nil {
@@ -146,6 +192,16 @@ func (t *Tag) Encode(o plumbing.EncodedObject) error {
 
 	if _, err = fmt.Fprint(w, t.Message); err != nil {
 		return err
+	}
+
+	if t.PGPSignature != "" && includeSig {
+		// Split all the signature lines and write with a newline at the end.
+		lines := strings.Split(t.PGPSignature, "\n")
+		for _, line := range lines {
+			if _, err = fmt.Fprintf(w, "%s\n", line); err != nil {
+				return err
+			}
+		}
 	}
 
 	return err
@@ -217,22 +273,48 @@ func (t *Tag) String() string {
 	)
 }
 
+// Verify performs PGP verification of the tag with a provided armored
+// keyring and returns openpgp.Entity associated with verifying key on success.
+func (t *Tag) Verify(armoredKeyRing string) (*openpgp.Entity, error) {
+	keyRingReader := strings.NewReader(armoredKeyRing)
+	keyring, err := openpgp.ReadArmoredKeyRing(keyRingReader)
+	if err != nil {
+		return nil, err
+	}
+
+	// Extract signature.
+	signature := strings.NewReader(t.PGPSignature)
+
+	encoded := &plumbing.MemoryObject{}
+	// Encode tag components, excluding signature and get a reader object.
+	if err := t.encode(encoded, false); err != nil {
+		return nil, err
+	}
+	er, err := encoded.Reader()
+	if err != nil {
+		return nil, err
+	}
+
+	return openpgp.CheckArmoredDetachedSignature(keyring, er, signature)
+}
+
 // TagIter provides an iterator for a set of tags.
 type TagIter struct {
 	storer.EncodedObjectIter
 	s storer.EncodedObjectStorer
 }
 
-// NewTagIter returns a TagIter for the given object storer and underlying
-// object iterator.
+// NewTagIter takes a storer.EncodedObjectStorer and a
+// storer.EncodedObjectIter and returns a *TagIter that iterates over all
+// tags contained in the storer.EncodedObjectIter.
 //
-// The returned TagIter will automatically skip over non-tag objects.
+// Any non-tag object returned by the storer.EncodedObjectIter is skipped.
 func NewTagIter(s storer.EncodedObjectStorer, iter storer.EncodedObjectIter) *TagIter {
 	return &TagIter{iter, s}
 }
 
-// Next moves the iterator to the next tag and returns a pointer to it. If it
-// has reached the end of the set it will return io.EOF.
+// Next moves the iterator to the next tag and returns a pointer to it. If
+// there are no more tags, it returns io.EOF.
 func (iter *TagIter) Next() (*Tag, error) {
 	obj, err := iter.EncodedObjectIter.Next()
 	if err != nil {
@@ -243,7 +325,7 @@ func (iter *TagIter) Next() (*Tag, error) {
 }
 
 // ForEach call the cb function for each tag contained on this iter until
-// an error happends or the end of the iter is reached. If ErrStop is sent
+// an error happens or the end of the iter is reached. If ErrStop is sent
 // the iteration is stop but no error is returned. The iterator is closed.
 func (iter *TagIter) ForEach(cb func(*Tag) error) error {
 	return iter.EncodedObjectIter.ForEach(func(obj plumbing.EncodedObject) error {

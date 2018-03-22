@@ -1,12 +1,14 @@
-package idxfile
+package idxfile_test
 
 import (
 	"bytes"
 	"io/ioutil"
 
-	. "gopkg.in/check.v1"
-	"gopkg.in/src-d/go-git.v4/fixtures"
 	"gopkg.in/src-d/go-git.v4/plumbing"
+	. "gopkg.in/src-d/go-git.v4/plumbing/format/idxfile"
+
+	. "gopkg.in/check.v1"
+	"gopkg.in/src-d/go-git-fixtures.v3"
 )
 
 func (s *IdxfileSuite) TestEncode(c *C) {

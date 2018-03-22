@@ -6,6 +6,7 @@ package tty
 import (
 	"bufio"
 	"os"
+	"os/signal"
 	"syscall"
 	"unsafe"
 
@@ -17,6 +18,8 @@ type TTY struct {
 	bin     *bufio.Reader
 	out     *os.File
 	termios syscall.Termios
+	ws      chan WINSIZE
+	ss      chan os.Signal
 }
 
 func open() (*TTY, error) {
@@ -44,6 +47,24 @@ func open() (*TTY, error) {
 	if _, _, err := syscall.Syscall6(syscall.SYS_IOCTL, uintptr(tty.in.Fd()), ioctlWriteTermios, uintptr(unsafe.Pointer(&newios)), 0, 0, 0); err != 0 {
 		return nil, err
 	}
+
+	tty.ws = make(chan WINSIZE)
+	tty.ss = make(chan os.Signal, 1)
+	signal.Notify(tty.ss, syscall.SIGWINCH)
+	go func() {
+		for sig := range tty.ss {
+			switch sig {
+			case syscall.SIGWINCH:
+				if w, h, err := tty.size(); err == nil {
+					tty.ws <- WINSIZE{
+						W: w,
+						H: h,
+					}
+				}
+			default:
+			}
+		}
+	}()
 	return tty, nil
 }
 
@@ -57,6 +78,8 @@ func (tty *TTY) readRune() (rune, error) {
 }
 
 func (tty *TTY) close() error {
+	close(tty.ss)
+	close(tty.ws)
 	_, _, err := syscall.Syscall6(syscall.SYS_IOCTL, uintptr(tty.in.Fd()), ioctlWriteTermios, uintptr(unsafe.Pointer(&tty.termios)), 0, 0, 0)
 	return err
 }
@@ -100,4 +123,8 @@ func (tty *TTY) raw() (func() error, error) {
 		}
 		return nil
 	}, nil
+}
+
+func (tty *TTY) sigwinch() chan WINSIZE {
+	return tty.ws
 }

@@ -1,5 +1,68 @@
 # CHANGELOG
 
+## v9.10.0
+- Fix the Service Bus suffix in Azure public env
+- Add Service Bus Endpoint (AAD ResourceURI) for use in [Azure Service Bus RBAC Preview](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-role-based-access-control)
+
+## v9.9.0
+
+### New Features
+
+- Added EventGridKeyAuthorizer for key authorization with event grid topics.
+
+### Bug Fixes
+
+- Fixed race condition when auto-refreshing service principal tokens.
+
+## v9.8.1
+
+### Bug Fixes
+
+- Added http.StatusNoContent (204) to the list of expected status codes for long-running operations.
+- Updated runtime version info so it's current.
+
+## v9.8.0
+
+### New Features
+
+- Added type azure.AsyncOpIncompleteError to be returned from a future's Result() method when the operation has not completed.
+
+## v9.7.1
+
+### Bug Fixes
+
+- Use correct AAD and Graph endpoints for US Gov environment.
+
+## v9.7.0
+
+### New Features
+
+- Added support for application/octet-stream MIME types.
+
+## v9.6.1
+
+### Bug Fixes
+
+- Ensure Authorization header is added to request when polling for registration status.
+
+## v9.6.0
+
+### New Features
+
+- Added support for acquiring tokens via MSI with a user assigned identity.
+
+## v9.5.3
+
+### Bug Fixes
+- Don't remove encoding of existing URL Query parameters when calling autorest.WithQueryParameters.
+- Set correct Content Type when using autorest.WithFormData.
+
+## v9.5.2
+
+### Bug Fixes
+
+- Check for nil *http.Response before dereferencing it.
+
 ## v9.5.1
 
 ### Bug Fixes
@@ -140,7 +203,7 @@ Support for UNIX time.
 - Added telemetry.
 
 ## v7.2.3
-- Fixing bug in calls to `DelayForBackoff` that caused doubling of delay 
+- Fixing bug in calls to `DelayForBackoff` that caused doubling of delay
   duration.
 
 ## v7.2.2

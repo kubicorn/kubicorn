@@ -9,20 +9,20 @@ import (
 	"gopkg.in/src-d/go-git.v4/utils/binary"
 )
 
-// An Encoder writes idx files to an output stream.
+// Encoder writes Idxfile structs to an output stream.
 type Encoder struct {
 	io.Writer
 	hash hash.Hash
 }
 
-// NewEncoder returns a new encoder that writes to w.
+// NewEncoder returns a new stream encoder that writes to w.
 func NewEncoder(w io.Writer) *Encoder {
 	h := sha1.New()
 	mw := io.MultiWriter(w, h)
 	return &Encoder{mw, h}
 }
 
-// Encode writes the idx in an idx file format to the stream of the encoder.
+// Encode encodes an Idxfile to the encoder writer.
 func (e *Encoder) Encode(idx *Idxfile) (int, error) {
 	idx.Entries.Sort()
 
@@ -98,13 +98,28 @@ func (e *Encoder) encodeCRC32(idx *Idxfile) (int, error) {
 
 func (e *Encoder) encodeOffsets(idx *Idxfile) (int, error) {
 	sz := 0
+
+	var o64bits []uint64
 	for _, ent := range idx.Entries {
-		if err := binary.WriteUint32(e, uint32(ent.Offset)); err != nil {
+		o := ent.Offset
+		if o > offsetLimit {
+			o64bits = append(o64bits, o)
+			o = offsetLimit + uint64(len(o64bits))
+		}
+
+		if err := binary.WriteUint32(e, uint32(o)); err != nil {
 			return sz, err
 		}
 
 		sz += 4
+	}
 
+	for _, o := range o64bits {
+		if err := binary.WriteUint64(e, o); err != nil {
+			return sz, err
+		}
+
+		sz += 8
 	}
 
 	return sz, nil
@@ -123,7 +138,8 @@ func (e *Encoder) encodeChecksums(idx *Idxfile) (int, error) {
 	return 40, nil
 }
 
-type EntryList []Entry
+// EntryList implements sort.Interface allowing sorting in increasing order.
+type EntryList []*Entry
 
 func (p EntryList) Len() int           { return len(p) }
 func (p EntryList) Less(i, j int) bool { return p[i].Hash.String() < p[j].Hash.String() }

@@ -14,16 +14,17 @@ import (
 // Encoder gets the data from the storage and write it into the writer in PACK
 // format
 type Encoder struct {
-	selector     *deltaSelector
-	w            *offsetWriter
-	zw           *zlib.Writer
-	hasher       plumbing.Hasher
-	offsets      map[plumbing.Hash]int64
+	selector *deltaSelector
+	w        *offsetWriter
+	zw       *zlib.Writer
+	hasher   plumbing.Hasher
+
 	useRefDeltas bool
 }
 
 // NewEncoder creates a new packfile encoder using a specific Writer and
-// ObjectStorer
+// EncodedObjectStorer. By default deltas used to generate the packfile will be
+// OFSDeltaObject. To use Reference deltas, set useRefDeltas to true.
 func NewEncoder(w io.Writer, s storer.EncodedObjectStorer, useRefDeltas bool) *Encoder {
 	h := plumbing.Hasher{
 		Hash: sha1.New(),
@@ -36,15 +37,19 @@ func NewEncoder(w io.Writer, s storer.EncodedObjectStorer, useRefDeltas bool) *E
 		w:            ow,
 		zw:           zw,
 		hasher:       h,
-		offsets:      make(map[plumbing.Hash]int64),
 		useRefDeltas: useRefDeltas,
 	}
 }
 
-// Encode creates a packfile containing all the objects referenced in hashes
-// and writes it to the writer in the Encoder.
-func (e *Encoder) Encode(hashes []plumbing.Hash) (plumbing.Hash, error) {
-	objects, err := e.selector.ObjectsToPack(hashes)
+// Encode creates a packfile containing all the objects referenced in
+// hashes and writes it to the writer in the Encoder.  `packWindow`
+// specifies the size of the sliding window used to compare objects
+// for delta compression; 0 turns off delta compression entirely.
+func (e *Encoder) Encode(
+	hashes []plumbing.Hash,
+	packWindow uint,
+) (plumbing.Hash, error) {
+	objects, err := e.selector.ObjectsToPack(hashes, packWindow)
 	if err != nil {
 		return plumbing.ZeroHash, err
 	}
@@ -76,26 +81,49 @@ func (e *Encoder) head(numEntries int) error {
 }
 
 func (e *Encoder) entry(o *ObjectToPack) error {
-	offset := e.w.Offset()
+	if o.WantWrite() {
+		// A cycle exists in this delta chain. This should only occur if a
+		// selected object representation disappeared during writing
+		// (for example due to a concurrent repack) and a different base
+		// was chosen, forcing a cycle. Select something other than a
+		// delta, and write this object.
+		e.selector.restoreOriginal(o)
+		o.BackToOriginal()
+	}
+
+	if o.IsWritten() {
+		return nil
+	}
+
+	o.MarkWantWrite()
+
+	if err := e.writeBaseIfDelta(o); err != nil {
+		return err
+	}
+
+	// We need to check if we already write that object due a cyclic delta chain
+	if o.IsWritten() {
+		return nil
+	}
+
+	o.Offset = e.w.Offset()
 
 	if o.IsDelta() {
-		if err := e.writeDeltaHeader(o, offset); err != nil {
+		if err := e.writeDeltaHeader(o); err != nil {
 			return err
 		}
 	} else {
-		if err := e.entryHead(o.Object.Type(), o.Object.Size()); err != nil {
+		if err := e.entryHead(o.Type(), o.Size()); err != nil {
 			return err
 		}
 	}
-
-	// Save the position using the original hash, maybe a delta will need it
-	e.offsets[o.Original.Hash()] = offset
 
 	e.zw.Reset(e.w)
 	or, err := o.Object.Reader()
 	if err != nil {
 		return err
 	}
+
 	_, err = io.Copy(e.zw, or)
 	if err != nil {
 		return err
@@ -104,7 +132,16 @@ func (e *Encoder) entry(o *ObjectToPack) error {
 	return e.zw.Close()
 }
 
-func (e *Encoder) writeDeltaHeader(o *ObjectToPack, offset int64) error {
+func (e *Encoder) writeBaseIfDelta(o *ObjectToPack) error {
+	if o.IsDelta() && !o.Base.IsWritten() {
+		// We must write base first
+		return e.entry(o.Base)
+	}
+
+	return nil
+}
+
+func (e *Encoder) writeDeltaHeader(o *ObjectToPack) error {
 	// Write offset deltas by default
 	t := plumbing.OFSDeltaObject
 	if e.useRefDeltas {
@@ -116,9 +153,9 @@ func (e *Encoder) writeDeltaHeader(o *ObjectToPack, offset int64) error {
 	}
 
 	if e.useRefDeltas {
-		return e.writeRefDeltaHeader(o.Base.Original.Hash())
+		return e.writeRefDeltaHeader(o.Base.Hash())
 	} else {
-		return e.writeOfsDeltaHeader(offset, o.Base.Original.Hash())
+		return e.writeOfsDeltaHeader(o)
 	}
 }
 
@@ -126,15 +163,15 @@ func (e *Encoder) writeRefDeltaHeader(base plumbing.Hash) error {
 	return binary.Write(e.w, base)
 }
 
-func (e *Encoder) writeOfsDeltaHeader(deltaOffset int64, base plumbing.Hash) error {
-	// because it is an offset delta, we need the base
-	// object position
-	offset, ok := e.offsets[base]
-	if !ok {
-		return fmt.Errorf("delta base not found. Hash: %v", base)
+func (e *Encoder) writeOfsDeltaHeader(o *ObjectToPack) error {
+	// for OFS_DELTA, offset of the base is interpreted as negative offset
+	// relative to the type-byte of the header of the ofs-delta entry.
+	relativeOffset := o.Offset - o.Base.Offset
+	if relativeOffset <= 0 {
+		return fmt.Errorf("bad offset for OFS_DELTA entry: %d", relativeOffset)
 	}
 
-	return binary.WriteVariableWidthInt(e.w, deltaOffset-offset)
+	return binary.WriteVariableWidthInt(e.w, relativeOffset)
 }
 
 func (e *Encoder) entryHead(typeNum plumbing.ObjectType, size int64) error {

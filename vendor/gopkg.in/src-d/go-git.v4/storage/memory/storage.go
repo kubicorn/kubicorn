@@ -3,13 +3,17 @@ package memory
 
 import (
 	"fmt"
+	"time"
 
 	"gopkg.in/src-d/go-git.v4/config"
 	"gopkg.in/src-d/go-git.v4/plumbing"
+	"gopkg.in/src-d/go-git.v4/plumbing/format/index"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
+	"gopkg.in/src-d/go-git.v4/storage"
 )
 
 var ErrUnsupportedObjectType = fmt.Errorf("unsupported object type")
+var ErrRefHasChanged = fmt.Errorf("reference has changed concurrently")
 
 // Storage is an implementation of git.Storer that stores data on memory, being
 // ephemeral. The use of this storage should be done in controlled envoriments,
@@ -19,22 +23,25 @@ type Storage struct {
 	ConfigStorage
 	ObjectStorage
 	ShallowStorage
+	IndexStorage
 	ReferenceStorage
+	ModuleStorage
 }
 
 // NewStorage returns a new Storage base on memory
 func NewStorage() *Storage {
 	return &Storage{
-		ReferenceStorage: make(ReferenceStorage, 0),
+		ReferenceStorage: make(ReferenceStorage),
 		ConfigStorage:    ConfigStorage{},
 		ShallowStorage:   ShallowStorage{},
 		ObjectStorage: ObjectStorage{
-			Objects: make(map[plumbing.Hash]plumbing.EncodedObject, 0),
-			Commits: make(map[plumbing.Hash]plumbing.EncodedObject, 0),
-			Trees:   make(map[plumbing.Hash]plumbing.EncodedObject, 0),
-			Blobs:   make(map[plumbing.Hash]plumbing.EncodedObject, 0),
-			Tags:    make(map[plumbing.Hash]plumbing.EncodedObject, 0),
+			Objects: make(map[plumbing.Hash]plumbing.EncodedObject),
+			Commits: make(map[plumbing.Hash]plumbing.EncodedObject),
+			Trees:   make(map[plumbing.Hash]plumbing.EncodedObject),
+			Blobs:   make(map[plumbing.Hash]plumbing.EncodedObject),
+			Tags:    make(map[plumbing.Hash]plumbing.EncodedObject),
 		},
+		ModuleStorage: make(ModuleStorage),
 	}
 }
 
@@ -57,6 +64,23 @@ func (c *ConfigStorage) Config() (*config.Config, error) {
 	}
 
 	return c.config, nil
+}
+
+type IndexStorage struct {
+	index *index.Index
+}
+
+func (c *IndexStorage) SetIndex(idx *index.Index) error {
+	c.index = idx
+	return nil
+}
+
+func (c *IndexStorage) Index() (*index.Index, error) {
+	if c.index == nil {
+		c.index = &index.Index{Version: 2}
+	}
+
+	return c.index, nil
 }
 
 type ObjectStorage struct {
@@ -89,6 +113,13 @@ func (o *ObjectStorage) SetEncodedObject(obj plumbing.EncodedObject) (plumbing.H
 	}
 
 	return h, nil
+}
+
+func (o *ObjectStorage) HasEncodedObject(h plumbing.Hash) (err error) {
+	if _, ok := o.Objects[h]; !ok {
+		return plumbing.ErrObjectNotFound
+	}
+	return nil
 }
 
 func (o *ObjectStorage) EncodedObject(t plumbing.ObjectType, h plumbing.Hash) (plumbing.EncodedObject, error) {
@@ -129,8 +160,37 @@ func flattenObjectMap(m map[plumbing.Hash]plumbing.EncodedObject) []plumbing.Enc
 func (o *ObjectStorage) Begin() storer.Transaction {
 	return &TxObjectStorage{
 		Storage: o,
-		Objects: make(map[plumbing.Hash]plumbing.EncodedObject, 0),
+		Objects: make(map[plumbing.Hash]plumbing.EncodedObject),
 	}
+}
+
+func (o *ObjectStorage) ForEachObjectHash(fun func(plumbing.Hash) error) error {
+	for h := range o.Objects {
+		err := fun(h)
+		if err != nil {
+			if err == storer.ErrStop {
+				return nil
+			}
+			return err
+		}
+	}
+	return nil
+}
+
+func (o *ObjectStorage) ObjectPacks() ([]plumbing.Hash, error) {
+	return nil, nil
+}
+func (o *ObjectStorage) DeleteOldObjectPackAndIndex(plumbing.Hash, time.Time) error {
+	return nil
+}
+
+var errNotSupported = fmt.Errorf("Not supported")
+
+func (s *ObjectStorage) LooseObjectTime(hash plumbing.Hash) (time.Time, error) {
+	return time.Time{}, errNotSupported
+}
+func (s *ObjectStorage) DeleteLooseObject(plumbing.Hash) error {
+	return errNotSupported
 }
 
 type TxObjectStorage struct {
@@ -166,7 +226,7 @@ func (tx *TxObjectStorage) Commit() error {
 }
 
 func (tx *TxObjectStorage) Rollback() error {
-	tx.Objects = make(map[plumbing.Hash]plumbing.EncodedObject, 0)
+	tx.Objects = make(map[plumbing.Hash]plumbing.EncodedObject)
 	return nil
 }
 
@@ -177,6 +237,21 @@ func (r ReferenceStorage) SetReference(ref *plumbing.Reference) error {
 		r[ref.Name()] = ref
 	}
 
+	return nil
+}
+
+func (r ReferenceStorage) CheckAndSetReference(ref, old *plumbing.Reference) error {
+	if ref == nil {
+		return nil
+	}
+
+	if old != nil {
+		tmp := r[ref.Name()]
+		if tmp != nil && tmp.Hash() != old.Hash() {
+			return ErrRefHasChanged
+		}
+	}
+	r[ref.Name()] = ref
 	return nil
 }
 
@@ -198,6 +273,19 @@ func (r ReferenceStorage) IterReferences() (storer.ReferenceIter, error) {
 	return storer.NewReferenceSliceIter(refs), nil
 }
 
+func (r ReferenceStorage) CountLooseRefs() (int, error) {
+	return len(r), nil
+}
+
+func (r ReferenceStorage) PackRefs() error {
+	return nil
+}
+
+func (r ReferenceStorage) RemoveReference(n plumbing.ReferenceName) error {
+	delete(r, n)
+	return nil
+}
+
 type ShallowStorage []plumbing.Hash
 
 func (s *ShallowStorage) SetShallow(commits []plumbing.Hash) error {
@@ -207,4 +295,17 @@ func (s *ShallowStorage) SetShallow(commits []plumbing.Hash) error {
 
 func (s ShallowStorage) Shallow() ([]plumbing.Hash, error) {
 	return s, nil
+}
+
+type ModuleStorage map[string]*Storage
+
+func (s ModuleStorage) Module(name string) (storage.Storer, error) {
+	if m, ok := s[name]; ok {
+		return m, nil
+	}
+
+	m := NewStorage()
+	s[name] = m
+
+	return m, nil
 }

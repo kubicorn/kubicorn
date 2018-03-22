@@ -19,13 +19,13 @@ limitations under the License.
 package v1alpha1
 
 import (
-	rbac_v1alpha1 "k8s.io/api/rbac/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	internalinterfaces "k8s.io/client-go/informers/internalinterfaces"
 	kubernetes "k8s.io/client-go/kubernetes"
 	v1alpha1 "k8s.io/client-go/listers/rbac/v1alpha1"
+	rbac_v1alpha1 "k8s.io/client-go/pkg/apis/rbac/v1alpha1"
 	cache "k8s.io/client-go/tools/cache"
 	time "time"
 )
@@ -41,11 +41,8 @@ type clusterRoleInformer struct {
 	factory internalinterfaces.SharedInformerFactory
 }
 
-// NewClusterRoleInformer constructs a new informer for ClusterRole type.
-// Always prefer using an informer factory to get a shared informer instead of getting an independent
-// one. This reduces memory footprint and number of connections to the server.
-func NewClusterRoleInformer(client kubernetes.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return cache.NewSharedIndexInformer(
+func newClusterRoleInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	sharedIndexInformer := cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				return client.RbacV1alpha1().ClusterRoles().List(options)
@@ -56,16 +53,14 @@ func NewClusterRoleInformer(client kubernetes.Interface, resyncPeriod time.Durat
 		},
 		&rbac_v1alpha1.ClusterRole{},
 		resyncPeriod,
-		indexers,
+		cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc},
 	)
-}
 
-func defaultClusterRoleInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewClusterRoleInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
+	return sharedIndexInformer
 }
 
 func (f *clusterRoleInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&rbac_v1alpha1.ClusterRole{}, defaultClusterRoleInformer)
+	return f.factory.InformerFor(&rbac_v1alpha1.ClusterRole{}, newClusterRoleInformer)
 }
 
 func (f *clusterRoleInformer) Lister() v1alpha1.ClusterRoleLister {

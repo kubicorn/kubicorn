@@ -19,9 +19,10 @@ limitations under the License.
 package v1beta1
 
 import (
-	v1beta1 "k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
+	v1beta1 "k8s.io/client-go/pkg/apis/extensions/v1beta1"
 	"k8s.io/client-go/tools/cache"
 )
 
@@ -54,7 +55,8 @@ func (s *thirdPartyResourceLister) List(selector labels.Selector) (ret []*v1beta
 
 // Get retrieves the ThirdPartyResource from the index for a given name.
 func (s *thirdPartyResourceLister) Get(name string) (*v1beta1.ThirdPartyResource, error) {
-	obj, exists, err := s.indexer.GetByKey(name)
+	key := &v1beta1.ThirdPartyResource{ObjectMeta: v1.ObjectMeta{Name: name}}
+	obj, exists, err := s.indexer.Get(key)
 	if err != nil {
 		return nil, err
 	}

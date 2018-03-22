@@ -58,10 +58,31 @@ func (s *SuiteCapabilities) TestDecodeWithEqual(c *check.C) {
 	c.Assert(cap.Get(Agent), check.DeepEquals, []string{"foo=bar"})
 }
 
-func (s *SuiteCapabilities) TestDecodeWithErrUnknownCapability(c *check.C) {
+func (s *SuiteCapabilities) TestDecodeWithUnknownCapability(c *check.C) {
 	cap := NewList()
 	err := cap.Decode([]byte("foo"))
-	c.Assert(err, check.Equals, ErrUnknownCapability)
+	c.Assert(err, check.IsNil)
+	c.Assert(cap.Supports(Capability("foo")), check.Equals, true)
+}
+
+func (s *SuiteCapabilities) TestDecodeWithUnknownCapabilityWithArgument(c *check.C) {
+	cap := NewList()
+	err := cap.Decode([]byte("oldref=HEAD:refs/heads/v2 thin-pack"))
+	c.Assert(err, check.IsNil)
+
+	c.Assert(cap.m, check.HasLen, 2)
+	c.Assert(cap.Get("oldref"), check.DeepEquals, []string{"HEAD:refs/heads/v2"})
+	c.Assert(cap.Get(ThinPack), check.IsNil)
+}
+
+func (s *SuiteCapabilities) TestDecodeWithUnknownCapabilityWithMultipleArgument(c *check.C) {
+	cap := NewList()
+	err := cap.Decode([]byte("foo=HEAD:refs/heads/v2 foo=HEAD:refs/heads/v1 thin-pack"))
+	c.Assert(err, check.IsNil)
+
+	c.Assert(cap.m, check.HasLen, 2)
+	c.Assert(cap.Get("foo"), check.DeepEquals, []string{"HEAD:refs/heads/v2", "HEAD:refs/heads/v1"})
+	c.Assert(cap.Get(ThinPack), check.IsNil)
 }
 
 func (s *SuiteCapabilities) TestString(c *check.C) {
@@ -133,10 +154,11 @@ func (s *SuiteCapabilities) TestAdd(c *check.C) {
 	c.Assert(cap.String(), check.Equals, "symref=foo symref=qux thin-pack")
 }
 
-func (s *SuiteCapabilities) TestAddErrUnknownCapability(c *check.C) {
+func (s *SuiteCapabilities) TestAddUnknownCapability(c *check.C) {
 	cap := NewList()
 	err := cap.Add(Capability("foo"))
-	c.Assert(err, check.Equals, ErrUnknownCapability)
+	c.Assert(err, check.IsNil)
+	c.Assert(cap.Supports(Capability("foo")), check.Equals, true)
 }
 
 func (s *SuiteCapabilities) TestAddErrArgumentsRequired(c *check.C) {
@@ -151,7 +173,7 @@ func (s *SuiteCapabilities) TestAddErrArgumentsNotAllowed(c *check.C) {
 	c.Assert(err, check.Equals, ErrArguments)
 }
 
-func (s *SuiteCapabilities) TestAddErrArgumendts(c *check.C) {
+func (s *SuiteCapabilities) TestAddErrArguments(c *check.C) {
 	cap := NewList()
 	err := cap.Add(SymRef, "")
 	c.Assert(err, check.Equals, ErrEmtpyArgument)
@@ -170,4 +192,15 @@ func (s *SuiteCapabilities) TestAddErrMultipleArgumentsAtTheSameTime(c *check.C)
 	cap := NewList()
 	err := cap.Add(Agent, "foo", "bar")
 	c.Assert(err, check.Equals, ErrMultipleArguments)
+}
+
+func (s *SuiteCapabilities) TestAll(c *check.C) {
+	cap := NewList()
+	c.Assert(NewList().All(), check.IsNil)
+
+	cap.Add(Agent, "foo")
+	c.Assert(cap.All(), check.DeepEquals, []Capability{Agent})
+
+	cap.Add(OFSDelta)
+	c.Assert(cap.All(), check.DeepEquals, []Capability{Agent, OFSDelta})
 }

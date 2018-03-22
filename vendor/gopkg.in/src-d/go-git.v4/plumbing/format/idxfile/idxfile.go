@@ -5,13 +5,15 @@ import "gopkg.in/src-d/go-git.v4/plumbing"
 const (
 	// VersionSupported is the only idx version supported.
 	VersionSupported = 2
+
+	offsetLimit = 0x7fffffff
 )
 
 var (
 	idxHeader = []byte{255, 't', 'O', 'c'}
 )
 
-// An Idxfile represents an idx file in memory.
+// Idxfile is the in memory representation of an idx file.
 type Idxfile struct {
 	Version          uint32
 	Fanout           [255]uint32
@@ -21,16 +23,20 @@ type Idxfile struct {
 	IdxChecksum      [20]byte
 }
 
-// An Entry represents data about an object in the packfile: its hash,
-// offset and CRC32 checksum.
+func NewIdxfile() *Idxfile {
+	return &Idxfile{}
+}
+
+// Entry is the in memory representation of an object entry in the idx file.
 type Entry struct {
 	Hash   plumbing.Hash
 	CRC32  uint32
 	Offset uint64
 }
 
+// Add adds a new Entry with the given values to the Idxfile.
 func (idx *Idxfile) Add(h plumbing.Hash, offset uint64, crc32 uint32) {
-	idx.Entries = append(idx.Entries, Entry{
+	idx.Entries = append(idx.Entries, &Entry{
 		Hash:   h,
 		Offset: offset,
 		CRC32:  crc32,

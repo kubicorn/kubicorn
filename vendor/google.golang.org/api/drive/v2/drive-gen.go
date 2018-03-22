@@ -271,6 +271,9 @@ type About struct {
 	// file type. The most specific type takes precedence.
 	AdditionalRoleInfo []*AboutAdditionalRoleInfo `json:"additionalRoleInfo,omitempty"`
 
+	// CanCreateTeamDrives: Whether the user can create Team Drives.
+	CanCreateTeamDrives bool `json:"canCreateTeamDrives,omitempty"`
+
 	// DomainSharingPolicy: The domain sharing policy for the current user.
 	// Possible values are:
 	// - allowed
@@ -1583,11 +1586,12 @@ type File struct {
 	// files.
 	Owners []*User `json:"owners,omitempty"`
 
-	// Parents: Collection of parent folders which contain this
-	// file.
-	// Setting this field will put the file in all of the provided folders.
-	// On insert, if no folders are provided, the file will be placed in the
-	// default root folder.
+	// Parents: Collection of parent folders which contain this file.
+	// If not specified as part of an insert request, the file will be
+	// placed directly in the user's My Drive folder. If not specified as
+	// part of a copy request, the file will inherit any discoverable
+	// parents of the source file. Update requests can also use the
+	// addParents and removeParents parameters to modify the parents list.
 	Parents []*ParentReference `json:"parents,omitempty"`
 
 	// PermissionIds: List of permission IDs for users with access to this
@@ -2336,7 +2340,8 @@ type Permission struct {
 	// - They can only be set on user and group permissions
 	// - The date must be in the future
 	// - The date cannot be more than a year in the future
-	// - The date can only be set on drive.permissions.update requests
+	// - The date can only be set on drive.permissions.update or
+	// drive.permissions.patch requests
 	ExpirationDate string `json:"expirationDate,omitempty"`
 
 	// Id: The ID of the user this permission refers to, and identical to
@@ -3183,11 +3188,10 @@ func (r *AboutService) Get() *AboutGetCall {
 }
 
 // IncludeSubscribed sets the optional parameter "includeSubscribed":
-// When calculating the number of remaining change IDs, whether to
-// include public files the user has opened and shared files. When set
-// to false, this counts only change IDs for owned files and any shared
-// or public files that the user has explicitly added to a folder they
-// own.
+// Whether to count changes outside the My Drive hierarchy. When set to
+// false, changes to files such as those in the Application Data folder
+// or shared files which have not been added to My Drive will be omitted
+// from the maxChangeIdCount.
 func (c *AboutGetCall) IncludeSubscribed(includeSubscribed bool) *AboutGetCall {
 	c.urlParams_.Set("includeSubscribed", fmt.Sprint(includeSubscribed))
 	return c
@@ -3305,7 +3309,7 @@ func (c *AboutGetCall) Do(opts ...googleapi.CallOption) (*About, error) {
 	//   "parameters": {
 	//     "includeSubscribed": {
 	//       "default": "true",
-	//       "description": "When calculating the number of remaining change IDs, whether to include public files the user has opened and shared files. When set to false, this counts only change IDs for owned files and any shared or public files that the user has explicitly added to a folder they own.",
+	//       "description": "Whether to count changes outside the My Drive hierarchy. When set to false, changes to files such as those in the Application Data folder or shared files which have not been added to My Drive will be omitted from the maxChangeIdCount.",
 	//       "location": "query",
 	//       "type": "boolean"
 	//     },
@@ -3664,7 +3668,8 @@ type ChangesGetCall struct {
 	header_      http.Header
 }
 
-// Get: Gets a specific change.
+// Get: Deprecated - Use changes.getStartPageToken and changes.list to
+// retrieve recent changes.
 func (r *ChangesService) Get(changeId string) *ChangesGetCall {
 	c := &ChangesGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.changeId = changeId
@@ -3779,7 +3784,7 @@ func (c *ChangesGetCall) Do(opts ...googleapi.CallOption) (*Change, error) {
 	}
 	return ret, nil
 	// {
-	//   "description": "Gets a specific change.",
+	//   "description": "Deprecated - Use changes.getStartPageToken and changes.list to retrieve recent changes.",
 	//   "httpMethod": "GET",
 	//   "id": "drive.changes.get",
 	//   "parameterOrder": [
@@ -4014,9 +4019,10 @@ func (c *ChangesListCall) IncludeDeleted(includeDeleted bool) *ChangesListCall {
 }
 
 // IncludeSubscribed sets the optional parameter "includeSubscribed":
-// Whether to include public files the user has opened and shared files.
-// When set to false, the list only includes owned files plus any shared
-// or public files the user has explicitly added to a folder they own.
+// Whether to include changes outside the My Drive hierarchy in the
+// result. When set to false, changes to files such as those in the
+// Application Data folder or shared files which have not been added to
+// My Drive will be omitted from the result.
 func (c *ChangesListCall) IncludeSubscribed(includeSubscribed bool) *ChangesListCall {
 	c.urlParams_.Set("includeSubscribed", fmt.Sprint(includeSubscribed))
 	return c
@@ -4054,8 +4060,8 @@ func (c *ChangesListCall) Spaces(spaces string) *ChangesListCall {
 	return c
 }
 
-// StartChangeId sets the optional parameter "startChangeId": Change ID
-// to start listing changes from.
+// StartChangeId sets the optional parameter "startChangeId": Deprecated
+// - use pageToken instead.
 func (c *ChangesListCall) StartChangeId(startChangeId int64) *ChangesListCall {
 	c.urlParams_.Set("startChangeId", fmt.Sprint(startChangeId))
 	return c
@@ -4186,7 +4192,7 @@ func (c *ChangesListCall) Do(opts ...googleapi.CallOption) (*ChangeList, error) 
 	//     },
 	//     "includeSubscribed": {
 	//       "default": "true",
-	//       "description": "Whether to include public files the user has opened and shared files. When set to false, the list only includes owned files plus any shared or public files the user has explicitly added to a folder they own.",
+	//       "description": "Whether to include changes outside the My Drive hierarchy in the result. When set to false, changes to files such as those in the Application Data folder or shared files which have not been added to My Drive will be omitted from the result.",
 	//       "location": "query",
 	//       "type": "boolean"
 	//     },
@@ -4215,7 +4221,7 @@ func (c *ChangesListCall) Do(opts ...googleapi.CallOption) (*ChangeList, error) 
 	//       "type": "string"
 	//     },
 	//     "startChangeId": {
-	//       "description": "Change ID to start listing changes from.",
+	//       "description": "Deprecated - use pageToken instead.",
 	//       "format": "int64",
 	//       "location": "query",
 	//       "type": "string"
@@ -4308,9 +4314,10 @@ func (c *ChangesWatchCall) IncludeDeleted(includeDeleted bool) *ChangesWatchCall
 }
 
 // IncludeSubscribed sets the optional parameter "includeSubscribed":
-// Whether to include public files the user has opened and shared files.
-// When set to false, the list only includes owned files plus any shared
-// or public files the user has explicitly added to a folder they own.
+// Whether to include changes outside the My Drive hierarchy in the
+// result. When set to false, changes to files such as those in the
+// Application Data folder or shared files which have not been added to
+// My Drive will be omitted from the result.
 func (c *ChangesWatchCall) IncludeSubscribed(includeSubscribed bool) *ChangesWatchCall {
 	c.urlParams_.Set("includeSubscribed", fmt.Sprint(includeSubscribed))
 	return c
@@ -4348,8 +4355,8 @@ func (c *ChangesWatchCall) Spaces(spaces string) *ChangesWatchCall {
 	return c
 }
 
-// StartChangeId sets the optional parameter "startChangeId": Change ID
-// to start listing changes from.
+// StartChangeId sets the optional parameter "startChangeId": Deprecated
+// - use pageToken instead.
 func (c *ChangesWatchCall) StartChangeId(startChangeId int64) *ChangesWatchCall {
 	c.urlParams_.Set("startChangeId", fmt.Sprint(startChangeId))
 	return c
@@ -4472,7 +4479,7 @@ func (c *ChangesWatchCall) Do(opts ...googleapi.CallOption) (*Channel, error) {
 	//     },
 	//     "includeSubscribed": {
 	//       "default": "true",
-	//       "description": "Whether to include public files the user has opened and shared files. When set to false, the list only includes owned files plus any shared or public files the user has explicitly added to a folder they own.",
+	//       "description": "Whether to include changes outside the My Drive hierarchy in the result. When set to false, changes to files such as those in the Application Data folder or shared files which have not been added to My Drive will be omitted from the result.",
 	//       "location": "query",
 	//       "type": "boolean"
 	//     },
@@ -4501,7 +4508,7 @@ func (c *ChangesWatchCall) Do(opts ...googleapi.CallOption) (*Channel, error) {
 	//       "type": "string"
 	//     },
 	//     "startChangeId": {
-	//       "description": "Change ID to start listing changes from.",
+	//       "description": "Deprecated - use pageToken instead.",
 	//       "format": "int64",
 	//       "location": "query",
 	//       "type": "string"
@@ -7328,11 +7335,12 @@ func (c *FilesInsertCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
+	gensupport.SetGetBody(req, getBody)
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
@@ -7912,7 +7920,11 @@ func (c *FilesPatchCall) RemoveParents(removeParents string) *FilesPatchCall {
 }
 
 // SetModifiedDate sets the optional parameter "setModifiedDate":
-// Whether to set the modified date with the supplied modified date.
+// Whether to set the modified date using the value supplied in the
+// request body. Setting this field to true is equivalent to
+// modifiedDateBehavior=fromBodyOrNow, and false is equivalent to
+// modifiedDateBehavior=now. To prevent any changes to the modified date
+// set modifiedDateBehavior=noChange.
 func (c *FilesPatchCall) SetModifiedDate(setModifiedDate bool) *FilesPatchCall {
 	c.urlParams_.Set("setModifiedDate", fmt.Sprint(setModifiedDate))
 	return c
@@ -8115,7 +8127,7 @@ func (c *FilesPatchCall) Do(opts ...googleapi.CallOption) (*File, error) {
 	//     },
 	//     "setModifiedDate": {
 	//       "default": "false",
-	//       "description": "Whether to set the modified date with the supplied modified date.",
+	//       "description": "Whether to set the modified date using the value supplied in the request body. Setting this field to true is equivalent to modifiedDateBehavior=fromBodyOrNow, and false is equivalent to modifiedDateBehavior=now. To prevent any changes to the modified date set modifiedDateBehavior=noChange.",
 	//       "location": "query",
 	//       "type": "boolean"
 	//     },
@@ -8683,7 +8695,11 @@ func (c *FilesUpdateCall) RemoveParents(removeParents string) *FilesUpdateCall {
 }
 
 // SetModifiedDate sets the optional parameter "setModifiedDate":
-// Whether to set the modified date with the supplied modified date.
+// Whether to set the modified date using the value supplied in the
+// request body. Setting this field to true is equivalent to
+// modifiedDateBehavior=fromBodyOrNow, and false is equivalent to
+// modifiedDateBehavior=now. To prevent any changes to the modified date
+// set modifiedDateBehavior=noChange.
 func (c *FilesUpdateCall) SetModifiedDate(setModifiedDate bool) *FilesUpdateCall {
 	c.urlParams_.Set("setModifiedDate", fmt.Sprint(setModifiedDate))
 	return c
@@ -8811,11 +8827,12 @@ func (c *FilesUpdateCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("PUT", urls, body)
 	req.Header = reqHeaders
+	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"fileId": c.fileId,
 	})
@@ -8968,7 +8985,7 @@ func (c *FilesUpdateCall) Do(opts ...googleapi.CallOption) (*File, error) {
 	//     },
 	//     "setModifiedDate": {
 	//       "default": "false",
-	//       "description": "Whether to set the modified date with the supplied modified date.",
+	//       "description": "Whether to set the modified date using the value supplied in the request body. Setting this field to true is equivalent to modifiedDateBehavior=fromBodyOrNow, and false is equivalent to modifiedDateBehavior=now. To prevent any changes to the modified date set modifiedDateBehavior=noChange.",
 	//       "location": "query",
 	//       "type": "boolean"
 	//     },
@@ -10287,8 +10304,8 @@ func (r *PermissionsService) Insert(fileId string, permission *Permission) *Perm
 	return c
 }
 
-// EmailMessage sets the optional parameter "emailMessage": A custom
-// message to include in notification emails.
+// EmailMessage sets the optional parameter "emailMessage": A plain text
+// custom message to include in notification emails.
 func (c *PermissionsInsertCall) EmailMessage(emailMessage string) *PermissionsInsertCall {
 	c.urlParams_.Set("emailMessage", emailMessage)
 	return c
@@ -10414,7 +10431,7 @@ func (c *PermissionsInsertCall) Do(opts ...googleapi.CallOption) (*Permission, e
 	//   ],
 	//   "parameters": {
 	//     "emailMessage": {
-	//       "description": "A custom message to include in notification emails.",
+	//       "description": "A plain text custom message to include in notification emails.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },
@@ -12222,11 +12239,12 @@ func (c *RealtimeUpdateCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("PUT", urls, body)
 	req.Header = reqHeaders
+	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"fileId": c.fileId,
 	})

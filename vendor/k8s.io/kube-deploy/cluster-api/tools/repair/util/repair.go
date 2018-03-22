@@ -21,14 +21,14 @@ import (
 	"github.com/golang/glog"
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/kube-deploy/cluster-api/client"
+	"k8s.io/kube-deploy/cluster-api/pkg/client/clientset_generated/clientset/typed/cluster/v1alpha1"
 	"k8s.io/kube-deploy/cluster-api/util"
 )
 
 type repairer struct {
-	dryRun     bool
-	configPath string
-	client     *client.ClusterAPIV1Alpha1Client
+	dryRun        bool
+	configPath    string
+	machInterface v1alpha1.MachineInterface
 }
 
 func NewRepairer(dryRun bool, configPath string) (*repairer, error) {
@@ -36,11 +36,14 @@ func NewRepairer(dryRun bool, configPath string) (*repairer, error) {
 		configPath = util.GetDefaultKubeConfigPath()
 	}
 
-	c, err := util.NewApiClient(configPath)
+	c, err := util.NewClientSet(configPath)
 	if err != nil {
 		return nil, err
 	}
-	return &repairer{dryRun: dryRun, configPath: configPath, client: c}, nil
+
+	return &repairer{dryRun: dryRun,
+		configPath:    configPath,
+		machInterface: c.ClusterV1alpha1().Machines(v1.NamespaceDefault)}, nil
 }
 
 func (r *repairer) RepairNode() error {
@@ -61,7 +64,7 @@ func (r *repairer) RepairNode() error {
 	}
 
 	for _, node := range nodes {
-		m, err := r.client.Machines().Get(node, metav1.GetOptions{})
+		m, err := r.machInterface.Get(node, metav1.GetOptions{})
 
 		if err != nil {
 			glog.Info("Error retrieving machine object %v. Not taking any action on this node.", node)
@@ -71,13 +74,13 @@ func (r *repairer) RepairNode() error {
 			glog.Infof("Found master node %s, skipping repair for it", m.Name)
 			continue
 		}
-		if err := r.client.Machines().Delete(node, &metav1.DeleteOptions{}); err != nil {
+		if err := r.machInterface.Delete(node, &metav1.DeleteOptions{}); err != nil {
 			return err
 		}
 
 		glog.Infof("Deleted node %s", node)
 
-		if _, err := r.client.Machines().Create(util.Copy(m)); err != nil {
+		if _, err := r.machInterface.Create(util.Copy(m)); err != nil {
 			return err
 		}
 

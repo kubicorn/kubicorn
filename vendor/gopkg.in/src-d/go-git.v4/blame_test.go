@@ -1,10 +1,10 @@
 package git
 
 import (
-	"gopkg.in/src-d/go-git.v4/fixtures"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 
 	. "gopkg.in/check.v1"
+	"gopkg.in/src-d/go-git-fixtures.v3"
 )
 
 type BlameSuite struct {
@@ -26,7 +26,7 @@ func (s *BlameSuite) TestBlame(c *C) {
 		r := s.NewRepositoryFromPackfile(fixtures.ByURL(t.repo).One())
 
 		exp := s.mockBlame(c, t, r)
-		commit, err := r.Commit(plumbing.NewHash(t.rev))
+		commit, err := r.CommitObject(plumbing.NewHash(t.rev))
 		c.Assert(err, IsNil)
 
 		obt, err := Blame(commit, t.path)
@@ -36,7 +36,7 @@ func (s *BlameSuite) TestBlame(c *C) {
 }
 
 func (s *BlameSuite) mockBlame(c *C, t blameTest, r *Repository) (blame *BlameResult) {
-	commit, err := r.Commit(plumbing.NewHash(t.rev))
+	commit, err := r.CommitObject(plumbing.NewHash(t.rev))
 	c.Assert(err, IsNil, Commentf("%v: repo=%s, rev=%s", err, t.repo, t.rev))
 
 	f, err := commit.File(t.path)
@@ -46,13 +46,14 @@ func (s *BlameSuite) mockBlame(c *C, t blameTest, r *Repository) (blame *BlameRe
 	c.Assert(len(t.blames), Equals, len(lines), Commentf(
 		"repo=%s, path=%s, rev=%s: the number of lines in the file and the number of expected blames differ (len(blames)=%d, len(lines)=%d)\nblames=%#q\nlines=%#q", t.repo, t.path, t.rev, len(t.blames), len(lines), t.blames, lines))
 
-	blamedLines := make([]*line, 0, len(t.blames))
+	blamedLines := make([]*Line, 0, len(t.blames))
 	for i := range t.blames {
-		commit, err := r.Commit(plumbing.NewHash(t.blames[i]))
+		commit, err := r.CommitObject(plumbing.NewHash(t.blames[i]))
 		c.Assert(err, IsNil)
-		l := &line{
-			author: commit.Author.Email,
-			text:   lines[i],
+		l := &Line{
+			Author: commit.Author.Email,
+			Text:   lines[i],
+			Date:   commit.Author.When,
 		}
 		blamedLines = append(blamedLines, l)
 	}

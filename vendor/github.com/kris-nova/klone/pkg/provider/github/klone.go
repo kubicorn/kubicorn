@@ -29,7 +29,6 @@ import (
 type KloneProvider struct {
 }
 
-
 func (k *KloneProvider) NewGitServer() (provider.GitServer, error) {
 	srv := &GitServer{}
 	err := srv.Authenticate()

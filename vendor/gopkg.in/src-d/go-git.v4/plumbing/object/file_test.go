@@ -3,12 +3,13 @@ package object
 import (
 	"io"
 
-	"gopkg.in/src-d/go-git.v4/fixtures"
 	"gopkg.in/src-d/go-git.v4/plumbing"
+	"gopkg.in/src-d/go-git.v4/plumbing/filemode"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
 	"gopkg.in/src-d/go-git.v4/storage/filesystem"
 
 	. "gopkg.in/check.v1"
+	"gopkg.in/src-d/go-git-fixtures.v3"
 )
 
 type FileSuite struct {
@@ -58,7 +59,7 @@ func (s *FileSuite) TestIter(c *C) {
 			exp := t.files[k]
 			file, err := iter.Next()
 			c.Assert(err, IsNil, Commentf("subtest %d, iter %d, err=%v", i, k, err))
-			c.Assert(file.Mode.String(), Equals, "-rw-r--r--")
+			c.Assert(file.Mode, Equals, filemode.Regular)
 			c.Assert(file.Hash.IsZero(), Equals, false)
 			c.Assert(file.Hash, Equals, file.ID())
 			c.Assert(file.Name, Equals, exp.Name, Commentf("subtest %d, iter %d, name=%s, expected=%s", i, k, file.Name, exp.Hash))
@@ -246,4 +247,33 @@ func (s *FileSuite) TestFileIter(c *C) {
 	})
 
 	c.Assert(count, Equals, 1)
+}
+
+func (s *FileSuite) TestFileIterSubmodule(c *C) {
+	dotgit := fixtures.ByURL("https://github.com/git-fixtures/submodule.git").One().DotGit()
+	st, err := filesystem.NewStorage(dotgit)
+
+	c.Assert(err, IsNil)
+
+	hash := plumbing.NewHash("b685400c1f9316f350965a5993d350bc746b0bf4")
+	commit, err := GetCommit(st, hash)
+	c.Assert(err, IsNil)
+
+	tree, err := commit.Tree()
+	c.Assert(err, IsNil)
+
+	expected := []string{
+		".gitmodules",
+		"README.md",
+	}
+
+	var count int
+	i := tree.Files()
+	i.ForEach(func(f *File) error {
+		c.Assert(f.Name, Equals, expected[count])
+		count++
+		return nil
+	})
+
+	c.Assert(count, Equals, 2)
 }

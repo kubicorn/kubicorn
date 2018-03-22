@@ -116,10 +116,7 @@ func (c *controller) Run(stopCh <-chan struct{}) {
 	c.reflector = r
 	c.reflectorMutex.Unlock()
 
-	var wg wait.Group
-	defer wg.Wait()
-
-	wg.StartWithChannel(stopCh, r.Run)
+	r.RunUntil(stopCh)
 
 	wait.Until(c.processLoop, time.Second, stopCh)
 }

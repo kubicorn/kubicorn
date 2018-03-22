@@ -19,13 +19,13 @@ limitations under the License.
 package v1alpha1
 
 import (
-	admissionregistration_v1alpha1 "k8s.io/api/admissionregistration/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	internalinterfaces "k8s.io/client-go/informers/internalinterfaces"
 	kubernetes "k8s.io/client-go/kubernetes"
 	v1alpha1 "k8s.io/client-go/listers/admissionregistration/v1alpha1"
+	admissionregistration_v1alpha1 "k8s.io/client-go/pkg/apis/admissionregistration/v1alpha1"
 	cache "k8s.io/client-go/tools/cache"
 	time "time"
 )
@@ -41,11 +41,8 @@ type externalAdmissionHookConfigurationInformer struct {
 	factory internalinterfaces.SharedInformerFactory
 }
 
-// NewExternalAdmissionHookConfigurationInformer constructs a new informer for ExternalAdmissionHookConfiguration type.
-// Always prefer using an informer factory to get a shared informer instead of getting an independent
-// one. This reduces memory footprint and number of connections to the server.
-func NewExternalAdmissionHookConfigurationInformer(client kubernetes.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return cache.NewSharedIndexInformer(
+func newExternalAdmissionHookConfigurationInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	sharedIndexInformer := cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				return client.AdmissionregistrationV1alpha1().ExternalAdmissionHookConfigurations().List(options)
@@ -56,16 +53,14 @@ func NewExternalAdmissionHookConfigurationInformer(client kubernetes.Interface, 
 		},
 		&admissionregistration_v1alpha1.ExternalAdmissionHookConfiguration{},
 		resyncPeriod,
-		indexers,
+		cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc},
 	)
-}
 
-func defaultExternalAdmissionHookConfigurationInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewExternalAdmissionHookConfigurationInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
+	return sharedIndexInformer
 }
 
 func (f *externalAdmissionHookConfigurationInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&admissionregistration_v1alpha1.ExternalAdmissionHookConfiguration{}, defaultExternalAdmissionHookConfigurationInformer)
+	return f.factory.InformerFor(&admissionregistration_v1alpha1.ExternalAdmissionHookConfiguration{}, newExternalAdmissionHookConfigurationInformer)
 }
 
 func (f *externalAdmissionHookConfigurationInformer) Lister() v1alpha1.ExternalAdmissionHookConfigurationLister {

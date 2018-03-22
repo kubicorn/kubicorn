@@ -1,4 +1,5 @@
-// Package pktline implements reading payloads form pkt-lines and encoding pkt-lines from payloads.
+// Package pktline implements reading payloads form pkt-lines and encoding
+// pkt-lines from payloads.
 package pktline
 
 import (
@@ -62,21 +63,15 @@ func (e *Encoder) encodeLine(p []byte) error {
 	}
 
 	if bytes.Equal(p, Flush) {
-		if err := e.Flush(); err != nil {
-			return err
-		}
-		return nil
+		return e.Flush()
 	}
 
 	n := len(p) + 4
 	if _, err := e.w.Write(asciiHex16(n)); err != nil {
 		return err
 	}
-	if _, err := e.w.Write(p); err != nil {
-		return err
-	}
-
-	return nil
+	_, err := e.w.Write(p)
+	return err
 }
 
 // Returns the hexadecimal ascii representation of the 16 less
@@ -115,7 +110,8 @@ func (e *Encoder) EncodeString(payloads ...string) error {
 }
 
 // Encodef encodes a single pkt-line with the payload formatted as
-// the format specifier and the rest of the arguments suggest.
+// the format specifier. The rest of the arguments will be used in
+// the format string.
 func (e *Encoder) Encodef(format string, a ...interface{}) error {
 	return e.EncodeString(
 		fmt.Sprintf(format, a...),

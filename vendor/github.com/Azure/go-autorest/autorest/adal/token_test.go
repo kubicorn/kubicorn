@@ -583,6 +583,34 @@ func TestNewServicePrincipalTokenFromMSI(t *testing.T) {
 	}
 }
 
+func TestNewServicePrincipalTokenFromMSIWithUserAssignedID(t *testing.T) {
+	resource := "https://resource"
+	userID := "abc123"
+	cb := func(token Token) error { return nil }
+
+	spt, err := NewServicePrincipalTokenFromMSIWithUserAssignedID("http://msiendpoint/", resource, userID, cb)
+	if err != nil {
+		t.Fatalf("Failed to get MSI SPT: %v", err)
+	}
+
+	// check some of the SPT fields
+	if _, ok := spt.secret.(*ServicePrincipalMSISecret); !ok {
+		t.Fatal("SPT secret was not of MSI type")
+	}
+
+	if spt.resource != resource {
+		t.Fatal("SPT came back with incorrect resource")
+	}
+
+	if len(spt.refreshCallbacks) != 1 {
+		t.Fatal("SPT had incorrect refresh callbacks.")
+	}
+
+	if spt.clientID != userID {
+		t.Fatal("SPT had incorrect client ID")
+	}
+}
+
 func TestGetVMEndpoint(t *testing.T) {
 	tempSettingsFile, err := ioutil.TempFile("", "ManagedIdentity-Settings")
 	if err != nil {

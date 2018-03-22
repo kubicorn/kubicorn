@@ -1,18 +1,19 @@
-# go-git [![GoDoc](https://godoc.org/gopkg.in/src-d/go-git.v4?status.svg)](https://godoc.org/gopkg.in/src-d/go-git.v4) [![Build Status](https://travis-ci.org/src-d/go-git.svg)](https://travis-ci.org/src-d/go-git) [![codecov.io](https://codecov.io/github/src-d/go-git/coverage.svg)](https://codecov.io/github/src-d/go-git) [![codebeat badge](https://codebeat.co/badges/b6cb2f73-9e54-483d-89f9-4b95a911f40c)](https://codebeat.co/projects/github-com-src-d-go-git)
+![go-git logo](https://cdn.rawgit.com/src-d/artwork/02036484/go-git/files/go-git-github-readme-header.png)
+[![GoDoc](https://godoc.org/gopkg.in/src-d/go-git.v4?status.svg)](https://godoc.org/github.com/src-d/go-git) [![Build Status](https://travis-ci.org/src-d/go-git.svg)](https://travis-ci.org/src-d/go-git) [![Build status](https://ci.appveyor.com/api/projects/status/nyidskwifo4py6ub?svg=true)](https://ci.appveyor.com/project/mcuadros/go-git) [![codecov.io](https://codecov.io/github/src-d/go-git/coverage.svg)](https://codecov.io/github/src-d/go-git) [![Go Report Card](https://goreportcard.com/badge/github.com/src-d/go-git)](https://goreportcard.com/report/github.com/src-d/go-git)
 
-A low level and highly extensible git implementation in **pure Go**.
+*go-git* is a highly extensible git implementation library written in **pure Go**.
 
-*go-git* aims to reach the completeness of [libgit2](https://libgit2.github.com/) or [jgit](http://www.eclipse.org/jgit/), nowadays covers the **majority** of the plumbing **read operations** and **some** of the main **write operations**, but lacks the main porcelain operations such as merges.
+It can be used to manipulate git repositories at low level *(plumbing)* or high level *(porcelain)*, through an idiomatic Go API. It also supports several type of storage, such as in-memory filesystems, or custom implementations thanks to the [`Storer`](https://godoc.org/gopkg.in/src-d/go-git.v4/plumbing/storer) interface.
 
-It is **highly extensible**, we have been following the open/close principle in its design to facilitate extensions, mainly focusing the efforts on the persistence of the objects.
+It's being actively develop since 2015 and is being use extensively by [source{d}](https://sourced.tech/) and [Keybase](https://keybase.io/blog/encrypted-git-for-everyone), and by many other libraries and tools.
 
-### ... is this production ready?
+Comparison with git
+-------------------
 
-The master branch represents the `v4` of the library, it is currently under active development and is planned to be released in early 2017.
+*go-git* aims to be fully compatible with [git](https://github.com/git/git), all the *porcelain* operations are implemented to work exactly as *git* does.
 
-If you are looking for a production ready version, please take a look to the [`v3`](https://github.com/src-d/go-git/tree/v3) which is being used in production at [source{d}](http://sourced.tech) since August 2015 to analyze all GitHub public repositories (i.e. 16M repositories).
+*git* is a humongous project with years of development by thousands of contributors, making it challenging for *go-git* implement all the features. You can find a comparison of *go-git* vs *git* in the [compatibility documentation](COMPATIBILITY.md).
 
-We recommend the use of `v4` to develop new projects since it includes much new functionality and provides a more *idiomatic git* API
 
 Installation
 ------------
@@ -23,24 +24,51 @@ The recommended way to install *go-git* is:
 go get -u gopkg.in/src-d/go-git.v4/...
 ```
 
+> We use [gopkg.in](http://labix.org/gopkg.in) for having a versioned API, this means that when `go get` clones the package, is the latest tag matching `v4.*` cloned and not the master branch.
 
 Examples
 --------
 
-Cloning a repository and printing the history of HEAD, just like `git log` does
+> Please note that the functions `CheckIfError` and `Info` used in the examples are from the [examples package](https://github.com/src-d/go-git/blob/master/_examples/common.go#L17) just to be used in the examples.
 
-> Please note that the functions `CheckIfError` and `Info` used in the examples are from the [examples package](https://github.com/src-d/go-git/blob/master/examples/common.go#L17) just to be used in the examples.
+
+### Basic example
+
+A basic example that mimics the standard `git clone` command
+
+```go
+// Clone the given repository to the given directory
+Info("git clone https://github.com/src-d/go-git")
+
+_, err := git.PlainClone("/tmp/foo", false, &git.CloneOptions{
+    URL:      "https://github.com/src-d/go-git",
+    Progress: os.Stdout,
+})
+
+CheckIfError(err)
+```
+
+Outputs:
+```
+Counting objects: 4924, done.
+Compressing objects: 100% (1333/1333), done.
+Total 4924 (delta 530), reused 6 (delta 6), pack-reused 3533
+```
+
+### In-memory example
+
+Cloning a repository into memory and printing the history of HEAD, just like `git log` does
 
 
 ```go
-// Instances an in-memory git repository
-r := git.NewMemoryRepository()
-
-// Clones the given repository, creating the remote, the local branches
-// and fetching the objects, exactly as:
+// Clones the given repository in memory, creating the remote, the local
+// branches and fetching the objects, exactly as:
 Info("git clone https://github.com/src-d/go-siva")
 
-err := r.Clone(&git.CloneOptions{URL: "https://github.com/src-d/go-siva"})
+r, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
+    URL: "https://github.com/src-d/go-siva",
+})
+
 CheckIfError(err)
 
 // Gets the HEAD history from HEAD, just like does:
@@ -50,18 +78,17 @@ Info("git log")
 ref, err := r.Head()
 CheckIfError(err)
 
-// ... retrieves the commit object
-commit, err := r.Commit(ref.Hash())
-CheckIfError(err)
 
 // ... retrieves the commit history
-history, err := commit.History()
+cIter, err := r.Log(&git.LogOptions{From: ref.Hash()})
 CheckIfError(err)
 
 // ... just iterates over the commits, printing it
-for _, c := range history {
-    fmt.Println(c)
-}
+err = cIter.ForEach(func(c *object.Commit) error {
+	fmt.Println(c)
+	return nil
+})
+CheckIfError(err)
 ```
 
 Outputs:
@@ -83,14 +110,14 @@ Date:   Fri Nov 11 13:23:22 2016 +0100
 ...
 ```
 
-You can find this [example](examples/log/main.go) and many other at the [examples](examples) folder
+You can find this [example](_examples/log/main.go) and many others at the [examples](_examples) folder
 
 Contribute
 ----------
 
-If you are interested on contributing to go-git, open an [issue](https://github.com/src-d/go-git/issues) explaining which missing functionality you want to work in, and we will guide you through the implementation.
+[Contributions](https://github.com/src-d/go-git/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) are more than welcome, if you are interested please take a look to
+our [Contributing Guidelines](CONTRIBUTING.md).
 
 License
 -------
-
-MIT, see [LICENSE](LICENSE)
+Apache License Version 2.0, see [LICENSE](LICENSE)
