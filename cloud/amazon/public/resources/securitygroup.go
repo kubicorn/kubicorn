@@ -196,6 +196,13 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		})
 
 	}
+
+	// Tag newly created Security Group
+	err = newResource.tag(applyResource.Tags)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Unable to tag new Security Group: %v", err)
+	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -312,6 +319,25 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 	}
 
 	return newCluster
+}
+
+func (r *SecurityGroup) tag(tags map[string]string) error {
+	logger.Debug("sg.Tag")
+	tagInput := &ec2.CreateTagsInput{
+		Resources: []*string{&r.Identifier},
+	}
+	for key, val := range tags {
+		logger.Debug("Registering Security Group tag [%s] %s", key, val)
+		tagInput.Tags = append(tagInput.Tags, &ec2.Tag{
+			Key:   S("%s", key),
+			Value: S("%s", val),
+		})
+	}
+	_, err := Sdk.Ec2.CreateTags(tagInput)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func strToInt(s string) (int, error) {

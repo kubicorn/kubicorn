@@ -126,6 +126,12 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, immutable *cluster.Clust
 	newResource.Name = applyResource.Name
 	newResource.Identifier = *output.Subnet.SubnetId
 
+	// Tag newly created Subnet
+	err = newResource.tag(applyResource.Tags)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Unable to tag new Subnet: %v", err)
+	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -227,4 +233,23 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 	return newCluster
+}
+
+func (r *Subnet) tag(tags map[string]string) error {
+	logger.Debug("subnet.Tag")
+	tagInput := &ec2.CreateTagsInput{
+		Resources: []*string{&r.Identifier},
+	}
+	for key, val := range tags {
+		logger.Debug("Registering Subnet tag [%s] %s", key, val)
+		tagInput.Tags = append(tagInput.Tags, &ec2.Tag{
+			Key:   S("%s", key),
+			Value: S("%s", val),
+		})
+	}
+	_, err := Sdk.Ec2.CreateTags(tagInput)
+	if err != nil {
+		return err
+	}
+	return nil
 }
