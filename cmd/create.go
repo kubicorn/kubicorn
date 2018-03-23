@@ -115,7 +115,10 @@ func RunCreate(options *cli.CreateOptions) error {
 	if newCluster.ProviderConfig().Cloud == cluster.CloudGoogle && options.CloudID == "" {
 		return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
 	}
-	newCluster.ProviderConfig().CloudId = options.CloudID
+
+	providerConfig := newCluster.ProviderConfig()
+	providerConfig.CloudId = options.CloudID
+	newCluster.SetProviderConfig(providerConfig)
 
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something

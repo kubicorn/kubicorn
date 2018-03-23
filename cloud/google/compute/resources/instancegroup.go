@@ -181,7 +181,9 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 			}
 
 			found = true
-			immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPPrivate, immutable.ProviderConfig().KubernetesAPI.Port)
+			providerConfig := immutable.ProviderConfig()
+			providerConfig.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPPrivate, immutable.ProviderConfig().KubernetesAPI.Port)
+			immutable.SetProviderConfig(providerConfig)
 			break
 		}
 		if !found {
@@ -189,7 +191,9 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		}
 	}
 
-	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	providerConfig := immutable.ProviderConfig()
+	providerConfig.Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	immutable.SetProviderConfig(providerConfig)
 
 	scripts, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
@@ -318,7 +322,10 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		Count:            expected.(*InstanceGroup).Count,
 		BootstrapScripts: expected.(*InstanceGroup).BootstrapScripts,
 	}
-	immutable.ProviderConfig().KubernetesAPI.Endpoint = masterIPPublic
+
+	providerConfig = immutable.ProviderConfig()
+	providerConfig.KubernetesAPI.Endpoint = masterIPPublic
+	immutable.SetProviderConfig(providerConfig)
 
 	renderedCluster, err := r.immutableRender(newResource, immutable)
 	if err != nil {
@@ -353,7 +360,9 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 	}
 
 	// Kubernetes API
-	immutable.ProviderConfig().KubernetesAPI.Endpoint = ""
+	providerConfig := immutable.ProviderConfig()
+	providerConfig.KubernetesAPI.Endpoint = ""
+	immutable.SetProviderConfig(providerConfig)
 	renderedCluster, err := r.immutableRender(actual, immutable)
 	if err != nil {
 		return nil, nil, err
