@@ -86,8 +86,8 @@ func (cfg *configLoader) GetConfig() error {
 		localPath = local.Expand(localPath)
 	} else {
 		var err error
-		localDir := filepath.Join(local.Home(), "/.kube")
-		localPath, err = getKubeConfigPath(localDir)
+		//localDir := filepath.Join(local.Home(), "/.kube")
+		localPath = GetKubeConfigPath(cfg.existing)
 		if err != nil {
 			return err
 		}
@@ -141,6 +141,8 @@ func (cfg *configLoader) GetConfig() error {
 	return nil
 }
 
+
+
 const (
 	// RetryAttempts specifies the amount of retries are allowed when getting a file from a server.
 	RetryAttempts = 150
@@ -173,11 +175,27 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 	return fmt.Errorf("Timedout writing kubeconfig")
 }
 
-func getKubeConfigPath(path string) (string, error) {
+func getPath(path string) (string, error) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		if err := os.Mkdir(path, 0777); err != nil {
 			return "", err
 		}
 	}
 	return filepath.Join(path, "/config"), nil
+}
+
+func GetKubeConfigPath (c *cluster.Cluster) string {
+	localPath, localPathAnnotationDefined := c.Annotations[ClusterAnnotationKubeconfigLocalFile]
+	if localPathAnnotationDefined {
+		localPath = local.Expand(localPath)
+	} else {
+		var err error
+		localDir := filepath.Join(local.Home(), "/.kube")
+		localPath, err = getPath(localDir)
+		if err != nil {
+			logger.Warning("Unable to get kubeconfig: %v", err)
+			return ""
+		}
+	}
+	return localPath
 }

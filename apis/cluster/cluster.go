@@ -20,6 +20,7 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
+	appsv1beta2 "k8s.io/api/apps/v1beta2"
 )
 
 const (
@@ -41,7 +42,7 @@ type Cluster struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// Name is the publically available name of the Cluster
-	Name string
+	Name string `json:"name,omitempty"`
 
 	// ClusterAPI is the official Kubernetes cluster API
 	// We have this wrapped in a larger struct to support the transition
@@ -53,6 +54,15 @@ type Cluster struct {
 
 	// MachineSets are a subset of worker machines
 	MachineSets []*clusterv1.MachineSet `json:"machineSets,omitempty"`
+
+
+	// ControllerDeployment is the controller to use with controller profiles.
+	// Kubicorn will deploy this resource to the Kubernetes cluster after it is online.
+	//
+	// Here we only allow this single Deployment to be added to bootstrapping logic.
+	// The pattern here says that from an arbitrary deployment, you should be able
+	// to bootstrap anything else you could need. We default to the kubicorn controller.
+	ControllerDeployment *appsv1beta2.Deployment `json:"controllerDeployment,omitempty"`
 }
 
 // ProviderConfig is a convenience method that will attempt
