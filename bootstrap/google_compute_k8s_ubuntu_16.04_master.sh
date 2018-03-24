@@ -4,41 +4,71 @@
 # and the shell script real work. If you need conditional logic, write it in bash or make another shell script.
 # ------------------------------------------------------------------------------------------------------------------------
 
+# Specify the Kubernetes version to use.
+KUBERNETES_VERSION="1.9.2"
+KUBERNETES_CNI="0.6.0"
+
+# Obtain metadata.
+PRIVATEIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip"`
+PUBLICIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip"`
+HOSTNAME=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/name"`
+echo $PRIVATEIP > /tmp/.ip
+
+# Add APT repository and GPG key.
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 touch /etc/apt/sources.list.d/kubernetes.list
 sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
 
+# Install packages.
 apt-get update -y
 apt-get install -y \
     socat \
     ebtables \
     docker.io \
     apt-transport-https \
-    kubelet \
-    kubeadm=1.7.0-00 \
+    kubelet=${KUBERNETES_VERSION}-00 \
+    kubeadm=${KUBERNETES_VERSION}-00 \
+    kubernetes-cni=${KUBERNETES_CNI}-00 \
     cloud-utils \
     jq
 
-
+# Enable and start Docker.
 systemctl enable docker
 systemctl start docker
 
-PRIVATEIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip"`
-echo $PRIVATEIP > /tmp/.ip
-PUBLICIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip"`
-
+# Parse kubicorn configuration file.
 TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDTOKEN')
 PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.clusterAPI.spec.providerConfig' | jq -r '.values.itemMap.INJECTEDPORT | tonumber')
 
+# Create kubeadm configuration file.
+touch /etc/kubicorn/kubeadm-config.yaml
+cat << EOF  > "/etc/kubicorn/kubeadm-config.yaml"
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+token: ${TOKEN}
+kubernetesVersion: ${KUBERNETES_VERSION}
+nodeName: ${HOSTNAME}
+api:
+  advertiseAddress: ${PUBLICIP}
+  bindPort: ${PORT}
+apiServerCertSANs:
+- ${PRIVATEIP}
+- ${PUBLICIP}
+- ${HOSTNAME}
+authorizationModes:
+- Node
+- RBAC
+EOF
+
+# Initialize cluster.
 kubeadm reset
-kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}
+kubeadm init --config /etc/kubicorn/kubeadm-config.yaml
 
+# Weave CNI plugin.
+curl -SL "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')&env.IPALLOC_RANGE=172.16.6.64/27" \
+| kubectl apply --kubeconfig /etc/kubernetes/admin.conf -f -
 
-kubectl apply \
-  -f http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml \
-  --kubeconfig /etc/kubernetes/admin.conf
-
-# Root
+# Prepare kubeconfig file.
 mkdir -p /home/ubuntu/.kube
 cp /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
 chown -R ubuntu:ubuntu /home/ubuntu/.kube
