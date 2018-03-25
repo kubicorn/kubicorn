@@ -22,11 +22,12 @@ import (
 	"testing"
 	"time"
 
+	"strconv"
+
 	"golang.org/x/net/context"
 	btapb "google.golang.org/genproto/googleapis/bigtable/admin/v2"
 	btpb "google.golang.org/genproto/googleapis/bigtable/v2"
 	"google.golang.org/grpc"
-	"strconv"
 )
 
 func TestConcurrentMutationsReadModifyAndGC(t *testing.T) {

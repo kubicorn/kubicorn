@@ -16,14 +16,15 @@ package digitalocean
 
 import (
 	"fmt"
+	"os"
+	"testing"
+	"time"
+
 	"github.com/kris-nova/charlie/network"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	profile "github.com/kubicorn/kubicorn/profiles/digitalocean"
 	"github.com/kubicorn/kubicorn/test"
-	"os"
-	"testing"
-	"time"
 )
 
 var testCluster *cluster.Cluster
