@@ -160,7 +160,7 @@ func (crds *CRDStore) Commit(c *cluster.Cluster) error {
 	for _, sp := range c.ServerPools() {
 		r := sp.MaxCount
 		for i := 0; i <= r; i++ {
-			calculatedName := fmt.Sprintf("bootstrap-%s-%d", sp.Name, i)
+			calculatedName := fmt.Sprintf("kubicorn.bootstrap.%s-%d", sp.Name, i)
 			machine := &v1alpha1.Machine{
 				ObjectMeta: metav1.ObjectMeta{
 					Name: calculatedName,
