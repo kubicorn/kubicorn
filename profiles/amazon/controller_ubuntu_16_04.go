@@ -247,16 +247,15 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 	c := cluster.NewCluster(name)
 	c.SetProviderConfig(controlPlaneProviderConfig)
 	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
-	cpms := c.ControlPlaneMachineSet()
 
 	//
 	//
 	// Here we define the replicas for the controller
 	//
 	//
+	cpms := c.MachineSets[1]
 	cpms.Spec.Replicas = ptrconvenient.Int32Ptr(3)
-
-	c.MachineSets[0] = cpms
+	c.MachineSets[1] = cpms
 	//
 	//
 	//

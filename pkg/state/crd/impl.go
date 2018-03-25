@@ -156,6 +156,30 @@ func (crds *CRDStore) Commit(c *cluster.Cluster) error {
 		}
 
 	}
+
+	for _, sp := range c.ServerPools() {
+		r := sp.MaxCount
+		for i := 0; i <= r; i++ {
+			calculatedName := fmt.Sprintf("bootstrap-%s-%d", sp.Name, i)
+			machine := &v1alpha1.Machine{
+				ObjectMeta: metav1.ObjectMeta{
+					Name: calculatedName,
+				},
+				Spec: v1alpha1.MachineSpec{
+					ObjectMeta: metav1.ObjectMeta{
+						Name: calculatedName,
+					},
+					//ProviderConfig: ,
+				},
+			}
+			_, err = cm.client.Machines().Create(machine)
+			if err != nil {
+				return fmt.Errorf("Unable to record machine: %v", err)
+			}
+			logger.Info("Declaring machine: %s", calculatedName)
+		}
+	}
+
 	return nil
 }
 
