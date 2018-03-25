@@ -157,70 +157,67 @@ func (crds *CRDStore) Commit(c *cluster.Cluster) error {
 
 	}
 
-	//NewAPIClient
-	//if c == nil {
-	//	return fmt.Errorf("Nil cluster spec")
-	//}
-	//bytes, err := yaml.Marshal(c)
-	//if err != nil {
-	//	return err
-	//}
-	//crds.write(state.ClusterYamlFile, bytes)
+	for _, sp := range c.ServerPools() {
+		r := sp.MaxCount
+		for i := 0; i <= r; i++ {
+			calculatedName := fmt.Sprintf("kubicorn.bootstrap.%s-%d", sp.Name, i)
+			machine := &v1alpha1.Machine{
+				ObjectMeta: metav1.ObjectMeta{
+					Name: calculatedName,
+				},
+				Spec: v1alpha1.MachineSpec{
+					ObjectMeta: metav1.ObjectMeta{
+						Name: calculatedName,
+					},
+					//ProviderConfig: ,
+				},
+			}
+			_, err = cm.client.Machines().Create(machine)
+			if err != nil {
+				return fmt.Errorf("Unable to record machine: %v", err)
+			}
+			logger.Info("Declaring machine: %s", calculatedName)
+		}
+	}
+
 	return nil
 }
 
 func (crds *CRDStore) Exists() bool {
-	//if _, err := os.Stat(crds.AbsolutePath); os.IsNotExist(err) {
-	//	return false
-	//}
+	// TODO @kris-nova
+	// We need to figure out what we want to do here
 	return true
 }
 
-func (crds *CRDStore) write(relativePath string, data []byte) error {
-	//fqn := fmt.Sprintf("%s/%s", crds.AbsolutePath, relativePath)
-	//os.MkdirAll(path.Dir(fqn), 0700)
-	//fo, err := os.Create(fqn)
-	//if err != nil {
-	//	return err
-	//}
-	//defer fo.Close()
-	//_, err = io.Copy(fo, strings.NewReader(string(data)))
-	//if err != nil {
-	//	return err
-	//}
-	return nil
-}
-
 func (crds *CRDStore) Read(relativePath string) ([]byte, error) {
-	//
+	// TODO @kris-nova
+	// We need to figure out what we want to do here
 	var bytes []byte
 	return bytes, nil
 }
 
 func (crds *CRDStore) ReadStore() ([]byte, error) {
-	//return crds.Read(state.ClusterYamlFile)
+	// TODO @kris-nova
+	// We need to figure out what we want to do here
 	var bytes []byte
 	return bytes, nil
 }
 
 func (crds *CRDStore) Rename(existingRelativePath, newRelativePath string) error {
-	//return os.Rename(existingRelativePath, newRelativePath)
+	// TODO @kris-nova
+	// We need to figure out what we want to do here
 	return nil
 }
 
 func (crds *CRDStore) Destroy() error {
-	//logger.Warning("Removing path [%s]", crds.AbsolutePath)
-	//return os.RemoveAll(crds.AbsolutePath)
+	// TODO @kris-nova
+	// We need to figure out what we want to do here
 	return nil
 }
 
 func (crds *CRDStore) GetCluster() (*cluster.Cluster, error) {
-	//configBytes, err := crds.Read(state.ClusterYamlFile)
-	//if err != nil {
-	//	return nil, err
-	//}
-	//
-	//return crds.BytesToCluster(configBytes)
+	// TODO @kris-nova
+	// We need to figure out what we want to do here
 	return &cluster.Cluster{}, nil
 }
 
@@ -234,17 +231,8 @@ func (crds *CRDStore) BytesToCluster(bytes []byte) (*cluster.Cluster, error) {
 }
 
 func (crds *CRDStore) List() ([]string, error) {
-
+	// TODO @kris-nova
+	// We need to figure out what we want to do here
 	var stateList []string
-	//
-	//files, err := ioutil.ReadDir(crds.options.BasePath)
-	//if err != nil {
-	//	return stateList, err
-	//}
-	//
-	//for _, file := range files {
-	//	stateList = append(stateList, file.Name())
-	//}
-
 	return stateList, nil
 }
