@@ -22,9 +22,9 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/cli"
 	"github.com/kubicorn/kubicorn/pkg/initapi"
 	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/resourcedeploy"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/kubicorn/kubicorn/pkg/resourcedeploy"
 )
 
 // DeployControllerCmd represents the apply command

@@ -36,7 +36,6 @@ type CRDOptions struct {
 	Options
 }
 
-
 // DeployControllerOptions represents getConfig command options.
 type DeployControllerOptions struct {
 	Options

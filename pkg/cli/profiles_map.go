@@ -167,12 +167,12 @@ var ProfileMapIndexed = map[string]ProfileMap{
 	//
 	// -----------------------------------------------------------------------------------------------------------------
 
-	"controller-aws-ubuntu" : {
+	"controller-aws-ubuntu": {
 		ProfileFunc: amazon.NewControllerUbuntuCluster,
 		Description: "Controller Ubuntu on Amazon",
 	},
 
-	"caws" : {
+	"caws": {
 		ProfileFunc: amazon.NewControllerUbuntuCluster,
 		Description: "Controller Ubuntu on Amazon",
 	},
