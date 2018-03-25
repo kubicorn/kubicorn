@@ -26,6 +26,7 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/state/s3"
 	minio "github.com/minio/minio-go"
 	gg "github.com/tcnksm/go-gitconfig"
+	"github.com/kubicorn/kubicorn/pkg/state/crd"
 )
 
 // NewStateStore returns clusterStorer object based on type.
@@ -36,6 +37,12 @@ func (options Options) NewStateStore() (state.ClusterStorer, error) {
 	case "fs":
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: options.Name,
+		})
+	case "crd":
+		logger.Info("Selected [crd] state store")
+		stateStore = crd.NewCRDStore(&crd.CRDStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: options.Name,
 		})

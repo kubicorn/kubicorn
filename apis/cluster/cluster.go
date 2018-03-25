@@ -18,9 +18,9 @@ import (
 	"encoding/json"
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
+	appsv1beta2 "k8s.io/api/apps/v1beta2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-	appsv1beta2 "k8s.io/api/apps/v1beta2"
 )
 
 const (
@@ -54,7 +54,6 @@ type Cluster struct {
 
 	// MachineSets are a subset of worker machines
 	MachineSets []*clusterv1.MachineSet `json:"machineSets,omitempty"`
-
 
 	// ControllerDeployment is the controller to use with controller profiles.
 	// Kubicorn will deploy this resource to the Kubernetes cluster after it is online.
@@ -152,6 +151,19 @@ func (c *Cluster) ServerPools() []*ServerPool {
 	return serverPools
 }
 
+func (c *Cluster) ControlPlaneMachineSet() *clusterv1.MachineSet {
+
+	// TODO @kris-nova this logic won't always work, will need to make this smarter
+	for _, ms := range c.MachineSets {
+		for _, role := range ms.Spec.Template.Spec.Roles {
+			if role == clusterv1.MasterRole {
+				return ms
+			}
+		}
+	}
+	return nil
+}
+
 func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachineProviderConfig) {
 	for _, providerConfig := range providerConfigs {
 		name := providerConfig.ServerPool.Name
@@ -174,6 +186,14 @@ func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachinePr
 		// @kris-nova
 		// We probably should a have a function/method for this - this seems like common logic.
 
+		var roles []clusterv1.MachineRole
+		if providerConfig.ServerPool.Type == ServerPoolTypeMaster {
+			roles = append(roles, clusterv1.MasterRole)
+		}
+		if providerConfig.ServerPool.Type == ServerPoolTypeNode {
+			roles = append(roles, clusterv1.NodeRole)
+		}
+
 		// -------------------------------------------------
 		//
 		// Define a new MachineSet
@@ -183,6 +203,7 @@ func (c *Cluster) NewMachineSetsFromProviderConfigs(providerConfigs []*MachinePr
 				Template: clusterv1.MachineTemplateSpec{
 					Spec: clusterv1.MachineSpec{
 						ProviderConfig: str,
+						Roles:          roles,
 					},
 				},
 			},
@@ -231,6 +252,9 @@ func NewCluster(name string) *Cluster {
 	return &Cluster{
 		Name: name,
 		ClusterAPI: &clusterv1.Cluster{
+			ObjectMeta: metav1.ObjectMeta{
+				Name: name,
+			},
 			Spec: clusterv1.ClusterSpec{},
 		},
 		ControlPlane: &clusterv1.MachineSet{},
