@@ -40,11 +40,7 @@ func TestSdkHappy(t *testing.T) {
 	}()
 
 	localDir := fmt.Sprintf("%s/.kube", tmpdir)
-	localPath, err := getKubeConfigPath(localDir)
-	if err != nil {
-		t.Fatal(err)
-	}
-
+	localPath, err := getPath(localDir)
 	if _, err := os.Stat(localDir); os.IsNotExist(err) {
 		t.Fatal("error creating kubectl directory")
 	}
