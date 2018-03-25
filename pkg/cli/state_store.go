@@ -20,13 +20,13 @@ import (
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/state"
+	"github.com/kubicorn/kubicorn/pkg/state/crd"
 	"github.com/kubicorn/kubicorn/pkg/state/fs"
 	"github.com/kubicorn/kubicorn/pkg/state/git"
 	"github.com/kubicorn/kubicorn/pkg/state/jsonfs"
 	"github.com/kubicorn/kubicorn/pkg/state/s3"
 	minio "github.com/minio/minio-go"
 	gg "github.com/tcnksm/go-gitconfig"
-	"github.com/kubicorn/kubicorn/pkg/state/crd"
 )
 
 // NewStateStore returns clusterStorer object based on type.

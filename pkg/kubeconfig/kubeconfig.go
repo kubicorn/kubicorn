@@ -141,8 +141,6 @@ func (cfg *configLoader) GetConfig() error {
 	return nil
 }
 
-
-
 const (
 	// RetryAttempts specifies the amount of retries are allowed when getting a file from a server.
 	RetryAttempts = 150
@@ -184,7 +182,7 @@ func getPath(path string) (string, error) {
 	return filepath.Join(path, "/config"), nil
 }
 
-func GetKubeConfigPath (c *cluster.Cluster) string {
+func GetKubeConfigPath(c *cluster.Cluster) string {
 	localPath, localPathAnnotationDefined := c.Annotations[ClusterAnnotationKubeconfigLocalFile]
 	if localPathAnnotationDefined {
 		localPath = local.Expand(localPath)

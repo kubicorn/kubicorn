@@ -1,12 +1,27 @@
+// Copyright © 2017 The Kubicorn Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package crd
 
 import (
-	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"k8s.io/kube-deploy/ext-apiserver/util"
+	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/kube-deploy/ext-apiserver/pkg/client/clientset_generated/clientset"
+	"k8s.io/kube-deploy/ext-apiserver/util"
 )
 
 const (
@@ -18,10 +33,10 @@ const (
 )
 
 type CRDManager struct {
-	client *kubernetes.Clientset
+	client         *kubernetes.Clientset
 	kubeConfigPath string
-	clientSet *clientset.Clientset
-	cluster *cluster.Cluster
+	clientSet      *clientset.Clientset
+	cluster        *cluster.Cluster
 }
 
 func NewCRDManager(cluster *cluster.Cluster) (*CRDManager, error) {
@@ -36,8 +51,8 @@ func NewCRDManager(cluster *cluster.Cluster) (*CRDManager, error) {
 	}
 	return &CRDManager{
 		kubeConfigPath: kubeConfigPath,
-		clientSet: cs,
-		client: client,
-		cluster: cluster,
+		clientSet:      cs,
+		client:         client,
+		cluster:        cluster,
 	}, nil
 }
