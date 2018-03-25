@@ -15,16 +15,16 @@
 package amazon
 
 import (
-
 	"github.com/kubicorn/kubicorn/apis/cluster"
 
+	"fmt"
+
+	"github.com/kubicorn/kubicorn/pkg/kubeadm"
+	"github.com/kubicorn/kubicorn/pkg/ptrconvenient"
+	"github.com/kubicorn/kubicorn/pkg/uuid"
+	appsv1beta2 "k8s.io/api/apps/v1beta2"
 	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	appsv1beta2 "k8s.io/api/apps/v1beta2"
-	"github.com/kubicorn/kubicorn/pkg/ptrconvenient"
-	"fmt"
-	"github.com/kubicorn/kubicorn/pkg/uuid"
-	"github.com/kubicorn/kubicorn/pkg/kubeadm"
 )
 
 // NewControllerUbuntuCluster creates a simple Ubuntu Amazon cluster
@@ -136,8 +136,8 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 			ServerPool: &cluster.ServerPool{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s.node", name),
-				MaxCount: 0,
-				MinCount: 0,
+				MaxCount: 1,
+				MinCount: 1,
 				Image:    "ami-79873901",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
@@ -208,15 +208,17 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 		},
 	}
 
-
-
-
 	deployment := &appsv1beta2.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "demo-deployment",
+			Name: "kubicorn-controller",
 		},
 		Spec: appsv1beta2.DeploymentSpec{
 			Replicas: ptrconvenient.Int32Ptr(1),
+			Selector: &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"app": "kubicorn-controller",
+				},
+			},
 			Template: apiv1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
 					Labels: map[string]string{
@@ -242,10 +244,25 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 		},
 	}
 
-
 	c := cluster.NewCluster(name)
 	c.SetProviderConfig(controlPlaneProviderConfig)
 	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
+	cpms := c.ControlPlaneMachineSet()
+
+	//
+	//
+	// Here we define the replicas for the controller
+	//
+	//
+	cpms.Spec.Replicas = ptrconvenient.Int32Ptr(3)
+
+	c.MachineSets[0] = cpms
+	//
+	//
+	//
+	//
+	//
+
 	c.ControllerDeployment = deployment
 	return c
 }
