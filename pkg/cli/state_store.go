@@ -20,6 +20,7 @@ import (
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/state"
+	"github.com/kubicorn/kubicorn/pkg/state/crd"
 	"github.com/kubicorn/kubicorn/pkg/state/fs"
 	"github.com/kubicorn/kubicorn/pkg/state/git"
 	"github.com/kubicorn/kubicorn/pkg/state/jsonfs"
@@ -36,6 +37,12 @@ func (options Options) NewStateStore() (state.ClusterStorer, error) {
 	case "fs":
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: options.Name,
+		})
+	case "crd":
+		logger.Info("Selected [crd] state store")
+		stateStore = crd.NewCRDStore(&crd.CRDStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: options.Name,
 		})

@@ -107,6 +107,8 @@ func addCommands() {
 	RootCmd.AddCommand(ImageCmd())
 	RootCmd.AddCommand(ListCmd())
 	RootCmd.AddCommand(VersionCmd())
+	RootCmd.AddCommand(DeployControllerCmd())
+	RootCmd.AddCommand(CRDCmd())
 
 	// Add Prompt at the end to initialize all the other commands first.
 	RootCmd.AddCommand(PromptCmd())

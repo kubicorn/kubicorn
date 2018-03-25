@@ -26,6 +26,8 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"github.com/kubicorn/kubicorn/pkg/local"
 	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/resourcedeploy"
+	"github.com/kubicorn/kubicorn/pkg/state/crd"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/yuroyoro/swalker"
@@ -153,9 +155,27 @@ func runApply(options *cli.ApplyOptions) error {
 	}
 
 	logger.Info("Updating state store for cluster [%s]", options.Name)
-
+	logger.Info("Hanging while fetching kube config...")
 	if err = kubeconfig.RetryGetConfig(newCluster); err != nil {
 		return fmt.Errorf("Unable to write kubeconfig: %v", err)
+	}
+
+	if newCluster.ControllerDeployment != nil {
+		// -------------------------------------------------------------------------------------------------------------
+		//
+		// Here is where we hook in for the new controller logic
+		// This is exclusive to profiles that have a controller defined
+		//
+		logger.Info("Deploying cluster controller: %s", newCluster.ControllerDeployment.Spec.Template.Spec.Containers[0].Image)
+		err := resourcedeploy.DeployClusterControllerDeployment(newCluster)
+		if err != nil {
+			return fmt.Errorf("Unable to deploy cluster controller: %v", err)
+		}
+		crdStateStore := crd.NewCRDStore(&crd.CRDStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: options.Name,
+		})
+		crdStateStore.Commit(newCluster)
 	}
 
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)

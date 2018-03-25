@@ -21,11 +21,12 @@ import (
 	"math/rand"
 	"time"
 
+	"log"
+	"os"
+
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	"log"
-	"os"
 )
 
 var logger *log.Logger = log.New(os.Stderr, "", log.LstdFlags)

@@ -31,6 +31,16 @@ type Options struct {
 	BucketName        string
 }
 
+// CRDOptions represents getConfig command options.
+type CRDOptions struct {
+	Options
+}
+
+// DeployControllerOptions represents getConfig command options.
+type DeployControllerOptions struct {
+	Options
+}
+
 // EditOptions represents edit command options.
 type EditOptions struct {
 	Options
