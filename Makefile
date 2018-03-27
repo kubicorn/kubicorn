@@ -9,7 +9,7 @@ SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
-GOBUILD=go build -o bin/kubicorn -ldflags "-X github.com/kubicorn/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kubicorn/kubicorn/cmd.Version=${VERSION}"
+GOBUILD=go build -o bin/kubicorn -ldflags "-X github.com/kubicorn/kubicorn/pkg/version.GitSha=${GIT_SHA} -X github.com/kubicorn/kubicorn/pkg/version.kubicornVersion=${VERSION}"
 
 default: authorsfile compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
 
@@ -83,6 +83,26 @@ bashlint:
 	else \
 	 echo shellcheck not installed. try something like: apt-get install shellcheck; \
 	fi
+
+# bootstrap scripts
+# located in the kubicorn/bootstrap repository
+.PHONY: bootstrap
+bootstrap: ## create a submodule for bootstrap scripts
+	git submodule deinit -f -- bootstrap
+	rm -rf .git/modules/bootstrap
+	git rm -rf bootstrap
+	git submodule add git@github.com:kubicorn/bootstrap.git bootstrap
+	git submodule init
+	git submodule update
+	git --git-dir ./bootstrap/.git checkout origin/${VERSION}
+
+.PHONY: bootstrap-master
+bootstrap-master:
+	git --git-dir ./bootstrap/.git checkout origin/master
+
+.PHONY: bootstrap-version
+bootstrap-version:
+	git --git-dir ./bootstrap/.git checkout origin/${VERSION}
 
 # versioning
 bump-major:
