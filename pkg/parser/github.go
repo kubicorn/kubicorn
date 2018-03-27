@@ -26,7 +26,7 @@ const (
 )
 
 var (
-	githubBranch   = version.GetVersion().Version
+	githubBranch = version.GetVersion().Version
 )
 
 // getGitHubUrl will build a query-able URL from a bootstrap script that we can parse in at runtime.
