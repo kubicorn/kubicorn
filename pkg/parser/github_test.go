@@ -19,7 +19,7 @@ import (
 
 func TestGithubUrl(t *testing.T) {
 
-	githubBranch = "master"
+	GithubBranch = "master"
 
 	testData := map[string]string{
 		"bootstrap/myscript.sh": "https://raw.githubusercontent.com/kubicorn/bootstrap/master/myscript.sh",
