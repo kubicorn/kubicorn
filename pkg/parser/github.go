@@ -33,6 +33,7 @@ var (
 // Example URL:
 // https://raw.githubusercontent.com/kubicorn/bootstrap/master/amazon_k8s_centos_7_master.sh
 func getGitHubUrl(bootstrapScript string) string {
-	gitHubUrl := fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript)
+	// TODO(@xmudrii): this is a bad solution but I want this working.
+	gitHubUrl := fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript[10:])
 	return gitHubUrl
 }
