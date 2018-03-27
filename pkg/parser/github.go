@@ -26,7 +26,7 @@ const (
 )
 
 var (
-	githubBranch = version.GetVersion().Version
+	GithubBranch = version.GetVersion().Version
 )
 
 // getGitHubUrl will build a query-able URL from a bootstrap script that we can parse in at runtime.
@@ -34,6 +34,6 @@ var (
 // https://raw.githubusercontent.com/kubicorn/bootstrap/master/amazon_k8s_centos_7_master.sh
 func getGitHubUrl(bootstrapScript string) string {
 	// TODO(@xmudrii): this is a bad solution but I want this working.
-	gitHubUrl := fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript[10:])
+	gitHubUrl := fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, GithubBranch, bootstrapScript[10:])
 	return gitHubUrl
 }
