@@ -9,7 +9,7 @@ SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
-GOBUILD=go build -o bin/kubicorn -ldflags "-X github.com/kubicorn/kubicorn/pkg/version.GitSha=${GIT_SHA} -X github.com/kubicorn/kubicorn/pkg/version.kubicornVersion=${VERSION}"
+GOBUILD=go build -o bin/kubicorn -ldflags "-X github.com/kubicorn/kubicorn/pkg/version.GitSha=${GIT_SHA} -X github.com/kubicorn/kubicorn/pkg/version.KubicornVersion=${VERSION}"
 
 default: authorsfile compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
 
