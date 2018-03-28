@@ -16,6 +16,8 @@ package cmd
 
 import (
 	"fmt"
+
+	"github.com/kubicorn/kubicorn/pkg/version"
 )
 
 var (
@@ -62,5 +64,5 @@ var (
 ----[ %s ]--------------------------------------------
 
 Create, Manage, and Scale Kubernetes infrastructure in the cloud.
-`, Version, GitSha)
+`, version.GetVersion().Version, version.GetVersion().GitCommit)
 )

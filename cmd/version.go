@@ -15,30 +15,14 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
-	"runtime"
-	"time"
 
-	"github.com/kubicorn/kubicorn/pkg/cli"
-	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/version"
 	"github.com/spf13/cobra"
-)
-
-var (
-	versionFile = "/src/github.com/kubicorn/kubicorn/VERSION"
-
-	// The GitSha of the current commit (automatically set at compile time)
-	GitSha string
-
-	// The Version of the program from the VERSION file (automatically set at compile time)
-	Version string
 )
 
 // VersionCmd represents the version command
 func VersionCmd() *cobra.Command {
-	var vo = &cli.VersionOptions{}
 	return &cobra.Command{
 		Use:   "version",
 		Short: "Verify Kubicorn version",
@@ -46,26 +30,7 @@ func VersionCmd() *cobra.Command {
 	
 	This command will return the version of the Kubicorn binary.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if err := runVersion(vo); err != nil {
-				logger.Critical(err.Error())
-				os.Exit(1)
-			}
+			fmt.Printf("%s\n", version.GetVersionJSON())
 		},
 	}
-}
-
-func runVersion(options *cli.VersionOptions) error {
-	options.Version = Version
-	options.GitCommit = GitSha
-	options.BuildDate = time.Now().UTC().String()
-	options.GOVersion = runtime.Version()
-	options.GOARCH = runtime.GOARCH
-	options.GOOS = runtime.GOOS
-	voBytes, err := json.Marshal(options)
-	if err != nil {
-		return err
-	}
-	// Keep this true json so we can query via jq
-	fmt.Printf("%s\n", string(voBytes))
-	return nil
 }
