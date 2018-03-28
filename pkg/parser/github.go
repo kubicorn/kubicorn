@@ -16,7 +16,6 @@ package fileresource
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/kubicorn/kubicorn/pkg/version"
 )
