@@ -21,12 +21,10 @@ import (
 	"testing"
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
-	"github.com/kubicorn/kubicorn/pkg/parser"
 	"github.com/kubicorn/kubicorn/profiles/amazon"
 )
 
 func TestBuildBootstrapScriptHappy(t *testing.T) {
-	fileresource.GithubBranch = "master"
 	scripts := []string{
 		"bootstrap/vpn/meshbirdMaster.sh",
 		"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh",

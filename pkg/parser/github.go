@@ -16,6 +16,7 @@ package fileresource
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/kubicorn/kubicorn/pkg/version"
 )
@@ -26,14 +27,16 @@ const (
 )
 
 var (
-	GithubBranch = version.GetVersion().Version
+	githubBranch = version.GetVersion().Version
 )
 
 // getGitHubUrl will build a query-able URL from a bootstrap script that we can parse in at runtime.
 // Example URL:
 // https://raw.githubusercontent.com/kubicorn/bootstrap/master/amazon_k8s_centos_7_master.sh
 func getGitHubUrl(bootstrapScript string) string {
-	// TODO(@xmudrii): this is a bad solution but I want this working.
-	gitHubUrl := fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, GithubBranch, bootstrapScript[10:])
-	return gitHubUrl
+	if strings.HasPrefix(bootstrapScript, "bootstrap/") {
+		return fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript[10:])
+	} else {
+		return fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript)
+	}
 }
