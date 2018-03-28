@@ -29,7 +29,9 @@ var (
 	GitSha string
 
 	// The Version of the program from the VERSION file (automatically set at compile time)
-	KubicornVersion string
+	// Assume version is master so we can fetch versions from tests.
+	// ldflags will automatically override this string.
+	KubicornVersion = "master"
 )
 
 // Version represents Kubicorn version.
