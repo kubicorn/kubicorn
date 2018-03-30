@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package digitalocean
+package centos
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ import (
 	"github.com/kris-nova/charlie/network"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	profile "github.com/kubicorn/kubicorn/profiles/digitalocean"
+	profile "github.com/kubicorn/kubicorn/profiles/amazon"
 	"github.com/kubicorn/kubicorn/test"
 )
 
@@ -44,7 +44,7 @@ func TestMain(m *testing.M) {
 	testCluster = profile.NewCentosCluster("centos-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
-		fmt.Printf("Unable to create DigitalOcean test cluster: %v\n", err)
+		fmt.Printf("Unable to create Amazon test cluster: %v\n", err)
 		os.Exit(1)
 	}
 	status := m.Run()
@@ -55,11 +55,11 @@ func TestMain(m *testing.M) {
 		fmt.Printf("-----------------------------------------------------------------------\n")
 		exitCode = 1
 	}
-	_, err = test.Delete(testCluster)
-	if err != nil {
-		exitCode = 99
-		fmt.Println("Failure cleaning up cluster! Abandoned resources!")
-	}
+	// _, err = test.Delete(testCluster)
+	// if err != nil {
+	// 	exitCode = 99
+	// 	fmt.Println("Failure cleaning up cluster! Abandoned resources!")
+	// }
 	os.Exit(exitCode)
 }
 
@@ -70,8 +70,9 @@ const (
 
 func TestApiListen(t *testing.T) {
 	success := false
+	api := testCluster.ProviderConfig().KubernetesAPI
 	for i := 0; i < APISocketAttempts; i++ {
-		_, err := network.AssertTcpSocketAcceptsConnection(fmt.Sprintf("%s:%s", testCluster.KubernetesAPI.Endpoint, testCluster.KubernetesAPI.Port), "opening a new socket connection against the Kubernetes API")
+		_, err := network.AssertTcpSocketAcceptsConnection(fmt.Sprintf("%s:%s", api.Endpoint, api.Port), "opening a new socket connection against the Kubernetes API")
 		if err != nil {
 			logger.Info("Attempting to open a socket to the Kubernetes API: %v...\n", err)
 			time.Sleep(time.Duration(APISleepSeconds) * time.Second)

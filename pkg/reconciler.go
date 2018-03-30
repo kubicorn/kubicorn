@@ -64,7 +64,11 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		dr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, droplet.NewDigitalOceanDropletModel(known)), nil
 	case cluster.CloudAmazon:
-		sdk, err := awsSdkGo.NewSdk(known.ProviderConfig().Location, runtimeParameters.AwsProfile)
+		awsProfile := ""
+		if runtimeParameters != nil {
+			awsProfile = runtimeParameters.AwsProfile
+		}
+		sdk, err := awsSdkGo.NewSdk(known.ProviderConfig().Location, awsProfile)
 		if err != nil {
 			return nil, err
 		}
