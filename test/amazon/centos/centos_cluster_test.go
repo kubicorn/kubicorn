@@ -55,11 +55,11 @@ func TestMain(m *testing.M) {
 		fmt.Printf("-----------------------------------------------------------------------\n")
 		exitCode = 1
 	}
-	// _, err = test.Delete(testCluster)
-	// if err != nil {
-	// 	exitCode = 99
-	// 	fmt.Println("Failure cleaning up cluster! Abandoned resources!")
-	// }
+	 _, err = test.Delete(testCluster)
+	 if err != nil {
+	 	exitCode = 99
+	 	fmt.Println("Failure cleaning up cluster! Abandoned resources!")
+	 }
 	os.Exit(exitCode)
 }
 
