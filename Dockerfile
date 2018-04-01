@@ -5,6 +5,8 @@
 
 FROM golang:latest
 
+RUN git config --global url."https://${GITHUB_OAUTH_TOKEN}@github.com/".insteadOf "git@github.com:"
+
 # Create the default data directory
 RUN go get github.com/kubicorn/kubicorn/...
 
