@@ -22,9 +22,12 @@ import (
 
 	"github.com/kris-nova/charlie/network"
 	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/resourcedeploy"
 	profile "github.com/kubicorn/kubicorn/profiles/amazon"
 	"github.com/kubicorn/kubicorn/test"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 var testCluster *cluster.Cluster
@@ -82,5 +85,24 @@ func TestApiListen(t *testing.T) {
 	}
 	if !success {
 		t.Fatalf("Unable to connect to Kubernetes API")
+	}
+}
+
+func TestGetNodes(t *testing.T) {
+	if err := kubeconfig.GetConfig(testCluster); err != nil {
+		t.Fatalf("failed to retrieve kubeconfig: %v", err)
+	}
+	client, err := resourcedeploy.ClientSet(testCluster)
+	if err != nil {
+		t.Fatalf("couldn't get kubeconfig: %v", err)
+	}
+
+	nodes, err := client.CoreV1().Nodes().List(metav1.ListOptions{})
+	if err != nil {
+		t.Fatalf("failed to retrieve node list: %v", err)
+	}
+
+	if len(nodes.Items) != 2 {
+		t.Errorf("Expected 2 nodes, got %d", len(nodes.Items))
 	}
 }
