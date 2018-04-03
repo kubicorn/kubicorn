@@ -30,13 +30,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-const (
-	APISleepSeconds   = 5
-	APISocketAttempts = 40
-)
-
-var testCluster *cluster.Cluster
-
 func TestAmazon(t *testing.T) {
 	logger.TestMode = true
 	logger.Level = 4
