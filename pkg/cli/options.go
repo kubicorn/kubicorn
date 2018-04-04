@@ -50,7 +50,6 @@ type DeployControllerOptions struct {
 	Options
 }
 
-
 // EditOptions represents edit command options.
 type EditOptions struct {
 	Options
