@@ -49,8 +49,8 @@ func ListCmd() *cobra.Command {
 
 	fs := cmd.Flags()
 
-	bindCommonStateStoreFlags(lo.StateStoreOptions, fs)
-	bindCommonAwsFlags(lo.AwsOptions, fs)
+	bindCommonStateStoreFlags(&lo.StateStoreOptions, fs)
+	bindCommonAwsFlags(&lo.AwsOptions, fs)
 
 	fs.BoolVarP(&noHeaders, keyNoHeaders, "n", viper.GetBool(keyNoHeaders), desNoHeaders)
 

@@ -62,8 +62,8 @@ func DeleteCmd() *cobra.Command {
 
 	fs := deleteCmd.Flags()
 
-	bindCommonStateStoreFlags(do.StateStoreOptions, fs)
-	bindCommonAwsFlags(do.AwsOptions, fs)
+	bindCommonStateStoreFlags(&do.StateStoreOptions, fs)
+	bindCommonAwsFlags(&do.AwsOptions, fs)
 
 	fs.StringVar(&do.AwsProfile, keyAwsProfile, viper.GetString(keyAwsProfile), descAwsProfile)
 	fs.StringVar(&do.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)

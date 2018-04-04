@@ -63,8 +63,8 @@ func ExplainCmd() *cobra.Command {
 
 	fs := cmd.Flags()
 
-	bindCommonStateStoreFlags(exo.StateStoreOptions, fs)
-	bindCommonAwsFlags(exo.AwsOptions, fs)
+	bindCommonStateStoreFlags(&exo.StateStoreOptions, fs)
+	bindCommonAwsFlags(&exo.AwsOptions, fs)
 
 	fs.StringVarP(&exo.Output, keyOutput, "o", viper.GetString(keyOutput), descOutput)
 	fs.StringVar(&exo.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)

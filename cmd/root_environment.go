@@ -130,7 +130,7 @@ func bindEnvVars() {
 	viper.BindEnv(keyS3Bucket, envVarS3Bucket)
 }
 
-func bindCommonAwsFlags(o cli.AwsOptions, fs *flag.FlagSet) {
+func bindCommonAwsFlags(o *cli.AwsOptions, fs *flag.FlagSet) {
 	fs.StringVar(&o.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
 	fs.StringVar(&o.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
 	fs.StringVar(&o.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
@@ -139,7 +139,7 @@ func bindCommonAwsFlags(o cli.AwsOptions, fs *flag.FlagSet) {
 	fs.BoolVar(&o.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 }
 
-func bindCommonStateStoreFlags(o cli.StateStoreOptions, fs *flag.FlagSet) {
+func bindCommonStateStoreFlags(o *cli.StateStoreOptions, fs *flag.FlagSet) {
 	fs.StringVarP(&o.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
 	fs.StringVarP(&o.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
 }

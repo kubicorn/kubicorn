@@ -63,8 +63,8 @@ func ApplyCmd() *cobra.Command {
 
 	fs := applyCmd.Flags()
 
-	bindCommonStateStoreFlags(ao.StateStoreOptions, fs)
-	bindCommonAwsFlags(ao.AwsOptions, fs)
+	bindCommonStateStoreFlags(&ao.StateStoreOptions, fs)
+	bindCommonAwsFlags(&ao.AwsOptions, fs)
 
 	fs.StringVarP(&ao.Set, keyKubicornSet, "e", viper.GetString(keyKubicornSet), descSet)
 	fs.StringVar(&ao.AwsProfile, keyAwsProfile, viper.GetString(keyAwsProfile), descAwsProfile)

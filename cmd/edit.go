@@ -55,8 +55,8 @@ func EditCmd() *cobra.Command {
 
 	fs := editCmd.Flags()
 
-	bindCommonStateStoreFlags(eo.StateStoreOptions, fs)
-	bindCommonAwsFlags(eo.AwsOptions, fs)
+	bindCommonStateStoreFlags(&eo.StateStoreOptions, fs)
+	bindCommonAwsFlags(&eo.AwsOptions, fs)
 
 	fs.StringVarP(&eo.Editor, keyEditor, "e", viper.GetString(keyEditor), descEditor)
 	fs.StringVar(&eo.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)

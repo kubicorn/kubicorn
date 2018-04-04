@@ -57,8 +57,8 @@ func GetConfigCmd() *cobra.Command {
 
 	fs := getConfigCmd.Flags()
 
-	bindCommonStateStoreFlags(cro.StateStoreOptions, fs)
-	bindCommonAwsFlags(cro.AwsOptions, fs)
+	bindCommonStateStoreFlags(&cro.StateStoreOptions, fs)
+	bindCommonAwsFlags(&cro.AwsOptions, fs)
 
 	fs.StringVar(&cro.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
 

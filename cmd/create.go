@@ -63,8 +63,8 @@ func CreateCmd() *cobra.Command {
 
 	fs := createCmd.Flags()
 
-	bindCommonStateStoreFlags(co.StateStoreOptions, fs)
-	bindCommonAwsFlags(co.AwsOptions, fs)
+	bindCommonStateStoreFlags(&co.StateStoreOptions, fs)
+	bindCommonAwsFlags(&co.AwsOptions, fs)
 
 	fs.StringVarP(&co.Profile, keyProfile, "p", viper.GetString(keyProfile), descProfile)
 	fs.StringVarP(&co.CloudID, keyCloudID, "c", viper.GetString(keyCloudID), descCloudID)

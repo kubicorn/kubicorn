@@ -56,16 +56,10 @@ All normal state store configuration is applicable for READING a state store, an
 
 	fs := crdCommand.Flags()
 
-	fs.StringVarP(&crdo.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
-	fs.StringVarP(&crdo.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	bindCommonStateStoreFlags(&crdo.StateStoreOptions, fs)
+	bindCommonAwsFlags(&crdo.AwsOptions, fs)
 
 	fs.StringVar(&crdo.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
-	fs.StringVar(&crdo.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
-	fs.StringVar(&crdo.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
-	fs.StringVar(&crdo.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
-	fs.StringVar(&crdo.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
-
-	fs.BoolVar(&crdo.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return crdCommand
 }
