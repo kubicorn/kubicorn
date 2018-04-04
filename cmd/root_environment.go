@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"github.com/kubicorn/kubicorn/pkg/cli"
+	flag "github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
@@ -126,4 +128,18 @@ func bindEnvVars() {
 	viper.BindEnv(keyS3Endpoint, enVarS3Endpoint)
 	viper.BindEnv(keyS3SSL, envVarS3SSL)
 	viper.BindEnv(keyS3Bucket, envVarS3Bucket)
+}
+
+func bindCommonAwsFlags(o *cli.AwsOptions, fs *flag.FlagSet) {
+	fs.StringVar(&o.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
+	fs.StringVar(&o.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
+	fs.StringVar(&o.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
+	fs.StringVar(&o.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+
+	fs.BoolVar(&o.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
+}
+
+func bindCommonStateStoreFlags(o *cli.StateStoreOptions, fs *flag.FlagSet) {
+	fs.StringVarP(&o.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
+	fs.StringVarP(&o.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
 }

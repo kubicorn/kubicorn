@@ -49,17 +49,10 @@ func ListCmd() *cobra.Command {
 
 	fs := cmd.Flags()
 
-	fs.StringVarP(&lo.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
-	fs.StringVarP(&lo.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
-
-	fs.StringVar(&lo.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
-	fs.StringVar(&lo.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
-	fs.StringVar(&lo.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
-	fs.StringVar(&lo.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
+	bindCommonStateStoreFlags(&lo.StateStoreOptions, fs)
+	bindCommonAwsFlags(&lo.AwsOptions, fs)
 
 	fs.BoolVarP(&noHeaders, keyNoHeaders, "n", viper.GetBool(keyNoHeaders), desNoHeaders)
-
-	fs.BoolVar(&lo.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return cmd
 }
