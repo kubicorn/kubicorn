@@ -14,10 +14,21 @@
 
 package main
 
-import "github.com/kubicorn/kubicorn/pkg/ssh"
+import (
+	"fmt"
+
+	"github.com/kubicorn/kubicorn/pkg/ssh"
+)
 
 func main() {
-	s := ssh.NewSSHClient("165.227.135.127", "22", "root")
-	s.NewTerminalConnection()
-
+	s := ssh.NewSSHClient("206.189.22.58", "22", "root")
+	err := s.Connect()
+	if err != nil {
+		panic(err)
+	}
+	b, err := s.Execute("non-existing-command")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(b))
 }

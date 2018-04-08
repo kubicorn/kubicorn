@@ -109,6 +109,7 @@ func addCommands() {
 	RootCmd.AddCommand(VersionCmd())
 	RootCmd.AddCommand(DeployControllerCmd())
 	RootCmd.AddCommand(CRDCmd())
+	RootCmd.AddCommand(SSHCmd())
 
 	// Add Prompt at the end to initialize all the other commands first.
 	RootCmd.AddCommand(PromptCmd())

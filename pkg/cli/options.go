@@ -40,7 +40,7 @@ type AwsOptions struct {
 	BucketName        string
 }
 
-// CRDOptions represents getConfig command options.
+// CRDOptions represents crd command options.
 type CRDOptions struct {
 	Options
 }
@@ -89,6 +89,11 @@ type ExplainOptions struct {
 	Options
 	Profile string
 	Output  string
+}
+
+// SSHOptions represents ssh command options.
+type SSHOptions struct {
+	Options
 }
 
 // VersionOptions contains fields for version output

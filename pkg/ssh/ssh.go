@@ -16,10 +16,12 @@
 package ssh
 
 import (
-	gossh "golang.org/x/crypto/ssh"
-	"github.com/kubicorn/kubicorn/pkg/agent"
-	"os"
 	"fmt"
+	"os"
+
+	"github.com/kubicorn/kubicorn/pkg/agent"
+	gossh "golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // SSHClient contains parameters for connection to the node.
@@ -30,73 +32,131 @@ type SSHClient struct {
 	// Port of the node's SSH server.
 	Port string
 
-	// Path to the public key used for authentication.
-	PubKeyPath string
+	// ClientConfig is a basic Go SSH client needed to make SSH connection.
+	// This is populated automatically from fields provided on SSHClient creation time.
+	ClientConfig *gossh.ClientConfig
 
-	// Session is session created when connecting to the node.
-	Session *gossh.Session
-
-	// Client is basic Go SSH client needed to make SSH connection.
-	Client *gossh.ClientConfig
+	// Conn is connection to the remote SSH server.
+	// Connection is made using the Connect function.
+	Conn *gossh.Client
 }
 
 // NewSSHClient returns a SSH client representation.
 func NewSSHClient(address, port, username string) *SSHClient {
 	s := &SSHClient{
 		Address: address,
-		Port: port,
-		Session: nil,
-		Client: &gossh.ClientConfig{
-			User: username,
-			Auth: []gossh.AuthMethod{},
+		Port:    port,
+		ClientConfig: &gossh.ClientConfig{
+			User:            username,
+			Auth:            []gossh.AuthMethod{},
 			HostKeyCallback: gossh.InsecureIgnoreHostKey(),
 		},
+		Conn: nil,
 	}
 
 	// DEPRECATED: this approach is to be deprecated as we build the new SSH wrapper.
 	sshAgent := agent.NewAgent()
-	s.Client.Auth = append(s.Client.Auth, sshAgent.GetAgent())
+	s.ClientConfig.Auth = append(s.ClientConfig.Auth, sshAgent.GetAgent())
 
 	return s
 }
 
-// NewHeadlessConnection starts a headless connection against the node.
-func (s *SSHClient) NewHeadlessConnection() error {
-	conn, err := gossh.Dial("tcp", fmt.Sprintf("%s:%s", s.Address, s.Port), s.Client)
+// Connect starts a headless connection against the node.
+func (s *SSHClient) Connect() error {
+	conn, err := gossh.Dial("tcp", fmt.Sprintf("%s:%s", s.Address, s.Port), s.ClientConfig)
 	if err != nil {
 		return err
 	}
 
-	s.Session, err = conn.NewSession()
-	return err
+	s.Conn = conn
+	return nil
 }
 
-// NewTerminalConnection starts a terminal connection against the node.
-func (s *SSHClient) NewTerminalConnection() error {
-	if s.Session == nil {
-		err := s.NewHeadlessConnection()
-		if err != nil {
-			fmt.Println(err)
-			return err
-		}
+// StartInteractiveSession starts a terminal connection against the node.
+func (s *SSHClient) StartInteractiveSession() error {
+	if s.Conn == nil {
+		return fmt.Errorf("not connected to the server")
 	}
 
-	s.Session.Stdout = os.Stdout
-	s.Session.Stderr = os.Stderr
-	s.Session.Stdin = os.Stdin
+	// Start interactive session.
+	session, err := s.Conn.NewSession()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		_ = session.Close()
+	}()
 
-	if err := s.Session.Shell(); err != nil {
+	// Bind session stdout, stderr, stdin to system's ones.
+	session.Stdout = os.Stdout
+	session.Stderr = os.Stderr
+	session.Stdin = os.Stdin
+
+	// It's required to bind to terminal, otherwise, session will fail with ioctl error.
+	fd := int(os.Stdin.Fd())
+	oldState, err := terminal.MakeRaw(fd)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		_ = terminal.Restore(fd, oldState)
+	}()
+	termWidth, termHeight, err := terminal.GetSize(fd)
+	if err != nil {
+		termWidth = 80
+		termHeight = 24
+	}
+	modes := gossh.TerminalModes{
+		gossh.ECHO: 1,
+	}
+	// TODO: this can be a bad approach, e.g. what if xterm is not available. Research more about this function.
+	if err := session.RequestPty("xterm", termHeight, termWidth, modes); err != nil {
 		return err
 	}
 
-	err := s.Session.Wait()
-	if _, ok := err.(*gossh.ExitError); ok {
-		return nil
+	// Inform session if client terminal size changed.
+	go func() {
+		for {
+			tw, th, _ := terminal.GetSize(fd)
+			if termWidth != tw || termHeight != th {
+				session.WindowChange(th, tw)
+				termWidth = tw
+				termHeight = th
+			}
+		}
+	}()
+
+	// Start shell session.
+	if err := session.Shell(); err != nil {
+		return err
 	}
-	return err
+
+	// Wait for session to complete and check for error.
+	return session.Wait()
 }
 
+// Execute executes command on the remote server and returns stdout and stderr output.
+func (s *SSHClient) Execute(cmd string) ([]byte, error) {
+	if s.Conn == nil {
+		return nil, fmt.Errorf("not connected to the server")
+	}
 
+	// Start interactive session.
+	session, err := s.Conn.NewSession()
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		_ = session.Close()
+	}()
+
+	return session.CombinedOutput(cmd)
+}
+
+// Close closes the SSH connection.
 func (s *SSHClient) Close() error {
-	return s.Session.Close()
+	if s.Conn == nil {
+		return fmt.Errorf("connection not existing")
+	}
+	return s.Conn.Close()
 }
