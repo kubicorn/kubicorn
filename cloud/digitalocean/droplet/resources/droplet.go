@@ -22,14 +22,13 @@ import (
 	"time"
 
 	"github.com/digitalocean/godo"
-	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
-	"github.com/kubicorn/kubicorn/pkg/agent"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/scp"
 	"github.com/kubicorn/kubicorn/pkg/script"
+	"github.com/kubicorn/kubicorn/pkg/ssh"
 )
 
 var _ cloud.Resource = &Droplet{}
@@ -119,7 +118,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		return immutable, applyResource, nil
 	}
 
-	agent := agent.NewAgent()
+	//agent := agent.NewAgent()
 
 	masterIpPrivate := ""
 	masterIPPublic := ""
@@ -171,17 +170,23 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				found = true
 			} else {
 				logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
-				pubPath := local.Expand(immutable.ProviderConfig().SSH.PublicKeyPath)
-				privPath := strings.Replace(pubPath, ".pub", "", 1)
-				scp := scp.NewSecureCopier(immutable.ProviderConfig().SSH.User, masterIPPublic, "22", privPath, agent)
-				masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
+				//pubPath := local.Expand(immutable.ProviderConfig().SSH.PublicKeyPath)
+				//privPath := strings.Replace(pubPath, ".pub", "", 1)
+
+				client := ssh.NewSSHClient(masterIPPublic, providerConfig.SSH.Port, providerConfig.SSH.User)
+				err = client.Connect()
+				if err != nil {
+					return nil, nil, fmt.Errorf("Unable to connect to SSH: %v", err)
+				}
+
+				masterVpnIP, err := scp.ReadBytes(client, "/tmp/.ip")
 				if err != nil {
 					logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
 					time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 					continue
 				}
 				masterIpPrivate = strings.Replace(string(masterVpnIP), "\n", "", -1)
-				openvpnConfig, err := scp.ReadBytes("/tmp/clients.conf")
+				openvpnConfig, err := scp.ReadBytes(client, "/tmp/clients.conf")
 				if err != nil {
 					logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
 					time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
@@ -191,6 +196,11 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
 				providerConfig.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 				found = true
+
+				err = client.Close()
+				if err != nil {
+					return nil, nil, fmt.Errorf("Error closing SSH connection: %v", err)
+				}
 			}
 
 			providerConfig.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, immutable.ProviderConfig().KubernetesAPI.Port)

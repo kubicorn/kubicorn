@@ -17,74 +17,61 @@ package scp
 import (
 	"fmt"
 	"io/ioutil"
-	"time"
 
-	"github.com/kubicorn/kubicorn/pkg/agent"
-	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/pkg/sftp"
-	"golang.org/x/crypto/ssh"
+	"github.com/kubicorn/kubicorn/pkg/ssh"
 )
 
-type SecureCopier struct {
-	RemoteUser     string
-	RemoteAddress  string
-	RemotePort     string
-	PrivateKeyPath string
-	SSHAgent       *agent.Keyring
-}
-
-func NewSecureCopier(remoteUser, remoteAddress, remotePort, privateKeyPath string, sshAgent *agent.Keyring) *SecureCopier {
-	return &SecureCopier{
-		RemoteUser:     remoteUser,
-		RemoteAddress:  remoteAddress,
-		RemotePort:     remotePort,
-		PrivateKeyPath: privateKeyPath,
-		SSHAgent:       sshAgent,
-	}
-}
-
-func (s *SecureCopier) ReadBytes(remotePath string) ([]byte, error) {
-	sshConfig := &ssh.ClientConfig{
-		User:            s.RemoteUser,
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-		Timeout:         time.Duration(3 * time.Second),
+// ReadBytes reads from remote location.
+func ReadBytes(client *ssh.SSHClient, remotePath string) ([]byte, error) {
+	if client.Conn == nil {
+		return nil, fmt.Errorf("Connection not established.")
 	}
 
-	// Check for key
-	if err := s.SSHAgent.CheckKey(s.PrivateKeyPath + ".pub"); err != nil {
-		if keyring, err := s.SSHAgent.AddKey(s.PrivateKeyPath + ".pub"); err != nil {
-			return nil, err
-		} else {
-			s.SSHAgent = keyring
-		}
-	}
-
-	sshConfig.Auth = append(sshConfig.Auth, s.SSHAgent.GetAgent())
-
-	sshConfig.SetDefaults()
-	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%s", s.RemoteAddress, s.RemotePort), sshConfig)
-	if err != nil {
-		return nil, err
-	}
-	defer conn.Close()
-	c, err := sftp.NewClient(conn)
+	c, err := sftp.NewClient(client.Conn)
 	if err != nil {
 		return nil, err
 	}
 	defer c.Close()
+
+
 	r, err := c.Open(remotePath)
 	if err != nil {
 		return nil, err
 	}
 	defer r.Close()
+
 	bytes, err := ioutil.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}
+
 	return bytes, nil
 }
 
-func (s *SecureCopier) Write(localPath, remotePath string) error {
-	logger.Critical("Write not yet implemented!")
-	return nil
+// WriteBytes writes to remote location.
+func WriteBytes(client *ssh.SSHClient, remotePath string, content []byte) error {
+	if client.Conn == nil {
+		return fmt.Errorf("Connection not established.")
+	}
+
+	c, err := sftp.NewClient(client.Conn)
+	if err != nil {
+		return err
+	}
+	defer c.Close()
+
+
+	f, err := c.Create(remotePath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	_, err = f.Write(content)
+	if err != nil {
+		return err
+	}
+
+	return fmt.Errorf("Not implemented.")
 }
