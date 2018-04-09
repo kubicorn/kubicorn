@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/pkg/sftp"
 	"github.com/kubicorn/kubicorn/pkg/ssh"
+	"github.com/pkg/sftp"
 )
 
 // ReadBytes reads from remote location.
@@ -33,7 +33,6 @@ func ReadBytes(client *ssh.SSHClient, remotePath string) ([]byte, error) {
 		return nil, err
 	}
 	defer c.Close()
-
 
 	r, err := c.Open(remotePath)
 	if err != nil {
@@ -61,7 +60,6 @@ func WriteBytes(client *ssh.SSHClient, remotePath string, content []byte) error 
 	}
 	defer c.Close()
 
-
 	f, err := c.Create(remotePath)
 	if err != nil {
 		return err
@@ -73,5 +71,5 @@ func WriteBytes(client *ssh.SSHClient, remotePath string, content []byte) error 
 		return err
 	}
 
-	return fmt.Errorf("Not implemented.")
+	return nil
 }
