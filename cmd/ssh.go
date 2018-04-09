@@ -25,14 +25,14 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/ssh"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/kubicorn/kubicorn/pkg/ipresolver"
 )
 
 // SSHCmd is used to SSH to the cluster.
-// Only master SSH is currently supported.
 func SSHCmd() *cobra.Command {
 	var ssho = &cli.SSHOptions{}
 	var sshCommand = &cobra.Command{
-		Use:   "ssh <CLUSTER-NAME>",
+		Use:   "ssh <CLUSTER-NAME> [NODE-NAME]",
 		Short: "Run SSH session for a node",
 		Long:  `Use this command to connect to the node.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -41,6 +41,9 @@ func SSHCmd() *cobra.Command {
 				ssho.Name = viper.GetString(keyKubicornName)
 			case 1:
 				ssho.Name = args[0]
+			case 2:
+				ssho.Name = args[0]
+				ssho.NodeName = args[1]
 			default:
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
@@ -92,7 +95,18 @@ func runSSH(options *cli.SSHOptions) error {
 		return err
 	}
 
-	client := ssh.NewSSHClient(cluster.ProviderConfig().KubernetesAPI.Endpoint, "22", "root")
+	var ip string
+	if options.NodeName != "" {
+		ip, err = ipresolver.GetNodeIPAddress("ssh-test-node-0")
+		if err != nil {
+			return fmt.Errorf("Unable to obtain IP address of node [%s] in cluster [%s]: %v",
+				options.NodeName, options.Name, err)
+		}
+	} else {
+		ip = cluster.ProviderConfig().KubernetesAPI.Endpoint
+	}
+
+	client := ssh.NewSSHClient(ip, "22", "root")
 	err = client.Connect()
 	if err != nil {
 		return fmt.Errorf("Unable to connect to ssh for cluster [%s]: %v", name, err)
