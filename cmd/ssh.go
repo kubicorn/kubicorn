@@ -106,7 +106,8 @@ func runSSH(options *cli.SSHOptions) error {
 		ip = cluster.ProviderConfig().KubernetesAPI.Endpoint
 	}
 
-	client := ssh.NewSSHClient(ip, "22", "root")
+	providerConfig := cluster.ProviderConfig()
+	client := ssh.NewSSHClient(ip, providerConfig.SSH.Port, providerConfig.SSH.User)
 	err = client.Connect()
 	if err != nil {
 		return fmt.Errorf("Unable to connect to ssh for cluster [%s]: %v", name, err)
