@@ -22,7 +22,7 @@ type Options struct {
 	Set        string
 	AwsProfile string
 	GitRemote  string
-	NodeName string
+	NodeName   string
 	AwsOptions
 }
 

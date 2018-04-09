@@ -15,10 +15,10 @@
 package ipresolver
 
 import (
-	k8s "k8s.io/client-go/kubernetes"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/tools/clientcmd"
 	"github.com/kubicorn/kubicorn/pkg/local"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	k8s "k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
 // GetNodeIPAddress obtains node IP address using Kubernetes API.

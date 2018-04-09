@@ -21,11 +21,11 @@ import (
 
 	"github.com/kubicorn/kubicorn/pkg/cli"
 	"github.com/kubicorn/kubicorn/pkg/initapi"
+	"github.com/kubicorn/kubicorn/pkg/ipresolver"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/ssh"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/kubicorn/kubicorn/pkg/ipresolver"
 )
 
 // SSHCmd is used to SSH to the cluster.
@@ -97,7 +97,7 @@ func runSSH(options *cli.SSHOptions) error {
 
 	var ip string
 	if options.NodeName != "" {
-		ip, err = ipresolver.GetNodeIPAddress("ssh-test-node-0")
+		ip, err = ipresolver.GetNodeIPAddress(options.NodeName)
 		if err != nil {
 			return fmt.Errorf("Unable to obtain IP address of node [%s] in cluster [%s]: %v",
 				options.NodeName, options.Name, err)
