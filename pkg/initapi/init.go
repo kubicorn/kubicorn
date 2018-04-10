@@ -38,6 +38,7 @@ var validations = []validationFunc{
 	//validateServerPoolMaxCountGreaterThan1,
 
 	validateSpotPriceOnlyForAwsCluster,
+	validateClusterNameOnlyForDOCluster,
 }
 
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {

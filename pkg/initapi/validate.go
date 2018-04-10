@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
+	"strings"
 )
 
 func validateAtLeastOneMachineSet(initCluster *cluster.Cluster) error {
@@ -45,6 +46,13 @@ func validateSpotPriceOnlyForAwsCluster(initCluster *cluster.Cluster) error {
 		if p.AwsConfiguration != nil && p.AwsConfiguration.SpotPrice != "" && initCluster.ProviderConfig().Cloud != cluster.CloudAmazon {
 			return fmt.Errorf("Spot price provided for server pool %v can only be used with AWS", p.Name)
 		}
+	}
+	return nil
+}
+
+func validateClusterNameOnlyForDOCluster(initCluster *cluster.Cluster) error {
+	if strings.Contains(initCluster.Name, ".") && initCluster.ProviderConfig().Cloud == cluster.CloudDigitalOcean {
+		return fmt.Errorf("Cluster name [%v] cannont contain dot (.)", initCluster.Name)
 	}
 	return nil
 }
