@@ -50,7 +50,7 @@ func validateSpotPriceOnlyForAwsCluster(initCluster *cluster.Cluster) error {
 	return nil
 }
 
-func validateClusterNameOnlyForDOCluster(initCluster *cluster.Cluster) error {
+func validateDOClusterNameDoesNotContainPeriod(initCluster *cluster.Cluster) error {
 	if strings.Contains(initCluster.Name, ".") && initCluster.ProviderConfig().Cloud == cluster.CloudDigitalOcean {
 		return fmt.Errorf("Cluster name [%v] cannont contain dot (.)", initCluster.Name)
 	}
