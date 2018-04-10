@@ -12,24 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cluster
+package resources
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"fmt"
+
+	"github.com/kubicorn/kubicorn/cloud/amazon/awsSdkGo"
 )
 
-const (
-	NetworkTypeLocal   = "local"
-	NetworkTypePublic  = "public"
-	NetworkTypePrivate = "private"
-)
+type Shared struct {
+	Identifier string
+	Name       string
+	Tags       map[string]string
+}
 
-type Network struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-	CIDR              string          `json:"cidr,omitempty"`
-	Identifier        string          `json:"identifier,omitempty"`
-	Type              string          `json:"type,omitempty"`
-	InternetGW        *InternetGW     `json:"internetgw,omitempty"`
-	PublicSubnets     []*PublicSubnet `json:"publicSubnets,omitempty"`
+func S(format string, a ...interface{}) *string {
+	str := fmt.Sprintf(format, a...)
+	return &str
+}
+
+func I64(i int) *int64 {
+	i64 := int64(i)
+	return &i64
+}
+
+func B(b bool) *bool {
+	return &b
+}
+
+var Sdk *awsSdkGo.Sdk
+
+func init() {
+
 }
