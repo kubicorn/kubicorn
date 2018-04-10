@@ -18,19 +18,12 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-const (
-	NetworkTypeLocal   = "local"
-	NetworkTypePublic  = "public"
-	NetworkTypePrivate = "private"
-)
-
-type Network struct {
+type PublicSubnet struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	CIDR              string          `json:"cidr,omitempty"`
-	Identifier        string          `json:"identifier,omitempty"`
-	Type              string          `json:"type,omitempty"`
-	InternetGW        *InternetGW     `json:"internetgw,omitempty"`
-	NATGateway        *NATGateway     `json:"natgateway,omitempty"`
-	PublicSubnets     []*PublicSubnet `json:"publicsubnets,omitempty"`
+	Identifier        string `json:"identifier,omitempty"`
+	CIDR              string `json:"cidr,omitempty"`
+	Location          string `json:"location,omitempty"`
+	Zone              string `json:"zone,omitempty"`
+	Name              string `json:"name,omitempty"`
 }

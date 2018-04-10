@@ -132,6 +132,10 @@ var ProfileMapIndexed = map[string]ProfileMap{
 		ProfileFunc: amazon.NewUbuntuCluster,
 		Description: "Ubuntu on Amazon",
 	},
+	"aws-ubuntu-private": {
+		ProfileFunc: amazon.NewPrivateUbuntuCluster,
+		Description: "Ubuntu on Amazon in private subnets",
+	},
 	"do-centos": {
 		ProfileFunc: digitalocean.NewCentosCluster,
 		Description: "CentOS on DigitalOcean",

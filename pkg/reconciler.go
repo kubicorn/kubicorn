@@ -20,8 +20,10 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/cloud/amazon/awsSdkGo"
+	awspriv "github.com/kubicorn/kubicorn/cloud/amazon/private"
+	arpriv "github.com/kubicorn/kubicorn/cloud/amazon/private/resources"
 	awspub "github.com/kubicorn/kubicorn/cloud/amazon/public"
-	ar "github.com/kubicorn/kubicorn/cloud/amazon/public/resources"
+	arpub "github.com/kubicorn/kubicorn/cloud/amazon/public/resources"
 	"github.com/kubicorn/kubicorn/cloud/azure/azureSDK"
 	azpub "github.com/kubicorn/kubicorn/cloud/azure/public"
 	azr "github.com/kubicorn/kubicorn/cloud/azure/public/resources"
@@ -56,6 +58,7 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		gr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, compute.NewGoogleComputeModel(known)), nil
+
 	case cluster.CloudDigitalOcean:
 		sdk, err := godoSdk.NewSdk()
 		if err != nil {
@@ -63,6 +66,7 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		dr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, droplet.NewDigitalOceanDropletModel(known)), nil
+
 	case cluster.CloudAmazon:
 		awsProfile := ""
 		if runtimeParameters != nil {
@@ -72,8 +76,16 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		if err != nil {
 			return nil, err
 		}
-		ar.Sdk = sdk
-		return cloud.NewAtomicReconciler(known, awspub.NewAmazonPublicModel(known)), nil
+
+		switch known.ProviderConfig().Network.Type {
+		case cluster.NetworkTypePrivate:
+			arpriv.Sdk = sdk
+			return cloud.NewAtomicReconciler(known, awspriv.NewAmazonPrivateModel(known)), nil
+		default:
+			arpub.Sdk = sdk
+			return cloud.NewAtomicReconciler(known, awspub.NewAmazonPublicModel(known)), nil
+		}
+
 	case cluster.CloudAzure:
 		sdk, err := azureSDK.NewSdk()
 		if err != nil {
@@ -81,6 +93,7 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		azr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, azpub.NewAzurePublicModel(known)), nil
+
 	case cluster.CloudOVH:
 		sdk, err := openstackSdk.NewSdk(known.ProviderConfig().Location)
 		if err != nil {
@@ -88,6 +101,7 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		osr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, osovh.NewOvhPublicModel(known)), nil
+
 	case cluster.CloudPacket:
 		sdk, err := packetSDK.NewSdk()
 		if err != nil {
@@ -95,6 +109,7 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		packetr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, packetpub.NewPacketPublicModel(known)), nil
+
 	default:
 		return nil, fmt.Errorf("Invalid cloud type: %s", known.ProviderConfig().Cloud)
 	}
