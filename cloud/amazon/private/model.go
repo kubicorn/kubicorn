@@ -80,6 +80,16 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			ClusterPublicSubnet: publicSubnet,
 		}
 		i++
+
+		// ---- [Public Route Table] ----
+		r[i] = &resources.PublicRouteTable{
+			Shared: resources.Shared{
+				Name: publicSubnet.Name,
+				Tags: make(map[string]string),
+			},
+			ClusterPublicSubnet: publicSubnet,
+		}
+		i++
 	}
 
 	machineConfigs := known.MachineProviderConfigs()
