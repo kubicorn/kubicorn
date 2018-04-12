@@ -187,7 +187,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 		machineProviderConfig := machineProviderConfigs[i]
 		for j := 0; j < len(machineProviderConfig.ServerPool.Firewalls); j++ {
 			firewall := newResource.(*Firewall)
-			if machineProviderConfig.ServerPool.Firewalls[j].Name == firewall.Name {
+			if machineProviderConfig.ServerPool.Firewalls[j].Name == firewall.Name && newResource.(*Firewall).ServerPool != nil && newResource.(*Firewall).Name != "" {
 				found = true
 				machineProviderConfig.ServerPool.Firewalls[j].Name = firewall.Name
 				machineProviderConfig.ServerPool.Firewalls[j].Identifier = firewall.CloudID
@@ -247,7 +247,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 			}
 		}
 	}
-	if !found {
+	/*if !found {
 		var inRules []*cluster.IngressRule
 		var egRules []*cluster.EgressRule
 		firewall := newResource.(*Firewall)
@@ -285,7 +285,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 		}
 		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 
-	}
+	}*/
 
 	// Todo (@kris-nova) Figure out what is setting empty firewalls and fix the original bug
 	for i := 0; i < len(machineProviderConfigs); i++ {
