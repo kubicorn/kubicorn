@@ -333,7 +333,7 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 	for i := 0; i < len(machineProviderConfigs); i++ {
 		machineProviderConfig := machineProviderConfigs[i]
 
-		if machineProviderConfig.ServerPool.Name == newResource.(*Droplet).Name && newResource.(*Droplet).ServerPool != nil && serverPool.Type != "node" && newResource.(*Droplet).Name != "" {
+		if machineProviderConfig.ServerPool.Name == newResource.(*Droplet).Name && newResource.(*Droplet).ServerPool != nil {
 			machineProviderConfig.ServerPool.Image = newResource.(*Droplet).Image
 			machineProviderConfig.ServerPool.Size = newResource.(*Droplet).Size
 			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
