@@ -19,9 +19,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kubicorn/kubicorn/pkg/agent"
 	gossh "golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
+	"github.com/kubicorn/kubicorn/pkg/ssh/auth"
 )
 
 // SSHClient contains parameters for connection to the node.
@@ -55,8 +55,9 @@ func NewSSHClient(address, port, username string) *SSHClient {
 	}
 
 	// DEPRECATED: this approach is to be deprecated as we build the new SSH wrapper.
-	sshAgent := agent.NewAgent()
-	s.ClientConfig.Auth = append(s.ClientConfig.Auth, sshAgent.GetAgent())
+	//sshAgent := agent.NewAgent()
+	//s.ClientConfig.Auth = append(s.ClientConfig.Auth, sshAgent.GetAgent())
+	s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.NewSignerFromKey(auth.ParsePrivateKey("")))
 
 	return s
 }

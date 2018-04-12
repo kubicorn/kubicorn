@@ -13,3 +13,86 @@
 // limitations under the License.
 
 package auth
+
+import (
+	"golang.org/x/crypto/ssh"
+	"os"
+	"fmt"
+	"golang.org/x/crypto/ssh/terminal"
+	"syscall"
+	"io/ioutil"
+	"encoding/pem"
+	"crypto/x509"
+	"golang.org/x/crypto/ssh/agent"
+)
+
+// retriveSSHKeyPassword takes password from terminal.
+var retriveSSHKeyPassword = func() ([]byte, error) {
+	if !terminal.IsTerminal(int(os.Stdout.Fd())) {
+		return nil, fmt.Errorf("cannot detect terminal")
+	}
+
+	fmt.Print("SSH Key Passphrase [none]: ")
+	passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("")
+	return passPhrase, nil
+}
+
+func NewAgent(keyPath string) (agent.Agent, error){
+	agnt := agent.NewKeyring()
+	a := agent.AddedKey{
+		PrivateKey:   ParsePrivateKey(keyPath),
+	}
+	if err := agnt.Add(a); err != nil {
+		return nil, err
+	}
+	agnt.
+
+	return agnt, nil
+}
+
+// ParsePrivateKey unlocks and parses private key.
+func ParsePrivateKey(path string) (interface{}, error) {
+	// Read key form file.
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	block, _ := pem.Decode(b)
+	if block == nil {
+		return nil, err
+	}
+
+	var priv interface{}
+	if x509.IsEncryptedPEMBlock(block) {
+		// Obtain password from terminal.
+		password, err := retriveSSHKeyPassword()
+		if err != nil {
+			return nil, err
+		}
+
+		// Decrypt the PEM block.
+		b, err := x509.DecryptPEMBlock(block, []byte(password))
+		if err != nil {
+			return nil, err
+		}
+
+		// Parse private key.
+		priv, err = x509.ParsePKCS1PrivateKey(b)
+		if err != nil {
+			return nil, err
+		}
+	} else { // If key is not encrypted, just parse it as it is.
+		priv, err = ssh.ParseRawPrivateKey(b)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return priv, nil
+}
