@@ -131,10 +131,11 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 			machineConfigs := immutable.MachineProviderConfigs()
 			for _, machineConfig := range machineConfigs {
 				serverPool := machineConfig.ServerPool
-				if serverPool.Type == cluster.ServerPoolTypeMaster {
+				if serverPool.Type == cluster.ServerPoolTypeMaster && serverPool.Name != "" {
 					masterTag = serverPool.Name
 				}
 			}
+			masterTag = "something-master"
 			if masterTag == "" {
 				return nil, nil, fmt.Errorf("Unable to find master tag for master IP")
 			}
@@ -334,6 +335,7 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 		machineProviderConfig := machineProviderConfigs[i]
 
 		if machineProviderConfig.ServerPool.Name == newResource.(*Droplet).Name && newResource.(*Droplet).ServerPool != nil {
+			machineProviderConfig.Name = serverPool.Name
 			machineProviderConfig.ServerPool.Image = newResource.(*Droplet).Image
 			machineProviderConfig.ServerPool.Size = newResource.(*Droplet).Size
 			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
@@ -342,19 +344,19 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
 			machineProviderConfig.ServerPool.MinCount = newResource.(*Droplet).Count
 
-			//found = true
+			//		found = true
 			machineProviderConfigs[i] = machineProviderConfig
 		}
 	}
 	newCluster.SetMachineProviderConfigs(machineProviderConfigs)
-	/*if !found {
-		providerConfig := []*cluster.MachineProviderConfig{
-			{
-				ServerPool: serverPool,
-			},
-		}
-		newCluster.SetMachineProviderConfigs(providerConfig)
-	}*/
+	// if !found {
+	// 	providerConfig := []*cluster.MachineProviderConfig{
+	// 		{
+	// 			ServerPool: serverPool,
+	// 		},
+	// 	}
+	// 	newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
+	// }
 	providerConfig := newCluster.ProviderConfig()
 	providerConfig.Location = newResource.(*Droplet).Region
 	newCluster.SetProviderConfig(providerConfig)
