@@ -131,11 +131,10 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 			machineConfigs := immutable.MachineProviderConfigs()
 			for _, machineConfig := range machineConfigs {
 				serverPool := machineConfig.ServerPool
-				if serverPool.Type == cluster.ServerPoolTypeMaster && serverPool.Name != "" {
+				if serverPool.Type == cluster.ServerPoolTypeMaster {
 					masterTag = serverPool.Name
 				}
 			}
-			masterTag = "something-master"
 			if masterTag == "" {
 				return nil, nil, fmt.Errorf("Unable to find master tag for master IP")
 			}
@@ -328,7 +327,6 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 	serverPool.Name = newResource.(*Droplet).Name
 	serverPool.MaxCount = newResource.(*Droplet).Count
 	serverPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
-	//found := false
 
 	machineProviderConfigs := newCluster.MachineProviderConfigs()
 	for i := 0; i < len(machineProviderConfigs); i++ {
@@ -344,19 +342,11 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
 			machineProviderConfig.ServerPool.MinCount = newResource.(*Droplet).Count
 
-			//		found = true
 			machineProviderConfigs[i] = machineProviderConfig
 		}
 	}
 	newCluster.SetMachineProviderConfigs(machineProviderConfigs)
-	// if !found {
-	// 	providerConfig := []*cluster.MachineProviderConfig{
-	// 		{
-	// 			ServerPool: serverPool,
-	// 		},
-	// 	}
-	// 	newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
-	// }
+
 	providerConfig := newCluster.ProviderConfig()
 	providerConfig.Location = newResource.(*Droplet).Region
 	newCluster.SetProviderConfig(providerConfig)
