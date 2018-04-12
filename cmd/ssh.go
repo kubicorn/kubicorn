@@ -21,7 +21,6 @@ import (
 
 	"github.com/kubicorn/kubicorn/pkg/cli"
 	"github.com/kubicorn/kubicorn/pkg/initapi"
-	"github.com/kubicorn/kubicorn/pkg/ipresolver"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/ssh"
 	"github.com/spf13/cobra"
@@ -29,10 +28,11 @@ import (
 )
 
 // SSHCmd is used to SSH to the cluster.
+// Currently only works for master instances.
 func SSHCmd() *cobra.Command {
 	var ssho = &cli.SSHOptions{}
 	var sshCommand = &cobra.Command{
-		Use:   "ssh <CLUSTER-NAME> [NODE-NAME]",
+		Use:   "ssh <CLUSTER-NAME>",
 		Short: "Run SSH session for a node",
 		Long:  `Use this command to connect to the node.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -95,19 +95,11 @@ func runSSH(options *cli.SSHOptions) error {
 		return err
 	}
 
-	var ip string
-	if options.NodeName != "" {
-		ip, err = ipresolver.GetNodeIPAddress(options.NodeName)
-		if err != nil {
-			return fmt.Errorf("Unable to obtain IP address of node [%s] in cluster [%s]: %v",
-				options.NodeName, options.Name, err)
-		}
-	} else {
-		ip = cluster.ProviderConfig().KubernetesAPI.Endpoint
-	}
 
 	providerConfig := cluster.ProviderConfig()
-	client := ssh.NewSSHClient(ip, providerConfig.SSH.Port, providerConfig.SSH.User)
+	client := ssh.NewSSHClient(cluster.ProviderConfig().KubernetesAPI.Endpoint,
+								providerConfig.SSH.Port, providerConfig.SSH.User)
+
 	err = client.Connect()
 	if err != nil {
 		return fmt.Errorf("Unable to connect to ssh for cluster [%s]: %v", name, err)
