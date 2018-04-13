@@ -15,13 +15,14 @@
 package auth
 
 import (
-	"io/ioutil"
-	"golang.org/x/crypto/ssh"
 	"bytes"
 	"fmt"
-	"golang.org/x/crypto/ssh/agent"
+	"io/ioutil"
 	"net"
 	"os"
+
+	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/agent"
 )
 
 // SystemAgent returns system agent if it exists.
