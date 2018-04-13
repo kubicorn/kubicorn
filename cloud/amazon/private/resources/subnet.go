@@ -166,7 +166,6 @@ func (r *Subnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clu
 func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("subnet.Render")
 
-	newCluster := inaccurateCluster
 	subnet := &cluster.Subnet{}
 	subnet.CIDR = newResource.(*Subnet).CIDR
 	subnet.Zone = newResource.(*Subnet).Zone
@@ -174,6 +173,7 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 	subnet.Identifier = newResource.(*Subnet).Identifier
 	found := false
 
+	newCluster := inaccurateCluster
 	machineProviderConfigs := newCluster.MachineProviderConfigs()
 	for i := 0; i < len(machineProviderConfigs); i++ {
 		machineProviderConfig := machineProviderConfigs[i]
@@ -186,23 +186,6 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 				machineProviderConfig.ServerPool.Subnets[j] = subnet
 				machineProviderConfigs[i] = machineProviderConfig
 				found = true
-				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
-			}
-		}
-	}
-
-	for i := 0; i < len(machineProviderConfigs); i++ {
-		machineProviderConfig := machineProviderConfigs[i]
-		for j := 0; j < len(machineProviderConfig.ServerPool.Subnets); j++ {
-			subnet := machineProviderConfig.ServerPool.Subnets[j]
-			if subnet.Name == newResource.(*Subnet).Name {
-				subnet.CIDR = newResource.(*Subnet).CIDR
-				subnet.Zone = newResource.(*Subnet).Zone
-				subnet.Identifier = newResource.(*Subnet).Identifier
-				found = true
-				machineProviderConfig.ServerPool.Subnets[j] = subnet
-				machineProviderConfigs[i] = machineProviderConfig
-				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
@@ -215,13 +198,12 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 				machineProviderConfig.ServerPool.Subnets = []*cluster.Subnet{subnet}
 				machineProviderConfigs[i] = machineProviderConfig
 				found = true
-				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
 
 	if !found {
-		providerConfig := []*cluster.MachineProviderConfig{
+		machineProviderConfigs = []*cluster.MachineProviderConfig{
 			{
 				ServerPool: &cluster.ServerPool{
 					Name: newResource.(*Subnet).Name,
@@ -231,8 +213,9 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 				},
 			},
 		}
-		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
+
+	newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 	return newCluster
 }
 

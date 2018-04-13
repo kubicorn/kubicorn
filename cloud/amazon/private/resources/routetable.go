@@ -126,7 +126,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, r.ServerPool.Identifier)
 	}
 	ig := output.InternetGateways[0]
-	logger.Info("Mapping route table [%s] to internet gateway [%s]", *rtOutput.RouteTable.RouteTableId, *ig.InternetGatewayId)
+	logger.Info("Mapping Route Table [%s] to Internet Gateway [%s]", *rtOutput.RouteTable.RouteTableId, *ig.InternetGatewayId)
 
 	// --- Map Route Table to Internet Gateway
 	riInput := &ec2.CreateRouteInput{
@@ -150,10 +150,10 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		}
 	}
 	if subnetID == "" {
-		return nil, nil, fmt.Errorf("Unable to find subnet id")
+		return nil, nil, fmt.Errorf("Unable to find Subnet ID")
 	}
 
-	// --- Associate Route table to this particular subnet
+	// --- Associate Route table to this particular Subnet
 	asInput := &ec2.AssociateRouteTableInput{
 		SubnetId:     &subnetID,
 		RouteTableId: rtOutput.RouteTable.RouteTableId,
@@ -163,15 +163,15 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		return nil, nil, err
 	}
 
-	expected.(*RouteTable).Identifier = *rtOutput.RouteTable.RouteTableId
-	err = expected.(*RouteTable).tag(expected.(*RouteTable).Tags)
-	if err != nil {
-		return nil, nil, err
-	}
-	logger.Info("Associated route table [%s] to subnet [%s]", *rtOutput.RouteTable.RouteTableId, subnetID)
+	logger.Success("Associated Route Table [%s] with Subnet [%s]", *rtOutput.RouteTable.RouteTableId, subnetID)
 	newResource := &RouteTable{}
-	newResource.Identifier = expected.(*RouteTable).Identifier
-	newResource.Name = expected.(*RouteTable).Name
+	newResource.Identifier = *rtOutput.RouteTable.RouteTableId
+	newResource.Name = applyResource.Name
+
+	err = newResource.tag(applyResource.Tags)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Unable to tag new Route Table: %v", err)
+	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -181,7 +181,7 @@ func (r *RouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 	logger.Debug("routetable.Delete")
 	deleteResource := actual.(*RouteTable)
 	if deleteResource.Identifier == "" {
-		return nil, nil, fmt.Errorf("Unable to delete routetable resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete Route Table resource without ID [%s]", deleteResource.Name)
 	}
 	input := &ec2.DescribeRouteTablesInput{
 		Filters: []*ec2.Filter{
@@ -216,7 +216,7 @@ func (r *RouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted routetable [%s]", actual.(*RouteTable).Identifier)
+	logger.Success("Deleted Route Table [%s]", actual.(*RouteTable).Identifier)
 
 	newResource := &RouteTable{}
 	newResource.Name = actual.(*RouteTable).Name
@@ -232,7 +232,7 @@ func (r *RouteTable) tag(tags map[string]string) error {
 		Resources: []*string{&r.Identifier},
 	}
 	for key, val := range tags {
-		logger.Debug("Registering RouteTable tag [%s] %s", key, val)
+		logger.Debug("Registering Route Table tag [%s] %s", key, val)
 		tagInput.Tags = append(tagInput.Tags, &ec2.Tag{
 			Key:   S("%s", key),
 			Value: S("%s", val),
@@ -246,6 +246,6 @@ func (r *RouteTable) tag(tags map[string]string) error {
 }
 
 func (r *RouteTable) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
-	logger.Debug("subnet.Render")
+	logger.Debug("routetable.Render")
 	return inaccurateCluster
 }

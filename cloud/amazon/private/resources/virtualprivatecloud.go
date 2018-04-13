@@ -177,12 +177,15 @@ func (r *Vpc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 
 func (r *Vpc) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("vpc.Render")
-	providerConfig := inaccurateCluster.ProviderConfig()
+
+	newCluster := inaccurateCluster
+	providerConfig := newCluster.ProviderConfig()
 	providerConfig.Network.CIDR = newResource.(*Vpc).CIDR
 	providerConfig.Network.Identifier = newResource.(*Vpc).Identifier
 	providerConfig.Network.Name = newResource.(*Vpc).Name
-	inaccurateCluster.SetProviderConfig(providerConfig)
-	return inaccurateCluster
+
+	newCluster.SetProviderConfig(providerConfig)
+	return newCluster
 }
 
 func (r *Vpc) tag(tags map[string]string) error {
