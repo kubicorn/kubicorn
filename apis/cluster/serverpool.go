@@ -39,6 +39,7 @@ type ServerPool struct {
 	Subnets           []*Subnet           `json:"subnets,omitempty"`
 	Firewalls         []*Firewall         `json:"firewalls,omitempty"`
 	AwsConfiguration  *AwsConfiguration   `json:"awsconfiguration,omitempty"`
+	GeneratedNodeUserData []byte		  `json:"generatedNodeUserData,omitempty"`
 }
 
 type AwsConfiguration struct {
