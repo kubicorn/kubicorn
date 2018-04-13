@@ -31,6 +31,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/yuroyoro/swalker"
+	"k8s.io/api/core/v1"
+	"io/ioutil"
 )
 
 // ApplyCmd represents the apply command
@@ -161,7 +163,39 @@ func runApply(options *cli.ApplyOptions) error {
 		// This is exclusive to profiles that have a controller defined
 		//
 		logger.Info("Deploying cluster controller: %s", newCluster.ControllerDeployment.Spec.Template.Spec.Containers[0].Image)
-		err := resourcedeploy.DeployClusterControllerDeployment(newCluster)
+
+		// Add members to deployment now that we have them
+		// TODO @kris-nova this is super hacky
+		// TODO @kris-nova no seriously - this is SUPER hacky we need to fix this
+		kubeConfigContent, err := ioutil.ReadFile(local.Expand("~/.kube/config"))
+		if err != nil {
+			return fmt.Errorf("Unable to parse kube config file: %v", err)
+		}
+		pc := newCluster.ProviderConfig()
+		newCluster.ControllerDeployment.Spec.Template.Spec.Containers[0].Env = []v1.EnvVar{
+			{
+				Name: "KUBECONFIG_CONTENT",
+				Value: string(kubeConfigContent),
+			},
+			{
+				Name: "AWS_ACCESS_KEY_ID",
+				Value: os.Getenv("AWS_ACCESS_KEY_ID"),
+			},
+			{
+				Name: "AWS_SECRET_ACCESS_KEY",
+				Value: os.Getenv("AWS_SECRET_ACCESS_KEY"),
+			},
+			{
+				Name: "AWS_REGION",
+				Value: 	pc.Location,
+			},
+			{
+				Name: "AWS_PROFILE",
+				Value: 	"default",
+			},
+		}
+
+		err = resourcedeploy.DeployClusterControllerDeployment(newCluster)
 		if err != nil {
 			return fmt.Errorf("Unable to deploy cluster controller: %v", err)
 		}
