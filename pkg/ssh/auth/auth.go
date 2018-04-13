@@ -15,14 +15,15 @@
 package auth
 
 import (
-	"golang.org/x/crypto/ssh"
-	"os"
-	"fmt"
-	"golang.org/x/crypto/ssh/terminal"
-	"syscall"
-	"io/ioutil"
-	"encoding/pem"
 	"crypto/x509"
+	"encoding/pem"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"syscall"
+
+	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // retriveSSHKeyPassword takes password from terminal.

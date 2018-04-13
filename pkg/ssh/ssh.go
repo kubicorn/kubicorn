@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/ssh/auth"
 	gossh "golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
-	"github.com/kubicorn/kubicorn/pkg/ssh/auth"
-	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 // SSHClient contains parameters for connection to the node.
