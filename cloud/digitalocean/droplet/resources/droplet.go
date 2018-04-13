@@ -118,8 +118,6 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		return immutable, applyResource, nil
 	}
 
-	//agent := agent.NewAgent()
-
 	masterIpPrivate := ""
 	masterIPPublic := ""
 	providerConfig := immutable.ProviderConfig()
@@ -170,9 +168,6 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				found = true
 			} else {
 				logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
-				//pubPath := local.Expand(immutable.ProviderConfig().SSH.PublicKeyPath)
-				//privPath := strings.Replace(pubPath, ".pub", "", 1)
-
 				client := ssh.NewClient(masterIPPublic, providerConfig.SSH.Port,
 					providerConfig.SSH.User, providerConfig.SSH.PublicKeyPath)
 				err = client.Connect()

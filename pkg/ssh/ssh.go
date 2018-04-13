@@ -62,9 +62,16 @@ func NewClient(address, port, username, publicKeyPath string) *Client {
 	sysAgent := false
 	if os.Getenv("KUBICORN_SSH_AGENT") != "" {
 		agent := auth.SystemAgent()
-		if agent != nil {
-			s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeysCallback(agent.Signers))
-			sysAgent = true
+		if agent != nil { // System agent exists.
+			if err := auth.CheckKey(agent, local.Expand(publicKeyPath)); err == nil { // Key is found in agent.
+				s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeysCallback(agent.Signers))
+				sysAgent = true
+			} else { // Key is not found in agent.
+				logger.Critical("SSH key not present in system agent. Resorting to password authentication.")
+				logger.Critical("To add SSH key to the agent, use the ssh-add command.")
+			}
+		} else {
+			logger.Critical("SSH agent not found. Resorting to password authentication.")
 		}
 	}
 
