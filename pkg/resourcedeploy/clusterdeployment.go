@@ -29,7 +29,7 @@ const (
 	KubicornDefaultNamespace = "kubicorn"
 )
 
-func clientSet(cluster *cluster.Cluster) (*kubernetes.Clientset, error) {
+func ClientSet(cluster *cluster.Cluster) (*kubernetes.Clientset, error) {
 	kubeConfigPath := kubeconfig.GetKubeConfigPath(cluster)
 	config, err := clientcmd.BuildConfigFromFlags("", kubeConfigPath)
 	if err != nil {
@@ -43,7 +43,7 @@ func clientSet(cluster *cluster.Cluster) (*kubernetes.Clientset, error) {
 }
 
 func EnsureNamespace(cluster *cluster.Cluster) error {
-	clientset, err := clientSet(cluster)
+	clientset, err := ClientSet(cluster)
 	if err != nil {
 		return err
 	}
@@ -62,7 +62,7 @@ func DeployClusterControllerDeployment(cluster *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	clientset, err := clientSet(cluster)
+	clientset, err := ClientSet(cluster)
 	if err != nil {
 		return err
 	}

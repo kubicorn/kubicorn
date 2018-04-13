@@ -63,17 +63,11 @@ func ExplainCmd() *cobra.Command {
 
 	fs := cmd.Flags()
 
-	fs.StringVarP(&exo.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
-	fs.StringVarP(&exo.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	bindCommonStateStoreFlags(&exo.StateStoreOptions, fs)
+	bindCommonAwsFlags(&exo.AwsOptions, fs)
+
 	fs.StringVarP(&exo.Output, keyOutput, "o", viper.GetString(keyOutput), descOutput)
-
 	fs.StringVar(&exo.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
-	fs.StringVar(&exo.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
-	fs.StringVar(&exo.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
-	fs.StringVar(&exo.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
-	fs.StringVar(&exo.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
-
-	fs.BoolVar(&exo.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return cmd
 }

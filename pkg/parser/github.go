@@ -16,7 +16,6 @@ package fileresource
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/kubicorn/kubicorn/pkg/version"
 )
@@ -34,9 +33,9 @@ var (
 // Example URL:
 // https://raw.githubusercontent.com/kubicorn/bootstrap/master/amazon_k8s_centos_7_master.sh
 func getGitHubUrl(bootstrapScript string) string {
-	if strings.HasPrefix(bootstrapScript, "bootstrap/") {
-		return fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript[10:])
-	} else {
-		return fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript)
-	}
+
+	//```https://raw.githubusercontent.com/kubicorn/kubicorn/master/bootstrap/amazon_k8s_ubuntu_16.04_node.sh```
+	//should be
+	//```https://raw.githubusercontent.com/kubicorn/bootstrap/master/amazon_k8s_ubuntu_16.04_node.sh"```
+	return fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript[10:])
 }

@@ -63,18 +63,12 @@ func ApplyCmd() *cobra.Command {
 
 	fs := applyCmd.Flags()
 
-	fs.StringVarP(&ao.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
-	fs.StringVarP(&ao.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
-	fs.StringVarP(&ao.Set, keyKubicornSet, "e", viper.GetString(keyKubicornSet), descSet)
+	bindCommonStateStoreFlags(&ao.StateStoreOptions, fs)
+	bindCommonAwsFlags(&ao.AwsOptions, fs)
 
+	fs.StringVarP(&ao.Set, keyKubicornSet, "e", viper.GetString(keyKubicornSet), descSet)
 	fs.StringVar(&ao.AwsProfile, keyAwsProfile, viper.GetString(keyAwsProfile), descAwsProfile)
 	fs.StringVar(&ao.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
-	fs.StringVar(&ao.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
-	fs.StringVar(&ao.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
-	fs.StringVar(&ao.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
-	fs.StringVar(&ao.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
-
-	fs.BoolVar(&ao.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return applyCmd
 }

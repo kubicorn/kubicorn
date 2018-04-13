@@ -62,18 +62,11 @@ func DeleteCmd() *cobra.Command {
 
 	fs := deleteCmd.Flags()
 
-	fs.StringVarP(&do.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
-	fs.StringVarP(&do.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	bindCommonStateStoreFlags(&do.StateStoreOptions, fs)
+	bindCommonAwsFlags(&do.AwsOptions, fs)
 
 	fs.StringVar(&do.AwsProfile, keyAwsProfile, viper.GetString(keyAwsProfile), descAwsProfile)
 	fs.StringVar(&do.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
-	fs.StringVar(&do.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
-	fs.StringVar(&do.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
-	fs.StringVar(&do.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
-	fs.StringVar(&do.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
-
-	fs.BoolVar(&do.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
-
 	fs.BoolVarP(&do.Purge, keyPurge, "p", viper.GetBool(keyPurge), descPurge)
 
 	return deleteCmd

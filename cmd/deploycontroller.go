@@ -57,16 +57,10 @@ As long as a controller is defined, this will create the deployment and the name
 
 	fs := deployControllerCmd.Flags()
 
-	fs.StringVarP(&dco.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
-	fs.StringVarP(&dco.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	bindCommonStateStoreFlags(&dco.StateStoreOptions, fs)
+	bindCommonAwsFlags(&dco.AwsOptions, fs)
 
 	fs.StringVar(&dco.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
-	fs.StringVar(&dco.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
-	fs.StringVar(&dco.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
-	fs.StringVar(&dco.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
-	fs.StringVar(&dco.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
-
-	fs.BoolVar(&dco.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return deployControllerCmd
 }

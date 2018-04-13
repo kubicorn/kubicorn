@@ -89,17 +89,17 @@ A user defines the intended state of Kubernetes infrastructure, and `kubicorn` c
 
 | Name                                  | Description                                                  | Link                                                                           |
 | ------------------------------------- | ----------------------------------------------------------- |:-------------------------------------------------------------------------------:|
-| **Install**                           | Install guide for Kubicorn CLI                              | [install](docs/_documentation/INSTALL.md)                                       |
-| **Environmental Variables**           | Master list of supported environmental variables            | [envvars](docs/_documentation/envar.md)                                         |
+| **Install**                           | Install guide for Kubicorn CLI                              | [install](http://kubicorn.io/documentation/install.html)                        |
+| **Environmental Variables**           | Master list of supported environmental variables            | [envvars](http://kubicorn.io/documentation/envar.html)                          |
 | **Kops vs Kubicorn**                  | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                            |
-| **Azure Walkthrough**                 | A walkthrough guide on installing Kubernetes on Azure       | [walkthrough](docs/_documentation/azure-walkthrough.md)                         |
-| **AWS Walkthrough**                   | A walkthrough guide on installing Kubernetes on AWS         | [walkthrough](docs/_documentation/aws-walkthrough.md)                           |
-| **DigitalOcean Walkthrough**          | A walkthrough guide on installing Kubernetes on D.O.        | [walkthrough](docs/_documentation/do-walkthrough.md)                            |
+| **Azure Walkthrough**                 | A walkthrough guide on installing Kubernetes on Azure       | [walkthrough](http://kubicorn.io/documentation/azure-walkthrough.html)          |
+| **AWS Walkthrough**                   | A walkthrough guide on installing Kubernetes on AWS         | [walkthrough](http://kubicorn.io/documentation/aws-walkthrough.html)            |
+| **DigitalOcean Walkthrough**          | A walkthrough guide on installing Kubernetes on D.O.        | [walkthrough](http://kubicorn.io/documentation/do-walkthrough.html)             |
 | **DigitalOcean Quickstart**           | A quickstart asciicast on installing Kubernetes on D.O.     | [asciinema](https://asciinema.org/a/7JKtK7RSNSjznOYpX1rOprRRq)                  |
-| **Google Compute Engine Walkthrough** | A walkthrough guide on installing Kubernetes on GCE         | [walkthrough](docs/_documentation/google-walkthrough.md)                        |
-| **OVH Walkthrough**                   | A walkthrough guide on installing Kubernetes on OVH         | [walkthrough](docs/_documentation/ovh-walkthrough.md)                           |
+| **Google Compute Engine Walkthrough** | A walkthrough guide on installing Kubernetes on GCE         | [walkthrough](http://kubicorn.io/documentation/google-walkthrough.html)         |
+| **OVH Walkthrough**                   | A walkthrough guide on installing Kubernetes on OVH         | [walkthrough](http://kubicorn.io/documentation/ovh-walkthrough.html)            |
 | **OVH Video**                         | A quickstart asciicast on installing Kubernetes on OVH      | [asciinema](https://asciinema.org/a/rvDYXmnKhxtjaHne8uqmXf7Nq)                  |
-| **Packet Walkthrough**                | A walkthrough guide on installing Kubernetes on Packet      | [walkthrough](docs/_documentation/packet-walkthrough.md)                        |
+| **Packet Walkthrough**                | A walkthrough guide on installing Kubernetes on Packet      | [walkthrough](http://kubicorn.io/documentation/packet-walkthrough.html)         |
 | **AWS Video**                         | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
 | **DigitalOcean Video**                | A step by step video of using Kubicorn in DigitalOcean      | [video](https://youtu.be/XpxgSZ3dspE)                                           |
 | **Tech N Talk Deep Dive**             | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72) |

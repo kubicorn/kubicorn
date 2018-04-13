@@ -176,4 +176,12 @@ var ProfileMapIndexed = map[string]ProfileMap{
 		ProfileFunc: amazon.NewControllerUbuntuCluster,
 		Description: "Controller Ubuntu on Amazon",
 	},
+	"controller-do-ubuntu": {
+		ProfileFunc: digitalocean.NewControllerUbuntuCluster,
+		Description: "Controller Ubuntu on DigitalOcean",
+	},
+	"cdo": {
+		ProfileFunc: digitalocean.NewControllerUbuntuCluster,
+		Description: "Controller Ubuntu on DigitalOcean",
+	},
 }

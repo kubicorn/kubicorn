@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package digitalocean
+package centos
 
 import (
 	"fmt"
@@ -41,7 +41,7 @@ func TestMain(m *testing.M) {
 	//	}
 	//}()
 	test.InitRsaTravis()
-	testCluster = profile.NewUbuntuCluster("ubuntu-test")
+	testCluster = profile.NewCentosCluster("centos-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
 		fmt.Printf("Unable to create DigitalOcean test cluster: %v\n", err)

@@ -55,17 +55,11 @@ func EditCmd() *cobra.Command {
 
 	fs := editCmd.Flags()
 
-	fs.StringVarP(&eo.StateStore, keyStateStore, "s", viper.GetString(keyStateStore), descStateStore)
-	fs.StringVarP(&eo.StateStorePath, keyStateStorePath, "S", viper.GetString(keyStateStorePath), descStateStorePath)
+	bindCommonStateStoreFlags(&eo.StateStoreOptions, fs)
+	bindCommonAwsFlags(&eo.AwsOptions, fs)
+
 	fs.StringVarP(&eo.Editor, keyEditor, "e", viper.GetString(keyEditor), descEditor)
-
 	fs.StringVar(&eo.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
-	fs.StringVar(&eo.S3AccessKey, keyS3Access, viper.GetString(keyS3Access), descS3AccessKey)
-	fs.StringVar(&eo.S3SecretKey, keyS3Secret, viper.GetString(keyS3Secret), descS3SecretKey)
-	fs.StringVar(&eo.BucketEndpointURL, keyS3Endpoint, viper.GetString(keyS3Endpoint), descS3Endpoints)
-	fs.StringVar(&eo.BucketName, keyS3Bucket, viper.GetString(keyS3Bucket), descS3Bucket)
-
-	fs.BoolVar(&eo.BucketSSL, keyS3SSL, viper.GetBool(keyS3SSL), descS3SSL)
 
 	return editCmd
 }
