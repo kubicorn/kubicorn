@@ -19,12 +19,13 @@ import (
 	"fmt"
 	"os"
 
+	"strings"
+
+	"github.com/kubicorn/kubicorn/pkg/local"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/ssh/auth"
 	gossh "golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
-	"strings"
-	"github.com/kubicorn/kubicorn/pkg/local"
 )
 
 // Client contains parameters for connection to the node.
@@ -56,7 +57,6 @@ func NewClient(address, port, username, publicKeyPath string) *Client {
 		},
 		Conn: nil,
 	}
-
 
 	// If system agent is enabled in Kubicorn use it.
 	sysAgent := false

@@ -22,10 +22,11 @@ import (
 	"os"
 	"syscall"
 
-	"golang.org/x/crypto/ssh"
-	"golang.org/x/crypto/ssh/terminal"
 	"net"
+
+	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/agent"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // retriveSSHKeyPassword takes password from terminal.
