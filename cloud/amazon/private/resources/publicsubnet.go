@@ -45,7 +45,7 @@ func (r *PublicSubnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, clo
 
 	if r.ClusterPublicSubnet.Identifier != "" {
 		input := &ec2.DescribeSubnetsInput{
-			SubnetIds: []*string{S(r.ClusterPublicSubnet.Identifier)},
+			SubnetIds: []*string{&r.ClusterPublicSubnet.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeSubnets(input)
 		if err != nil {
@@ -56,14 +56,11 @@ func (r *PublicSubnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, clo
 			return nil, nil, fmt.Errorf("Found [%d] Subnets for ID [%s]", lsn, r.ClusterPublicSubnet.Identifier)
 		}
 		subnet := output.Subnets[0]
+
 		newResource.CIDR = *subnet.CidrBlock
 		newResource.Identifier = *subnet.SubnetId
 		newResource.VpcID = *subnet.VpcId
 		newResource.Zone = *subnet.AvailabilityZone
-		newResource.Tags = map[string]string{
-			"Name":              r.Name,
-			"KubernetesCluster": immutable.Name,
-		}
 		for _, tag := range subnet.Tags {
 			key := *tag.Key
 			val := *tag.Value
@@ -82,12 +79,14 @@ func (r *PublicSubnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, c
 	logger.Debug("publicsubnet.Expected")
 	newResource := &PublicSubnet{
 		Shared: Shared{
-			Tags: map[string]string{
-				"Name":              r.Name,
-				"KubernetesCluster": immutable.Name,
-			},
 			Identifier: r.ClusterPublicSubnet.Identifier,
 			Name:       r.Name,
+			Tags: map[string]string{
+				"Name":                                    r.Name,
+				"KubernetesCluster":                       immutable.Name,
+				"kubernetes.io/cluster/" + immutable.Name: "owned",
+				"kubernetes.io/role/elb":                  "true",
+			},
 		},
 		CIDR:  r.ClusterPublicSubnet.CIDR,
 		VpcID: immutable.ProviderConfig().Network.Identifier,
@@ -101,7 +100,7 @@ func (r *PublicSubnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, c
 func (r *PublicSubnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("publicsubnet.Apply")
 	applyResource := expected.(*PublicSubnet)
-	isEqual, err := compare.IsEqual(actual.(*PublicSubnet), expected.(*PublicSubnet))
+	isEqual, err := compare.IsEqual(actual.(*PublicSubnet), applyResource)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -110,23 +109,34 @@ func (r *PublicSubnet) Apply(actual, expected cloud.Resource, immutable *cluster
 	}
 
 	input := &ec2.CreateSubnetInput{
-		CidrBlock:        &expected.(*PublicSubnet).CIDR,
+		CidrBlock:        &applyResource.CIDR,
 		VpcId:            &immutable.ProviderConfig().Network.Identifier,
-		AvailabilityZone: &expected.(*PublicSubnet).Zone,
+		AvailabilityZone: &applyResource.Zone,
 	}
 	output, err := Sdk.Ec2.CreateSubnet(input)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Unable to create new Public Subnet: %v", err)
+	}
+	waitInput := &ec2.DescribeSubnetsInput{
+		SubnetIds: []*string{output.Subnet.SubnetId},
+	}
+	logger.Info("Waiting for Public Subnet [%s] to be available", *output.Subnet.SubnetId)
+	err = Sdk.Ec2.WaitUntilSubnetAvailable(waitInput)
 	if err != nil {
 		return nil, nil, err
 	}
 	logger.Success("Created Public Subnet [%s]", *output.Subnet.SubnetId)
-	newResource := &PublicSubnet{}
-	newResource.CIDR = *output.Subnet.CidrBlock
-	newResource.VpcID = *output.Subnet.VpcId
-	newResource.Zone = *output.Subnet.AvailabilityZone
-	newResource.Name = applyResource.Name
-	newResource.Identifier = *output.Subnet.SubnetId
 
-	// Tag newly created Public Subnet
+	newResource := &PublicSubnet{
+		Shared: Shared{
+			Identifier: *output.Subnet.SubnetId,
+			Name:       applyResource.Name,
+			Tags:       make(map[string]string),
+		},
+		CIDR:  *output.Subnet.CidrBlock,
+		VpcID: *output.Subnet.VpcId,
+		Zone:  *output.Subnet.AvailabilityZone,
+	}
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to tag new Public Subnet: %v", err)
@@ -144,19 +154,22 @@ func (r *PublicSubnet) Delete(actual cloud.Resource, immutable *cluster.Cluster)
 	}
 
 	input := &ec2.DeleteSubnetInput{
-		SubnetId: &actual.(*PublicSubnet).Identifier,
+		SubnetId: &deleteResource.Identifier,
 	}
 	_, err := Sdk.Ec2.DeleteSubnet(input)
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted Public Subnet [%s]", actual.(*PublicSubnet).Identifier)
+	logger.Success("Deleted Public Subnet [%s]", deleteResource.Identifier)
 
-	newResource := &PublicSubnet{}
-	newResource.Name = actual.(*PublicSubnet).Name
-	newResource.Tags = actual.(*PublicSubnet).Tags
-	newResource.CIDR = actual.(*PublicSubnet).CIDR
-	newResource.Zone = actual.(*PublicSubnet).Zone
+	newResource := &PublicSubnet{
+		Shared: Shared{
+			Name: deleteResource.Name,
+			Tags: deleteResource.Tags,
+		},
+		CIDR: deleteResource.CIDR,
+		Zone: deleteResource.Zone,
+	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil

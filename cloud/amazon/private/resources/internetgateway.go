@@ -38,47 +38,47 @@ func (r *InternetGateway) Actual(immutable *cluster.Cluster) (*cluster.Cluster, 
 			Tags: make(map[string]string),
 		},
 	}
+
 	if immutable.ProviderConfig().Network.InternetGW.Identifier != "" {
 		input := &ec2.DescribeInternetGatewaysInput{
-			Filters: []*ec2.Filter{
-				{
-					Name:   S("tag:kubicorn-internet-gateway-name"),
-					Values: []*string{S(r.Name)},
-				},
-			},
+			InternetGatewayIds: []*string{&immutable.ProviderConfig().Network.InternetGW.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeInternetGateways(input)
 		if err != nil {
 			return nil, nil, err
 		}
-		lsn := len(output.InternetGateways)
-		if lsn != 0 {
-			ig := output.InternetGateways[0]
-			for _, tag := range ig.Tags {
-				key := *tag.Key
-				val := *tag.Value
-				newResource.Tags[key] = val
-			}
-			newResource.Identifier = *ig.InternetGatewayId
+		lig := len(output.InternetGateways)
+		if lig != 1 {
+			return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lig, immutable.ProviderConfig().Network.InternetGW.Identifier)
+		}
+		ig := output.InternetGateways[0]
+
+		newResource.Identifier = *ig.InternetGatewayId
+		for _, tag := range ig.Tags {
+			key := *tag.Key
+			val := *tag.Value
+			newResource.Tags[key] = val
 		}
 	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
 func (r *InternetGateway) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("internetgateway.Expected %v", r.Identifier)
+	logger.Debug("internetgateway.Expected")
 	newResource := &InternetGateway{
 		Shared: Shared{
-			Tags: map[string]string{
-				"Name":                           r.Name,
-				"KubernetesCluster":              immutable.Name,
-				"kubicorn-internet-gateway-name": r.Name,
-			},
 			Identifier: immutable.ProviderConfig().Network.InternetGW.Identifier,
 			Name:       r.Name,
+			Tags: map[string]string{
+				"Name":                                    r.Name,
+				"KubernetesCluster":                       immutable.Name,
+				"kubernetes.io/cluster/" + immutable.Name: "owned",
+			},
 		},
 	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -86,45 +86,41 @@ func (r *InternetGateway) Expected(immutable *cluster.Cluster) (*cluster.Cluster
 func (r *InternetGateway) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("internetgateway.Apply")
 	applyResource := expected.(*InternetGateway)
-	isEqual, err := compare.IsEqual(actual.(*InternetGateway), expected.(*InternetGateway))
+	isEqual, err := compare.IsEqual(actual.(*InternetGateway), applyResource)
 	if err != nil {
 		return nil, nil, err
 	}
 	if isEqual {
 		return immutable, applyResource, nil
 	}
+
 	input := &ec2.CreateInternetGatewayInput{}
 	output, err := Sdk.Ec2.CreateInternetGateway(input)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("Unable to create new Internet Gateway: %v", err)
 	}
 	logger.Success("Created Internet Gateway [%s]", *output.InternetGateway.InternetGatewayId)
-	ig := output.InternetGateway
 
-	// --- Attach Internet Gateway to VPC
-	atchinput := &ec2.AttachInternetGatewayInput{
-		InternetGatewayId: ig.InternetGatewayId,
+	attachInput := &ec2.AttachInternetGatewayInput{
+		InternetGatewayId: output.InternetGateway.InternetGatewayId,
 		VpcId:             &immutable.ProviderConfig().Network.Identifier,
 	}
-	_, err = Sdk.Ec2.AttachInternetGateway(atchinput)
+	_, err = Sdk.Ec2.AttachInternetGateway(attachInput)
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Attaching Internet Gateway [%s] to VPC [%s]", *ig.InternetGatewayId, immutable.ProviderConfig().Network.Identifier)
+	logger.Success("Attached Internet Gateway [%s] to VPC [%s]", *output.InternetGateway.InternetGatewayId, immutable.ProviderConfig().Network.Identifier)
+
 	newResource := &InternetGateway{
 		Shared: Shared{
-			Tags: make(map[string]string),
+			Identifier: *output.InternetGateway.InternetGatewayId,
+			Name:       applyResource.Name,
+			Tags:       make(map[string]string),
 		},
 	}
-	newResource.Identifier = *ig.InternetGatewayId
-	newResource.Name = expected.(*InternetGateway).Name
-	for key, value := range expected.(*InternetGateway).Tags {
-		newResource.Tags[key] = value
-	}
-	expected.(*InternetGateway).Identifier = *output.InternetGateway.InternetGatewayId
-	err = expected.(*InternetGateway).tag(expected.(*InternetGateway).Tags)
+	err = newResource.tag(applyResource.Tags)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("Unable to tag new Internet Gateway: %v", err)
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -135,50 +131,46 @@ func (r *InternetGateway) Delete(actual cloud.Resource, immutable *cluster.Clust
 	logger.Debug("internetgateway.Delete")
 	deleteResource := actual.(*InternetGateway)
 	if deleteResource.Identifier == "" {
-		return nil, nil, fmt.Errorf("Unable to delete internetgateway resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete Internet Gateway resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DescribeInternetGatewaysInput{
-		Filters: []*ec2.Filter{
-			{
-				Name:   S("tag:kubicorn-internet-gateway-name"),
-				Values: []*string{S(r.Name)},
-			},
-		},
+		InternetGatewayIds: []*string{&deleteResource.Identifier},
 	}
 	output, err := Sdk.Ec2.DescribeInternetGateways(input)
 	if err != nil {
 		return nil, nil, err
 	}
-	lsn := len(output.InternetGateways)
-	if lsn == 0 {
-		return nil, nil, nil
-	}
-	if lsn != 1 {
-		return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, r.Name)
+	lig := len(output.InternetGateways)
+	if lig == 0 {
+		return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lig, deleteResource.Identifier)
 	}
 	ig := output.InternetGateways[0]
 
-	detinput := &ec2.DetachInternetGatewayInput{
+	detInput := &ec2.DetachInternetGatewayInput{
 		InternetGatewayId: ig.InternetGatewayId,
 		VpcId:             &immutable.ProviderConfig().Network.Identifier,
 	}
-	_, err = Sdk.Ec2.DetachInternetGateway(detinput)
+	_, err = Sdk.Ec2.DetachInternetGateway(detInput)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	delinput := &ec2.DeleteInternetGatewayInput{
+	dInput := &ec2.DeleteInternetGatewayInput{
 		InternetGatewayId: ig.InternetGatewayId,
 	}
-	_, err = Sdk.Ec2.DeleteInternetGateway(delinput)
+	_, err = Sdk.Ec2.DeleteInternetGateway(dInput)
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted internetgateway [%s]", actual.(*InternetGateway).Identifier)
-	newResource := &InternetGateway{}
-	newResource.Name = actual.(*InternetGateway).Name
-	newResource.Tags = actual.(*InternetGateway).Tags
+	logger.Success("Deleted Internet Gateway [%s]", deleteResource.Identifier)
+
+	newResource := &InternetGateway{
+		Shared: Shared{
+			Name: deleteResource.Name,
+			Tags: deleteResource.Tags,
+		},
+	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -186,9 +178,11 @@ func (r *InternetGateway) Delete(actual cloud.Resource, immutable *cluster.Clust
 
 func (r *InternetGateway) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("internetgateway.Render")
+
 	newCluster := inaccurateCluster
 	providerConfig := newCluster.ProviderConfig()
 	providerConfig.Network.InternetGW.Identifier = newResource.(*InternetGateway).Identifier
+
 	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }

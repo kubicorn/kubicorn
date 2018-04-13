@@ -33,8 +33,6 @@ type Vpc struct {
 
 func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Actual")
-
-	// New Resource
 	newResource := &Vpc{
 		Shared: Shared{
 			Name: r.Name,
@@ -42,7 +40,6 @@ func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 		},
 	}
 
-	// Query for resource if we have an Identifier
 	if immutable.ProviderConfig().Network.Identifier != "" {
 		input := &ec2.DescribeVpcsInput{
 			VpcIds: []*string{&immutable.ProviderConfig().Network.Identifier},
@@ -55,33 +52,38 @@ func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 		if lvpc != 1 {
 			return nil, nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lvpc, immutable.ProviderConfig().Network.Identifier)
 		}
-		newResource.Identifier = *output.Vpcs[0].VpcId
-		newResource.CIDR = *output.Vpcs[0].CidrBlock
-		for _, tag := range output.Vpcs[0].Tags {
+		vpc := output.Vpcs[0]
+
+		newResource.CIDR = *vpc.CidrBlock
+		newResource.Identifier = *vpc.VpcId
+		for _, tag := range vpc.Tags {
 			key := *tag.Key
 			val := *tag.Value
 			newResource.Tags[key] = val
 		}
 	} else {
 		newResource.CIDR = immutable.ProviderConfig().Network.CIDR
-		newResource.Name = immutable.ProviderConfig().Network.Name
 	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
 func (r *Vpc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Expected")
 	newResource := &Vpc{
 		Shared: Shared{
-			Tags: map[string]string{
-				"Name":              r.Name,
-				"KubernetesCluster": immutable.Name,
-			},
 			Identifier: immutable.ProviderConfig().Network.Identifier,
 			Name:       r.Name,
+			Tags: map[string]string{
+				"Name":                                    r.Name,
+				"KubernetesCluster":                       immutable.Name,
+				"kubernetes.io/cluster/" + immutable.Name: "owned",
+			},
 		},
 		CIDR: immutable.ProviderConfig().Network.CIDR,
 	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -89,7 +91,7 @@ func (r *Vpc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Reso
 func (r *Vpc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Apply")
 	applyResource := expected.(*Vpc)
-	isEqual, err := compare.IsEqual(actual.(*Vpc), expected.(*Vpc))
+	isEqual, err := compare.IsEqual(actual.(*Vpc), applyResource)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -97,7 +99,6 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		return immutable, applyResource, nil
 	}
 
-	// Look up VPC
 	input := &ec2.CreateVpcInput{
 		CidrBlock: &applyResource.CIDR,
 	}
@@ -105,8 +106,15 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to create new VPC: %v", err)
 	}
+	waitInput := &ec2.DescribeVpcsInput{
+		VpcIds: []*string{output.Vpc.VpcId},
+	}
+	logger.Info("Waiting for VPC [%s] to be available", *output.Vpc.VpcId)
+	err = Sdk.Ec2.WaitUntilVpcAvailable(waitInput)
+	if err != nil {
+		return nil, nil, err
+	}
 
-	// Modify VPC
 	minput1 := &ec2.ModifyVpcAttributeInput{
 		EnableDnsHostnames: &ec2.AttributeBooleanValue{
 			Value: B(true),
@@ -118,7 +126,6 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		return nil, nil, err
 	}
 
-	// Modify VPC
 	minput2 := &ec2.ModifyVpcAttributeInput{
 		EnableDnsSupport: &ec2.AttributeBooleanValue{
 			Value: B(true),
@@ -139,8 +146,6 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		},
 		CIDR: *output.Vpc.CidrBlock,
 	}
-
-	// Tag newly created VPC
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to tag new VPC: %v", err)
@@ -155,14 +160,15 @@ func (r *Vpc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 	if deleteResource.Identifier == "" {
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
+
 	input := &ec2.DeleteVpcInput{
-		VpcId: &actual.(*Vpc).Identifier,
+		VpcId: &deleteResource.Identifier,
 	}
 	_, err := Sdk.Ec2.DeleteVpc(input)
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted VPC [%s]", actual.(*Vpc).Identifier)
+	logger.Success("Deleted VPC [%s]", deleteResource.Identifier)
 
 	newResource := &Vpc{
 		Shared: Shared{
@@ -171,6 +177,7 @@ func (r *Vpc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 		},
 		CIDR: deleteResource.CIDR,
 	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -194,7 +201,7 @@ func (r *Vpc) tag(tags map[string]string) error {
 		Resources: []*string{&r.Identifier},
 	}
 	for key, val := range tags {
-		logger.Debug("Registering Vpc tag [%s] %s", key, val)
+		logger.Debug("Registering VPC tag [%s] %s", key, val)
 		tagInput.Tags = append(tagInput.Tags, &ec2.Tag{
 			Key:   S("%s", key),
 			Value: S("%s", val),
