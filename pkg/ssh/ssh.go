@@ -22,6 +22,7 @@ import (
 	gossh "golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
 	"github.com/kubicorn/kubicorn/pkg/ssh/auth"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 // SSHClient contains parameters for connection to the node.
@@ -54,10 +55,17 @@ func NewSSHClient(address, port, username string) *SSHClient {
 		Conn: nil,
 	}
 
-	// DEPRECATED: this approach is to be deprecated as we build the new SSH wrapper.
-	//sshAgent := agent.NewAgent()
-	//s.ClientConfig.Auth = append(s.ClientConfig.Auth, sshAgent.GetAgent())
-	s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.NewSignerFromKey(auth.ParsePrivateKey("")))
+	k, err := auth.ParsePrivateKey("/home/xmudrii/.ssh/id_rsa")
+	if err != nil {
+		logger.Critical("Unable to parse private key: %v", err)
+	}
+
+	sign, err := gossh.NewSignerFromKey(k)
+	if err != nil {
+		logger.Critical("Unable to parse private key: %v", err)
+	}
+
+	s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeys(sign))
 
 	return s
 }

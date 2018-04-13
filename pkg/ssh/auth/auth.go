@@ -23,7 +23,6 @@ import (
 	"io/ioutil"
 	"encoding/pem"
 	"crypto/x509"
-	"golang.org/x/crypto/ssh/agent"
 )
 
 // retriveSSHKeyPassword takes password from terminal.
@@ -40,19 +39,6 @@ var retriveSSHKeyPassword = func() ([]byte, error) {
 
 	fmt.Println("")
 	return passPhrase, nil
-}
-
-func NewAgent(keyPath string) (agent.Agent, error){
-	agnt := agent.NewKeyring()
-	a := agent.AddedKey{
-		PrivateKey:   ParsePrivateKey(keyPath),
-	}
-	if err := agnt.Add(a); err != nil {
-		return nil, err
-	}
-	agnt.
-
-	return agnt, nil
 }
 
 // ParsePrivateKey unlocks and parses private key.
