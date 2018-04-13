@@ -173,7 +173,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				//pubPath := local.Expand(immutable.ProviderConfig().SSH.PublicKeyPath)
 				//privPath := strings.Replace(pubPath, ".pub", "", 1)
 
-				client := ssh.NewSSHClient(masterIPPublic, providerConfig.SSH.Port,
+				client := ssh.NewClient(masterIPPublic, providerConfig.SSH.Port,
 											providerConfig.SSH.User, providerConfig.SSH.PublicKeyPath)
 				err = client.Connect()
 				if err != nil {

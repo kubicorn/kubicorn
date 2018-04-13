@@ -34,7 +34,7 @@ var retriveSSHKeyPassword = func() ([]byte, error) {
 		return nil, fmt.Errorf("cannot detect terminal")
 	}
 
-	fmt.Print("SSH Key Passphrase [none]: ")
+	fmt.Print("SSH Key Passphrase: ")
 	passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
 	if err != nil {
 		return nil, err

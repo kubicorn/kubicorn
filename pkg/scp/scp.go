@@ -23,7 +23,7 @@ import (
 )
 
 // ReadBytes reads from remote location.
-func ReadBytes(client *ssh.SSHClient, remotePath string) ([]byte, error) {
+func ReadBytes(client *ssh.Client, remotePath string) ([]byte, error) {
 	if client.Conn == nil {
 		return nil, fmt.Errorf("Connection not established.")
 	}
@@ -49,7 +49,7 @@ func ReadBytes(client *ssh.SSHClient, remotePath string) ([]byte, error) {
 }
 
 // WriteBytes writes to remote location.
-func WriteBytes(client *ssh.SSHClient, remotePath string, content []byte) error {
+func WriteBytes(client *ssh.Client, remotePath string, content []byte) error {
 	if client.Conn == nil {
 		return fmt.Errorf("Connection not established.")
 	}

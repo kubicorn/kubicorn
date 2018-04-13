@@ -27,8 +27,8 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/local"
 )
 
-// SSHClient contains parameters for connection to the node.
-type SSHClient struct {
+// Client contains parameters for connection to the node.
+type Client struct {
 	// IP address or FQDN of the node.
 	Address string
 
@@ -36,7 +36,7 @@ type SSHClient struct {
 	Port string
 
 	// ClientConfig is a basic Go SSH client needed to make SSH connection.
-	// This is populated automatically from fields provided on SSHClient creation time.
+	// This is populated automatically from fields provided on Client creation time.
 	ClientConfig *gossh.ClientConfig
 
 	// Conn is connection to the remote SSH server.
@@ -44,9 +44,9 @@ type SSHClient struct {
 	Conn *gossh.Client
 }
 
-// NewSSHClient returns a SSH client representation.
-func NewSSHClient(address, port, username, publicKeyPath string) *SSHClient {
-	s := &SSHClient{
+// NewClient returns a SSH client representation.
+func NewClient(address, port, username, publicKeyPath string) *Client {
+	s := &Client{
 		Address: address,
 		Port:    port,
 		ClientConfig: &gossh.ClientConfig{
@@ -66,10 +66,9 @@ func NewSSHClient(address, port, username, publicKeyPath string) *SSHClient {
 			s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeysCallback(agent.Signers))
 			sysAgent = true
 		}
-
 	}
 
-	if !sysAgent { // Resort to password authentication.
+	if !sysAgent { // Resort to password authentication if agent is not present.
 		// Parse public and private key.
 		privKeyPath := strings.Replace(local.Expand(publicKeyPath), ".pub", "", 1)
 		k, err := auth.ParsePrivateKey(privKeyPath)
@@ -89,7 +88,7 @@ func NewSSHClient(address, port, username, publicKeyPath string) *SSHClient {
 }
 
 // Connect starts a headless connection against the node.
-func (s *SSHClient) Connect() error {
+func (s *Client) Connect() error {
 	conn, err := gossh.Dial("tcp", fmt.Sprintf("%s:%s", s.Address, s.Port), s.ClientConfig)
 	if err != nil {
 		return err
@@ -100,7 +99,7 @@ func (s *SSHClient) Connect() error {
 }
 
 // StartInteractiveSession starts a terminal connection against the node.
-func (s *SSHClient) StartInteractiveSession() error {
+func (s *Client) StartInteractiveSession() error {
 	if s.Conn == nil {
 		return fmt.Errorf("not connected to the server")
 	}
@@ -163,7 +162,7 @@ func (s *SSHClient) StartInteractiveSession() error {
 }
 
 // Execute executes command on the remote server and returns stdout and stderr output.
-func (s *SSHClient) Execute(cmd string) ([]byte, error) {
+func (s *Client) Execute(cmd string) ([]byte, error) {
 	if s.Conn == nil {
 		return nil, fmt.Errorf("not connected to the server")
 	}
@@ -181,7 +180,7 @@ func (s *SSHClient) Execute(cmd string) ([]byte, error) {
 }
 
 // Close closes the SSH connection.
-func (s *SSHClient) Close() error {
+func (s *Client) Close() error {
 	if s.Conn == nil {
 		return fmt.Errorf("connection not existing")
 	}
