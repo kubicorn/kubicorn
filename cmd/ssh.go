@@ -97,7 +97,7 @@ func runSSH(options *cli.SSHOptions) error {
 
 	providerConfig := cluster.ProviderConfig()
 	client := ssh.NewSSHClient(cluster.ProviderConfig().KubernetesAPI.Endpoint,
-		providerConfig.SSH.Port, providerConfig.SSH.User)
+		providerConfig.SSH.Port, providerConfig.SSH.User, providerConfig.SSH.PublicKeyPath)
 
 	err = client.Connect()
 	if err != nil {

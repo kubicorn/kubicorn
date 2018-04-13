@@ -23,6 +23,8 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/ssh/auth"
 	gossh "golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
+	"strings"
+	"github.com/kubicorn/kubicorn/pkg/local"
 )
 
 // SSHClient contains parameters for connection to the node.
@@ -43,7 +45,7 @@ type SSHClient struct {
 }
 
 // NewSSHClient returns a SSH client representation.
-func NewSSHClient(address, port, username string) *SSHClient {
+func NewSSHClient(address, port, username, publicKeyPath string) *SSHClient {
 	s := &SSHClient{
 		Address: address,
 		Port:    port,
@@ -55,17 +57,33 @@ func NewSSHClient(address, port, username string) *SSHClient {
 		Conn: nil,
 	}
 
-	k, err := auth.ParsePrivateKey("/home/xmudrii/.ssh/id_rsa")
-	if err != nil {
-		logger.Critical("Unable to parse private key: %v", err)
+
+	// If system agent is enabled in Kubicorn use it.
+	sysAgent := false
+	if os.Getenv("KUBICORN_SSH_AGENT") != "" {
+		agent := auth.SystemAgent()
+		if agent != nil {
+			s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeysCallback(agent.Signers))
+			sysAgent = true
+		}
+
 	}
 
-	sign, err := gossh.NewSignerFromKey(k)
-	if err != nil {
-		logger.Critical("Unable to parse private key: %v", err)
-	}
+	if !sysAgent { // Resort to password authentication.
+		// Parse public and private key.
+		privKeyPath := strings.Replace(local.Expand(publicKeyPath), ".pub", "", 1)
+		k, err := auth.ParsePrivateKey(privKeyPath)
+		if err != nil {
+			logger.Critical("Unable to parse private key: %v", err)
+		}
 
-	s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeys(sign))
+		signer, err := gossh.NewSignerFromKey(k)
+		if err != nil {
+			logger.Critical("Unable to parse private key: %v", err)
+		}
+
+		s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeys(signer))
+	}
 
 	return s
 }

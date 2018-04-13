@@ -24,6 +24,8 @@ import (
 
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
+	"net"
+	"golang.org/x/crypto/ssh/agent"
 )
 
 // retriveSSHKeyPassword takes password from terminal.
@@ -82,4 +84,12 @@ func ParsePrivateKey(path string) (interface{}, error) {
 	}
 
 	return priv, nil
+}
+
+// SystemAgent returns system agent if it exists.
+func SystemAgent() agent.Agent {
+	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
+		return agent.NewClient(sshAgent)
+	}
+	return nil
 }
