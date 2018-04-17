@@ -46,7 +46,11 @@ func (r *RouteTable) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 			Filters: []*ec2.Filter{
 				{
 					Name:   S("tag:kubicorn-route-table-subnet-pair"),
-					Values: []*string{S(r.ClusterSubnet.Name)},
+					Values: []*string{&r.ClusterSubnet.Name},
+				},
+				{
+					Name:   S("vpc-id"),
+					Values: []*string{&immutable.ProviderConfig().Network.Identifier},
 				},
 			},
 		}
@@ -60,13 +64,12 @@ func (r *RouteTable) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 		}
 		rt := output.RouteTables[0]
 
+		newResource.Identifier = r.ClusterSubnet.Name
 		for _, tag := range rt.Tags {
 			key := *tag.Key
 			val := *tag.Value
 			newResource.Tags[key] = val
 		}
-		newResource.Identifier = r.ClusterSubnet.Name
-		newResource.Name = r.ClusterSubnet.Name
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -77,14 +80,14 @@ func (r *RouteTable) Expected(immutable *cluster.Cluster) (*cluster.Cluster, clo
 	logger.Debug("routetable.Expected")
 	newResource := &RouteTable{
 		Shared: Shared{
+			Identifier: r.ClusterSubnet.Name,
+			Name:       r.Name,
 			Tags: map[string]string{
 				"Name":                                    r.Name,
 				"KubernetesCluster":                       immutable.Name,
 				"kubernetes.io/cluster/" + immutable.Name: "owned",
 				"kubicorn-route-table-subnet-pair":        r.ClusterSubnet.Name,
 			},
-			Identifier: r.ClusterSubnet.Name,
-			Name:       r.Name,
 		},
 	}
 
@@ -108,38 +111,18 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	}
 	rtOutput, err := Sdk.Ec2.CreateRouteTable(rtInput)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("Unable to create new Route Table: %v", err)
 	}
 	logger.Success("Created Route Table [%s]", *rtOutput.RouteTable.RouteTableId)
 
-	igInput := &ec2.DescribeInternetGatewaysInput{
-		InternetGatewayIds: []*string{S(immutable.ProviderConfig().Network.InternetGW.Identifier)},
-	}
-	output, err := Sdk.Ec2.DescribeInternetGateways(igInput)
-	if err != nil {
-		return nil, nil, err
-	}
-	lig := len(output.InternetGateways)
-	if lig != 1 {
-		return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lig, immutable.ProviderConfig().Network.InternetGW.Identifier)
-	}
-
-	rInput := &ec2.CreateRouteInput{
-		DestinationCidrBlock: S("0.0.0.0/0"),
-		GatewayId:            output.InternetGateways[0].InternetGatewayId,
-		RouteTableId:         rtOutput.RouteTable.RouteTableId,
-	}
-	_, err = Sdk.Ec2.CreateRoute(rInput)
-	if err != nil {
-		return nil, nil, err
-	}
-
 	subnetID := ""
+	subnetZone := ""
 	for _, sp := range immutable.ServerPools() {
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {
 					subnetID = sn.Identifier
+					subnetZone = sn.Zone
 				}
 			}
 		}
@@ -148,25 +131,68 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		return nil, nil, fmt.Errorf("Unable to find Subnet ID")
 	}
 
+	publicSubnetID := ""
+	for _, sn := range immutable.ProviderConfig().Network.PublicSubnets {
+		if sn.Zone == subnetZone {
+			publicSubnetID = sn.Identifier
+		}
+	}
+	if publicSubnetID == "" {
+		return nil, nil, fmt.Errorf("Unable to find Public Subnet ID for Zone [%s}", subnetZone)
+	}
+
+	ngInput := &ec2.DescribeNatGatewaysInput{
+		Filter: []*ec2.Filter{
+			{
+				Name:   S("subnet-id"),
+				Values: []*string{&publicSubnetID},
+			},
+			{
+				Name:   S("tag-key"),
+				Values: []*string{S("kubicorn-nat-gateway")},
+			},
+			{
+				Name:   S("vpc-id"),
+				Values: []*string{&immutable.ProviderConfig().Network.Identifier},
+			},
+		},
+	}
+	output, err := Sdk.Ec2.DescribeNatGateways(ngInput)
+	if err != nil {
+		return nil, nil, err
+	}
+	lng := len(output.NatGateways)
+	if lng != 1 {
+		return nil, nil, fmt.Errorf("Found [%d] NAT Gateways for Zone [%s]", lng, subnetZone)
+	}
+
+	rInput := &ec2.CreateRouteInput{
+		DestinationCidrBlock: S("0.0.0.0/0"),
+		NatGatewayId:         output.NatGateways[0].NatGatewayId,
+		RouteTableId:         rtOutput.RouteTable.RouteTableId,
+	}
+	_, err = Sdk.Ec2.CreateRoute(rInput)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Unable to create new Route: %v", err)
+	}
+
 	asInput := &ec2.AssociateRouteTableInput{
 		SubnetId:     &subnetID,
 		RouteTableId: rtOutput.RouteTable.RouteTableId,
 	}
 	_, err = Sdk.Ec2.AssociateRouteTable(asInput)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("Unable to associate Route Table with Subnet: %v", err)
 	}
-
 	logger.Success("Associated Route Table [%s] with Subnet [%s]", *rtOutput.RouteTable.RouteTableId, subnetID)
 
 	newResource := &RouteTable{
 		Shared: Shared{
-			Tags: make(map[string]string),
+			Identifier: *rtOutput.RouteTable.RouteTableId,
+			Name:       applyResource.Name,
+			Tags:       make(map[string]string),
 		},
 	}
-	newResource.Identifier = *rtOutput.RouteTable.RouteTableId
-	newResource.Name = applyResource.Name
-
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to tag new Route Table: %v", err)
@@ -187,7 +213,11 @@ func (r *RouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 		Filters: []*ec2.Filter{
 			{
 				Name:   S("tag:kubicorn-route-table-subnet-pair"),
-				Values: []*string{S(r.ClusterSubnet.Name)},
+				Values: []*string{&r.ClusterSubnet.Name},
+			},
+			{
+				Name:   S("vpc-id"),
+				Values: []*string{&immutable.ProviderConfig().Network.Identifier},
 			},
 		},
 	}
@@ -218,12 +248,21 @@ func (r *RouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 	}
 	logger.Success("Deleted Route Table [%s]", deleteResource.Identifier)
 
-	newResource := &PublicRouteTable{}
-	newResource.Name = deleteResource.Name
-	newResource.Tags = deleteResource.Tags
+	newResource := &PublicRouteTable{
+		Shared: Shared{
+			Name: deleteResource.Name,
+			Tags: deleteResource.Tags,
+		},
+	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
+}
+
+func (r *RouteTable) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
+	logger.Debug("routetable.Render")
+
+	return inaccurateCluster
 }
 
 func (r *RouteTable) tag(tags map[string]string) error {
@@ -243,9 +282,4 @@ func (r *RouteTable) tag(tags map[string]string) error {
 		return err
 	}
 	return nil
-}
-
-func (r *RouteTable) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
-	logger.Debug("routetable.Render")
-	return inaccurateCluster
 }
