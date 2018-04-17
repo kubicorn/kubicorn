@@ -30,11 +30,12 @@ var _ cloud.Resource = &NATGateway{}
 
 type NATGateway struct {
 	Shared
-	ClusterPublicSubnet *cluster.PublicSubnet
+	ClusterSubnet *cluster.Subnet
 }
 
 func (r *NATGateway) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("natgateway.Actual")
+
 	newResource := &NATGateway{
 		Shared: Shared{
 			Name: r.Name,
@@ -42,30 +43,29 @@ func (r *NATGateway) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 		},
 	}
 
-	if r.ClusterPublicSubnet.Identifier != "" {
-		input := &ec2.DescribeNatGatewaysInput{
+	if r.ClusterSubnet.Identifier != "" {
+		output, err := Sdk.Ec2.DescribeNatGateways(&ec2.DescribeNatGatewaysInput{
 			Filter: []*ec2.Filter{
 				{
 					Name:   S("tag:kubicorn-nat-gateway"),
-					Values: []*string{&r.ClusterPublicSubnet.Name},
+					Values: []*string{&r.ClusterSubnet.Name},
 				},
 				{
 					Name:   S("vpc-id"),
 					Values: []*string{&immutable.ProviderConfig().Network.Identifier},
 				},
 			},
-		}
-		output, err := Sdk.Ec2.DescribeNatGateways(input)
+		})
 		if err != nil {
 			return nil, nil, err
 		}
 		lng := len(output.NatGateways)
 		if lng != 1 {
-			return nil, nil, fmt.Errorf("Found [%d] NAT Gateways for ID [%s]", lng, r.ClusterPublicSubnet.Name)
+			return nil, nil, fmt.Errorf("Found [%d] NAT Gateways for ID [%s]", lng, r.ClusterSubnet.Name)
 		}
 		ng := output.NatGateways[0]
 
-		newResource.Identifier = r.ClusterPublicSubnet.Name
+		newResource.Identifier = r.ClusterSubnet.Name
 		for _, tag := range ng.Tags {
 			key := *tag.Key
 			val := *tag.Value
@@ -79,22 +79,27 @@ func (r *NATGateway) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 
 func (r *NATGateway) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("natgateway.Expected")
+
 	newResource := &NATGateway{
 		Shared: Shared{
-			Identifier: r.ClusterPublicSubnet.Name,
+			Identifier: r.ClusterSubnet.Name,
 			Name:       r.Name,
 			Tags: map[string]string{
-				"Name":                 r.Name,
-				"kubicorn-nat-gateway": r.ClusterPublicSubnet.Name,
+				"Name":                                    r.Name,
+				"KubernetesCluster":                       immutable.Name,
+				"kubernetes.io/cluster/" + immutable.Name: "owned",
+				"kubicorn-nat-gateway":                    r.ClusterSubnet.Name,
 			},
 		},
 	}
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
 func (r *NATGateway) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("natgateway.Apply")
+
 	applyResource := expected.(*NATGateway)
 	isEqual, err := compare.IsEqual(actual.(*NATGateway), applyResource)
 	if err != nil {
@@ -104,10 +109,9 @@ func (r *NATGateway) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		return immutable, applyResource, nil
 	}
 
-	aaInput := &ec2.AllocateAddressInput{
+	aaOutput, err := Sdk.Ec2.AllocateAddress(&ec2.AllocateAddressInput{
 		Domain: S("vpc"),
-	}
-	aaOutput, err := Sdk.Ec2.AllocateAddress(aaInput)
+	})
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to allocate new Elastic IP: %v", err)
 	}
@@ -123,27 +127,27 @@ func (r *NATGateway) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		return nil, nil, fmt.Errorf("Unable to find Public Subnet ID")
 	}
 
-	ngInput := &ec2.CreateNatGatewayInput{
+	ngOutput, err := Sdk.Ec2.CreateNatGateway(&ec2.CreateNatGatewayInput{
 		AllocationId: aaOutput.AllocationId,
 		SubnetId:     &subnetID,
-	}
-	ngOutput, err := Sdk.Ec2.CreateNatGateway(ngInput)
+	})
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to create new NAT Gateway: %v", err)
 	}
-	waitInput := &ec2.DescribeNatGatewaysInput{
-		NatGatewayIds: []*string{ngOutput.NatGateway.NatGatewayId},
-	}
-	logger.Info("Waiting for NAT Gateway [%s] to be available", *ngOutput.NatGateway.NatGatewayId)
-	err = Sdk.Ec2.WaitUntilNatGatewayAvailable(waitInput)
+	natGatewayID := ngOutput.NatGateway.NatGatewayId
+
+	logger.Info("Waiting for NAT Gateway [%s] to be available", *natGatewayID)
+	err = Sdk.Ec2.WaitUntilNatGatewayAvailable(&ec2.DescribeNatGatewaysInput{
+		NatGatewayIds: []*string{natGatewayID},
+	})
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Created NAT Gateway [%s] in Public Subnet [%s] with Elastic IP [%s]", *ngOutput.NatGateway.NatGatewayId, subnetID, *aaOutput.AllocationId)
+	logger.Success("Created NAT Gateway [%s] in Public Subnet [%s] with Elastic IP [%s]", *natGatewayID, subnetID, *aaOutput.AllocationId)
 
 	newResource := &NATGateway{
 		Shared: Shared{
-			Identifier: *ngOutput.NatGateway.NatGatewayId,
+			Identifier: *natGatewayID,
 			Name:       applyResource.Name,
 			Tags:       make(map[string]string),
 		},
@@ -159,51 +163,49 @@ func (r *NATGateway) Apply(actual, expected cloud.Resource, immutable *cluster.C
 
 func (r *NATGateway) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("natgateway.Delete")
+
 	deleteResource := actual.(*NATGateway)
 	if deleteResource.Identifier == "" {
 		return nil, nil, fmt.Errorf("Unable to delete NAT Gateway resource without ID [%s]", deleteResource.Name)
 	}
 
-	input := &ec2.DescribeNatGatewaysInput{
+	output, err := Sdk.Ec2.DescribeNatGateways(&ec2.DescribeNatGatewaysInput{
 		Filter: []*ec2.Filter{
 			{
 				Name:   S("tag:kubicorn-nat-gateway"),
-				Values: []*string{&r.ClusterPublicSubnet.Name},
+				Values: []*string{&r.ClusterSubnet.Name},
 			},
 			{
 				Name:   S("vpc-id"),
 				Values: []*string{&immutable.ProviderConfig().Network.Identifier},
 			},
 		},
-	}
-	output, err := Sdk.Ec2.DescribeNatGateways(input)
+	})
 	if err != nil {
 		return nil, nil, err
 	}
 	lng := len(output.NatGateways)
 	if lng != 1 {
-		return nil, nil, fmt.Errorf("Found [%d] NAT Gateways for ID [%s]", lng, r.ClusterPublicSubnet.Name)
+		return nil, nil, fmt.Errorf("Found [%d] NAT Gateways for ID [%s]", lng, deleteResource.Identifier)
 	}
-	ng := output.NatGateways[0]
+	natGatewayID := output.NatGateways[0].NatGatewayId
+	allocationID := output.NatGateways[0].NatGatewayAddresses[0].AllocationId
 
-	dInput := &ec2.DeleteNatGatewayInput{
-		NatGatewayId: ng.NatGatewayId,
-	}
-	_, err = Sdk.Ec2.DeleteNatGateway(dInput)
+	_, err = Sdk.Ec2.DeleteNatGateway(&ec2.DeleteNatGatewayInput{
+		NatGatewayId: natGatewayID,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
 
-	logger.Info("Waiting for NAT Gateway [%s] to be deleted", *ng.NatGatewayId)
-	waitInput := &ec2.DescribeNatGatewaysInput{
-		NatGatewayIds: []*string{ng.NatGatewayId},
-	}
-
 	// Deletion can take up to five minutes, and there is no WaitUntilNatGatewayDeleted
+	logger.Info("Waiting for NAT Gateway [%s] to be deleted", *natGatewayID)
 	b := backoff.NewExponentialBackOff()
 	b.MaxElapsedTime = 5 * time.Minute
 	dng := func() error {
-		output, err := Sdk.Ec2.DescribeNatGateways(waitInput)
+		output, err := Sdk.Ec2.DescribeNatGateways(&ec2.DescribeNatGatewaysInput{
+			NatGatewayIds: []*string{natGatewayID},
+		})
 		if err != nil {
 			return err
 		}
@@ -212,23 +214,21 @@ func (r *NATGateway) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 			return nil
 		}
 
-		return fmt.Errorf("NAT Gateway [%s] not deleted", *ng.NatGatewayId)
+		return fmt.Errorf("NAT Gateway [%s] not deleted", *natGatewayID)
 	}
 	err = backoff.Retry(dng, b)
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted NAT Gateway [%s]", *ng.NatGatewayId)
+	logger.Success("Deleted NAT Gateway [%s]", *natGatewayID)
 
-	ga := ng.NatGatewayAddresses[0]
-	daInput := &ec2.ReleaseAddressInput{
-		AllocationId: ga.AllocationId,
-	}
-	_, err = Sdk.Ec2.ReleaseAddress(daInput)
+	_, err = Sdk.Ec2.ReleaseAddress(&ec2.ReleaseAddressInput{
+		AllocationId: allocationID,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Released Elastic IP [%s]", *ga.AllocationId)
+	logger.Success("Released Elastic IP [%s]", *allocationID)
 
 	newResource := &NATGateway{
 		Shared: Shared{
@@ -249,6 +249,7 @@ func (r *NATGateway) immutableRender(newResource cloud.Resource, inaccurateClust
 
 func (r *NATGateway) tag(tags map[string]string) error {
 	logger.Debug("natgateway.Tag")
+
 	tagInput := &ec2.CreateTagsInput{
 		Resources: []*string{&r.Identifier},
 	}

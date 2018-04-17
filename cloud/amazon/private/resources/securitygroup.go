@@ -150,6 +150,7 @@ func (r *SecurityGroup) Expected(immutable *cluster.Cluster) (*cluster.Cluster, 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
 func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Apply")
 	applyResource := expected.(*SecurityGroup)
@@ -206,6 +207,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
 func (r *SecurityGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Delete")
 	deleteResource := actual.(*SecurityGroup)

@@ -75,6 +75,7 @@ func (r *Asg) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
 func (r *Asg) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("asg.Expected")
 	newResource := &Asg{
@@ -93,6 +94,7 @@ func (r *Asg) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Reso
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
 func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("asg.Apply")
 	applyResource := expected.(*Asg)
