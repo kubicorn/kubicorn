@@ -90,6 +90,16 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			ClusterPublicSubnet: publicSubnet,
 		}
 		i++
+
+		// ---- [NAT Gateway] ----
+		r[i] = &resources.NATGateway{
+			Shared: resources.Shared{
+				Name: publicSubnet.Name,
+				Tags: make(map[string]string),
+			},
+			ClusterPublicSubnet: publicSubnet,
+		}
+		i++
 	}
 
 	machineConfigs := known.MachineProviderConfigs()
@@ -97,7 +107,7 @@ func (m *Model) Resources() map[int]cloud.Resource {
 		serverPool := machineConfig.ServerPool
 		name := serverPool.Name
 
-		// ---- [IAM InstanceProfile ] //Optional// ----
+		// ---- [IAM Instance Profile ] //Optional// ----
 		if serverPool.InstanceProfile != nil {
 			instanceProfile := &resources.InstanceProfile{
 				Shared: resources.Shared{
