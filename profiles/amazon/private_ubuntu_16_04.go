@@ -38,15 +38,27 @@ func NewPrivateUbuntuCluster(name string) *cluster.Cluster {
 			Type:       cluster.NetworkTypePrivate,
 			CIDR:       "10.0.0.0/16",
 			InternetGW: &cluster.InternetGW{},
-			PublicSubnets: []*cluster.PublicSubnet{
+			PrivateSubnets: []*cluster.Subnet{
 				{
-					Name: fmt.Sprintf("%s.public-1", name),
+					Name: fmt.Sprintf("%s.private-1", name),
 					CIDR: "10.0.11.0/24",
 					Zone: "us-west-2a",
 				},
 				{
-					Name: fmt.Sprintf("%s.public-2", name),
+					Name: fmt.Sprintf("%s.private-2", name),
 					CIDR: "10.0.12.0/24",
+					Zone: "us-west-2b",
+				},
+			},
+			PublicSubnets: []*cluster.Subnet{
+				{
+					Name: fmt.Sprintf("%s.public-1", name),
+					CIDR: "10.0.21.0/24",
+					Zone: "us-west-2a",
+				},
+				{
+					Name: fmt.Sprintf("%s.public-2", name),
+					CIDR: "10.0.22.0/24",
 					Zone: "us-west-2b",
 				},
 			},

@@ -70,34 +70,57 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	i++
 
 	// ---- [Public Subnets] ----
-	publicSubnets := known.ProviderConfig().Network.PublicSubnets
-	for _, publicSubnet := range publicSubnets {
-		r[i] = &resources.PublicSubnet{
+	for _, subnet := range known.ProviderConfig().Network.PublicSubnets {
+		r[i] = &resources.ExternalSubnet{
 			Shared: resources.Shared{
-				Name: publicSubnet.Name,
+				Name: subnet.Name,
 				Tags: make(map[string]string),
 			},
-			ClusterPublicSubnet: publicSubnet,
+			ClusterSubnet: subnet,
+			Public:        true,
 		}
 		i++
 
 		// ---- [Public Route Table] ----
 		r[i] = &resources.PublicRouteTable{
 			Shared: resources.Shared{
-				Name: publicSubnet.Name,
+				Name: subnet.Name,
 				Tags: make(map[string]string),
 			},
-			ClusterPublicSubnet: publicSubnet,
+			ClusterSubnet: subnet,
 		}
 		i++
 
 		// ---- [NAT Gateway] ----
 		r[i] = &resources.NATGateway{
 			Shared: resources.Shared{
-				Name: publicSubnet.Name,
+				Name: subnet.Name,
 				Tags: make(map[string]string),
 			},
-			ClusterPublicSubnet: publicSubnet,
+			ClusterSubnet: subnet,
+		}
+		i++
+	}
+
+	// ---- [Private Subnets] ----
+	for _, subnet := range known.ProviderConfig().Network.PrivateSubnets {
+		r[i] = &resources.ExternalSubnet{
+			Shared: resources.Shared{
+				Name: subnet.Name,
+				Tags: make(map[string]string),
+			},
+			ClusterSubnet: subnet,
+			Public:        false,
+		}
+		i++
+
+		// ---- [Private Route Table] ----
+		r[i] = &resources.PrivateRouteTable{
+			Shared: resources.Shared{
+				Name: subnet.Name,
+				Tags: make(map[string]string),
+			},
+			ClusterSubnet: subnet,
 		}
 		i++
 	}
@@ -159,7 +182,7 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			i++
 
 			// ---- [Route Table] ----
-			r[i] = &resources.RouteTable{
+			r[i] = &resources.PrivateRouteTable{
 				Shared: resources.Shared{
 					Name: subnet.Name,
 					Tags: make(map[string]string),

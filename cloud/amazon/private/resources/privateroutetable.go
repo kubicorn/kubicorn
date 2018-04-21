@@ -24,17 +24,18 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
-var _ cloud.Resource = &RouteTable{}
+var _ cloud.Resource = &PrivateRouteTable{}
 
-type RouteTable struct {
+type PrivateRouteTable struct {
 	Shared
 	ClusterSubnet *cluster.Subnet
 	ServerPool    *cluster.ServerPool
 }
 
-func (r *RouteTable) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("routetable.Actual")
-	newResource := &RouteTable{
+func (r *PrivateRouteTable) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("privateroutetable.Actual")
+
+	newResource := &PrivateRouteTable{
 		Shared: Shared{
 			Name: r.Name,
 			Tags: make(map[string]string),
@@ -42,10 +43,10 @@ func (r *RouteTable) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 	}
 
 	if r.ClusterSubnet.Identifier != "" {
-		input := &ec2.DescribeRouteTablesInput{
+		output, err := Sdk.Ec2.DescribeRouteTables(&ec2.DescribeRouteTablesInput{
 			Filters: []*ec2.Filter{
 				{
-					Name:   S("tag:kubicorn-route-table-subnet-pair"),
+					Name:   S("tag:kubicorn-private-route-table-subnet-pair"),
 					Values: []*string{&r.ClusterSubnet.Name},
 				},
 				{
@@ -53,14 +54,13 @@ func (r *RouteTable) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 					Values: []*string{&immutable.ProviderConfig().Network.Identifier},
 				},
 			},
-		}
-		output, err := Sdk.Ec2.DescribeRouteTables(input)
+		})
 		if err != nil {
 			return nil, nil, err
 		}
 		lrt := len(output.RouteTables)
 		if lrt != 1 {
-			return nil, nil, fmt.Errorf("Found [%d] Route Tables for ID [%s]", lrt, r.ClusterSubnet.Name)
+			return nil, nil, fmt.Errorf("Found [%d] Private Route Tables for ID [%s]", lrt, r.ClusterSubnet.Name)
 		}
 		rt := output.RouteTables[0]
 
@@ -76,17 +76,18 @@ func (r *RouteTable) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 	return newCluster, newResource, nil
 }
 
-func (r *RouteTable) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("routetable.Expected")
-	newResource := &RouteTable{
+func (r *PrivateRouteTable) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("privateroutetable.Expected")
+
+	newResource := &PrivateRouteTable{
 		Shared: Shared{
 			Identifier: r.ClusterSubnet.Name,
 			Name:       r.Name,
 			Tags: map[string]string{
-				"Name":                                    r.Name,
-				"KubernetesCluster":                       immutable.Name,
-				"kubernetes.io/cluster/" + immutable.Name: "owned",
-				"kubicorn-route-table-subnet-pair":        r.ClusterSubnet.Name,
+				"Name":                                     r.Name,
+				"KubernetesCluster":                        immutable.Name,
+				"kubernetes.io/cluster/" + immutable.Name:  "owned",
+				"kubicorn-private-route-table-subnet-pair": r.ClusterSubnet.Name,
 			},
 		},
 	}
@@ -95,10 +96,11 @@ func (r *RouteTable) Expected(immutable *cluster.Cluster) (*cluster.Cluster, clo
 	return newCluster, newResource, nil
 }
 
-func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("routetable.Apply")
-	applyResource := expected.(*RouteTable)
-	isEqual, err := compare.IsEqual(actual.(*RouteTable), applyResource)
+func (r *PrivateRouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("privateroutetable.Apply")
+
+	applyResource := expected.(*PrivateRouteTable)
+	isEqual, err := compare.IsEqual(actual.(*PrivateRouteTable), applyResource)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -106,14 +108,13 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		return immutable, applyResource, nil
 	}
 
-	rtInput := &ec2.CreateRouteTableInput{
+	rtOutput, err := Sdk.Ec2.CreateRouteTable(&ec2.CreateRouteTableInput{
 		VpcId: &immutable.ProviderConfig().Network.Identifier,
-	}
-	rtOutput, err := Sdk.Ec2.CreateRouteTable(rtInput)
+	})
 	if err != nil {
-		return nil, nil, fmt.Errorf("Unable to create new Route Table: %v", err)
+		return nil, nil, fmt.Errorf("Unable to create new Private Route Table: %v", err)
 	}
-	logger.Success("Created Route Table [%s]", *rtOutput.RouteTable.RouteTableId)
+	logger.Success("Created Private Route Table [%s]", *rtOutput.RouteTable.RouteTableId)
 
 	subnetID := ""
 	subnetZone := ""
@@ -127,6 +128,12 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 			}
 		}
 	}
+	for _, sn := range immutable.ProviderConfig().Network.PrivateSubnets {
+		if sn.Name == r.Name {
+			subnetID = sn.Identifier
+			subnetZone = sn.Zone
+		}
+	}
 	if subnetID == "" {
 		return nil, nil, fmt.Errorf("Unable to find Subnet ID")
 	}
@@ -138,10 +145,10 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		}
 	}
 	if publicSubnetID == "" {
-		return nil, nil, fmt.Errorf("Unable to find Public Subnet ID for Zone [%s}", subnetZone)
+		return nil, nil, fmt.Errorf("Unable to find Public Subnet ID for Zone [%s]", subnetZone)
 	}
 
-	ngInput := &ec2.DescribeNatGatewaysInput{
+	output, err := Sdk.Ec2.DescribeNatGateways(&ec2.DescribeNatGatewaysInput{
 		Filter: []*ec2.Filter{
 			{
 				Name:   S("subnet-id"),
@@ -156,8 +163,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				Values: []*string{&immutable.ProviderConfig().Network.Identifier},
 			},
 		},
-	}
-	output, err := Sdk.Ec2.DescribeNatGateways(ngInput)
+	})
 	if err != nil {
 		return nil, nil, err
 	}
@@ -166,12 +172,11 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		return nil, nil, fmt.Errorf("Found [%d] NAT Gateways for Zone [%s]", lng, subnetZone)
 	}
 
-	rInput := &ec2.CreateRouteInput{
+	_, err = Sdk.Ec2.CreateRoute(&ec2.CreateRouteInput{
 		DestinationCidrBlock: S("0.0.0.0/0"),
 		NatGatewayId:         output.NatGateways[0].NatGatewayId,
 		RouteTableId:         rtOutput.RouteTable.RouteTableId,
-	}
-	_, err = Sdk.Ec2.CreateRoute(rInput)
+	})
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to create new Route: %v", err)
 	}
@@ -182,11 +187,11 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	}
 	_, err = Sdk.Ec2.AssociateRouteTable(asInput)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Unable to associate Route Table with Subnet: %v", err)
+		return nil, nil, fmt.Errorf("Unable to associate Private Route Table with Subnet: %v", err)
 	}
 	logger.Success("Associated Route Table [%s] with Subnet [%s]", *rtOutput.RouteTable.RouteTableId, subnetID)
 
-	newResource := &RouteTable{
+	newResource := &PrivateRouteTable{
 		Shared: Shared{
 			Identifier: *rtOutput.RouteTable.RouteTableId,
 			Name:       applyResource.Name,
@@ -195,24 +200,25 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	}
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Unable to tag new Route Table: %v", err)
+		return nil, nil, fmt.Errorf("Unable to tag new Private Route Table: %v", err)
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
-func (r *RouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("routetable.Delete")
-	deleteResource := actual.(*RouteTable)
+func (r *PrivateRouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("privateroutetable.Delete")
+
+	deleteResource := actual.(*PrivateRouteTable)
 	if deleteResource.Identifier == "" {
-		return nil, nil, fmt.Errorf("Unable to delete Route Table resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete Private Route Table resource without ID [%s]", deleteResource.Name)
 	}
 
-	input := &ec2.DescribeRouteTablesInput{
+	output, err := Sdk.Ec2.DescribeRouteTables(&ec2.DescribeRouteTablesInput{
 		Filters: []*ec2.Filter{
 			{
-				Name:   S("tag:kubicorn-route-table-subnet-pair"),
+				Name:   S("tag:kubicorn-private-route-table-subnet-pair"),
 				Values: []*string{&r.ClusterSubnet.Name},
 			},
 			{
@@ -220,35 +226,32 @@ func (r *RouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 				Values: []*string{&immutable.ProviderConfig().Network.Identifier},
 			},
 		},
-	}
-	output, err := Sdk.Ec2.DescribeRouteTables(input)
+	})
 	if err != nil {
 		return nil, nil, err
 	}
 	lrt := len(output.RouteTables)
 	if lrt != 1 {
-		return nil, nil, fmt.Errorf("Found [%d] Route Tables for ID [%s]", lrt, deleteResource.Identifier)
+		return nil, nil, fmt.Errorf("Found [%d] Private Route Tables for ID [%s]", lrt, deleteResource.Identifier)
 	}
 	rt := output.RouteTables[0]
 
-	daInput := &ec2.DisassociateRouteTableInput{
+	_, err = Sdk.Ec2.DisassociateRouteTable(&ec2.DisassociateRouteTableInput{
 		AssociationId: rt.Associations[0].RouteTableAssociationId,
-	}
-	_, err = Sdk.Ec2.DisassociateRouteTable(daInput)
+	})
 	if err != nil {
 		return nil, nil, err
 	}
 
-	dInput := &ec2.DeleteRouteTableInput{
+	_, err = Sdk.Ec2.DeleteRouteTable(&ec2.DeleteRouteTableInput{
 		RouteTableId: rt.RouteTableId,
-	}
-	_, err = Sdk.Ec2.DeleteRouteTable(dInput)
+	})
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted Route Table [%s]", deleteResource.Identifier)
+	logger.Success("Deleted Private Route Table [%s]", *rt.RouteTableId)
 
-	newResource := &PublicRouteTable{
+	newResource := &PrivateRouteTable{
 		Shared: Shared{
 			Name: deleteResource.Name,
 			Tags: deleteResource.Tags,
@@ -259,19 +262,20 @@ func (r *RouteTable) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 	return newCluster, newResource, nil
 }
 
-func (r *RouteTable) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
-	logger.Debug("routetable.Render")
+func (r *PrivateRouteTable) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
+	logger.Debug("privateroutetable.Render")
 
 	return inaccurateCluster
 }
 
-func (r *RouteTable) tag(tags map[string]string) error {
-	logger.Debug("routetable.Tag")
+func (r *PrivateRouteTable) tag(tags map[string]string) error {
+	logger.Debug("privateroutetable.Tag")
+
 	tagInput := &ec2.CreateTagsInput{
 		Resources: []*string{&r.Identifier},
 	}
 	for key, val := range tags {
-		logger.Debug("Registering Route Table tag [%s] %s", key, val)
+		logger.Debug("Registering Private Route Table tag [%s] %s", key, val)
 		tagInput.Tags = append(tagInput.Tags, &ec2.Tag{
 			Key:   S("%s", key),
 			Value: S("%s", val),

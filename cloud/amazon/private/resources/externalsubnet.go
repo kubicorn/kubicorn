@@ -24,26 +24,27 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
-var _ cloud.Resource = &Subnet{}
+var _ cloud.Resource = &ExternalSubnet{}
 
-type Subnet struct {
+type ExternalSubnet struct {
 	Shared
-	ClusterSubnet *cluster.Subnet
-	ServerPool    *cluster.ServerPool
 	CIDR          string
+	ClusterSubnet *cluster.Subnet
+	Public        bool
 	Zone          string
 }
 
-func (r *Subnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("subnet.Actual")
+func (r *ExternalSubnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("externalsubnet.Actual")
 
-	newResource := &Subnet{
+	newResource := &ExternalSubnet{
 		Shared: Shared{
 			Name: r.Name,
 			Tags: make(map[string]string),
 		},
-		CIDR: r.ClusterSubnet.CIDR,
-		Zone: r.ClusterSubnet.Zone,
+		CIDR:   r.ClusterSubnet.CIDR,
+		Public: r.Public,
+		Zone:   r.ClusterSubnet.Zone,
 	}
 
 	if r.ClusterSubnet.Identifier != "" {
@@ -69,10 +70,10 @@ func (r *Subnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 	return newCluster, newResource, nil
 }
 
-func (r *Subnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("subnet.Expected")
+func (r *ExternalSubnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("externalsubnet.Expected")
 
-	newResource := &Subnet{
+	newResource := &ExternalSubnet{
 		Shared: Shared{
 			Identifier: r.ClusterSubnet.Identifier,
 			Name:       r.Name,
@@ -82,19 +83,25 @@ func (r *Subnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 				"kubernetes.io/cluster/" + immutable.Name: "owned",
 			},
 		},
-		CIDR: r.ClusterSubnet.CIDR,
-		Zone: r.ClusterSubnet.Zone,
+		CIDR:   r.ClusterSubnet.CIDR,
+		Public: r.Public,
+		Zone:   r.ClusterSubnet.Zone,
+	}
+	if r.Public {
+		newResource.Tags["kubernetes.io/role/elb"] = "true"
+	} else {
+		newResource.Tags["kubernetes.io/role/internal-elb"] = "true"
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
-func (r *Subnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("subnet.Apply")
+func (r *ExternalSubnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("externalsubnet.Apply")
 
-	applyResource := expected.(*Subnet)
-	isEqual, err := compare.IsEqual(actual.(*Subnet), applyResource)
+	applyResource := expected.(*ExternalSubnet)
+	isEqual, err := compare.IsEqual(actual.(*ExternalSubnet), applyResource)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -108,43 +115,44 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, immutable *cluster.Clust
 		AvailabilityZone: &applyResource.Zone,
 	})
 	if err != nil {
-		return nil, nil, fmt.Errorf("Unable to create new Subnet: %v", err)
+		return nil, nil, fmt.Errorf("Unable to create new External Subnet: %v", err)
 	}
 	subnetID := output.Subnet.SubnetId
 
-	logger.Info("Waiting for Subnet [%s] to be available", *subnetID)
+	logger.Info("Waiting for External Subnet [%s] to be available", *subnetID)
 	err = Sdk.Ec2.WaitUntilSubnetAvailable(&ec2.DescribeSubnetsInput{
 		SubnetIds: []*string{subnetID},
 	})
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Created Subnet [%s]", *subnetID)
+	logger.Success("Created External Subnet [%s]", *subnetID)
 
-	newResource := &Subnet{
+	newResource := &ExternalSubnet{
 		Shared: Shared{
 			Identifier: *subnetID,
 			Name:       applyResource.Name,
 			Tags:       make(map[string]string),
 		},
-		CIDR: *output.Subnet.CidrBlock,
-		Zone: *output.Subnet.AvailabilityZone,
+		CIDR:   *output.Subnet.CidrBlock,
+		Public: applyResource.Public,
+		Zone:   *output.Subnet.AvailabilityZone,
 	}
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
-		return nil, nil, fmt.Errorf("Unable to tag new Subnet: %v", err)
+		return nil, nil, fmt.Errorf("Unable to tag new External Subnet: %v", err)
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
-func (r *Subnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("subnet.Delete")
+func (r *ExternalSubnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("externalsubnet.Delete")
 
-	deleteResource := actual.(*Subnet)
+	deleteResource := actual.(*ExternalSubnet)
 	if deleteResource.Identifier == "" {
-		return nil, nil, fmt.Errorf("Unable to delete Subnet resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete External Subnet resource without ID [%s]", deleteResource.Name)
 	}
 
 	_, err := Sdk.Ec2.DeleteSubnet(&ec2.DeleteSubnetInput{
@@ -153,86 +161,52 @@ func (r *Subnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clu
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted Subnet [%s]", deleteResource.Identifier)
+	logger.Success("Deleted External Subnet [%s]", deleteResource.Identifier)
 
-	newResource := &Subnet{
+	newResource := &ExternalSubnet{
 		Shared: Shared{
 			Name: deleteResource.Name,
 			Tags: deleteResource.Tags,
 		},
-		CIDR: deleteResource.CIDR,
-		Zone: deleteResource.Zone,
+		CIDR:   deleteResource.CIDR,
+		Public: deleteResource.Public,
+		Zone:   deleteResource.Zone,
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
-func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
-	logger.Debug("subnet.Render")
-
-	subnet := &cluster.Subnet{
-		CIDR:       newResource.(*Subnet).CIDR,
-		Identifier: newResource.(*Subnet).Identifier,
-		Name:       newResource.(*Subnet).Name,
-		Zone:       newResource.(*Subnet).Zone,
-	}
-	found := false
+func (r *ExternalSubnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
+	logger.Debug("externalsubnet.Render")
 
 	newCluster := inaccurateCluster
-	machineProviderConfigs := newCluster.MachineProviderConfigs()
-	for i := 0; i < len(machineProviderConfigs); i++ {
-		machineProviderConfig := machineProviderConfigs[i]
-		for j := 0; j < len(machineProviderConfig.ServerPool.Subnets); j++ {
-			subnet := machineProviderConfig.ServerPool.Subnets[j]
-			if subnet.Name == newResource.(*Subnet).Name {
-				subnet.CIDR = newResource.(*Subnet).CIDR
-				subnet.Zone = newResource.(*Subnet).Zone
-				subnet.Identifier = newResource.(*Subnet).Identifier
-				machineProviderConfig.ServerPool.Subnets[j] = subnet
-				machineProviderConfigs[i] = machineProviderConfig
-				found = true
-			}
+	providerConfig := inaccurateCluster.ProviderConfig()
+
+	subnets := providerConfig.Network.PrivateSubnets
+	if r.Public {
+		subnets = providerConfig.Network.PublicSubnets
+	}
+	for i := 0; i < len(subnets); i++ {
+		if subnets[i].Name == newResource.(*ExternalSubnet).Name {
+			subnets[i].CIDR = newResource.(*ExternalSubnet).CIDR
+			subnets[i].Identifier = newResource.(*ExternalSubnet).Identifier
+			subnets[i].Zone = newResource.(*ExternalSubnet).Zone
 		}
 	}
 
-	if !found {
-		for i := 0; i < len(machineProviderConfigs); i++ {
-			machineProviderConfig := machineProviderConfigs[i]
-			if machineProviderConfig.Name == newResource.(*Subnet).Name {
-				newCluster.ServerPools()[i].Subnets = append(newCluster.ServerPools()[i].Subnets, subnet)
-				machineProviderConfig.ServerPool.Subnets = []*cluster.Subnet{subnet}
-				machineProviderConfigs[i] = machineProviderConfig
-				found = true
-			}
-		}
-	}
-
-	if !found {
-		machineProviderConfigs = []*cluster.MachineProviderConfig{
-			{
-				ServerPool: &cluster.ServerPool{
-					Name: newResource.(*Subnet).Name,
-					Subnets: []*cluster.Subnet{
-						subnet,
-					},
-				},
-			},
-		}
-	}
-
-	newCluster.SetMachineProviderConfigs(machineProviderConfigs)
+	newCluster.SetProviderConfig(providerConfig)
 	return newCluster
 }
 
-func (r *Subnet) tag(tags map[string]string) error {
-	logger.Debug("subnet.Tag")
+func (r *ExternalSubnet) tag(tags map[string]string) error {
+	logger.Debug("externalsubnet.Tag")
 
 	tagInput := &ec2.CreateTagsInput{
 		Resources: []*string{&r.Identifier},
 	}
 	for key, val := range tags {
-		logger.Debug("Registering Subnet tag [%s] %s", key, val)
+		logger.Debug("Registering External Subnet tag [%s] %s", key, val)
 		tagInput.Tags = append(tagInput.Tags, &ec2.Tag{
 			Key:   S("%s", key),
 			Value: S("%s", val),
