@@ -27,9 +27,9 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
+	"github.com/kubicorn/kubicorn/pkg/controllerHackCache"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
-	"github.com/kubicorn/kubicorn/pkg/controllerHackCache"
 )
 
 var _ cloud.Resource = &Lc{}

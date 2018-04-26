@@ -30,6 +30,9 @@ import (
 
 	"strings"
 
+	"encoding/json"
+
+	"github.com/kubicorn/kubicorn/pkg/controllerHackCache"
 	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
@@ -38,8 +41,6 @@ import (
 	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 	"k8s.io/kube-deploy/cluster-api/client"
 	"k8s.io/kube-deploy/cluster-api/util"
-	"encoding/json"
-	"github.com/kubicorn/kubicorn/pkg/controllerHackCache"
 )
 
 const (

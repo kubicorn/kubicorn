@@ -20,6 +20,8 @@ import (
 	"os"
 	"strings"
 
+	"io/ioutil"
+
 	"github.com/kubicorn/kubicorn/pkg"
 	"github.com/kubicorn/kubicorn/pkg/cli"
 	"github.com/kubicorn/kubicorn/pkg/initapi"
@@ -32,7 +34,6 @@ import (
 	"github.com/spf13/viper"
 	"github.com/yuroyoro/swalker"
 	"k8s.io/api/core/v1"
-	"io/ioutil"
 )
 
 // ApplyCmd represents the apply command
@@ -174,24 +175,24 @@ func runApply(options *cli.ApplyOptions) error {
 		pc := newCluster.ProviderConfig()
 		newCluster.ControllerDeployment.Spec.Template.Spec.Containers[0].Env = []v1.EnvVar{
 			{
-				Name: "KUBECONFIG_CONTENT",
+				Name:  "KUBECONFIG_CONTENT",
 				Value: string(kubeConfigContent),
 			},
 			{
-				Name: "AWS_ACCESS_KEY_ID",
+				Name:  "AWS_ACCESS_KEY_ID",
 				Value: os.Getenv("AWS_ACCESS_KEY_ID"),
 			},
 			{
-				Name: "AWS_SECRET_ACCESS_KEY",
+				Name:  "AWS_SECRET_ACCESS_KEY",
 				Value: os.Getenv("AWS_SECRET_ACCESS_KEY"),
 			},
 			{
-				Name: "AWS_REGION",
-				Value: 	pc.Location,
+				Name:  "AWS_REGION",
+				Value: pc.Location,
 			},
 			{
-				Name: "AWS_PROFILE",
-				Value: 	"default",
+				Name:  "AWS_PROFILE",
+				Value: "default",
 			},
 		}
 
