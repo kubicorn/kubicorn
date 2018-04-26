@@ -27,6 +27,7 @@ import (
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
+	"github.com/kubicorn/kubicorn/pkg/controllerHackCache"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
 )
@@ -213,7 +214,10 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	}
 
 	b64data := base64.StdEncoding.EncodeToString(userData)
-	r.ServerPool.GeneratedNodeUserData = []byte(b64data)
+	if strings.Contains(r.ServerPool.Name, "node") {
+		logger.Info("HACK user data")
+		controllerHackCache.NodeUserData = []byte(b64data)
+	}
 	lcInput := &autoscaling.CreateLaunchConfigurationInput{
 		AssociatePublicIpAddress: B(true),
 		LaunchConfigurationName:  &expected.(*Lc).Name,
@@ -266,7 +270,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	newResource.Identifier = expected.(*Lc).Name
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
 	newResource.InstanceProfile = expected.(*Lc).InstanceProfile
-	newResource.UserData = r.ServerPool.GeneratedNodeUserData
+	newResource.UserData = []byte(b64data)
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -311,7 +315,7 @@ func (r *Lc) immutableRender(newResource cloud.Resource, inaccurateCluster *clus
 	serverPool.Image = newResource.(*Lc).Image
 	serverPool.Size = newResource.(*Lc).InstanceType
 	serverPool.BootstrapScripts = newResource.(*Lc).BootstrapScripts
-	serverPool.GeneratedNodeUserData = newResource.(*Lc).UserData
+	//serverPool.GeneratedNodeUserData = newResource.(*Lc).UserData
 	found := false
 
 	machineProviderConfigs := newCluster.MachineProviderConfigs()
@@ -321,7 +325,7 @@ func (r *Lc) immutableRender(newResource cloud.Resource, inaccurateCluster *clus
 			machineProviderConfig.ServerPool.Image = newResource.(*Lc).Image
 			machineProviderConfig.ServerPool.Size = newResource.(*Lc).InstanceType
 			machineProviderConfig.ServerPool.BootstrapScripts = newResource.(*Lc).BootstrapScripts
-			machineProviderConfig.ServerPool.GeneratedNodeUserData = newResource.(*Lc).UserData
+			//machineProviderConfig.ServerPool.GeneratedNodeUserData = newResource.(*Lc).UserData
 			machineProviderConfigs[i] = machineProviderConfig
 			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			found = true

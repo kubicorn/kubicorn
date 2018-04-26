@@ -20,10 +20,9 @@ import (
 	"time"
 
 	"fmt"
+	"golang.org/x/net/context"
 	"reflect"
 	"strings"
-
-	"golang.org/x/net/context"
 )
 
 func TestAdminIntegration(t *testing.T) {

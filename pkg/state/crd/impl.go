@@ -30,6 +30,9 @@ import (
 
 	"strings"
 
+	"encoding/json"
+
+	"github.com/kubicorn/kubicorn/pkg/controllerHackCache"
 	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
@@ -136,6 +139,16 @@ func (crds *CRDStore) Commit(c *cluster.Cluster) error {
 		}
 		r := int(*ms.Spec.Replicas)
 		for i := 0; i <= r; i++ {
+			pc := ms.Spec.Template.Spec.ProviderConfig
+			pco := getProviderConfig(pc)
+			pco.ServerPool.GeneratedNodeUserData = controllerHackCache.NodeUserData
+			jbytes, err := json.Marshal(pco)
+			var pcString string
+			if err != nil {
+				logger.Critical("Unable to json marshal for hack user data: %v")
+			}
+			pcString = string(jbytes)
+
 			calculatedName := fmt.Sprintf("%s-%d", ms.Name, i)
 			machine := &v1alpha1.Machine{
 				ObjectMeta: metav1.ObjectMeta{
@@ -145,7 +158,7 @@ func (crds *CRDStore) Commit(c *cluster.Cluster) error {
 					ObjectMeta: metav1.ObjectMeta{
 						Name: calculatedName,
 					},
-					ProviderConfig: ms.Spec.Template.Spec.ProviderConfig,
+					ProviderConfig: pcString,
 				},
 			}
 			_, err = cm.client.Machines().Create(machine)
@@ -160,7 +173,7 @@ func (crds *CRDStore) Commit(c *cluster.Cluster) error {
 	for _, sp := range c.ServerPools() {
 		r := sp.MaxCount
 		for i := 0; i <= r; i++ {
-			calculatedName := fmt.Sprintf("kubicorn.bootstrap.%s-%d", sp.Name, i)
+			calculatedName := sp.Name
 			machine := &v1alpha1.Machine{
 				ObjectMeta: metav1.ObjectMeta{
 					Name: calculatedName,
@@ -235,4 +248,13 @@ func (crds *CRDStore) List() ([]string, error) {
 	// We need to figure out what we want to do here
 	var stateList []string
 	return stateList, nil
+}
+
+func getProviderConfig(providerConfig string) *cluster.MachineProviderConfig {
+	logger.Info(providerConfig)
+	mp := cluster.MachineProviderConfig{
+		ServerPool: &cluster.ServerPool{},
+	}
+	json.Unmarshal([]byte(providerConfig), &mp)
+	return &mp
 }
