@@ -327,31 +327,26 @@ func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster 
 	serverPool.Name = newResource.(*Droplet).Name
 	serverPool.MaxCount = newResource.(*Droplet).Count
 	serverPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
-	found := false
 
 	machineProviderConfigs := newCluster.MachineProviderConfigs()
 	for i := 0; i < len(machineProviderConfigs); i++ {
 		machineProviderConfig := machineProviderConfigs[i]
 
-		if machineProviderConfig.ServerPool.Name == newResource.(*Droplet).Name {
+		if machineProviderConfig.ServerPool.Name == newResource.(*Droplet).Name && newResource.(*Droplet).ServerPool != nil {
+			machineProviderConfig.Name = serverPool.Name
 			machineProviderConfig.ServerPool.Image = newResource.(*Droplet).Image
 			machineProviderConfig.ServerPool.Size = newResource.(*Droplet).Size
 			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
 			machineProviderConfig.ServerPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
 			machineProviderConfig.ServerPool.Type = serverPool.Type
-			found = true
+			machineProviderConfig.ServerPool.MaxCount = newResource.(*Droplet).Count
+			machineProviderConfig.ServerPool.MinCount = newResource.(*Droplet).Count
+
 			machineProviderConfigs[i] = machineProviderConfig
-			newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 		}
 	}
-	if !found {
-		providerConfig := []*cluster.MachineProviderConfig{
-			{
-				ServerPool: serverPool,
-			},
-		}
-		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
-	}
+	newCluster.SetMachineProviderConfigs(machineProviderConfigs)
+
 	providerConfig := newCluster.ProviderConfig()
 	providerConfig.Location = newResource.(*Droplet).Region
 	newCluster.SetProviderConfig(providerConfig)

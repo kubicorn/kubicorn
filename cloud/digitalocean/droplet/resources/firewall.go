@@ -187,7 +187,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 		machineProviderConfig := machineProviderConfigs[i]
 		for j := 0; j < len(machineProviderConfig.ServerPool.Firewalls); j++ {
 			firewall := newResource.(*Firewall)
-			if machineProviderConfig.ServerPool.Firewalls[j].Name == firewall.Name {
+			if machineProviderConfig.ServerPool.Firewalls[j].Name == firewall.Name && newResource.(*Firewall).ServerPool != nil {
 				found = true
 				machineProviderConfig.ServerPool.Firewalls[j].Name = firewall.Name
 				machineProviderConfig.ServerPool.Firewalls[j].Identifier = firewall.CloudID
@@ -217,7 +217,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 		machineProviderConfigs := newCluster.MachineProviderConfigs()
 		for i := 0; i < len(machineProviderConfigs); i++ {
 			machineProviderConfig := machineProviderConfigs[i]
-			if machineProviderConfig.Name == r.ServerPool.Name {
+			if machineProviderConfig.Name == newResource.(*Firewall).Name && r.ServerPool != nil && machineProviderConfig.ServerPool != nil {
 				found = true
 				var inRules []*cluster.IngressRule
 				var egRules []*cluster.EgressRule
@@ -246,45 +246,6 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
-	}
-	if !found {
-		var inRules []*cluster.IngressRule
-		var egRules []*cluster.EgressRule
-		firewall := newResource.(*Firewall)
-		for _, renderRule := range firewall.InboundRules {
-			inRules = append(inRules, &cluster.IngressRule{
-				IngressProtocol: renderRule.Protocol,
-				IngressToPort:   renderRule.PortRange,
-				IngressSource:   convertInRuleDest(renderRule),
-			})
-		}
-		for _, renderRule := range firewall.OutboundRules {
-			egRules = append(egRules, &cluster.EgressRule{
-				EgressProtocol:    renderRule.Protocol,
-				EgressToPort:      renderRule.PortRange,
-				EgressDestination: convertOutRuleDest(renderRule),
-			})
-		}
-		firewalls := []*cluster.Firewall{
-			{
-				Name:         firewall.Name,
-				Identifier:   firewall.CloudID,
-				IngressRules: inRules,
-				EgressRules:  egRules,
-			},
-		}
-
-		providerConfig := []*cluster.MachineProviderConfig{
-			{
-				ServerPool: &cluster.ServerPool{
-					Name:       r.ServerPool.Name,
-					Identifier: r.ServerPool.Identifier,
-					Firewalls:  firewalls,
-				},
-			},
-		}
-		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
-
 	}
 
 	// Todo (@kris-nova) Figure out what is setting empty firewalls and fix the original bug
