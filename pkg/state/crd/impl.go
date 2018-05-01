@@ -251,7 +251,7 @@ func (crds *CRDStore) List() ([]string, error) {
 }
 
 func getProviderConfig(providerConfig string) *cluster.MachineProviderConfig {
-	logger.Info(providerConfig)
+	//logger.Info(providerConfig)
 	mp := cluster.MachineProviderConfig{
 		ServerPool: &cluster.ServerPool{},
 	}
