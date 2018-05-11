@@ -25,12 +25,13 @@ import (
 	"golang.org/x/crypto/ssh/agent"
 )
 
-// SystemAgent returns system agent if it exists.
-func SystemAgent() agent.Agent {
-	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
-		return agent.NewClient(sshAgent)
+// SystemAgentIfExists returns system agent if it exists.
+func SystemAgentIfExists() (agent.Agent, error) {
+	sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK"))
+	if err != nil {
+		return nil, err
 	}
-	return nil
+	return agent.NewClient(sshAgent), err
 }
 
 // CheckKey checks is key present in the agent.

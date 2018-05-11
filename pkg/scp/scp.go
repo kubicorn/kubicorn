@@ -22,13 +22,24 @@ import (
 	"github.com/pkg/sftp"
 )
 
+// Client represents SCP client.
+type Client struct {
+	client *ssh.Client
+}
+
+func NewSCPClient(sshClient *ssh.Client) *Client {
+	return &Client{
+		client: sshClient,
+	}
+}
+
 // ReadBytes reads from remote location.
-func ReadBytes(client *ssh.Client, remotePath string) ([]byte, error) {
-	if client.Conn == nil {
+func (cl *Client) ReadBytes(remotePath string) ([]byte, error) {
+	if cl.client.Conn == nil {
 		return nil, fmt.Errorf("Connection not established.")
 	}
 
-	c, err := sftp.NewClient(client.Conn)
+	c, err := sftp.NewClient(cl.client.Conn)
 	if err != nil {
 		return nil, err
 	}
@@ -49,12 +60,12 @@ func ReadBytes(client *ssh.Client, remotePath string) ([]byte, error) {
 }
 
 // WriteBytes writes to remote location.
-func WriteBytes(client *ssh.Client, remotePath string, content []byte) error {
-	if client.Conn == nil {
+func (cl *Client) WriteBytes(remotePath string, content []byte) error {
+	if cl.client.Conn == nil {
 		return fmt.Errorf("Connection not established.")
 	}
 
-	c, err := sftp.NewClient(client.Conn)
+	c, err := sftp.NewClient(cl.client.Conn)
 	if err != nil {
 		return err
 	}

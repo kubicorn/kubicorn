@@ -61,7 +61,10 @@ func NewClient(address, port, username, publicKeyPath string) *Client {
 	// If system agent is enabled in Kubicorn use it.
 	sysAgent := false
 	if os.Getenv("KUBICORN_SSH_AGENT") != "" {
-		agent := auth.SystemAgent()
+		agent, err := auth.SystemAgentIfExists()
+		if err != nil {
+			logger.Warning("error initializing ssh agent: %v", err)
+		}
 		if agent != nil { // System agent exists.
 			if err := auth.CheckKey(agent, local.Expand(publicKeyPath)); err == nil { // Key is found in agent.
 				s.ClientConfig.Auth = append(s.ClientConfig.Auth, gossh.PublicKeysCallback(agent.Signers))

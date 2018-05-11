@@ -170,19 +170,20 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
 				client := ssh.NewClient(masterIPPublic, providerConfig.SSH.Port,
 					providerConfig.SSH.User, providerConfig.SSH.PublicKeyPath)
+				scpClient := scp.NewSCPClient(client)
 				err = client.Connect()
 				if err != nil {
 					return nil, nil, fmt.Errorf("Unable to connect to SSH: %v", err)
 				}
 
-				masterVpnIP, err := scp.ReadBytes(client, "/tmp/.ip")
+				masterVpnIP, err := scpClient.ReadBytes("/tmp/.ip")
 				if err != nil {
 					logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
 					time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 					continue
 				}
 				masterIpPrivate = strings.Replace(string(masterVpnIP), "\n", "", -1)
-				openvpnConfig, err := scp.ReadBytes(client, "/tmp/clients.conf")
+				openvpnConfig, err := scpClient.ReadBytes("/tmp/clients.conf")
 				if err != nil {
 					logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
 					time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
