@@ -21,8 +21,8 @@ import (
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/rackspace/gophercloud/openstack/networking/v2/subnets"
-	"github.com/rackspace/gophercloud/pagination"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/subnets"
+	"github.com/gophercloud/gophercloud/pagination"
 )
 
 var _ cloud.Resource = &Subnet{}

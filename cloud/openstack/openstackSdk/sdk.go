@@ -15,8 +15,8 @@
 package openstackSdk
 
 import (
-	"github.com/rackspace/gophercloud"
-	"github.com/rackspace/gophercloud/openstack"
+	"github.com/gophercloud/gophercloud"
+	"github.com/gophercloud/gophercloud/openstack"
 )
 
 // Sdk represents an Openstack SDK.

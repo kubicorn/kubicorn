@@ -22,9 +22,9 @@ import (
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/rackspace/gophercloud/openstack/networking/v2/extensions/security/groups"
-	"github.com/rackspace/gophercloud/openstack/networking/v2/extensions/security/rules"
-	"github.com/rackspace/gophercloud/pagination"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/security/groups"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/security/rules"
+	"github.com/gophercloud/gophercloud/pagination"
 )
 
 var _ cloud.Resource = &SecurityGroup{}

@@ -22,7 +22,7 @@ import (
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/keypairs"
+	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/keypairs"
 )
 
 var _ cloud.Resource = &KeyPair{}
