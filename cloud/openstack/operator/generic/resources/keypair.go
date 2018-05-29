@@ -18,11 +18,11 @@ import (
 	"os"
 	"strings"
 
+	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/keypairs"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/keypairs"
 )
 
 var _ cloud.Resource = &KeyPair{}
@@ -81,13 +81,17 @@ func (r *KeyPair) Expected(immutable *cluster.Cluster) (expected *cluster.Cluste
 func (r *KeyPair) Apply(actual cloud.Resource, expected cloud.Resource, immutable *cluster.Cluster) (updatedCluster *cluster.Cluster, resource cloud.Resource, err error) {
 	logger.Debug("keypair.Apply")
 	keypair := expected.(*KeyPair)
-	isEqual, err := compare.IsEqual(actual.(*KeyPair), expected.(*KeyPair))
-	if err != nil {
-		return nil, nil, err
+
+	if keypair.Identifier != "" {
+		isEqual, err := compare.IsEqual(actual.(*KeyPair), expected.(*KeyPair))
+		if err != nil {
+			return nil, nil, err
+		}
+		if isEqual {
+			return immutable, keypair, nil
+		}
 	}
-	if isEqual {
-		return immutable, keypair, nil
-	}
+
 	// Create the keypair
 	newResource := new(KeyPair)
 	res := keypairs.Create(Sdk.Compute, keypairs.CreateOpts{

@@ -18,13 +18,13 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/security/groups"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/security/rules"
+	"github.com/gophercloud/gophercloud/pagination"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/security/groups"
-	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/security/rules"
-	"github.com/gophercloud/gophercloud/pagination"
 )
 
 var _ cloud.Resource = &SecurityGroup{}
@@ -46,7 +46,6 @@ type SecurityGroupRule struct {
 func (r *SecurityGroup) Actual(immutable *cluster.Cluster) (actual *cluster.Cluster, resource cloud.Resource, err error) {
 	logger.Debug("secgroup.Actual")
 	newResource := new(SecurityGroup)
-
 	if r.Firewall.Identifier != "" {
 		res := groups.List(Sdk.Network, groups.ListOpts{
 			Name: r.Name,
@@ -65,25 +64,15 @@ func (r *SecurityGroup) Actual(immutable *cluster.Cluster) (actual *cluster.Clus
 			if len(list) == 1 {
 				newResource.Name = list[0].Name
 				newResource.Identifier = list[0].ID
-				for _, rule := range list[0].Rules {
-					if rule.Direction == "ingress" {
-						secRule := &SecurityGroupRule{
-							FromPort: rule.PortRangeMin,
-							ToPort:   rule.PortRangeMax,
-							IPPrefix: rule.RemoteIPPrefix,
-							Protocol: rule.Protocol,
-						}
-						newResource.IngressRules = append(newResource.IngressRules, secRule)
-					}
-				}
 			}
 			return false, nil
 		})
-	} else {
-		newResource.importFirewallRules(r.Firewall)
-		return immutable, newResource, nil
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 
+	newResource.importFirewallRules(r.Firewall)
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -124,11 +113,11 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	for _, rule := range secgroup.IngressRules {
 		res := rules.Create(Sdk.Network, rules.CreateOpts{
 			Direction:      rules.DirIngress,
-			EtherType:      rules.Ether4,
+			EtherType:      rules.EtherType4,
 			SecGroupID:     outputGroup.ID,
 			PortRangeMin:   rule.FromPort,
 			PortRangeMax:   rule.ToPort,
-			Protocol:       rule.Protocol,
+			Protocol:       rules.ProtocolTCP,
 			RemoteIPPrefix: rule.IPPrefix,
 		})
 		secRule, err := res.Extract()
@@ -145,9 +134,9 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 			Name:       secgroup.Name,
 			Identifier: outputGroup.ID,
 		},
+		IngressRules: secgroup.IngressRules,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
-
 	return newCluster, newResource, nil
 }
 
@@ -155,11 +144,13 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 	logger.Debug("secgroup.Delete")
 	secgroup := actual.(*SecurityGroup)
 
-	if res := groups.Delete(Sdk.Network, secgroup.Identifier); res.Err != nil {
-		return nil, nil, res.Err
-	}
+	if secgroup.Identifier != "" {
+		if res := groups.Delete(Sdk.Network, secgroup.Identifier); res.Err != nil {
+			return nil, nil, res.Err
+		}
 
-	logger.Success("Deleted SecurityGroup [%s]", actual.(*SecurityGroup).Identifier)
+		logger.Success("Deleted SecurityGroup [%s]", actual.(*SecurityGroup).Identifier)
+	}
 
 	newResource := &SecurityGroup{
 		Shared: Shared{
@@ -173,13 +164,15 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 
 func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("secgroup.Render")
-	secgroup := newResource.(*SecurityGroup)
+	secgroup := &SecurityGroup{}
+	secgroup.Name = newResource.(*SecurityGroup).Name
+	secgroup.Identifier = newResource.(*SecurityGroup).Identifier
+	secgroup.IngressRules = newResource.(*SecurityGroup).IngressRules
 	newCluster := inaccurateCluster
 	found := false
 
 	var (
 		ingressRules []*cluster.IngressRule
-		egressRules  []*cluster.EgressRule
 	)
 
 	for _, ingressRule := range secgroup.IngressRules {
@@ -198,7 +191,6 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 				found = true
 				machineProviderConfig.ServerPool.Firewalls[j].Identifier = secgroup.Identifier
 				machineProviderConfig.ServerPool.Firewalls[j].IngressRules = ingressRules
-				machineProviderConfig.ServerPool.Firewalls[j].EgressRules = egressRules
 				machineProviderConfigs[i] = machineProviderConfig
 				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
@@ -213,30 +205,27 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 					Name:         secgroup.Name,
 					Identifier:   secgroup.Identifier,
 					IngressRules: ingressRules,
-					EgressRules:  egressRules,
 				})
 				machineProviderConfigs[i] = machineProviderConfig
 				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
 			}
 		}
 	}
-	if !found {
 
-		providerConfig := []*cluster.MachineProviderConfig{
-			{
-				ServerPool: &cluster.ServerPool{
-					Name:       r.ServerPool.Name,
-					Identifier: r.ServerPool.Identifier,
-					Firewalls: []*cluster.Firewall{&cluster.Firewall{
-						Name:         secgroup.Name,
-						Identifier:   secgroup.Identifier,
-						IngressRules: ingressRules,
-						EgressRules:  egressRules,
-					}},
-				},
-			},
+	if !found {
+		for i := 0; i < len(machineProviderConfigs); i++ {
+			machineProviderConfig := machineProviderConfigs[i]
+			if machineProviderConfig.Name == secgroup.Name {
+				newCluster.ServerPools()[i].Firewalls = append(newCluster.ServerPools()[i].Firewalls, &cluster.Firewall{
+					Name:         secgroup.Name,
+					Identifier:   secgroup.Identifier,
+					IngressRules: ingressRules,
+				})
+				machineProviderConfigs[i] = machineProviderConfig
+				found = true
+				newCluster.SetMachineProviderConfigs(machineProviderConfigs)
+			}
 		}
-		newCluster.NewMachineSetsFromProviderConfigs(providerConfig)
 	}
 
 	return newCluster

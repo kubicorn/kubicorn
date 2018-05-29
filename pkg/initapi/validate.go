@@ -17,8 +17,9 @@ package initapi
 import (
 	"fmt"
 
-	"github.com/kubicorn/kubicorn/apis/cluster"
 	"strings"
+
+	"github.com/kubicorn/kubicorn/apis/cluster"
 )
 
 func validateAtLeastOneMachineSet(initCluster *cluster.Cluster) error {

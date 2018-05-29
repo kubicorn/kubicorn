@@ -20,7 +20,9 @@ import (
 
 	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/keypairs"
 	"github.com/gophercloud/gophercloud/openstack/compute/v2/servers"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/extensions/layer3/floatingips"
 	nets "github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/ports"
 	"github.com/gophercloud/gophercloud/pagination"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
@@ -32,12 +34,15 @@ import (
 
 var _ cloud.Resource = &InstanceGroup{}
 
+//TODO: OperatorPublicNet must be parameterized
 const (
 	InstancePollingAttempts = 40
 	InstancePollingInterval = 5 * time.Second
-	OperatorPublicNet       = "Ext-Net"
+	OperatorPublicNet       = "PublicNetwork"
 	IPv4                    = 4
 	IPv6                    = 6
+	Fixed                   = "fixed"
+	Floating                = "floating"
 )
 
 type InstanceGroup struct {
@@ -124,19 +129,24 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 			if err != nil {
 				return nil, nil, err
 			}
-			if masterPublicIP == "" || masterPrivateIP == "" {
+			if masterPrivateIP == "" || masterPublicIP == "" {
 				logger.Info("Waiting for master(s) to come up..")
 				time.Sleep(InstancePollingInterval)
 				continue
 			}
-			immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterPrivateIP, immutable.ProviderConfig().KubernetesAPI.Port)
+			providerConfig := immutable.ProviderConfig()
+			providerConfig.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterPrivateIP, immutable.ProviderConfig().KubernetesAPI.Port)
+			immutable.SetProviderConfig(providerConfig)
+			break
 		}
 		if _, ok := immutable.ProviderConfig().Values.ItemMap["INJECTEDMASTER"]; !ok {
 			return nil, nil, fmt.Errorf("Unable to find Master IP")
 		}
 	}
 
-	immutable.ProviderConfig().Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	providerConfig := immutable.ProviderConfig()
+	providerConfig.Values.ItemMap["INJECTEDPORT"] = immutable.ProviderConfig().KubernetesAPI.Port
+	immutable.SetProviderConfig(providerConfig)
 
 	// Build scripts to inject in instance user-data
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
@@ -146,15 +156,8 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 
 	// Security groups the instances will be part of
 	for _, fw := range r.ServerPool.Firewalls {
-		secgroups = append(secgroups, fw.Identifier)
+		secgroups = append(secgroups, fw.Name)
 	}
-	extNetID, err := nets.IDFromName(resources.Sdk.Network, OperatorPublicNet)
-	if err != nil {
-		return nil, nil, fmt.Errorf("Unable to find external network ID")
-	}
-	networks = append(networks, servers.Network{
-		UUID: extNetID,
-	})
 
 	// Networks instances will be attached to
 	networks = append(networks, servers.Network{
@@ -172,12 +175,27 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 				UserData:       userData,
 				SecurityGroups: secgroups,
 				Networks:       networks,
+				ServiceClient:  resources.Sdk.Compute,
 			},
 			KeyName: immutable.ProviderConfig().SSH.Name,
 		})
 		instance, err := res.Extract()
 		if err != nil {
 			return nil, nil, res.Err
+		}
+		//Attach Floating IP to the master
+		if r.ServerPool.Type == cluster.ServerPoolTypeMaster {
+			router := immutable.ProviderConfig().Network.InternetGW
+			if router.Identifier != "" {
+				masterPublicIP, err = addFloatingIP(instance.ID)
+				if err != nil {
+					logger.Debug("Failed adding floating ip to instance [%s] with error: %s", instance.ID, err.Error)
+				}
+				logger.Debug("Cluster endpoint is %s", masterPublicIP)
+				providerConfig := immutable.ProviderConfig()
+				providerConfig.KubernetesAPI.Endpoint = masterPublicIP
+				immutable.SetProviderConfig(providerConfig)
+			}
 		}
 		logger.Debug("Created instance [%s]", instance.ID)
 	}
@@ -214,9 +232,6 @@ func (r *InstanceGroup) Apply(actual cloud.Resource, expected cloud.Resource, im
 		BootstrapScripts: instanceGroup.BootstrapScripts,
 	}
 
-	logger.Debug("Cluster endpoint is %s", masterPublicIP)
-	immutable.ProviderConfig().KubernetesAPI.Endpoint = masterPublicIP
-
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -243,7 +258,6 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 			}
 			logger.Debug("Deleting instance [%s]", instance.ID)
 		}
-
 		return true, nil
 	})
 	if err != nil {
@@ -331,6 +345,40 @@ func (r *InstanceGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 	return newCluster
 }
 
+func addFloatingIP(serverID string) (string, error) {
+	extNetID, err := nets.IDFromName(resources.Sdk.Network, OperatorPublicNet)
+	if err != nil {
+		return "", fmt.Errorf("Unable to find external network ID")
+	}
+	fip, err := floatingips.Create(resources.Sdk.Network, floatingips.CreateOpts{
+		FloatingNetworkID: extNetID,
+	}).Extract()
+
+	listOpts := ports.ListOpts{
+		DeviceID: serverID,
+	}
+	allPages, err := ports.List(resources.Sdk.Network, listOpts).AllPages()
+	if err != nil {
+		return "", err
+	}
+	allPorts, err := ports.ExtractPorts(allPages)
+	if err != nil {
+		return "", err
+	}
+	// one single port is expected
+	if len(allPorts) != 1 {
+		return "", fmt.Errorf("Unable to find the expected number of ports")
+	}
+	portID := allPorts[0].ID
+	fip, err = floatingips.Update(resources.Sdk.Network, fip.ID, floatingips.UpdateOpts{
+		PortID: &portID,
+	}).Extract()
+	if err != nil {
+		return "", err
+	}
+	return fip.FloatingIP, err
+}
+
 func getMasterIPs(immutable *cluster.Cluster) (string, string, error) {
 	var masterName string
 	for _, pool := range immutable.ServerPools() {
@@ -347,9 +395,8 @@ func getMasterIPs(immutable *cluster.Cluster) (string, string, error) {
 		return "", "", err
 	}
 
-	publicIP := getNetworkIP(instances[0], OperatorPublicNet, IPv4)
-	privateIP := getNetworkIP(instances[0], immutable.ProviderConfig().Network.Name, IPv4)
-
+	publicIP := getNetworkIP(instances[0], immutable.ProviderConfig().Network.Name, IPv4, Floating)
+	privateIP := getNetworkIP(instances[0], immutable.ProviderConfig().Network.Name, IPv4, Fixed)
 	return publicIP, privateIP, err
 }
 
@@ -382,14 +429,14 @@ func reachedStatus(hostname, status string) (reached bool, instances []servers.S
 	return
 }
 
-func getNetworkIP(srv servers.Server, network string, version int) (IP string) {
+func getNetworkIP(srv servers.Server, network string, version int, iptype string) (IP string) {
 	for netName, v := range srv.Addresses {
 		if netName != network {
 			continue
 		}
 		for _, v := range v.([]interface{}) {
 			v := v.(map[string]interface{})
-			if v["OS-EXT-IPS:type"] == "fixed" {
+			if v["OS-EXT-IPS:type"] == iptype {
 				if v["version"].(float64) == float64(version) {
 					return v["addr"].(string)
 				}

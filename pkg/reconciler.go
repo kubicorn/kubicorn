@@ -32,6 +32,7 @@ import (
 	gr "github.com/kubicorn/kubicorn/cloud/google/compute/resources"
 	"github.com/kubicorn/kubicorn/cloud/google/googleSDK"
 	"github.com/kubicorn/kubicorn/cloud/openstack/openstackSdk"
+	osecs "github.com/kubicorn/kubicorn/cloud/openstack/operator/ecs"
 	osr "github.com/kubicorn/kubicorn/cloud/openstack/operator/generic/resources"
 	osovh "github.com/kubicorn/kubicorn/cloud/openstack/operator/ovh"
 	"github.com/kubicorn/kubicorn/cloud/packet/packetSDK"
@@ -95,6 +96,13 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		packetr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, packetpub.NewPacketPublicModel(known)), nil
+	case cluster.CloudECS:
+		sdk, err := openstackSdk.NewSdk(known.ProviderConfig().Location)
+		if err != nil {
+			return nil, err
+		}
+		osr.Sdk = sdk
+		return cloud.NewAtomicReconciler(known, osecs.NewEcsPublicModel(known)), nil
 	default:
 		return nil, fmt.Errorf("Invalid cloud type: %s", known.ProviderConfig().Cloud)
 	}
