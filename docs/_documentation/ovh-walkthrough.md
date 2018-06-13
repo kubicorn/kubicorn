@@ -47,6 +47,7 @@ You will need to retrieve the OpenRC file for the Openstack user you want to use
 ```bash
 source openrc.sh
 ```
+Make sure the region specified in `_state/myfirstk8s/cluster.yaml` and in openrc.sh are the same, otherwise the next step will fail with the following error message : "No suitable endpoint could be found in the service catalog".
 
 Also, make sure that the public SSH key in the above profile is correct, the default being `~/.ssh/id_rsa.pub`.
 
