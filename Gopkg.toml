@@ -78,9 +78,5 @@
   version = "1.0.0"
 
 [[constraint]]
-  name = "github.com/rackspace/gophercloud"
-  branch = "master"
-
-[[constraint]]
   name = "k8s.io/client-go"
   branch = "release-5.0"

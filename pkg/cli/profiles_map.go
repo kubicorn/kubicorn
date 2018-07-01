@@ -22,6 +22,7 @@ import (
 	"github.com/kubicorn/kubicorn/profiles/azure"
 	"github.com/kubicorn/kubicorn/profiles/digitalocean"
 	"github.com/kubicorn/kubicorn/profiles/googlecompute"
+	"github.com/kubicorn/kubicorn/profiles/openstack/ecs"
 	"github.com/kubicorn/kubicorn/profiles/openstack/ovh"
 	"github.com/kubicorn/kubicorn/profiles/packet"
 
@@ -159,6 +160,14 @@ var ProfileMapIndexed = map[string]ProfileMap{
 	"packet-ubuntu": {
 		ProfileFunc: packet.NewUbuntuCluster,
 		Description: "Ubuntu on Packet x86",
+	},
+	"ecs": {
+		ProfileFunc: ecs.NewUbuntuCluster,
+		Description: "Ubuntu on ECS",
+	},
+	"ecs-ubuntu": {
+		ProfileFunc: ecs.NewUbuntuCluster,
+		Description: "Ubuntu on ECS",
 	},
 
 	// -----------------------------------------------------------------------------------------------------------------

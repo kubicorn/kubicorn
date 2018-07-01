@@ -18,16 +18,16 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/keypairs"
+	"github.com/gophercloud/gophercloud/openstack/compute/v2/servers"
+	nets "github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
+	"github.com/gophercloud/gophercloud/pagination"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/cloud/openstack/operator/generic/resources"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/script"
-	"github.com/rackspace/gophercloud/openstack/compute/v2/extensions/keypairs"
-	"github.com/rackspace/gophercloud/openstack/compute/v2/servers"
-	nets "github.com/rackspace/gophercloud/openstack/networking/v2/networks"
-	"github.com/rackspace/gophercloud/pagination"
 )
 
 var _ cloud.Resource = &InstanceGroup{}

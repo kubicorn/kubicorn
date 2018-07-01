@@ -17,12 +17,12 @@ package resources
 import (
 	"fmt"
 
+	"github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
+	"github.com/gophercloud/gophercloud/pagination"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/rackspace/gophercloud/openstack/networking/v2/networks"
-	"github.com/rackspace/gophercloud/pagination"
 )
 
 var _ cloud.Resource = &Network{}
@@ -90,8 +90,7 @@ func (r *Network) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 	}
 	// Create the network
 	res := networks.Create(Sdk.Network, networks.CreateOpts{
-		Name:         network.Name,
-		AdminStateUp: networks.Up,
+		Name: network.Name,
 	})
 	output, err := res.Extract()
 	if err != nil {
@@ -114,11 +113,13 @@ func (r *Network) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 	logger.Debug("network.Delete")
 	network := actual.(*Network)
 
-	// Delete the network
-	if res := networks.Delete(Sdk.Network, network.Identifier); res.Err != nil {
-		return nil, nil, res.Err
+	if network.Identifier != "" {
+		// Delete the network
+		if res := networks.Delete(Sdk.Network, network.Identifier); res.Err != nil {
+			return nil, nil, res.Err
+		}
+		logger.Success("Deleted Network [%s]", actual.(*Network).Identifier)
 	}
-	logger.Success("Deleted Network [%s]", actual.(*Network).Identifier)
 
 	newResource := &Network{
 		Shared: Shared{

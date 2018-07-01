@@ -231,6 +231,28 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/gophercloud/gophercloud"
+  packages = [
+    ".",
+    "openstack",
+    "openstack/compute/v2/extensions/keypairs",
+    "openstack/compute/v2/flavors",
+    "openstack/compute/v2/images",
+    "openstack/compute/v2/servers",
+    "openstack/identity/v2/tenants",
+    "openstack/identity/v2/tokens",
+    "openstack/identity/v3/tokens",
+    "openstack/networking/v2/extensions/security/groups",
+    "openstack/networking/v2/extensions/security/rules",
+    "openstack/networking/v2/networks",
+    "openstack/networking/v2/subnets",
+    "openstack/utils",
+    "pagination"
+  ]
+  revision = "c53578fc5176a5508a400609e00cd669d412f45c"
+
+[[projects]]
+  branch = "master"
   name = "github.com/gregjones/httpcache"
   packages = [
     ".",
@@ -426,30 +448,6 @@
   name = "github.com/pkg/term"
   packages = ["termios"]
   revision = "b1f72af2d63057363398bec5873d16a98b453312"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/rackspace/gophercloud"
-  packages = [
-    ".",
-    "openstack",
-    "openstack/compute/v2/extensions/keypairs",
-    "openstack/compute/v2/flavors",
-    "openstack/compute/v2/images",
-    "openstack/compute/v2/servers",
-    "openstack/identity/v2/tenants",
-    "openstack/identity/v2/tokens",
-    "openstack/identity/v3/tokens",
-    "openstack/networking/v2/extensions/security/groups",
-    "openstack/networking/v2/extensions/security/rules",
-    "openstack/networking/v2/networks",
-    "openstack/networking/v2/subnets",
-    "openstack/utils",
-    "pagination",
-    "testhelper",
-    "testhelper/client"
-  ]
-  revision = "e00690e87603abe613e9f02c816c7c4bef82e063"
 
 [[projects]]
   branch = "master"
@@ -838,6 +836,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "abe4a0167c17ed9bad574c724b31b51616ab51b1f4c4c8e834f6edff091db452"
+  inputs-digest = "d0cbf51f26796c6b71495a6d3372c4fe71b352683a59c711c4cc9b9c7af3b3df"
   solver-name = "gps-cdcl"
   solver-version = 1

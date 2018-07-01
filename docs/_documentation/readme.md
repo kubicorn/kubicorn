@@ -35,6 +35,7 @@ The most important package is the [`cloud`](https://github.com/kubicorn/kubicorn
 * [OVH](https://github.com/kubicorn/kubicorn/tree/master/cloud/openstack/operator/ovh)
 * [Packet](https://github.com/kubicorn/kubicorn/tree/master/cloud/packet) 
 * [Azure in-development](https://github.com/kubicorn/kubicorn/pull/327).
+* [EnterCloudSuite](https://github.com/kubicorn/kubicorn/tree/master/cloud/openstack/operator/ecs)
 
 The Cluster API is located in the [`apis`](https://github.com/kubicorn/kubicorn/tree/master/apis) package.
 
