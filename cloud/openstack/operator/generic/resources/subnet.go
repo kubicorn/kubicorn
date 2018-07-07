@@ -195,7 +195,7 @@ func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *
 	if !found {
 		for i := 0; i < len(machineProviderConfigs); i++ {
 			machineProviderConfig := machineProviderConfigs[i]
-			if machineProviderConfig.Name == r.ServerPool.Name {
+			if machineProviderConfig.Name == newResource.(*Subnet).Name {
 				found = true
 				machineProviderConfig.ServerPool.Subnets = append(newCluster.ServerPools()[i].Subnets, subnet)
 				machineProviderConfigs[i] = machineProviderConfig
