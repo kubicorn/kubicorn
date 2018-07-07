@@ -199,7 +199,7 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 	if !found {
 		for i := 0; i < len(machineProviderConfigs); i++ {
 			machineProviderConfig := machineProviderConfigs[i]
-			if machineProviderConfig.Name == r.ServerPool.Name {
+			if machineProviderConfig.Name == newResource.(*SecurityGroup).Name {
 				found = true
 				machineProviderConfig.ServerPool.Firewalls = append(newCluster.ServerPools()[i].Firewalls, &cluster.Firewall{
 					Name:         secgroup.Name,
