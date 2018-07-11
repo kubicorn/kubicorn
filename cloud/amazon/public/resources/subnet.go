@@ -16,6 +16,7 @@ package resources
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kubicorn/kubicorn/apis/cluster"
@@ -247,7 +248,12 @@ func (r *Subnet) tag(tags map[string]string) error {
 			Value: S("%s", val),
 		})
 	}
-	_, err := Sdk.Ec2.CreateTags(tagInput)
+	req, _ := Sdk.Ec2.CreateTagsRequest(tagInput)
+	retry := true
+	req.Retryable = &retry
+	req.RetryCount = 30
+	req.RetryDelay = 2 * time.Second
+	err := req.Send()
 	if err != nil {
 		return err
 	}
