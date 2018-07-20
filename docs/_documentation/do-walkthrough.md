@@ -1,12 +1,12 @@
 ---
 layout: documentation
-title: Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh
+title: Setting up Kubernetes in DigitalOcean
 date: 2017-08-18
 doctype: do
 ---
 
 In the following, we're going to show you how to use `kubicorn` to ramp up a Kubernetes cluster in DigitalOcean, use it and tear it down again.
-The cluster will be running over DigitalOcean private networking on an encrypted VPN mesh.
+The cluster will be running over DigitalOcean private networking.
 
 As a prerequisite, you need to have `kubicorn` installed. Since we don't have binary releases yet, we assume you've got Go installed and simply do:
 
@@ -40,7 +40,7 @@ Feel free to tweak the configuration to your liking here.
 
 We're now in a position to have the cluster resources defined, locally, based on the selected profile.
 Next we will apply the so defined resources using the `apply` command, but before we do that we'll set up the access to DigitalOcean.
-You will need a DigitalOcean access token. 
+You will need a DigitalOcean access token.
 You can use [this guide to create an access token](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2#how-to-generate-a-personal-access-token).
 
 Next, export the environment variable `DIGITALOCEAN_ACCESS_TOKEN` so that `kubicorn` can pick it up in the next step:
@@ -58,7 +58,7 @@ $ ls -al ~/.ssh/id_rsa.pub
 
 #### Applying
 
-With the access set up, we can now apply the resources we defined in the first step. 
+With the access set up, we can now apply the resources we defined in the first step.
 This actually creates resources in DigitalOcean. Up to now we've only been working locally.
 
 So, execute:

@@ -39,9 +39,6 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
 			},
 		},
-		Components: &cluster.Components{
-			ComponentVPN: false,
-		},
 	}
 	machineSetsProviderConfigs := []*cluster.MachineProviderConfig{
 		{
@@ -52,7 +49,6 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Image:    "centos-7-x64",
 				Size:     "s-2vcpu-2gb",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnMaster-centos.sh",
 					"bootstrap/digitalocean_k8s_centos_7_master.sh",
 				},
 				Firewalls: []*cluster.Firewall{
@@ -68,11 +64,6 @@ func NewCentosCluster(name string) *cluster.Cluster {
 								IngressToPort:   "443",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
-							},
-							{
-								IngressToPort:   "1194",
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "udp",
 							},
 							{
 								IngressToPort:   "all",
@@ -104,7 +95,6 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Image:    "centos-7-x64",
 				Size:     "s-1vcpu-2gb",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnNode-centos.sh",
 					"bootstrap/digitalocean_k8s_centos_7_node.sh",
 				},
 				Firewalls: []*cluster.Firewall{
@@ -115,11 +105,6 @@ func NewCentosCluster(name string) *cluster.Cluster {
 								IngressToPort:   "22",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
-							},
-							{
-								IngressToPort:   "1194",
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "udp",
 							},
 							{
 								IngressToPort:   "all",

@@ -43,9 +43,6 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
 			},
 		},
-		Components: &cluster.Components{
-			ComponentVPN: false,
-		},
 	}
 
 	machineSetsProviderConfigs := []*cluster.MachineProviderConfig{
@@ -73,11 +70,6 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 								IngressToPort:   "443",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
-							},
-							{
-								IngressToPort:   "1194",
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "udp",
 							},
 							{
 								IngressToPort:   "all",
@@ -120,11 +112,6 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 								IngressToPort:   "22",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
-							},
-							{
-								IngressToPort:   "1194",
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "udp",
 							},
 							{
 								IngressToPort:   "all",

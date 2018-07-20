@@ -18,17 +18,13 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/digitalocean/godo"
-	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
-	"github.com/kubicorn/kubicorn/pkg/agent"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
-	"github.com/kubicorn/kubicorn/pkg/scp"
 	"github.com/kubicorn/kubicorn/pkg/script"
 )
 
@@ -119,8 +115,6 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		return immutable, applyResource, nil
 	}
 
-	agent := agent.NewAgent()
-
 	masterIpPrivate := ""
 	masterIPPublic := ""
 	providerConfig := immutable.ProviderConfig()
@@ -162,36 +156,12 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				continue
 			}
 
-			if !immutable.ProviderConfig().Components.ComponentVPN {
-				logger.Info("Waiting for Private IP address...")
-				masterIpPrivate, err = droplet.PrivateIPv4()
-				if err != nil || masterIpPrivate == "" {
-					return nil, nil, fmt.Errorf("Unable to detect private IP: %v", err)
-				}
-				found = true
-			} else {
-				logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
-				pubPath := local.Expand(immutable.ProviderConfig().SSH.PublicKeyPath)
-				privPath := strings.Replace(pubPath, ".pub", "", 1)
-				scp := scp.NewSecureCopier(immutable.ProviderConfig().SSH.User, masterIPPublic, "22", privPath, agent)
-				masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
-				if err != nil {
-					logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
-					time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
-					continue
-				}
-				masterIpPrivate = strings.Replace(string(masterVpnIP), "\n", "", -1)
-				openvpnConfig, err := scp.ReadBytes("/tmp/clients.conf")
-				if err != nil {
-					logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
-					time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
-					continue
-				}
-
-				openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
-				providerConfig.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
-				found = true
+			logger.Info("Waiting for Private IP address...")
+			masterIpPrivate, err = droplet.PrivateIPv4()
+			if err != nil || masterIpPrivate == "" {
+				return nil, nil, fmt.Errorf("Unable to detect private IP: %v", err)
 			}
+			found = true
 
 			providerConfig.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, immutable.ProviderConfig().KubernetesAPI.Port)
 			break

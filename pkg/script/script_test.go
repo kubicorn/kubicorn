@@ -26,7 +26,6 @@ import (
 
 func TestBuildBootstrapScriptHappy(t *testing.T) {
 	scripts := []string{
-		"bootstrap/vpn/meshbirdMaster.sh",
 		"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh",
 	}
 	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
@@ -37,7 +36,6 @@ func TestBuildBootstrapScriptHappy(t *testing.T) {
 
 func TestBuildBootstrapScriptSad(t *testing.T) {
 	scripts := []string{
-		"bootstrap/vpn/meshbirdMaster.s",
 		"bootstrap/digitalocean_k8s_ubuntu_16.04_master.s",
 	}
 	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
