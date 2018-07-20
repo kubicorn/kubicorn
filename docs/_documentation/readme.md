@@ -20,7 +20,6 @@ This chapter explains the most important concepts.
 * Actual state — the representation of current resources in the cloud.
 * Expected state — the representation of intended resources in the cloud.
 * [Bootstrap scripts](https://github.com/kubicorn/kubicorn/tree/master/bootstrap) — Bootstrap scripts are provided as the `user data` on the cluster creation to install dependencies and create the cluster. They're provided as Bash scripts, so you can easily create them without Go knowledge. You can also inject values in the reconciling process, per your needs.
-* [VPN Boostrap scripts](https://github.com/kubicorn/kubicorn/tree/master/bootstrap/vpn) — to improve security of our cluster, we create a VPN server on master, and connect every node using it. Some cloud providers, such as DigitalOcean, doesn't provide real private networking between Droplets, so we want master and nodes can only communicate between themselves, and with the Internet only on selected ports.
 * [Profile](https://github.com/kubicorn/kubicorn/blob/master/profiles/README.md) — profile is a unique representation of a cluster written in Go. Profiles contain all the information needed to create a cluster, such as: cluster name, cloud provider, VM size, SSH key, network and firewall configurations.
 
 ## Project structure
@@ -33,13 +32,11 @@ The most important package is the [`cloud`](https://github.com/kubicorn/kubicorn
 * [DigitalOcean](https://github.com/kubicorn/kubicorn/tree/master/cloud/digitalocean)
 * [Google](https://github.com/kubicorn/kubicorn/tree/master/cloud/google)
 * [OVH](https://github.com/kubicorn/kubicorn/tree/master/cloud/openstack/operator/ovh)
-* [Packet](https://github.com/kubicorn/kubicorn/tree/master/cloud/packet) 
+* [Packet](https://github.com/kubicorn/kubicorn/tree/master/cloud/packet)
 * [Azure in-development](https://github.com/kubicorn/kubicorn/pull/327).
 * [EnterCloudSuite](https://github.com/kubicorn/kubicorn/tree/master/cloud/openstack/operator/ecs)
 
 The Cluster API is located in the [`apis`](https://github.com/kubicorn/kubicorn/tree/master/apis) package.
-
-The Bootstrap Scripts are located in the [`bootstrap`](https://github.com/kubicorn/kubicorn/tree/master/bootstrap) directory of the project. It also contains [`vpn`](https://github.com/kubicorn/kubicorn/tree/master/bootstrap/vpn) sub-directory with VPN implementations.
 
 Default profiles are located in the [`profiles`](https://github.com/kubicorn/kubicorn/tree/master/profiles) package. Currently, we have Ubuntu profiles available for Amazon, DigitalOcean and GCE, and CentOS profiles available for Amazon and DigitalOcean.
 
@@ -114,7 +111,7 @@ kubicorn/docs/
 │
 ├── img/
 │ → All images go here.
-│  
+│
 └── _site/
   → This folder contains the auto-generated files that the website serves. They
     are built automatically whenever anything else on the folders above change,

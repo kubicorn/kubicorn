@@ -233,7 +233,6 @@ type ControlPlaneProviderConfig struct {
 	Values          *Values        `json:"values,omitempty"`
 	KubernetesAPI   *KubernetesAPI `json:"kubernetesAPI,omitempty"`
 	GroupIdentifier string         `json:"groupIdentifier,omitempty"`
-	Components      *Components    `json:"components,omitempty"`
 }
 
 // ControlPlaneProviderConfig is less exciting ProviderConfig, but

@@ -24,7 +24,7 @@ install: ## Create the kubicorn executable in $GOPATH/bin directory.
 bindata: ## Generate the bindata for the bootstrap scripts that are built into the binary
 	which go-bindata > /dev/null || go get -u github.com/jteeuwen/go-bindata/...
 	rm -rf bootstrap/bootstrap.go
-	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/ bootstrap/vpn
+	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/
 
 build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
 
