@@ -70,6 +70,11 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 								IngressSource:   fmt.Sprintf("%s-node", name),
 								IngressProtocol: "tcp",
 							},
+							{
+								IngressToPort:   "all",
+								IngressSource:   fmt.Sprintf("%s-node", name),
+								IngressProtocol: "udp",
+							},
 						},
 						EgressRules: []*cluster.EgressRule{
 							{
@@ -110,6 +115,11 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 								IngressToPort:   "all",
 								IngressSource:   fmt.Sprintf("%s-master", name),
 								IngressProtocol: "tcp",
+							},
+							{
+								IngressToPort:   "all",
+								IngressSource:   fmt.Sprintf("%s-master", name),
+								IngressProtocol: "udp",
 							},
 						},
 						EgressRules: []*cluster.EgressRule{
