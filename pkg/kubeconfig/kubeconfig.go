@@ -28,6 +28,9 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
+
+	"k8s.io/client-go/tools/clientcmd"
+	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
 const (
@@ -72,6 +75,33 @@ func newConfigLoader(existing *cluster.Cluster) (*configLoader, error) {
 		sshconfig: sshConfig,
 	}, nil
 }
+
+func getRemoteFileBytes(address, filePath string, sshCfg *ssh.ClientConfig) ([]byte, error) {
+	conn, err := ssh.Dial("tcp", address, sshCfg)
+	if err != nil {
+		return nil, err
+	}
+	defer conn.Close()
+	c, err := sftp.NewClient(conn)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+	r, err := c.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+	defer r.Close()
+	return ioutil.ReadAll(r)
+}
+
+func getRemoteKubeconfigPath(user string) string {
+	if user == "root" {
+		return "/root/.kube/config"
+	}
+	return filepath.Join("/home", user, ".kube/config")
+}
+
 func (cfg *configLoader) GetConfig() error {
 	user := cfg.existing.ProviderConfig().SSH.User
 	if cfg.existing.ProviderConfig().SSH.Port == "" {
@@ -86,36 +116,20 @@ func (cfg *configLoader) GetConfig() error {
 		localPath = local.Expand(localPath)
 	} else {
 		var err error
-		//localDir := filepath.Join(local.Home(), "/.kube")
 		localPath = GetKubeConfigPath(cfg.existing)
 		if err != nil {
 			return err
 		}
 	}
 
-	remotePath := ""
-	if user == "root" { // --------------------------------------------------------------------------------
-		remotePath = "/root/.kube/config"
-	} else {
-		remotePath = filepath.Join("/home", user, ".kube/config")
+	bytes, err := getRemoteFileBytes(address, getRemoteKubeconfigPath(user), cfg.sshconfig)
+	if err != nil {
+		return err
 	}
 
-	conn, err := ssh.Dial("tcp", address, cfg.sshconfig)
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-	c, err := sftp.NewClient(conn)
-	if err != nil {
-		return err
-	}
-	defer c.Close()
-	r, err := c.Open(remotePath)
-	if err != nil {
-		return err
-	}
-	defer r.Close()
-	bytes, err := ioutil.ReadAll(r)
+	var existingKubeConfig, newKubeConfig *clientcmdapi.Config
+	existingKubeConfig = nil
+	newKubeConfig, err = clientcmd.Load(bytes)
 	if err != nil {
 		return err
 	}
@@ -126,19 +140,15 @@ func (cfg *configLoader) GetConfig() error {
 		if err != nil {
 			return err
 		}
+	} else {
+		existingKubeConfig, err = clientcmd.LoadFromFile(localPath)
+		if err != nil {
+			return err
+		}
 	}
 
-	f, err := os.OpenFile(localPath, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString(string(bytes))
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	logger.Always("Wrote kubeconfig to [%s]", localPath)
-	return nil
+	merged := mergeKubeconfigs([]*clientcmdapi.Config{existingKubeConfig, newKubeConfig})
+	return clientcmd.WriteToFile(*merged, localPath)
 }
 
 const (
@@ -180,6 +190,37 @@ func getPath(path string) (string, error) {
 		}
 	}
 	return filepath.Join(path, "/config"), nil
+}
+
+func mergeKubeconfigs(configs []*clientcmdapi.Config) *clientcmdapi.Config {
+	mergedConfig := clientcmdapi.NewConfig()
+
+	for _, config := range configs {
+		if config == nil {
+			continue
+		}
+		// merge clusters
+		for cName, c := range config.Clusters {
+			mergedConfig.Clusters[cName] = c
+		}
+
+		// merge authinfos
+		for aName, a := range config.AuthInfos {
+			mergedConfig.AuthInfos[aName] = a
+		}
+
+		// merge contexts
+		for ctxName, ctx := range config.Contexts {
+			mergedConfig.Contexts[ctxName] = ctx
+		}
+
+		// merge extensions
+		for extName, ext := range config.Extensions {
+			mergedConfig.Extensions[extName] = ext
+		}
+	}
+
+	return mergedConfig
 }
 
 func GetKubeConfigPath(c *cluster.Cluster) string {
