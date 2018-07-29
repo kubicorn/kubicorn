@@ -73,7 +73,7 @@ func (r *Router) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 	newResource := &Router{
 		Shared: Shared{
 			Name:       r.Name,
-			Identifier: immutable.ProviderConfig().Network.InternetGW.Identifier,
+			Identifier: r.Identifier,
 		},
 	}
 	newCluster := r.immutableRender(newResource, immutable)

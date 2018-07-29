@@ -58,6 +58,14 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	}
 	i++
 
+	// ---- [Router] ----
+	r[i] = &resources.Router{
+		Shared: resources.Shared{
+			Name: known.Name,
+		},
+	}
+	i++
+
 	for _, pool := range known.ServerPools() {
 		// ---- [Subnet] ----
 		for _, subnet := range pool.Subnets {
