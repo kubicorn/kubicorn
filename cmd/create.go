@@ -71,9 +71,9 @@ func CreateCmd() *cobra.Command {
 
 	fs.StringVarP(&co.Profile, keyProfile, "p", viper.GetString(keyProfile), descProfile)
 	fs.StringVarP(&co.CloudID, keyCloudID, "c", viper.GetString(keyCloudID), descCloudID)
-	fs.StringVarP(&co.Set, keySet, "C", viper.GetString(keySet), descSet)
-	fs.StringVarP(&co.MasterSet, keyMasterSet, "M", viper.GetString(keyMasterSet), descMasterSet)
-	fs.StringVarP(&co.NodeSet, keyNodeSet, "N", viper.GetString(keyNodeSet), descNodeSet)
+	fs.StringArrayVarP(&co.Set, keySet, "C", viper.GetStringSlice(keySet), descSet)
+	fs.StringArrayVarP(&co.MasterSet, keyMasterSet, "M", viper.GetStringSlice(keyMasterSet), descMasterSet)
+	fs.StringArrayVarP(&co.NodeSet, keyNodeSet, "N", viper.GetStringSlice(keyNodeSet), descNodeSet)
 	fs.StringVarP(&co.GitRemote, keyGitConfig, "g", viper.GetString(keyGitConfig), descGitConfig)
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
@@ -95,10 +95,9 @@ func RunCreate(options *cli.CreateOptions) error {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
 
-	if options.Set != "" {
+	if len(options.Set) > 0 {
 		// Here we override Set options
-		sets := strings.Split(options.Set, ",")
-		for _, set := range sets {
+		for _, set := range options.Set {
 			parts := strings.SplitN(set, "=", 2)
 			if len(parts) == 1 {
 				continue
@@ -113,10 +112,9 @@ func RunCreate(options *cli.CreateOptions) error {
 		}
 	}
 
-	if options.MasterSet != "" {
+	if len(options.MasterSet) > 0 {
 		// Here we override MasterSet options
-		sets := strings.Split(options.MasterSet, ",")
-		for _, set := range sets {
+		for _, set := range options.MasterSet {
 			parts := strings.SplitN(set, "=", 2)
 			if len(parts) == 1 {
 				continue
@@ -154,10 +152,9 @@ func RunCreate(options *cli.CreateOptions) error {
 		}
 	}
 
-	if options.MasterSet != "" {
-		// Here we override MasterSet options
-		sets := strings.Split(options.NodeSet, ",")
-		for _, set := range sets {
+	if len(options.NodeSet) > 0 {
+		// Here we override NodeSet options
+		for _, set := range options.NodeSet {
 			parts := strings.SplitN(set, "=", 2)
 			if len(parts) == 1 {
 				continue
