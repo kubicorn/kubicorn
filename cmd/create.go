@@ -19,6 +19,8 @@ import (
 	"os"
 	"strings"
 
+	"encoding/json"
+
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/cli"
 	"github.com/kubicorn/kubicorn/pkg/logger"
@@ -26,6 +28,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/yuroyoro/swalker"
+	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 )
 
 // CreateCmd represents create command
@@ -68,7 +71,9 @@ func CreateCmd() *cobra.Command {
 
 	fs.StringVarP(&co.Profile, keyProfile, "p", viper.GetString(keyProfile), descProfile)
 	fs.StringVarP(&co.CloudID, keyCloudID, "c", viper.GetString(keyCloudID), descCloudID)
-	fs.StringVarP(&co.Set, keySet, "e", viper.GetString(keySet), descSet)
+	fs.StringVarP(&co.Set, keySet, "C", viper.GetString(keySet), descSet)
+	fs.StringVarP(&co.MasterSet, keyMasterSet, "M", viper.GetString(keyMasterSet), descMasterSet)
+	fs.StringVarP(&co.NodeSet, keyNodeSet, "N", viper.GetString(keyNodeSet), descNodeSet)
 	fs.StringVarP(&co.GitRemote, keyGitConfig, "g", viper.GetString(keyGitConfig), descGitConfig)
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
@@ -91,6 +96,7 @@ func RunCreate(options *cli.CreateOptions) error {
 	}
 
 	if options.Set != "" {
+		// Here we override Set options
 		sets := strings.Split(options.Set, ",")
 		for _, set := range sets {
 			parts := strings.SplitN(set, "=", 2)
@@ -100,9 +106,91 @@ func RunCreate(options *cli.CreateOptions) error {
 			providerConfig := newCluster.ProviderConfig()
 			err := swalker.Write(strings.Title(parts[0]), providerConfig, parts[1])
 			if err != nil {
+				//fmt.Println(1)
 				return fmt.Errorf("Invalid --set: %v", err)
 			}
 			newCluster.SetProviderConfig(providerConfig)
+		}
+	}
+
+	if options.MasterSet != "" {
+		// Here we override MasterSet options
+		sets := strings.Split(options.MasterSet, ",")
+		for _, set := range sets {
+			parts := strings.SplitN(set, "=", 2)
+			if len(parts) == 1 {
+				continue
+			}
+
+			for i, ms := range newCluster.MachineSets {
+				isMaster := false
+				for _, role := range ms.Spec.Template.Spec.Roles {
+					if role == v1alpha1.MasterRole {
+						isMaster = true
+						break
+					}
+				}
+				if !isMaster {
+					continue
+				}
+				pcStr := ms.Spec.Template.Spec.ProviderConfig
+				providerConfig := &cluster.MachineProviderConfig{}
+				json.Unmarshal([]byte(pcStr), providerConfig)
+				err := swalker.Write(strings.Title(parts[0]), providerConfig, parts[1])
+				if err != nil {
+					//fmt.Println(2)
+					return fmt.Errorf("Invalid --set: %v", err)
+				}
+				// Now set the provider config
+				bytes, err := json.Marshal(providerConfig)
+				if err != nil {
+					logger.Critical("Unable to marshal provider config: %v", err)
+					return err
+				}
+				str := string(bytes)
+				newCluster.MachineSets[i].Spec.Template.Spec.ProviderConfig = str
+			}
+
+		}
+	}
+
+	if options.MasterSet != "" {
+		// Here we override MasterSet options
+		sets := strings.Split(options.NodeSet, ",")
+		for _, set := range sets {
+			parts := strings.SplitN(set, "=", 2)
+			if len(parts) == 1 {
+				continue
+			}
+			for i, ms := range newCluster.MachineSets {
+				isNode := false
+				for _, role := range ms.Spec.Template.Spec.Roles {
+					if role == v1alpha1.NodeRole {
+						isNode = true
+						break
+					}
+				}
+				if !isNode {
+					continue
+				}
+				pcStr := ms.Spec.Template.Spec.ProviderConfig
+				providerConfig := &cluster.MachineProviderConfig{}
+				json.Unmarshal([]byte(pcStr), providerConfig)
+				err := swalker.Write(strings.Title(parts[0]), providerConfig, parts[1])
+				if err != nil {
+					//fmt.Println(3)
+					return fmt.Errorf("Invalid --set: %v", err)
+				}
+				// Now set the provider config
+				bytes, err := json.Marshal(providerConfig)
+				if err != nil {
+					logger.Critical("Unable to marshal provider config: %v", err)
+					return err
+				}
+				str := string(bytes)
+				newCluster.MachineSets[i].Spec.Template.Spec.ProviderConfig = str
+			}
+
 		}
 	}
 

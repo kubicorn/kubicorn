@@ -29,6 +29,8 @@ const (
 	envVarStateStore     = "KUBICORN_STATE_STORE"
 	envVarStateStorePath = "KUBICORN_STATE_STORE_PATH"
 	envVarSet            = "KUBICORN_SET"
+	envVarMasterSet      = "KUBICORN_MASTER_SET"
+	envVarNodeSet        = "KUBICORN_NODE_SET"
 	envVarGitConfig      = "KUBICORN_GIT_CONFIG"
 	envVarTrueColor      = "KUBICORN_TRUECOLOR"
 	envVarProfile        = "KUBICORN_PROFILE"
@@ -58,6 +60,8 @@ const (
 	keyCloudID        = "cloudId"
 	keyProfile        = "profile"
 	keySet            = "set"
+	keyMasterSet      = "master-set"
+	keyNodeSet        = "node-set"
 	keyPurge          = "purge"
 	keyEditor         = "editor"
 	keyOutput         = "output"
@@ -66,7 +70,9 @@ const (
 	// -- descriptions ---
 	descStateStore     = "The state store type to use for the cluster."
 	descStateStorePath = "The state store path to use."
-	descSet            = "Set cluster setting."
+	descSet            = "Set cluster level setting within the providerConfig"
+	descMasterSet      = "Set master level setting within the providerConfig"
+	descNodeSet        = "Set node level setting within the providerConfig"
 	descAwsProfile     = "The profile to be used as defined in $HOME/.aws/credentials"
 	descGitConfig      = "The git remote url to be used for saving the git state for the cluster."
 	descS3AccessKey    = "The s3 access key."
@@ -102,6 +108,8 @@ func initEnvDefaults() {
 	viper.SetDefault(keyS3Bucket, "")
 
 	viper.SetDefault(keySet, "")
+	viper.SetDefault(keyMasterSet, "")
+	viper.SetDefault(keyNodeSet, "")
 	viper.SetDefault(keyPurge, false)
 	viper.SetDefault(keyNoHeaders, false)
 
@@ -113,7 +121,6 @@ func bindEnvVars() {
 
 	viper.BindEnv(keyAwsProfile, envVarAwsProfile)
 	viper.BindEnv(keyEditor, envVarEditor)
-
 	viper.BindEnv(keyStateStore, envVarStateStore)
 	viper.BindEnv(keyStateStorePath, envVarStateStorePath)
 	viper.BindEnv(keyKubicornSet, envVarSet)

@@ -241,10 +241,10 @@ type MachineProviderConfig struct {
 
 	// Name is required as it is how we will match our configs
 	// to machineSets later
-	Name string
+	Name string `json:"name,omitempty"`
 
 	// The legacy configuration for a MachineSet
-	ServerPool *ServerPool
+	ServerPool *ServerPool `json:"serverPool,omitempty"`
 }
 
 // NewCluster will initialize a new Cluster

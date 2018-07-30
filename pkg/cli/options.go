@@ -20,6 +20,8 @@ type Options struct {
 	Name       string
 	CloudID    string
 	Set        string
+	MasterSet  string
+	NodeSet    string
 	AwsProfile string
 	GitRemote  string
 	AwsOptions
