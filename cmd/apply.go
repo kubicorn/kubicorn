@@ -43,7 +43,7 @@ func ApplyCmd() *cobra.Command {
 		Use:   "apply <NAME>",
 		Short: "Apply a cluster resource to a cloud",
 		Long: `Use this command to apply an API model in a cloud.
-	
+
 	This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
 	The apply will run once, and ultimately time out if something goes wrong.`,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -69,7 +69,7 @@ func ApplyCmd() *cobra.Command {
 	bindCommonStateStoreFlags(&ao.StateStoreOptions, fs)
 	bindCommonAwsFlags(&ao.AwsOptions, fs)
 
-	fs.StringVarP(&ao.Set, keyKubicornSet, "e", viper.GetString(keyKubicornSet), descSet)
+	fs.StringArrayVarP(&ao.Set, keyKubicornSet, "e", viper.GetStringSlice(keyKubicornSet), descSet)
 	fs.StringVar(&ao.AwsProfile, keyAwsProfile, viper.GetString(keyAwsProfile), descAwsProfile)
 	fs.StringVar(&ao.GitRemote, keyGitConfig, viper.GetString(keyGitConfig), descGitConfig)
 
@@ -99,9 +99,8 @@ func runApply(options *cli.ApplyOptions) error {
 	}
 	logger.Info("Loaded cluster: %s", cluster.Name)
 
-	if options.Set != "" {
-		sets := strings.Split(options.Set, ",")
-		for _, set := range sets {
+	if len(options.Set) > 0 {
+		for _, set := range options.Set {
 			parts := strings.SplitN(set, "=", 2)
 			if len(parts) == 1 {
 				continue
@@ -112,6 +111,9 @@ func runApply(options *cli.ApplyOptions) error {
 			}
 		}
 	}
+
+	// TODO(?) match create.go for options.MasterSet
+	// TODO(?) match create.go for options.NodeSet
 
 	logger.Info("Init Cluster")
 	cluster, err = initapi.InitCluster(cluster)
