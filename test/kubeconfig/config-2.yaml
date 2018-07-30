@@ -1,0 +1,23 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: S1VCSUNPUk5fVEVTVF9LVUJFQ09ORklHX0NBX0NFUlRfVEVTVF9EQVRBCg==
+    server: https://bar.fabulous.af
+  name: bar-fab-af
+contexts:
+- context:
+    cluster: bar-fab-af
+    user: bar-fab-af-user1
+  name: bar-fab-af
+current-context: bar-fab-af
+kind: Config
+preferences: {}
+users:
+- name: bar-fab-af-user1
+  user:
+    client-certificate: somewhere/ondisk.crt
+    client-key: somewhere/ondisk.key
+- name: bar-fab-af-user2
+  user:
+    client-certificate-data: S1VCSUNPUk5fVEVTVF9LVUJFQ09ORklHX0NMSUVOVF9DRVJUX1RFU1RfREFUQQo=
+    client-key-data: S1VCSUNPUk5fVEVTVF9LVUJFQ09ORklHX0NMSUVOVF9LRVlfVEVTVF9EQVRBCg==

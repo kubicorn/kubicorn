@@ -24,6 +24,8 @@ import (
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/local"
+	"k8s.io/client-go/tools/clientcmd"
+	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
 func TestMain(m *testing.M) {
@@ -88,4 +90,101 @@ func TestGetConfigHappy(t *testing.T) {
 	}
 
 	defer os.RemoveAll(dir + "/tmp/.kube")
+}
+
+func TestMergeKubeConfigs(t *testing.T) {
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("os.Getwd() failed; err=%q", err)
+	}
+	dir, err = filepath.Abs(dir + "/../../test/kubeconfig")
+	if err != nil {
+		t.Fatalf("filepath.Abs(%q) failed; err=%q", dir+"/../../test/kubeconfig", err)
+	}
+
+	testConfigFiles := []string{fmt.Sprintf("%s/%s", dir, "config-1.yaml"), fmt.Sprintf("%s/%s", dir, "config-2.yaml"), fmt.Sprintf("%s/%s", dir, "config-3.yaml")}
+	var testConfigs []*clientcmdapi.Config
+
+	for _, tcf := range testConfigFiles {
+		fileBytes, err := ioutil.ReadFile(tcf)
+		if err != nil {
+			t.Fatalf("Failed to read test data from file [%s]", tcf)
+		}
+		config, err := clientcmd.Load(fileBytes)
+		if err != nil {
+			t.Fatalf("getKubeConfigFromBytes(%q) failed; error=%q", fileBytes, err)
+		}
+		testConfigs = append(testConfigs, config)
+		testConfigs = append(testConfigs, nil)
+	}
+
+	testcases := []struct {
+		name                    string
+		inputKubeConfigs        []*clientcmdapi.Config
+		expectedClustersCount   int
+		expectedAuthInfosCount  int
+		expectedContextsCount   int
+		expectedExtensionsCount int
+	}{
+		{
+			name:                   "success_merge_3_kubeconfigs_without_nils",
+			inputKubeConfigs:       testConfigs,
+			expectedClustersCount:  3,
+			expectedContextsCount:  3,
+			expectedAuthInfosCount: 6,
+		},
+		{
+			name:                   "success_merge_3_kubeconfigs_with_nil",
+			inputKubeConfigs:       append(testConfigs, nil),
+			expectedClustersCount:  3,
+			expectedContextsCount:  3,
+			expectedAuthInfosCount: 6,
+		},
+		{
+			name:                   "success_merge_1_kubeconfigs_and_nil",
+			inputKubeConfigs:       append(testConfigs[0:1], nil...),
+			expectedClustersCount:  1,
+			expectedContextsCount:  1,
+			expectedAuthInfosCount: 2,
+		},
+	}
+
+	for _, tc := range testcases {
+		merged := mergeKubeconfigs(tc.inputKubeConfigs)
+
+		if len(merged.Clusters) != tc.expectedClustersCount {
+			t.Fatalf("TestCase:%q; mergeKubeconfigs failed, gotMergedClustersCount=[%d]; wantMergedClustersCount=[%d]", tc.name, len(merged.Clusters), tc.expectedClustersCount)
+		}
+
+		if len(merged.Contexts) != tc.expectedContextsCount {
+			t.Fatalf("TestCase:%q; mergeKubeconfigs failed, gotMergedContextsCount=[%d]; wantMergedContextsCount=[%d]", tc.name, len(merged.Contexts), tc.expectedContextsCount)
+		}
+
+		if len(merged.AuthInfos) != tc.expectedAuthInfosCount {
+			t.Fatalf("TestCase:%q; mergeKubeconfigs failed, gotMergedAuthInfosCount=[%d]; wantMergedAuthInfosCount=[%d]", tc.name, len(merged.AuthInfos), tc.expectedAuthInfosCount)
+		}
+	}
+}
+
+func TestGetRemoteKubeconfigPath(t *testing.T) {
+	testCases := []struct {
+		inputUserName    string
+		expectedUserHome string
+	}{
+		{
+			inputUserName:    "root",
+			expectedUserHome: "/root/.kube/config",
+		},
+		{
+			inputUserName:    "fabuser",
+			expectedUserHome: "/home/fabuser/.kube/config",
+		},
+	}
+
+	for _, tc := range testCases {
+		actualUserKubeConfig := getRemoteKubeconfigPath(tc.inputUserName)
+		if actualUserKubeConfig != tc.expectedUserHome {
+			t.Fatalf("getUserKubeConfig(%q) failed, got %q; want %q", tc.inputUserName, actualUserKubeConfig, tc.expectedUserHome)
+		}
+	}
 }
