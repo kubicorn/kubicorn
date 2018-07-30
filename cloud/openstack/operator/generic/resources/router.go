@@ -37,7 +37,7 @@ func (r *Router) Actual(immutable *cluster.Cluster) (actual *cluster.Cluster, re
 	logger.Debug("router.Actual")
 	newResource := new(Router)
 
-	if immutable.ProviderConfig().Network.InternetGW.Identifier != "" {
+	if immutable.ProviderConfig().Network != nil && immutable.ProviderConfig().Network.InternetGW.Identifier != "" {
 		// Find the router by name
 		res := routers.List(Sdk.Network, routers.ListOpts{
 			Name: r.Name,
