@@ -148,6 +148,7 @@ func (cfg *configLoader) GetConfig() error {
 	}
 
 	merged := mergeKubeconfigs([]*clientcmdapi.Config{existingKubeConfig, newKubeConfig})
+	merged.CurrentContext = newKubeConfig.CurrentContext
 	return clientcmd.WriteToFile(*merged, localPath)
 }
 
