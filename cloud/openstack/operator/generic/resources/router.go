@@ -38,7 +38,8 @@ func (r *Router) Actual(immutable *cluster.Cluster) (actual *cluster.Cluster, re
 	newResource := new(Router)
 
 	// TODO @xmudrii: This is bad. Like, VERY bad. We should we fix this, but let's first get OVH working.
-	if immutable.ProviderConfig() != nil && immutable.ProviderConfig().Network != nil && immutable.ProviderConfig().Network.InternetGW.Identifier != "" {
+	if immutable.ProviderConfig() != nil && immutable.ProviderConfig().Network != nil &&
+		immutable.ProviderConfig().Network.InternetGW != nil && immutable.ProviderConfig().Network.InternetGW.Identifier != "" {
 		// Find the router by name
 		res := routers.List(Sdk.Network, routers.ListOpts{
 			Name: r.Name,
