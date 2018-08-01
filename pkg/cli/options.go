@@ -40,6 +40,7 @@ type AwsOptions struct {
 	BucketEndpointURL string
 	BucketSSL         bool
 	BucketName        string
+	PolicyAttachments []string
 }
 
 // CRDOptions represents getConfig command options.

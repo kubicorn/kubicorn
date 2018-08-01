@@ -75,6 +75,7 @@ func CreateCmd() *cobra.Command {
 	fs.StringArrayVarP(&co.MasterSet, keyMasterSet, "M", viper.GetStringSlice(keyMasterSet), descMasterSet)
 	fs.StringArrayVarP(&co.NodeSet, keyNodeSet, "N", viper.GetStringSlice(keyNodeSet), descNodeSet)
 	fs.StringVarP(&co.GitRemote, keyGitConfig, "g", viper.GetString(keyGitConfig), descGitConfig)
+	fs.StringArrayVar(&co.AwsOptions.PolicyAttachments, keyPolicyAttachments, co.AwsOptions.PolicyAttachments, descPolicyAttachments)
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
@@ -188,6 +189,28 @@ func RunCreate(options *cli.CreateOptions) error {
 				newCluster.MachineSets[i].Spec.Template.Spec.ProviderConfig = str
 			}
 
+		}
+	}
+
+	if len(options.AwsOptions.PolicyAttachments) > 0 {
+		for i, ms := range newCluster.MachineSets {
+			pcStr := ms.Spec.Template.Spec.ProviderConfig
+			providerConfig := &cluster.MachineProviderConfig{}
+			if err := json.Unmarshal([]byte(pcStr), providerConfig); err != nil {
+				logger.Critical("Unable to unmarshal provider config: %v", err)
+				return err
+			}
+			if providerConfig.ServerPool != nil && providerConfig.ServerPool.InstanceProfile != nil && providerConfig.ServerPool.InstanceProfile.Role != nil {
+				providerConfig.ServerPool.InstanceProfile.Role.PolicyAttachments = options.AwsOptions.PolicyAttachments
+			}
+			// Now set the provider config
+			bytes, err := json.Marshal(providerConfig)
+			if err != nil {
+				logger.Critical("Unable to marshal provider config: %v", err)
+				return err
+			}
+			str := string(bytes)
+			newCluster.MachineSets[i].Spec.Template.Spec.ProviderConfig = str
 		}
 	}
 
