@@ -35,7 +35,8 @@ type InstanceProfile struct {
 
 type IAMRole struct {
 	Shared
-	Policies []*IAMPolicy
+	Policies          []*IAMPolicy
+	PolicyAttachments []string
 }
 
 type IAMPolicy struct {
@@ -112,6 +113,20 @@ func (r *InstanceProfile) Actual(immutable *cluster.Cluster) (*cluster.Cluster, 
 					iampolicy.Document = raw
 					iamrole.Policies = append(iamrole.Policies, iampolicy)
 				}
+
+				// ListAttachedRolePolicies
+				logger.Info("Listing attached role policies for %s", role.RoleName)
+				attachedPolicyList, err := Sdk.IAM.ListAttachedRolePolicies(&iam.ListAttachedRolePoliciesInput{
+					RoleName: role.RoleName,
+				})
+				if err != nil {
+					return nil, nil, err
+				}
+				for _, attachedPolicy := range attachedPolicyList.AttachedPolicies {
+					// Here we add the attached policy to the role
+					logger.Info("Found attached policy %s", *attachedPolicy.PolicyArn)
+					iamrole.PolicyAttachments = append(iamrole.PolicyAttachments, *attachedPolicy.PolicyArn)
+				}
 			}
 		}
 	}
@@ -154,6 +169,9 @@ func (r *InstanceProfile) Expected(immutable *cluster.Cluster) (*cluster.Cluster
 			Document: policy.Document,
 		}
 		newResource.Role.Policies = append(newResource.Role.Policies, newPolicy)
+	}
+	for _, policyAttachment := range r.Role.PolicyAttachments {
+		newResource.Role.PolicyAttachments = append(newResource.Role.PolicyAttachments, policyAttachment)
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -270,6 +288,22 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 		newIamRole.Policies = append(newIamRole.Policies, newPolicy)
 		logger.Info("Policy created")
 	}
+	// Attach PolicyAttachments to Role
+	for _, policyAttachment := range expected.(*InstanceProfile).Role.PolicyAttachments {
+		attachRolePolicyInput := &iam.AttachRolePolicyInput{
+			RoleName:  &expected.(*InstanceProfile).Role.Name,
+			PolicyArn: &policyAttachment,
+		}
+		_, err := Sdk.IAM.AttachRolePolicy(attachRolePolicyInput)
+		if err != nil {
+			logger.Debug("AttachRolePolicy error: %v", err)
+			if err.(awserr.Error).Code() != iam.ErrCodeLimitExceededException {
+				return nil, nil, err
+			}
+		}
+		newIamRole.PolicyAttachments = append(newIamRole.PolicyAttachments, policyAttachment)
+		logger.Info("PolicyAttachment created")
+	}
 	//Attach Role to Profile
 	roletoprofile := &iam.AddRoleToInstanceProfileInput{
 		InstanceProfileName: &expected.(*InstanceProfile).Name,
@@ -291,6 +325,18 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 }
 
 func (r *InstanceProfile) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	for _, policyAttachment := range r.Role.PolicyAttachments {
+		_, err := Sdk.IAM.DetachRolePolicy(&iam.DetachRolePolicyInput{
+			RoleName:  &r.Role.Name,
+			PolicyArn: &policyAttachment,
+		})
+		if err != nil {
+			logger.Debug("Problem detaching Policy %s from Role: %s: %v", policyAttachment, r.Role.Name, err)
+			if err.(awserr.Error).Code() != iam.ErrCodeNoSuchEntityException {
+				return nil, nil, err
+			}
+		}
+	}
 	for _, policy := range r.Role.Policies {
 		_, err := Sdk.IAM.DeleteRolePolicy(&iam.DeleteRolePolicyInput{
 			PolicyName: &policy.Name,
@@ -355,6 +401,9 @@ func (r *InstanceProfile) immutableRender(newResource cloud.Resource, inaccurate
 				}
 				instanceProfile.Role.Policies = append(instanceProfile.Role.Policies, newPolicy)
 			}
+		}
+		for _, policyAttachment := range newResource.(*InstanceProfile).Role.PolicyAttachments {
+			instanceProfile.Role.PolicyAttachments = append(instanceProfile.Role.PolicyAttachments, policyAttachment)
 		}
 	}
 	found := false

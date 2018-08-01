@@ -32,6 +32,7 @@ type IAMRole struct {
 	Name              string       `json:"name,omitempty"`
 	Identifier        string       `json:"identifier,omitempty"`
 	Policies          []*IAMPolicy `json:"policies,omitempty"`
+	PolicyAttachments []string     `json:"policyAttachments,omitempty"`
 }
 
 type IAMPolicy struct {

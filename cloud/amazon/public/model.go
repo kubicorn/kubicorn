@@ -96,6 +96,9 @@ func (m *Model) Resources() map[int]cloud.Resource {
 				}
 				iamRole.Policies = append(iamRole.Policies, iamPolicy)
 			}
+			for _, policyAttachment := range serverPool.InstanceProfile.Role.PolicyAttachments {
+				iamRole.PolicyAttachments = append(iamRole.PolicyAttachments, policyAttachment)
+			}
 			instanceProfile.Role = iamRole
 			r[i] = instanceProfile
 			i++
