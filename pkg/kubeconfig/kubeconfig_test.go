@@ -166,6 +166,96 @@ func TestMergeKubeConfigs(t *testing.T) {
 	}
 }
 
+func TestPurgeKubeconfig(t *testing.T) {
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("os.Getwd() failed; err=%q", err)
+	}
+	dir, err = filepath.Abs(dir + "/../../test/kubeconfig")
+	if err != nil {
+		t.Fatalf("filepath.Abs(%q) failed; err=%q", dir+"/../../test/kubeconfig", err)
+	}
+	testConfigFiles := []string{fmt.Sprintf("%s/%s", dir, "config-1.yaml"), fmt.Sprintf("%s/%s", dir, "config-2.yaml"), fmt.Sprintf("%s/%s", dir, "config-3.yaml")}
+	var testConfigs []*clientcmdapi.Config
+
+	for _, tcf := range testConfigFiles {
+		fileBytes, err := ioutil.ReadFile(tcf)
+		if err != nil {
+			t.Fatalf("Failed to read test data from file [%s]", tcf)
+		}
+		config, err := clientcmd.Load(fileBytes)
+		if err != nil {
+			t.Fatalf("getKubeConfigFromBytes(%q) failed; error=%q", fileBytes, err)
+		}
+		testConfigs = append(testConfigs, config)
+		testConfigs = append(testConfigs, nil)
+	}
+
+	testCases := []struct {
+		name                   string
+		inputKubeconfig        *clientcmdapi.Config
+		inputToPurge           *clientcmdapi.Config
+		currentContext         string
+		expectedClustersCount  int
+		expectedContextsCount  int
+		expectedAuthInfosCount int
+	}{
+		{
+			name:            "success_purge_nil_kubeconfig",
+			inputKubeconfig: mergeKubeconfigs(testConfigs),
+
+			inputToPurge:           nil,
+			expectedClustersCount:  3,
+			expectedContextsCount:  3,
+			expectedAuthInfosCount: 6,
+		},
+		{
+			name:                   "success_purge_kubeconfig",
+			inputKubeconfig:        mergeKubeconfigs(testConfigs),
+			inputToPurge:           testConfigs[0],
+			expectedClustersCount:  2,
+			expectedContextsCount:  2,
+			expectedAuthInfosCount: 4,
+		},
+		{
+			name:                   "success_purge_from_nil_kubeconfig",
+			inputKubeconfig:        nil,
+			inputToPurge:           testConfigs[0],
+			expectedClustersCount:  0,
+			expectedContextsCount:  0,
+			expectedAuthInfosCount: 0,
+		},
+	}
+
+	for _, tc := range testCases {
+		if tc.inputToPurge != nil && tc.inputKubeconfig != nil {
+			tc.inputKubeconfig.CurrentContext = tc.inputToPurge.CurrentContext
+		}
+
+		purgeKubeconfig(tc.inputKubeconfig, tc.inputToPurge)
+
+		if tc.expectedAuthInfosCount == 0 && tc.expectedClustersCount == 0 && tc.expectedContextsCount == 0 {
+			if tc.inputKubeconfig != nil {
+				t.Fatalf("purgeKubeConfig failed to purge from nil kubeConfig")
+			}
+			continue
+		}
+
+		if len(tc.inputKubeconfig.Clusters) != tc.expectedClustersCount {
+			t.Fatalf("purgeKubeConfig failed, gotPurgedClustersCount=%d; wantPurgedClustersCount=%d", len(tc.inputKubeconfig.Clusters), tc.expectedClustersCount)
+		}
+		if len(tc.inputKubeconfig.Contexts) != tc.expectedContextsCount {
+			t.Fatalf("purgeKubeConfig failed, gotPurgedContextsCount=%d; wantPurgedContextsCount=%d", len(tc.inputKubeconfig.Contexts), tc.expectedContextsCount)
+		}
+		if len(tc.inputKubeconfig.AuthInfos) != tc.expectedAuthInfosCount {
+			t.Fatalf("purgeKubeConfig failed, gotPurgedAuthInfosCount=%d; wantPurgedAuthInfosCount=%d", len(tc.inputKubeconfig.AuthInfos), tc.expectedAuthInfosCount)
+		}
+		if tc.inputToPurge != nil && tc.inputKubeconfig.CurrentContext == tc.inputToPurge.CurrentContext {
+			t.Fatalf("purgeKubeConfig failed, gotPurgedCurrentContext=%s, wantPurgedCurrentContext!=%s", tc.inputKubeconfig.CurrentContext, tc.inputToPurge.CurrentContext)
+		}
+	}
+}
+
 func TestGetRemoteKubeconfigPath(t *testing.T) {
 	testCases := []struct {
 		inputUserName    string

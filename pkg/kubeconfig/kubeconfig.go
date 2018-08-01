@@ -224,6 +224,36 @@ func mergeKubeconfigs(configs []*clientcmdapi.Config) *clientcmdapi.Config {
 	return mergedConfig
 }
 
+func purgeKubeconfig(config, toPurge *clientcmdapi.Config) {
+	if config != nil && toPurge != nil {
+		//purge clusters
+		for c := range toPurge.Clusters {
+			delete(config.Clusters, c)
+		}
+		//purge contexts
+		for ctx := range toPurge.Contexts {
+			delete(config.Contexts, ctx)
+		}
+		// purge authinfos
+		for ai := range toPurge.AuthInfos {
+			delete(config.AuthInfos, ai)
+		}
+		// purge extension
+		for ext := range toPurge.Extensions {
+			delete(config.Extensions, ext)
+		}
+
+		if config.CurrentContext == toPurge.CurrentContext {
+			for ctx := range config.Contexts {
+				if ctx != toPurge.CurrentContext {
+					config.CurrentContext = ctx
+					break
+				}
+			}
+		}
+	}
+}
+
 func GetKubeConfigPath(c *cluster.Cluster) string {
 	localPath, localPathAnnotationDefined := c.Annotations[ClusterAnnotationKubeconfigLocalFile]
 	if localPathAnnotationDefined {
