@@ -23,6 +23,7 @@ import (
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/cli"
+	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/kubicorn/kubicorn/pkg/namer"
 	"github.com/spf13/cobra"
@@ -71,6 +72,7 @@ func CreateCmd() *cobra.Command {
 
 	fs.StringVarP(&co.Profile, keyProfile, "p", viper.GetString(keyProfile), descProfile)
 	fs.StringVarP(&co.CloudID, keyCloudID, "c", viper.GetString(keyCloudID), descCloudID)
+	fs.StringVar(&co.KubeConfigLocalFile, keyKubeConfigLocalFile, viper.GetString(keyKubeConfigLocalFile), descKubeConfigLocalFile)
 	fs.StringArrayVarP(&co.Set, keySet, "C", viper.GetStringSlice(keySet), descSet)
 	fs.StringArrayVarP(&co.MasterSet, keyMasterSet, "M", viper.GetStringSlice(keyMasterSet), descMasterSet)
 	fs.StringArrayVarP(&co.NodeSet, keyNodeSet, "N", viper.GetStringSlice(keyNodeSet), descNodeSet)
@@ -94,6 +96,13 @@ func RunCreate(options *cli.CreateOptions) error {
 		newCluster = cli.ProfileMapIndexed[options.Profile].ProfileFunc(name)
 	} else {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
+	}
+
+	if options.KubeConfigLocalFile != "" {
+		if newCluster.Annotations == nil {
+			newCluster.Annotations = make(map[string]string)
+		}
+		newCluster.Annotations[kubeconfig.ClusterAnnotationKubeconfigLocalFile] = options.KubeConfigLocalFile
 	}
 
 	if len(options.Set) > 0 {
