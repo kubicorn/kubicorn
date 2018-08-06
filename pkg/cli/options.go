@@ -17,13 +17,14 @@ package cli
 // Options represents command options.
 type Options struct {
 	StateStoreOptions
-	Name       string
-	CloudID    string
-	Set        []string
-	MasterSet  []string
-	NodeSet    []string
-	AwsProfile string
-	GitRemote  string
+	Name                string
+	CloudID             string
+	KubeConfigLocalFile string
+	Set                 []string
+	MasterSet           []string
+	NodeSet             []string
+	AwsProfile          string
+	GitRemote           string
 	AwsOptions
 }
 
