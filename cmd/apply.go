@@ -32,7 +32,6 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/state/crd"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/yuroyoro/swalker"
 	"k8s.io/api/core/v1"
 )
 
@@ -105,7 +104,7 @@ func runApply(options *cli.ApplyOptions) error {
 			if len(parts) == 1 {
 				continue
 			}
-			err := swalker.Write(strings.Title(parts[0]), cluster, parts[1])
+			err := cli.SwalkerWrite(strings.Title(parts[0]), cluster, parts[1])
 			if err != nil {
 				logger.Critical("Error expanding set flag: %#v", err)
 			}

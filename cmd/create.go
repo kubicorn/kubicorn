@@ -28,7 +28,6 @@ import (
 	"github.com/kubicorn/kubicorn/pkg/namer"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/yuroyoro/swalker"
 	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 )
 
@@ -113,7 +112,7 @@ func RunCreate(options *cli.CreateOptions) error {
 				continue
 			}
 			providerConfig := newCluster.ProviderConfig()
-			err := swalker.Write(strings.Title(parts[0]), providerConfig, parts[1])
+			err := cli.SwalkerWrite(strings.Title(parts[0]), providerConfig, parts[1])
 			if err != nil {
 				//fmt.Println(1)
 				return fmt.Errorf("Invalid --set: %v", err)
@@ -144,7 +143,7 @@ func RunCreate(options *cli.CreateOptions) error {
 				pcStr := ms.Spec.Template.Spec.ProviderConfig
 				providerConfig := &cluster.MachineProviderConfig{}
 				json.Unmarshal([]byte(pcStr), providerConfig)
-				err := swalker.Write(strings.Title(parts[0]), providerConfig, parts[1])
+				err := cli.SwalkerWrite(strings.Title(parts[0]), providerConfig, parts[1])
 				if err != nil {
 					//fmt.Println(2)
 					return fmt.Errorf("Invalid --set: %v", err)
@@ -183,7 +182,7 @@ func RunCreate(options *cli.CreateOptions) error {
 				pcStr := ms.Spec.Template.Spec.ProviderConfig
 				providerConfig := &cluster.MachineProviderConfig{}
 				json.Unmarshal([]byte(pcStr), providerConfig)
-				err := swalker.Write(strings.Title(parts[0]), providerConfig, parts[1])
+				err := cli.SwalkerWrite(strings.Title(parts[0]), providerConfig, parts[1])
 				if err != nil {
 					//fmt.Println(3)
 					return fmt.Errorf("Invalid --set: %v", err)
