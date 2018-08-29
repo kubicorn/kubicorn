@@ -15,7 +15,7 @@
 # limitations under the License.
 
 read -r -d '' EXPECTED <<EOF
-// Copyright © 2017 The Kubicorn Authors
+// Copyright © DATE The Kubicorn Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,9 +34,13 @@ FILES=$(find . -name "*.go" -not -path "./vendor/*")
 for FILE in $FILES; do
 	if [ "$FILE" == "./bootstrap/bootstrap.go" ]; then
             continue
-        fi
-        CONTENT=$(head -n 13 $FILE)
-        if [ "$CONTENT" != "$EXPECTED" ]; then
+    fi
+    # Replace the actual year with DATE so we can ignore the year when
+    # checking for the license header.
+    CONTENT=$(head -n 13 $FILE | sed -E -e 's/Copyright © [0-9]+/Copyright © DATE/')
+    if [ "$CONTENT" != "$EXPECTED" ]; then
+        # Replace DATE with the current year.
+        EXPECTED=$(echo "$EXPECTED" | sed -E -e "s/Copyright © DATE/Copyright © $(date +%Y)/")
 		echo -e "$EXPECTED\n\n$(cat $FILE)" > $FILE
-        fi
+    fi
 done
