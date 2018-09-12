@@ -208,6 +208,19 @@ func runApply(options *cli.ApplyOptions) error {
 		crdStateStore.Commit(newCluster)
 	}
 
+	if newCluster.APITokenSecret != nil {
+		// -------------------------------------------------------------------------------------------------------------
+		//
+		// Here is where we hook in for the new controller logic
+		// This is exclusive to profiles that have a cloud-manager secret defined
+		//
+		logger.Info("Deploying cloud manager secret: %s", newCluster.APITokenSecret.ObjectMeta.Name)
+		err = resourcedeploy.DeployCloudManagerSecret(newCluster)
+		if err != nil {
+			return fmt.Errorf("Unable to deploy cloud manager secret: %v", err)
+		}
+	}
+
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)
 	if path, ok := newCluster.Annotations[kubeconfig.ClusterAnnotationKubeconfigLocalFile]; ok {
 		path = local.Expand(path)

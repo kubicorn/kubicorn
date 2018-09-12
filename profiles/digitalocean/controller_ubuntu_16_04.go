@@ -16,6 +16,7 @@ package digitalocean
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/kubeadm"
@@ -200,7 +201,15 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 	//
 	//
 	//
-
 	c.ControllerDeployment = deployment
+
+	secret := &apiv1.Secret{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "digitalocean",
+			Namespace: "kube-system",
+		},
+		StringData: map[string]string{"access-token": string(os.Getenv("DIGITALOCEAN_ACCESS_TOKEN"))},
+	}
+	c.APITokenSecret = secret
 	return c
 }
