@@ -73,3 +73,17 @@ func DeployClusterControllerDeployment(cluster *cluster.Cluster) error {
 	}
 	return nil
 }
+
+func DeployCloudManagerSecret(cluster *cluster.Cluster) error {
+	namespace := cluster.CloudManagerSecret.ObjectMeta.Namespace
+	clientset, err := ClientSet(cluster)
+	if err != nil {
+		return err
+	}
+	secretsClient := clientset.Core().Secrets(namespace)
+	_, err = secretsClient.Create(cluster.CloudManagerSecret)
+	if err != nil {
+		return err
+	}
+	return nil
+}

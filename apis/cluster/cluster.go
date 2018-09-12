@@ -16,6 +16,7 @@ package cluster
 
 import (
 	"encoding/json"
+	"k8s.io/api/core/v1"
 
 	"github.com/kubicorn/kubicorn/pkg/logger"
 	appsv1beta2 "k8s.io/api/apps/v1beta2"
@@ -63,6 +64,7 @@ type Cluster struct {
 	// The pattern here says that from an arbitrary deployment, you should be able
 	// to bootstrap anything else you could need. We default to the kubicorn controller.
 	ControllerDeployment *appsv1beta2.Deployment `json:"controllerDeployment,omitempty"`
+	CloudManagerSecret   *v1.Secret              `json:"cloudManagerSecret,omitempty"`
 }
 
 // ProviderConfig is a convenience method that will attempt
