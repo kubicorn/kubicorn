@@ -16,9 +16,12 @@ package digitalocean
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/kubeadm"
+	apiv1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // NewCentosCluster creates a basic CentOS DigitalOcean cluster.
@@ -142,5 +145,15 @@ func NewCentosCluster(name string) *cluster.Cluster {
 	c := cluster.NewCluster(name)
 	c.SetProviderConfig(controlPlaneProviderConfig)
 	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
+
+	secret := &apiv1.Secret{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "digitalocean",
+			Namespace: "kube-system",
+		},
+		Data: map[string][]byte{"access-token": []byte(os.Getenv("DIGITALOCEAN_ACCESS_TOKEN"))},
+	}
+	c.CloudManagerSecret = secret
+
 	return c
 }
