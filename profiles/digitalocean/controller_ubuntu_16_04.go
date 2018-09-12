@@ -184,14 +184,6 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 		},
 	}
 
-	secret := &apiv1.Secret{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      "digitalocean",
-			Namespace: "kube-system",
-		},
-		Data: map[string][]byte{"access-token": []byte(os.Getenv("DIGITALOCEAN_ACCESS_TOKEN"))},
-	}
-
 	c := cluster.NewCluster(name)
 	c.SetProviderConfig(controlPlaneProviderConfig)
 	c.NewMachineSetsFromProviderConfigs(machineSetsProviderConfigs)
@@ -210,6 +202,14 @@ func NewControllerUbuntuCluster(name string) *cluster.Cluster {
 	//
 	//
 	c.ControllerDeployment = deployment
-	c.CloudManagerSecret = secret
+
+	secret := &apiv1.Secret{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "digitalocean",
+			Namespace: "kube-system",
+		},
+		StringData: map[string]string{"access-token": string(os.Getenv("DIGITALOCEAN_ACCESS_TOKEN"))},
+	}
+	c.APITokenSecret = secret
 	return c
 }

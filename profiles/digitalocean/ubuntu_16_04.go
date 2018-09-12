@@ -151,9 +151,9 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 			Name:      "digitalocean",
 			Namespace: "kube-system",
 		},
-		Data: map[string][]byte{"access-token": []byte(os.Getenv("DIGITALOCEAN_ACCESS_TOKEN"))},
+		StringData: map[string]string{"access-token": string(os.Getenv("DIGITALOCEAN_ACCESS_TOKEN"))},
 	}
-	c.CloudManagerSecret = secret
+	c.APITokenSecret = secret
 
 	return c
 }
