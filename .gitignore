@@ -5,3 +5,5 @@ bin/*
 .vscode
 .sass-cache/
 _site/
+docs/vendor
+docs/.bundle

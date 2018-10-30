@@ -23,7 +23,7 @@ url: "http://kubicorn.io" # the base hostname & protocol for your site, e.g. htt
 # Build settings
 markdown: kramdown
 theme: minima
-gems:
+plugins:
   - jekyll-feed
 
 # Exclude from processing.
