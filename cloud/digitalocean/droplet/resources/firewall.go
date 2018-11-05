@@ -18,12 +18,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/digitalocean/godo"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
 	"github.com/kubicorn/kubicorn/pkg/compare"
 	"github.com/kubicorn/kubicorn/pkg/logger"
+)
+
+const (
+	TagsGetAttempts = 50
+	TagsGetTimeout  = 5
 )
 
 var _ cloud.Resource = &Firewall{}
@@ -153,6 +159,35 @@ func (r *Firewall) Apply(actual, expected cloud.Resource, immutable *cluster.Clu
 		OutboundRules: convertOutRuleType(expectedResource.OutboundRules),
 		DropletIDs:    expectedResource.DropletIDs,
 		Tags:          expectedResource.Tags,
+	}
+
+	// Make sure Droplets are fully created before applying a firewall
+	machineProviderConfigs := immutable.MachineProviderConfigs()
+	for _, machineProviderConfig := range machineProviderConfigs {
+		for i := 0; i <= TagsGetAttempts; i++ {
+			active := true
+			droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), machineProviderConfig.ServerPool.Name, &godo.ListOptions{})
+			if err != nil {
+				logger.Debug("Hanging for droplets to get created.. (%v)", err)
+				time.Sleep(time.Duration(TagsGetTimeout) * time.Second)
+				continue
+			}
+			if len(droplets) == 0 {
+				continue
+			}
+			for _, d := range droplets {
+				if d.Status != "active" {
+					active = false
+					break
+				}
+			}
+			if !active {
+				logger.Debug("Waiting for droplets to become active..")
+				time.Sleep(time.Duration(TagsGetTimeout) * time.Second)
+				continue
+			}
+			break
+		}
 	}
 
 	firewall, _, err := Sdk.Client.Firewalls.Create(context.TODO(), &firewallRequest)
