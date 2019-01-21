@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/cloud"
@@ -147,9 +148,23 @@ func (r *SecurityGroup) Expected(immutable *cluster.Cluster) (*cluster.Cluster, 
 		})
 	}
 
+	// Manually add a rule that allows all instances in the security group to talk to each other. This
+	// is required when you have more than one instance (multiple nodes). Because AWS uses a different
+	// structure to specify security group sources vs IP CIDR sources, we use ingressSourceSelf as a
+	// marker so Apply() can do the right thing.
+	newResource.Rules = append(newResource.Rules, &Rule{
+		IngressSource:   ingressSourceSelf,
+		IngressFromPort: 0,
+		IngressToPort:   65535,
+		IngressProtocol: "-1",
+	})
+
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
+const ingressSourceSelf = "__self__"
+
 func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Apply")
 	applyResource := expected.(*SecurityGroup)
@@ -177,12 +192,29 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	newResource.Name = expected.(*SecurityGroup).Name
 	for _, expectedRule := range expected.(*SecurityGroup).Rules {
 		input := &ec2.AuthorizeSecurityGroupIngressInput{
-			GroupId:    &newResource.Identifier,
-			ToPort:     I64(expectedRule.IngressToPort),
-			FromPort:   I64(expectedRule.IngressFromPort),
-			CidrIp:     &expectedRule.IngressSource,
-			IpProtocol: S(expectedRule.IngressProtocol),
+			GroupId: &newResource.Identifier,
+			IpPermissions: []*ec2.IpPermission{
+				{
+					FromPort:   I64(expectedRule.IngressFromPort),
+					ToPort:     I64(expectedRule.IngressToPort),
+					IpProtocol: aws.String(expectedRule.IngressProtocol),
+				},
+			},
 		}
+
+		if expectedRule.IngressSource == ingressSourceSelf {
+			// For the special ingressSourceSelf marker, set up the rule so it allows ingress from any
+			// member of the current security group.
+			input.IpPermissions[0].UserIdGroupPairs = []*ec2.UserIdGroupPair{
+				{GroupId: output.GroupId},
+			}
+		} else {
+			// For the normal case, set up the rule using the ingress source for the CIDR.
+			input.IpPermissions[0].IpRanges = []*ec2.IpRange{
+				{CidrIp: &expectedRule.IngressSource},
+			}
+		}
+
 		_, err := Sdk.Ec2.AuthorizeSecurityGroupIngress(input)
 		if err != nil {
 			return nil, nil, err
