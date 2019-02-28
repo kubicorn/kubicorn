@@ -1,0 +1,35 @@
+name: kubicorn
+base: core18
+version: git
+summary: Create, manage, snapshot, and scale K8s infrastructure in the cloud
+description: |
+  kubicorn is an free and open source project that solves the Kubernetes
+  infrastructure problem and gives users a rich golang library to work with
+  infrastructure.
+grade: stable
+confinement: strict
+
+plugs:
+  kube-config:
+    interface: personal-files
+    read:
+      - $HOME/.kube/config
+    write:
+      - $HOME/.kube/config
+
+apps:
+  kubicorn:
+    command: kubicorn
+    plugs:
+      - home
+      - network
+      - ssh-keys
+      - kube-config
+
+parts:
+  kubicorn:
+    plugin: go
+    source: .
+    go-importpath: github.com/kubicorn/kubicorn
+    build-packages:
+      - gcc
