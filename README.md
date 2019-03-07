@@ -62,7 +62,7 @@ $ go get github.com/kubicorn/kubicorn
 
 ## Quickstart
 
-This asciicast shows how to get a Kubernetes cluster on Digital Ocean using kubicorn in less than 5 minutes:
+This asciicast shows how to get a Kubernetes cluster on DigitalOcean using kubicorn in less than 5 minutes:
 
 [![asciicast](https://asciinema.org/a/7JKtK7RSNSjznOYpX1rOprRRq.png)](https://asciinema.org/a/7JKtK7RSNSjznOYpX1rOprRRq)
 
