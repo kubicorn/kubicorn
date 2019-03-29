@@ -16,7 +16,7 @@ kubicorn/docs/
 ├── assets/
 │ → This folder basically contains the favicons. We should probably move this
 │   to img/ sometime.
-│   
+│
 ├── docs_old/
 │ → These are the old docs from before kubicorn had a website.
 │
@@ -86,7 +86,7 @@ Simply update the associated `.md` markdown file. All documentation should be in
 
 # Testing changes
 
-If you have Jekyll stack installed you can run the website locally to test changes. To install Jekyll, follow the [Setting up your GitHub Pages site locally with Jekyll](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/) tutorial.  
+If you have Jekyll stack installed you can run the website locally to test changes. To install Jekyll, follow the [Setting up your GitHub Pages site locally with Jekyll](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/) tutorial.
 Start the website by running the following command from the `/docs` directory:
 ```
 bundle exec jekyll serve
