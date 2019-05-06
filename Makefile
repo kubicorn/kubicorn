@@ -5,7 +5,7 @@ endif
 PKGS=$(shell go list ./... | grep -v /vendor)
 CI_PKGS=$(shell go list ./... | grep -v /vendor | grep -v test)
 FMT_PKGS=$(shell go list -f {{.Dir}} ./... | grep -v vendor | grep -v test | tail -n +2)
-SHELL_IMAGE=golang:1.8.3
+GOLANG_IMAGE=golang:1.9.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
@@ -52,7 +52,7 @@ build-linux-amd64: ## Create the kubicorn executable for Linux 64-bit OS in the 
 	-w /go/src/github.com/kubicorn/kubicorn \
 	-v ${PWD}:/go/src/github.com/kubicorn/kubicorn \
 	-e GOPATH=/go \
-	--rm golang:1.8.1 make docker-build-linux-amd64
+	--rm ${GOLANG_IMAGE} make docker-build-linux-amd64
 
 docker-build-linux-amd64:
 	${GOBUILD} -o bin/linux-amd64
@@ -72,7 +72,7 @@ shell: ## Exec into a container with the kubicorn source mounted inside
 	-i -t \
 	-w /go/src/github.com/kubicorn/kubicorn \
 	-v ${PWD}:/go/src/github.com/kubicorn/kubicorn \
-	--rm ${SHELL_IMAGE} /bin/bash
+	--rm ${GOLANG_IMAGE} /bin/bash
 
 lint: install-tools ## check for style mistakes all Go files using golint
 	golint $(PKGS)
