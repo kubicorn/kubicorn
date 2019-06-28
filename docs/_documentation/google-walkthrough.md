@@ -26,7 +26,7 @@ You will need to create a project in you google cloud account. This project will
 Now execute the following command to create a cluster with name `myfirstk8s`:
 
 ```
-$ kubicorn create myfirstk8s --cloudid kubicorn-132742 --profile google
+$ kubicorn create myfirstk8s --cloudId kubicorn-132742 --profile google
 ```
 
 Verify that `kubicorn create` did a good job by executing:
