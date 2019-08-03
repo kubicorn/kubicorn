@@ -1,3 +1,4 @@
 [submodule "bootstrap"]
 	path = bootstrap
-	url = git@github.com:kubicorn/bootstrap.git
+	url = https://github.com/kubicorn/bootstrap.git
+
