@@ -44,6 +44,19 @@ func TestBuildBootstrapScriptSad(t *testing.T) {
 	}
 }
 
+func TestBuildBootstrapScriptDoesNotExceed16KB(t *testing.T) {
+	scripts := []string{
+		"resources/amazon_k8s_ubuntu_16.04_master.sh",
+	}
+	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
+	if err == nil {
+		t.Fatalf("Expected AWS user data script validation error: %v", err)
+	}
+	if !strings.Contains(err.Error(), "User data script must not exceed 16KB") {
+		t.Fatalf("AWS user data script validation was not handled: %v", err)
+	}
+}
+
 func TestBuildBootstrapSetupScript(t *testing.T) {
 	dir := "."
 	fileName := "test.json"

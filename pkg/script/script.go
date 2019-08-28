@@ -16,6 +16,7 @@ package script
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/parser"
@@ -52,6 +53,9 @@ func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) (
 			return nil, err
 		}
 		userData = append(userData, scriptData...)
+	}
+	if len(userData) > 16384 {
+		return nil, fmt.Errorf("User data script must not exceed 16KB")
 	}
 
 	return userData, nil
