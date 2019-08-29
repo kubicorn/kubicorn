@@ -25,20 +25,30 @@ import (
 )
 
 func TestBuildBootstrapScriptHappy(t *testing.T) {
+	testCluster := cluster.NewCluster("testCluster")
+	config := &cluster.ControlPlaneProviderConfig{
+		Cloud: "digtialocean",
+	}
+	_ = testCluster.SetProviderConfig(config)
 	scripts := []string{
 		"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh",
 	}
-	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
+	_, err := BuildBootstrapScript(scripts, testCluster)
 	if err != nil {
 		t.Fatalf("Unable to get scripts: %v", err)
 	}
 }
 
 func TestBuildBootstrapScriptSad(t *testing.T) {
+	testCluster := cluster.NewCluster("testCluster")
+	config := &cluster.ControlPlaneProviderConfig{
+		Cloud: "digtialocean",
+	}
+	_ = testCluster.SetProviderConfig(config)
 	scripts := []string{
 		"bootstrap/digitalocean_k8s_ubuntu_16.04_master.s",
 	}
-	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
+	_, err := BuildBootstrapScript(scripts, testCluster)
 	if err == nil {
 		t.Fatalf("Merging non existing scripts: %v", err)
 	}
