@@ -54,6 +54,9 @@ func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) (
 		}
 		userData = append(userData, scriptData...)
 	}
+	cluster.
+	clusterName := cluster.Name
+	fmt.Printf(clusterName)
 	if len(userData) > 16384 {
 		return nil, fmt.Errorf("User data script must not exceed 16KB")
 	}

@@ -44,9 +44,16 @@ func TestBuildBootstrapScriptSad(t *testing.T) {
 	}
 }
 
-func TestBuildBootstrapScriptDoesNotExceed16KB(t *testing.T) {
+func TestAWSBuildBootstrapScriptDoesNotExceed16KB(t *testing.T) {
+	/*file, e := os.Create("20kb_test_script.sh")
+	if e != nil {
+		t.Fatalf("Could not generate test script")
+	}
+	if e := file.Truncate(2e4); e != nil {
+		t.Fatalf("Could not generate test script")
+	}*/
 	scripts := []string{
-		"resources/amazon_k8s_ubuntu_16.04_master.sh",
+		"amazon_k8s_ubuntu_16.04_master.sh",
 	}
 	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
 	if err == nil {
@@ -55,6 +62,7 @@ func TestBuildBootstrapScriptDoesNotExceed16KB(t *testing.T) {
 	if !strings.Contains(err.Error(), "User data script must not exceed 16KB") {
 		t.Fatalf("AWS user data script validation was not handled: %v", err)
 	}
+	//err = os.Remove("20kb_test_script.sh")
 }
 
 func TestBuildBootstrapSetupScript(t *testing.T) {
