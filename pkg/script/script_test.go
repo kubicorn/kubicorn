@@ -54,7 +54,7 @@ func TestBuildBootstrapScriptSad(t *testing.T) {
 	}
 }
 
-func TestAWSBuildBootstrapScriptDoesNotExceed16KB(t *testing.T) {
+func TestAWSBuildBootstrapScriptLargerThan16KbDoesNotThrowError(t *testing.T) {
 	testCluster := cluster.NewCluster("testCluster")
 	config := &cluster.ControlPlaneProviderConfig{
 		Cloud: "amazon",
@@ -71,11 +71,8 @@ func TestAWSBuildBootstrapScriptDoesNotExceed16KB(t *testing.T) {
 		"20kb_test_script.sh",
 	}
 	_, err := BuildBootstrapScript(scripts, testCluster)
-	if err == nil {
-		t.Fatalf("Expected AWS user data script validation error: %v", err)
-	}
-	if err.Error() != "AWS user data script must not exceed 16KB" {
-		t.Fatalf("AWS user data script validation was not handled: %v", err)
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
 	}
 	_ = os.Remove("20kb_test_script.sh")
 }
