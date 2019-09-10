@@ -25,23 +25,56 @@ import (
 )
 
 func TestBuildBootstrapScriptHappy(t *testing.T) {
+	testCluster := cluster.NewCluster("testCluster")
+	config := &cluster.ControlPlaneProviderConfig{
+		Cloud: "digtialocean",
+	}
+	_ = testCluster.SetProviderConfig(config)
 	scripts := []string{
 		"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh",
 	}
-	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
+	_, err := BuildBootstrapScript(scripts, testCluster)
 	if err != nil {
 		t.Fatalf("Unable to get scripts: %v", err)
 	}
 }
 
 func TestBuildBootstrapScriptSad(t *testing.T) {
+	testCluster := cluster.NewCluster("testCluster")
+	config := &cluster.ControlPlaneProviderConfig{
+		Cloud: "digtialocean",
+	}
+	_ = testCluster.SetProviderConfig(config)
 	scripts := []string{
 		"bootstrap/digitalocean_k8s_ubuntu_16.04_master.s",
 	}
-	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
+	_, err := BuildBootstrapScript(scripts, testCluster)
 	if err == nil {
 		t.Fatalf("Merging non existing scripts: %v", err)
 	}
+}
+
+func TestAWSBuildBootstrapScriptLargerThan16KbDoesNotThrowError(t *testing.T) {
+	testCluster := cluster.NewCluster("testCluster")
+	config := &cluster.ControlPlaneProviderConfig{
+		Cloud: "amazon",
+	}
+	_ = testCluster.SetProviderConfig(config)
+	file, e := os.Create("20kb_test_script.sh")
+	if e != nil {
+		t.Errorf("Could not generate test script")
+	}
+	if e := file.Truncate(2e4); e != nil {
+		t.Errorf("Could not generate test script")
+	}
+	scripts := []string{
+		"20kb_test_script.sh",
+	}
+	_, err := BuildBootstrapScript(scripts, testCluster)
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+	_ = os.Remove("20kb_test_script.sh")
 }
 
 func TestBuildBootstrapSetupScript(t *testing.T) {

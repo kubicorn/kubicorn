@@ -15,8 +15,10 @@
 package script
 
 import (
+	"bytes"
+	"compress/gzip"
 	"encoding/json"
-
+	"fmt"
 	"github.com/kubicorn/kubicorn/apis/cluster"
 	"github.com/kubicorn/kubicorn/pkg/parser"
 )
@@ -53,7 +55,18 @@ func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) (
 		}
 		userData = append(userData, scriptData...)
 	}
-
+	//We gzip AWS EC2 user data script to get around the 16kb limit
+	if cluster.ProviderConfig().Cloud == "amazon" {
+		var buf bytes.Buffer
+		gz := gzip.NewWriter(&buf)
+		if _, err := gz.Write(userData); err != nil {
+			return nil, fmt.Errorf("Failed to gzip AWS user data")
+		}
+		if gz.Close() != nil {
+			return nil, fmt.Errorf("Failed to gzip AWS user data")
+		}
+		userData = buf.Bytes()
+	}
 	return userData, nil
 }
 
