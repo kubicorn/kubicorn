@@ -15,7 +15,7 @@
 
 ## About
 
-`kubicorn` is an free and open source project that solves the Kubernetes infrastructure problem and gives users a rich golang library to work with infrastructure.
+`kubicorn` is a free and open source project that solves the Kubernetes infrastructure problem and gives users a rich golang library to work with infrastructure.
 
 `kubicorn` is a project that helps a user manage cloud infrastructure for Kubernetes.
 With `kubicorn` a user can declaratively create new clusters, modify and scale them.
