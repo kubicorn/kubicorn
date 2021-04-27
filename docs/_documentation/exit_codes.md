@@ -11,5 +11,5 @@ This file documents exit codes which `kubicorn` will return on errors.
 |---|---|
 | 1 | General error |
 | 3 | Terminated — SIGKILL, SIGTERM |
-| 4 | Timeout occured |
+| 4 | Timeout occurred |
 | 130 | Terminated — SIGINT |

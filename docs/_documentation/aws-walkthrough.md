@@ -45,7 +45,7 @@ You might want to create a new [IAM user](http://docs.aws.amazon.com/IAM/latest/
 
 If you would like to apply a more restrictive IAM policy to your AWS kubicorn user, take a look at the [explicit list](http://kubicorn.io/documentation/minimal-aws-permissions.html) of actions used.
 
-Next, you need to specify your AWS credentials to use - you can select one of the follwoing options 
+Next, you need to specify your AWS credentials to use - you can select one of the following options 
 
  * Environment Credentials - export the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
  
