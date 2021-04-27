@@ -114,7 +114,7 @@ func TestRemoveKey(t *testing.T) {
 	var err error
 	a := NewAgent()
 
-	// check that key doesnt exist
+	// check that key doesn't exist
 	if a.CheckKey("./testdata/ssh_without_password.pub") == nil {
 		t.Fatal(expectedAnError)
 	}

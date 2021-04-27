@@ -9,7 +9,7 @@ Before continuing, make sure that you can use `go` command from your shell.
 
 ### Building `kubicorn`
 
-Details about the building proccess can be found in [BUILD docs](https://github.com/kubicorn/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kubicorn/kubicorn/blob/master/docs/INSTALL.md).
+Details about the building process can be found in [BUILD docs](https://github.com/kubicorn/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kubicorn/kubicorn/blob/master/docs/INSTALL.md).
 
 The following `make` commands are available for building `kubicorn`:
 * `make` — parse Bootstrap scripts and create `kubicorn` executable in the `./bin` directory and the `AUTHORS` file.

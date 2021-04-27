@@ -45,7 +45,7 @@ type Handler struct {
 
 	// timeoutSeconds defines when handler will timeout in seconds.
 	timeoutSeconds int
-	// signals stores signals recieved from the system.
+	// signals stores signals received from the system.
 	signals chan os.Signal
 	// signalReceived is used to store signal handler state.
 	signalReceived int
@@ -64,7 +64,7 @@ func NewSignalHandler(timeoutSeconds int) *Handler {
 	}
 }
 
-// GetState returns has signal been recieved.
+// GetState returns has signal been received.
 func (h *Handler) GetState() int {
 	return h.signalReceived
 }
